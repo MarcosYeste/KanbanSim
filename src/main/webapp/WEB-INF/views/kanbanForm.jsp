@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page session="false"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,9 +14,9 @@
 	<p>Aqui irá el formulario</p>
 
 
-	<form action="/add" modelAttribute="phases" method="post">
+	<form:form action="/add" modelAttribute="phases" method="post">
 
 		<input type="submit" value="enviar">
-	</form>
+	</form:form>
 </body>
 </html>
