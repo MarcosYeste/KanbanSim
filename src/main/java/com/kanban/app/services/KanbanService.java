@@ -2,12 +2,16 @@ package com.kanban.app.services;
 
 import org.springframework.stereotype.Service;
 
-import com.kanban.app.Phase;
+import com.kanban.app.Model.Phase;
 
 @Service
 public class KanbanService {
 	
-	public saveFases (Phase fases) {
+	public Phase saveFases(Phase fases) {
+		
+		
+		
+		return fases;
 		
 	}
 
