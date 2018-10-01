@@ -35,5 +35,15 @@ public class HomeController {
 		
 		return "home";
 	}
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String home(Model model) {		
+		
+		// AQUI DEBO PASAR VALORES VACIOS PARA EL FORMULARIO
+		String kanbanMSG = "This is a Kanban form";
+		
+		model.addAttribute("kanbanMSG", kanbanMSG );
+		
+		return "kanbanForm";
+	}
 	
 }
