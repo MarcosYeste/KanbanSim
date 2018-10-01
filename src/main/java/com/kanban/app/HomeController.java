@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -48,20 +48,20 @@ KanbanService kanbanService;
 	public String addKanban(Model model) {		
 		
 		String kanbanMSG = "This is a Kanban form";
-		model.addAttribute("fases", new Phase());
+		model.addAttribute("phases", new Phase());
 		model.addAttribute("kanbanMSG", kanbanMSG );
 		
 		return "kanbanForm";
 	}
 	// este metodo recoge el formulario y va al simulador
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String Kanban(Model model, @RequestBody Phase fases) {		
+	public String Kanban(Model model, @ModelAttribute Phase fases) {		
 		
-		model.addAttribute("fases", kanbanService.saveFases(fases));
+		model.addAttribute("phases", kanbanService.saveFases(fases));
 		
 		
 		
-		return "kanbanForm";
+		return "kanban";
 	}
 	
 }
