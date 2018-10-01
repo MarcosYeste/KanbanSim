@@ -61,7 +61,7 @@ KanbanService kanbanService;
 		
 		
 		
-		return "kanbanForm";
+		return "kanban";
 	}
 	
 }
