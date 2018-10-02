@@ -11,7 +11,9 @@ public class User {
 		this.name = name;
 		this.specializations = specializations;
 	}
-
+	public User() {
+		
+	}
 	public String getName() {
 		return name;
 	}

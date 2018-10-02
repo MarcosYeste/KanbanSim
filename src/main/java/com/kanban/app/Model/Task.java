@@ -13,7 +13,9 @@ public class Task {
 		this.name = name;
 		this.duration = duration;
 	}
-	
+	public Task() {
+		
+	}
 	
 	public String getName() {
 		return name;
