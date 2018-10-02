@@ -66,6 +66,7 @@ h1 {
 			<div></div>
 		</div>
 	</div>
+<div></div>
 
 	<div id="dialog-form" title="Añadir Nueva Tarea">
 
