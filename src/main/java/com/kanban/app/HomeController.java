@@ -77,9 +77,7 @@ KanbanService kanbanService;
 	public String addTareas(Model model, @ModelAttribute("User") User user) {		
 		
 		model.addAttribute("user", kanbanService.saveUser(user));
-		
-		
-		
+
 		return "kanban";
 	}
 	

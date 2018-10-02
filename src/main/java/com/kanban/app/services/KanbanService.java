@@ -17,7 +17,6 @@ public class KanbanService {
 		
 		phasesArray.add(fases);
 		
-		System.out.println(phasesArray.get(0).getName());
 		
 		return phasesArray;
 		
