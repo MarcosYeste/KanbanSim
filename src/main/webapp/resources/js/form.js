@@ -33,3 +33,13 @@ form = dialog.find("form").on("submit", function(event) {
 $("#create-Task").button().on("click", function() {
 	dialog.dialog("open");
 });
+
+
+
+function addFase(){
+	// Hacer que este formulario se vea en una caja indeendiente  y que el dive muestre el java
+	var formFase = '<form action="/addPhase"  method="post"> ' +
+	'<label >Nombre de la Fase</label><input path="name" /><br>'+
+	'<label >Maximo de tareas</label>	<input path="maxTasks" /><br><br><input type="submit" value="enviar"></form>';
+	document.getElementById("fasesForm").innerHTML += formFase;
+}
