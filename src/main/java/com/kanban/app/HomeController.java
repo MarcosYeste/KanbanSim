@@ -75,6 +75,7 @@ KanbanService kanbanService;
 		
 		return "kanban";
 	}
+
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String addTareas(Model model, @ModelAttribute("User") User user) {		
 		
