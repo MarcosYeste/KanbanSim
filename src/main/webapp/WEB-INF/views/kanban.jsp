@@ -17,15 +17,106 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<style>
+label, input {
+	display: block;
+}
+
+input.text {
+	margin-bottom: 12px;
+	width: 95%;
+	padding: .4em;
+}
+
+fieldset {
+	padding: 0;
+	border: 0;
+	margin-top: 25px;
+}
+
+h1 {
+	font-size: 1.2em;
+	margin: .6em 0;
+}
+
+.ui-dialog .ui-state-error {
+	padding: .3em;
+}
+
+.validateTips {
+	border: 1px solid transparent;
+	padding: 0.3em;
+}
+</style>
+
 </head>
 
 <body>
 	<div class="container">
-		<div class="col-sm-4 border-right">Inicio
-		<div></div>
+		<div class="col-sm-4 border-right">
+			Inicio
+			<div id="tareas"></div>
 		</div>
-		
-		<div class="col-sm-4">Fin</div>
+
+		<div class="col-sm-4">
+			Fin
+			<div></div>
+		</div>
 	</div>
+
+	<div id="dialog-form" title="Añadir Nueva Tarea">
+
+		<form>
+			<fieldset>
+				<label for="tarea">Nombre Tarea</label> <input type="text" name="tarea"
+					id="tarea" class="text ui-widget-content ui-corner-all">
+
+				<!-- Allow form submission with keyboard without duplicating the dialog button -->
+				<input type="submit" tabindex="-1"
+					style="position: absolute; top: -1000px">
+			</fieldset>
+		</form>
+	</div>
+
+	<button id="create-Task">Nueva Tarea</button>
+
+	<script>
+		var dialog,
+			form,
+			tarea = $('#tarea'),
+			allFields = $([]).add(tarea);
+	
+		function addTask(){
+			$("#tareas").append("<div>" + tarea.val() + "</div>");
+			dialog.dialog("close");
+		}
+		
+		dialog = $("#dialog-form").dialog({
+			autoOpen : false,
+			height : 400,
+			width : 350,
+			modal : true,
+			buttons : {
+				"Crear Tarea" : addTask,
+					"Salir" : function() {
+					dialog.dialog("close");
+				}
+			},
+			close : function() {
+				form[0].reset();
+				allFields.removeClass("ui-state-error");
+			}
+		});
+	
+		form = dialog.find("form").on("submit", function(event) {
+			event.preventDefault();
+		});
+		$("#create-Task").button().on("click", function() {
+			dialog.dialog("open");
+		});
+	</script>
 </body>
 </html>
