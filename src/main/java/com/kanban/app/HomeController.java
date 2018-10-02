@@ -46,16 +46,16 @@ KanbanService kanbanService;
 		return "home";
 	}
 	// Este metodo lleva al formulario
-	@RequestMapping(value = "/addKanban", method = RequestMethod.GET)
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addKanban(Model model) {		
 		
 		String kanbanMSG = "This is a Kanban form Phases";
 		model.addAttribute("phases", new Phase());
 		model.addAttribute("task", new Task());
-		model.addAttribute("task", new User());
+		model.addAttribute("user", new User());
 		model.addAttribute("kanbanMSG", kanbanMSG );
 		
-		return "kanban";
+		return "kanbanForm";
 	}
 	// este metodo recoge el formulario y va al simulador
 	@RequestMapping(value = "/add", method = RequestMethod.POST)

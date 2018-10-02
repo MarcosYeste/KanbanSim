@@ -8,6 +8,6 @@
 </head>
 
 <body>
-	<a href="/addKanban"> CREAR Kanban</a>
+	<a href="/add"> CREAR Kanban</a>
 </body>
 </html>
