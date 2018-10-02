@@ -51,6 +51,8 @@ KanbanService kanbanService;
 		
 		String kanbanMSG = "This is a Kanban form Phases";
 		model.addAttribute("phases", new Phase());
+		model.addAttribute("task", new Task());
+		model.addAttribute("user", new User());
 		model.addAttribute("kanbanMSG", kanbanMSG );
 		
 		return "kanbanForm";
@@ -73,6 +75,7 @@ KanbanService kanbanService;
 		
 		return "kanban";
 	}
+
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String addTareas(Model model, @ModelAttribute("User") User user) {		
 		
