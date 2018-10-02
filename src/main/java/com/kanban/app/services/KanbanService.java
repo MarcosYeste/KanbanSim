@@ -24,22 +24,22 @@ public class KanbanService {
 	}
 	public ArrayList<User> saveUser(User user) {
 		
-		ArrayList<User> phasesArray = new ArrayList <User>();
+		ArrayList<User> userArray = new ArrayList <User>();
 		
-		phasesArray.add(user);
+		userArray.add(user);
 		
 		
-		return phasesArray;
+		return userArray;
 		
 	}
 	public ArrayList<Task> saveTask(Task task) {
 		
-		ArrayList<Task> phasesArray = new ArrayList <Task>();
+		ArrayList<Task> taskArray = new ArrayList <Task>();
 		
-		phasesArray.add(task);
+		taskArray.add(task);
 		
 		
-		return phasesArray;
+		return taskArray;
 		
 	}
 
