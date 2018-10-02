@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kanban.app.Model.Phase;
+import com.kanban.app.Model.Task;
+import com.kanban.app.Model.User;
 import com.kanban.app.services.KanbanService;
 
 /**
@@ -47,7 +49,7 @@ KanbanService kanbanService;
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addKanban(Model model) {		
 		
-		String kanbanMSG = "This is a Kanban form";
+		String kanbanMSG = "This is a Kanban form Phases";
 		model.addAttribute("phases", new Phase());
 		model.addAttribute("kanbanMSG", kanbanMSG );
 		
@@ -55,9 +57,26 @@ KanbanService kanbanService;
 	}
 	// este metodo recoge el formulario y va al simulador
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String Kanban(Model model, @ModelAttribute Phase fases) {		
+	public String Kanban(Model model, @ModelAttribute("phases") Phase fases) {		
 		
 		model.addAttribute("phases", kanbanService.saveFases(fases));
+		
+		
+		return "kanban";
+	}
+	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
+	public String addTareas(Model model, @ModelAttribute("Task") Task task) {		
+		
+		model.addAttribute("task", kanbanService.saveTask(task));
+		
+		
+		
+		return "kanban";
+	}
+	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
+	public String addTareas(Model model, @ModelAttribute("User") User user) {		
+		
+		model.addAttribute("user", kanbanService.saveUser(user));
 		
 		
 		

@@ -11,10 +11,14 @@
 </head>
 <body>
 	<h1>${kanbanMSG}</h1>
-	<p>Aqui irá el formulario</p>
 
 
 	<form:form action="/add" modelAttribute="phases" method="post">
+	
+	<form:label path="name">Nombre de la Fase</form:label>
+	<form:input path="name"/><br><br>
+	<form:label path="maxTasks">¿Cuantas Tareas?</form:label>
+	<form:input path="maxTasks"/> <br><br>
 
 		<input type="submit" value="enviar">
 	</form:form>
