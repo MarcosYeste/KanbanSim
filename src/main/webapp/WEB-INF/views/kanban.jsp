@@ -1,6 +1,8 @@
+<%@page import="com.kanban.app.services.KanbanService"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
 <html>
@@ -21,6 +23,14 @@
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <style>
+/* div{
+	border: 1px solid black;
+	padding-left:50px;
+	padding-right:50px;
+	display: flex;
+	flex-direction: row;
+	
+} */
 label, input {
 	display: block;
 }
@@ -46,10 +56,6 @@ h1 {
 	padding: .3em;
 }
 
-.validateTips {
-	border: 1px solid transparent;
-	padding: 0.3em;
-}
 </style>
 
 </head>
@@ -60,7 +66,9 @@ h1 {
 			Inicio
 			<div id="tareas"></div>
 		</div>
-
+		<div id = "fasesForm">
+		
+		</div>
 		<div class="col-sm-4">
 			Fin
 			<div></div>
@@ -72,8 +80,9 @@ h1 {
 
 		<form>
 			<fieldset>
-				<label for="tarea">Nombre Tarea</label> <input type="text" name="tarea"
-					id="tarea" class="text ui-widget-content ui-corner-all">
+				<label for="tarea">Nombre Tarea</label> <input type="text"
+					name="tarea" id="tarea"
+					class="text ui-widget-content ui-corner-all">
 
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<input type="submit" tabindex="-1"
@@ -81,8 +90,12 @@ h1 {
 			</fieldset>
 		</form>
 	</div>
+	
 
 	<button id="create-Task">Nueva Tarea</button>
+
+	<button onclick="addFase()">Nueva Fase</button>
+
 	
 	<div id="useerAddDiv" title="Añadir Usuario">
 		<form id="form">
