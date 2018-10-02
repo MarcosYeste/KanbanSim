@@ -82,8 +82,23 @@ h1 {
 	</div>
 
 	<button id="create-Task">Nueva Tarea</button>
-
-	<script src="/resources/js/form.js">
-	</script>
+	
+	<div id="useerAddDiv" title="Añadir Usuario">
+		<form id="form">
+			<fieldset>
+				<label>Nombre:</label><br> <input id="name" type="text" name="firstname"> <br> 
+				<label>Especialidades:</label><input id="addSpec" type="button" value="+"><input id="rmvSpec" type="button" value="-"><br> 
+				<div id="specContainer">
+					<input id="spec1" type="text" name="especialidad1"><br>
+				</div>
+				 <br><br> 
+				<input type="submit" value="Guardar" tabindex="-1"
+					style="position: absolute; top: -1000px">
+			</fieldset>
+		</form>
+	</div>
+	<button id="addUserB">Add User</button>
+	<script src="/resources/js/userFormSpecs.js"></script>
+	<script src="/resources/js/form.js"></script>
 </body>
 </html>

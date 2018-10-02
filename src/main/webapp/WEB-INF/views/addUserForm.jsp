@@ -16,33 +16,6 @@
 		 <br><br> 
 		<input type="submit" value="Guardar">
 	</form>
-	<script>
-		document.getElementById("addSpec").addEventListener("click", addNewNode, false);
-		document.getElementById("rmvSpec").addEventListener("click", deleteLastNode, false);
-		var i = 2;
-		
-		function addNewNode() {
-			var elem = document.createElement("input");
-			var br = document.createElement("br");
-			var att = document.createAttribute("type");
-			att.value = "text";
-			var att2 = document.createAttribute("name");
-			att2.value = "especialidad" + i;
-			i+=1;
-			elem.setAttributeNode(att);
-			elem.setAttributeNode(att2);
-			document.querySelector("#specContainer").appendChild(elem);
-			document.querySelector("#specContainer").appendChild(br);
-		}
-		
-		function deleteLastNode() {
-			var container = document.querySelector("#specContainer");
-			if (container.lastElementChild){
-				container.removeChild(container.lastElementChild);
-				container.removeChild(container.lastElementChild);
-			}
-		}
-
-	</script>
+	<script src="/resources/js/userFormSpecs.js"></script>
 </body>
 </html>
