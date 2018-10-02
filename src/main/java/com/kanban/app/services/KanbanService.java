@@ -1,17 +1,45 @@
 package com.kanban.app.services;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
 
 import com.kanban.app.Model.Phase;
+import com.kanban.app.Model.Task;
+import com.kanban.app.Model.User;
 
 @Service
 public class KanbanService {
 	
-	public Phase saveFases(Phase fases) {
+	public ArrayList<Phase> saveFases(Phase fases) {
 		
-		// FALTA DESARROLLAR
+		ArrayList<Phase> phasesArray = new ArrayList <Phase>();
 		
-		return fases;
+		phasesArray.add(fases);
+		
+		System.out.println(phasesArray.get(0).getName());
+		
+		return phasesArray;
+		
+	}
+	public ArrayList<User> saveUser(User user) {
+		
+		ArrayList<User> userArray = new ArrayList <User>();
+		
+		userArray.add(user);
+		
+		
+		return userArray;
+		
+	}
+	public ArrayList<Task> saveTask(Task task) {
+		
+		ArrayList<Task> taskArray = new ArrayList <Task>();
+		
+		taskArray.add(task);
+		
+		
+		return taskArray;
 		
 	}
 
