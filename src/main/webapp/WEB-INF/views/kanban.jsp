@@ -4,19 +4,19 @@
 
 	<!-- Kanban Body -->
 	<div class="container">
-		<div class="col-sm-4 border-right">
+		<div class="col-sm-4 div-head">
 			Inicio
 			<div id="tareas"></div>
 		</div>
 
 		<div id="fases"></div>
 
-		<div class="col-sm-4">
+		<div class="col-sm-4 div-head">
 			Fin
 			<div></div>
 		</div>
 	</div>
-	<div id="userList"></div>
+
 
 	<!-- Modal Form That Creates new Tasks -->
 	<div id="dialog-form" title="Añadir Nueva Tarea">
@@ -65,7 +65,7 @@
 				<label>Nombre:</label><br> <input id="name" type="text"
 					name="firstname"> <br> <label>Especialidades:</label>
 				<div>
-					<input id="addSpec" type="button" value="+"><input
+					<input id="addSpec" type="button" value="+"> <input
 						id="rmvSpec" type="button" value="-">
 				</div>
 				<br>
@@ -81,7 +81,10 @@
 	</div>
 	<button id="addUserB">Nuevo Usuario</button>
 
-
+	<!-- Lista donde se mostararn todos los usuarios  -->
+	<div id="userList"></div>
+	
+	
 	<script src="/resources/js/userFormSpecs.js"></script>
 	<script src="/resources/js/form3.js"></script>
 	<script src="/resources/js/form.js"></script>

@@ -12,6 +12,8 @@ header{
 	font-size: 120%;
 	text-align: center;
 }
+
+/* Modal Forms */
 label, input {
 	display: block;
 }
@@ -36,9 +38,17 @@ h1 {
 .ui-dialog .ui-state-error {
 	padding: .3em;
 }
+
+/* Add and Remove buttons for specializations */
 #addSpec, #rmvSpec{
 	display: inline;
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-left: 10px;
+}
+
+/* Kanban */
+.div-head{
+	text-align:center;
+	font-weight:bold;
 }
