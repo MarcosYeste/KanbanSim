@@ -32,7 +32,7 @@ function deleteLastNode() {
 
 
 function addUser() {
-	$("#users").append("<div>" + user.val() + " , "  + spec.val() + "</div>");
+	$("#userList").append("<div>" + user.val() + " , "  + spec.val() + "</div>");
 	$("form input[type=text]").each(function() {
 		this.value = ''
 	});

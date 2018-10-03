@@ -73,7 +73,7 @@ h1 {
 			<div></div>
 		</div>
 	</div>
-	<div id="users"></div>
+	<div id="userList"></div>
 
 	<!-- Modal Form That Creates new Tasks -->
 	<div id="dialog-form" title="Añadir Nueva Tarea">
@@ -129,7 +129,7 @@ h1 {
 			</fieldset>
 		</form>
 	</div>
-	<button id="addUserB">Add User</button>
+	<button id="addUserB">Nuevo Usuario</button>
 
 
 	<script src="/resources/js/userFormSpecs.js"></script>
