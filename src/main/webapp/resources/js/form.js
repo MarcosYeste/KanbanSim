@@ -6,7 +6,7 @@ allFields = $([]).add(tarea);
 
 
 function addTask() {
-	$("#tareas").append("<div>" + tarea.val() + "</div>");
+	$("#tareas").append("<div class='task'>" + tarea.val() + "</div>");
 	$("form input[type=text]").each(function() {
 		this.value = ''
 	});

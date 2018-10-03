@@ -1,7 +1,5 @@
 <jsp:include page="header.jsp"></jsp:include>
 
-
-
 <body>
 
 	<!-- Kanban Body -->
@@ -18,7 +16,7 @@
 			<div></div>
 		</div>
 	</div>
-	<div id="users"></div>
+	<div id="userList"></div>
 
 	<!-- Modal Form That Creates new Tasks -->
 	<div id="dialog-form" title="Añadir Nueva Tarea">
@@ -63,7 +61,7 @@
 	<div id="useerAddDiv" title="Añadir Usuario">
 		<form id="form">
 			<fieldset>
-			
+
 				<label>Nombre:</label><br> <input id="name" type="text"
 					name="firstname"> <br> <label>Especialidades:</label>
 				<div>
@@ -81,7 +79,7 @@
 			</fieldset>
 		</form>
 	</div>
-	<button id="addUserB">Add User</button>
+	<button id="addUserB">Nuevo Usuario</button>
 
 
 	<script src="/resources/js/userFormSpecs.js"></script>
