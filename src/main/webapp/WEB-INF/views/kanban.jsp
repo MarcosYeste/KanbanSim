@@ -35,6 +35,12 @@ label, input {
 	display: block;
 }
 
+#addSpec, #rmvSpec{
+	display: inline;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 10px;
+}
 input.text {
 	margin-bottom: 12px;
 	width: 95%;
@@ -117,10 +123,16 @@ h1 {
 	<div id="useerAddDiv" title="Añadir Usuario">
 		<form id="form">
 			<fieldset>
+<<<<<<< HEAD
+				<label>Nombre:</label><br> <input id="name" type="text" name="firstname"> <br> 
+				<label>Especialidades:</label>
+				<div><input id="addSpec" type="button" value="+"><input id="rmvSpec" type="button" value="-"></div><br> 
+=======
 				<label>Nombre:</label><br> <input id="name" type="text"
 					name="firstname"> <br> <label>Especialidades:</label><input
 					id="addSpec" type="button" value="+"><input id="rmvSpec"
 					type="button" value="-"><br>
+>>>>>>> 2b658ddfc42c994cbb57f744a64bc33134cd7f6e
 				<div id="specContainer">
 					<input id="spec1" type="text" name="especialidad1"><br>
 				</div>
