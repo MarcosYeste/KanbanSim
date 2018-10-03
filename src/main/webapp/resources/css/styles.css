@@ -36,3 +36,9 @@ h1 {
 .ui-dialog .ui-state-error {
 	padding: .3em;
 }
+#addSpec, #rmvSpec{
+	display: inline;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 10px;
+}

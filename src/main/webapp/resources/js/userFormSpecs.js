@@ -5,17 +5,20 @@ var dialog2,
 form2,
 user = $('#name'),
 spec = $('#spec1'),
-allFields2 = $([]).add(user);
+allFields2 = $([]).add(user).add(spec);
 
 function addNewNode() {
 	var elem = document.createElement("input");
 	var br = document.createElement("br");
-	var att = document.createAttribute("type");
-	att.value = "text";
+	var attType = document.createAttribute("type");
+	var attID = document.createAttribute("id");
+	attType.value = "text";
+	attID.value = "spec" + i;
 	var att2 = document.createAttribute("name");
 	att2.value = "especialidad" + i;
 	i+=1;
-	elem.setAttributeNode(att);
+	elem.setAttributeNode(attType);
+	elem.setAttributeNode(attID);
 	elem.setAttributeNode(att2);
 	document.querySelector("#specContainer").appendChild(elem);
 	document.querySelector("#specContainer").appendChild(br);
@@ -23,7 +26,12 @@ function addNewNode() {
 
 function deleteLastNode() {
 	var container = document.querySelector("#specContainer");
-	if (container.lastElementChild){
+	var nodes = container.childNodes;
+	var noc = 0;
+	for(var i = 0; i < nodes.length; i++){
+		noc++;
+	}
+	if (container.lastElementChild && noc > 4){
 		container.removeChild(container.lastElementChild);
 		container.removeChild(container.lastElementChild);
 	}
@@ -32,8 +40,9 @@ function deleteLastNode() {
 
 
 function addUser() {
-	$("#tareas").append("<div>" + user.val() + " , "  + spec.val() + "</div>");
+	$("#users").append("<div>" + user.val() + " , "  + spec.val() + "</div>");
 	$("form input[type=text]").each(function() {
+		this.value = ''
 	});
 }
 
