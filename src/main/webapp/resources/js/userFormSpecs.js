@@ -5,7 +5,7 @@ var dialog2,
 form2,
 user = $('#name'),
 spec = $('#spec1'),
-allFields2 = $([]).add(user);
+allFields2 = $([]).add(user).add(spec);
 
 function addNewNode() {
 	var elem = document.createElement("input");
@@ -40,8 +40,9 @@ function deleteLastNode() {
 
 
 function addUser() {
-	$("#tareas").append("<div>" + user.val() + " , "  + spec.val() + "</div>");
+	$("#users").append("<div>" + user.val() + " , "  + spec.val() + "</div>");
 	$("form input[type=text]").each(function() {
+		this.value = ''
 	});
 }
 

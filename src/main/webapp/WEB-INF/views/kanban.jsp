@@ -61,26 +61,27 @@ h1 {
 .ui-dialog .ui-state-error {
 	padding: .3em;
 }
-
 </style>
 
 </head>
 
 <body>
+
+	<!-- Kanban Body -->
 	<div class="container">
 		<div class="col-sm-4 border-right">
 			Inicio
 			<div id="tareas"></div>
 		</div>
-		<div id = "fasesForm">
-		
-		</div>
+		<div id="fases"></div>
 		<div class="col-sm-4">
 			Fin
 			<div></div>
 		</div>
 	</div>
+	<div id="users"></div>
 
+	<!-- Modal Form That Creates new Tasks -->
 	<div id="dialog-form" title="Añadir Nueva Tarea">
 
 		<form>
@@ -95,30 +96,56 @@ h1 {
 			</fieldset>
 		</form>
 	</div>
-	
+
 
 	<button id="create-Task">Nueva Tarea</button>
 
-	<button onclick="addFase()">Nueva Fase</button>
+	<!-- Adds a New Phase -->
+	<div id="PhaseForm" title="Añadir Nueva Fase">
+		<form>
+			<fieldset>
 
-	
+				<label for="nameFase">Nombre de la Fase</label> <input type="text"
+					name="nameFase" class="text ui-widget-content ui-corner-all"
+					id="nameFase"> <label for="maxTareas">Máximo de
+					tareas</label> <input id="maxTareas" type="text" name="maxTareas"
+					class="text ui-widget-content ui-corner-all"> <input
+					type="submit" tabindex="-1"
+					style="position: absolute; top: -1000px">
+
+			</fieldset>
+		</form>
+	</div>
+
+	<button id="create-Phase">Nueva Fase</button>
+
+	<!-- Modal Form to add users  -->
 	<div id="useerAddDiv" title="Añadir Usuario">
 		<form id="form">
 			<fieldset>
+<<<<<<< HEAD
 				<label>Nombre:</label><br> <input id="name" type="text" name="firstname"> <br> 
 				<label>Especialidades:</label>
 				<div><input id="addSpec" type="button" value="+"><input id="rmvSpec" type="button" value="-"></div><br> 
+=======
+				<label>Nombre:</label><br> <input id="name" type="text"
+					name="firstname"> <br> <label>Especialidades:</label><input
+					id="addSpec" type="button" value="+"><input id="rmvSpec"
+					type="button" value="-"><br>
+>>>>>>> 2b658ddfc42c994cbb57f744a64bc33134cd7f6e
 				<div id="specContainer">
 					<input id="spec1" type="text" name="especialidad1"><br>
 				</div>
-				 <br><br> 
-				<input type="submit" value="Guardar" tabindex="-1"
-					style="position: absolute; top: -1000px">
+				<br> <br> <input type="submit" value="Guardar"
+					tabindex="-1" style="position: absolute; top: -1000px">
 			</fieldset>
 		</form>
 	</div>
 	<button id="addUserB">Add User</button>
+
+
 	<script src="/resources/js/userFormSpecs.js"></script>
+	<script src="/resources/js/form3.js"></script>
 	<script src="/resources/js/form.js"></script>
 </body>
 </html>
