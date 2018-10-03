@@ -6,6 +6,23 @@
 	flex-direction: row;
 	
 } */
+.start{
+	margin-top: 10%;
+	margin-left: 45%;
+}
+.start:link, .start:visited {
+    background-color: #0080ff;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+
+.start:hover, .start:active {
+    background-color: #0080c0;
+}
 header{
 	background-color: #0069d2;
 	color:white;
