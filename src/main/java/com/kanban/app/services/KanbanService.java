@@ -1,6 +1,7 @@
 package com.kanban.app.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -11,12 +12,10 @@ import com.kanban.app.Model.User;
 @Service
 public class KanbanService {
 	
-	public ArrayList<Phase> saveFases(Phase fases) {
-		
-		ArrayList<Phase> phasesArray = new ArrayList <Phase>();
+	public List<Phase> saveFases(Phase fases,List<Phase> phasesArray ) {
+	
 		
 		phasesArray.add(fases);
-		
 		
 		return phasesArray;
 		
@@ -40,6 +39,7 @@ public class KanbanService {
 		
 		return taskArray;
 		
-	}
+	} 
+	
 
 }

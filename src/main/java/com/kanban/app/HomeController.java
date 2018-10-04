@@ -1,8 +1,14 @@
 package com.kanban.app;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import javax.jws.soap.SOAPBinding.Use;
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kanban.app.Model.Phase;
 import com.kanban.app.Model.Task;
@@ -28,7 +35,7 @@ public class HomeController {
 KanbanService kanbanService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+	List<Phase> phasesArray = new ArrayList <Phase>();
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -42,7 +49,8 @@ KanbanService kanbanService;
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
+
+	
 		return "home";
 	}
 	// Este metodo lleva al formulario
@@ -57,12 +65,13 @@ KanbanService kanbanService;
 	}
 	// este metodo recoge el formulario y va al simulador
 	@RequestMapping(value = "/addPhase", method = RequestMethod.POST)
-	public String Kanban(Model model, @ModelAttribute("phases") Phase fases) {		
+	public String Kanban(Model model, @ModelAttribute("phases") Phase fases) {	
 		
-		model.addAttribute("phases", kanbanService.saveFases(fases));
+		model.addAttribute("phases", kanbanService.saveFases(fases, phasesArray));
 		
 		
-		return "kanban";
+		
+		return "prueba";
 	}
 	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
 	public String addTareas(Model model, @ModelAttribute("Task") Task task) {		
@@ -75,11 +84,40 @@ KanbanService kanbanService;
 	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String addTareas(Model model, @ModelAttribute("User") User user) {		
+	public String addTareas(Model model, @ModelAttribute("User") User user,HttpServletRequest request) {
 		
-		model.addAttribute("user", kanbanService.saveUser(user));
+		
+		User usuario = new User();		
+		
+		
+		model.addAttribute("user", kanbanService.saveUser(usuario));
 
 		return "kanban";
 	}
+	@RequestMapping(value = "/prueba", method = RequestMethod.GET)
+	public String prueba(Model model) {
+		
+		
+		
+		model.addAttribute("fase",new Phase());
+		
+
+		return "kanbanForm";
+	}
+
+	@RequestMapping(value = "/prueba", method = RequestMethod.POST)
+	public String prueba2(Model model,@ModelAttribute("phases")Phase fases) {
+		
+		phasesArray.add(fases);
+		
+		
+		
+		
+		model.addAttribute("fasesArray", phasesArray);
+
+		return "prueba";
+	}
+	
+	
 	
 }
