@@ -8,9 +8,11 @@ function addFase(){
 
 
 
-	$("#fases").before("<div class='col-sm-2'><c:forEach items='${phases}' var='fase'><script>alert(' --- ');</script> <td><c:out value='${fase.name}'></c:out></td></c:forEach>" +
-	"</div>");
 
+	$("#fases").before("<div class='col-sm-2'><c:forEach items='${phases}' var='fase'><script>alert(' --- ');</script> <td><c:out value='${fase.name}'></c:out></td></c:forEach>" +
+
+	"</div>");
+	
 	$("form input[type=text]").each(function() {
 		this.value = ''
 	});

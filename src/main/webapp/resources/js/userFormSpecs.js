@@ -30,7 +30,7 @@ function deleteLastNode() {
 	var noc = 0;
 	for(var i = 0; i < nodes.length; i++){
 		noc++;
-		
+
 	}
 	if (container.lastElementChild && noc > 4){
 		container.removeChild(container.lastElementChild);
@@ -41,7 +41,7 @@ function deleteLastNode() {
 
 
 function addUser() {
-	$("#userList").append("<div>" + user.val() + " , "  + spec.val() + "</div>");
+	$("#userList").append("<div class='user'>" + user.val() + "</div>");
 	$("form input[type=text]").each(function() {
 		this.value = ''
 	});

@@ -1,8 +1,4 @@
- div{
-	border: 1px solid black;
-	
-	
-} 
+
 .start{
 	margin-top: 10%;
 	margin-left: 45%;
@@ -53,4 +49,11 @@ h1 {
 .div-head{
 	text-align:center;
 	font-weight:bold;
+	border-right: 1px solid;
+}
+.task{
+	border: 1px solid lightblue;
+	background-color: lightblue;
+	padding: auto;
+	font-weight: normal
 }
