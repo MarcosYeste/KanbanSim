@@ -1,8 +1,12 @@
+<%@page import="com.kanban.app.services.KanbanService"%>
 <jsp:include page="header.jsp"></jsp:include>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <body>
+	<<<<<<< HEAD
 
-<!-- Lista donde se mostararn todos los usuarios  -->
+	<!-- Lista donde se mostararn todos los usuarios  -->
 	<div id="userList"></div>
 
 	<!-- Kanban Body -->
@@ -10,10 +14,12 @@
 		<div class="row">
 			<div class="col-sm-2 div-head">
 				Inicio
-				<div id="tareas" class="div-Child"></div>
+
+				<div id="tareas" class="tarea"></div>
+
 			</div>
 
-			<div id="fases"></div>
+			<div id="fases" class="row fases"></div>
 
 			<div class="col-sm-2 div-head">
 				Fin
@@ -39,10 +45,25 @@
 		</form>
 	</div>
 
-
-
+	<!-- Adds a New Phase -->
+	<div id="PhaseForm" title="Añadir Nueva Fase">
+		<form:form action="/addPhase" modelAttribute="phases" method="post">
+			<fieldset>
+				<form:label path="name">Nombre de la Fase</form:label>
+				<form:input type="text" path="name" id="nameFase" name="nameFase"
+					class="text ui-widget-content ui-corner-all" />
+				<br>
+				<form:label path="maxTasks">Maximo de tareas</form:label>
+				<form:input type="text" name="maxTareas" id="maxTareas"
+					path="maxTasks" class="text ui-widget-content ui-corner-all" />
+				<br> <br> <input type="submit" value="enviar"
+					tabindex="-1" style="position: absolute; top: -1000px" />
+			</fieldset>
+		</form:form>
+	</div>
 
 	<!-- Adds a New Phase -->
+	<!-- 
 	<div id="PhaseForm" title="Añadir Nueva Fase">
 		<form>
 			<fieldset>
@@ -57,7 +78,7 @@
 			</fieldset>
 		</form>
 	</div>
-
+-->
 
 
 
