@@ -1,31 +1,27 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 <body>
-	<div class="btn-group-vertical">
-		<button class="btn btn-outline-primary" id="create-Task">Nueva Tarea</button>
-		<button class="btn btn-outline-primary" id="create-Phase">Nueva Fase</button>
-		<button class="btn btn-outline-primary" id="addUserB">Nuevo Usuario</button>
-	</div>
-	
+
+<!-- Lista donde se mostararn todos los usuarios  -->
+	<div id="userList"></div>
+
 	<!-- Kanban Body -->
-	<div class="container">
+	<div class="container pt-5 mw-100">
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-2 div-head">
 				Inicio
-				<div id="tareas"></div>
+				<div id="tareas" class="div-Child"></div>
 			</div>
 
 			<div id="fases"></div>
 
-			<div class="col-sm-4">
+			<div class="col-sm-2 div-head">
 				Fin
 				<div></div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Lista donde se mostararn todos los usuarios  -->
-	<div id="userList"></div>
 
 	<!-- Modal Form That Creates new Tasks -->
 	<div id="dialog-form" title="Añadir Nueva Tarea">
@@ -68,7 +64,7 @@
 
 	<!-- Modal Form to add users  -->
 	<div id="useerAddDiv" title="Añadir Usuario">
-		<form id="form">
+		<form id="form" method="post" action="/addUser">
 			<fieldset>
 
 				<label>Nombre:</label><br> <input id="name" type="text"

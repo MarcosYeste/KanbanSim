@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kanban.app.Model.Phase;
 import com.kanban.app.Model.Task;
@@ -74,11 +77,13 @@ KanbanService kanbanService;
 		return "kanban";
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String addTareas(Model model, @ModelAttribute("User") User user) {		
-		
+	public String addUser(Model model, @ModelAttribute("User") User user, @RequestBody User userModel) {		
+	        		
+	
 		model.addAttribute("user", kanbanService.saveUser(user));
-
+		
 		return "kanban";
 	}
 	
