@@ -7,8 +7,10 @@ allFields3 = $([]).add(nameFase).add(maxTareas);
 function addFase(){
 
 
+
 	$("#fases").before("<div class='col-sm-2'><c:forEach items='${phases}' var='fase'> <td><c:out value='${fase.name}'></c:out></td></c:forEach>" +
 	"</div>");
+
 	$("form input[type=text]").each(function() {
 		this.value = ''
 	});

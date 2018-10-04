@@ -30,6 +30,7 @@ function deleteLastNode() {
 	var noc = 0;
 	for(var i = 0; i < nodes.length; i++){
 		noc++;
+		
 	}
 	if (container.lastElementChild && noc > 4){
 		container.removeChild(container.lastElementChild);

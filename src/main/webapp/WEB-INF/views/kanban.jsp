@@ -33,7 +33,7 @@
 	<!-- Kanban Body -->
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-4 ">
+			<div class="col-sm-4">
 				Inicio
 				<div id="tareas" class="tarea"></div>
 			</div>
@@ -47,6 +47,7 @@
 		</div>
 	</div>
 
+	<!-- Lista donde se mostararn todos los usuarios  -->
 	<div id="userList"></div>
 
 	<!-- Modal Form That Creates new Tasks -->
@@ -97,7 +98,7 @@
 				<label>Nombre:</label><br> <input id="name" type="text"
 					name="firstname"> <br> <label>Especialidades:</label>
 				<div>
-					<input id="addSpec" type="button" value="+"><input
+					<input id="addSpec" type="button" value="+"> <input
 						id="rmvSpec" type="button" value="-">
 				</div>
 				<br>
@@ -111,8 +112,6 @@
 			</fieldset>
 		</form>
 	</div>
-
-
 
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
