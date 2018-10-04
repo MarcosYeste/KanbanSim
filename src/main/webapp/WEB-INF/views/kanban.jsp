@@ -5,7 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <body>
 
-
 	<!-- Lista donde se mostararn todos los usuarios  -->
 	<div id="userList"></div>
 
@@ -85,6 +84,7 @@
 
 	<!-- Modal Form to add users  -->
 	<div id="useerAddDiv" title="Añadir Usuario">
+
 		<form id="form" method="post" action="/addUser">
 			<fieldset>
 

@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +99,18 @@ public class HomeController {
 		
 
 
+<<<<<<< HEAD
 		return "kanbanVersion2";
+=======
+	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
+	public String addTareas(Model model, @ModelAttribute("User") User user,HttpServletRequest request) {
+
+		User usuario = new User();		
+
+		model.addAttribute("user", kanbanService.saveUser(usuario));
+
+		return "kanban";
+>>>>>>> 96e179dd996429dbe3ba76a10da5e8123db38ac5
 	}
 
 
