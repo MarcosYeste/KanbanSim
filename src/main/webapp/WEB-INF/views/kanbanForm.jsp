@@ -3,6 +3,7 @@
 <%@ page session="false"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,28 +29,26 @@
 </form><br><br>
 <div id="nameContainer">
 
+<form:form action="/prueba" modelAttribute="fase" method="post"> 
+		<form:label path="name">Nombre de la Fase</form:label><form:input path="name" /><br>
+			'<form:label path="maxTasks">Maximo de tareas</form:label>	
+			<form:input path="maxTasks" /><br><br>
+			<input type="submit" value="enviar">
+			</form:form>
+
 
 	</div>
-	<script>
-	document.getElementById("nameContainer").hidden = true;
 	
-	function numNames(){
-		document.getElementById("select").hidden = true;
-		var num = document.getElementById("selectPhase").value;
-		var form = document.getElementById("nameContainer");
-		for(var i = 0 ; i < num; i++){
+	
+	<!--  <div id="fases" class="row fases">${phases.name}
 			
-			form.hidden = false;
-			
-			form.innerHTML += '<form:form action="/add" modelAttribute="phases" method="post"> ' +
-			'<form:label path="name">Nombre de la Fase</form:label><form:input path="name" /><br>'+
-			'<form:label path="maxTasks">Maximo de tareas</form:label>	<form:input path="maxTasks" /><br><br><input type="submit" value="enviar"></form:form>';
-			
-		}
-		
-		
-	}
-
-	</script>
+			 <c:forEach items="${phases}" var="fases">
+			 <p><c:out value="${fases.name}"></c:out></p>
+			  </c:forEach>
+			</div>-->
+	
+	
+	
+	
 </body>
 </html>

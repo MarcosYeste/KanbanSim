@@ -32,7 +32,7 @@ function deleteLastNode() {
 	var noc = 0;
 	for(var j = 0; j < nodes.length; j++){
 		noc++;
-		
+
 	}
 	if (container.lastElementChild && noc > 4){
 		container.removeChild(container.lastElementChild);
@@ -54,8 +54,8 @@ function getSpecs(){
 }
 
 function addUser() {
-	getSpecs();
-	$("#userList").append("<div>" + user.val() + " , "  + spec.val() + "</div>");
+
+	$("#userList").append("<div class='user'>" + user.val() + "</div>");
 	$("form input[type=text]").each(function() {
 		this.value = ''
 	});

@@ -1,14 +1,7 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-<html>
-<head>
-	<title>Home</title>
-</head>
+<jsp:include page="header.jsp"></jsp:include>
 <body>
-<h1>
-	Hello world!  
-</h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+	<a href="/kanban" class="btn btn-outline-primary start"> Crear un nuevo Kanban</a>
+	<a href="/prueba" class="btn btn-outline-primary start"> prueba</a>
 </body>
 </html>
