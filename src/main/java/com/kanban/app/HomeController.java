@@ -71,7 +71,7 @@ KanbanService kanbanService;
 		
 		
 		
-		return "prueba";
+		return "kanban";
 	}
 	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
 	public String addTareas(Model model, @ModelAttribute("Task") Task task) {		
