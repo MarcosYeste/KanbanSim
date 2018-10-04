@@ -1,15 +1,19 @@
 package com.kanban.app.Model;
 
+import java.util.ArrayList;
+
 public class User {
 	
 
 	private String name;
 	private float timeStoped;
-	private String[] specializations;
+	private ArrayList<String> specializations;
 	
 	public User(String name, String[] specializations) {
 		this.name = name;
-		this.specializations = specializations;
+		for(int i = 0; i < specializations.length; i++) {
+			this.specializations.add(specializations[i]);
+		}
 	}
 	public User() {
 		
@@ -29,14 +33,26 @@ public class User {
 	public void setTimeStoped(float timeStoped) {
 		this.timeStoped = timeStoped;
 	}
-
-	public String[] getSpecializations() {
+	
+	public ArrayList<String> getSpecializations() {
 		return specializations;
 	}
-
-	public void setSpecializations(String[] specializations) {
+	public void setSpecializations(ArrayList<String> specializations) {
 		this.specializations = specializations;
 	}
 	
+	public void addSpec(String newSpec) {
+		this.specializations.add(newSpec);
+	}
 	
+	public boolean isSpecialized(String spec) {
+		
+		for(String specialization: specializations) {
+			if(specialization.equals(spec)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

@@ -22,25 +22,39 @@ function addNewNode() {
 	elem.setAttributeNode(att2);
 	document.querySelector("#specContainer").appendChild(elem);
 	document.querySelector("#specContainer").appendChild(br);
+
+	console.log(i);
 }
 
 function deleteLastNode() {
 	var container = document.querySelector("#specContainer");
 	var nodes = container.childNodes;
 	var noc = 0;
-	for(var i = 0; i < nodes.length; i++){
+	for(var j = 0; j < nodes.length; j++){
 		noc++;
 		
 	}
 	if (container.lastElementChild && noc > 4){
 		container.removeChild(container.lastElementChild);
 		container.removeChild(container.lastElementChild);
-	}
+		if(i > 2){
+			i-=1;
+		}
+	} 
+
 }
 
-
+function getSpecs(){
+	var allSpecs = {};
+	var numOfSpecs = i-1;
+	for(var j = 0; j < numOfSpecs; j++){
+		allSpecs[j] = document.querySelector("#spec" + (j+1)).value;
+	}
+	return allSpecs;
+}
 
 function addUser() {
+	getSpecs();
 	$("#userList").append("<div>" + user.val() + " , "  + spec.val() + "</div>");
 	$("form input[type=text]").each(function() {
 		this.value = ''

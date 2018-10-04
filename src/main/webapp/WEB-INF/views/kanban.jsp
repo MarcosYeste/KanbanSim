@@ -68,7 +68,7 @@
 
 	<!-- Modal Form to add users  -->
 	<div id="useerAddDiv" title="Añadir Usuario">
-		<form id="form">
+		<form id="form" action="/addUser" method="post">
 			<fieldset>
 
 				<label>Nombre:</label><br> <input id="name" type="text"
