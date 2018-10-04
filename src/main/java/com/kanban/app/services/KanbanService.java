@@ -20,9 +20,9 @@ public class KanbanService {
 		return phasesArray;
 		
 	}
-	public ArrayList<User> saveUser(User user) {
+	public List<User> saveUser(User user,List<User> userArray) {
 		
-		ArrayList<User> userArray = new ArrayList <User>();
+	
 		
 		userArray.add(user);
 		
@@ -30,9 +30,8 @@ public class KanbanService {
 		return userArray;
 		
 	}
-	public ArrayList<Task> saveTask(Task task) {
+	public List<Task> saveTask(Task task,List<Task> taskArray) {
 		
-		ArrayList<Task> taskArray = new ArrayList <Task>();
 		
 		taskArray.add(task);
 		
