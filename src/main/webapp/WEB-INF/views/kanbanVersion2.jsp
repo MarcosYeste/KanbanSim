@@ -25,7 +25,7 @@
 
 			<c:forEach items="${task}" var="task">
 				<tr>
-					<td><c:out value="${task.name}"></c:out></td>
+					<td scope="col" class="text-center"><c:out value="${task.name}"></c:out></td>
 				</tr>
 			</c:forEach>
 

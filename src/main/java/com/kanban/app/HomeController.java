@@ -42,7 +42,9 @@ public class HomeController {
 		model.addAttribute("phases", phasesArray);
 
 		return "kanbanVersion2";
+
 	}
+	
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public String succes( Model model) {
 	
@@ -72,6 +74,7 @@ public class HomeController {
 		addSpecs(phasesArray.get(phasesArray.size() - 1).getSpecs());
 		return "success";
 
+
 	}
 
 	@RequestMapping(value = "/addTask", method = RequestMethod.GET)
@@ -92,6 +95,7 @@ public class HomeController {
 		
 		task.setDuration((int)(Math.random() * 10 + 1));
 
+
 		return "success";
 
 	}
@@ -111,8 +115,9 @@ public class HomeController {
 		model.addAttribute("user", kanbanService.saveUser(user, userArray));
 		model.addAttribute("phases",  phasesArray);
 		model.addAttribute("task", taskArray);
-		
+
 		return "success";
+
 	}
 	
 	public void addSpecs(ArrayList<String> inSpecs) {
