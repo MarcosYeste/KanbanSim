@@ -44,7 +44,7 @@ public class HomeController {
 		model.addAttribute("phases", phasesArray);
 
 
-		return "redirect:/kanbanVersion2";
+		return "kanbanVersion2";
 	}
 
 
@@ -70,7 +70,7 @@ public class HomeController {
 
 		
 
-		return "redirect:/kanbanVersion2";
+		return "kanbanVersion2";
 
 	}
 
@@ -98,7 +98,7 @@ public class HomeController {
 		
 		task.setDuration((int)(Math.random() * 10 + 1));
 
-		return "redirect:/kanbanVersion2";
+		return "kanbanVersion2";
 
 	}
 
@@ -126,6 +126,6 @@ public class HomeController {
 		model.addAttribute("task", taskArray);
 
 
-		return "redirect:/kanbanVersion2";
+		return "kanbanVersion2";
 	}
 }

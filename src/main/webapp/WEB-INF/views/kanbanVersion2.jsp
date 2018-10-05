@@ -11,7 +11,7 @@
 <body>
 
 
-	<table class="table table-bordered">
+	<table class="table bg-info">
 		<thead>
 			<tr>
 				<th scope="col">Inicio</th>
