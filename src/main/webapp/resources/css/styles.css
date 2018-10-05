@@ -57,19 +57,3 @@ h1 {
 	padding: auto;
 	font-weight: normal
 }
-
-.contenedor {
-	display: flex;
-	flex-direction: row;
-	margin-top: 5%;
-	margin-left: 10%;
-}
-
-.fase {
-	display: flex;
-	flex-direction: row;
-}
-
-.faseName {
-	padding: 10px;
-}

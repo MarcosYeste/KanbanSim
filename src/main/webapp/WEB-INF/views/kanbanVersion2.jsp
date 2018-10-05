@@ -16,13 +16,13 @@
 			<tr>
 				<th scope="col">Inicio</th>
 				<c:forEach items="${phases}" var="fase">
-					<th scope="col"><c:out value="${fase.name}"></c:out></th>
+					<th scope="col" class="mw=10"><c:out value="${fase.name}"></c:out></th>
 				</c:forEach>
 				<th scope="col">Fin</th>
 			</tr>
 		</thead>
 		<tbody>
-		
+
 			<c:forEach items="${task}" var="task">
 				<tr>
 					<td><c:out value="${task.name}"></c:out></td>
