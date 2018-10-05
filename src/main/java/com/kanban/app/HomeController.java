@@ -32,6 +32,7 @@ public class HomeController {
 	List<Phase> phasesArray = new ArrayList <Phase>();
 	List<Task> taskArray = new ArrayList <Task>();
 	List<User> userArray = new ArrayList <User>();
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -124,6 +125,4 @@ public class HomeController {
 
 		return "kanbanVersion2";
 	}
-
-
 }
