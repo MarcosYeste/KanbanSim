@@ -37,7 +37,7 @@
 					<br>
 
 					<div id="specContainer">
-						<input id="spec1" type="text" name="especialidad1"><br>
+						<input path="specializations" id="spec1" type="text" name="especialidad1"><br>
 					</div>
 					<div class="col-sm-12">
 
@@ -47,6 +47,6 @@
 			</form:form>
 		</div>
 	</div>
-
+	<script src="/resources/js/userFormSpecs.js"></script>
 </body>
 </html>
