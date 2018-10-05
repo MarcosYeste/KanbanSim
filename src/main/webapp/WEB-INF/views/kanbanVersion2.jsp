@@ -10,8 +10,41 @@
 </head>
 <body>
 
+ <table class="table table-bordered">
+		<thead>
+		<tr>
+			<th scope="col">Inicio</th>
+			<c:forEach items="${phases}" var="fase">
+			<th scope="col"><c:out value="${fase.name}"></c:out></th>
+			</c:forEach>
+			<th scope="col">Fin</th>
+		</tr>
+		</thead>
+		<tbody>
+		
+		<tr>
+		
+		<c:forEach items="${task}" var="task">
+		<td><c:out value="${task.name}"></c:out></td>
+		 </c:forEach>
+		<td> -- </td>
+		<td> --  </td>
+		
+		</tr>
+		
+		
+		
+		</tbody>
+	</table><br><br>
+
+	<c:forEach items="${user}" var="user">
+           
+             <p><strong><c:out value="${user.name}"></c:out></strong></p>
+			  </c:forEach>
+
+
 	
-	<div class="contenedor">
+	<!--  <div class="contenedor">
 	
 		<div class="principio"><h3>Etapa de inicio</h3><c:forEach items="${task}" var="task">
            
@@ -31,12 +64,9 @@
             
         </c:forEach></div>
 		<div class="fin"><h3>Etapa final</h3></div>
-	</div><br><br>
+	</div><br><br>-->
 	
-	<c:forEach items="${user}" var="user">
-           
-             <p><strong><c:out value="${user.name}"></c:out></strong></p>
-			  </c:forEach>
+	
 	
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
