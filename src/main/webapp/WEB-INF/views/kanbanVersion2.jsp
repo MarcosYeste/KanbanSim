@@ -26,19 +26,20 @@ padding: 10px;
 </head>
 <body>
 
- <table>
+ <table class="table table-bordered">
 		<thead>
 		<tr>
-			<th>Inicio</th>
+			<th scope="col">Inicio</th>
 			<c:forEach items="${phases}" var="fase">
-			<th><c:out value="${fase.name}"></c:out></th>
+			<th scope="col"><c:out value="${fase.name}"></c:out></th>
 			</c:forEach>
-			<th>Fin</th>
+			<th scope="col">Fin</th>
 		</tr>
 		</thead>
 		<tbody>
 		
 		<tr>
+		
 		<c:forEach items="${task}" var="task">
 		<td><c:out value="${task.name}"></c:out></td>
 		 </c:forEach>
