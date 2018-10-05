@@ -22,12 +22,12 @@ import com.kanban.app.services.KanbanService;
  * Handles requests for the application home page.
  */
 @Controller
+
 public class HomeController {
 
 	@Autowired
 	KanbanService kanbanService;
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	List<Phase> phasesArray = new ArrayList <Phase>();
 	List<Task> taskArray = new ArrayList <Task>();
 	List<User> userArray = new ArrayList <User>();
@@ -44,7 +44,18 @@ public class HomeController {
 		model.addAttribute("phases", phasesArray);
 
 
-		return "redirect:/kanbanVersion2";
+		return "kanbanVersion2";
+	}
+	@RequestMapping(value = "/success", method = RequestMethod.GET)
+	public String succes( Model model) {
+	
+	
+		model.addAttribute("task", taskArray);
+		model.addAttribute("user", userArray);
+		model.addAttribute("phases", phasesArray);
+
+
+		return "kanbanVersion2";
 	}
 
 
@@ -70,7 +81,7 @@ public class HomeController {
 
 		
 
-		return "redirect:/kanbanVersion2";
+		return "success";
 
 	}
 
@@ -97,7 +108,7 @@ public class HomeController {
 		
 		
 
-		return "redirect:/kanbanVersion2";
+		return "success";
 
 	}
 
@@ -125,6 +136,6 @@ public class HomeController {
 		model.addAttribute("task", taskArray);
 
 
-		return "redirect:/kanbanVersion2";
+		return "success";
 	}
 }
