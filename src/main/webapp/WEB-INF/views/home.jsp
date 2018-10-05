@@ -1,8 +1,6 @@
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="/resources/links&Scripts/layout.jsp"></jsp:include>
+<html>
 <body>
-	<a href="/addFase" class="btn btn-outline-primary start"> version 2</a>
-
-	<a href="/kanban" class="btn btn-outline-primary start"> old version</a>
-	
+	<a href="/addFase" class="btn btn-outline-primary start"> Crear Kanban </a>
 </body>
 </html>

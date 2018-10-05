@@ -95,6 +95,7 @@ public class HomeController {
 		
 		model.addAttribute("task", kanbanService.saveTask(task, taskArray));
 		
+		task.setDuration((int)(Math.random() * 10 + 1));
 
 		return "kanbanVersion2";
 
