@@ -7,11 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Kanban</title>
-<style>
-div {
-	border-right: 1px solid black;
-}
-</style>
+
 </head>
 <body>
 
@@ -56,24 +52,24 @@ div {
 			<div id="${task.name}">
 				<c:out value="${task.name}"></c:out>
 			</div>
-			
+
 			<c:set value="${task.name}" var="taskName" />
 			<c:set value="${task.duration}" var="taskDuration" />
-			
+
 			<script>
 			
-			var tareas = new Object();
-	    	tareas.name = <c:out value="${taskName}"></c:out>;
-	    	tareas.duration = <c:out value="${taskDuration}"></c:out>;
-	    	listTareas.push(tareas)
-	    	</script>
+				var tareas = new Object();
+				tareas.name = <c:out value="${taskName}"></c:out>;
+				tareas.duration = <c:out value="${taskDuration}"></c:out>;
+				listTareas.push(tareas)
+			</script>
 
 		</c:forEach>
-		<div></div>
-		<div></div>
+		<div style="border: 1px solid; padding: 20px" id="vacio"></div>
+		<div style="border: 1px solid red; padding: 20px" id="vacio2"></div>
 	</div>
 
-	<button id="play" onClick="time()">Play</button>
+	<button id="play">Play</button>
 
 
 	<!--  <div class="contenedor">
@@ -101,10 +97,32 @@ div {
 
 
 	<jsp:include page="footer.jsp"></jsp:include>
+
 	<script type="text/javascript">
-	console.log(listTareas[3].name);
-	var text = listTareas[3].name.textContent;
-	console.log(text);
+	
+		document.getElementById("play").addEventListener("click", function() {
+	
+			for (var i = 0; i < listTareas.length; i++) {
+	
+				var text = listTareas[i].name.getAttribute("id");
+	
+				var el = document.getElementById(text);
+	
+				el.parentElement.removeChild(el);
+	
+				document.getElementById("vacio").appendChild(el);
+	
+				setTimeout(function() {
+					el = document.getElementById("vacio");
+	
+					el.parentElement.removeChild(el);
+	
+					document.getElementById("vacio2").appendChild(el);
+				}, ((listTareas[i].duration) * 1000));
+			}
+	
+		}, false);
 	</script>
+
 </body>
 </html>
