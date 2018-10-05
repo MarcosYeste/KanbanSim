@@ -7,11 +7,16 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Kanban</title>
+<style>
+div {
+	border-right: 1px solid black;
+}
+</style>
 </head>
 <body>
 
 
-	<table class="table table-bordered">
+	<%-- <table class="table table-bordered">
 		<thead>
 			<tr>
 				<th scope="col">Inicio</th>
@@ -42,8 +47,33 @@
 			<strong><c:out value="${user.name}"></c:out></strong>
 		</p>
 
-	</c:forEach>
+	</c:forEach> --%>
+	<script>
+		var listTareas = new Array();
+	</script>
+	<div id="father">
+		<c:forEach items="${task}" var="task">
+			<div id="${task.name}">
+				<c:out value="${task.name}"></c:out>
+			</div>
+			
+			<c:set value="${task.name}" var="taskName" />
+			<c:set value="${task.duration}" var="taskDuration" />
+			
+			<script>
+			
+			var tareas = new Object();
+	    	tareas.name = <c:out value="${taskName}"></c:out>;
+	    	tareas.duration = <c:out value="${taskDuration}"></c:out>;
+	    	listTareas.push(tareas)
+	    	</script>
 
+		</c:forEach>
+		<div></div>
+		<div></div>
+	</div>
+
+	<button id="play" onClick="time()">Play</button>
 
 
 	<!--  <div class="contenedor">
@@ -71,5 +101,10 @@
 
 
 	<jsp:include page="footer.jsp"></jsp:include>
+	<script type="text/javascript">
+	console.log(listTareas[3].name);
+	var text = listTareas[3].name.textContent;
+	console.log(text);
+	</script>
 </body>
 </html>
