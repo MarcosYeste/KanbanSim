@@ -6,23 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<style>
-.contenedor {
-	display: flex;
-	flex-direction: row;
-	margin-top: 5%;
-	margin-left: 10%;
-}
-.fase{
-display: flex;
-	flex-direction: row;
-}
-.faseName{
-padding: 10px;
-}
-
-</style>
+<title>Kanban</title>
 </head>
 <body>
 

@@ -1,12 +1,11 @@
-
-.start{
+.start {
 	margin-top: 10%;
 	margin-left: 45%;
 }
 
-header{
+header {
 	background-color: #0069d2;
-	color:white;
+	color: white;
 	font-size: 120%;
 	text-align: center;
 }
@@ -38,7 +37,7 @@ h1 {
 }
 
 /* Add and Remove buttons for specializations */
-#addSpec, #rmvSpec{
+#addSpec, #rmvSpec {
 	display: inline;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -46,14 +45,31 @@ h1 {
 }
 
 /* Kanban */
-.div-head{
-	text-align:center;
-	font-weight:bold;
+.div-head {
+	text-align: center;
+	font-weight: bold;
 	border-right: 1px solid;
 }
-.task{
+
+.task {
 	border: 1px solid lightblue;
 	background-color: lightblue;
 	padding: auto;
 	font-weight: normal
+}
+
+.contenedor {
+	display: flex;
+	flex-direction: row;
+	margin-top: 5%;
+	margin-left: 10%;
+}
+
+.fase {
+	display: flex;
+	flex-direction: row;
+}
+
+.faseName {
+	padding: 10px;
 }
