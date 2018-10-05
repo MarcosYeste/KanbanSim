@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +20,12 @@ import com.kanban.app.services.KanbanService;
  * Handles requests for the application home page.
  */
 @Controller
+
 public class HomeController {
 
 	@Autowired
 	KanbanService kanbanService;
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	List<Phase> phasesArray = new ArrayList <Phase>();
 	List<Task> taskArray = new ArrayList <Task>();
 	List<User> userArray = new ArrayList <User>();
@@ -37,6 +35,19 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+	
+	
+		model.addAttribute("task", taskArray);
+		model.addAttribute("user", userArray);
+		model.addAttribute("phases", phasesArray);
+
+
+		return "kanbanVersion2";
+
+	}
+	
+	@RequestMapping(value = "/success", method = RequestMethod.GET)
+	public String succes( Model model) {
 	
 	
 		model.addAttribute("task", taskArray);
@@ -70,7 +81,8 @@ public class HomeController {
 
 		
 
-		return "kanbanVersion2";
+		return "success";
+
 
 	}
 
@@ -98,7 +110,8 @@ public class HomeController {
 		
 		task.setDuration((int)(Math.random() * 10 + 1));
 
-		return "kanbanVersion2";
+
+		return "success";
 
 	}
 
@@ -126,6 +139,8 @@ public class HomeController {
 		model.addAttribute("task", taskArray);
 
 
-		return "kanbanVersion2";
+
+		return "success";
+
 	}
 }
