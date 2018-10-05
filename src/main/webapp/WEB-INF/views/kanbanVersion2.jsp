@@ -29,7 +29,15 @@ padding: 10px;
 	
 	<div class="contenedor">
 	
-		<div class="principio"><h3>Etapa de inicio</h3></div>
+		<div class="principio"><h3>Etapa de inicio</h3><c:forEach items="${task}" var="task">
+           
+              <div class="faseName">
+             <p><strong><c:out value="${task.name}"></c:out></strong></p>
+               </div>
+
+            
+        </c:forEach></div>
+        
 		<div class="fase"><c:forEach items="${phases}" var="fase">
            
               <div class="faseName">
@@ -39,9 +47,12 @@ padding: 10px;
             
         </c:forEach></div>
 		<div class="fin"><h3>Etapa final</h3></div>
-	</div>
+	</div><br><br>
 	
-			
+	<c:forEach items="${user}" var="user">
+           
+             <p><strong><c:out value="${user.name}"></c:out></strong></p>
+			  </c:forEach>
 	
 <jsp:include page="footer.jsp"></jsp:include>
 </body>

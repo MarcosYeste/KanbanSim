@@ -1,6 +1,5 @@
 package com.kanban.app.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
