@@ -3,7 +3,7 @@
 .contenedor{
 	
 	background-color:#63bafa;
-	margin-top:15%;
+	margin-top:5%;
 	border: 2px solid blue;
 	display: table;
 	display: flex;
@@ -41,6 +41,7 @@
 	margin-top: 10%;
 	text-align: center;
 	box-shadow: 0 8px 19px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	text-shadow: 0.1px  0.5px 0.5px;
 	
 	
 }
@@ -54,6 +55,7 @@
 }
 .subfase{
 	color: white;
+	text-shadow: 0.1px  1px 0.5px;
 	background-color :#366ff1;
 	display: flex;
 	justify-content: space-around;
@@ -66,6 +68,7 @@
 	display: flex;
 }
 .titulo{
+	text-shadow: 0.1px  1px 0.5px;
 	font-size:120%;
 	background-color :white;
 	color: blue;
@@ -75,4 +78,12 @@
 }
 .titulo.barra{
 	background-color: transparent;
+}
+.texto{
+	
+	text-shadow: 3px  2px 5px  #011cd6;
+	color:#0f45c4;
+	font-size:500%;
+	text-align: center;
+	margin-top: 3%;
 }

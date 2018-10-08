@@ -27,8 +27,9 @@
 					<div class="col-sm-8">
 						<button type="submit" class="btn btn-primary">SAVE</button>
 					</div>
+					</form:form>
 			</div>
-		</form:form>
+		
 	</div>
 
 </body>

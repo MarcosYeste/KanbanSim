@@ -41,14 +41,8 @@
 	<br>
 	<br> --%>
 
-	<c:forEach items="${user}" var="user">
 
-		<p>
-			<strong><c:out value="${user.name}"></c:out></strong>
-		</p>
-
-	</c:forEach>
-
+<h1 class="texto">KANBAN SIM</h1>
 
 
 	<div class="contenedor">
@@ -59,7 +53,8 @@
 			<div class="contenedorTareas">
 				<c:forEach items="${task}" var="task">
 					<div class="tareas">
-						<c:out value="${task.name}"></c:out>
+						<p><c:out value="${task.name}"></c:out></p>
+						<p><c:out value="${task.duration}"></c:out></p>
 					</div>
 				</c:forEach>
 			</div>
@@ -95,7 +90,13 @@
 
 
 
+	<c:forEach items="${user}" var="user">
 
+		<p>
+			<strong><c:out value="${user.name}"></c:out></strong>
+		</p>
+
+	</c:forEach>
 
 
 
