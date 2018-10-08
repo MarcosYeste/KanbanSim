@@ -7,7 +7,7 @@
 <body>
 
 	<div class="row card mb-3 border-info mx-auto"
-		style="max-width: 40rem;">
+		style="max-width: 45rem;">
 		<div class="card-header bg-info font-weight-bold">Crear Nueva
 			Fase</div>
 		<div class="card-body">
@@ -24,6 +24,13 @@
 					<form:label cssClass="col-sm-3 " path="maxTasks">Tareas Máximas</form:label>
 					<div class="col-sm-12">
 						<form:input cssClass="form-control" path="maxTasks"
+							required="required" />
+					</div>
+				</div>
+				<div class="form-group">
+					<form:label cssClass="col-sm-3 " path="rawSpecs">Especializaciones</form:label>
+					<div class="col-sm-12">
+						<form:input cssClass="form-control" path="rawSpecs"
 							required="required" />
 					</div>
 				</div>

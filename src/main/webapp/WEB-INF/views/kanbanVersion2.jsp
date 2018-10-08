@@ -7,35 +7,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Kanban</title>
+<link rel="stylesheet" href="/resources/css/kanban.css">
 
 </head>
 <body>
-
-
-	<%-- <table class="table table-bordered">
-		<thead>
-			<tr>
-				<th scope="col">Inicio</th>
-				<c:forEach items="${phases}" var="fase">
-					<th scope="col" class="mw=10"><c:out value="${fase.name}"></c:out></th>
-				</c:forEach>
-				<th scope="col">Fin</th>
-			</tr>
-		</thead>
-		<tbody>
-
-			<c:forEach items="${task}" var="task">
-				<tr>
-					<td scope="col" class="text-center"><c:out value="${task.name}"></c:out></td>
-				</tr>
-			</c:forEach>
-
-
-
-		</tbody>
-	</table>
-	<br>
-	<br>
 
 	<c:forEach items="${user}" var="user">
 
@@ -43,7 +18,8 @@
 			<strong><c:out value="${user.name}"></c:out></strong>
 		</p>
 
-	</c:forEach> --%>
+	</c:forEach>
+	--%>
 	<script>
 		var listTareas = new Array();
 	</script>
@@ -70,6 +46,47 @@
 	</div>
 
 	<button id="play">Play</button>
+
+	<%-- <div class="contenedor">
+
+		<div class="principio">
+			<div class="titulo">Etapa de inicio</div>
+			<div class="titulo barra"></div>
+			<div class="contenedorTareas">
+				<c:forEach items="${task}" var="task">
+					<div class="tareas">
+						<c:out value="${task.name}"></c:out>
+					</div>
+				</c:forEach>
+			</div>
+
+		</div>
+
+		<div id="faseDiv" class="fase">
+
+
+			<c:forEach items="${phases}" var="fase">
+				<div class="faseName">
+
+					<div class="titulo">
+						<c:out value="${fase.name}"></c:out>
+					</div>
+
+					<div class="subfase">
+						<div>Doing</div>
+						<div>Done</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+
+
+		<div class="fin">
+			<div class="titulo">Etapa final</div>
+			<div class="titulo barra"></div>
+		</div>
+	</div> --%>
+
 
 	<jsp:include page="footer.jsp"></jsp:include>
 	<!--  Script que nos permitira mover las tareas -->
