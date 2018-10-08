@@ -57,3 +57,8 @@ h1 {
 	padding: auto;
 	font-weight: normal
 }
+
+.userSpecCheck{
+	display: inline;
+	margin-left: 15px;
+}

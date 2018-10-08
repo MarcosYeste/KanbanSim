@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <jsp:include page="header.jsp"></jsp:include>
@@ -29,16 +30,20 @@
 						<form:input cssClass="form-control" path="name"
 							required="required" />
 					</div>
-					<form:label cssClass="col-sm-3 " path="specializations">Especialidades:</form:label>
+					<form:label cssClass="col-sm-3 " path="rawSpecs">Especialidades:</form:label>
+					<div class="col-sm-12">
+						<form:input cssClass="form-control" id="specCompiler" type="hidden" 
+									value="" path="rawSpecs"/>
+					</div>
 					<div>
-						<input id="addSpec" type="button" value="+"> 
-						<input id="rmvSpec" type="button" value="-">
+						<thead>
+							<c:forEach items="${allSpecs}" var="spec">
+							<input type="checkbox" class="userSpecCheck" name="specs" value="${spec}" path="specializations">
+							<c:out value="${spec}"></c:out>
+							</c:forEach>
+						</thead>
 					</div>
-					<br>
-
-					<div id="specContainer">
-						<input path="specializations" id="spec1" type="text" name="especialidad1"><br>
-					</div>
+					
 					<div class="col-sm-12">
 
 						<button type="submit" class="btn btn-primary">SAVE</button>

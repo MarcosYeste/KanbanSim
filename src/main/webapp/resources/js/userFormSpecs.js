@@ -1,57 +1,26 @@
-document.getElementById("addSpec").addEventListener("click", addNewNode, false);
-document.getElementById("rmvSpec").addEventListener("click", deleteLastNode, false);
-var i = 2;
+var checkbox = document.getElementsByClassName("speckCheck");
+for(var j = 0; j < checkbox.length; j++){
+	console.log("checks");
+	checkbox[j].addEventListener("change", function(){compileSpecs(event);}, false);
+}
+
 var dialog2,
 form2,
 user = $('#name'),
 spec = $('#spec1'),
 allFields2 = $([]).add(user).add(spec);
 
-function addNewNode() {
-	var elem = document.createElement("input");
-	var br = document.createElement("br");
-	var attType = document.createAttribute("type");
-	var attID = document.createAttribute("id");
-	attType.value = "text";
-	attID.value = "spec" + i;
-	var att2 = document.createAttribute("name");
-	att2.value = "especialidad" + i;
-	i+=1;
-	elem.setAttributeNode(attType);
-	elem.setAttributeNode(attID);
-	elem.setAttributeNode(att2);
-	document.querySelector("#specContainer").appendChild(elem);
-	document.querySelector("#specContainer").appendChild(br);
 
-	console.log(i);
-}
-
-function deleteLastNode() {
-	var container = document.querySelector("#specContainer");
-	var nodes = container.childNodes;
-	var noc = 0;
-	for(var j = 0; j < nodes.length; j++){
-		noc++;
-
+function compileSpecs(event){
+	if(event.target.checked){
+		console.log(event.target.value);
+		document.getElementById("specCompiler").value += event.target.value + ",";
+	} else {
+		document.getElementById("specCompiler").value = 
+			document.getElementById("specCompiler").value.replace(event.target.value + ',', '');		
 	}
-	if (container.lastElementChild && noc > 4){
-		container.removeChild(container.lastElementChild);
-		container.removeChild(container.lastElementChild);
-		if(i > 2){
-			i-=1;
-		}
-	} 
-
 }
 
-function getSpecs(){
-	var allSpecs = {};
-	var numOfSpecs = i-1;
-	for(var j = 0; j < numOfSpecs; j++){
-		allSpecs[j] = document.querySelector("#spec" + (j+1)).value;
-	}
-	return allSpecs;
-}
 
 function addUser() {
 
