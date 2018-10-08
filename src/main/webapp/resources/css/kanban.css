@@ -1,0 +1,120 @@
+/* Diseños KANBAN Div */
+
+.contenedor{
+	background-color:#63bafa;
+	margin-top:5%;
+	border: 2px solid blue;
+	display: table;
+	display: flex;
+	width: 80%;
+	height: auto;
+	margin-left: 10%;
+	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+}
+
+.principio {
+	border: 1px solid #0a80f5;
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+}
+
+.fin {
+	border: 1px solid #0a80f5;
+	width: 20%;
+}
+
+.faseName {
+	border: 1px solid #35a6f9;
+	width: 30%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.tareas {
+	background-color: white;
+	border: 1px solid blue;
+	font-size: 120%;
+	margin-top: 10%;
+	text-align: center;
+	box-shadow: 0 8px 19px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	text-shadow: 0.1px  0.5px 0.5px;
+}
+
+.contenedorTareas {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	margin-right: 20%;
+	margin-left: 10%;
+}
+
+.subfase {
+	color: white;
+	text-shadow: 0.1px  1px 0.5px;
+	background-color :#366ff1;
+	display: flex;
+	justify-content: space-around;
+	border: 1px solid #0a80f5;
+}
+
+.fase {
+	/* border :1px solid yellow; */
+	width: 100%;
+	display: flex;
+}
+.titulo{
+	text-shadow: 0.1px  1px 0.5px;
+	font-size:120%;
+	background-color :white;
+	color: blue;
+	text-align: center;
+	padding-bottom: 10px;
+	/* border : 1px solid darkblue; */
+}
+
+.titulo.barra {
+	background-color: transparent;
+}
+
+/* Button Play/Pause */
+.playpause label {
+	display: block;
+	box-sizing: border-box;
+	
+	width: 0;
+	height: 74px;
+	
+	cursor: pointer;
+	
+	border-color: transparent transparent transparent #202020;
+	transition: 100ms all ease;
+	will-change: border-width;
+	
+	/* Play state */
+	border-style: solid;
+	border-width: 37px 0 37px 60px;
+}
+
+.playpause input[type='checkbox'] {
+	visibility: hidden;
+}
+
+.playpause input[type='checkbox']:checked+label {
+	
+	/* Pause state */
+	
+	border-style: double;
+	border-width: 0px 0 0px 60px;
+}
+.texto{
+	
+	text-shadow: 3px  2px 5px  #011cd6;
+	color:#0f45c4;
+	font-size:500%;
+	text-align: center;
+	margin-top: 3%;
+}

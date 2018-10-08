@@ -31,13 +31,15 @@ public class HomeController {
 	List<User> userArray = new ArrayList <User>();
 	ArrayList<String> allSpecs = new ArrayList<String>();
 	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 	
-		model.addAttribute("task", taskArray);
+		
+		model.addAttribute("task",taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
 
@@ -89,7 +91,7 @@ public class HomeController {
 	public String createTask(Model model, @ModelAttribute("task") Task task) {
 		
 		model.addAttribute("task", kanbanService.saveTask(task, taskArray));
-		model.addAttribute("phases",  phasesArray);
+		model.addAttribute("phases", phasesArray);
 		model.addAttribute("user", userArray);
 		
 		
