@@ -47,6 +47,4 @@ public class Task {
 	public void setLoopTime(float loopTime) {
 		this.loopTime = loopTime;
 	}
-	
-	
 }

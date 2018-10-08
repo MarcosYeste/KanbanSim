@@ -44,16 +44,9 @@ h1 {
 	margin-left: 10px;
 }
 
-/* Kanban */
-.div-head {
-	text-align: center;
-	font-weight: bold;
-	border-right: 1px solid;
-}
-
-.task {
-	border: 1px solid lightblue;
-	background-color: lightblue;
-	padding: auto;
-	font-weight: normal
+/* CSS for animation */
+.element,
+.target {
+  position: absolute;
+  transition: left 1s ease-out, top 1s ease-out;
 }
