@@ -7,11 +7,12 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Kanban</title>
+<link rel="stylesheet" href="/resources/css/kanban.css">
 </head>
 <body>
 
 
-	<table class="table table-bordered">
+<%-- 	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th scope="col">Inicio</th>
@@ -22,10 +23,10 @@
 			</tr>
 		</thead>
 		<tbody>
-
 			<c:forEach items="${task}" var="task">
 				<tr>
 					<td><c:out value="${task.name}"></c:out></td>
+
 				</tr>
 			</c:forEach>
 
@@ -34,7 +35,7 @@
 		</tbody>
 	</table>
 	<br>
-	<br>
+	<br> --%>
 
 	<c:forEach items="${user}" var="user">
 
@@ -46,27 +47,53 @@
 
 
 
-	<!--  <div class="contenedor">
-	
-		<div class="principio"><h3>Etapa de inicio</h3><c:forEach items="${task}" var="task">
-           
-              <div class="faseName">
-             <p><strong><c:out value="${task.name}"></c:out></strong></p>
-               </div>
+	<div class="contenedor">
 
-            
-        </c:forEach></div>
-        
-		<div class="fase"><c:forEach items="${phases}" var="fase">
-           
-              <div class="faseName">
-             <p><strong><c:out value="${fase.name}"></c:out></strong></p>
-               </div>
+		<div class="principio">
+			<div class="titulo">Etapa de inicio</div>
+			<div class="titulo barra"></div>
+			<div class="contenedorTareas">
+				<c:forEach items="${task}" var="task">
+					<div class="tareas">
+						<c:out value="${task.name}"></c:out>
+					</div>
+				</c:forEach>
+			</div>
 
-            
-        </c:forEach></div>
-		<div class="fin"><h3>Etapa final</h3></div>
-	</div><br><br>-->
+		</div>
+
+		<div id="faseDiv" class="fase">
+
+
+			<c:forEach items="${phases}" var="fase">
+				<div class="faseName">
+
+					<div class="titulo">
+						<c:out value="${fase.name}"></c:out>
+					</div>
+
+					<div class="subfase">
+						<div>Doing</div>
+						<div>Done</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+
+
+		<div class="fin">
+			<div class="titulo">Etapa final</div>
+			<div class="titulo barra"></div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
 
 
 
