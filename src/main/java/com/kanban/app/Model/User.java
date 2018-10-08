@@ -9,14 +9,16 @@ public class User {
 	private float timeStoped;
 	private ArrayList<String> specializations;
 	
-	public User(String name, String[] specializations) {
+	public User(String name, String...specs) {
 		this.name = name;
-		for(int i = 0; i < specializations.length; i++) {
-			this.specializations.add(specializations[i]);
+		this.specializations = new ArrayList<String>();
+		for (int i = 0; i < specs.length; i++) {
+			this.specializations.add(specs[i]);
 		}
 	}
+
 	public User() {
-		
+		this.specializations = new ArrayList<String>();
 	}
 	public String getName() {
 		return name;
@@ -37,8 +39,14 @@ public class User {
 	public ArrayList<String> getSpecializations() {
 		return specializations;
 	}
-	public void setSpecializations(ArrayList<String> specializations) {
-		this.specializations = specializations;
+	public void setSpecializations(String specs) {
+//		for(int i = 0; i < specs.length; i++) {
+//			this.specializations.add(specs[i]);
+//			System.out.println("Iterations" + i);
+		
+//		}
+
+		this.specializations.add(specs);
 	}
 	
 	public void addSpec(String newSpec) {
