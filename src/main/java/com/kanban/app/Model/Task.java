@@ -42,5 +42,4 @@ public class Task {
 		this.state = state;
 	}
 	
-	
 }

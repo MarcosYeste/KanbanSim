@@ -71,57 +71,60 @@
 
 	<button id="play">Play</button>
 
-
-	<!--  <div class="contenedor">
-	
-		<div class="principio"><h3>Etapa de inicio</h3><c:forEach items="${task}" var="task">
-           
-              <div class="faseName">
-             <p><strong><c:out value="${task.name}"></c:out></strong></p>
-               </div>
-
-            
-        </c:forEach></div>
-        
-		<div class="fase"><c:forEach items="${phases}" var="fase">
-           
-              <div class="faseName">
-             <p><strong><c:out value="${fase.name}"></c:out></strong></p>
-               </div>
-
-            
-        </c:forEach></div>
-		<div class="fin"><h3>Etapa final</h3></div>
-	</div><br><br>-->
-
-
-
 	<jsp:include page="footer.jsp"></jsp:include>
-
+	<!--  Script que nos permitira mover las tareas -->
 	<script type="text/javascript">
 	
-		document.getElementById("play").addEventListener("click", function() {
+		function animateimg() {
+				
+			$("#father div").each(function() {
+				var x = $("vacio").offset().left;
+				var y = $("vacio").offset().top;
 	
+				var xi = $(this).offset().left;
+				var yi = $(this).offset().top;
+				$(this).css('left', xi).css('top', yi);
+	
+				$(this).animate({
+					left : x,
+					top : y
+				});
+	
+	
+			});
+		} 
+	
+		$("#play").click(function(){
+			animateimg();
+		});
+	
+		/* document.getElementById("play").addEventListener("click", function() {
+		
 			for (var i = 0; i < listTareas.length; i++) {
-	
+		
 				var text = listTareas[i].name.getAttribute("id");
-	
+		
 				var el = document.getElementById(text);
-	
+		
 				el.parentElement.removeChild(el);
-	
-				document.getElementById("vacio").appendChild(el);
-	
-				setTimeout(function() {
-					el = document.getElementById("vacio");
-	
-					el.parentElement.removeChild(el);
-	
-					document.getElementById("vacio2").appendChild(el);
-				}, ((listTareas[i].duration) * 1000));
+		
+				document.getElementById("vacio").appendChild(el); 
+		
+				var x = $("#vacio").offset().left;
+				var y = $("#vacio").offset().top;
+		
+				var xi = $(text).offset().left;
+				var yi = $(text).offset().top;
+				$(this).css('left', xi).css('top', yi);
+		
+				$(this).animate({
+					left : x,
+					top : y
+				})
+		
 			}
-	
-		}, false);
+		
+		}, false); */
 	</script>
 
 </body>
