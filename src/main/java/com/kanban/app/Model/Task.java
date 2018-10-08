@@ -41,5 +41,11 @@ public class Task {
 	public void setState(String state) {
 		this.state = state;
 	}
+	public float getLoopTime() {
+		return loopTime;
+	}
+	public void setLoopTime(float loopTime) {
+		this.loopTime = loopTime;
+	}
 	
 }

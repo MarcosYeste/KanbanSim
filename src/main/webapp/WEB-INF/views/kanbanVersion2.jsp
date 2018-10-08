@@ -13,13 +13,7 @@
 </head>
 <body>
 
-	<c:forEach items="${user}" var="user">
-
-		<p>
-			<strong><c:out value="${user.name}"></c:out></strong>
-		</p>
-
-	</c:forEach>
+<h1 class="texto">KANBAN SIM</h1>
 
 	<div class="contenedor">
 
@@ -32,7 +26,8 @@
 				</script>
 				<c:forEach items="${task}" var="task">
 					<div class="tareas">
-						<c:out value="${task.name}"></c:out>
+						<p><c:out value="${task.name}"></c:out></p>
+						<p><c:out value="${task.duration}"></c:out></p>
 					</div>
 
 					<c:set value="${task.name}" var="taskName" />
@@ -78,11 +73,23 @@
 
 	<button id="play">Play</button>
 
+
 	<!--  Button Play/Pause -->
 	<div class="playpause">
 		<input type="checkbox" value="None" id="playpause" name="check" /> <label
 			for="playpause" tabindex=1></label>
 	</div>
+
+
+
+
+	<c:forEach items="${user}" var="user">
+
+		<p>
+			<strong><c:out value="${user.name}"></c:out></strong>
+		</p>
+
+	</c:forEach>
 
 
 	<jsp:include page="footer.jsp"></jsp:include>
