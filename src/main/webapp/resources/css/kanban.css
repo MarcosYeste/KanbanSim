@@ -1,78 +1,110 @@
 /* Diseños KANBAN Div */
-
-.contenedor{
-	
-	background-color:#63bafa;
-	margin-top:15%;
+.contenedor {
+	background-color: #63bafa;
+	margin-top: 15%;
 	border: 2px solid blue;
 	display: table;
 	display: flex;
 	width: 80%;
 	height: auto;
 	margin-left: 10%;
-	box-shadow: 0 7px 7px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-	
+	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
 }
-.principio{
-	border : 1px solid #0a80f5;
+
+.principio {
+	border: 1px solid #0a80f5;
 	width: 20%;
 	display: flex;
 	flex-direction: column;
 }
-.fin{
-	border : 1px solid #0a80f5;
+
+.fin {
+	border: 1px solid #0a80f5;
 	width: 20%;
 }
-.faseName{
-	
-	border : 1px solid #35a6f9;
+
+.faseName {
+	border: 1px solid #35a6f9;
 	width: 30%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	text-align: center;
-	
-	
 }
-.tareas{
-	background-color :white;
-	border :1px solid blue; 
-	font-size:120%;
+
+.tareas {
+	background-color: white;
+	border: 1px solid blue;
+	font-size: 120%;
 	margin-top: 10%;
 	text-align: center;
-	box-shadow: 0 8px 19px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-	
-	
+	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
 }
-.contenedorTareas{
+
+.contenedorTareas {
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
 	margin-right: 20%;
 	margin-left: 10%;
-	
 }
-.subfase{
+
+.subfase {
 	color: white;
-	background-color :#366ff1;
+	background-color: #366ff1;
 	display: flex;
 	justify-content: space-around;
-	border : 1px solid #0a80f5;
+	border: 1px solid #0a80f5;
 }
-.fase{
-	
+
+.fase {
 	/* border :1px solid yellow; */
 	width: 100%;
 	display: flex;
 }
-.titulo{
-	font-size:120%;
-	background-color :white;
+
+.titulo {
+	font-size: 120%;
+	background-color: white;
 	color: blue;
 	text-align: center;
 	padding-bottom: 10px;
 	/* border : 1px solid darkblue; */
 }
-.titulo.barra{
+
+.titulo.barra {
 	background-color: transparent;
+}
+
+/* Button Play/Pause */
+.playpause label {
+	display: block;
+	box-sizing: border-box;
+	
+	width: 0;
+	height: 74px;
+	
+	cursor: pointer;
+	
+	border-color: transparent transparent transparent #202020;
+	transition: 100ms all ease;
+	will-change: border-width;
+	
+	/* Play state */
+	border-style: solid;
+	border-width: 37px 0 37px 60px;
+}
+
+.playpause input[type='checkbox'] {
+	visibility: hidden;
+}
+
+.playpause input[type='checkbox']:checked+label {
+	
+	/* Pause state */
+	
+	border-style: double;
+	border-width: 0px 0 0px 60px;
 }

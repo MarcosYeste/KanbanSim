@@ -9,6 +9,7 @@
 <title>Kanban</title>
 <link rel="stylesheet" href="/resources/css/kanban.css">
 
+
 </head>
 <body>
 
@@ -19,44 +20,32 @@
 		</p>
 
 	</c:forEach>
-	--%>
-	<script>
-		var listTareas = new Array();
-	</script>
-	<div id="father">
-		<c:forEach items="${task}" var="task">
-			<div id="${task.name}">
-				<c:out value="${task.name}"></c:out>
-			</div>
 
-			<c:set value="${task.name}" var="taskName" />
-			<c:set value="${task.duration}" var="taskDuration" />
-
-			<script>
-			
-				var tareas = new Object();
-				tareas.name = <c:out value="${taskName}"></c:out>;
-				tareas.duration = <c:out value="${taskDuration}"></c:out>;
-				listTareas.push(tareas)
-			</script>
-
-		</c:forEach>
-		<div style="border: 1px solid; padding: 20px" id="vacio"></div>
-		<div style="border: 1px solid red; padding: 20px" id="vacio2"></div>
-	</div>
-
-	<button id="play">Play</button>
-
-	<%-- <div class="contenedor">
+	<div class="contenedor">
 
 		<div class="principio">
 			<div class="titulo">Etapa de inicio</div>
 			<div class="titulo barra"></div>
 			<div class="contenedorTareas">
+				<script>
+					var listTareas = new Array();
+				</script>
 				<c:forEach items="${task}" var="task">
 					<div class="tareas">
 						<c:out value="${task.name}"></c:out>
 					</div>
+
+					<c:set value="${task.name}" var="taskName" />
+					<c:set value="${task.duration}" var="taskDuration" />
+
+					<script>
+					
+						var tareas = new Object();
+						tareas.name = <c:out value="${taskName}"></c:out>;
+						tareas.duration = <c:out value="${taskDuration}"></c:out>;
+						listTareas.push(tareas)
+					</script>
+
 				</c:forEach>
 			</div>
 
@@ -85,63 +74,48 @@
 			<div class="titulo">Etapa final</div>
 			<div class="titulo barra"></div>
 		</div>
-	</div> --%>
+	</div>
+
+	<button id="play">Play</button>
+
+	<!--  Button Play/Pause -->
+	<div class="playpause">
+		<input type="checkbox" value="None" id="playpause" name="check" /> <label
+			for="playpause" tabindex=1></label>
+	</div>
 
 
 	<jsp:include page="footer.jsp"></jsp:include>
 	<!--  Script que nos permitira mover las tareas -->
 	<script type="text/javascript">
 	
-		function animateimg() {
-				
-			$("#father div").each(function() {
-				var x = $("vacio").offset().left;
-				var y = $("vacio").offset().top;
 	
-				var xi = $(this).offset().left;
-				var yi = $(this).offset().top;
-				$(this).css('left', xi).css('top', yi);
+		var target = document.getElementsByClassName("faseName")[0];
+		var elements = document.getElementsByClassName("tareas");
+		var button = document.getElementById("play");
 	
-				$(this).animate({
-					left : x,
-					top : y
-				});
+		// Guarda las coordenadas de el objetivo (Target)
+		var xT = target.offsetLeft;
+		var yT = target.offsetTop;
 	
 	
-			});
-		} 
+		button.addEventListener('click', function() {
 	
-		$("#play").click(function(){
-			animateimg();
-		});
+			for (var i = 0; i < elements.length; i++) {
 	
-		/* document.getElementById("play").addEventListener("click", function() {
-		
-			for (var i = 0; i < listTareas.length; i++) {
-		
-				var text = listTareas[i].name.getAttribute("id");
-		
-				var el = document.getElementById(text);
-		
-				el.parentElement.removeChild(el);
-		
-				document.getElementById("vacio").appendChild(el); 
-		
-				var x = $("#vacio").offset().left;
-				var y = $("#vacio").offset().top;
-		
-				var xi = $(text).offset().left;
-				var yi = $(text).offset().top;
-				$(this).css('left', xi).css('top', yi);
-		
-				$(this).animate({
-					left : x,
-					top : y
-				})
-		
+				// Almacena las cordenadas del elemnto
+				var xE = elements[i].offsetLeft;
+				var yE = elements[i].offsetTop;
+	
+				// centra el elemento con sus coordenadas
+				elements[i].style.left = xE + 'px';
+				elements[i].style.top = yE + 'px';
+	
+				// Cambia la posicion del elemnto a la de el objetivo
+				elements[i].style.left = xT + 'px';
+				elements[i].style.top = yT + 'px';
 			}
-		
-		}, false); */
+		});
 	</script>
 
 </body>
