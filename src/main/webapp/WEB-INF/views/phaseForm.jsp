@@ -31,7 +31,7 @@
 					<form:label cssClass="col-sm-3 " path="rawSpecs">Especializaciones</form:label>
 					<div class="col-sm-12">
 						<form:input cssClass="form-control" path="rawSpecs"
-							required="required" />
+							required="required" placeholder="Especialización 1, Especializacion2, ..." />
 					</div>
 				</div>
 
