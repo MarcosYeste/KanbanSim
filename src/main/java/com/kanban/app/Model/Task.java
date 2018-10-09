@@ -4,6 +4,7 @@ public class Task {
 	
 	private String name;
 	private float duration;
+	private float tss; //Time Since Started
 	private float leadTime;
 	private float loopTime;
 	private String state;
@@ -14,9 +15,8 @@ public class Task {
 		this.duration = duration;
 	}
 	public Task() {
-		
+		this.tss = 0;
 	}
-	
 	public String getName() {
 		return name;
 	}
@@ -47,4 +47,14 @@ public class Task {
 	public void setLoopTime(float loopTime) {
 		this.loopTime = loopTime;
 	}
+	public float getTss() {
+		return tss;
+	}
+	public void setTss(float tss) {
+		this.tss = tss;
+	}
+	public void updateTss(float tt) { //Time Transcurred
+		this.tss =+ tt;
+	}
+	
 }

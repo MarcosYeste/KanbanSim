@@ -6,19 +6,17 @@ public class User {
 	
 
 	private String name;
+	private String rawSpecs;
 	private float timeStoped;
-	private ArrayList<String> specializations;
+	private ArrayList<String> specializations = new ArrayList<String>();
 	
-	public User(String name, String...specs) {
+	
+	public User(String name, String specs) {
 		this.name = name;
-		this.specializations = new ArrayList<String>();
-		for (int i = 0; i < specs.length; i++) {
-			this.specializations.add(specs[i]);
-		}
+		this.rawSpecs = specs;
 	}
 
 	public User() {
-		this.specializations = new ArrayList<String>();
 	}
 	public String getName() {
 		return name;
@@ -26,6 +24,7 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+		
 	}
 
 	public float getTimeStoped() {
@@ -34,23 +33,6 @@ public class User {
 
 	public void setTimeStoped(float timeStoped) {
 		this.timeStoped = timeStoped;
-	}
-	
-	public ArrayList<String> getSpecializations() {
-		return specializations;
-	}
-	public void setSpecializations(String specs) {
-//		for(int i = 0; i < specs.length; i++) {
-//			this.specializations.add(specs[i]);
-//			System.out.println("Iterations" + i);
-		
-//		}
-
-		this.specializations.add(specs);
-	}
-	
-	public void addSpec(String newSpec) {
-		this.specializations.add(newSpec);
 	}
 	
 	public boolean isSpecialized(String spec) {
@@ -63,4 +45,25 @@ public class User {
 		
 		return false;
 	}
+
+	public String getRawSpecs() {
+		return rawSpecs;
+	}
+
+	public void setRawSpecs(String rawSpecs) {
+		this.rawSpecs = rawSpecs;
+		String[] filteredSpecs = rawSpecs.split(",");
+		for(String spec : filteredSpecs) {
+			addSpecializations(spec.trim());
+		}
+	}
+
+	public ArrayList<String> getSpecializations() {
+		return specializations;
+	}
+
+	public void addSpecializations(String spec) {
+		this.specializations.add(spec);
+	}
+	
 }

@@ -117,7 +117,7 @@ public class HomeController {
 		model.addAttribute("user", kanbanService.saveUser(user, userArray));
 		model.addAttribute("phases",  phasesArray);
 		model.addAttribute("task", taskArray);
-
+		
 		return "success";
 
 	}
@@ -144,7 +144,7 @@ public class HomeController {
 					System.out.println(spec + " no added");
 				}
 			} else {
-				allSpecs.add(spec);
+				allSpecs.add(spec.trim());
 				System.out.println("First add");
 			}
 			specExist = false;
