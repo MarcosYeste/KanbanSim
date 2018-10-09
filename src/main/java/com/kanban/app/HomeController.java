@@ -95,7 +95,7 @@ public class HomeController {
 		model.addAttribute("user", userArray);
 		
 		
-		task.setDuration((int)(Math.random() * 10 + 1));
+		task.setDuration((int)(Math.random() * 4 + 1));
 
 
 		return "success";

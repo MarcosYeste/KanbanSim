@@ -35,6 +35,7 @@
 }
 
 .tareas {
+	color : black;
 	background-color: white;
 	border: 1px solid blue;
 	font-size: 120%;
@@ -52,14 +53,23 @@
 	margin-left: 10%;
 }
 
-.subfase {
-	color: white;
+.subfase{
+	color: black;
 	text-shadow: 0.1px  1px 0.5px;
-	background-color :#366ff1;
+	background-color :#63bafa;
 	display: flex;
-	justify-content: space-around;
-	border: 1px solid #0a80f5;
+	justify-content: space-around;/* 
+	border: 1px solid #0a80f5; */
 }
+.subSubfase{
+	color: white;
+	text-shadow: 0.1px  1px 0.5px #aebabd;
+	font-size: 130%;
+/* 	background-color :#366ff1; *//* 
+	border: 1px solid #0a80f5; */
+}
+
+
 
 .fase {
 	/* border :1px solid yellow; */
