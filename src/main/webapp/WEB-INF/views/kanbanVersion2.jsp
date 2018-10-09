@@ -25,11 +25,11 @@
 					var listTareas = new Array();
 				</script>
 				<c:forEach items="${task}" var="task">
-					<div class="tareas">
+					<div id="tareas" class="tareas">
 						<p>
 							<c:out value="${task.name}"></c:out>
 						</p>
-						<p>
+						<p id="duration" class="duration">
 							<c:out value="${task.duration}"></c:out>
 						</p>
 					</div>
@@ -37,13 +37,13 @@
 					<c:set value="${task.name}" var="taskName" />
 					<c:set value="${task.duration}" var="taskDuration" />
 
-					<script>
+					<!-- <script>
 					
 						var tareas = new Object();
 						tareas.name = <c:out value="${taskName}"></c:out>;
 						tareas.duration = <c:out value="${taskDuration}"></c:out>;
 						listTareas.push(tareas)
-					</script>
+					</script>  -->
 
 				</c:forEach>
 			</div>
@@ -61,8 +61,12 @@
 					</div>
 
 					<div class="subfase">
-						<div>Doing</div>
-						<div>Done</div>
+						<div id="doing" class="doing">
+							<p class="subSubfase">Doing</p>
+						</div>
+						<div id="done" class="done">
+							<p class="subSubfase">Done</p>
+						</div>
 					</div>
 				</div>
 			</c:forEach>
@@ -75,7 +79,7 @@
 		</div>
 	</div>
 
-	<button id="play">Play</button>
+	<button id="play" onclick="play()">Play</button>
 
 
 	<!--  Button Play/Pause -->
@@ -94,7 +98,48 @@
 		</p>
 
 	</c:forEach>
-
+	<script>
+		function play() {
+			var divs = document.getElementsByClassName("tareas");
+	
+	
+			var duration = document.getElementsByClassName("duration");
+			var subfase = document.getElementsByClassName("subfase");
+	
+	
+	
+	
+			for (var i = 0; i < subfase.length; i++) {
+				for (var k = 0; k < divs.length; k++) {
+	
+					while (i <= 1) {
+	
+						var doing = subfase[0].firstElementChild;
+						var done = subfase[0].lastElementChild;
+						var duracionTiempo = divs[k].lastElementChild;
+						doing.appendChild(divs[k]);
+	
+						var durationTime = parseFloat(duracionTiempo.textContent);
+	
+						durationTime = durationTime * 1000;
+	
+						setTaskIntime(durationTime, done, divs[k]);
+						console.log(doing.length);
+	
+						i++;
+					}
+				}
+	
+		
+			}
+	
+		}
+		function setTaskIntime(durationTime, done, divs) {
+			setTimeout(function() {
+				done.appendChild(divs);
+			}, durationTime);
+		}
+	</script>
 
 	<jsp:include page="footer.jsp"></jsp:include>
 	<!--  Script que nos permitira mover las tareas -->
@@ -127,13 +172,13 @@
 				elements[i].style.top = yT + 'px';
 			}
 		});
+
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script>
 		var phases = $(".faseName");
 		var users = '${user}';
 		console.log(users[0].name);
-		
-	</script>
+
 </body>
 </html>
