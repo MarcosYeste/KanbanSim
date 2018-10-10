@@ -156,7 +156,7 @@
 
 	<jsp:include page="footer.jsp"></jsp:include>
 	<!--  Script que nos permitira mover las tareas -->
-	<!-- <script type="text/javascript">
+	<script type="text/javascript">
 	
 	
 		var target = document.getElementsByClassName("faseName")[0];
@@ -185,7 +185,13 @@
 				elements[i].style.top = yT + 'px';
 			}
 		});
-	</script> -->
+
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		var phases = $(".faseName");
+		var users = '${user}';
+		console.log(users[0].name);
 
 </body>
 </html>

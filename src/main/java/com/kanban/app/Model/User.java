@@ -9,7 +9,7 @@ public class User {
 	private String rawSpecs;
 	private float timeStoped;
 	private ArrayList<String> specializations = new ArrayList<String>();
-	
+	private boolean assigned = false;
 	
 	public User(String name, String specs) {
 		this.name = name;
@@ -65,5 +65,14 @@ public class User {
 	public void addSpecializations(String spec) {
 		this.specializations.add(spec);
 	}
+
+	public boolean isAssigned() {
+		return assigned;
+	}
+
+	public void setAssigned(boolean assigned) {
+		this.assigned = assigned;
+	}
+	
 	
 }

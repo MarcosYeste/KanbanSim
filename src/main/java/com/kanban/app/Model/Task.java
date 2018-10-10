@@ -1,5 +1,7 @@
 package com.kanban.app.Model;
 
+import java.util.ArrayList;
+
 public class Task {
 	
 	private String name;
@@ -8,6 +10,7 @@ public class Task {
 	private float leadTime;
 	private float loopTime;
 	private String state;
+	private ArrayList<User> assignedUsers = new ArrayList<User>();
 	
 	
 	public Task(String name, float duration) {
@@ -56,5 +59,11 @@ public class Task {
 	public void updateTss(float tt) { //Time Transcurred
 		this.tss =+ tt;
 	}
-	
+	public ArrayList<User> getAssignedUsers() {
+		return assignedUsers;
+	}
+	public void addAssignedUser(User user) {
+		this.assignedUsers.add(user);
+	}
+
 }
