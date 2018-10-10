@@ -99,41 +99,54 @@
 
 	</c:forEach>
 	<script>
-		function play() {
-			var divs = document.getElementsByClassName("tareas");
 	
+		function play() {
+			var divsTareas = document.getElementsByClassName("tareas");
 	
 			var duration = document.getElementsByClassName("duration");
-			var subfase = document.getElementsByClassName("subfase");
+			var subfases = document.getElementsByClassName("subfase");
+			var fases = document.getElementsByClassName("faseName");
+	
+			var y = 0;
+			
+			while (y != subfases.length) {
+	
+				var doneLength = document.getElementsByClassName("done")[y].childElementCount - 1;
+				var doingLength = document.getElementsByClassName("doing")[y].childElementCount - 1;
+	
+				if (doneLength == divsTareas.length ) {
+					y = y + 1;
+				}
+				var doing = subfases[y].firstElementChild;
+				var done = subfases[y].lastElementChild;
 	
 	
 	
 	
-			for (var i = 0; i < subfase.length; i++) {
-				for (var k = 0; k < divs.length; k++) {
+				for (var k = divsTareas.length - 1; k >= 0; k--) {
 	
-					while (i <= 1) {
+				if(doingLength != divsTareas.length ){
+					
+					var duracionTiempo = divsTareas[k].lastElementChild;
+					
+					doing.appendChild(divsTareas[k]);
 	
-						var doing = subfase[0].firstElementChild;
-						var done = subfase[0].lastElementChild;
-						var duracionTiempo = divs[k].lastElementChild;
-						doing.appendChild(divs[k]);
+					var durationTime = parseFloat(duracionTiempo.textContent);
 	
-						var durationTime = parseFloat(duracionTiempo.textContent);
+					durationTime = durationTime * 1000;
 	
-						durationTime = durationTime * 1000;
-	
-						setTaskIntime(durationTime, done, divs[k]);
-						console.log(doing.length);
-	
-						i++;
-					}
+					var tareaDoing = doing.lastElementChild;
+				
+					setTaskIntime(durationTime, done, tareaDoing);
 				}
 	
-		
 			}
-	
 		}
+	
+	}
+		function moverTareas() {
+		}
+	var t = {};
 		function setTaskIntime(durationTime, done, divs) {
 			setTimeout(function() {
 				done.appendChild(divs);
