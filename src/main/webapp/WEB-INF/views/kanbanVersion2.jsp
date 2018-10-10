@@ -87,52 +87,54 @@
 		<input type="checkbox" value="None" id="playpause" name="check" /> <label
 			for="playpause" tabindex=1></label>
 	</div>
-
-
-
-
+	
+	<script>
+		var userSpecs = [];
+		var userNames = [];
+	</script>
 	<c:forEach items="${user}" var="user">
 
 		<p>
 			<strong><c:out value="${user.name}"></c:out></strong>
+			<c:set value="${user.name}" var="useName" />
+			<c:set value="${user.rawSpecs}" var="rawSpecs" />
 		</p>
 
+		<script>
+		userNames.push('<c:out value="${useName}"></c:out>');
+		userSpecs.push('<c:out value="${rawSpecs}"></c:out>');
+		</script>
 	</c:forEach>
 	<script>
 		function play() {
 			var divs = document.getElementsByClassName("tareas");
-	
-	
+
 			var duration = document.getElementsByClassName("duration");
 			var subfase = document.getElementsByClassName("subfase");
-	
-	
-	
-	
+
 			for (var i = 0; i < subfase.length; i++) {
 				for (var k = 0; k < divs.length; k++) {
-	
+
 					while (i <= 1) {
-	
+
 						var doing = subfase[0].firstElementChild;
 						var done = subfase[0].lastElementChild;
 						var duracionTiempo = divs[k].lastElementChild;
 						doing.appendChild(divs[k]);
-	
+
 						var durationTime = parseFloat(duracionTiempo.textContent);
-	
+
 						durationTime = durationTime * 1000;
-	
+
 						setTaskIntime(durationTime, done, divs[k]);
 						console.log(doing.length);
-	
+
 						i++;
 					}
 				}
-	
-		
+			
 			}
-	
+		
 		}
 		function setTaskIntime(durationTime, done, divs) {
 			setTimeout(function() {
@@ -142,43 +144,12 @@
 	</script>
 
 	<jsp:include page="footer.jsp"></jsp:include>
-	<!--  Script que nos permitira mover las tareas -->
-	<script type="text/javascript">
-	
-	
-		var target = document.getElementsByClassName("faseName")[0];
-		var elements = document.getElementsByClassName("tareas");
-		var button = document.getElementById("play");
-	
-		// Guarda las coordenadas de el objetivo (Target)
-		var xT = target.offsetLeft;
-		var yT = target.offsetTop;
-	
-	
-		button.addEventListener('click', function() {
-	
-			for (var i = 0; i < elements.length; i++) {
-	
-				// Almacena las cordenadas del elemnto
-				var xE = elements[i].offsetLeft;
-				var yE = elements[i].offsetTop;
-	
-				// centra el elemento con sus coordenadas
-				elements[i].style.left = xE + 'px';
-				elements[i].style.top = yE + 'px';
-	
-				// Cambia la posicion del elemnto a la de el objetivo
-				elements[i].style.left = xT + 'px';
-				elements[i].style.top = yT + 'px';
-			}
-		});
-
-	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script>
+	
 		var phases = $(".faseName");
-		var users = '${user}';
-		console.log(users[0].name);
-
+		console.log(userNames);
+		console.log(userSpecs);
+				
+	</script>
 </body>
 </html>
