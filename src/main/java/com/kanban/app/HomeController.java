@@ -127,20 +127,19 @@ public class HomeController {
 		
 		for(String spec: inSpecs) {
 			if(allSpecs.size() > 0) {
+				System.out.println("Existing Specs: ");
 				for(String sSpec: allSpecs) {
-					System.out.println("Existing Specs: " + sSpec.trim());
-					if(spec.trim().equals(sSpec.trim())) {
-						System.out.println(spec + " Exist");
+					System.out.println(sSpec.trim());
+					if(spec.trim().toUpperCase().equals(sSpec.toUpperCase().trim())) {
 						specExist = true;
-					} else {
-						System.out.println(spec + " No exist");
-						
-					}
+					} 
 				}
 				if(!specExist) {
+					System.out.println(spec + " No exist");
 					allSpecs.add(spec.trim());
 					System.out.println("Added: " + spec.trim());
 				} else {
+					System.out.println(spec + " Exist");
 					System.out.println(spec + " no added");
 				}
 			} else {

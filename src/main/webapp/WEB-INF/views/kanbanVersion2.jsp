@@ -87,16 +87,23 @@
 		<input type="checkbox" value="None" id="playpause" name="check" /> <label
 			for="playpause" tabindex=1></label>
 	</div>
-
-
-
-
+	
+	<script>
+		var userSpecs = [];
+		var userNames = [];
+	</script>
 	<c:forEach items="${user}" var="user">
 
 		<p>
 			<strong><c:out value="${user.name}"></c:out></strong>
+			<c:set value="${user.name}" var="useName" />
+			<c:set value="${user.rawSpecs}" var="rawSpecs" />
 		</p>
 
+		<script>
+		userNames.push('<c:out value="${useName}"></c:out>');
+		userSpecs.push('<c:out value="${rawSpecs}"></c:out>');
+		</script>
 	</c:forEach>
 	<script>
 	function play() {
@@ -144,6 +151,7 @@
 		}
 	}
 
+
 }
 
 	
@@ -162,6 +170,16 @@
 	
 	</script>
 
-	<jsp:include page="footer.jsp"></jsp:include>
+	
+
+
+	<script>
+	
+		var phases = $(".faseName");
+		console.log(userNames);
+		console.log(userSpecs);
+				
+	</script>
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

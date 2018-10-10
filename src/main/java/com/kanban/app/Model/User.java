@@ -55,6 +55,11 @@ public class User {
 		String[] filteredSpecs = rawSpecs.split(",");
 		for(String spec : filteredSpecs) {
 			addSpecializations(spec.trim());
+			System.out.println("Specs : " + spec.trim() + " added.");
+		}
+		System.out.println("Total Specs: " );
+		for(String spec : this.specializations) {
+			System.out.println(spec);
 		}
 	}
 
@@ -72,6 +77,12 @@ public class User {
 
 	public void setAssigned(boolean assigned) {
 		this.assigned = assigned;
+	}
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", rawSpecs=" + rawSpecs + ", timeStoped=" + timeStoped + ", specializations="
+				+ specializations + ", assigned=" + assigned + "]";
 	}
 	
 	
