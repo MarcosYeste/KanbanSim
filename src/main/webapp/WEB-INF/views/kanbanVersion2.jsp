@@ -72,7 +72,6 @@
 			</c:forEach>
 		</div>
 
-
 		<div class="fin">
 			<div class="titulo">Etapa final</div>
 			<div class="titulo barra"></div>
@@ -161,11 +160,9 @@
 
 	<jsp:include page="footer.jsp"></jsp:include>
 	<script>
-	
 		var phases = $(".faseName");
 		console.log(userNames);
-		console.log(userSpecs);
-				
+		console.log(userSpecs);	
 	</script>
 </body>
 </html>
