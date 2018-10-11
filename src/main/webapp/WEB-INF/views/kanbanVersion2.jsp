@@ -105,64 +105,78 @@
 		</script>
 	</c:forEach>
 	<script>
-	
-		function play() {
-			var divsTareas = document.getElementsByClassName("tareas");
-	
-			var duration = document.getElementsByClassName("duration");
-			var subfases = document.getElementsByClassName("subfase");
-			var fases = document.getElementsByClassName("faseName");
-	
-			var y = 0;
-			
-			while (y != subfases.length) {
-	
-				var doneLength = document.getElementsByClassName("done")[y].childElementCount - 1;
-				var doingLength = document.getElementsByClassName("doing")[y].childElementCount - 1;
-	
-				if (doneLength == divsTareas.length ) {
-					y = y + 1;
-				}
-				var doing = subfases[y].firstElementChild;
-				var done = subfases[y].lastElementChild;
-	
-	
-	
-	
-				for (var k = divsTareas.length - 1; k >= 0; k--) {
-	
-				if(doingLength != divsTareas.length ){
-					
-					var duracionTiempo = divsTareas[k].lastElementChild;
-					
-					doing.appendChild(divsTareas[k]);
-	
-					var durationTime = parseFloat(duracionTiempo.textContent);
-	
-					durationTime = durationTime * 1000;
-	
-					var tareaDoing = doing.lastElementChild;
-				
-					setTaskIntime(durationTime, done, tareaDoing);
-				}
-	
+	function play() {
+		
+		var divsTareas = document.getElementsByClassName("tareas");
+		var duration = document.getElementsByClassName("duration");
+		var subfases = document.getElementsByClassName("subfase");
+		var fases = document.getElementsByClassName("faseName");
+		var y = 0;
+		
+		while (y != subfases.length) { // COLUMNAS
+
+			var doneLength = document.getElementsByClassName("done")[y].childElementCount - 1;
+			var doingLength = document.getElementsByClassName("doing")[y].childElementCount - 1;
+
+			if (doneLength == divsTareas.length ) { // MIENTRAS EL DONE NO ESTE LLENO
+				y = y + 1;
 			}
+			
+			
+			var doing = subfases[y].firstElementChild;
+			var done = subfases[y].lastElementChild;
+
+
+
+
+			for (var k = divsTareas.length - 1; k >= 0; k--) { // TAREAS
+			
+			if(doingLength != divsTareas.length ){  // MIENTRAS EL DOING NO ESTE LLENO
+				
+				var duracionTiempo = divsTareas[k].lastElementChild;
+				
+				doing.appendChild(divsTareas[k]);
+
+				var durationTime = parseFloat(duracionTiempo.textContent);
+
+				durationTime = durationTime * 1000;
+
+				var tareaDoing = doing.lastElementChild;
+				
+				setTaskIntime(durationTime, done, tareaDoing);
+				
+			}
+
 		}
-	
 	}
-		var t = {};
-		function setTaskIntime(durationTime, done, divs) {
-			setTimeout(function() {
-				done.appendChild(divs);
-			}, durationTime);
-		}
+
+
+}
+
+	
+	
+	function setTaskIntime(durationTime, done, tareaDoing) {
+		
+	setInterval(moverDone(done,tareaDoing), durationTime);
+	
+		
+	}
+	
+	function moverDone(done,tareaDoing) {
+			done.appendChild(tareaDoing); 
+		
+	}
+	
 	</script>
 
-	<jsp:include page="footer.jsp"></jsp:include>
+	
+
+
 	<script>
 		var phases = $(".faseName");
 		console.log(userNames);
 		console.log(userSpecs);	
 	</script>
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
