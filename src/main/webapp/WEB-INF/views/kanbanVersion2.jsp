@@ -112,16 +112,19 @@
 		var subfases = document.getElementsByClassName("subfase");
 		var fases = document.getElementsByClassName("faseName");
 		var y = 0;
+		var myInterval;
 		
+		console.log("Length " + subfases.length);
 		while (y != subfases.length) { // COLUMNAS
 
 			var doneLength = document.getElementsByClassName("done")[y].childElementCount - 1;
 			var doingLength = document.getElementsByClassName("doing")[y].childElementCount - 1;
 
-			if (doneLength == divsTareas.length ) { // MIENTRAS EL DONE NO ESTE LLENO
-				y = y + 1;
-			}
-			
+			//if (doneLength == divsTareas.length ) { // MIENTRAS EL DONE NO ESTE LLENO
+				//y++;
+				//console.log("enter");
+			//}
+			console.log("Index: " + y);
 			
 			var doing = subfases[y].firstElementChild;
 			var done = subfases[y].lastElementChild;
@@ -131,23 +134,27 @@
 
 			for (var k = divsTareas.length - 1; k >= 0; k--) { // TAREAS
 			
-			if(doingLength != divsTareas.length ){  // MIENTRAS EL DOING NO ESTE LLENO
-				
-				var duracionTiempo = divsTareas[k].lastElementChild;
-				
-				doing.appendChild(divsTareas[k]);
-
-				var durationTime = parseFloat(duracionTiempo.textContent);
-
-				durationTime = durationTime * 1000;
-
-				var tareaDoing = doing.lastElementChild;
-				
-				setTaskIntime(durationTime, done, tareaDoing);
-				
-			}
+				if(doingLength != divsTareas.length ){  // MIENTRAS EL DOING NO ESTE LLENO
+					
+					var duracionTiempo = divsTareas[k].lastElementChild;
+					
+					doing.appendChild(divsTareas[k]);
+	
+					var durationTime = parseFloat(duracionTiempo.textContent);
+					console.log("Pre time operation: " + durationTime);
+	 				durationTime *= 100000;	
+					console.log("Post time operation: " + durationTime);
+					var tareaDoing = doing.lastElementChild;
+					var mto =setTimeout(function(){done.appendChild(tareaDoing);
+											console.log("appended");
+											clearTimeout(mto);}, durationTime);
+					//setTaskIntime(durationTime, done, tareaDoing);
+					
+				}
 
 		}
+			y++;
+			console.log("end");
 	}
 
 
@@ -156,14 +163,14 @@
 	
 	
 	function setTaskIntime(durationTime, done, tareaDoing) {
-		
-	setInterval(moverDone(done,tareaDoing), durationTime);
+		console.log("In method: " + durationTime);
+		setTimeout(moverDone(done,tareaDoing), durationTime);
 	
-		
 	}
 	
 	function moverDone(done,tareaDoing) {
 			done.appendChild(tareaDoing); 
+			play();
 		
 	}
 	
