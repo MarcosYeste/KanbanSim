@@ -93,10 +93,6 @@ public class HomeController {
 		model.addAttribute("phases", phasesArray);
 		model.addAttribute("user", userArray);
 
-
-		task.setDuration((int)(Math.random() * 4 + 1));
-
-
 		return "success";
 
 	}

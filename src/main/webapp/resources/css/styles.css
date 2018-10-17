@@ -36,14 +36,6 @@ h1 {
 	padding: .3em;
 }
 
-/* Add and Remove buttons for specializations */
-#addSpec, #rmvSpec {
-	display: inline;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-left: 10px;
-}
-
 /* Kanban */
 .div-head {
 	text-align: center;
@@ -58,12 +50,7 @@ h1 {
 	font-weight: normal
 }
 
-.userSpecCheck{
+.userPhaseCheck {
 	display: inline;
 	margin-left: 15px;
-/* CSS for animation */
-.element,
-.target {
-  position: absolute;
-  transition: left 1s ease-out, top 1s ease-out;
 }
