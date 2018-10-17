@@ -24,28 +24,49 @@
 				<script>
 					var listTareas = new Array();
 				</script>
-				<c:forEach items="${task}" var="task">
-					<div id="tareas" class="tareas">
+				
+					<div id="101" class="tareas">
 						<p>
-							<c:out value="${task.name}"></c:out>
+							Tarea 1
 						</p>
 						<p id="duration" class="duration">
-							<c:out value="${task.duration}"></c:out>
+							1
+						</p>
+					</div>
+					<div id="102" class="tareas">
+						<p>
+							Tarea 2
+						</p>
+						<p id="duration" class="duration">
+							2
+						</p>
+					</div>
+					<div id="103" class="tareas">
+						<p>
+							Tarea 3
+						</p>
+						<p id="104" class="duration">
+							3
+						</p>
+					</div>
+					<div id="104" class="tareas">
+						<p>
+							Tarea 4
+						</p>
+						<p id="duration" class="duration">
+							4
+						</p>
+					</div>
+					<div id="105" class="tareas">
+						<p>
+							Tarea 5
+						</p>
+						<p id="duration" class="duration">
+							6
 						</p>
 					</div>
 
-					<c:set value="${task.name}" var="taskName" />
-					<c:set value="${task.duration}" var="taskDuration" />
-
-					<!-- <script>
-					
-						var tareas = new Object();
-						tareas.name = <c:out value="${taskName}"></c:out>;
-						tareas.duration = <c:out value="${taskDuration}"></c:out>;
-						listTareas.push(tareas)
-					</script>  -->
-
-				</c:forEach>
+				
 			</div>
 
 		</div>
@@ -76,6 +97,7 @@
 		<div class="fin">
 			<div class="titulo">Etapa final</div>
 			<div class="titulo barra"></div>
+			<div class="final"></div>
 		</div>
 	</div>
 
@@ -87,7 +109,7 @@
 		<input type="checkbox" value="None" id="playpause" name="check" /> <label
 			for="playpause" tabindex=1></label>
 	</div>
-	
+
 	<script>
 		var userSpecs = [];
 		var userNames = [];
@@ -106,71 +128,14 @@
 		</script>
 	</c:forEach>
 	<script>
-	function play() {
-		
-		var divsTareas = document.getElementsByClassName("tareas");
-		var duration = document.getElementsByClassName("duration");
-		var subfases = document.getElementsByClassName("subfase");
-		var fases = document.getElementsByClassName("faseName");
-		var y = 0;
-		
-		while (y != subfases.length) { // COLUMNAS
-
-			var doneLength = document.getElementsByClassName("done")[y].childElementCount - 1;
-			var doingLength = document.getElementsByClassName("doing")[y].childElementCount - 1;
-
-			if (doneLength == divsTareas.length ) { // MIENTRAS EL DONE NO ESTE LLENO
-				y = y + 1;
-			}
-			
-			
-			var doing = subfases[y].firstElementChild;
-			var done = subfases[y].lastElementChild;
-
-
-
-
-			for (var k = divsTareas.length - 1; k >= 0; k--) { // TAREAS
-			
-			if(doingLength != divsTareas.length ){  // MIENTRAS EL DOING NO ESTE LLENO
-				
-				var duracionTiempo = divsTareas[k].lastElementChild;
-				
-				doing.appendChild(divsTareas[k]);
-
-				var durationTime = parseFloat(duracionTiempo.textContent);
-
-				durationTime = durationTime * 1000;
-
-				var tareaDoing = doing.lastElementChild;
-				
-				setTaskIntime(durationTime, done, tareaDoing);
-				
-			}
-
-		}
-	}
-
-
-}
 
 	
-	
-	function setTaskIntime(durationTime, done, tareaDoing) {
-		
-	setInterval(moverDone(done,tareaDoing), durationTime);
-	
-		
-	}
-	
-	function moverDone(done,tareaDoing) {
-			done.appendChild(tareaDoing); 
-		
-	}
-	
+	 function play() {
+	} 
+	 
 	</script>
 
-	
+
 
 
 	<script>
@@ -180,6 +145,6 @@
 		console.log(userSpecs);
 				
 	</script>
-<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
