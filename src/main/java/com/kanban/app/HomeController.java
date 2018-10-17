@@ -31,7 +31,6 @@ public class HomeController {
 	List<User> userArray = new ArrayList <User>();
 	ArrayList<String> allPhases = new ArrayList<String>();
 
-
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -72,7 +71,7 @@ public class HomeController {
 		model.addAttribute("phases", kanbanService.saveFases(fases, phasesArray));
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
-		System.out.println("Pre addarray");
+		
 		addPhases(phasesArray.get(phasesArray.size() - 1).getName());
 		return "success";
 
@@ -128,14 +127,15 @@ public class HomeController {
 
 		if(allPhases.size() > 0) {
 
-			for(String sSpec: allPhases) {
+			for(String aphase: allPhases) {
 
-				if(phase.trim().toUpperCase().equals(sSpec.toUpperCase().trim())) {
+				if(phase.trim().toUpperCase().equals(aphase.toUpperCase().trim())) {
 					phaseExist = true;
 				} 
 			}
 			if(!phaseExist) {
 	
+
 				allPhases.add(phase.trim());
 
 			} else {
@@ -146,6 +146,5 @@ public class HomeController {
 
 		}
 		phaseExist = false;
-
 	}
 }

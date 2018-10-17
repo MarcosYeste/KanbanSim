@@ -27,12 +27,14 @@ public class User {
 		
 	}
 
+
 	public int getTimeStopped() {
 		return timeStopped;
 	}
 
 	public void setTimeStopped(int timeStoped) {
 		this.timeStopped = timeStoped;
+
 	}
 	
 	public boolean isSpecialized(String spec) {
@@ -45,6 +47,7 @@ public class User {
 		
 		return false;
 	}
+
 
 	public String getRawPhases() {
 		return rawPhases;

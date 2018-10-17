@@ -27,7 +27,7 @@
 							required="required" />
 					</div>
 				</div>
-				
+
 				<!-- Introduce el rango de tiempo en el cual la tarea se puede llegar a pasar -->
 				<div class="form-group">
 					<form:label cssClass="col-sm-3 " path="minTime">Tiempo Mínimo</form:label>
@@ -43,6 +43,7 @@
 							required="required" />
 					</div>
 				</div>
+
 
 				<div class="col-sm-8">
 					<button type="submit" class="btn btn-primary">SAVE</button>

@@ -10,6 +10,7 @@ public class Phase {
 	private Task[] subpthase2;
 	private int maxTime;
 	private int minTime;
+
 	
 	public Phase(String name, int maxTasks) {
 		this.name = name;
@@ -62,5 +63,4 @@ public class Phase {
 	public void setMinTime(int minTime) {
 		this.minTime = minTime;
 	}
-
 }
