@@ -36,14 +36,19 @@
 
 					<c:set value="${task.name}" var="taskName" />
 					<c:set value="${task.duration}" var="taskDuration" />
-
-					<!-- <script>
+					<c:set value="${task.tss}" var="timeSinceStart" />
+					<c:set value="${task.state}" var="state" />
 					
+					<script>
 						var tareas = new Object();
-						tareas.name = <c:out value="${taskName}"></c:out>;
+						tareas.name = "<c:out value="${taskName}"></c:out>";
 						tareas.duration = <c:out value="${taskDuration}"></c:out>;
-						listTareas.push(tareas)
-					</script>  -->
+						tareas.tss = <c:out value="${timeSinceStart}"></c:out>;
+						tareas.state = " ";
+						tareas.phase = 0;
+						sameIteration = false;
+						listTareas.push(tareas);
+					</script>
 
 				</c:forEach>
 			</div>
@@ -75,6 +80,7 @@
 		<div class="fin">
 			<div class="titulo">Etapa final</div>
 			<div class="titulo barra"></div>
+			<div class="contenedorFinal"></div>
 		</div>
 	</div>
 
@@ -105,6 +111,13 @@
 		</script>
 	</c:forEach>
 	<script>
+	var firstLoop = true;
+	var myInterval;
+	
+	document.getElementById("playpause").addEventListener("click", function(){
+		clearInterval(myInterval);
+		console.log("%cStopped", "font-size: 20px; color:red; font-weight: bold")
+	});
 	function play() {
 		
 		var divsTareas = document.getElementsByClassName("tareas");
@@ -112,67 +125,81 @@
 		var subfases = document.getElementsByClassName("subfase");
 		var fases = document.getElementsByClassName("faseName");
 		var y = 0;
-		var myInterval;
+		
 		
 		console.log("Length " + subfases.length);
-		while (y != subfases.length) { // COLUMNAS
-
-			var doneLength = document.getElementsByClassName("done")[y].childElementCount - 1;
-			var doingLength = document.getElementsByClassName("doing")[y].childElementCount - 1;
-
-			//if (doneLength == divsTareas.length ) { // MIENTRAS EL DONE NO ESTE LLENO
-				//y++;
-				//console.log("enter");
-			//}
-			console.log("Index: " + y);
-			
-			var doing = subfases[y].firstElementChild;
-			var done = subfases[y].lastElementChild;
-
-
-
-
-			for (var k = divsTareas.length - 1; k >= 0; k--) { // TAREAS
-			
-				if(doingLength != divsTareas.length ){  // MIENTRAS EL DOING NO ESTE LLENO
-					
-					var duracionTiempo = divsTareas[k].lastElementChild;
-					
-					doing.appendChild(divsTareas[k]);
-	
-					var durationTime = parseFloat(duracionTiempo.textContent);
-					console.log("Pre time operation: " + durationTime);
-	 				durationTime *= 100000;	
-					console.log("Post time operation: " + durationTime);
-					var tareaDoing = doing.lastElementChild;
-					var mto =setTimeout(function(){done.appendChild(tareaDoing);
-											console.log("appended");
-											clearTimeout(mto);}, durationTime);
-					//setTaskIntime(durationTime, done, tareaDoing);
-					
-				}
-
-		}
-			y++;
-			console.log("end");
-	}
-
-
-}
-
-	
-	
-	function setTaskIntime(durationTime, done, tareaDoing) {
-		console.log("In method: " + durationTime);
-		setTimeout(moverDone(done,tareaDoing), durationTime);
-	
-	}
-	
-	function moverDone(done,tareaDoing) {
-			done.appendChild(tareaDoing); 
-			play();
 		
-	}
+		myInterval = setInterval(function (){
+			//
+			console.log("Iteration Star");//p
+			for(var i = 0; i < fases.length; i++){
+				console.log("abf");
+				var doing =  fases[i].lastElementChild.firstElementChild;
+				var done = fases[i].lastElementChild.lastElementChild;
+				if(firstLoop){
+					console.log("Fisrt Loop");
+					for(var j = 0; j < listTareas.length; j++){
+						listTareas[j].state = "Doing";
+						listTareas[j].phase = 1;
+						console.log("g");
+					}
+					firstLoop = false;
+					
+					for(var j = 0; j < divsTareas.length; j++){						
+						doing.appendChild(divsTareas[0]);
+					}
+				}
+				
+				listTareas.forEach(function(task) {
+					/*console.log("[Name " + task.name);
+					console.log("Tss " + task.tss);
+					console.log("State " + task.state);*/
+					
+					for (var k = 0; k < divsTareas.length; k++) { 
+						var taskDuration = parseInt(divsTareas[k].lastElementChild.innerHTML);
+						var elementName = divsTareas[k].firstElementChild.innerHTML;
+						elementName = elementName.trim();
+						console.log("-----------");
+						/* console.log(task.state + " == Doing, " +  task.name + " == " + elementName + ", " +
+								task.tss + " == " + taskDuration + 
+								", " + task.phase + " == " + (i+1));*/
+						 
+						if(task.state == "Doing" && task.name == elementName && task.tss == taskDuration &&
+								task.phase == (i+1)){
+							/* console.log("IF 1"); */
+							done.appendChild(divsTareas[k]);
+							task.state = "Done";
+							console.log("%c" + task.name + " is done", "font-size: 20px");
+							task.sameIteration = true;
+						} else if(task.state == "Doing" && task.name == elementName && task.tss != taskDuration &&
+							task.phase == (i+1)){
+							console.log("IF 2"); 
+							task.tss++;
+						} else if(task.state == "Done" && task.name == elementName && task.tss == taskDuration &&
+									task.phase == (i+1) && !task.sameIteration){
+							console.log("%cPassed " + task.name + " TO " + task.phase, "font-size: 20px; color:green");
+							if(fases[i+1] == null){
+								//fases[i].lastElementChild.firstElementChild.appendChild(divsTareas[k]); 
+								document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]); 
+							} else {
+								fases[i+1].lastElementChild.firstElementChild.appendChild(divsTareas[k]); 
+							}
+							task.state = "Doing";
+							task.phase++;
+							task.tss = 0;
+						}
+					}					
+				});
+			}
+			listTareas.forEach(function(task) {
+				task.sameIteration = false;
+			});
+			if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
+				clearInterval(myInterval);
+			}
+		}, 1000);		
+
+	}	
 	
 	</script>
 
