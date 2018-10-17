@@ -6,14 +6,14 @@ public class User {
 	
 
 	private String name;
-	private String rawSpecs;
-	private float timeStoped;
-	private ArrayList<String> specializations = new ArrayList<String>();
+	private String rawPhases;
+	private ArrayList<String> phases = new ArrayList<String>();
 	private boolean assigned = false;
+	private int timeStopped;
 	
 	public User(String name, String specs) {
 		this.name = name;
-		this.rawSpecs = specs;
+		this.rawPhases = specs;
 	}
 
 	public User() {
@@ -27,17 +27,17 @@ public class User {
 		
 	}
 
-	public float getTimeStoped() {
-		return timeStoped;
+	public int getTimeStopped() {
+		return timeStopped;
 	}
 
-	public void setTimeStoped(float timeStoped) {
-		this.timeStoped = timeStoped;
+	public void setTimeStopped(int timeStoped) {
+		this.timeStopped = timeStoped;
 	}
 	
 	public boolean isSpecialized(String spec) {
 		
-		for(String specialization: specializations) {
+		for(String specialization: phases) {
 			if(specialization.equals(spec)) {
 				return true;
 			}
@@ -46,29 +46,29 @@ public class User {
 		return false;
 	}
 
-	public String getRawSpecs() {
-		return rawSpecs;
+	public String getRawPhases() {
+		return rawPhases;
 	}
 
-	public void setRawSpecs(String rawSpecs) {
-		this.rawSpecs = rawSpecs;
-		String[] filteredSpecs = rawSpecs.split(",");
-		for(String spec : filteredSpecs) {
-			addSpecializations(spec.trim());
-			System.out.println("Specs : " + spec.trim() + " added.");
+	public void setRawPhases(String rawPhases) {
+		this.rawPhases = rawPhases;
+		String[] filteredPhase = rawPhases.split(",");
+		for(String phase : filteredPhase) {
+			addPhases(phase.trim());
+			System.out.println("Phase : " + phase.trim() + " added.");
 		}
-		System.out.println("Total Specs: " );
-		for(String spec : this.specializations) {
-			System.out.println(spec);
+		System.out.println("Total Phases: " );
+		for(String phase : this.phases) {
+			System.out.println(phase);
 		}
 	}
 
-	public ArrayList<String> getSpecializations() {
-		return specializations;
+	public ArrayList<String> getPhases() {
+		return phases;
 	}
 
-	public void addSpecializations(String spec) {
-		this.specializations.add(spec);
+	public void addPhases(String phase) {
+		this.phases.add(phase);
 	}
 
 	public boolean isAssigned() {
@@ -81,8 +81,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [name=" + name + ", rawSpecs=" + rawSpecs + ", timeStoped=" + timeStoped + ", specializations="
-				+ specializations + ", assigned=" + assigned + "]";
+		return "User [name=" + name + ", rawPhases=" + rawPhases + ", timeStopped=" + timeStopped + ", phases="
+				+ phases + ", assigned=" + assigned + "]";
 	}
 	
 	

@@ -27,11 +27,20 @@
 							required="required" />
 					</div>
 				</div>
+				
+				<!-- Introduce el rango de tiempo en el cual la tarea se puede llegar a pasar -->
 				<div class="form-group">
-					<form:label cssClass="col-sm-3 " path="rawSpecs">Especializaciones</form:label>
-					<div class="col-sm-12">
-						<form:input cssClass="form-control" path="rawSpecs"
-							required="required" placeholder="Especialización 1, Especializacion2, ..." />
+					<form:label cssClass="col-sm-3 " path="minTime">Tiempo Mínimo</form:label>
+					<div class="col-sm-5">
+						<form:input cssClass="form-control" path="minTime"
+							required="required" />
+					</div>
+				</div>
+				<div class="form-group float-right">
+					<form:label cssClass="col-sm-5 " path="maxTime">Tiempo Máximo</form:label>
+					<div class="col-sm-5">
+						<form:input cssClass="form-control" path="maxTime"
+							required="required" />
 					</div>
 				</div>
 
