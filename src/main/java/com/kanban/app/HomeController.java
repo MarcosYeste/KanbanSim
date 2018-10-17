@@ -106,7 +106,7 @@ public class HomeController {
 	public String newUser(Model model) {
 				
 		model.addAttribute("user",new User());
-		model.addAttribute("allSpecs", this.allPhases);
+		model.addAttribute("allPhases", this.allPhases);
 
 		return "userForm";
 	}

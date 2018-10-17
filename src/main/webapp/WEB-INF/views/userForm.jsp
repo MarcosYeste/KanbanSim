@@ -37,9 +37,9 @@
 					</div>
 					<div>
 						<thead>
-							<c:forEach items="${allSpecs}" var="spec">
-							<input type="checkbox" class="userSpecCheck" name="specs" value="${spec}" path="specializations">
-							<c:out value="${spec}"></c:out> 
+							<c:forEach items="${allPhases}" var="phase">
+							<input type="checkbox" class="userPhaseCheck" name="specs" value="${phase}" path="specializations">
+							<c:out value="${phase}"></c:out> 
 							</c:forEach>
 						</thead>
 					</div>
