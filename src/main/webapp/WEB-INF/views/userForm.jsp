@@ -30,7 +30,7 @@
 						<form:input cssClass="form-control" path="name"
 							required="required" />
 					</div>
-					<form:label cssClass="col-sm-3 " path="rawSpecs">Especialidades:</form:label>
+					<form:label cssClass="col-sm-3 " path="rawSpecs">Fases:</form:label>
 					<div class="col-sm-12">
 						<form:input cssClass="form-control" id="specCompiler" type="hidden" 
 									value="" path="rawSpecs"/>

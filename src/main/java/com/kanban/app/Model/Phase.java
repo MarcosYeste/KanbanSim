@@ -1,15 +1,14 @@
 package com.kanban.app.Model;
 
-import java.util.ArrayList;
-
 public class Phase {
 	
 	private String name;
 	private int maxTasks;
 	private Task[] subphase1;
 	private Task[] subpthase2;
-	private ArrayList<String> specs = new ArrayList<String>();
-	private String rawSpecs;
+	private int maxTime;
+	private int minTime;
+
 	
 	public Phase(String name, int maxTasks) {
 		this.name = name;
@@ -50,23 +49,18 @@ public class Phase {
 	public void setSubpthase2(Task[] subpthase2) {
 		this.subpthase2 = subpthase2;
 	}
-	public ArrayList<String> getSpecs() {
-		return specs;
+	public int getMaxTime() {
+		return maxTime;
 	}
-	protected void setSpecs() {
-		String[] specChannel = this.rawSpecs.split(",");
-		for(String spec : specChannel) {
-			this.specs.add(spec.trim());
-//			System.out.println(spec);
-		}
+	public void setMaxTime(int maxTime) {
+		this.maxTime = maxTime;
 	}
-	public String getRawSpecs() {
-		return rawSpecs;
+	public int getMinTime() {
+		return minTime;
 	}
-	public void setRawSpecs(String rawSpecs) {
-		this.rawSpecs = rawSpecs;
-		setSpecs();
+	public void setMinTime(int minTime) {
+		this.minTime = minTime;
 	}
-
+	
 	
 }
