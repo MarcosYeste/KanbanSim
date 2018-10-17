@@ -24,49 +24,37 @@
 				<script>
 					var listTareas = new Array();
 				</script>
-				
-					<div id="101" class="tareas">
+				<c:forEach items="${task}" var="task">
+					<div id="tareas" class="tareas">
 						<p>
-							Tarea 1
+							<c:out value="${task.name}"></c:out>
 						</p>
 						<p id="duration" class="duration">
-							1
-						</p>
-					</div>
-					<div id="102" class="tareas">
-						<p>
-							Tarea 2
-						</p>
-						<p id="duration" class="duration">
-							2
-						</p>
-					</div>
-					<div id="103" class="tareas">
-						<p>
-							Tarea 3
-						</p>
-						<p id="104" class="duration">
-							3
-						</p>
-					</div>
-					<div id="104" class="tareas">
-						<p>
-							Tarea 4
-						</p>
-						<p id="duration" class="duration">
-							4
-						</p>
-					</div>
-					<div id="105" class="tareas">
-						<p>
-							Tarea 5
-						</p>
-						<p id="duration" class="duration">
-							6
+							<c:out value="${task.duration}"></c:out>
 						</p>
 					</div>
 
-				
+					<c:set value="${task.name}" var="taskName" />
+					<c:set value="${task.duration}" var="taskDuration" />
+					<c:set value="${task.tss}" var="timeSinceStart" />
+					<c:set value="${task.state}" var="state" />
+
+					<script>
+						var tareas = new Object();
+						tareas.name = "<c:out value="${taskName}"></c:out>";
+						tareas.duration = <c:out value="${taskDuration}"></c:out>;
+						tareas.tss = <c:out value="${timeSinceStart}"></c:out>;
+						tareas.state = " ";
+						tareas.phase = 0;
+						sameIteration = false;
+						//de inicio a fin
+						tareas.leadTime = 0;
+						// desde que entra al primer doing hasta que termina
+						tareas.cycleTime = 0;
+						listTareas.push(tareas);
+					</script>
+
+				</c:forEach>
 			</div>
 
 		</div>
@@ -93,11 +81,10 @@
 			</c:forEach>
 		</div>
 
-
 		<div class="fin">
 			<div class="titulo">Etapa final</div>
 			<div class="titulo barra"></div>
-			<div class="final"></div>
+			<div class="contenedorFinal"></div>
 		</div>
 	</div>
 
@@ -128,22 +115,122 @@
 		</script>
 	</c:forEach>
 	<script>
-
+	var firstLoop = true;
+	var myInterval;
+	var cycleTime = 0 ;
+	document.getElementById("playpause").addEventListener("change", function(){
+		if(!this.checked){
+			clearInterval(myInterval);
+		}else{
+			play();
+		}
+	});
+	function play() {
+		
+		var divsTareas = document.getElementsByClassName("tareas");
+		var duration = document.getElementsByClassName("duration");
+		var subfases = document.getElementsByClassName("subfase");
+		var fases = document.getElementsByClassName("faseName");
+		var y = 0;
+		
+		
+		/* console.log("Length " + subfases.length); */
+		
+		myInterval = setInterval(function (){
+			//
+			/* console.log("Iteration Star");//p */
+			for(var i = 0; i < fases.length; i++){
+			/* 	console.log("abf"); */
+				var doing =  fases[i].lastElementChild.firstElementChild;
+				var done = fases[i].lastElementChild.lastElementChild;
+				if(firstLoop){
+					/* console.log("Fisrt Loop"); */
+					for(var j = 0; j < listTareas.length; j++){
+						listTareas[j].state = "Doing";
+						listTareas[j].phase = 1;
+					}
+					firstLoop = false;
+					
+					for(var j = 0; j < divsTareas.length; j++){							
+						doing.appendChild(divsTareas[0]);
+						listTareas[j].cycleTime = 0;
+					}
+					
+				}
+				
+				listTareas.forEach(function(task) {
+					/*console.log("[Name " + task.name);
+					console.log("Tss " + task.tss);
+					console.log("State " + task.state);*/
+					
+					for (var k = 0; k < divsTareas.length; k++) { 
+						var taskDuration = parseInt(divsTareas[k].lastElementChild.innerHTML);
+						var elementName = divsTareas[k].firstElementChild.innerHTML;
+						elementName = elementName.trim();
+						console.log("-----------");
+						/* console.log(task.state + " == Doing, " +  task.name + " == " + elementName + ", " +
+								task.tss + " == " + taskDuration + 
+								", " + task.phase + " == " + (i+1));*/
+								
+						if(task.state == "Doing" && task.name == elementName && task.tss == taskDuration &&
+								task.phase == (i+1)){
+							
+							/* console.log("IF 1"); */
+							done.appendChild(divsTareas[k]);
+							task.state = "Done";
+							/* console.log("%c" + task.name + " is done", "font-size: 20px"); */
+							task.sameIteration = true;
+							
+						} else if(task.state == "Doing" && task.name == elementName && task.tss != taskDuration &&
+							task.phase == (i+1)){
+							
+						/* 	console.log("IF 2");  */
+							task.tss++;
+							
+						} else if(task.state == "Done" && task.name == elementName && task.tss == taskDuration &&
+									task.phase == (i+1) && !task.sameIteration){
+							
+						
+							if(fases[i+1] == null){
+								//fases[i].lastElementChild.firstElementChild.appendChild(divsTareas[k]); 
+								document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]); 
+							} else {
+								fases[i+1].lastElementChild.firstElementChild.appendChild(divsTareas[k]); 
+							}
+							task.state = "Doing";
+							task.phase++;
+							task.tss = 0;
+							task.cycleTime = cycleTime;
+						}
+					}
+					console.log(task.state + " _ " +  task.name + " _ " + elementName + " _ " +
+							task.tss + " _ " + taskDuration + " _ " + task.phase + " _ " + task.cycleTime+"<= cycle");
+				});
+				
+			}
+			listTareas.forEach(function(task) {
+				task.sameIteration = false;
+			});
+			if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
+				clearInterval(myInterval);
+				
+			}
+			cycleTime += 1;
+			
+			console.log("%cCICLO DE BIDA!"+cycleTime, "font-size: 20px; color:green");
+		}, 1000);
+		
+	}	
 	
-	 function play() {
-	} 
-	 
 	</script>
 
 
 
 
 	<script>
-	
 		var phases = $(".faseName");
 		console.log(userNames);
-		console.log(userSpecs);
-				
+		console.log(userSpecs);	
 	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>

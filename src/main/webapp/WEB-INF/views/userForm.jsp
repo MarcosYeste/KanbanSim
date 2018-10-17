@@ -39,7 +39,7 @@
 						<thead>
 							<c:forEach items="${allSpecs}" var="spec">
 							<input type="checkbox" class="userSpecCheck" name="specs" value="${spec}" path="specializations">
-							<c:out value="${spec}"></c:out>
+							<c:out value="${spec}"></c:out> 
 							</c:forEach>
 						</thead>
 					</div>
