@@ -23,6 +23,7 @@
 			<div class="contenedorTareas">
 				<script>
 					var listTareas = new Array();
+					var listPhases = new Array();
 				</script>
 				<c:forEach items="${task}" var="task">
 					<div id="tareas" class="tareas">
@@ -56,15 +57,11 @@
 		</div>
 
 		<div id="faseDiv" class="fase">
-
-
 			<c:forEach items="${phases}" var="fase">
 				<div class="faseName">
-
 					<div class="titulo">
 						<c:out value="${fase.name}"></c:out>
 					</div>
-
 					<div class="subfase">
 						<div id="doing" class="doing">
 							<p class="subSubfase">Doing</p>
@@ -74,6 +71,21 @@
 						</div>
 					</div>
 				</div>
+				<c:set value="${fase.name}" var="name" />
+				<c:set value="${fase.maxTasks}" var="maxTasks" />
+				<c:set value="${fase.maxTime}" var="maxTime" />
+				<c:set value="${fase.minTime}" var="minTime" />
+				
+				<script>
+					var phase = new Object();
+					phase.name = "<c:out value="${name}"></c:out>";
+					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
+					phase.maxTime = <c:out value="${maxTime}"></c:out>;
+					phase.minTime = <c:out value="${minTime}"></c:out>;
+					listPhases.push(phase);
+					//console.log(phase);
+				</script>
+						
 			</c:forEach>
 		</div>
 
@@ -141,7 +153,6 @@
 					for(var j = 0; j < listTareas.length; j++){
 						listTareas[j].state = "Doing";
 						listTareas[j].phase = 1;
-						console.log("g");
 					}
 					firstLoop = false;
 					
@@ -177,16 +188,21 @@
 							task.tss++;
 						} else if(task.state == "Done" && task.name == elementName && task.tss == taskDuration &&
 									task.phase == (i+1) && !task.sameIteration){
-							console.log("%cPassed " + task.name + " TO " + task.phase, "font-size: 20px; color:green");
 							if(fases[i+1] == null){
 								//fases[i].lastElementChild.firstElementChild.appendChild(divsTareas[k]); 
 								document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]); 
 							} else {
-								fases[i+1].lastElementChild.firstElementChild.appendChild(divsTareas[k]); 
+								if(((fases[i+1].lastElementChild.firstElementChild.childNodes.length - 3) +
+									(fases[i+1].lastElementChild.lastElementChild.childNodes.length - 3)) 
+									< listPhases[i+1].maxTasks){
+									console.log("%cPassed " + task.name + " TO " + task.phase, "font-size: 20px; color:green");
+									fases[i+1].lastElementChild.firstElementChild.appendChild(divsTareas[k]); 
+									task.state = "Doing";
+									task.phase++;
+									task.tss = 0;
+								}							
 							}
-							task.state = "Doing";
-							task.phase++;
-							task.tss = 0;
+							
 						}
 					}					
 				});

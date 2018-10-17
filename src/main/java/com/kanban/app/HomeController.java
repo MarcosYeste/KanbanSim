@@ -29,7 +29,7 @@ public class HomeController {
 	List<Phase> phasesArray = new ArrayList <Phase>();
 	List<Task> taskArray = new ArrayList <Task>();
 	List<User> userArray = new ArrayList <User>();
-	ArrayList<String> allSpecs = new ArrayList<String>();
+	ArrayList<String> allPhases = new ArrayList<String>();
 	
 
 	/**
@@ -73,7 +73,7 @@ public class HomeController {
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		System.out.println("Pre addarray");
-		addSpecs(phasesArray.get(phasesArray.size() - 1).getSpecs());
+		addPhase(phasesArray.get(phasesArray.size() - 1).getName());
 		return "success";
 
 
@@ -106,7 +106,7 @@ public class HomeController {
 	public String newUser(Model model) {
 				
 		model.addAttribute("user",new User());
-		model.addAttribute("allSpecs", this.allSpecs);
+		model.addAttribute("allSpecs", this.allPhases);
 
 		return "userForm";
 	}
@@ -122,31 +122,31 @@ public class HomeController {
 
 	}
 	
-	public void addSpecs(ArrayList<String> inSpecs) {
+	public void addPhase(String inPhase) {
 		boolean specExist = false;
 		
-		for(String spec: inSpecs) {
-			if(allSpecs.size() > 0) {
-				System.out.println("Existing Specs: ");
-				for(String sSpec: allSpecs) {
-					System.out.println(sSpec.trim());
-					if(spec.trim().toUpperCase().equals(sSpec.toUpperCase().trim())) {
+//		for(String phase: inPhase) {
+			if(allPhases.size() > 0) {
+				//System.out.println("Existing Specs: ");
+				for(String aPhase: allPhases) {
+					//System.out.println(aPhase.trim());
+					if(inPhase.trim().toUpperCase().equals(aPhase.toUpperCase().trim())) {
 						specExist = true;
 					} 
 				}
 				if(!specExist) {
-					System.out.println(spec + " No exist");
-					allSpecs.add(spec.trim());
-					System.out.println("Added: " + spec.trim());
+					//System.out.println(inPhase + " No exist");
+					allPhases.add(inPhase.trim());
+					//System.out.println("Added: " + inPhase.trim());
 				} else {
-					System.out.println(spec + " Exist");
-					System.out.println(spec + " no added");
+					//System.out.println(inPhase + " Exist");
+					//System.out.println(inPhase + " no added");
 				}
 			} else {
-				allSpecs.add(spec.trim());
-				System.out.println("First add");
+				allPhases.add(inPhase.trim());
+				//System.out.println("First add");
 			}
 			specExist = false;
-		}
+//		}
 	}
 }
