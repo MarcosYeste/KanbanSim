@@ -15,6 +15,18 @@
 <body>
 
 	<h1 class="texto">KANBAN SIM</h1>
+	<div class="botonesContainer">
+		<!--  Button Play/Pause -->
+		<div class="playpause">
+			<input type="checkbox" value="None" id="playpause" name="check" /> <label
+				for="playpause" tabindex=1></label>
+		</div>
+		
+		<!-- Colocamos Botones  -->
+		<div id="divReset">
+			<i id="reset" class="fas fa-redo fa-5x"></i>
+		</div>
+	</div>
 
 	<div class="contenedor">
 
@@ -44,12 +56,8 @@
 					</div>
 
 					<c:set value="${task.name}" var="taskName" />
-					<c:set value="${task.duration}" var="taskDuration" />
-					<c:set value="${task.tss}" var="timeSinceStart" />
-					<c:set value="${task.state}" var="state" />
 
 					<script>
-					
 						var tareas = new Object();
 						tareas.name = "<c:out value="${taskName}"></c:out>";
 						tareas.duration = <c:out value="${taskDuration}"></c:out>;
@@ -58,7 +66,6 @@
 						tareas.phase = 0;
 						sameIteration = false;
 						listTareas.push(tareas);
-						
 					</script>
 
 				</c:forEach>
@@ -99,7 +106,6 @@
 				<c:set value="${fase.minTime}" var="minTime" />
 
 				<script>
-				
 					var phase = new Object();
 					phase.name = "<c:out value="${name}"></c:out>";
 					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
@@ -120,19 +126,11 @@
 		</div>
 	</div>
 
-	<!--  Button Play/Pause -->
-	<div class="playpause">
-		<input type="checkbox" value="None" id="playpause" name="check" /> <label
-			for="playpause" tabindex=1></label>
-	</div>
-
 	<script>
-	
 		var userPhases = [];
 		var userNames = [];
-		
 	</script>
-	
+
 	<c:forEach items="${user}" var="user">
 
 		<p>
@@ -142,19 +140,18 @@
 		</p>
 
 		<script>
-		
 			userNames.push('<c:out value="${useName}"></c:out>');
 			userPhases.push('<c:out value="${rawPhases}"></c:out>');
-			
 		</script>
 
 	</c:forEach>
 
 	<script>
-	
 		var firstLoop = true;
 		var myInterval;
+		var cycleTime;
 
+		// Botón "Play" y "Pause" funcionamiento
 		document.getElementById("playpause").addEventListener("change",
 				function() {
 					if (this.checked) {
@@ -164,6 +161,11 @@
 					}
 				});
 
+		// Botón reset			
+		document.getElementById("reset").addEventListener("click", function() {
+			location.reload();
+		});
+
 		function play() {
 
 			var divsTareas = document.getElementsByClassName("tareas");
@@ -172,11 +174,10 @@
 			var fases = document.getElementsByClassName("faseName");
 			var y = 0;
 
+			// Comenzamos la simulación 
 			myInterval = setInterval(
 
 					function() {
-
-						console.log("Iteration Star");
 
 						for (var i = 0; i < fases.length; i++) {
 
@@ -189,9 +190,6 @@
 
 									listTareas[j].state = "Doing";
 									listTareas[j].phase = 1;
-									// Por cada tarea añadimos su tiempo random
-									listTareas[j].duration = 
-										Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
 
 								}
 
@@ -207,9 +205,23 @@
 							listTareas
 									.forEach(function(task) {
 
+										// Assigna un tiempo a cada tarea de entre el intervalo de la fase
+										if (task.phase == (i + 1)
+												&& task.tss == 0) {
+											task.duration = Math.floor(Math
+													.random()
+													* listPhases[i].maxTime
+													+ listPhases[i].minTime);
+
+											console.log(task.duration);
+
+										}
+
 										for (var k = 0; k < divsTareas.length; k++) {
 
-											var taskDuration = parseInt(listTareas[k].duration);
+											var taskDuration = parseInt(task.duration);
+											divsTareas[k].lastElementChild.innerHTML = taskDuration;
+
 											var elementName = divsTareas[k].firstElementChild.innerHTML;
 											elementName = elementName.trim();
 
@@ -250,7 +262,7 @@
 														task.state = "Doing";
 														task.phase++;
 														task.tss = 0;
-
+														task.cycleTime = cycleTime
 													}
 												}
 											}
@@ -266,7 +278,7 @@
 						if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
 							clearInterval(myInterval);
 						}
-						
+
 					}, 1000);
 		}
 	</script>

@@ -1,7 +1,5 @@
 package com.kanban.app.Model;
 
-import java.util.ArrayList;
-
 public class Phase {
 	
 	private String name;
@@ -64,3 +62,4 @@ public class Phase {
 		this.minTime = minTime;
 	}
 }
+
