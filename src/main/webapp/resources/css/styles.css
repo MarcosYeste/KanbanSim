@@ -36,14 +36,6 @@ h1 {
 	padding: .3em;
 }
 
-/* Add and Remove buttons for specializations */
-#addSpec, #rmvSpec {
-	display: inline;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-left: 10px;
-}
-
 /* Kanban */
 .div-head {
 	text-align: center;
@@ -58,12 +50,31 @@ h1 {
 	font-weight: normal
 }
 
-.userSpecCheck{
+.userPhaseCheck {
 	display: inline;
 	margin-left: 15px;
-/* CSS for animation */
-.element,
-.target {
-  position: absolute;
-  transition: left 1s ease-out, top 1s ease-out;
+}
+
+/* Spin animation reset Button */
+div#divReset:hover {
+	-webkit-animation-name: spin; 	 /* Safari */
+    -webkit-animation-duration: 4s;  /* Safari */
+	-moz-animation-name: spin;		 /* Mozilla */
+    -moz-animation-duration: 4s;	 /* Mozilla */
+    -ms-animation-name: spin;		 /* Explorer */
+    -ms-animation-duration: 4s;		 /* Explorer */
+    animation-name: spin;
+	animation-duration: 4000ms;
+	animation-iteration-count: 1;
+	animation-timing-function: linear; 
+	
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
 }

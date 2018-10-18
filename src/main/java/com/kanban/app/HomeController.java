@@ -30,15 +30,14 @@ public class HomeController {
 	List<Task> taskArray = new ArrayList <Task>();
 	List<User> userArray = new ArrayList <User>();
 	ArrayList<String> allPhases = new ArrayList<String>();
-	
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-	
-		
+
+
 		model.addAttribute("task",taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
@@ -46,10 +45,10 @@ public class HomeController {
 		return "kanbanVersion2";
 
 	}
-	
+
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public String succes( Model model) {
-	
+
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
@@ -59,12 +58,12 @@ public class HomeController {
 
 	@RequestMapping(value = "/addFase", method = RequestMethod.GET)
 	public String newFase(Model model) {
-		
+
 		model.addAttribute("fase",new Phase());
 
 		return "phaseForm";
 	}
-	
+
 	// este metodo recoge el formulario y va al simulador
 	@RequestMapping(value = "/addFase", method = RequestMethod.POST)
 	public String createFase(Model model, @ModelAttribute("fase") Phase fases) {	
@@ -72,8 +71,8 @@ public class HomeController {
 		model.addAttribute("phases", kanbanService.saveFases(fases, phasesArray));
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
-		System.out.println("Pre addarray");
-		addPhase(phasesArray.get(phasesArray.size() - 1).getName());
+		
+		addPhases(phasesArray.get(phasesArray.size() - 1).getName());
 		return "success";
 
 
@@ -81,22 +80,18 @@ public class HomeController {
 
 	@RequestMapping(value = "/addTask", method = RequestMethod.GET)
 	public String newTask(Model model) {
-		
+
 		model.addAttribute("task",new Task());
 
 		return "taskForm";
 	}
-	
+
 	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
 	public String createTask(Model model, @ModelAttribute("task") Task task) {
-		
+
 		model.addAttribute("task", kanbanService.saveTask(task, taskArray));
 		model.addAttribute("phases", phasesArray);
 		model.addAttribute("user", userArray);
-		
-		
-		task.setDuration((int)(Math.random() * 4 + 1));
-
 
 		return "success";
 
@@ -104,49 +99,48 @@ public class HomeController {
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.GET)
 	public String newUser(Model model) {
-				
+
 		model.addAttribute("user",new User());
-		model.addAttribute("allSpecs", this.allPhases);
+		model.addAttribute("allPhases", this.allPhases);
 
 		return "userForm";
 	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String createUser(Model model, @ModelAttribute("user") User user) {	
-		
+
 		model.addAttribute("user", kanbanService.saveUser(user, userArray));
 		model.addAttribute("phases",  phasesArray);
 		model.addAttribute("task", taskArray);
-		
+
 		return "success";
 
 	}
-	
-	public void addPhase(String inPhase) {
-		boolean specExist = false;
-		
-//		for(String phase: inPhase) {
-			if(allPhases.size() > 0) {
-				//System.out.println("Existing Specs: ");
-				for(String aPhase: allPhases) {
-					//System.out.println(aPhase.trim());
-					if(inPhase.trim().toUpperCase().equals(aPhase.toUpperCase().trim())) {
-						specExist = true;
-					} 
-				}
-				if(!specExist) {
-					//System.out.println(inPhase + " No exist");
-					allPhases.add(inPhase.trim());
-					//System.out.println("Added: " + inPhase.trim());
-				} else {
-					//System.out.println(inPhase + " Exist");
-					//System.out.println(inPhase + " no added");
-				}
-			} else {
-				allPhases.add(inPhase.trim());
-				//System.out.println("First add");
+
+	public void addPhases(String phase) {
+		boolean phaseExist = false;
+
+
+		if(allPhases.size() > 0) {
+
+			for(String aphase: allPhases) {
+
+				if(phase.trim().toUpperCase().equals(aphase.toUpperCase().trim())) {
+					phaseExist = true;
+				} 
 			}
-			specExist = false;
-//		}
+			if(!phaseExist) {
+	
+
+				allPhases.add(phase.trim());
+
+			} else {
+
+			}
+		} else {
+			allPhases.add(phase.trim());
+
+		}
+		phaseExist = false;
 	}
 }

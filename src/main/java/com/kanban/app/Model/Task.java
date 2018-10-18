@@ -57,7 +57,7 @@ public class Task {
 		this.tss = tss;
 	}
 	public void updateTss(float tt) { //Time Transcurred
-		this.tss =+ tt;
+		this.tss += tt;
 	}
 	public ArrayList<User> getAssignedUsers() {
 		return assignedUsers;

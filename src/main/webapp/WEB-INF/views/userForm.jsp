@@ -17,36 +17,56 @@
 		style="max-width: 40rem;">
 
 		<div class="card-header bg-info font-weight-bold">Crear Nuevo
-			Usuario</div>
+			 Miembro </div>
 
 		<div class="card-body">
 
 			<form:form modelAttribute="user" cssClass="form-horizontal"
 				action="/addUser" method="post">
+
 				<div class="form-group">
 
 					<form:label cssClass="col-sm-3 " path="name">Nombre:</form:label>
+
 					<div class="col-sm-12">
+
 						<form:input cssClass="form-control" path="name"
-							required="required" />
+							required="required" placeholder="Introduce Miembro del Equipo" />
+
 					</div>
-					<form:label cssClass="col-sm-3 " path="rawSpecs">Fases:</form:label>
+
+					<form:label cssClass="col-sm-3" path="rawPhases">Fases:</form:label>
+
 					<div class="col-sm-12">
-						<form:input cssClass="form-control" id="specCompiler" type="hidden" 
-									value="" path="rawSpecs"/>
+
+						<form:input cssClass="form-control" id="phaseCompiler"
+							type="hidden" value="" path="rawPhases" />
+
 					</div>
+
 					<div>
+
 						<thead>
-							<c:forEach items="${allSpecs}" var="spec">
-							<input type="checkbox" class="userSpecCheck" name="specs" value="${spec}" path="specializations">
-							<c:out value="${spec}"></c:out> 
+
+							<c:forEach items="${allPhases}" var="phase">
+
+								<input type="checkbox" class="userPhaseCheck" name="phases"
+									value="${phase}" path="phases">
+
+								<c:out value="${phase}"></c:out>
+
 							</c:forEach>
+
 						</thead>
+
 					</div>
-					
+
+					<br>
+
 					<div class="col-sm-12">
 
 						<button type="submit" class="btn btn-primary">SAVE</button>
+
 					</div>
 				</div>
 			</form:form>

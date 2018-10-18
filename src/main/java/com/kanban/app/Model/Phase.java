@@ -61,6 +61,5 @@ public class Phase {
 	public void setMinTime(int minTime) {
 		this.minTime = minTime;
 	}
-	
-	
 }
+
