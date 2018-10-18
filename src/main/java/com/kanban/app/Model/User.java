@@ -35,22 +35,11 @@ public class User {
 		this.timeStoped = timeStoped;
 	}
 	
-	public boolean isSpecialized(String spec) {
-		
-		for(String specialization: phases) {
-			if(specialization.equals(spec)) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-
-	public String getRawSpecs() {
+	public String getRawPhases() {
 		return rawPhases;
 	}
 
-	public void setRawSpecs(String rawPhase) {
+	public void setRawPhases(String rawPhase) {
 		this.rawPhases = rawPhase;
 		String[] filteredPhases = rawPhase.split(",");
 		for(String phase : filteredPhases) {
@@ -63,7 +52,7 @@ public class User {
 		}
 	}
 
-	public ArrayList<String> getSpecializations() {
+	public ArrayList<String> getPhases() {
 		return phases;
 	}
 

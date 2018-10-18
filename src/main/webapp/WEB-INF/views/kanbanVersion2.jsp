@@ -24,6 +24,7 @@
 				<script>
 					var listTareas = new Array();
 					var listPhases = new Array();
+					var listUsers = new Array();
 				</script>
 				<c:forEach items="${task}" var="task">
 					<div id="tareas" class="tareas">
@@ -36,17 +37,15 @@
 					</div>
 
 					<c:set value="${task.name}" var="taskName" />
-					<c:set value="${task.duration}" var="taskDuration" />
-					<c:set value="${task.tss}" var="timeSinceStart" />
-					<c:set value="${task.state}" var="state" />
 					
 					<script>
 						var tareas = new Object();
 						tareas.name = "<c:out value="${taskName}"></c:out>";
-						tareas.duration = <c:out value="${taskDuration}"></c:out>;
-						tareas.tss = <c:out value="${timeSinceStart}"></c:out>;
+						tareas.duration;
+						tareas.tss = 0;
 						tareas.state = " ";
 						tareas.phase = 0;
+						tareas.assignedUsers;
 						sameIteration = false;
 						listTareas.push(tareas);
 					</script>
@@ -104,22 +103,27 @@
 		<input type="checkbox" value="None" id="playpause" name="check" /> <label
 			for="playpause" tabindex=1></label>
 	</div>
-	
-	<script>
-		var userSpecs = [];
-		var userNames = [];
-	</script>
+
 	<c:forEach items="${user}" var="user">
 
 		<p>
 			<strong><c:out value="${user.name}"></c:out></strong>
-			<c:set value="${user.name}" var="useName" />
-			<c:set value="${user.rawSpecs}" var="rawSpecs" />
+			<c:set value="${user}" var="useName"/>
 		</p>
 
+		<c:set value="${user.name}" var="name" />
+		<c:set value="${user.phases}" var="userphases"/>
+		
 		<script>
-		userNames.push('<c:out value="${useName}"></c:out>');
-		userSpecs.push('<c:out value="${rawSpecs}"></c:out>');
+			var userO = new Object();
+			userO.name = "<c:out value="${name}"></c:out>";
+			userO.timeStoped = 0;
+			console.log("q");
+			userO.phases = <c:out value="${userphases}"></c:out>;
+			console.log("d");
+			userO.assigned = false;
+			listUsers.push(userO);
+			console.log(userO);//*
 		</script>
 	</c:forEach>
 	<script>
@@ -143,13 +147,14 @@
 		console.log("Length " + subfases.length);
 		
 		myInterval = setInterval(function (){
-			//
-			console.log("Iteration Star");//p
+			console.log("Iteration Star");
 			for(var i = 0; i < fases.length; i++){
 				console.log("abf");
 				var doing =  fases[i].lastElementChild.firstElementChild;
 				var done = fases[i].lastElementChild.lastElementChild;
+				
 				if(firstLoop){
+					
 					console.log("Fisrt Loop");
 					for(var j = 0; j < listTareas.length; j++){
 						listTareas[j].state = "Doing";
@@ -225,15 +230,8 @@
 		}, 1000);		
 	}	
 	
-	</script>
+	var phases = $(".faseName");
 
-	
-
-
-	<script>
-		var phases = $(".faseName");
-		console.log(userNames);
-		console.log(userSpecs);	
 	</script>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>

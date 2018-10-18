@@ -30,22 +30,21 @@
 						<form:input cssClass="form-control" path="name"
 							required="required" />
 					</div>
-					<form:label cssClass="col-sm-3 " path="rawSpecs">Fases:</form:label>
+					<form:label cssClass="col-sm-3 " path="rawPhases">Fases:</form:label>
 					<div class="col-sm-12">
-						<form:input cssClass="form-control" id="specCompiler" type="hidden" 
-									value="" path="rawSpecs"/>
+						<form:input cssClass="form-control" id="phaseCompiler" type="hidden" 
+									value="" path="rawPhases"/>
 					</div>
 					<div>
 						<thead>
 							<c:forEach items="${allPhases}" var="phase">
-							<input type="checkbox" class="userPhaseCheck" name="specs" value="${phase}" path="specializations">
+							<input type="checkbox" class="userPhaseCheck" name="specs" value="${phase}" path="phases">
 							<c:out value="${phase}"></c:out> 
 							</c:forEach>
 						</thead>
 					</div>
 					
 					<div class="col-sm-12">
-
 						<button type="submit" class="btn btn-primary">SAVE</button>
 					</div>
 				</div>
