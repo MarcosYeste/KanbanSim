@@ -2,7 +2,6 @@
 
 .contenedor{
 	background-color:#63bafa;
-	margin-top:5%;
 	border: 2px solid blue;
 	display: table;
 	display: flex;
@@ -129,5 +128,29 @@
 	color:#0f45c4;
 	font-size:500%;
 	text-align: center;
-	margin-top: 3%;
+	margin-top: 1%;
 }
+.botonesContainer{
+	align-items: center;
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: center;
+	justify-content: space-between;
+	
+
+}
+
+.resultbutt {
+    background-color: #88cef0; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.resultbutt:hover {
+    background-color: #007ca6;
+    color: white;
+}
+.mostrarResultadosDiv{
+	justify-content: space-around;
+}
+

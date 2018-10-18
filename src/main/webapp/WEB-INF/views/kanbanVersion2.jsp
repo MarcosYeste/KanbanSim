@@ -14,7 +14,14 @@
 <body>
 
 	<h1 class="texto">KANBAN SIM</h1>
-
+	<div  class="botonesContainer">
+	<button id="play" onclick="mostrarResultados()" class="resultbutt">Mostrar Resultados</button>
+	<!--  Button Play/Pause -->
+	<div class="playpause">
+		<input type="checkbox" value="None" id="playpause" name="check" /> <label
+			for="playpause" tabindex=1></label>
+	</div>
+</div>
 	<div class="contenedor">
 
 		<div class="principio">
@@ -44,10 +51,12 @@
 						var tareas = new Object();
 						tareas.name = "<c:out value="${taskName}"></c:out>";
 						tareas.duration = <c:out value="${taskDuration}"></c:out>;
-						tareas.tss = <c:out value="${timeSinceStart}"></c:out>;
-						tareas.state = " ";
+						tareas.tss = 0;
+						tareas.state;
 						tareas.phase = 0;
-						sameIteration = false;
+						tareas.sameIteration = false;
+						tareas.cycleTime = 0;
+						tareas.leadTime = 0;
 						listTareas.push(tareas);
 					</script>
 
@@ -96,15 +105,6 @@
 		</div>
 	</div>
 
-	<button id="play" onclick="play()">Play</button>
-
-
-	<!--  Button Play/Pause -->
-	<div class="playpause">
-		<input type="checkbox" value="None" id="playpause" name="check" /> <label
-			for="playpause" tabindex=1></label>
-	</div>
-	
 	<script>
 		var userSpecs = [];
 		var userNames = [];
@@ -122,14 +122,21 @@
 		userSpecs.push('<c:out value="${rawSpecs}"></c:out>');
 		</script>
 	</c:forEach>
+	<div class="mostrarResultadosDiv"></div>
 	<script>
 	var firstLoop = true;
 	var myInterval;
 	var cycleTime = 0;
+	var leadTime = 0;
 	
-	document.getElementById("playpause").addEventListener("click", function(){
+	document.getElementById("playpause").addEventListener("change", function(){
+		
+		if(this.checked){
+			play();
+		}else{
+		
 		clearInterval(myInterval);
-		console.log("%cStopped", "font-size: 20px; color:red; font-weight: bold")
+		}
 	});
 	function play() {
 		
@@ -144,6 +151,9 @@
 		
 		myInterval = setInterval(function (){
 			//
+			
+			
+			leadTime += 1;
 			console.log("Iteration Star");//p
 			for(var i = 0; i < fases.length; i++){
 				console.log("abf");
@@ -151,16 +161,29 @@
 				var done = fases[i].lastElementChild.lastElementChild;
 				if(firstLoop){
 					console.log("Fisrt Loop");
-					for(var j = 0; j < listTareas.length; j++){
+				/* 	for(var j = 0; j < listTareas.length; j++){
 						listTareas[j].state = "Doing";
-						listTareas[j].phase = 1;
+					
+							listTareas[j].phase = 1;
+					
 						
-					}
+						
+					} */
 					firstLoop = false;
 					
-					for(var j = 0; j < divsTareas.length; j++){						
-						doing.appendChild(divsTareas[0]);
-						listTareas[j].cycleTime = 0;
+					for(var j = 0; j < divsTareas.length; j++){
+						
+						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
+								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3)) 
+								< listPhases[0].maxTasks){
+							
+							doing.appendChild(divsTareas[0]);
+							listTareas[j].cycleTime = 0;
+							listTareas[j].state = "Doing";							
+							listTareas[j].phase = 1;
+						}
+						
+						
 					}
 				}
 				
@@ -188,7 +211,9 @@
 						} else if(task.state == "Doing" && task.name == elementName && task.tss != taskDuration &&
 							task.phase == (i+1)){
 							console.log("IF 2"); 
-							task.tss++;
+							if(task.phase > 0 ){
+								task.tss++;
+							}
 						} else if(task.state == "Done" && task.name == elementName && task.tss == taskDuration &&
 									task.phase == (i+1) && !task.sameIteration){
 							if(fases[i+1] == null){
@@ -204,9 +229,22 @@
 									task.phase++;
 									task.tss = 0;
 									task.cycleTime = cycleTime;
+									task.leadTime = leadTime;
 								}							
 							}
 							
+						} else if (task.state == null && task.name == elementName && task.phase == 0){
+							console.log("IF 4" + task.name);
+							
+							if(((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
+									(fases[0].lastElementChild.lastElementChild.childNodes.length - 3)) 
+									< listPhases[0].maxTasks){
+									doing.appendChild(divsTareas[0]);
+									task.cycleTime = 0;
+									task.state = "Doing";
+									console.log("State " +task.state);
+									task.phase = 1;
+							}
 						}
 					}	
 					console.log(task.state + " _ " +  task.name + " _ " + elementName + " _ " +
@@ -222,9 +260,29 @@
 			}
 			cycleTime += 1;
 			console.log("%cCICLO DE BIDA!"+cycleTime, "font-size: 20px; color:green");
-		}, 1000);		
+			console.log("%cLEAD!"+leadTime, "font-size: 20px; color:green");
+		}, 1000);	
+		
 	}	
 	
+	
+	function mostrarResultados() {
+		var text = "";
+		listTareas.forEach(function(task) {
+			var div  = document.getElementsByClassName("mostrarResultadosDiv")[0];
+			var p 	  = document.createElement("P");
+			var br = document.createElement("BR");
+			text  = document.createTextNode(task.name +  " Cycletime: " + (task.cycleTime-2));
+			p.appendChild(text);
+			div.appendChild(p);
+			div.appendChild(br);
+			var p2 	  = document.createElement("P");
+			text  = document.createTextNode(task.name +  " Leadime: " + task.leadTime);
+			p2.appendChild(text);
+			div.appendChild(p2);
+			div.appendChild(br);
+		});
+	}
 	</script>
 
 	
