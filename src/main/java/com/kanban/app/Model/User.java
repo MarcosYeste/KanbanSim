@@ -7,9 +7,9 @@ public class User {
 
 	private String name;
 	private String rawPhases;
-	private int timeStoped;
 	private ArrayList<String> phases = new ArrayList<String>();
 	private boolean assigned = false;
+	private int timeStopped;
 	
 	public User(String name, String specs) {
 		this.name = name;
@@ -27,28 +27,31 @@ public class User {
 		
 	}
 
-	public int getTimeStoped() {
-		return timeStoped;
+
+	public int getTimeStopped() {
+		return timeStopped;
 	}
 
-	public void setTimeStoped(int timeStoped) {
-		this.timeStoped = timeStoped;
+	public void setTimeStopped(int timeStoped) {
+		this.timeStopped = timeStoped;
+
 	}
 	
 	public String getRawPhases() {
 		return rawPhases;
 	}
 
+
 	public void setRawPhases(String rawPhase) {
 		this.rawPhases = rawPhase;
 		String[] filteredPhases = rawPhase.split(",");
 		for(String phase : filteredPhases) {
 			addPhases(phase.trim());
-			System.out.println("Phases : " + phase.trim() + " added.");
+			System.out.println("Phase : " + phase.trim() + " added.");
 		}
-		System.out.println("Total Specs: " );
-		for(String spec : this.phases) {
-			System.out.println(spec);
+		System.out.println("Total Phases: " );
+		for(String phase : this.phases) {
+			System.out.println(phase);
 		}
 	}
 
@@ -70,7 +73,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [name=" + name + ", rawSpecs=" + rawPhases + ", timeStoped=" + timeStoped + ", specializations="
+		return "User [name=" + name + ", rawPhases=" + rawPhases + ", timeStopped=" + timeStopped + ", phases="
 				+ phases + ", assigned=" + assigned + "]";
 	}
 	
