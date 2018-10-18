@@ -125,6 +125,7 @@
 	<script>
 	var firstLoop = true;
 	var myInterval;
+	var cycleTime = 0;
 	
 	document.getElementById("playpause").addEventListener("click", function(){
 		clearInterval(myInterval);
@@ -153,11 +154,13 @@
 					for(var j = 0; j < listTareas.length; j++){
 						listTareas[j].state = "Doing";
 						listTareas[j].phase = 1;
+						
 					}
 					firstLoop = false;
 					
 					for(var j = 0; j < divsTareas.length; j++){						
 						doing.appendChild(divsTareas[0]);
+						listTareas[j].cycleTime = 0;
 					}
 				}
 				
@@ -200,12 +203,16 @@
 									task.state = "Doing";
 									task.phase++;
 									task.tss = 0;
+									task.cycleTime = cycleTime;
 								}							
 							}
 							
 						}
-					}					
+					}	
+					console.log(task.state + " _ " +  task.name + " _ " + elementName + " _ " +
+							task.tss + " _ " + taskDuration + " _ " + task.phase + " _ " + task.cycleTime+"<= cycle");
 				});
+				
 			}
 			listTareas.forEach(function(task) {
 				task.sameIteration = false;
@@ -213,8 +220,9 @@
 			if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
 				clearInterval(myInterval);
 			}
+			cycleTime += 1;
+			console.log("%cCICLO DE BIDA!"+cycleTime, "font-size: 20px; color:green");
 		}, 1000);		
-
 	}	
 	
 	</script>
