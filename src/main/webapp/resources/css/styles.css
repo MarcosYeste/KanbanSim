@@ -57,24 +57,18 @@ h1 {
 
 /* Spin animation reset Button */
 div#divReset:hover {
-	-webkit-animation-name: spin; 	 /* Safari */
-    -webkit-animation-duration: 4s;  /* Safari */
-	-moz-animation-name: spin;		 /* Mozilla */
-    -moz-animation-duration: 4s;	 /* Mozilla */
-    -ms-animation-name: spin;		 /* Explorer */
-    -ms-animation-duration: 4s;		 /* Explorer */
-    animation-name: spin;
-	animation-duration: 4000ms;
-	animation-iteration-count: 1;
-	animation-timing-function: linear; 
+	-webkit-animation-name: spin 2000ms 1 linear; /* Safari */
+	-moz-animation-name: spin 2000ms 1 linear; /* Mozilla */
+	-ms-animation-name: spin 2000ms 1 linear; /* Explorer */
+	animation-name: spin 2000ms 1 linear;
+}
+
+@
+keyframes spin {from { transform:rotate(0deg);
 	
 }
 
-@keyframes spin {
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
+to {
+	transform: rotate(360deg);
+}
 }
