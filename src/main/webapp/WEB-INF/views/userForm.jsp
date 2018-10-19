@@ -34,27 +34,17 @@
 							required="required" placeholder="Introduce Miembro del Equipo" />
 
 					</div>
-
-					<form:label cssClass="col-sm-3" path="rawPhases">Fases:</form:label>
-
+					<form:label cssClass="col-sm-3 " path="rawPhases">Fases:</form:label>
 					<div class="col-sm-12">
-
-						<form:input cssClass="form-control" id="phaseCompiler"
-							type="hidden" value="" path="rawPhases" />
-
+						<form:input cssClass="form-control" id="phaseCompiler" type="hidden" 
+									value="" path="rawPhases"/>
 					</div>
 
 					<div>
-
 						<thead>
-
 							<c:forEach items="${allPhases}" var="phase">
-
-								<input type="checkbox" class="userPhaseCheck" name="phases"
-									value="${phase}" path="phases">
-
-								<c:out value="${phase}"></c:out>
-
+							<input type="checkbox" class="userPhaseCheck" name="specs" value="${phase}" path="phases">
+							<c:out value="${phase}"></c:out> 
 							</c:forEach>
 
 						</thead>
@@ -64,7 +54,6 @@
 					<br>
 
 					<div class="col-sm-12">
-
 						<button type="submit" class="btn btn-primary">SAVE</button>
 
 					</div>

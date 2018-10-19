@@ -55,6 +55,12 @@
 	margin-left: 10%;
 }
 
+/* Margin p of State */
+p.estado{
+	margin-top: -15px;
+	margin-bottom: -1px;
+}
+
 .subfase{
 	color: black;
 	text-shadow: 0.1px  1px 0.5px;
@@ -151,5 +157,8 @@
 }
 .mostrarResultadosDiv{
 	justify-content: space-around;
+	display: flex;
+	
+	flex-direction: row;
 }
 
