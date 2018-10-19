@@ -2,84 +2,16 @@
 		var myInterval;
 		var cycleTime = 0;
 		var leadTime = 0;
-		var i = 0;
-		
-		// Mod Phases
-		listPhases.forEach(function(phase) {
-			
-			// Abrimos el formulario			
-			document.getElementsByClassName("titulo")[i].addEventListener("click", function(){
-				
-				// Mostramos los datos correspondientes a la fase
-				document.getElementById("modName").value = phase.name;
-				document.getElementById("modWip").value = phase.maxTasks;
-				document.getElementById("modMinTime").value = phase.minTime;
-				document.getElementById("modMaxTime").value = phase.maxTime;
-				var posicion = i;
 	
-			});
-			console.log(i);
-			
-			if(document.getElementsByClassName("titulo")[i].innerHTML.trim() == phase.name){
-				// Modificar los datos
-				document.getElementById("ModPhase").addEventListener("click", function(){
-					phase.name = document.getElementById("modName").value;
-					phase.maxTasks = document.getElementById("modWip").value;
-					phase.minTime = document.getElementById("modMinTime").value;
-					phase.maxTime = document.getElementById("modMaxTime").value;
-					
-					console.log(document.getElementsByClassName("titulo")[0].innerHTML.trim());
-					
-				});
-				i++;
-			}
-		});
-		
-		// Play Button
 		document.getElementById("playpause").addEventListener("change", function() {
-			
-			// Si esta en play
-			if (this.checked) {
-				
-				// Deshabilitamos los botones del header
-				for (var i = 0; i < document.getElementById("header-btn").children.length; i++){
-					
-					document.getElementById("header-btn").children[i].setAttribute("class", "btn btn-success disabled");
-					document.getElementById("header-btn").children[i].setAttribute("aria-disabled", "true");
-					
-				}
-				// Y quitamos el acceso a el formulario de modificación
-				for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
-						
-					document.getElementsByClassName("titulo")[i].removeAttribute("data-target", "#myModal");
-					document.getElementsByClassName("titulo")[i].removeAttribute("data-toggle", "modal");
-					
-				}
-
-				play();
-				
-			} else {
-				
-				clearInterval(myInterval);
 	
-				// Volvemos a habilitar el header
-				for (var j = 0; j < document.getElementById("header-btn").children.length; j++){
-					
-					document.getElementById("header-btn").children[j].classList.remove("disabled");
-					document.getElementById("header-btn").children[j].removeAttribute("aria-disabled");
-					
-				}
-				
-				// Permitimos de nuevo abrir el modal de modificación
-				for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
-				
-					document.getElementsByClassName("titulo")[i].setAttribute("data-target", "#myModal");
-					document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
-					
-				}
+			if (this.checked) {
+				play();
+			} else {
+	
+				clearInterval(myInterval);
 			}
 		});
-		
 		// Botón reset			
 		document.getElementById("reset").addEventListener("click", function() {
 			location.reload();
@@ -310,27 +242,47 @@ function mostrarResultados() {
 			var text = "";
 			var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 			div.innerHTML = "";
+
+			var h3 = document.createElement("h3");
+			var div2 = document.createElement("div");
+			var div3 = document.createElement("div");
+			div3.className = "tareaResultadoDiv";
+			h3.innerHTML = "<strong>Tabla de Resultados</strong>";
+			div2.appendChild(h3);
+			div.appendChild(div2);
+			
 			listTareas.forEach(function(task) {			
 				
 				var p = document.createElement("P");
 				var br = document.createElement("BR");
-				text = document.createTextNode(task.name + " Cycletime: " + (task.cycleTime ));
+				var subDiv = document.createElement("div");
+				subDiv.className = "tareaResultado";
+				text = document.createTextNode( task.name );
 				p.appendChild(text);
-				div.appendChild(p);
-				div.appendChild(br);
+				subDiv.appendChild(p);
+				var p1 = document.createElement("P");
+				text = document.createTextNode(" Cycletime: " + (task.cycleTime ));
+				p1.appendChild(text);
+				subDiv.appendChild(p1);
+//				div.appendChild(br);
 				var p2 = document.createElement("P");
-				text = document.createTextNode(task.name + " Leadime: " + task.leadTime);
+				text = document.createTextNode(" Leadime: " + task.leadTime);
 				p2.appendChild(text);
-				div.appendChild(p2);
-				div.appendChild(br);
+				subDiv.appendChild(p2);
+//				div.appendChild(br);				
+				div3.appendChild(subDiv);
 			});
+			div.appendChild(div3);
 		}
-///////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////
-
-
-function generarResultados (){
-	document.getElementsByClassName("contenedor")[0].style.display = "none";
-	
+function generarResultados(){
+	var buttonResult = document.getElementById("result");
+	document.getElementsByClassName("contenedor")[0].style.visibility = "hidden";
 	mostrarResultados();
+	buttonResult.value = "Mostrar Kanban";
+	buttonResult.setAttribute("onClick", "mostrarKanban()");
+}
+function mostrarKanban(){
+	document.getElementsByClassName("contenedor")[0].style.visibility = "visible";
+	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
+	document.getElementById("result").setAttribute("onClick", "generarResultados()");;
 }

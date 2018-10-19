@@ -157,8 +157,36 @@ p.estado{
 }
 .mostrarResultadosDiv{
 	justify-content: space-around;
+	display: flex;	
+	text-align: center;
+	flex-direction: column;
+	background-color:#63bafa;
+	color: white;
+	text-shadow: 0.1px  1px 10px blue;
+	font-size : 120%;
+	border: 1px solid blue;
+	display: table;
 	display: flex;
-	
+	width: 80%;
+	height: auto;
+	margin-left: 10%;
+	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+}
+.tareaResultado{
+	border: 2px solid blue;
+	padding:10px;
+	color : black;
+	margin-top: 1%;
+	margin-bottom :1%;
+	background-color: white;
+	text-align: center;
+	text-shadow: 0.1px  0.1px 0.2px black;
+}
+.tareaResultadoDiv{
+	justify-content: space-around;
+	display: flex;	
 	flex-direction: row;
+	
 }
 
