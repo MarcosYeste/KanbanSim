@@ -257,3 +257,12 @@ function mostrarResultados() {
 				div.appendChild(br);
 			});
 		}
+///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+
+function generarResultados (){
+	document.getElementsByClassName("contenedor")[0].style.display = "none";
+	
+	mostrarResultados();
+}

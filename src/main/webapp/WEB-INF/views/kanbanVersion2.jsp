@@ -17,7 +17,7 @@
 	<h1 class="texto">KANBAN SIM</h1>
 
 	<div class="botonesContainer">
-		<button id="play" onclick="mostrarResultados()" class="resultbutt">Mostrar
+		<button id="play" onclick="generarResultados()" class="resultbutt">Mostrar
 			Resultados</button>
 		<!--  Button Play/Pause -->
 		<div class="playpause">
