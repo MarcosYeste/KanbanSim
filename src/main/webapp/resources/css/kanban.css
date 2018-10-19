@@ -55,6 +55,12 @@
 	margin-left: 10%;
 }
 
+/* Margin p of State */
+p.estado{
+	margin-top: -15px;
+	margin-bottom: -1px;
+}
+
 .subfase{
 	color: black;
 	text-shadow: 0.1px  1px 0.5px;
@@ -78,7 +84,7 @@
 	width: 100%;
 	display: flex;
 }
-.titulo{
+.titulo, .tituloInit, .tituloEnd{
 	text-shadow: 0.1px  1px 0.5px;
 	font-size:120%;
 	background-color :white;
@@ -87,8 +93,7 @@
 	padding-bottom: 10px;
 	/* border : 1px solid darkblue; */
 }
-
-.titulo.barra {
+.titulo.barra, .tituloInit.barra, .tituloEnd.barra{
 	background-color: transparent;
 }
 

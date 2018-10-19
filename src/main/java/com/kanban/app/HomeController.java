@@ -92,7 +92,9 @@ public class HomeController {
 		model.addAttribute("task", kanbanService.saveTask(task, taskArray));
 		model.addAttribute("phases", phasesArray);
 		model.addAttribute("user", userArray);
-
+		
+		task.setState("ToDo");
+		
 		return "success";
 
 	}

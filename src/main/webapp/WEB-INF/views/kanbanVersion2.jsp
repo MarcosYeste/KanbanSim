@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <jsp:include page="header.jsp"></jsp:include>
@@ -34,8 +33,8 @@
 
 		<div class="principio">
 
-			<div class="titulo">Etapa de inicio</div>
-			<div class="titulo barra"></div>
+			<div class="tituloInit">Etapa de inicio</div>
+			<div class="tituloInit barra"></div>
 			<div class="contenedorTareas">
 
 				<script>
@@ -51,6 +50,11 @@
 						<p>
 							<c:out value="${task.name}"></c:out>
 						</p>
+
+						<p class="estado">
+							<small><c:out value="${task.state}"></c:out></small>
+						</p>
+
 
 						<p id="duration" class="duration">
 							<c:out value="${task.duration}"></c:out>
@@ -126,8 +130,8 @@
 
 		<div class="fin">
 
-			<div class="titulo">Etapa final</div>
-			<div class="titulo barra"></div>
+			<div class="tituloEnd">Etapa final</div>
+			<div class="tituloEnd barra"></div>
 			<div class="contenedorFinal"></div>
 
 		</div>
@@ -157,6 +161,34 @@
 
 	</c:forEach>
 	<div class="mostrarResultadosDiv"></div>
+
+	<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+        	<h4 class="modal-title"> Modificar Fase</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+        
+          Nombre Fase: 	 <input type="text" id="modName">
+          Máximo Tareas: <input type="text" id="modWip">
+          Tiempo Mínimo: <input type="text" id="modMinTime">
+          Tiempo Máximo: <input type="text" id="modMaxTime">
+          <br>
+          <button id="ModPhase" class="btn btn-secondary" data-dismiss="modal">Modificar</button>
+	          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>

@@ -2,16 +2,84 @@
 		var myInterval;
 		var cycleTime = 0;
 		var leadTime = 0;
+		var i = 0;
+		
+		// Mod Phases
+		listPhases.forEach(function(phase) {
+			
+			// Abrimos el formulario			
+			document.getElementsByClassName("titulo")[i].addEventListener("click", function(){
+				
+				// Mostramos los datos correspondientes a la fase
+				document.getElementById("modName").value = phase.name;
+				document.getElementById("modWip").value = phase.maxTasks;
+				document.getElementById("modMinTime").value = phase.minTime;
+				document.getElementById("modMaxTime").value = phase.maxTime;
+				var posicion = i;
 	
-		document.getElementById("playpause").addEventListener("change", function() {
-	
-			if (this.checked) {
-				play();
-			} else {
-	
-				clearInterval(myInterval);
+			});
+			console.log(i);
+			
+			if(document.getElementsByClassName("titulo")[i].innerHTML.trim() == phase.name){
+				// Modificar los datos
+				document.getElementById("ModPhase").addEventListener("click", function(){
+					phase.name = document.getElementById("modName").value;
+					phase.maxTasks = document.getElementById("modWip").value;
+					phase.minTime = document.getElementById("modMinTime").value;
+					phase.maxTime = document.getElementById("modMaxTime").value;
+					
+					console.log(document.getElementsByClassName("titulo")[0].innerHTML.trim());
+					
+				});
+				i++;
 			}
 		});
+		
+		// Play Button
+		document.getElementById("playpause").addEventListener("change", function() {
+			
+			// Si esta en play
+			if (this.checked) {
+				
+				// Deshabilitamos los botones del header
+				for (var i = 0; i < document.getElementById("header-btn").children.length; i++){
+					
+					document.getElementById("header-btn").children[i].setAttribute("class", "btn btn-success disabled");
+					document.getElementById("header-btn").children[i].setAttribute("aria-disabled", "true");
+					
+				}
+				// Y quitamos el acceso a el formulario de modificación
+				for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
+						
+					document.getElementsByClassName("titulo")[i].removeAttribute("data-target", "#myModal");
+					document.getElementsByClassName("titulo")[i].removeAttribute("data-toggle", "modal");
+					
+				}
+
+				play();
+				
+			} else {
+				
+				clearInterval(myInterval);
+	
+				// Volvemos a habilitar el header
+				for (var j = 0; j < document.getElementById("header-btn").children.length; j++){
+					
+					document.getElementById("header-btn").children[j].classList.remove("disabled");
+					document.getElementById("header-btn").children[j].removeAttribute("aria-disabled");
+					
+				}
+				
+				// Permitimos de nuevo abrir el modal de modificación
+				for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
+				
+					document.getElementsByClassName("titulo")[i].setAttribute("data-target", "#myModal");
+					document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
+					
+				}
+			}
+		});
+		
 		// Botón reset			
 		document.getElementById("reset").addEventListener("click", function() {
 			location.reload();

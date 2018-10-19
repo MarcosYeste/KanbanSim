@@ -56,26 +56,35 @@ h1 {
 	margin-left: 15px;
 }
 
+#reset {
+	cursor:pointer;
+}
+
 /* Spin animation reset Button */
 div#divReset:hover {
-	-webkit-animation-name: spin; 	 /* Safari */
-    -webkit-animation-duration: 4s;  /* Safari */
-	-moz-animation-name: spin;		 /* Mozilla */
-    -moz-animation-duration: 4s;	 /* Mozilla */
-    -ms-animation-name: spin;		 /* Explorer */
-    -ms-animation-duration: 4s;		 /* Explorer */
-    animation-name: spin;
-	animation-duration: 4000ms;
-	animation-iteration-count: 1;
-	animation-timing-function: linear; 
 	
+	-webkit-animation-name: spin; /* Safari */
+	-webkit-animation-duration: 1000ms; /* Safari */
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-timing-function: linear;
+	
+	-moz-animation-name: spin; /* Mozilla */
+	-moz-animation-duration: 1000ms; /* Mozilla */
+	-moz-animation-iteration-count: 1;
+	-moz-animation-timing-function: linear;
+	
+	-ms-animation-name: spin; /* Explorer */
+	-ms-animation-duration: 1000ms; /* Explorer */
+	-ms-animation-iteration-count: 1;
+	-ms-animation-timing-function: linear;
+	
+	animation-name: spin;
+	animation-duration: 500ms;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
 }
 
 @keyframes spin {
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
+	from { transform:rotate(0deg);}
+	to {transform: rotate(360deg);}
 }
