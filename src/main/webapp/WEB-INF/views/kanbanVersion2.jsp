@@ -182,9 +182,9 @@
 	
 			myInterval = setInterval(function() {
 				//
-	
-	
-				leadTime += 1;
+				
+				
+				
 				console.log("Iteration Star"); //p
 				for (var i = 0; i < fases.length; i++) {
 					console.log("abf");
@@ -201,32 +201,39 @@
 								
 							} */
 						firstLoop = false;
-	
 						for (var j = 0; j < divsTareas.length; j++) {
 	
 							if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 								< listPhases[0].maxTasks) {
-	
+								
 								doing.appendChild(divsTareas[0]);
 								listTareas[j].cycleTime = 0;
 								listTareas[j].state = "Doing";
 								listTareas[j].phase = 1;
+								
 							}
 	
 	
 						}
 					}
-	
+					
 					listTareas.forEach(function(task) {
+						
+					
 						// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 						if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
 							task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
-						
+							console.log("%c:::::: cycletime :::"+task.name+":::"," font-size: 15px; color:orange");
+							console.log("%c:::::: "+cycleTime+" ::::::"," font-size: 15px; color:orange");
+							cycleTime = parseInt(task.duration);
+							task.cycleTime += cycleTime;	
+							console.log("%c:::::: cycletime GUARDADO :"+task.name+"::::"," font-size: 15px; color:orange");
+							console.log("%c:::::: "+task.cycleTime+" ::::::"," font-size:15px; color:orange");
 							console.log(task.name + "duration " + task.duration);
-	
+	3123
 						}
-	
+
 						for (var k = 0; k < divsTareas.length; k++) {
 							var taskDuration = parseInt(task.duration);
 
@@ -236,13 +243,8 @@
 							if(task.name == elementName){
 								console.log("enter");
 								divsTareas[k].lastElementChild.innerHTML = taskDuration;
-							}
-							
-							
-							console.log("-----------");
-							/* console.log(task.state + " == Doing, " +  task.name + " == " + elementName + ", " +
-									task.tss + " == " + taskDuration + 
-									", " + task.phase + " == " + (i+1));*/
+							}														
+							console.log("-----------");						
 	
 							if (task.state == "Doing" && task.name == elementName && task.tss == taskDuration &&
 								task.phase == (i + 1)) {
@@ -271,57 +273,74 @@
 										task.state = "Doing";
 										task.phase++;
 										task.tss = 0;
-										task.cycleTime = cycleTime;
-										task.leadTime = leadTime;
 									}
 								}
-	
-							} else if (task.state == null && task.name == elementName && task.phase == 0) {
+
+							}else if (task.state == null && task.name == elementName && task.phase == 0) {
 								console.log("IF 4" + task.name);
 	
 								if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 									(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 									< listPhases[0].maxTasks) {
 									doing.appendChild(divsTareas[0]);
-									task.cycleTime = 0;
 									task.state = "Doing";
 									console.log("State " + task.state);
 									task.phase = 1;
 									if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
 										task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
-									
+										task.leadTime = leadTime;
 										console.log(task.name + "duration " + task.duration);
 				
 									}
 								}
 							}
 						}
+						
 						console.log(task.state + " _ " + task.name + " _ " + elementName + " _ " +
 							task.tss + " _ " + taskDuration + " _ " + task.phase + " _ " + task.cycleTime + "<= cycle");
 					});
-	
 				}
 				listTareas.forEach(function(task) {
 					task.sameIteration = false;
+					
 				});
+				
 				if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
+					
+					
+					
+					listTareas.forEach(function(task) {
+							if(task.leadTime == 0){
+														
+								task.leadTime = task.cycleTime;
+							}else{
+								task.leadTime +=  task.cycleTime;
+							}
+					
+						
+						});
 					clearInterval(myInterval);
 				}
-				cycleTime += 1;
+				
 				console.log("%cCICLO DE BIDA!" + cycleTime, "font-size: 20px; color:green");
 				console.log("%cLEAD!" + leadTime, "font-size: 20px; color:green");
+				leadTime += 1;
 			}, 1000);
+			
+		
+			
 	
 		}
-	
-	
+
 		function mostrarResultados() {
 			var text = "";
-			listTareas.forEach(function(task) {
-				var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
+			var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
+			div.innerHTML = "";
+			listTareas.forEach(function(task) {			
+				
 				var p = document.createElement("P");
 				var br = document.createElement("BR");
-				text = document.createTextNode(task.name + " Cycletime: " + (task.cycleTime - 2));
+				text = document.createTextNode(task.name + " Cycletime: " + (task.cycleTime ));
 				p.appendChild(text);
 				div.appendChild(p);
 				div.appendChild(br);
