@@ -60,7 +60,7 @@ public class HomeController {
 	public String newFase(Model model) {
 
 		model.addAttribute("fase",new Phase());
-
+		
 		return "phaseForm";
 	}
 

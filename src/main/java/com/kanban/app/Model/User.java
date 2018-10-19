@@ -37,26 +37,15 @@ public class User {
 
 	}
 	
-	public boolean isSpecialized(String spec) {
-		
-		for(String specialization: phases) {
-			if(specialization.equals(spec)) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-
-
 	public String getRawPhases() {
 		return rawPhases;
 	}
 
-	public void setRawPhases(String rawPhases) {
-		this.rawPhases = rawPhases;
-		String[] filteredPhase = rawPhases.split(",");
-		for(String phase : filteredPhase) {
+
+	public void setRawPhases(String rawPhase) {
+		this.rawPhases = rawPhase;
+		String[] filteredPhases = rawPhase.split(",");
+		for(String phase : filteredPhases) {
 			addPhases(phase.trim());
 			System.out.println("Phase : " + phase.trim() + " added.");
 		}
