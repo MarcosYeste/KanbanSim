@@ -68,6 +68,7 @@
 						tareas.tss = 0;
 						tareas.state;
 						tareas.phase = 0;
+						tareas.assignedUsers = new Array();
 						tareas.sameIteration = false;
 						tareas.cycleTime = 0;
 						tareas.leadTime = 0;
@@ -156,12 +157,10 @@
 			var userO = new Object();
 			userO.name = "<c:out value="${name}"></c:out>";
 			userO.timeStoped = 0;
-			console.log("q");
-			userO.phases = <c:out value="${userphases}"></c:out>;
-			console.log("d");
+			rawPhases = "<c:out value="${userphases}"></c:out>";
+			userO.phases = rawPhases.replace('[', '').replace(']', '').split(',');
 			userO.assigned = false;
 			listUsers.push(userO);
-			console.log(userO);//*
 
 		</script>
 
@@ -188,6 +187,7 @@
 		});
 	
 		function play() {
+			
 			var divsTareas = document.getElementsByClassName("tareas");
 			var duration = document.getElementsByClassName("duration");
 			var subfases = document.getElementsByClassName("subfase");
@@ -195,52 +195,62 @@
 			var y = 0;
 	
 	
-			console.log("Length " + subfases.length);
-	
 			myInterval = setInterval(function() {
-				//
-	
+// 				listUsers.forEach(function(user) {
+// 					console.log(" user " + user.name + "  " + user.assigned + "  " + user.phases);
+// 				});
 	
 				leadTime += 1;
 				console.log("Iteration Star"); //p
 				for (var i = 0; i < fases.length; i++) {
-					console.log("abf");
+					var firstPhaseName = fases[0].firstElementChild.innerHTML;
 					var doing = fases[i].lastElementChild.firstElementChild;
 					var done = fases[i].lastElementChild.lastElementChild;
+					
 					if (firstLoop) {
 						console.log("Fisrt Loop");
 						/* 	for(var j = 0; j < listTareas.length; j++){
 								listTareas[j].state = "Doing";
 							
-									listTareas[j].phase = 1;
-							
-								
+									listTareas[j].phase = 1;	
 								
 							} */
-						firstLoop = false;
-	
+						
 						for (var j = 0; j < divsTareas.length; j++) {
-	
 							if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 								< listPhases[0].maxTasks) {
-	
-								doing.appendChild(divsTareas[0]);
-								listTareas[j].cycleTime = 0;
-								listTareas[j].state = "Doing";
-								listTareas[j].phase = 1;
-							}
-	
-	
-						}
-					}
+								
+								listUsers.forEach(function(user) {
+									if(!user.assigned && listTareas[j].assignedUsers[0] == null){
+										
+										for(var w = 0; w<user.phases.length; w++){
+											if(user.phases[w] == firstPhaseName.trim()){
+												doing.appendChild(divsTareas[0]);
+												listTareas[j].cycleTime = 0;
+												listTareas[j].state = "Doing";
+												listTareas[j].phase = 1;
+												listTareas[j].assignedUsers[0] = (user.name);
+												user.assigned = true;
+											}
+										}
+									} else {
+										//console.log("no coinside " + listTareas[j].name);
+									}
+								}); //foreach 								
+							} //if end
+						} //for end
+
+						firstLoop = false;
+					} //if firstloop end
 	
 					listTareas.forEach(function(task) {
 						// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 						if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
+
 							task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
 						
-							console.log(task.name + "duration " + task.duration);
+							console.log(task.name + " duration " + task.duration);
 	
 						}
 	
@@ -248,26 +258,32 @@
 							var taskDuration = parseInt(task.duration);
 
 							var elementName = divsTareas[k].firstElementChild.innerHTML;
+							
 							elementName = elementName.trim();
 						 
 							if(task.name == elementName){
-								console.log("enter");
 								divsTareas[k].lastElementChild.innerHTML = taskDuration;
 							}
-							
-							
+												
 							console.log("-----------");
-							/* console.log(task.state + " == Doing, " +  task.name + " == " + elementName + ", " +
-									task.tss + " == " + taskDuration + 
-									", " + task.phase + " == " + (i+1));*/
 	
 							if (task.state == "Doing" && task.name == elementName && task.tss == taskDuration &&
 								task.phase == (i + 1)) {
-								/* console.log("IF 1"); */
 								done.appendChild(divsTareas[k]);
 								task.state = "Done";
 								console.log("%c" + task.name + " is done", "font-size: 20px");
 								task.sameIteration = true;
+								
+								for(var w = 0; w < listUsers.length; w++){
+									if(listUsers[w].name == task.assignedUsers[0]){
+										listUsers[w].assigned = false;
+										task.assignedUsers[0] = null;
+// 										console.log("desa");
+// 										console.log(listUsers[w]);
+// 										console.log(task);
+									}
+								}
+								
 							} else if (task.state == "Doing" && task.name == elementName && task.tss != taskDuration &&
 								task.phase == (i + 1)) {
 								console.log("IF 2");
@@ -276,48 +292,88 @@
 								}
 							} else if (task.state == "Done" && task.name == elementName && task.tss == taskDuration &&
 								task.phase == (i + 1) && !task.sameIteration) {
+								console.log("IF 3 " + task.name);
 								if (fases[i + 1] == null) {
 									//fases[i].lastElementChild.firstElementChild.appendChild(divsTareas[k]); 
 									document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
+									task.state = "Ended";
+
 								} else {
 									if (((fases[i + 1].lastElementChild.firstElementChild.childNodes.length - 3) +
 										(fases[i + 1].lastElementChild.lastElementChild.childNodes.length - 3))
 										< listPhases[i + 1].maxTasks) {
-										console.log("%cPassed " + task.name + " TO " + task.phase, "font-size: 20px; color:green");
-										fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
-										task.state = "Doing";
-										task.phase++;
-										task.tss = 0;
-										task.cycleTime = cycleTime;
-										task.leadTime = leadTime;
+										listUsers.forEach(function(user) {
+											//74
+											if(!user.assigned && task.assignedUsers[0] == null){
+												
+												var actualPhaseName = fases[i+1].firstElementChild.innerHTML;
+												for(var w = 0; w<user.phases.length; w++){
+													if(user.phases[w] == actualPhaseName.trim()){
+														fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
+														task.state = "Doing";
+														task.phase++;
+														task.tss = 0;
+														task.cycleTime = cycleTime;
+														task.leadTime = leadTime;
+														task.assignedUsers[0] = (user.name);
+														user.assigned = true;
+// 														console.log(user);
+// 														console.log(task);
+													}
+												}//4
+											}
+										});
+										
+										
+// 										console.log("%cPassed " + task.name + " TO " + task.phase, "font-size: 20px; color:green");
+// 										fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
+// 										task.state = "Doing";
+// 										task.phase++;
+// 										task.tss = 0;
+// 										task.cycleTime = cycleTime;
+// 										task.leadTime = leadTime;
 									}
 								}
 	
 							} else if (task.state == null && task.name == elementName && task.phase == 0) {
-								console.log("IF 4" + task.name);
-	
+						
+								console.log("IF 4 " + task.name);
+								
 								if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
-									(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
-									< listPhases[0].maxTasks) {
-									doing.appendChild(divsTareas[0]);
-									task.cycleTime = 0;
-									task.state = "Doing";
-									console.log("State " + task.state);
-									task.phase = 1;
-									if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
-										task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
+										(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
+										< listPhases[0].maxTasks) {
 									
-										console.log(task.name + "duration " + task.duration);
+									listUsers.forEach(function(user) {
+										if(!user.assigned && task.assignedUsers[0] == null){
+											
+											for(var w = 0; w<user.phases.length; w++){
+												
+												if(user.phases[w] == firstPhaseName.trim()){
+													doing.appendChild(divsTareas[0]);
+													task.cycleTime = 0;
+													task.state = "Doing";
+													task.phase = 1;
+													task.assignedUsers[0] = (user.name);
+													user.assigned = true;
+													
+													if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
+														task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
+													
+														//console.log(task.name + " durasao 2 " + task.duration);
+								
+													}
+												}
+											}
+										} else {
+											//console.log("no coinside " + listTareas[k].name);
+										}
+									}); //foreach 								
+								} //if end
+							} //if 4 end
+						} //divs tareas for end
+					}); //foreach end
+				} //end phases for
 				
-									}
-								}
-							}
-						}
-						console.log(task.state + " _ " + task.name + " _ " + elementName + " _ " +
-							task.tss + " _ " + taskDuration + " _ " + task.phase + " _ " + task.cycleTime + "<= cycle");
-					});
-	
-				}
 				listTareas.forEach(function(task) {
 					task.sameIteration = false;
 				});
@@ -325,7 +381,7 @@
 					clearInterval(myInterval);
 				}
 				cycleTime += 1;
-				console.log("%cCICLO DE BIDA!" + cycleTime, "font-size: 20px; color:green");
+				console.log("%cCICLO DE VIDA!" + cycleTime, "font-size: 20px; color:green");
 				console.log("%cLEAD!" + leadTime, "font-size: 20px; color:green");
 			}, 1000);
 	
@@ -352,9 +408,9 @@
 				clearInterval(myInterval);
 			}
 			cycleTime += 1;
-			console.log("%cCICLO DE BIDA!"+cycleTime, "font-size: 20px; color:green");
-		}, 1000);		
-	}	
+			console.log("%cCICLO DE VIDA!"+cycleTime, "font-size: 20px; color:green");
+		}
+	
 	
 	var phases = $(".faseName");
 
