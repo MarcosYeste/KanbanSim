@@ -205,15 +205,16 @@ p.estado{
 	 background-image: linear-gradient(0deg, #e8eeff, white);
 	padding: 13px;
 	display: flex;
+	height:auto;
 	flex-direction: row;
 	justify-content: space-around;
 	
 }
 .userName{
 	text-align:center;
-	font-size:110%;
 	border: 3px solid blue;
-	width : 6%;
+	width : 6.5%;
+	height: auto;
 	border-radius : 64px;
 	padding: 20px;
 	box-shadow: 0 8px 19px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);

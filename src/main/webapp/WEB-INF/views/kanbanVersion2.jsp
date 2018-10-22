@@ -144,6 +144,7 @@
 		<p>
 			<strong><c:out value="${user.name}"></c:out></strong>
 		</p>
+		<i class="fa fa-user fa-2x"" aria-hidden="true"></i>
 	
 		<c:set value="${user.name}" var="name" />
 		<c:set value="${user.phases}" var="userphases"/>
