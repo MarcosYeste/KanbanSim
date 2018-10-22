@@ -2,6 +2,9 @@
 		var myInterval;
 		var cycleTime = 0;
 		var leadTime = 0;
+		var totalFases = 0;
+		var mediaMaxFaseTime = 0;
+		var mediaMinFaseTime = 0;
 	
 		document.getElementById("playpause").addEventListener("change", function() {
 	
@@ -82,6 +85,8 @@ function play() {
 							task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
 
 							cycleTime = parseInt(task.duration);
+							totalFases += cycleTime;
+							listPhases[i].period += cycleTime;
 							task.cycleTime += cycleTime;	
 
 						}
@@ -244,13 +249,35 @@ function mostrarResultados() {
 			div.innerHTML = "";
 
 			var h3 = document.createElement("h3");
-			var div2 = document.createElement("div");
+			var div2 = document.createElement("div");			
 			var div3 = document.createElement("div");
+			var div4 =  document.createElement("div");
+			var subdiv4 = document.createElement("div");
 			div3.className = "tareaResultadoDiv";
 			h3.innerHTML = "<strong>Tabla de Resultados</strong>";
 			div2.appendChild(h3);
 			div.appendChild(div2);
 			
+//			listPhases.forEach(function(phase) {
+				div4.className = "faseResultadoDiv";
+				subdiv4.className = "faseResultado";
+				subdiv4.innerHTML = "<h4> Resultados Fases</h4>";
+				subdiv4.innerHTML += "<p> Tiempo total de las fases: "+totalFases+" s</p>";
+				var z = 0;
+				listPhases.forEach(function(phase) {
+					mediaMaxFaseTime += phase.maxTime;
+					mediaMinFaseTime += phase.minTime;
+					subdiv4.innerHTML += "<p> "+phase.name+" : "+phase.period+" s</p>";
+					z += 1;
+				});
+//				mediaMaxFaseTime = Math.floor(mediaMaxFaseTime/z);
+//				mediaMinFaseTime = Math.floor(mediaMinFaseTime/z);
+				subdiv4.innerHTML += "<p>Calculo maximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
+				subdiv4.innerHTML += "<p>Calculo minimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
+				mediaMaxFaseTime = 0;
+				mediaMinFaseTime = 0 ;
+				div4.appendChild(subdiv4);
+//			}
 			listTareas.forEach(function(task) {			
 				
 				var p = document.createElement("P");
@@ -272,7 +299,9 @@ function mostrarResultados() {
 //				div.appendChild(br);				
 				div3.appendChild(subDiv);
 			});
+			
 			div.appendChild(div3);
+			div.appendChild(div4);
 		}
 function generarResultados(){
 	var buttonResult = document.getElementById("result");

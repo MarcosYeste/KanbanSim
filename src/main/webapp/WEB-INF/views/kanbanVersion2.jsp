@@ -122,6 +122,7 @@
 					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
 					phase.maxTime = <c:out value="${maxTime}"></c:out>;
 					phase.minTime = <c:out value="${minTime}"></c:out>;
+					phase.period = 0;
 					listPhases.push(phase);
 				</script>
 
@@ -144,7 +145,7 @@
 		<p>
 			<strong><c:out value="${user.name}"></c:out></strong>
 		</p>
-		<i class="fa fa-user fa-2x"" aria-hidden="true"></i>
+		<i class="fa fa-user-tie fa-2x"" aria-hidden="true"></i>
 	
 		<c:set value="${user.name}" var="name" />
 		<c:set value="${user.phases}" var="userphases"/>
