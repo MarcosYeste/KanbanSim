@@ -16,7 +16,7 @@
 	<h1 class="texto">KANBAN SIM</h1>
 
 	<div class="botonesContainer">
-		<button id="play" onclick="mostrarResultados()" class="resultbutt">Mostrar
+		<button id="result" class="resultbutt" role="button">Mostrar
 			Resultados</button>
 		<!--  Button Play/Pause -->
 		<div class="playpause">
@@ -56,7 +56,7 @@
 						</p>
 
 
-						<p id="duration" class="duration">
+						<p class="duration">
 							<c:out value="${task.duration}"></c:out>
 						</p>
 
@@ -90,7 +90,7 @@
 			<c:forEach items="${phases}" var="fase">
 
 				<div class="faseName">
-					<div class="titulo">
+					<div class="titulo" data-toggle="modal" data-target="#myModal">
 
 						<c:out value="${fase.name}"></c:out>
 
