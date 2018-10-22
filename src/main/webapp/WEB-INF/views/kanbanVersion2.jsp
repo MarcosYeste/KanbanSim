@@ -122,6 +122,7 @@
 					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
 					phase.maxTime = <c:out value="${maxTime}"></c:out>;
 					phase.minTime = <c:out value="${minTime}"></c:out>;
+					phase.period = 0;
 					listPhases.push(phase);
 				</script>
 
@@ -135,9 +136,7 @@
 			<div class="contenedorFinal"></div>
 
 		</div>
-	</div>
-
-
+	</div>	
 	<div class="usersContainer">
 		<c:forEach items="${user}" var="user">
 			<div class="userName">
