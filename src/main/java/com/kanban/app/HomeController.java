@@ -93,8 +93,6 @@ public class HomeController {
 		model.addAttribute("phases", phasesArray);
 		model.addAttribute("user", userArray);
 		
-		task.setState("ToDo");
-		
 		return "success";
 
 	}

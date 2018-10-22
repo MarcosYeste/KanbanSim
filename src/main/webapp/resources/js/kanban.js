@@ -2,37 +2,44 @@ var firstLoop = true;
 var myInterval;
 var cycleTime = 0;
 var leadTime = 0;
-var c;
-var prevPhase;
-var pos;
+var click;
+
+//Ponemos un identificador a cada uno de los titulos de manera autoincremental
+
+for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
+	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", i);
+
+	// Abrimos el formulario			
+	document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
+}
+
+document.getElementById("ModPhase").addEventListener("click", saveMod, false);
 
 //Mod Phases
-for(c in listPhases){
-	// Abrimos el formulario			
-	document.getElementsByClassName("titulo")[c].addEventListener("click", function(){
+function modPhases(){
+	click = event.target.attributes[3].value;
 
-		// Mostramos los datos correspondientes a la fase
-		document.getElementById("modName").value = listPhases[c].name;
-		document.getElementById("modWip").value = listPhases[c].maxTasks;
-		document.getElementById("modMinTime").value = listPhases[c].minTime;
-		document.getElementById("modMaxTime").value = listPhases[c].maxTime;
+	// Mostramos los datos correspondientes a la fase
+	document.getElementById("modName").value = listPhases[click].name;
+	document.getElementById("modWip").value = listPhases[click].maxTasks;
+	document.getElementById("modMinTime").value = listPhases[click].minTime;
+	document.getElementById("modMaxTime").value = listPhases[click].maxTime;
 
-		prevPhase = listPhases[c].name;
-
-	});
-	console.log(c);
-
-	// Modificamos los datos de la fase
-	document.getElementById("ModPhase").addEventListener("click", function(){
-		listPhases[c].name = document.getElementById("modName").value;
-		listPhases[c].maxTasks = document.getElementById("modWip").value;
-		listPhases[c].minTime = document.getElementById("modMinTime").value;
-		listPhases[c].maxTime = document.getElementById("modMaxTime").value;
-
-		document.getElementsByClassName("titulo")[c].innerHTML = listPhases[c].name;
-
-	})
 }
+
+function saveMod() {
+	// Modificamos los datos de la fase
+
+
+	listPhases[click].name = document.getElementById("modName").value;
+	listPhases[click].maxTasks = document.getElementById("modWip").value;
+	listPhases[click].minTime = document.getElementById("modMinTime").value;
+	listPhases[click].maxTime = document.getElementById("modMaxTime").value;
+
+	console.log("Clicked")
+
+}
+
 
 //Play Button
 document.getElementById("playpause").addEventListener("change", function() {
