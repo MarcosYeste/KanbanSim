@@ -144,20 +144,21 @@
 				<p>
 					<strong><c:out value="${user.name}"></c:out></strong>
 				</p>
+				<i class="fa fa-user-tie fa-2x" aria-hidden="true"></i>
 
 				<c:set value="${user.name}" var="name" />
 				<c:set value="${user.phases}" var="userphases" />
 
 				<script>
-			var userO = new Object();
-			userO.name = "<c:out value="${name}"></c:out>";
-			userO.timeStoped = 0;
-			rawPhases = "<c:out value="${userphases}"></c:out>";
-			userO.phases = rawPhases.replace('[', '').replace(']', '').split(',');
-			userO.assigned = false;
-			listUsers.push(userO);
-
-		</script>
+					var userO = new Object();
+					userO.name = "<c:out value="${name}"></c:out>";
+					userO.timeStoped = 0;
+					rawPhases = "<c:out value="${userphases}"></c:out>";
+					userO.phases = rawPhases.replace('[', '').replace(']', '')
+							.split(',');
+					userO.assigned = false;
+					listUsers.push(userO);
+				</script>
 			</div>
 		</c:forEach>
 	</div>
