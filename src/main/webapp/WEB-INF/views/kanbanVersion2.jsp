@@ -24,7 +24,7 @@
 				for="playpause" tabindex=1></label>
 		</div>
 		<div id="divReset">
-			<i id="reset" class="fas fa-redo fa-5x"></i>
+			<i id="reset" class="fas fa-redo fa-3x"></i>
 		</div>
 	</div>
 
@@ -138,13 +138,13 @@
 	</div>
 
 
-
+<div class="usersContainer">
 	<c:forEach items="${user}" var="user">
-
+	<div class="userName">
 		<p>
 			<strong><c:out value="${user.name}"></c:out></strong>
 		</p>
-
+	
 		<c:set value="${user.name}" var="name" />
 		<c:set value="${user.phases}" var="userphases"/>
 		
@@ -158,9 +158,9 @@
 			listUsers.push(userO);
 
 		</script>
-
+	</div>
 	</c:forEach>
-	
+</div>
 
 	<!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
