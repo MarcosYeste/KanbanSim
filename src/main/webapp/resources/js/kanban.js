@@ -1,3 +1,6 @@
+var totalFases = 0;
+var mediaMaxFaseTime = 0;
+var mediaMinFaseTime = 0;
 var firstLoop = true;
 var myInterval;
 var cycleTime = 0;
@@ -5,9 +8,6 @@ var leadTime = 0;
 var c;
 var prevPhase;
 var pos;
-var totalFases = 0;
-var mediaMaxFaseTime = 0;
-var mediaMinFaseTime = 0;
 
 //Mod Phases
 for(c in listPhases){
@@ -160,7 +160,9 @@ function play() {
 					task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
 
 					cycleTime = parseInt(task.duration);
-					task.cycleTime += cycleTime;	
+					task.cycleTime += cycleTime;
+					totalFases += cycleTime;
+					listPhases[i].period += cycleTime;
 
 				}
 
@@ -252,7 +254,6 @@ function play() {
 						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 								< listPhases[0].maxTasks) {
-
 
 							cycleTime = parseInt(task.duration);
 							totalFases += cycleTime;
@@ -346,6 +347,7 @@ function play() {
 }
 
 function mostrarResultados() {
+
 			var text = "";
 			var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 			div.innerHTML = "";
