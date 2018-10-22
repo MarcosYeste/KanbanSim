@@ -45,8 +45,8 @@ document.getElementById("playpause").addEventListener("change", function() {
 
 			document.getElementById("header-btn").children[i].setAttribute("class", "btn btn-success disabled");
 			document.getElementById("header-btn").children[i].setAttribute("aria-disabled", "true");
-			
-			
+
+
 
 		}
 		// Y quitamos el acceso a el formulario de modificación
@@ -56,25 +56,25 @@ document.getElementById("playpause").addEventListener("change", function() {
 			document.getElementsByClassName("titulo")[i].removeAttribute("data-toggle", "modal");
 
 		}
-		
-		document.getElementById("result").setAttribute("class", "btn disabled resultbutt");
+
+		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
-		
+
 		play();
 
 	} else {
 
 		clearInterval(myInterval);
 
-		document.getElementById("result").classList.remove("disabled");
+		document.getElementById("result").removeAttribute("disabled");
 		document.getElementById("result").removeAttribute("aria-disabled");
-		
+
 		// Volvemos a habilitar el header
 		for (var j = 0; j < document.getElementById("header-btn").children.length; j++){
 
 			document.getElementById("header-btn").children[j].classList.remove("disabled");
 			document.getElementById("header-btn").children[j].removeAttribute("aria-disabled");
-		
+
 		}
 
 		// Permitimos de nuevo abrir el modal de modificación
@@ -91,7 +91,6 @@ document.getElementById("playpause").addEventListener("change", function() {
 document.getElementById("reset").addEventListener("click", function() {
 	location.reload();
 });
-
 
 function play() {
 
@@ -209,9 +208,9 @@ function play() {
 							if (((fases[i + 1].lastElementChild.firstElementChild.childNodes.length - 3) +
 									(fases[i + 1].lastElementChild.lastElementChild.childNodes.length - 3))
 									< listPhases[i + 1].maxTasks) {
-								
+
 								listUsers.forEach(function(user) {
-									
+
 									if(!user.assigned && task.assignedUsers[0] == null){
 
 										var actualPhaseName = fases[i+1].firstElementChild.innerHTML;
@@ -322,6 +321,9 @@ function play() {
 				document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
 
 			}
+			// Volvemos a habilitar los resultados
+			document.getElementById("result").removeAttribute("disabled");
+			document.getElementById("result").removeAttribute("aria-disabled");
 
 		}
 		console.log("%cLEAD!" + leadTime, "font-size: 20px; color:green");
@@ -336,18 +338,47 @@ function mostrarResultados() {
 	var text = "";
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 	div.innerHTML = "";
+
+	var h3 = document.createElement("h3");
+	var div2 = document.createElement("div");
+	var div3 = document.createElement("div");
+	div3.className = "tareaResultadoDiv";
+	h3.innerHTML = "<strong>Tabla de Resultados</strong>";
+	div2.appendChild(h3);
+	div.appendChild(div2);
+
 	listTareas.forEach(function(task) {			
 
 		var p = document.createElement("P");
 		var br = document.createElement("BR");
-		text = document.createTextNode(task.name + " Cycletime: " + (task.cycleTime ));
+		var subDiv = document.createElement("div");
+		subDiv.className = "tareaResultado";
+		text = document.createTextNode( task.name );
 		p.appendChild(text);
-		div.appendChild(p);
-		div.appendChild(br);
+		subDiv.appendChild(p);
+		var p1 = document.createElement("P");
+		text = document.createTextNode(" Cycletime: " + (task.cycleTime ));
+		p1.appendChild(text);
+		subDiv.appendChild(p1);
+//		div.appendChild(br);
 		var p2 = document.createElement("P");
-		text = document.createTextNode(task.name + " Leadime: " + task.leadTime);
+		text = document.createTextNode(" Leadime: " + task.leadTime);
 		p2.appendChild(text);
-		div.appendChild(p2);
-		div.appendChild(br);
+		subDiv.appendChild(p2);
+//		div.appendChild(br);				
+		div3.appendChild(subDiv);
 	});
+	div.appendChild(div3);
+}
+function generarResultados(){
+	var buttonResult = document.getElementById("result");
+	document.getElementsByClassName("contenedor")[0].style.visibility = "hidden";
+	mostrarResultados();
+	buttonResult.value = "Mostrar Kanban";
+	buttonResult.setAttribute("onClick", "mostrarKanban()");
+}
+function mostrarKanban(){
+	document.getElementsByClassName("contenedor")[0].style.visibility = "visible";
+	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
+	document.getElementById("result").setAttribute("onClick", "generarResultados()");;
 }
