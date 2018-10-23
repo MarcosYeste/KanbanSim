@@ -12,19 +12,30 @@
 
 </head>
 <body>
-
-	<h1 class="texto">KANBAN SIM</h1>
-
-	<div class="botonesContainer">
-		<button id="result" onclick="generarResultados()" class="resultbutt">Mostrar
-			Resultados</button>
-		<!--  Button Play/Pause -->
-		<div class="playpause">
-			<input type="checkbox" value="None" id="playpause" name="check" /> <label
-				for="playpause" tabindex=1></label>
+	<div class="botonesContainer1">
+	
+		<div id="divDelete">
+			<i id="deleteAll" class="fas fa-file fa-3x"></i>
 		</div>
 		<div id="divReset">
 			<i id="reset" class="fas fa-redo fa-3x"></i>
+		</div>
+		<button id="result" onclick="generarResultados()" class="resultbutt"><i id="reset" class="fas fa-clipboard-list fa-3x"></i></button>
+		<!--  Button Play/Pause -->
+		
+	</div>
+	<h1 class="texto">KANBAN SIM</h1>
+
+	<div class="botonesContainer">
+		
+		<!--  Button Play/Pause -->
+		
+		<div id="divReset">
+			<i id="reset" class="fas fa-redo fa-3x"></i>
+		</div>
+		<div class="playpause">
+			<input type="checkbox" value="None" id="playpause" name="check" /> <label
+				for="playpause" tabindex=1></label>
 		</div>
 	</div>
 

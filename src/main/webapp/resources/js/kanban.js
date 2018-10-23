@@ -364,6 +364,7 @@ function mostrarResultados() {
 				});
 //				mediaMaxFaseTime = Math.floor(mediaMaxFaseTime/z);
 //				mediaMinFaseTime = Math.floor(mediaMinFaseTime/z);
+				
 				subdiv4.innerHTML += "<p>Calculo maximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
 				subdiv4.innerHTML += "<p>Calculo minimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
 				mediaMaxFaseTime = 0;
