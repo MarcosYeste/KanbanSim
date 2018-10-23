@@ -8,7 +8,6 @@ var leadTime = 0;
 var c;
 var prevPhase;
 var pos;
-
 //Mod Phases
 for(c in listPhases){
 	// Abrimos el formulario			
@@ -115,12 +114,7 @@ function play() {
 
 			if (firstLoop) {
 				console.log("Fisrt Loop");
-				/* 	for(var j = 0; j < listTareas.length; j++){
-								listTareas[j].state = "Doing";
-
-									listTareas[j].phase = 1;	
-
-							} */
+	
 
 				for (var j = 0; j < divsTareas.length; j++) {
 					if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
@@ -156,13 +150,18 @@ function play() {
 
 				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
-
-					task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
-
+									
+					task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);				
 					cycleTime = parseInt(task.duration);
-					task.cycleTime += cycleTime;
+				
+					if(i != 0){ //esto es para que la ultima tarea no se acumule
+						task.cycleTime += cycleTime;				
+					}else{
+						task.cycleTime = cycleTime;
+					}
 					totalFases += cycleTime;
 					listPhases[i].period += cycleTime;
+					task.durarionAsignada = false;
 
 				}
 
@@ -183,16 +182,13 @@ function play() {
 							task.phase == (i + 1)) {
 						done.appendChild(divsTareas[k]);
 						task.state = "Done";
-						console.log("%c" + task.name + " is done", "font-size: 20px");
 						task.sameIteration = true;
 
 						for(var w = 0; w < listUsers.length; w++){
 							if(listUsers[w].name == task.assignedUsers[0]){
 								listUsers[w].assigned = false;
 								task.assignedUsers[0] = null;
-//								console.log("desa");
-//								console.log(listUsers[w]);
-//								console.log(task);
+
 							}
 						}
 
@@ -206,7 +202,7 @@ function play() {
 							task.phase == (i + 1) && !task.sameIteration) {
 						console.log("IF 3 " + task.name);
 						if (fases[i + 1] == null) {
-							//fases[i].lastElementChild.firstElementChild.appendChild(divsTareas[k]); 
+
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 							task.state = "Ended";
 
@@ -216,6 +212,7 @@ function play() {
 									< listPhases[i + 1].maxTasks) {
 
 								listUsers.forEach(function(user) {
+
 
 									if(!user.assigned && task.assignedUsers[0] == null){
 
@@ -229,21 +226,12 @@ function play() {
 												task.assignedUsers[0] = (user.name);
 												user.assigned = true;
 												console.log(task.assignedUsers[0]);
-//												console.log(user);
-//												console.log(task);
+
 											}
 										}//4
 									}
 								});
 
-
-//								console.log("%cPassed " + task.name + " TO " + task.phase, "font-size: 20px; color:green");
-//								fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
-//								task.state = "Doing";
-//								task.phase++;
-//								task.tss = 0;
-//								task.cycleTime = cycleTime;
-//								task.leadTime = leadTime;
 							}
 						}
 
@@ -254,11 +242,6 @@ function play() {
 						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 								< listPhases[0].maxTasks) {
-
-							cycleTime = parseInt(task.duration);
-							totalFases += cycleTime;
-							listPhases[i].period += cycleTime;
-							task.cycleTime += cycleTime;	
 
 							listUsers.forEach(function(user) {
 								if(!user.assigned && task.assignedUsers[0] == null){
@@ -276,14 +259,19 @@ function play() {
 
 											if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
 												task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
-												task.leadTime = leadTime;
-												//console.log(task.name + " durasao 2 " + task.duration);
-
+												console.log("2 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
+												task.leadTime = leadTime;									
+												cycleTime = parseInt(task.duration);												
+												totalFases += cycleTime;
+												listPhases[i].period += cycleTime;
+												task.cycleTime += cycleTime;	
+												console.log (i);
+												console.log("3 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
+											
+											
 											}
 										}
 									}
-								} else {
-									//console.log("no coinside " + listTareas[k].name);
 								}
 							}); //foreach 								
 						} //if end
