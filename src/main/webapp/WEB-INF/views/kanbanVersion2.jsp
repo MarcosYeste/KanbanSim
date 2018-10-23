@@ -16,17 +16,33 @@
 	<h1 class="texto">KANBAN SIM</h1>
 
 	<div class="botonesContainer">
-		<button id="result" onclick="generarResultados()" class="resultbutt">Mostrar
-			Resultados</button>
+		<div id="result" onclick="generarResultados()" class="resultbutt">
+		<i class="fas fa-clipboard-list fa-3x"></i>
+		</div>
 		<!--  Button Play/Pause -->
 		<div class="playpause">
 			<input type="checkbox" value="None" id="playpause" name="check" /> <label
 				for="playpause" tabindex=1></label>
 		</div>
-		<div id="divReset">
+		
+		<div id="divReset" data-toggle="tooltip" data-placement="top" title="Reiniciar Tablero">
 			<i id="reset" class="fas fa-redo fa-3x"></i>
 		</div>
+		
+		<div id="divDelete" data-toggle="tooltip" data-placement="top" title="Nuevo Tablero">
+			<i id="deleteAll" class="fas fa-file fa-3x"></i>
+		</div>
+		
+		<div id="divDeleteTasks" data-toggle="tooltip" data-placement="top" title="Borrar Tareas">
+			<i id="deleteTasks" class="fas fa-trash-alt fa-3x"></i>
+		</div>
 	</div>
+
+	<script>
+		var listTareas = new Array();
+		var listPhases = new Array();
+		var listUsers = new Array();
+	</script>
 
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
 	<div class="contenedor">
@@ -35,13 +51,9 @@
 
 			<div class="tituloInit">Etapa de inicio</div>
 			<div class="tituloInit barra"></div>
-			<div class="contenedorTareas">
+			<div class="contenedorTareas" id="contenedorTareas">
 
-				<script>
-					var listTareas = new Array();
-					var listPhases = new Array();
-					var listUsers = new Array();
-				</script>
+
 
 				<c:forEach items="${task}" var="task">
 
@@ -93,7 +105,7 @@
 					<div class="titulo" data-toggle="modal" data-target="#myModal">
 
 						<c:out value="${fase.name}"></c:out>
-
+						<i class="far fa-edit img-edit"></i>
 					</div>
 					<div class="subfase">
 
@@ -174,10 +186,10 @@
 				</div>
 				<div class="modal-body">
 
-					Nombre Fase: 	<input type="text" id="modName" disabled>
-					Máximo Tareas: 	<input type="text" id="modWip" min="1">
-					Tiempo Mínimo: 	<input type="text" id="modMinTime" min="1">
-					Tiempo Máximo:	<input type="text" id="modMaxTime" min="1"> 
+					Nombre Fase: <input type="text" id="modName" disabled>
+					Máximo Tareas: <input type="text" id="modWip" min="1">
+					Tiempo Mínimo: <input type="text" id="modMinTime" min="1">
+					Tiempo Máximo: <input type="text" id="modMaxTime" min="1">
 					<br>
 					<button id="ModPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>

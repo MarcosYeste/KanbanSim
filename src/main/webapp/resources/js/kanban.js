@@ -7,7 +7,10 @@ var cycleTime = 0;
 var leadTime = 0;
 var click;
 
-//Ponemos un identificador a cada uno de los titulos de manera autoincremental
+//Permitimos el tooltip de bootstrap en toda la pagina
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+})
 
 for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", i);
@@ -36,7 +39,7 @@ function saveMod() {
 	listPhases[click].maxTasks = document.getElementById("modWip").value;
 	listPhases[click].minTime = document.getElementById("modMinTime").value;
 	listPhases[click].maxTime = document.getElementById("modMaxTime").value;
-	
+
 	// Control de errores, si el valor introducido en cualquiera de los campos es 0 o menor a este,
 	// pon automaticamente un 1
 	if(listPhases[click].maxTasks <= 0){
@@ -112,10 +115,44 @@ document.getElementById("playpause").addEventListener("change", function() {
 	}
 });
 
-//Botón reset			
+//Boton Reset
 document.getElementById("reset").addEventListener("click", function() {
-	location.reload();
+	location.reload()
 });
+
+//Botón elimianr Tareas	
+document.getElementById("deleteTasks").addEventListener("click", function() {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			console.log("Deleted");
+			document.getElementById("contenedorTareas").innerHTML = "";
+		}else{
+			console.log("Status = "+this.status);
+		}
+	};
+	xhttp.open("POST", "/rmvTask", true);
+	xhttp.send();
+});
+
+//Botón nuevo Tablero			
+document.getElementById("deleteAll").addEventListener("click", function() {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			console.log("Deleted");
+			document.getElementById("contenedorTareas").innerHTML = "";
+			document.getElementById("faseDiv").innerHTML = "";
+			document.getElementsByClassName("usersContainer")[0].innerHTML = "";
+		}else{
+			console.log("Status = "+this.status);
+		}
+	};
+	xhttp.open("POST", "/rmvAll", true);
+	xhttp.send();
+});
+
+
 
 function play() {
 
@@ -136,6 +173,7 @@ function play() {
 
 			if (firstLoop) {
 				console.log("First Loop");
+
 				for (var j = 0; j < divsTareas.length; j++) {
 					if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 							(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
@@ -173,16 +211,21 @@ function play() {
 			listTareas.forEach(function(task) {
 
 
-
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
 
 					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 					task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
 
 					cycleTime = parseInt(task.duration);
-					task.cycleTime += cycleTime;
+
+					if(i != 0){ //esto es para que la ultima tarea no se acumule
+						task.cycleTime += cycleTime;				
+					}else{
+						task.cycleTime = cycleTime;
+					}
 					totalFases += cycleTime;
 					listPhases[i].period += cycleTime;
+					task.durarionAsignada = false;
 
 				}
 
@@ -203,7 +246,6 @@ function play() {
 							task.phase == (i + 1)) {
 						done.appendChild(divsTareas[k]);
 						task.state = "Done";
-						console.log("%c" + task.name + " is done", "font-size: 20px");
 						task.sameIteration = true;
 
 						for(var w = 0; w < listUsers.length; w++){
@@ -241,6 +283,7 @@ function play() {
 
 								listUsers.forEach(function(user) {
 
+
 									if(!user.assigned && task.assignedUsers[0] == null){
 
 										var actualPhaseName = fases[i+1].firstElementChild.innerHTML;
@@ -254,16 +297,19 @@ function play() {
 												task.tss = 0;
 												task.assignedUsers[0] = (user.name);
 												user.assigned = true;
+
 												if(user.assigned){
 													document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 													user.timeStopped += 1;
 												}
 												console.log("%c" + listPhases[i + 1].maxTime, "font-size:20px; font-weight:900; color: orange");
 												console.log("%c" + task.assignedUsers[0], "font-size:20px; font-weight:900; color: orange");
+
 											}
 										}
 									}
 								});
+
 							}
 						}
 
@@ -274,11 +320,6 @@ function play() {
 						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 								< listPhases[0].maxTasks) {
-
-							cycleTime = parseInt(task.duration);
-							totalFases += cycleTime;
-							listPhases[i].period += cycleTime;
-							task.cycleTime += cycleTime;	
 
 							listUsers.forEach(function(user) {
 
@@ -300,7 +341,14 @@ function play() {
 
 											if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
 												task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
-												task.leadTime = leadTime;
+												console.log("2 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
+												task.leadTime = leadTime;									
+												cycleTime = parseInt(task.duration);												
+												totalFases += cycleTime;
+												listPhases[i].period += cycleTime;
+												task.cycleTime += cycleTime;	
+												console.log (i);
+												console.log("3 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
 
 											}
 										}
