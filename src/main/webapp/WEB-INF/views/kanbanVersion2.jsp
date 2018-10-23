@@ -88,7 +88,7 @@
 		<div id="faseDiv" class="fase">
 
 			<c:forEach items="${phases}" var="fase">
-				
+
 				<div class="faseName">
 					<div class="titulo" data-toggle="modal" data-target="#myModal">
 
@@ -110,7 +110,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<c:set value="${fase.name}" var="name" />
 				<c:set value="${fase.maxTasks}" var="maxTasks" />
 				<c:set value="${fase.maxTime}" var="maxTime" />
@@ -136,10 +136,10 @@
 			<div class="contenedorFinal"></div>
 
 		</div>
-	</div>	
+	</div>
 	<div class="usersContainer">
 		<c:forEach items="${user}" var="user">
-			<div class="userName">
+			<div class="userName" name="<c:out value='${user.name}'></c:out>">
 				<p>
 					<strong><c:out value="${user.name}"></c:out></strong>
 				</p>
@@ -151,7 +151,7 @@
 				<script>
 					var userO = new Object();
 					userO.name = "<c:out value="${name}"></c:out>";
-					userO.timeStoped = 0;
+					userO.timeStopped = 0;
 					rawPhases = "<c:out value="${userphases}"></c:out>";
 					userO.phases = rawPhases.replace('[', '').replace(']', '')
 							.split(',');
@@ -174,10 +174,11 @@
 				</div>
 				<div class="modal-body">
 
-					Nombre Fase: <input type="text" id="modName" disabled>
-					Máximo Tareas: <input type="text" id="modWip"> Tiempo
-					Mínimo: <input type="text" id="modMinTime"> Tiempo Máximo:
-					<input type="text" id="modMaxTime"> <br>
+					Nombre Fase: 	<input type="text" id="modName" disabled>
+					Máximo Tareas: 	<input type="text" id="modWip" min="1">
+					Tiempo Mínimo: 	<input type="text" id="modMinTime" min="1">
+					Tiempo Máximo:	<input type="text" id="modMaxTime" min="1"> 
+					<br>
 					<button id="ModPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
