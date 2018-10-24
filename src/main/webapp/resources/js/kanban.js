@@ -201,7 +201,8 @@ function play() {
 
 
 			listTareas.forEach(function(task) {
-
+			
+				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.duration == 0) {
 
 					// Assigna un tiempo a cada tarea de entre el intervalo de la fase

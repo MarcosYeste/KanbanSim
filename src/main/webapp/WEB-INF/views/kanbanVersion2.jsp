@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div class="botonesContainer1">
-
+	
 		<!-- Nuevo Tablero -->
 		<div>
 			<div id="divDelete">
@@ -28,33 +28,23 @@
 
 		</div>
 		
-		<!-- Mostrar Resultados -->
-		<button id="result" onclick="generarResultados()" class="resultbutt">
-			<i class="fas fa-clipboard-list fa-3x"></i>
-		</button>
-
+		<button id="result" onclick="generarResultados()" class="resultbutt"><i class="fas fa-clipboard-list fa-3x"></i></button>
+		
 	</div>
 	<h1 class="texto">KANBAN SIM</h1>
 
 	<div class="botonesContainer">
-
-		<!-- Boton Reset -->
+		
+		<!--  Button Play/Pause -->
+		
 		<div id="divReset">
 			<i id="reset" class="fas fa-redo fa-3x"></i>
 		</div>
-
-		<!--  Button Play/Pause -->
 		<div class="playpause">
 			<input type="checkbox" value="None" id="playpause" name="check" /> <label
 				for="playpause" tabindex=1></label>
 		</div>
 	</div>
-
-	<script>
-		var listTareas = new Array();
-		var listPhases = new Array();
-		var listUsers = new Array();
-	</script>
 
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
 	<div class="contenedor">
@@ -63,9 +53,13 @@
 
 			<div class="tituloInit">Etapa de inicio</div>
 			<div class="tituloInit barra"></div>
-			<div class="contenedorTareas" id="contenedorTareas">
+			<div class="contenedorTareas">
 
-
+				<script>
+					var listTareas = new Array();
+					var listPhases = new Array();
+					var listUsers = new Array();
+				</script>
 
 				<c:forEach items="${task}" var="task">
 
@@ -141,7 +135,7 @@
 
 				<script>
 					var phase = new Object();
-					phase.name = "<c:out value='${name}'></c:out>";
+					phase.name = "<c:out value="${name}"></c:out>";
 					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
 					phase.maxTime = <c:out value="${maxTime}"></c:out>;
 					phase.minTime = <c:out value="${minTime}"></c:out>;
@@ -159,7 +153,7 @@
 			<div class="contenedorFinal"></div>
 
 		</div>
-	</div>
+	</div>	
 	<div class="usersContainer">
 		<c:forEach items="${user}" var="user">
 			<div class="userName" name="<c:out value='${user.name}'></c:out>">
@@ -197,11 +191,10 @@
 				</div>
 				<div class="modal-body">
 
-					Nombre Fase: <input type="text" id="modName" disabled>
-					Máximo Tareas: <input type="text" id="modWip" min="1">
-					Tiempo Mínimo: <input type="text" id="modMinTime" min="1">
-					Tiempo Máximo: <input type="text" id="modMaxTime" min="1">
-					<br>
+					Nombre Fase: <input type="text" id="modName"> Máximo
+					Tareas: <input type="text" id="modWip"> Tiempo Mínimo: <input
+						type="text" id="modMinTime"> Tiempo Máximo: <input
+						type="text" id="modMaxTime"> <br>
 					<button id="ModPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 

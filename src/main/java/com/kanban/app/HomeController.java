@@ -117,7 +117,7 @@ public class HomeController {
 		return "success";
 
 	}
-
+	
 	@RequestMapping(value = "/rmvTask", method = RequestMethod.POST)
 	public String removeTask() {	
 		
@@ -140,7 +140,6 @@ public class HomeController {
 		return "success";
 
 	}
-
 	public void addPhases(String phase) {
 		boolean phaseExist = false;
 
