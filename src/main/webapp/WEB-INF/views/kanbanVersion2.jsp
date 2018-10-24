@@ -14,11 +14,17 @@
 <body>
 	<div class="botonesContainer1">
 	
+<<<<<<< HEAD
 		<div id="deleteButtons">
 		
 			<!-- Nuevo Tablero -->
 			<div id="divDeleteAll" data-toggle="tooltip" data-placement="top"
 				title="Nuevo Tablero" role="button">
+=======
+		<!-- Nuevo Tablero -->
+		<div class="doubleButton">
+			<div id="divDelete">
+>>>>>>> 8ec1a641dad0cb16f4a5276119c2bf1864234a56
 				<i id="deleteAll" class="fas fa-file fa-3x"></i>
 			</div>
 
@@ -29,11 +35,18 @@
 			</div>
 
 		</div>
+<<<<<<< HEAD
 
 		<button id="result" onclick="generarResultados()" class="resultbutt">
 			<i class="fas fa-clipboard-list fa-3x"></i>
 		</button>
 
+=======
+		
+		<button id="result" onclick="generarResultados()" class="resultbutt"><i class="fas fa-clipboard-list fa-4x"></i></button>
+
+		
+>>>>>>> 8ec1a641dad0cb16f4a5276119c2bf1864234a56
 	</div>
 	<h1 class="texto">KANBAN SIM</h1>
 

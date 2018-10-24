@@ -163,9 +163,6 @@ document.getElementById("divDeleteAll").addEventListener("click", function() {
 	xhttp.send();
 });
 
-
-
-
 function play() {
 
 	var divsTareas = document.getElementsByClassName("tareas");
@@ -320,10 +317,16 @@ function play() {
 							}
 
 							if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
+								// ________ESTO VA EN EL IF 4
 								task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
-								task.leadTime = leadTime;
-								//console.log(task.name + " durasao 2 " + task.duration);
-
+								console.log("2 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
+								task.leadTime = leadTime;									
+								cycleTime = parseInt(task.duration);												
+								totalFases += cycleTime;
+								listPhases[i].period += cycleTime;
+								task.cycleTime += cycleTime;	
+								console.log (i);
+								console.log("3 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
 							}								
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
@@ -347,27 +350,16 @@ function play() {
 											user.timeStopped += 1;
 										}
 
-										if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
-											task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
-//											console.log("2 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
-											task.leadTime = leadTime;									
-											cycleTime = parseInt(task.duration);												
-											totalFases += cycleTime;
-											listPhases[i].period += cycleTime;
-											task.cycleTime += cycleTime;	
-//											console.log (i);
-//											console.log("3 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
-
-										}
-
 										for(var t = 0; t < divsTareas.length; t++){
 											if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
 												divsTareas[t].querySelector(".divState").innerHTML = "Doing";
 											}
 										}
-									}
-								} 
-							}
+
+									}										
+
+								}
+							} 
 						}); //foreach 				
 					} //iff 5 end
 				} //divs tareas for end
@@ -528,3 +520,4 @@ function mostrarKanban(){
 	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
 	document.getElementById("result").setAttribute("onClick", "generarResultados()");;
 }
+
