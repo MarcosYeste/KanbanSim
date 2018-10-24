@@ -117,7 +117,7 @@ document.getElementById("playpause").addEventListener("change", function() {
 
 //Boton Reset
 document.getElementById("reset").addEventListener("click", function() {
-	location.reload()
+	location.reload();
 });
 
 //Botón elimianr Tareas	
