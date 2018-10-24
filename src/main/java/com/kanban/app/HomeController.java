@@ -119,7 +119,30 @@ public class HomeController {
 		return "success";
 
 	}
+	
+	@RequestMapping(value = "/rmvTask", method = RequestMethod.POST)
+	public String removeTask() {	
+		
+		taskArray.clear();
+		System.out.println(taskArray.size());
+		
+		return "success";
 
+	}
+	
+	@RequestMapping(value = "/rmvAll", method = RequestMethod.POST)
+	public String removeAll() {	
+		
+		taskArray.clear();
+		phasesArray.clear();
+		userArray.clear();
+		allPhases.clear();
+		
+		
+		return "success";
+
+	}
+	
 	public void addPhases(String phase) {
 		boolean phaseExist = false;
 
