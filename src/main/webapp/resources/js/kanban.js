@@ -180,28 +180,6 @@ function play() {
 						(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 						< listPhases[0].maxTasks) {
 						
-						listUsers.forEach(function(user) {
-							if(!user.assigned && listTareas[j].assignedUsers[0] == null){
-								
-								for(var w = 0; w<user.phases.length; w++){
-									if(user.phases[w] == firstPhaseName.trim()){
-										doing.appendChild(divsTareas[0]);
-										listTareas[j].cycleTime = 0;
-										listTareas[j].state = "Doing";
-										listTareas[j].phase = 1;
-										listTareas[j].assignedUsers[0] = (user.name);
-										user.assigned = true;
-
-										if(user.assigned){
-											document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
-											user.timeStopped += 1;
-										}	
-
-									}
-								}
-							}
-						}); //foreach 	*/	
-						
 						console.log("f");
 						console.log(listTareas[j].name);
 						doing.appendChild(divsTareas[0]);
@@ -341,10 +319,10 @@ function play() {
 						console.log("IF 5 " + task.name);
 						listUsers.forEach(function(user) {
 							if(!user.assigned && task.assignedUsers[0] == null){
+								
 								for(var w = 0; w<user.phases.length; w++){
-									
 									var actualPhaseName = fases[i].firstElementChild.innerHTML;
-									console.log("2 " + user.phases[w].trim() +" " + actualPhaseName.trim());
+									console.log(user.phases[w].trim() + " " + actualPhaseName.trim());
 									if(user.phases[w].trim() == actualPhaseName.trim()){
 										console.log("assigned " + task.name);
 										task.state = "Doing";
@@ -359,7 +337,6 @@ function play() {
 												document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 												user.timeStopped += 1;
 											}
-											//
 //											if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
 //												task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
 //												console.log("2 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);

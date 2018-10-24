@@ -117,7 +117,6 @@
 					<div class="titulo" data-toggle="modal" data-target="#myModal">
 
 						<c:out value="${fase.name}"></c:out>
-						<i class="far fa-edit img-edit"></i>
 					</div>
 					<div class="subfase">
 
