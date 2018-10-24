@@ -95,6 +95,10 @@ document.getElementById("reset").addEventListener("click", function() {
 	location.reload();
 });
 
+if(!document.getElementsByClassName("faseName")[0]){
+	document.getElementsByClassName("fase")[0].style.width='50%';
+}
+
 function play() {
 
 	var divsTareas = document.getElementsByClassName("tareas");
@@ -409,3 +413,4 @@ function mostrarKanban(){
 	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
 	document.getElementById("result").setAttribute("onClick", "generarResultados()");;
 }
+

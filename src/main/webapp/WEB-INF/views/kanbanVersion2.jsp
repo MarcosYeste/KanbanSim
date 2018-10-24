@@ -18,7 +18,7 @@
 			<i id="deleteAll" class="fas fa-file fa-3x"></i>
 		</div>
 		
-		<button id="result" onclick="generarResultados()" class="resultbutt"><i id="reset" class="fas fa-clipboard-list fa-3x"></i></button>
+		<button id="result" onclick="generarResultados()" class="resultbutt"><i class="fas fa-clipboard-list fa-3x"></i></button>
 		<!--  Button Play/Pause -->
 		
 	</div>
