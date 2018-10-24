@@ -463,8 +463,9 @@ function mostrarResultados() {
 	});
 //	mediaMaxFaseTime = Math.floor(mediaMaxFaseTime/z);
 //	mediaMinFaseTime = Math.floor(mediaMinFaseTime/z);
-	subdiv4.innerHTML += "<p>C&aacutelculo m&aacuteximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
-	subdiv4.innerHTML += "<p>C&aacutelculo m&iacutenimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
+
+	subdiv4.innerHTML += "<p>Calculo maximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
+	subdiv4.innerHTML += "<p>Calculo minimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
 	mediaMaxFaseTime = 0;
 	mediaMinFaseTime = 0 ;
 	div4.appendChild(subdiv4);

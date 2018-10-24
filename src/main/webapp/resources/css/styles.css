@@ -16,6 +16,8 @@ header {
 	color: white;
 	font-size: 120%;
 	text-align: center;
+	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		#63bafa;
 }
 
 /* Modal Forms */
@@ -91,6 +93,7 @@ div#reset:hover {
 	from { transform:rotate(0deg);}
 	to {transform: rotate(360deg);}
 }
+
 .img-edit{
 	z-index: -1;
 }

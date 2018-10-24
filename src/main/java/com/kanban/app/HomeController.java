@@ -52,6 +52,7 @@ public class HomeController {
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
+		
 
 		return "kanbanVersion2";
 	}

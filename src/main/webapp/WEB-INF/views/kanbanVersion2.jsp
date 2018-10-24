@@ -12,29 +12,31 @@
 
 </head>
 <body>
-
-	<h1 class="texto">KANBAN SIM</h1>
-
-	<div class="botonesContainer">
-		<div id="result" onclick="generarResultados()" class="resultbutt">
-		<i class="fas fa-clipboard-list fa-3x"></i>
-		</div>
-		<!--  Button Play/Pause -->
-		<div class="playpause">
-			<input type="checkbox" value="None" id="playpause" name="check" /> <label
-				for="playpause" tabindex=1></label>
-		</div>
-		
-		<div id="divReset" data-toggle="tooltip" data-placement="top" title="Reiniciar Tablero">
-			<i id="reset" class="fas fa-redo fa-3x"></i>
-		</div>
-		
-		<div id="divDelete" data-toggle="tooltip" data-placement="top" title="Nuevo Tablero">
+	<div class="botonesContainer1">
+	
+		<div id="divDelete">
 			<i id="deleteAll" class="fas fa-file fa-3x"></i>
 		</div>
 		
 		<div id="divDeleteTasks" data-toggle="tooltip" data-placement="top" title="Borrar Tareas">
 			<i id="deleteTasks" class="fas fa-trash-alt fa-3x"></i>
+		</div>
+		
+		<button id="result" onclick="generarResultados()" class="resultbutt"><i id="reset" class="fas fa-clipboard-list fa-3x"></i></button>
+		<!--  Button Play/Pause -->
+		
+	</div>
+	<h1 class="texto">KANBAN SIM</h1>
+
+	<div class="botonesContainer">		
+		<!--  Button Play/Pause -->
+		
+		<div id="divReset">
+			<i id="reset" class="fas fa-redo fa-3x"></i>
+		</div>
+		<div class="playpause">
+			<input type="checkbox" value="None" id="playpause" name="check" /> <label
+				for="playpause" tabindex=1></label>
 		</div>
 	</div>
 
@@ -130,7 +132,7 @@
 
 				<script>
 					var phase = new Object();
-					phase.name = "<c:out value="${name}"></c:out>";
+					phase.name = "<c:out value='${name}'></c:out>";
 					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
 					phase.maxTime = <c:out value="${maxTime}"></c:out>;
 					phase.minTime = <c:out value="${minTime}"></c:out>;
