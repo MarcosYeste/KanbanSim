@@ -70,6 +70,7 @@ h1 {
 }
 
 /* Spin animation reset Button */
+
 div #reset:hover {
 	-webkit-animation-name: spin; /* Safari */
 	-webkit-animation-duration: 1000ms; /* Safari */

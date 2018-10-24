@@ -12,32 +12,34 @@
 
 </head>
 <body>
-	<div class="botonesContainer1">
+	<div class="botonesContainer1" id="botonesContainer1">
 	
 		<!-- Nuevo Tablero -->
-		<div class="doubleButton">
-			<div id="divDelete">
-				<i id="deleteAll" class="fas fa-file fa-3x"></i>
-			</div>
+		<div class="doubleButton" id="doubleButton">
+			<button id="divDelete">
+				<i id="deleteAll" class="fas fa-file fa-3x" data-toggle="tooltip" data-placement="top"
+				title="Nuevo Tablero"></i>
+			</button>
 
 			<!-- Borrar Tareas -->
-			<div id="divDeleteTasks" data-toggle="tooltip" data-placement="top"
-				title="Borrar Tareas">
-				<i id="deleteTasks" class="fas fa-trash-alt fa-3x"></i>
-			</div>
+			<button id="divDeleteTasks">
+				<i id="deleteTasks" class="fas fa-trash-alt fa-3x" data-toggle="tooltip" data-placement="top"
+				title="Borrar Tareas"></i>
+			</button>
 
 		</div>
 		
-		<button id="result" onclick="generarResultados()" class="resultbutt"><i class="fas fa-clipboard-list fa-4x"></i></button>
+		<button id="result" onclick="generarResultados()" class="resultbutt"><i class="fas fa-clipboard-list fa-4x"  data-toggle="tooltip" data-placement="top"
+				title="Mostrar Resultados"></i></button>
 
-		
 	</div>
+	
 	<h1 class="texto">KANBAN SIM</h1>
 
 	<div class="botonesContainer">
-		
+
 		<!--  Button Play/Pause -->
-		
+
 		<div id="divReset">
 			<i id="reset" class="fas fa-redo fa-3x"></i>
 		</div>
@@ -154,7 +156,7 @@
 			<div class="contenedorFinal"></div>
 
 		</div>
-	</div>	
+	</div>
 	<div class="usersContainer">
 		<c:forEach items="${user}" var="user">
 			<div class="userName" name="<c:out value='${user.name}'></c:out>">
