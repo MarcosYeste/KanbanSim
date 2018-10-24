@@ -15,7 +15,7 @@
 	<div class="botonesContainer1">
 	
 		<!-- Nuevo Tablero -->
-		<div>
+		<div class="doubleButton">
 			<div id="divDelete">
 				<i id="deleteAll" class="fas fa-file fa-3x"></i>
 			</div>
@@ -28,7 +28,7 @@
 
 		</div>
 		
-		<button id="result" onclick="generarResultados()" class="resultbutt"><i class="fas fa-clipboard-list fa-3x"></i></button>
+		<button id="result" onclick="generarResultados()" class="resultbutt"><i class="fas fa-clipboard-list fa-4x"></i></button>
 
 		
 	</div>
@@ -71,7 +71,7 @@
 						</p>
 
 						<p class="estado">
-							<small><c:out value="${task.state}"></c:out></small>
+							<small class="divState"><c:out value="${task.state}"></c:out></small>
 						</p>
 
 
@@ -112,7 +112,6 @@
 					<div class="titulo" data-toggle="modal" data-target="#myModal">
 
 						<c:out value="${fase.name}"></c:out>
-
 					</div>
 					<div class="subfase">
 

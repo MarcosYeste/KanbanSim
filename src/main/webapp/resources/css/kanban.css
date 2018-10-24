@@ -137,6 +137,10 @@ p.estado {
 	color: black;
 	margin-left: 10px;
 }
+#deleteAll:hover {
+	color: #004a00;
+	margin-left: 10px;
+}
 
 .botonesContainer {
 	border: 2px solid #69c9fc;
@@ -144,7 +148,7 @@ p.estado {
 	box-shadow: 0 8px 19px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 	border-radius :30%;
 	margin-left: 45%;
-	width: 10%;
+	width: 11%;
 	height: auto;
 	align-items: center;
 	display: flex;
@@ -165,20 +169,32 @@ p.estado {
 	flex-direction: row;
 	justify-content: space-between;
 }
+.doubleButton{
+	display: flex;
+	flex-direction: row;
+}
+.doubleButton #divDeleteTasks{
+	color :black;
+	margin-left: 30px;
+}
+.doubleButton #divDeleteTasks:hover{
+	color :#970000;
+	margin-left: 30px;
+}
 
 .resultbutt {
+	background-color:transparent;
+	border:transparent;
 	width: 5%;
-	border-radius: 64px;
 	text-align: center;
 	padding: 10px;
 	margin-right: 10px;
-	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0
-		rgba(0, 0, 0, 0.19);
+
 }
 
 .resultbutt:hover {
 	cursor: pointer;
-	background-color: #f0f0f0;
+	color:#000091;
 }
 
 .resultbutt:disabled {
