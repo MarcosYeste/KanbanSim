@@ -71,7 +71,7 @@
 						</p>
 
 						<p class="estado">
-							<small><c:out value="${task.state}"></c:out></small>
+							<small class="divState"><c:out value="${task.state}"></c:out></small>
 						</p>
 
 
@@ -112,7 +112,6 @@
 					<div class="titulo" data-toggle="modal" data-target="#myModal">
 
 						<c:out value="${fase.name}"></c:out>
-
 					</div>
 					<div class="subfase">
 
