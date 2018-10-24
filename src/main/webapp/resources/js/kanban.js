@@ -174,7 +174,7 @@ function play() {
 
 			if (firstLoop) {
 				console.log("Fisrt Loop");
-	
+
 
 				for (var j = 0; j < divsTareas.length; j++) {
 					if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
@@ -192,12 +192,12 @@ function play() {
 										listTareas[j].phase = 1;
 										listTareas[j].assignedUsers[0] = (user.name);
 										user.assigned = true;
-										
+
 										if(user.assigned){
 											document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 											user.timeStopped += 1;
 										}
-										
+
 									}
 								}
 							} else {
@@ -216,10 +216,10 @@ function play() {
 
 				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
-									
+
 					task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);				
 					cycleTime = parseInt(task.duration);
-				
+
 					if(i != 0){ //esto es para que la ultima tarea no se acumule
 						task.cycleTime += cycleTime;				
 					}else{
@@ -279,7 +279,6 @@ function play() {
 
 								listUsers.forEach(function(user) {
 
-
 									if(!user.assigned && task.assignedUsers[0] == null){
 
 										var actualPhaseName = fases[i+1].firstElementChild.innerHTML;
@@ -291,12 +290,12 @@ function play() {
 												task.tss = 0;
 												task.assignedUsers[0] = (user.name);
 												user.assigned = true;
-												
+
 												if(user.assigned){
 													document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 													user.timeStopped += 1;
 												}
-												
+
 												console.log(task.assignedUsers[0]);
 
 											}
@@ -328,12 +327,12 @@ function play() {
 											task.phase = 1;
 											task.assignedUsers[0] = (user.name);
 											user.assigned = true;
-											
+
 											if(user.assigned){
 												document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 												user.timeStopped += 1;
 											}
-											
+
 											if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
 												task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
 												console.log("2 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
@@ -344,8 +343,8 @@ function play() {
 												task.cycleTime += cycleTime;	
 												console.log (i);
 												console.log("3 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
-											
-											
+
+
 											}
 										}
 									}
@@ -401,12 +400,12 @@ function play() {
 			// Volvemos a habilitar los resultados
 			document.getElementById("result").removeAttribute("disabled");
 			document.getElementById("result").removeAttribute("aria-disabled");
-			
+
 			// Volvemos todos los usuarios Y identificamos el usuario más ocioso
 			for(var a = 0; a < document.getElementsByClassName("userName").length; a++){
 				document.getElementsByClassName("userName")[a].children[1].style.opacity = "1";
 			}
-			
+
 			listUsers.forEach(function(user) {
 
 				if(lazy <= user.timeStopped){
@@ -417,7 +416,7 @@ function play() {
 				console.log(user.timeStopped);
 			})
 
-			
+
 		}
 		console.log("%cLEAD!" + leadTime, "font-size: 20px; color:green");
 		leadTime += 1;
@@ -429,66 +428,66 @@ function play() {
 
 function mostrarResultados() {
 
-			var text = "";
-			var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
-			div.innerHTML = "";
+	var text = "";
+	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
+	div.innerHTML = "";
 
-			var h3 = document.createElement("h3");
-			var div2 = document.createElement("div");			
-			var div3 = document.createElement("div");
-			var div4 =  document.createElement("div");
-			var subdiv4 = document.createElement("div");
-			div3.className = "tareaResultadoDiv";
-			h3.innerHTML = "<strong>Tabla de Resultados</strong>";
-			div2.appendChild(h3);
-			div.appendChild(div2);
-			
-//			listPhases.forEach(function(phase) {
-				div4.className = "faseResultadoDiv";
-				subdiv4.className = "faseResultado";
-				subdiv4.innerHTML = "<h4> Resultados Fases</h4>";
-				subdiv4.innerHTML += "<p> Tiempo total de las fases: "+totalFases+" s</p>";
-				var z = 0;
-				listPhases.forEach(function(phase) {
-					mediaMaxFaseTime += phase.maxTime;
-					mediaMinFaseTime += phase.minTime;
-					subdiv4.innerHTML += "<p> "+phase.name+" : "+phase.period+" s</p>";
-					z += 1;
-				});
-//				mediaMaxFaseTime = Math.floor(mediaMaxFaseTime/z);
-//				mediaMinFaseTime = Math.floor(mediaMinFaseTime/z);
-				
-				subdiv4.innerHTML += "<p>Calculo maximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
-				subdiv4.innerHTML += "<p>Calculo minimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
-				mediaMaxFaseTime = 0;
-				mediaMinFaseTime = 0 ;
-				div4.appendChild(subdiv4);
-//			}
-			listTareas.forEach(function(task) {			
-				
-				var p = document.createElement("P");
-				var br = document.createElement("BR");
-				var subDiv = document.createElement("div");
-				subDiv.className = "tareaResultado";
-				text = document.createTextNode( task.name );
-				p.appendChild(text);
-				subDiv.appendChild(p);
-				var p1 = document.createElement("P");
-				text = document.createTextNode(" Cycletime: " + (task.cycleTime ));
-				p1.appendChild(text);
-				subDiv.appendChild(p1);
-//				div.appendChild(br);
-				var p2 = document.createElement("P");
-				text = document.createTextNode(" Leadime: " + task.leadTime);
-				p2.appendChild(text);
-				subDiv.appendChild(p2);
-//				div.appendChild(br);				
-				div3.appendChild(subDiv);
-			});
-			
-			div.appendChild(div3);
-			div.appendChild(div4);
-		}
+	var h3 = document.createElement("h3");
+	var div2 = document.createElement("div");			
+	var div3 = document.createElement("div");
+	var div4 =  document.createElement("div");
+	var subdiv4 = document.createElement("div");
+	div3.className = "tareaResultadoDiv";
+	h3.innerHTML = "<strong>Tabla de Resultados</strong>";
+	div2.appendChild(h3);
+	div.appendChild(div2);
+
+//	listPhases.forEach(function(phase) {
+	div4.className = "faseResultadoDiv";
+	subdiv4.className = "faseResultado";
+	subdiv4.innerHTML = "<h4> Resultados Fases</h4>";
+	subdiv4.innerHTML += "<p> Tiempo total de las fases: "+totalFases+" s</p>";
+	var z = 0;
+	listPhases.forEach(function(phase) {
+		mediaMaxFaseTime += phase.maxTime;
+		mediaMinFaseTime += phase.minTime;
+		subdiv4.innerHTML += "<p> "+phase.name+" : "+phase.period+" s</p>";
+		z += 1;
+	});
+//	mediaMaxFaseTime = Math.floor(mediaMaxFaseTime/z);
+//	mediaMinFaseTime = Math.floor(mediaMinFaseTime/z);
+
+	subdiv4.innerHTML += "<p>Calculo maximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
+	subdiv4.innerHTML += "<p>Calculo minimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
+	mediaMaxFaseTime = 0;
+	mediaMinFaseTime = 0 ;
+	div4.appendChild(subdiv4);
+//	}
+	listTareas.forEach(function(task) {			
+
+		var p = document.createElement("P");
+		var br = document.createElement("BR");
+		var subDiv = document.createElement("div");
+		subDiv.className = "tareaResultado";
+		text = document.createTextNode( task.name );
+		p.appendChild(text);
+		subDiv.appendChild(p);
+		var p1 = document.createElement("P");
+		text = document.createTextNode(" Cycletime: " + (task.cycleTime ));
+		p1.appendChild(text);
+		subDiv.appendChild(p1);
+//		div.appendChild(br);
+		var p2 = document.createElement("P");
+		text = document.createTextNode(" Leadime: " + task.leadTime);
+		p2.appendChild(text);
+		subDiv.appendChild(p2);
+//		div.appendChild(br);				
+		div3.appendChild(subDiv);
+	});
+
+	div.appendChild(div3);
+	div.appendChild(div4);
+}
 
 function generarResultados(){
 	var buttonResult = document.getElementById("result");
