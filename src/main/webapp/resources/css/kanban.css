@@ -1,7 +1,6 @@
 /* Diseños KANBAN Div */
-
-.contenedor{
-	background-color:#63bafa;
+.contenedor {
+	background-color: #63bafa;
 	border: 2px solid blue;
 	display: table;
 	display: flex;
@@ -23,7 +22,8 @@
 	border: 1px solid #0a80f5;
 	width: 20%;
 }
-.contenedorFinal{
+
+.contenedorFinal {
 	padding: 40px;
 }
 
@@ -37,14 +37,15 @@
 }
 
 .tareas {
-	color : black;
+	color: black;
 	background-color: white;
 	border: 1px solid blue;
 	font-size: 120%;
 	margin-top: 10%;
 	text-align: center;
-	box-shadow: 0 8px 19px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-	text-shadow: 0.1px  0.5px 0.5px;
+	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	text-shadow: 0.1px 0.5px 0.5px;
 }
 
 .contenedorTareas {
@@ -56,44 +57,46 @@
 }
 
 /* Margin p of State */
-p.estado{
+p.estado {
 	margin-top: -15px;
 	margin-bottom: -1px;
 }
 
-.subfase{
+.subfase {
 	color: black;
-	text-shadow: 0.1px  1px 0.5px;
-	background-color :#63bafa;
+	text-shadow: 0.1px 1px 0.5px;
+	background-color: #63bafa;
 	display: flex;
-	justify-content: space-around;/* 
+	justify-content: space-around; /* 
 	border: 1px solid #0a80f5; */
 }
-.subSubfase{
+
+.subSubfase {
 	color: white;
-	text-shadow: 0.1px  1px 0.5px #aebabd;
+	text-shadow: 0.1px 1px 0.5px #aebabd;
 	font-size: 130%;
-/* 	background-color :#366ff1; *//* 
+	/* 	background-color :#366ff1; */ /* 
 	border: 1px solid #0a80f5; */
 }
-
-
 
 .fase {
 	/* border :1px solid yellow; */
 	width: 100%;
 	display: flex;
 }
-.titulo, .tituloInit, .tituloEnd{
-	text-shadow: 0.1px  1px 0.5px;
-	font-size:120%;
-	background-color :white;
+
+
+.titulo, .tituloInit, .tituloEnd {
+	text-shadow: 0.1px 1px 0.5px;
+	font-size: 120%;
+	background-color: white;
 	color: blue;
 	text-align: center;
 	padding-bottom: 10px;
 	/* border : 1px solid darkblue; */
 }
-.titulo.barra, .tituloInit.barra, .tituloEnd.barra{
+
+.titulo.barra, .tituloInit.barra, .tituloEnd.barra {
 	background-color: transparent;
 }
 
@@ -101,16 +104,12 @@ p.estado{
 .playpause label {
 	display: block;
 	box-sizing: border-box;
-	
 	width: 0;
 	height: 74px;
-	
 	cursor: pointer;
-	
 	border-color: transparent transparent transparent #202020;
 	transition: 100ms all ease;
 	will-change: border-width;
-	
 	/* Play state */
 	border-style: solid;
 	border-width: 37px 0 37px 60px;
@@ -121,32 +120,32 @@ p.estado{
 }
 
 .playpause input[type='checkbox']:checked+label {
-	
 	/* Pause state */
-	
 	border-style: double;
 	border-width: 0px 0 0px 60px;
 }
-.texto{
-	
-	text-shadow: 3px  2px 5px  #011cd6;
-	color:#0f45c4;
-	font-size:500%;
+
+.texto {
+	text-shadow: 3px 2px 5px #011cd6;
+	color: #0f45c4;
+	font-size: 500%;
 	text-align: center;
 	margin-top: 10px;
 }
-#deleteAll{
+
+#deleteAll {
 	color: black;
 	margin-left: 10px;
 }
-.botonesContainer{
+
+.botonesContainer {
 	border: 2px solid #69c9fc;
 	background-color: #7acefc;	
 	box-shadow: 0 8px 19px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 	border-radius :30%;
 	margin-left: 45%;
 	width: 10%;
-	height :auto;
+	height: auto;
 	align-items: center;
 	display: flex;
 	flex-direction: row;
@@ -155,12 +154,10 @@ p.estado{
 	padding-left: 35px;
 	padding-right: 35px;
 	margin-bottom: 10px;
-	
-	
-
 }
-.botonesContainer1{
-	color:#a6d9ff;
+
+.botonesContainer1 {
+	color: #a6d9ff;
 	margin-top: 10px;
 	/* background-color: #63bafa;
 	background-image: linear-gradient(#63bafa, white);  */
@@ -170,34 +167,34 @@ p.estado{
 }
 
 .resultbutt {
-    width : 5%;
-	border-radius : 64px;
+	width: 5%;
+	border-radius: 64px;
 	text-align: center;
 	padding: 10px;
 	margin-right: 10px;
-	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2), 0 2px 10px 0 rgba(0,0,0,0.19);
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0
+		rgba(0, 0, 0, 0.19);
 }
-
-
 
 .resultbutt:hover {
-	cursor:pointer;
-    background-color: #f0f0f0;
-}
-.resultbutt:disabled{
-	opacity: 0.3;
-	cursor:default;
+	cursor: pointer;
+	background-color: #f0f0f0;
 }
 
-.mostrarResultadosDiv{
+.resultbutt:disabled {
+	opacity: 0.3;
+	cursor: default;
+}
+
+.mostrarResultadosDiv {
 	justify-content: space-around;
-	display: flex;	
+	display: flex;
 	text-align: center;
 	flex-direction: column;
-	background-color:#63bafa;
+	background-color: #63bafa;
 	color: white;
-	text-shadow: 0.1px  1px 10px blue;
-	font-size : 120%;
+	text-shadow: 0.1px 1px 10px blue;
+	font-size: 120%;
 	border: 1px solid blue;
 	display: table;
 	display: flex;
@@ -207,53 +204,60 @@ p.estado{
 	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 }
-.tareaResultado{
+
+.tareaResultado {
 	border: 2px solid blue;
-	padding:10px;
-	color : black;
+	padding: 10px;
+	color: black;
 	margin-top: 2%;
-	margin-bottom :1%;
+	margin-bottom: 1%;
 	background-color: white;
 	text-align: center;
-	text-shadow: 0.1px  0.1px 0.2px black;
-	box-shadow: 0 8px 19px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	text-shadow: 0.1px 0.1px 0.2px black;
+	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
 }
-.tareaResultadoDiv{
+
+.tareaResultadoDiv {
 	justify-content: space-around;
-	display: flex;	
+	display: flex;
 	flex-direction: row;
-	
 }
-.usersContainer{
+
+.usersContainer {
 	background-color: #e8eeff;
 	background-image: linear-gradient(0deg, #e8eeff, white);
 	padding: 13px;
 	display: flex;
-	height:auto;
+	height: auto;
 	flex-direction: row;
 	justify-content: space-around;
-	
 }
-.userName{
-	text-align:center;
+
+.userName {
+	text-align: center;
 	border: 3px solid blue;
-	width : 6.5%;
+	width: 6.5%;
 	height: auto;
-	border-radius : 64px;
+	border-radius: 64px;
 	padding: 20px;
-	box-shadow: 0 8px 19px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
 }
-.faseResultadoDiv{
-	border-top :1px solid blue;
-	padding:20px;
+
+.faseResultadoDiv {
+	border-top: 1px solid blue;
+	padding: 20px;
 }
-.faseResultado{	
-	padding:10px;
-	color : black;
+
+.faseResultado {
+	padding: 10px;
+	color: black;
 	margin-top: 2%;
-	margin-bottom :1%;
+	margin-bottom: 1%;
 	background-color: white;
 	text-align: left;
-	text-shadow: 0.1px  0.1px 0.2px black;
-	box-shadow: 0 8px 19px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	text-shadow: 0.1px 0.1px 0.2px black;
+	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
 }

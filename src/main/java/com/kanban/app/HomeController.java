@@ -61,7 +61,7 @@ public class HomeController {
 	public String newFase(Model model) {
 
 		model.addAttribute("fase",new Phase());
-		
+
 		return "phaseForm";
 	}
 
@@ -72,7 +72,7 @@ public class HomeController {
 		model.addAttribute("phases", kanbanService.saveFases(fases, phasesArray));
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
-		
+
 		addPhases(phasesArray.get(phasesArray.size() - 1).getName());
 		return "success";
 
@@ -93,9 +93,7 @@ public class HomeController {
 		model.addAttribute("task", kanbanService.saveTask(task, taskArray));
 		model.addAttribute("phases", phasesArray);
 		model.addAttribute("user", userArray);
-		
-		task.setState("ToDo");
-		
+
 		return "success";
 
 	}
@@ -119,12 +117,34 @@ public class HomeController {
 		return "success";
 
 	}
+	
+	@RequestMapping(value = "/rmvTask", method = RequestMethod.POST)
+	public String removeTask() {	
+		
+		taskArray.clear();
+		System.out.println(taskArray.size());
+		
+		return "success";
 
+	}
+	
+	@RequestMapping(value = "/rmvAll", method = RequestMethod.POST)
+	public String removeAll() {	
+		
+		taskArray.clear();
+		phasesArray.clear();
+		userArray.clear();
+		allPhases.clear();
+		
+		
+		return "success";
+
+	}
 	public void addPhases(String phase) {
 		boolean phaseExist = false;
 
 
-		if(allPhases.size() > 0) {
+		if(!allPhases.isEmpty()) {
 
 			for(String aphase: allPhases) {
 
@@ -133,7 +153,7 @@ public class HomeController {
 				} 
 			}
 			if(!phaseExist) {
-	
+
 
 				allPhases.add(phase.trim());
 

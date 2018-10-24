@@ -14,12 +14,22 @@
 <body>
 	<div class="botonesContainer1">
 	
-		<div id="divDelete">
-			<i id="deleteAll" class="fas fa-file fa-3x"></i>
+		<!-- Nuevo Tablero -->
+		<div>
+			<div id="divDelete">
+				<i id="deleteAll" class="fas fa-file fa-3x"></i>
+			</div>
+
+			<!-- Borrar Tareas -->
+			<div id="divDeleteTasks" data-toggle="tooltip" data-placement="top"
+				title="Borrar Tareas">
+				<i id="deleteTasks" class="fas fa-trash-alt fa-3x"></i>
+			</div>
+
 		</div>
 		
 		<button id="result" onclick="generarResultados()" class="resultbutt"><i class="fas fa-clipboard-list fa-3x"></i></button>
-		<!--  Button Play/Pause -->
+
 		
 	</div>
 	<h1 class="texto">KANBAN SIM</h1>
@@ -148,7 +158,7 @@
 	</div>	
 	<div class="usersContainer">
 		<c:forEach items="${user}" var="user">
-			<div class="userName">
+			<div class="userName" name="<c:out value='${user.name}'></c:out>">
 				<p>
 					<strong><c:out value="${user.name}"></c:out></strong>
 				</p>
@@ -160,7 +170,7 @@
 				<script>
 					var userO = new Object();
 					userO.name = "<c:out value="${name}"></c:out>";
-					userO.timeStoped = 0;
+					userO.timeStopped = 0;
 					rawPhases = "<c:out value="${userphases}"></c:out>";
 					userO.phases = rawPhases.replace('[', '').replace(']', '')
 							.split(',');
