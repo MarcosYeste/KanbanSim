@@ -76,10 +76,10 @@ document.getElementById("playpause").addEventListener("change", function() {
 		}
 
 		// Deshabilitamos los botones del header
-		for (var i = 0; i < document.getElementById("deleteButtons").children.length; i++){
+		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
 
-			document.getElementById("deleteButtons").children[i].setAttribute("class", "btn disabled");
-			document.getElementById("deleteButtons").children[i].setAttribute("aria-disabled", "true");
+			document.getElementById("doubleButton").children[i].setAttribute("class", "btn disabled");
+			document.getElementById("doubleButton").children[i].setAttribute("aria-disabled", "true");
 		}
 
 		// Y quitamos el acceso a el formulario de modificación
@@ -111,10 +111,10 @@ document.getElementById("playpause").addEventListener("change", function() {
 		}
 
 		// Deshabilitamos los botones del header
-		for (var i = 0; i < document.getElementById("deleteButtons").children.length; i++){
+		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
 
-			document.getElementById("deleteButtons").children[i].removeAttribute("class");
-			document.getElementById("deleteButtons").children[i].setAttribute("aria-disabled", "false");
+			document.getElementById("doubleButton").children[i].removeAttribute("class");
+			document.getElementById("doubleButton").children[i].setAttribute("aria-disabled", "false");
 		}
 
 		// Permitimos de nuevo abrir el modal de modificación
@@ -409,10 +409,10 @@ function play() {
 			}
 
 			// Deshabilitamos los botones del header
-			for (var i = 0; i < document.getElementById("deleteButtons").children.length; i++){
+			for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
 
-				document.getElementById("deleteButtons").children[i].removeAttribute("class");
-				document.getElementById("deleteButtons").children[i].removeAttribute("aria-disabled");
+				document.getElementById("doubleButton").children[i].removeAttribute("class");
+				document.getElementById("doubleButton").children[i].removeAttribute("aria-disabled");
 			}
 
 			// Volvemos a habilitar los resultados
