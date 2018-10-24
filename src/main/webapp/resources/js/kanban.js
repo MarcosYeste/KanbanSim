@@ -96,7 +96,7 @@ document.getElementById("reset").addEventListener("click", function() {
 });
 
 function play() {
-
+	
 	var divsTareas = document.getElementsByClassName("tareas");
 	var duration = document.getElementsByClassName("duration");
 	var subfases = document.getElementsByClassName("subfase");
@@ -108,22 +108,22 @@ function play() {
 
 		console.log("Iteration Star"); //p
 		for (var i = 0; i < fases.length; i++) {
+			
 			var firstPhaseName = fases[0].firstElementChild.innerHTML;
 			var doing = fases[i].lastElementChild.firstElementChild;
 			var done = fases[i].lastElementChild.lastElementChild;
-
+			
 			if (firstLoop) {
 				console.log("Fisrt Loop");
-	
 
 				for (var j = 0; j < divsTareas.length; j++) {
 					if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
-							(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
-							< listPhases[0].maxTasks) {
-
-						listUsers.forEach(function(user) {
+						(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
+						< listPhases[0].maxTasks) {
+						
+						/*listUsers.forEach(function(user) {
 							if(!user.assigned && listTareas[j].assignedUsers[0] == null){
-
+								
 								for(var w = 0; w<user.phases.length; w++){
 									if(user.phases[w] == firstPhaseName.trim()){
 										doing.appendChild(divsTareas[0]);
@@ -137,7 +137,21 @@ function play() {
 							} else {
 								//console.log("no coinside " + listTareas[j].name);
 							}
-						}); //foreach 								
+						}); //foreach 	*/	
+						
+						console.log("f");
+						console.log(listTareas[j].name);
+						doing.appendChild(divsTareas[0]);
+						listTareas[j].cycleTime = 0;
+						listTareas[j].state = "ToDo";
+						listTareas[j].phase = 1;
+						listTareas[j].sameIteration = true;
+						for(var t = 0; t < divsTareas.length; t++){
+							if(divsTareas[t].firstElementChild.innerHTML.trim() == listTareas[j].name){
+								divsTareas[t].querySelector(".divState").innerHTML = "ToDo";
+							}
+						}
+						
 					} //if end
 				} //for end
 
@@ -146,76 +160,94 @@ function play() {
 
 
 			listTareas.forEach(function(task) {
-
-
-				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
-				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
-									
-					task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);				
-					cycleTime = parseInt(task.duration);
 				
-					if(i != 0){ //esto es para que la ultima tarea no se acumule
-						task.cycleTime += cycleTime;				
-					}else{
-						task.cycleTime = cycleTime;
-					}
-					totalFases += cycleTime;
-					listPhases[i].period += cycleTime;
-					task.durarionAsignada = false;
+			
+				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
+				
+				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.duration == 0) {
+
+					task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
+					cycleTime = parseInt(task.duration);
+					task.cycleTime += cycleTime;	
 
 				}
 
 				for (var k = 0; k < divsTareas.length; k++) {
+					
 					var taskDuration = parseInt(task.duration);
-
 					var elementName = divsTareas[k].firstElementChild.innerHTML;
-
 					elementName = elementName.trim();
-
+				 
 					if(task.name == elementName){
 						divsTareas[k].lastElementChild.innerHTML = taskDuration;
 					}
-
+										
 					console.log("-----------");
 
 					if (task.state == "Doing" && task.name == elementName && task.tss == taskDuration &&
-							task.phase == (i + 1)) {
+						task.phase == (i + 1)) {
+						console.log("IF 1 " + task.name);
 						done.appendChild(divsTareas[k]);
 						task.state = "Done";
+						console.log("%c" + task.name + " is done", "font-size: 20px");
 						task.sameIteration = true;
-
+						
 						for(var w = 0; w < listUsers.length; w++){
 							if(listUsers[w].name == task.assignedUsers[0]){
 								listUsers[w].assigned = false;
 								task.assignedUsers[0] = null;
-
+//									console.log("desa");
+//									console.log(listUsers[w]);
+//									console.log(task);
 							}
 						}
-
+						for(var t = 0; t < divsTareas.length; t++){
+							if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
+								divsTareas[t].querySelector(".divState").innerHTML = "Done";
+							}
+						}
+						
 					} else if (task.state == "Doing" && task.name == elementName && task.tss != taskDuration &&
-							task.phase == (i + 1)) {
-						console.log("IF 2");
+						task.phase == (i + 1)) {
+						console.log("IF 2 " + task.name);
 						if (task.phase > 0) {
 							task.tss++;
+							console.log(task.tss);
 						}
 					} else if (task.state == "Done" && task.name == elementName && task.tss == taskDuration &&
-							task.phase == (i + 1) && !task.sameIteration) {
+						task.phase == (i + 1) && !task.sameIteration) {
 						console.log("IF 3 " + task.name);
 						if (fases[i + 1] == null) {
-
+							//fases[i].lastElementChild.firstElementChild.appendChild(divsTareas[k]); 
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 							task.state = "Ended";
 
 						} else {
 							if (((fases[i + 1].lastElementChild.firstElementChild.childNodes.length - 3) +
-									(fases[i + 1].lastElementChild.lastElementChild.childNodes.length - 3))
-									< listPhases[i + 1].maxTasks) {
+								(fases[i + 1].lastElementChild.lastElementChild.childNodes.length - 3))
+								< listPhases[i + 1].maxTasks) {
 
-								listUsers.forEach(function(user) {
-
-
+								
+								fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
+								task.state = "ToDo";
+								task.phase++;
+								task.tss = 0;
+								task.sameIteration = true;
+								task.duration = 0;
+								for(var t = 0; t < divsTareas.length; t++){
+									if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
+										divsTareas[t].querySelector(".divState").innerHTML = "ToDo";
+									}
+								}
+								
+//									console.log(user);
+//									console.log(task);
+								
+								
+								/*listUsers.forEach(function(user) {
+							
 									if(!user.assigned && task.assignedUsers[0] == null){
-
+										
 										var actualPhaseName = fases[i+1].firstElementChild.innerHTML;
 										for(var w = 0; w<user.phases.length; w++){
 											if(user.phases[w] == actualPhaseName.trim()){
@@ -225,112 +257,141 @@ function play() {
 												task.tss = 0;
 												task.assignedUsers[0] = (user.name);
 												user.assigned = true;
-												console.log(task.assignedUsers[0]);
-
+//													console.log(user);
+//													console.log(task);
 											}
-										}//4
+										}
 									}
-								});
-
+								});*/
+								
+								
+//									console.log("%cPassed " + task.name + " TO " + task.phase, "font-size: 20px; color:green");
+//									fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
+//									task.state = "Doing";
+//									task.phase++;
+//									task.tss = 0;
+//									task.cycleTime = cycleTime;
+//									task.leadTime = leadTime;
 							}
 						}
 
 					} else if (task.state == null && task.name == elementName && task.phase == 0) {
-
+				
 						console.log("IF 4 " + task.name);
-
+						
 						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 								< listPhases[0].maxTasks) {
-
-							listUsers.forEach(function(user) {
-								if(!user.assigned && task.assignedUsers[0] == null){
-
-
-									for(var w = 0; w<user.phases.length; w++){
-
-										if(user.phases[w] == firstPhaseName.trim()){
-											doing.appendChild(divsTareas[0]);
-											task.cycleTime = 0;
-											task.state = "Doing";
-											task.phase = 1;
-											task.assignedUsers[0] = (user.name);
-											user.assigned = true;
-
-											if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
-												task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
-												console.log("2 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
-												task.leadTime = leadTime;									
-												cycleTime = parseInt(task.duration);												
-												totalFases += cycleTime;
-												listPhases[i].period += cycleTime;
-												task.cycleTime += cycleTime;	
-												console.log (i);
-												console.log("3 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
-											
-											
+							
+							console.log("llo");
+							doing.appendChild(divsTareas[0]);
+							task.cycleTime = 0;
+							task.state = "ToDo";
+							task.phase = 1;
+							task.sameIteration = true;
+							for(var t = 0; t < divsTareas.length; t++){
+								if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
+									divsTareas[t].querySelector(".divState").innerHTML = "ToDo";
+								}
+							}
+							
+							if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
+								task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
+								task.leadTime = leadTime;
+								//console.log(task.name + " durasao 2 " + task.duration);
+		
+							}
+							
+//							listUsers.forEach(function(user) {
+//								if(!user.assigned && task.assignedUsers[0] == null){
+//									
+//									for(var w = 0; w<user.phases.length; w++){
+//										
+//										if(user.phases[w] == firstPhaseName.trim()){
+//											doing.appendChild(divsTareas[0]);
+//											task.cycleTime = 0;
+//											task.state = "Doing";
+//											task.phase = 1;
+//											task.assignedUsers[0] = (user.name);
+//											user.assigned = true;
+//											
+//											if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
+//												task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
+//												task.leadTime = leadTime;
+//												//console.log(task.name + " durasao 2 " + task.duration);
+//						
+//											}
+//										}
+//									}
+//								} else {
+//									//console.log("no coinside " + listTareas[k].name);
+//								}
+//							}); //foreach 								
+						} //if end
+					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
+							task.phase == (i + 1) && !task.sameIteration){
+						
+						console.log("IF 5 " + task.name);
+						listUsers.forEach(function(user) {
+							if(!user.assigned && task.assignedUsers[0] == null){
+								for(var w = 0; w<user.phases.length; w++){
+									
+									var actualPhaseName = fases[i].firstElementChild.innerHTML;
+									console.log("2 " + user.phases[w].trim() +" " + actualPhaseName.trim());
+									if(user.phases[w].trim() == actualPhaseName.trim()){
+										console.log("assigned " + task.name);
+										task.state = "Doing";
+										task.assignedUsers[0] = (user.name);
+										user.assigned = true;
+										for(var t = 0; t < divsTareas.length; t++){
+											if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
+												divsTareas[t].querySelector(".divState").innerHTML = "Doing";
 											}
 										}
+									
 									}
 								}
-							}); //foreach 								
-						} //if end
-					} //if 4 end
+							} else {
+								//console.log("no coinside " + listTareas[k].name);
+							}
+						}); //foreach 				
+						
+						
+						
+						
+					} //iff 5 end
 				} //divs tareas for end
 			}); //foreach end
 		} //end phases for
-
+		
 
 		listTareas.forEach(function(task) {
 			task.sameIteration = false;
-
+			
 		});
-
+		
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
-
-
-
+			
+			
+			
 			listTareas.forEach(function(task) {
-				if(task.leadTime == 0){
-
-					task.leadTime = task.cycleTime;
-				}else{
-					task.leadTime +=  task.cycleTime;
-				}
-
-
-			});
-			// Finalizado completamente
+					if(task.leadTime == 0){
+												
+						task.leadTime = task.cycleTime;
+					}else{
+						task.leadTime +=  task.cycleTime;
+					}
+			
+				
+				});
 			clearInterval(myInterval);
-
-			// Cambiamos el boton a pausa
-			document.getElementById("playpause").checked = false;
-
-			// Volvemos a habilitar el header
-			for (var j = 0; j < document.getElementById("header-btn").children.length; j++){
-
-				document.getElementById("header-btn").children[j].classList.remove("disabled");
-				document.getElementById("header-btn").children[j].removeAttribute("aria-disabled");
-
-			}
-
-			// Permitimos de nuevo abrir el modal de modificación
-			for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
-
-				document.getElementsByClassName("titulo")[i].setAttribute("data-target", "#myModal");
-				document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
-
-			}
-			// Volvemos a habilitar los resultados
-			document.getElementById("result").removeAttribute("disabled");
-			document.getElementById("result").removeAttribute("aria-disabled");
-
 		}
 		console.log("%cLEAD!" + leadTime, "font-size: 20px; color:green");
 		leadTime += 1;
-
 	}, 1000);
+	
 
+	
 
 }
 
