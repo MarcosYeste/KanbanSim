@@ -78,7 +78,7 @@ document.getElementById("playpause").addEventListener("change", function() {
 		// Deshabilitamos los botones del header
 		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
 
-			document.getElementById("doubleButton").children[i].setAttribute("class", "btn disabled");
+			document.getElementById("doubleButton").children[i].setAttribute("disabled", "");;
 			document.getElementById("doubleButton").children[i].setAttribute("aria-disabled", "true");
 		}
 
@@ -92,6 +92,7 @@ document.getElementById("playpause").addEventListener("change", function() {
 
 		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
+		
 
 		play();
 
@@ -113,8 +114,8 @@ document.getElementById("playpause").addEventListener("change", function() {
 		// Deshabilitamos los botones del header
 		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
 
-			document.getElementById("doubleButton").children[i].removeAttribute("class");
-			document.getElementById("doubleButton").children[i].setAttribute("aria-disabled", "false");
+			document.getElementById("doubleButton").children[i].removeAttribute("disabled");
+			document.getElementById("doubleButton").children[i].removeAttribute("aria-disabled");
 		}
 
 		// Permitimos de nuevo abrir el modal de modificación
@@ -149,7 +150,7 @@ document.getElementById("divDeleteTasks").addEventListener("click", function() {
 });
 
 //Botón nuevo Tablero			
-document.getElementById("divDeleteAll").addEventListener("click", function() {
+document.getElementById("divDelete").addEventListener("click", function() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -411,7 +412,7 @@ function play() {
 			// Deshabilitamos los botones del header
 			for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
 
-				document.getElementById("doubleButton").children[i].removeAttribute("class");
+				document.getElementById("doubleButton").children[i].removeAttribute("disabled");
 				document.getElementById("doubleButton").children[i].removeAttribute("aria-disabled");
 			}
 

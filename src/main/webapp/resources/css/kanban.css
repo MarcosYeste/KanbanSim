@@ -186,7 +186,7 @@ p.estado {
 	margin-left: 30px;
 }
 
-.resultbutt {
+.resultbutt, .doubleButton > button{
 	background-color:transparent;
 	border:transparent;
 	width: 5%;
@@ -201,7 +201,7 @@ p.estado {
 	color:#000091;
 }
 
-.resultbutt:disabled {
+.resultbutt:disabled,  .doubleButton > button:disabled{
 	opacity: 0.3;
 	cursor: default;
 }
