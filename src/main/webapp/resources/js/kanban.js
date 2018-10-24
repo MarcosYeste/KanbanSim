@@ -333,15 +333,16 @@ function play() {
 										task.state = "Doing";
 										task.assignedUsers[0] = (user.name);
 										user.assigned = true;
+										if(user.assigned){
+											document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
+											user.timeStopped += 1;
+										}
 										for(var t = 0; t < divsTareas.length; t++){
 											if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
 												divsTareas[t].querySelector(".divState").innerHTML = "Doing";
 											}
 											
-											if(user.assigned){
-												document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
-												user.timeStopped += 1;
-											}
+											
 											
 										}										
 									
