@@ -74,15 +74,14 @@ document.getElementById("playpause").addEventListener("change", function() {
 			document.getElementById("header-btn").children[i].setAttribute("aria-disabled", "true");
 
 		}
-		
-		// Deshabilitamos los botones en general
+
+		// Deshabilitamos los botones del header
 		for (var i = 0; i < document.getElementById("deleteButtons").children.length; i++){
 
-			document.getElementById("deleteButtons").children[i].setAttribute("disabled", "");
+			document.getElementById("deleteButtons").children[i].setAttribute("class", "btn disabled");
 			document.getElementById("deleteButtons").children[i].setAttribute("aria-disabled", "true");
-
 		}
-		
+
 		// Y quitamos el acceso a el formulario de modificación
 		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
 
@@ -111,6 +110,12 @@ document.getElementById("playpause").addEventListener("change", function() {
 
 		}
 
+		// Deshabilitamos los botones del header
+		for (var i = 0; i < document.getElementById("deleteButtons").children.length; i++){
+
+			document.getElementById("deleteButtons").children[i].removeAttribute("class");
+			document.getElementById("deleteButtons").children[i].setAttribute("aria-disabled", "false");
+		}
 
 		// Permitimos de nuevo abrir el modal de modificación
 		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
@@ -128,7 +133,8 @@ document.getElementById("reset").addEventListener("click", function() {
 });
 
 //Botón elimianr Tareas	
-document.getElementById("deleteTasks").addEventListener("click", function() {
+
+document.getElementById("divDeleteTasks").addEventListener("click", function() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -143,11 +149,11 @@ document.getElementById("deleteTasks").addEventListener("click", function() {
 });
 
 //Botón nuevo Tablero			
-document.getElementById("deleteAll").addEventListener("click", function() {
+document.getElementById("divDeleteAll").addEventListener("click", function() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			console.log("Deleted");
+			console.log("New Table");
 			location.reload();
 		}else{
 			console.log("Status = "+this.status);
@@ -159,8 +165,9 @@ document.getElementById("deleteAll").addEventListener("click", function() {
 
 
 
+
 function play() {
-	
+
 	var divsTareas = document.getElementsByClassName("tareas");
 	var duration = document.getElementsByClassName("duration");
 	var subfases = document.getElementsByClassName("subfase");
@@ -172,19 +179,19 @@ function play() {
 
 		console.log("Iteration Start");  
 		for (var i = 0; i < fases.length; i++) {
-			
+
 			var firstPhaseName = fases[0].firstElementChild.innerHTML;
 			var doing = fases[i].lastElementChild.firstElementChild;
 			var done = fases[i].lastElementChild.lastElementChild;
-			
+
 			if (firstLoop) {
 				console.log("Fisrt Loop");
 
 				for (var j = 0; j < divsTareas.length; j++) {
 					if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
-						(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
-						< listPhases[0].maxTasks) {
-						
+							(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
+							< listPhases[0].maxTasks) {
+
 						console.log("f");
 						console.log(listTareas[j].name);
 						doing.appendChild(divsTareas[0]);
@@ -197,7 +204,7 @@ function play() {
 								divsTareas[t].querySelector(".divState").innerHTML = "ToDo";
 							}
 						}
-						
+
 					} //if end
 				} //for end
 
@@ -206,7 +213,7 @@ function play() {
 
 
 			listTareas.forEach(function(task) {
-			
+
 				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.duration == 0) {
 
@@ -226,25 +233,25 @@ function play() {
 				}
 
 				for (var k = 0; k < divsTareas.length; k++) {
-					
+
 					var taskDuration = parseInt(task.duration);
 					var elementName = divsTareas[k].firstElementChild.innerHTML;
 					elementName = elementName.trim();
-				 
+
 					if(task.name == elementName){
 						divsTareas[k].lastElementChild.innerHTML = taskDuration;
 					}
-										
+
 					console.log("-----------");
 
 					if (task.state == "Doing" && task.name == elementName && task.tss == taskDuration &&
-						task.phase == (i + 1)) {
+							task.phase == (i + 1)) {
 						console.log("IF 1 " + task.name);
 						done.appendChild(divsTareas[k]);
 						task.state = "Done";
 						console.log("%c" + task.name + " is done", "font-size: 20px");
 						task.sameIteration = true;
-						
+
 						for(var w = 0; w < listUsers.length; w++){
 							if(listUsers[w].name == task.assignedUsers[0]){
 								listUsers[w].assigned = false;
@@ -257,7 +264,7 @@ function play() {
 								divsTareas[t].querySelector(".divState").innerHTML = "Done";
 							}
 						}
-						
+
 					} else if (task.state == "Doing" && task.name == elementName && task.tss != taskDuration &&
 							task.phase == (i + 1)) {
 						console.log("IF 2 " + task.name);
@@ -275,10 +282,10 @@ function play() {
 
 						} else {
 							if (((fases[i + 1].lastElementChild.firstElementChild.childNodes.length - 3) +
-								(fases[i + 1].lastElementChild.lastElementChild.childNodes.length - 3))
-								< listPhases[i + 1].maxTasks) {
+									(fases[i + 1].lastElementChild.lastElementChild.childNodes.length - 3))
+									< listPhases[i + 1].maxTasks) {
 
-								
+
 								fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
 								task.state = "ToDo";
 								task.phase++;
@@ -294,9 +301,9 @@ function play() {
 						}
 
 					} else if (task.state == null && task.name == elementName && task.phase == 0) {
-				
+
 						console.log("IF 4 " + task.name);
-						
+
 						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 								< listPhases[0].maxTasks) {							
@@ -311,21 +318,21 @@ function play() {
 									divsTareas[t].querySelector(".divState").innerHTML = "ToDo";
 								}
 							}
-							
+
 							if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
 								task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
 								task.leadTime = leadTime;
 								//console.log(task.name + " durasao 2 " + task.duration);
-		
+
 							}								
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){
-						
+
 						console.log("IF 5 " + task.name);
 						listUsers.forEach(function(user) {
 							if(!user.assigned && task.assignedUsers[0] == null){
-								
+
 								for(var w = 0; w<user.phases.length; w++){
 									var actualPhaseName = fases[i].firstElementChild.innerHTML;
 									console.log(user.phases[w].trim() + " " + actualPhaseName.trim());
@@ -334,63 +341,58 @@ function play() {
 										task.state = "Doing";
 										task.assignedUsers[0] = (user.name);
 										user.assigned = true;
+
+										if(user.assigned){
+											document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
+											user.timeStopped += 1;
+										}
+
+										if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
+											task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
+//											console.log("2 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
+											task.leadTime = leadTime;									
+											cycleTime = parseInt(task.duration);												
+											totalFases += cycleTime;
+											listPhases[i].period += cycleTime;
+											task.cycleTime += cycleTime;	
+//											console.log (i);
+//											console.log("3 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
+
+										}
+
 										for(var t = 0; t < divsTareas.length; t++){
 											if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
 												divsTareas[t].querySelector(".divState").innerHTML = "Doing";
 											}
-											
-											if(user.assigned){
-												document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
-												user.timeStopped += 1;
-											}
-//											if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
-//												task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
-//												console.log("2 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
-//												task.leadTime = leadTime;									
-//												cycleTime = parseInt(task.duration);												
-//												totalFases += cycleTime;
-//												listPhases[i].period += cycleTime;
-//												task.cycleTime += cycleTime;	
-//												console.log (i);
-//												console.log("3 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
-//
-//											}
 										}
-									
 									}
-								}
-							} else {
-								//console.log("no coinside " + listTareas[k].name);
+								} 
 							}
 						}); //foreach 				
-						
-						
-						
-						
 					} //iff 5 end
 				} //divs tareas for end
 			}); //foreach end
 		} //end phases for
-		
+
 
 		listTareas.forEach(function(task) {
 			task.sameIteration = false;
-			
+
 		});
-		
+
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
 
-			
-			
-			
+
+
+
 			listTareas.forEach(function(task) {
-					if(task.leadTime == 0){
-												
-						task.leadTime = task.cycleTime;
-					}else{
-						task.leadTime +=  task.cycleTime;
-					}
-			
+				if(task.leadTime == 0){
+
+					task.leadTime = task.cycleTime;
+				}else{
+					task.leadTime +=  task.cycleTime;
+				}
+
 			});
 			// Finalizado completamente
 			clearInterval(myInterval);
@@ -414,6 +416,13 @@ function play() {
 
 			}
 
+			// Deshabilitamos los botones del header
+			for (var i = 0; i < document.getElementById("deleteButtons").children.length; i++){
+
+				document.getElementById("deleteButtons").children[i].removeAttribute("class");
+				document.getElementById("deleteButtons").children[i].removeAttribute("aria-disabled");
+			}
+
 			// Volvemos a habilitar los resultados
 			document.getElementById("result").removeAttribute("disabled");
 			document.getElementById("result").removeAttribute("aria-disabled");
@@ -427,16 +436,20 @@ function play() {
 			listUsers.forEach(function(user) {
 
 				if(lazy <= user.timeStopped){
+
 					lazy = user.timeStopped;
+
 				}else{
+
 					document.getElementsByName(user.name)[0].children[1].style.color = "red";
 				}
 				console.log(user.timeStopped);
 			});
+
 		}
 		console.log("%cLEAD!" + leadTime, "font-size: 20px; color:green");
 		leadTime += 1;
-				
+
 	}, 1000);
 }
 

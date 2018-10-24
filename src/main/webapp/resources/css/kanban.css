@@ -164,8 +164,11 @@ p.estado {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	
 }
-
+#deleteButtons > div{
+	cursor:pointer;
+}
 .resultbutt {
 	width: 5%;
 	border-radius: 64px;

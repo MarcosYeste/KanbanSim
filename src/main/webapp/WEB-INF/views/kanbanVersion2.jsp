@@ -14,30 +14,33 @@
 <body>
 	<div class="botonesContainer1">
 	
-		<!-- Nuevo Tablero -->
 		<div id="deleteButtons">
 		
-			<div id="divDelete">
+			<!-- Nuevo Tablero -->
+			<div id="divDeleteAll" data-toggle="tooltip" data-placement="top"
+				title="Nuevo Tablero" role="button">
 				<i id="deleteAll" class="fas fa-file fa-3x"></i>
 			</div>
 
 			<!-- Borrar Tareas -->
 			<div id="divDeleteTasks" data-toggle="tooltip" data-placement="top"
-				title="Borrar Tareas">
+				title="Borrar Tareas" role="button">
 				<i id="deleteTasks" class="fas fa-trash-alt fa-3x"></i>
 			</div>
 
 		</div>
-		
-		<button id="result" onclick="generarResultados()" class="resultbutt"><i class="fas fa-clipboard-list fa-3x"></i></button>
-		
+
+		<button id="result" onclick="generarResultados()" class="resultbutt">
+			<i class="fas fa-clipboard-list fa-3x"></i>
+		</button>
+
 	</div>
 	<h1 class="texto">KANBAN SIM</h1>
 
 	<div class="botonesContainer">
-		
+
 		<!--  Button Play/Pause -->
-		
+
 		<div id="divReset">
 			<i id="reset" class="fas fa-redo fa-3x"></i>
 		</div>
@@ -154,7 +157,7 @@
 			<div class="contenedorFinal"></div>
 
 		</div>
-	</div>	
+	</div>
 	<div class="usersContainer">
 		<c:forEach items="${user}" var="user">
 			<div class="userName" name="<c:out value='${user.name}'></c:out>">
