@@ -13,29 +13,48 @@
 </head>
 <body>
 	<div class="botonesContainer1">
-	
-		<div id="divDelete">
-			<i id="deleteAll" class="fas fa-file fa-3x"></i>
+
+		<!-- Nuevo Tablero -->
+		<div>
+			<div id="divDelete">
+				<i id="deleteAll" class="fas fa-file fa-3x"></i>
+			</div>
+
+			<!-- Borrar Tareas -->
+			<div id="divDeleteTasks" data-toggle="tooltip" data-placement="top"
+				title="Borrar Tareas">
+				<i id="deleteTasks" class="fas fa-trash-alt fa-3x"></i>
+			</div>
+
 		</div>
 		
-		<button id="result" onclick="generarResultados()" class="resultbutt"><i id="reset" class="fas fa-clipboard-list fa-3x"></i></button>
-		<!--  Button Play/Pause -->
-		
+		<!-- Mostrar Resultados -->
+		<button id="result" onclick="generarResultados()" class="resultbutt">
+			<i class="fas fa-clipboard-list fa-3x"></i>
+		</button>
+
 	</div>
 	<h1 class="texto">KANBAN SIM</h1>
 
 	<div class="botonesContainer">
-		
-		<!--  Button Play/Pause -->
-		
+
+		<!-- Boton Reset -->
 		<div id="divReset">
 			<i id="reset" class="fas fa-redo fa-3x"></i>
 		</div>
+
+		<!--  Button Play/Pause -->
 		<div class="playpause">
 			<input type="checkbox" value="None" id="playpause" name="check" /> <label
 				for="playpause" tabindex=1></label>
 		</div>
 	</div>
+
+	<script>
+		var listTareas = new Array();
+		var listPhases = new Array();
+		var listUsers = new Array();
+	</script>
 
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
 	<div class="contenedor">
@@ -44,13 +63,9 @@
 
 			<div class="tituloInit">Etapa de inicio</div>
 			<div class="tituloInit barra"></div>
-			<div class="contenedorTareas">
+			<div class="contenedorTareas" id="contenedorTareas">
 
-				<script>
-					var listTareas = new Array();
-					var listPhases = new Array();
-					var listUsers = new Array();
-				</script>
+
 
 				<c:forEach items="${task}" var="task">
 
@@ -61,7 +76,7 @@
 						</p>
 
 						<p class="estado">
-							<small><c:out value="${task.state}"></c:out></small>
+							<small class="divState"><c:out value="${task.state}"></c:out></small>
 						</p>
 
 
@@ -102,7 +117,7 @@
 					<div class="titulo" data-toggle="modal" data-target="#myModal">
 
 						<c:out value="${fase.name}"></c:out>
-
+						<i class="far fa-edit img-edit"></i>
 					</div>
 					<div class="subfase">
 
@@ -127,7 +142,7 @@
 
 				<script>
 					var phase = new Object();
-					phase.name = "<c:out value="${name}"></c:out>";
+					phase.name = "<c:out value='${name}'></c:out>";
 					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
 					phase.maxTime = <c:out value="${maxTime}"></c:out>;
 					phase.minTime = <c:out value="${minTime}"></c:out>;
@@ -145,10 +160,10 @@
 			<div class="contenedorFinal"></div>
 
 		</div>
-	</div>	
+	</div>
 	<div class="usersContainer">
 		<c:forEach items="${user}" var="user">
-			<div class="userName">
+			<div class="userName" name="<c:out value='${user.name}'></c:out>">
 				<p>
 					<strong><c:out value="${user.name}"></c:out></strong>
 				</p>
@@ -160,7 +175,7 @@
 				<script>
 					var userO = new Object();
 					userO.name = "<c:out value="${name}"></c:out>";
-					userO.timeStoped = 0;
+					userO.timeStopped = 0;
 					rawPhases = "<c:out value="${userphases}"></c:out>";
 					userO.phases = rawPhases.replace('[', '').replace(']', '')
 							.split(',');
@@ -183,10 +198,11 @@
 				</div>
 				<div class="modal-body">
 
-					Nombre Fase: <input type="text" id="modName"> Máximo
-					Tareas: <input type="text" id="modWip"> Tiempo Mínimo: <input
-						type="text" id="modMinTime"> Tiempo Máximo: <input
-						type="text" id="modMaxTime"> <br>
+					Nombre Fase: <input type="text" id="modName" disabled>
+					Máximo Tareas: <input type="text" id="modWip" min="1">
+					Tiempo Mínimo: <input type="text" id="modMinTime" min="1">
+					Tiempo Máximo: <input type="text" id="modMaxTime" min="1">
+					<br>
 					<button id="ModPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
