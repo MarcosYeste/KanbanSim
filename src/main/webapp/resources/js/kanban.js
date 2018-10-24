@@ -23,22 +23,25 @@ document.getElementById("ModPhase").addEventListener("click", saveMod, false);
 
 //Mod Phases
 function modPhases(){
-	click = event.target.attributes[3].value;
+	click = event.target.attributes[4].value;
 
 	// Mostramos los datos correspondientes a la fase
 	document.getElementById("modName").value = listPhases[click].name;
-	document.getElementById("modWip").value = listPhases[click].maxTasks;
-	document.getElementById("modMinTime").value = listPhases[click].minTime;
-	document.getElementById("modMaxTime").value = listPhases[click].maxTime;
+	document.getElementById("modWip").value = parseInt(listPhases[click].maxTasks);
+	document.getElementById("modMinTime").value = parseInt(listPhases[click].minTime);
+	document.getElementById("modMaxTime").value = parseInt(listPhases[click].maxTime);
+
 }
 
 function saveMod() {
 	// Modificamos los datos de la fase
 
 	listPhases[click].name = document.getElementById("modName").value;
-	listPhases[click].maxTasks = document.getElementById("modWip").value;
-	listPhases[click].minTime = document.getElementById("modMinTime").value;
-	listPhases[click].maxTime = document.getElementById("modMaxTime").value;
+	listPhases[click].maxTasks = parseInt(document.getElementById("modWip").value);
+	listPhases[click].minTime = parseInt(document.getElementById("modMinTime").value);
+	listPhases[click].maxTime = parseInt(document.getElementById("modMaxTime").value);
+
+	console.table(listPhases[click]);
 
 	// Control de errores, si el valor introducido en cualquiera de los campos es 0 o menor a este,
 	// pon automaticamente un 1
@@ -53,10 +56,6 @@ function saveMod() {
 	}
 
 	console.log("Clicked");
-	console.log("%c" + listPhases[click].maxTasks, "font-size:20px; font-weight:900; color: orange");
-	console.log("%c" + listPhases[click].minTime, "font-size:20px; font-weight:900; color: orange");
-	console.log("%c" + listPhases[click].maxTime, "font-size:20px; font-weight:900; color: orange");
-
 
 }
 
@@ -92,7 +91,7 @@ document.getElementById("playpause").addEventListener("change", function() {
 
 		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
-		
+
 
 		play();
 
@@ -171,7 +170,8 @@ function play() {
 	var subfases = document.getElementsByClassName("subfase");
 	var fases = document.getElementsByClassName("faseName");
 	var y = 0;
-	var lazy = 0;
+	var lowestTime = 9999999;
+	var lazyPerson = listUsers[0].name;
 
 	myInterval = setInterval(function() {
 
@@ -216,7 +216,7 @@ function play() {
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.duration == 0) {
 
 					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
-					task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
+					task.duration = Math.round(Math.random() * (listPhases[i].maxTime- listPhases[i].minTime)+ listPhases[i].minTime);
 
 					cycleTime = parseInt(task.duration);
 
@@ -319,7 +319,7 @@ function play() {
 
 							if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
 								// ________ESTO VA EN EL IF 4
-								task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
+								task.duration = Math.round(Math.random() * (listPhases[i].maxTime- listPhases[i].minTime)+ listPhases[i].minTime);
 								console.log("2 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
 								task.leadTime = leadTime;									
 								cycleTime = parseInt(task.duration);												
@@ -428,22 +428,24 @@ function play() {
 			// Buscamos el usuario más  ocioso, menos trabajador
 			listUsers.forEach(function(user) {
 
-				if(lazy <= user.timeStopped){
+				if(lowestTime > user.timeStopped){
 
-					lazy = user.timeStopped;
-
-				}else{
-
-					document.getElementsByName(user.name)[0].children[1].style.color = "red";
+					lowestTime = user.timeStopped;
+					lazyPerson = user.name;
 				}
+
 				console.log(user.timeStopped);
+
 			});
+
+			document.getElementsByName(lazyPerson)[0].children[1].style.color = "red";
 
 		}
 		console.log("%cLEAD!" + leadTime, "font-size: 20px; color:green");
 		leadTime += 1;
 
 	}, 1000);
+
 }
 
 function mostrarResultados() {

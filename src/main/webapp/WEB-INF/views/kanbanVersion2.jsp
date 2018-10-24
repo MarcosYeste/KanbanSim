@@ -13,27 +13,29 @@
 </head>
 <body>
 	<div class="botonesContainer1" id="botonesContainer1">
-	
+
 		<!-- Nuevo Tablero -->
 		<div class="doubleButton" id="doubleButton">
 			<button id="divDelete">
-				<i id="deleteAll" class="fas fa-file fa-3x" data-toggle="tooltip" data-placement="top"
-				title="Nuevo Tablero"></i>
+				<i id="deleteAll" class="fas fa-file fa-3x" data-toggle="tooltip"
+					data-placement="top" title="Nuevo Tablero"></i>
 			</button>
 
 			<!-- Borrar Tareas -->
 			<button id="divDeleteTasks">
-				<i id="deleteTasks" class="fas fa-trash-alt fa-3x" data-toggle="tooltip" data-placement="top"
-				title="Borrar Tareas"></i>
+				<i id="deleteTasks" class="fas fa-trash-alt fa-3x"
+					data-toggle="tooltip" data-placement="top" title="Borrar Tareas"></i>
 			</button>
 
 		</div>
-		
-		<button id="result" onclick="generarResultados()" class="resultbutt"><i class="fas fa-clipboard-list fa-4x"  data-toggle="tooltip" data-placement="top"
-				title="Mostrar Resultados"></i></button>
+
+		<button id="result" onclick="generarResultados()" class="resultbutt">
+			<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
+				data-placement="top" title="Mostrar Resultados"></i>
+		</button>
 
 	</div>
-	
+
 	<h1 class="texto">KANBAN SIM</h1>
 
 	<div class="botonesContainer">
@@ -111,9 +113,11 @@
 			<c:forEach items="${phases}" var="fase">
 
 				<div class="faseName">
-					<div class="titulo" data-toggle="modal" data-target="#myModal">
-
+					<div class="titulo" data-toggle="modal" data-target="#myModal"
+						name="<c:out value='${fase.name}'></c:out>">
+						
 						<c:out value="${fase.name}"></c:out>
+						
 					</div>
 					<div class="subfase">
 
@@ -194,7 +198,7 @@
 				</div>
 				<div class="modal-body">
 
-					Nombre Fase: <input type="text" id="modName"> Máximo
+					Nombre Fase: <input type="text" id="modName" disabled> Máximo
 					Tareas: <input type="text" id="modWip"> Tiempo Mínimo: <input
 						type="text" id="modMinTime"> Tiempo Máximo: <input
 						type="text" id="modMaxTime"> <br>
