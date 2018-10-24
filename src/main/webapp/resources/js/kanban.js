@@ -74,9 +74,16 @@ document.getElementById("playpause").addEventListener("change", function() {
 			document.getElementById("header-btn").children[i].setAttribute("class", "btn btn-success disabled");
 			document.getElementById("header-btn").children[i].setAttribute("aria-disabled", "true");
 
+		}
+		
+		// Deshabilitamos los botones en general
+		for (var i = 0; i < document.getElementById("deleteButtons").children.length; i++){
 
+			document.getElementById("deleteButtons").children[i].setAttribute("disabled", "");
+			document.getElementById("deleteButtons").children[i].setAttribute("aria-disabled", "true");
 
 		}
+		
 		// Y quitamos el acceso a el formulario de modificación
 		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
 
@@ -128,7 +135,7 @@ document.getElementById("deleteTasks").addEventListener("click", function() {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			console.log("Deleted");
-			document.getElementById("contenedorTareas").innerHTML = "";
+			location.reload();
 		}else{
 			console.log("Status = "+this.status);
 		}
@@ -143,9 +150,7 @@ document.getElementById("deleteAll").addEventListener("click", function() {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			console.log("Deleted");
-			document.getElementById("contenedorTareas").innerHTML = "";
-			document.getElementById("faseDiv").innerHTML = "";
-			document.getElementsByClassName("usersContainer")[0].innerHTML = "";
+			location.reload();
 		}else{
 			console.log("Status = "+this.status);
 		}

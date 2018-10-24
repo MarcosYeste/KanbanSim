@@ -15,7 +15,8 @@
 	<div class="botonesContainer1">
 	
 		<!-- Nuevo Tablero -->
-		<div>
+		<div id="deleteButtons">
+		
 			<div id="divDelete">
 				<i id="deleteAll" class="fas fa-file fa-3x"></i>
 			</div>
