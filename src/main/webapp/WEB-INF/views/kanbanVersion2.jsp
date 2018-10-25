@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp"></jsp:include>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -202,10 +204,10 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="modName"> Máximo
-					Tareas: <input type="text" id="modWip"> Tiempo Mínimo: <input
-						type="text" id="modMinTime">  Tiempo Máximo: <input
-						type="text" id="modMaxTime"> <br>
+					Nombre Fase: <input type="text" id="modName" disabled>
+					Máximo Tareas: <input type="text" id="modWip"> 
+					Tiempo Mínimo: <input type="text" id="modMinTime">  
+					Tiempo Máximo: <input type="text" id="modMaxTime"> <br>
 					<button id="ModPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
@@ -218,7 +220,8 @@
 		</div>
 	</div>
 
-	<!-- MODIFICANDO -->
+	<!-- MODIFICACIÓN PENDIENTE (Problema Checkbox)-->
+	
 	<!-- Modal Modificar Usuarios-->
 	<div class="modal fade" id="myModal2" role="dialog">
 		<div class="modal-dialog">
@@ -229,12 +232,20 @@
 					<h4 class="modal-title">Modificar Fase</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
+				
 				<div class="modal-body">
-
+				
 					Nombre Usuario: <input type="text" id="modNameUser" disabled>
-					Fases:
-					<div id="modFasesUser"></div>
+					<div>Fases:</div>
+					<div id="modFasesUser">
+					<c:forEach items="${allPhases}" var="phase">
+							<input type="checkbox" class="userPhaseCheck" value="${phase}">
+							<c:out value="${phase}"></c:out> 
+							console.log(${phase});
+					</c:forEach>
+					</div>
 					<br>
+					
 					<button id="ModUsuario" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
@@ -246,6 +257,7 @@
 
 		</div>
 	</div>
+	
 	<!-- ---------------------------------------------- -->
 
 	<jsp:include page="footer.jsp"></jsp:include>
