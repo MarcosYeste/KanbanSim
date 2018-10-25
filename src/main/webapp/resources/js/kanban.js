@@ -6,11 +6,16 @@ var myInterval;
 var cycleTime = 0;
 var leadTime = 0;
 var click;
+var click2 = 0;
+var playPause = document.getElementsByClassName("playpause")[0];
+
 
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
+
+//Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
 
 for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", i);
@@ -19,26 +24,38 @@ for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 	document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
 }
 
-document.getElementById("ModPhase").addEventListener("click", saveMod, false);
+//Añadimos un attributo auto incremental que nos servira para identificar la posición de cada uno de los elementos
+for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
+	document.getElementsByClassName("userName")[i].setAttribute("data-identification", i);
+
+	// Abrimos el formulario			
+	document.getElementsByClassName("userName")[i].addEventListener("click", modUsers , false);
+}
+
+document.getElementById("ModPhase").addEventListener("click", saveModPhase, false);
 
 //Mod Phases
 function modPhases(){
-	click = event.target.attributes[3].value;
+	click = event.target.attributes[4].value;
 
 	// Mostramos los datos correspondientes a la fase
 	document.getElementById("modName").value = listPhases[click].name;
-	document.getElementById("modWip").value = listPhases[click].maxTasks;
-	document.getElementById("modMinTime").value = listPhases[click].minTime;
-	document.getElementById("modMaxTime").value = listPhases[click].maxTime;
+	document.getElementById("modWip").value = parseInt(listPhases[click].maxTasks);
+	document.getElementById("modMinTime").value = parseInt(listPhases[click].minTime);
+	document.getElementById("modMaxTime").value = parseInt(listPhases[click].maxTime);
+
 }
 
-function saveMod() {
+function saveModPhase() {
 	// Modificamos los datos de la fase
 
 	listPhases[click].name = document.getElementById("modName").value;
-	listPhases[click].maxTasks = document.getElementById("modWip").value;
-	listPhases[click].minTime = document.getElementById("modMinTime").value;
-	listPhases[click].maxTime = document.getElementById("modMaxTime").value;
+	listPhases[click].maxTasks = parseInt(document.getElementById("modWip").value);
+	listPhases[click].minTime = parseInt(document.getElementById("modMinTime").value);
+	listPhases[click].maxTime = parseInt(document.getElementById("modMaxTime").value);
+
+	console.table(listPhases[click]);
+
 
 	// Control de errores, si el valor introducido en cualquiera de los campos es 0 o menor a este,
 	// pon automaticamente un 1
@@ -53,13 +70,43 @@ function saveMod() {
 	}
 
 	console.log("Clicked");
-	console.log("%c" + listPhases[click].maxTasks, "font-size:20px; font-weight:900; color: orange");
-	console.log("%c" + listPhases[click].minTime, "font-size:20px; font-weight:900; color: orange");
-	console.log("%c" + listPhases[click].maxTime, "font-size:20px; font-weight:900; color: orange");
-
 
 }
 
+//--------------MODIFICANDO--------------------------------------------------------
+
+//Mod Users
+function modUsers(){
+	click2 = event.target.attributes[4].value;
+	console.log(click2);
+	
+	var modFases = document.getElementById("modFasesUser");
+	// Mostramos los datos correspondientes a la fase
+	document.getElementById("modNameUser").value = listUsers[click2].name;
+
+	
+
+	listPhases.forEach(function(fase){
+		
+		var check = document.createElement("INPUT");
+		
+		check.setAttribute("type", "checkbox");
+		check.setAttribute("class", "userPhaseCheck");
+		check.setAttribute("value", fase.name);
+		check.innerHTML = fase.name;
+		
+		
+		modFases.append(check);
+
+	})
+
+}
+
+function saveModUsers() {
+	// Modificamos los datos de la fase
+
+}
+//-------------------------------------------------------------------------
 
 //Play Button
 document.getElementById("playpause").addEventListener("change", function() {
@@ -92,7 +139,7 @@ document.getElementById("playpause").addEventListener("change", function() {
 
 		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
-		
+
 
 		play();
 
@@ -121,6 +168,7 @@ document.getElementById("playpause").addEventListener("change", function() {
 		// Permitimos de nuevo abrir el modal de modificación
 		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
 
+			console.log("Cantidad Doing " + document.getElementsByClassName("doing")[i].children.length >= 1);
 			document.getElementsByClassName("titulo")[i].setAttribute("data-target", "#myModal");
 			document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
 
@@ -171,7 +219,8 @@ function play() {
 	var subfases = document.getElementsByClassName("subfase");
 	var fases = document.getElementsByClassName("faseName");
 	var y = 0;
-	var lazy = 0;
+	var lowestTime = 9999999;
+	var lazyPerson = listUsers[0].name;
 
 	myInterval = setInterval(function() {
 
@@ -216,7 +265,8 @@ function play() {
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.duration == 0) {
 
 					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
-					task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
+
+					task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 
 					cycleTime = parseInt(task.duration);
 
@@ -374,15 +424,13 @@ function play() {
 
 							if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
 								// ________ESTO VA EN EL IF 4
-								task.duration = Math.floor(Math.random() * listPhases[i].maxTime + listPhases[i].minTime);
-								console.log("2 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
+
+								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);								
 								task.leadTime = leadTime;									
 								cycleTime = parseInt(task.duration);												
 								totalFases += cycleTime;
 								listPhases[i].period += cycleTime;
 								task.cycleTime += cycleTime;	
-								console.log (i);
-								console.log("3 - SE ASIGNA UNA DURACION AL RETRASADO "+ task.name +" CYCLO "+task.cycleTime);
 							}								
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
@@ -411,7 +459,7 @@ function play() {
 									}
 								} else {
 									var isTotallyFree = false;
-									
+								
 									for(var up = 0; up<user.phases.length; up++){
 										for(var p = 0; p < fases.length; p++){
 											//console.log("Free state " + isTotallyFree);
@@ -456,6 +504,8 @@ function play() {
 								if(user.assigned){
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 									user.timeStopped += 1;
+									user.secondsWork += task.duration;
+									// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
 								}
 							} 
 						}); //foreach 				
@@ -525,22 +575,24 @@ function play() {
 			// Buscamos el usuario más  ocioso, menos trabajador
 			listUsers.forEach(function(user) {
 
-				if(lazy <= user.timeStopped){
+				if(lowestTime > user.timeStopped){
 
-					lazy = user.timeStopped;
-
-				}else{
-
-					document.getElementsByName(user.name)[0].children[1].style.color = "red";
+					lowestTime = user.timeStopped;
+					lazyPerson = user.name;
 				}
+
 				console.log(user.timeStopped);
+
 			});
+
+			document.getElementsByName(lazyPerson)[0].children[1].style.color = "red";
 
 		}
 		console.log("%cLEAD!" + leadTime, "font-size: 20px; color:green");
 		leadTime += 1;
 
 	}, 1000);
+
 }
 
 function mostrarResultados() {
@@ -554,32 +606,65 @@ function mostrarResultados() {
 	var div3 = document.createElement("div");
 	var div4 =  document.createElement("div");
 	var subdiv4 = document.createElement("div");
+	var div5 = document.createElement("div");
+	var subdiv5 = document.createElement("div");
+	var subsubdiv5 = document.createElement("div");
 	div3.className = "tareaResultadoDiv";
 	h3.innerHTML = "<strong>Tabla de Resultados</strong>";
 	div2.appendChild(h3);
 	div.appendChild(div2);
-
-//	listPhases.forEach(function(phase) {
+	// Resultado fases
 	div4.className = "faseResultadoDiv";
 	subdiv4.className = "faseResultado";
-	subdiv4.innerHTML = "<h4> Resultados Fases</h4>";
+	subdiv4.innerHTML = "<h4><center> Resultados de  fases</center></h4>";
 	subdiv4.innerHTML += "<p> Tiempo total de las fases: "+totalFases+" s</p>";
-	var z = 0;
 	listPhases.forEach(function(phase) {
 		mediaMaxFaseTime += phase.maxTime;
 		mediaMinFaseTime += phase.minTime;
 		subdiv4.innerHTML += "<p> "+phase.name+" : "+phase.period+" s</p>";
-		z += 1;
+		
 	});
-//	mediaMaxFaseTime = Math.floor(mediaMaxFaseTime/z);
-//	mediaMinFaseTime = Math.floor(mediaMinFaseTime/z);
-
 	subdiv4.innerHTML += "<p>Calculo maximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
 	subdiv4.innerHTML += "<p>Calculo minimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
 	mediaMaxFaseTime = 0;
 	mediaMinFaseTime = 0 ;
 	div4.appendChild(subdiv4);
-//	}
+	//Resultado Usuario
+	div5.className = "userResultadoDiv";
+	subdiv5.className = "userResultado";
+	subsubdiv5.className = "ResultadoUsuario";
+	subdiv5.innerHTML = "<h4><center> Resultados de usuarios</center> </h4>";
+	var max = 0;
+	var min = 50;
+	var userMax = "";
+	var userMin = "";
+	var taskmax = 0 ;
+	var taskmin = 0;
+	listUsers.forEach(function(user) {
+		
+		subsubdiv5.innerHTML += '<div class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
+						'<p> Tareas trabajadas: '+user.timeStopped+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
+			
+		if (user.secondsWork > max) {
+			max = user.secondsWork;
+			userMax = user.name;
+			taskmax = user.timeStopped;
+			
+		}else if(user.secondsWork < min){			
+			min = user.secondsWork;
+			userMin = user.name;
+			taskmin = user.timeStopped;
+			
+		}
+		
+		subsubdiv5.innerHTML += '</div>';
+	});
+	subdiv5.innerHTML += "<p>El miembro que ha trabajado más es: <strong>"+userMax+"</strong> con "+max+" segundos en "+taskmax+" tareas</p>";	
+	subdiv5.innerHTML += "<p>El miembro que ha trabajado menos es: <strong>"+userMin+"</strong> con "+min+" segundos "+taskmin+" tareas </p>";
+	subdiv5.appendChild(subsubdiv5);
+	div5.appendChild(subdiv5);
+		
+	// Pinta las tareas
 	listTareas.forEach(function(task) {			
 
 		var p = document.createElement("P");
@@ -593,28 +678,35 @@ function mostrarResultados() {
 		text = document.createTextNode(" Cycletime: " + (task.cycleTime ));
 		p1.appendChild(text);
 		subDiv.appendChild(p1);
-//		div.appendChild(br);
 		var p2 = document.createElement("P");
 		text = document.createTextNode(" Leadime: " + task.leadTime);
 		p2.appendChild(text);
-		subDiv.appendChild(p2);
-//		div.appendChild(br);				
+		subDiv.appendChild(p2);			
 		div3.appendChild(subDiv);
 	});
 
 	div.appendChild(div3);
 	div.appendChild(div4);
+	div.appendChild(div5);
 }
 
 function generarResultados(){
 	var buttonResult = document.getElementById("result");
 	document.getElementsByClassName("contenedor")[0].style.visibility = "hidden";
+	document.getElementsByClassName("usersContainer")[0].style.visibility = "hidden";
+	playPause.children[0].setAttribute("disabled", "");
+	playPause.children[0].setAttribute("aria-disabled", "true");
+	playPause.children[1].style.opacity=0.3;
 	mostrarResultados();
 	buttonResult.value = "Mostrar Kanban";
 	buttonResult.setAttribute("onClick", "mostrarKanban()");
 }
 function mostrarKanban(){
 	document.getElementsByClassName("contenedor")[0].style.visibility = "visible";
+	document.getElementsByClassName("usersContainer")[0].style.visibility = "visible";
+	playPause.children[0].removeAttribute("disabled");
+	playPause.children[0].removeAttribute("aria-disabled");
+	playPause.children[1].style.opacity=1;
 	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
 	document.getElementById("result").setAttribute("onClick", "generarResultados()");;
 }

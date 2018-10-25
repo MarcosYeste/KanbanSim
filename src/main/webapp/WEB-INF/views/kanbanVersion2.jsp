@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Kanban</title>
 <link rel="stylesheet" href="/resources/css/kanban.css">
 
@@ -13,27 +12,29 @@
 </head>
 <body>
 	<div class="botonesContainer1" id="botonesContainer1">
-	
+
 		<!-- Nuevo Tablero -->
 		<div class="doubleButton" id="doubleButton">
 			<button id="divDelete">
-				<i id="deleteAll" class="fas fa-file fa-3x" data-toggle="tooltip" data-placement="top"
-				title="Nuevo Tablero"></i>
+				<i id="deleteAll" class="fas fa-file fa-3x" data-toggle="tooltip"
+					data-placement="top" title="Nuevo Tablero"></i>
 			</button>
 
 			<!-- Borrar Tareas -->
 			<button id="divDeleteTasks">
-				<i id="deleteTasks" class="fas fa-trash-alt fa-3x" data-toggle="tooltip" data-placement="top"
-				title="Borrar Tareas"></i>
+				<i id="deleteTasks" class="fas fa-trash-alt fa-3x"
+					data-toggle="tooltip" data-placement="top" title="Borrar Tareas"></i>
 			</button>
 
 		</div>
-		
-		<button id="result" onclick="generarResultados()" class="resultbutt"><i class="fas fa-clipboard-list fa-4x"  data-toggle="tooltip" data-placement="top"
-				title="Mostrar Resultados"></i></button>
+
+		<button id="result" onclick="generarResultados()" class="resultbutt">
+			<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
+				data-placement="top" title="Mostrar Resultados"></i>
+		</button>
 
 	</div>
-	
+
 	<h1 class="texto">KANBAN SIM</h1>
 
 	<div class="botonesContainer">
@@ -111,9 +112,11 @@
 			<c:forEach items="${phases}" var="fase">
 
 				<div class="faseName">
-					<div class="titulo" data-toggle="modal" data-target="#myModal">
+					<div class="titulo" data-toggle="modal" data-target="#myModal"
+						name="<c:out value='${fase.name}'></c:out>">
 
 						<c:out value="${fase.name}"></c:out>
+
 					</div>
 					<div class="subfase">
 
@@ -157,32 +160,38 @@
 
 		</div>
 	</div>
-	<div class="usersContainer">
-		<c:forEach items="${user}" var="user">
-			<div class="userName" name="<c:out value='${user.name}'></c:out>">
-				<p>
-					<strong><c:out value="${user.name}"></c:out></strong>
-				</p>
-				<i class="fa fa-user-tie fa-2x" aria-hidden="true"></i>
+	<fieldset class="teamField">
+		<legend class="teamField">Miembros del Equipo:</legend>
+		<div class="usersContainer">
 
-				<c:set value="${user.name}" var="name" />
-				<c:set value="${user.phases}" var="userphases" />
+			<c:forEach items="${user}" var="user">
+				<div class="userName" name="<c:out value='${user.name}'></c:out>"
+					data-toggle="modal" data-target="#myModal2">
+					<p>
+						<strong><c:out value="${user.name}"></c:out></strong>
+					</p>
+					<i class="fa fa-user-tie fa-2x" aria-hidden="true"></i>
 
-				<script>
-					var userO = new Object();
-					userO.name = "<c:out value="${name}"></c:out>";
-					userO.timeStopped = 0;
-					rawPhases = "<c:out value="${userphases}"></c:out>";
-					userO.phases = rawPhases.replace('[', '').replace(']', '')
-							.split(',');
-					userO.assigned = false;
-					listUsers.push(userO);
-				</script>
-			</div>
-		</c:forEach>
-	</div>
+					<c:set value="${user.name}" var="name" />
+					<c:set value="${user.phases}" var="userphases" />
 
-	<!-- Modal -->
+					<script>
+						var userO = new Object();
+						userO.name = "<c:out value="${name}"></c:out>";
+						userO.timeStopped = 0;
+						userO.secondsWork = 0;
+						rawPhases = "<c:out value="${userphases}"></c:out>";
+						userO.phases = rawPhases.replace('[', '').replace(']',
+								'').split(',');
+						userO.assigned = false;
+						listUsers.push(userO);
+					</script>
+				</div>
+			</c:forEach>
+		</div>
+	</fieldset>
+	
+	<!-- Modal Modificar Fases-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 
@@ -193,10 +202,9 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-
-					Nombre Fase: <input type="text" id="modName"> Máximo
-					Tareas: <input type="text" id="modWip"> Tiempo Mínimo: <input
-						type="text" id="modMinTime"> Tiempo Máximo: <input
+					Nombre Fase: <input type="text" id="modName"> MÃ¡ximo
+					Tareas: <input type="text" id="modWip"> Tiempo MÃ­nimo: <input
+						type="text" id="modMinTime">  Tiempo MÃ¡ximo: <input
 						type="text" id="modMaxTime"> <br>
 					<button id="ModPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
@@ -209,6 +217,36 @@
 
 		</div>
 	</div>
+
+	<!-- MODIFICANDO -->
+	<!-- Modal Modificar Usuarios-->
+	<div class="modal fade" id="myModal2" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Modificar Fase</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+
+					Nombre Usuario: <input type="text" id="modNameUser" disabled>
+					Fases:
+					<div id="modFasesUser"></div>
+					<br>
+					<button id="ModUsuario" class="btn btn-secondary"
+						data-dismiss="modal">Modificar</button>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- ---------------------------------------------- -->
 
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
