@@ -6,6 +6,7 @@ var myInterval;
 var cycleTime = 0;
 var leadTime = 0;
 var click;
+var playPause = document.getElementsByClassName("playpause")[0];
 
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
@@ -550,12 +551,20 @@ function mostrarResultados() {
 function generarResultados(){
 	var buttonResult = document.getElementById("result");
 	document.getElementsByClassName("contenedor")[0].style.visibility = "hidden";
+	document.getElementsByClassName("usersContainer")[0].style.visibility = "hidden";
+	document.getElementsByClassName("playpause")[0].children[0].setAttribute("disabled", "");
+	document.getElementsByClassName("playpause")[0].children[0].setAttribute("aria-disabled", "true");
+	document.getElementsByClassName("playpause")[0].children[1].style.opacity=0.3;
 	mostrarResultados();
 	buttonResult.value = "Mostrar Kanban";
 	buttonResult.setAttribute("onClick", "mostrarKanban()");
 }
 function mostrarKanban(){
 	document.getElementsByClassName("contenedor")[0].style.visibility = "visible";
+	document.getElementsByClassName("usersContainer")[0].style.visibility = "visible";
+	document.getElementsByClassName("playpause")[0].children[0].removeAttribute("disabled");
+	document.getElementsByClassName("playpause")[0].children[0].removeAttribute("aria-disabled");
+	document.getElementsByClassName("playpause")[0].children[1].style.opacity=1;
 	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
 	document.getElementById("result").setAttribute("onClick", "generarResultados()");;
 }
