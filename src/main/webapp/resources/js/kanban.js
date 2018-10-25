@@ -641,33 +641,39 @@ function mostrarResultados() {
 	subdiv5.className = "userResultado";
 	subsubdiv5.className = "ResultadoUsuario";
 	subdiv5.innerHTML = "<h4><center> Resultados de usuarios</center> </h4>";
-	var max = 0;
-	var min = 50;
-	var userMax = "";
-	var userMin = "";
-	var taskmax = 0 ;
-	var taskmin = 0;
+	var arrayValores = [];
+	var nombresArray = [];
 	listUsers.forEach(function(user) {
 
 		subsubdiv5.innerHTML += '<div class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
-		'<p> Tareas trabajadas: '+user.timeStopped+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
-
-		if (user.secondsWork > max) {
-			max = user.secondsWork;
-			userMax = user.name;
-			taskmax = user.timeStopped;
+						'<p> Tareas trabajadas: '+user.timeStopped+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
 			
-		}else if(user.secondsWork <= min){			
-			min = user.secondsWork;
-			userMin = user.name;
-			taskmin = user.timeStopped;
-
-		}
+	});
+		arrayValores = findMaxAndMin();
+		console.log(arrayValores);
+	
 
 		subsubdiv5.innerHTML += '</div>';
-	});
-	subdiv5.innerHTML += "<p>El miembro que ha trabajado más es: <strong>"+userMax+"</strong> con "+max+" segundos en "+taskmax+" tareas</p>";	
-	subdiv5.innerHTML += "<p>El miembro que ha trabajado menos es: <strong>"+userMin+"</strong> con "+min+" segundos "+taskmin+" tareas </p>";
+	
+	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
+	
+	console.log("multi "+nombresArray[0]);
+	console.log("multi "+nombresArray[1]);
+	var Pmensaje= "<p>El miembro que ha trabajado más es: ";
+	for(var v = 0; v <nombresArray[0].length; v++ ){
+		
+		Pmensaje += "<strong>"+nombresArray[0][v]+"</strong>, ";
+	}
+	
+	Pmensaje += "con "+arrayValores[0]+" segundos en "+arrayValores[2]+" tareas</p>";
+	subdiv5.innerHTML += Pmensaje;
+	var pmensaje2= "<p>El miembro que ha trabajado menos es: ";
+	for(var v = 0; v <nombresArray[1].length; v++ ){
+		
+		pmensaje2 += "<strong>"+nombresArray[1][v]+"</strong>, ";
+	}
+	pmensaje2 += "con "+arrayValores[1]+" segundos "+arrayValores[3]+" tareas </p>";
+	subdiv5.innerHTML += pmensaje2;
 	subdiv5.appendChild(subsubdiv5);
 	div5.appendChild(subdiv5);
 
@@ -696,7 +702,56 @@ function mostrarResultados() {
 	div.appendChild(div4);
 	div.appendChild(div5);
 }
-
+// esta funcion me devuelve un array con el Max y el Min
+function findMaxAndMin(){
+	var max = 0;
+	var min = 50;
+	var userMax = "";
+	var userMin = "";
+	var taskmax = 0 ;
+	var taskmin = 0;
+	var array = [];
+listUsers.forEach(function(user) {
+	if (user.secondsWork > max) {
+		max = user.secondsWork;
+		taskmax = user.timeStopped;
+		
+	}else if(user.secondsWork < min){			
+		min = user.secondsWork;
+		taskmin = user.timeStopped;
+		
+	}
+});
+	array[0] = max;
+	array[1] = min;
+	array[2] = taskmax;
+	array[3] = taskmin;
+	
+	return array;
+}
+// esta funcion me devuelve los nombres de los maximos y minimos
+function maxAndMinUsers(userMax,userMin){
+	var arraymulti = [];
+	var array = [];
+	var array2 = [];
+	var i = 0;
+	var j = 0;
+	listUsers.forEach(function(user) {
+		
+		if(user.secondsWork == userMax){
+			array[i] = user.name;
+			i++
+		}else if(user.secondsWork == userMin){
+			
+			array2[j] = user.name;
+			j++
+		}
+		
+	});
+	 arraymulti.push(array);
+	 arraymulti.push(array2);
+	return arraymulti;
+}
 function generarResultados(){
 	var buttonResult = document.getElementById("result");
 	document.getElementsByClassName("contenedor")[0].style.visibility = "hidden";

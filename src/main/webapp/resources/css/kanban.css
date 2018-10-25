@@ -255,6 +255,7 @@ p.estado {
 	height: auto;
 	flex-direction: row;
 	justify-content: space-around;
+	
 }
 
 .userName {
