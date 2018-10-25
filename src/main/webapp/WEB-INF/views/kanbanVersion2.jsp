@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Kanban</title>
 <link rel="stylesheet" href="/resources/css/kanban.css">
 
@@ -161,31 +160,37 @@
 
 		</div>
 	</div>
-	<div class="usersContainer">
-		<c:forEach items="${user}" var="user">
-			<div class="userName" name="<c:out value='${user.name}'></c:out>" data-toggle="modal" data-target="#myModal2">
-				<p>
-					<strong><c:out value="${user.name}"></c:out></strong>
-				</p>
-				<i class="fa fa-user-tie fa-2x" aria-hidden="true"></i>
+	<fieldset class="teamField">
+		<legend class="teamField">Miembros del Equipo:</legend>
+		<div class="usersContainer">
 
-				<c:set value="${user.name}" var="name" />
-				<c:set value="${user.phases}" var="userphases" />
+			<c:forEach items="${user}" var="user">
+				<div class="userName" name="<c:out value='${user.name}'></c:out>"
+					data-toggle="modal" data-target="#myModal2">
+					<p>
+						<strong><c:out value="${user.name}"></c:out></strong>
+					</p>
+					<i class="fa fa-user-tie fa-2x" aria-hidden="true"></i>
 
-				<script>
-					var userO = new Object();
-					userO.name = "<c:out value="${name}"></c:out>";
-					userO.timeStopped = 0;
-					rawPhases = "<c:out value="${userphases}"></c:out>";
-					userO.phases = rawPhases.replace('[', '').replace(']', '')
-							.split(',');
-					userO.assigned = false;
-					listUsers.push(userO);
-				</script>
-			</div>
-		</c:forEach>
-	</div>
+					<c:set value="${user.name}" var="name" />
+					<c:set value="${user.phases}" var="userphases" />
 
+					<script>
+						var userO = new Object();
+						userO.name = "<c:out value="${name}"></c:out>";
+						userO.timeStopped = 0;
+						userO.secondsWork = 0;
+						rawPhases = "<c:out value="${userphases}"></c:out>";
+						userO.phases = rawPhases.replace('[', '').replace(']',
+								'').split(',');
+						userO.assigned = false;
+						listUsers.push(userO);
+					</script>
+				</div>
+			</c:forEach>
+		</div>
+	</fieldset>
+	
 	<!-- Modal Modificar Fases-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -197,11 +202,10 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-
-					Nombre Fase: <input type="text" id="modName" disabled>
-					Máximo Tareas: <input type="text" id="modWip"> Tiempo
-					Mínimo: <input type="text" id="modMinTime"> Tiempo Máximo:
-					<input type="text" id="modMaxTime"> <br>
+					Nombre Fase: <input type="text" id="modName"> MÃ¡ximo
+					Tareas: <input type="text" id="modWip"> Tiempo MÃ­nimo: <input
+						type="text" id="modMinTime"> Tiempo MÃ¡ximo: <input
+						type="text" id="modMaxTime"> <br>
 					<button id="ModPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
@@ -213,8 +217,8 @@
 
 		</div>
 	</div>
-	
-<!-- MODIFICANDO -->
+
+	<!-- MODIFICANDO -->
 	<!-- Modal Modificar Usuarios-->
 	<div class="modal fade" id="myModal2" role="dialog">
 		<div class="modal-dialog">
@@ -228,7 +232,8 @@
 				<div class="modal-body">
 
 					Nombre Usuario: <input type="text" id="modNameUser" disabled>
-					Fases: <div id="modFasesUser"></div>
+					Fases:
+					<div id="modFasesUser"></div>
 					<br>
 					<button id="ModUsuario" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
@@ -241,7 +246,7 @@
 
 		</div>
 	</div>
-<!-- ---------------------------------------------- -->
+	<!-- ---------------------------------------------- -->
 
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
