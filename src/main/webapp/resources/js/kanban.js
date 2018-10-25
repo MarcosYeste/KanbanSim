@@ -6,11 +6,14 @@ var myInterval;
 var cycleTime = 0;
 var leadTime = 0;
 var click;
+var click2 = 0;
 
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
+
+//Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
 
 for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", i);
@@ -19,7 +22,15 @@ for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 	document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
 }
 
-document.getElementById("ModPhase").addEventListener("click", saveMod, false);
+//Añadimos un attributo auto incremental que nos servira para identificar la posición de cada uno de los elementos
+for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
+	document.getElementsByClassName("userName")[i].setAttribute("data-identification", i);
+
+	// Abrimos el formulario			
+	document.getElementsByClassName("userName")[i].addEventListener("click", modUsers , false);
+}
+
+document.getElementById("ModPhase").addEventListener("click", saveModPhase, false);
 
 //Mod Phases
 function modPhases(){
@@ -33,7 +44,7 @@ function modPhases(){
 
 }
 
-function saveMod() {
+function saveModPhase() {
 	// Modificamos los datos de la fase
 
 	listPhases[click].name = document.getElementById("modName").value;
@@ -59,6 +70,40 @@ function saveMod() {
 
 }
 
+//--------------MODIFICANDO--------------------------------------------------------
+
+//Mod Users
+function modUsers(){
+	click2 = event.target.attributes[4].value;
+	console.log(click2);
+	
+	var modFases = document.getElementById("modFasesUser");
+	// Mostramos los datos correspondientes a la fase
+	document.getElementById("modNameUser").value = listUsers[click2].name;
+
+	
+
+	listPhases.forEach(function(fase){
+		
+		var check = document.createElement("INPUT");
+		
+		check.setAttribute("type", "checkbox");
+		check.setAttribute("class", "userPhaseCheck");
+		check.setAttribute("value", fase.name);
+		check.innerHTML = fase.name;
+		
+		
+		modFases.append(check);
+
+	})
+
+}
+
+function saveModUsers() {
+	// Modificamos los datos de la fase
+
+}
+//-------------------------------------------------------------------------
 
 //Play Button
 document.getElementById("playpause").addEventListener("change", function() {
@@ -120,6 +165,7 @@ document.getElementById("playpause").addEventListener("change", function() {
 		// Permitimos de nuevo abrir el modal de modificación
 		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
 
+			console.log("Cantidad Doing " + document.getElementsByClassName("doing")[i].children.length >= 1);
 			document.getElementsByClassName("titulo")[i].setAttribute("data-target", "#myModal");
 			document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
 

@@ -115,9 +115,9 @@
 				<div class="faseName">
 					<div class="titulo" data-toggle="modal" data-target="#myModal"
 						name="<c:out value='${fase.name}'></c:out>">
-						
+
 						<c:out value="${fase.name}"></c:out>
-						
+
 					</div>
 					<div class="subfase">
 
@@ -163,7 +163,7 @@
 	</div>
 	<div class="usersContainer">
 		<c:forEach items="${user}" var="user">
-			<div class="userName" name="<c:out value='${user.name}'></c:out>">
+			<div class="userName" name="<c:out value='${user.name}'></c:out>" data-toggle="modal" data-target="#myModal2">
 				<p>
 					<strong><c:out value="${user.name}"></c:out></strong>
 				</p>
@@ -186,7 +186,7 @@
 		</c:forEach>
 	</div>
 
-	<!-- Modal -->
+	<!-- Modal Modificar Fases-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 
@@ -198,10 +198,10 @@
 				</div>
 				<div class="modal-body">
 
-					Nombre Fase: <input type="text" id="modName" disabled> Máximo
-					Tareas: <input type="text" id="modWip"> Tiempo Mínimo: <input
-						type="text" id="modMinTime"> Tiempo Máximo: <input
-						type="text" id="modMaxTime"> <br>
+					Nombre Fase: <input type="text" id="modName" disabled>
+					Máximo Tareas: <input type="text" id="modWip"> Tiempo
+					Mínimo: <input type="text" id="modMinTime"> Tiempo Máximo:
+					<input type="text" id="modMaxTime"> <br>
 					<button id="ModPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
@@ -213,6 +213,35 @@
 
 		</div>
 	</div>
+	
+<!-- MODIFICANDO -->
+	<!-- Modal Modificar Usuarios-->
+	<div class="modal fade" id="myModal2" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Modificar Fase</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+
+					Nombre Usuario: <input type="text" id="modNameUser" disabled>
+					Fases: <div id="modFasesUser"></div>
+					<br>
+					<button id="ModUsuario" class="btn btn-secondary"
+						data-dismiss="modal">Modificar</button>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+<!-- ---------------------------------------------- -->
 
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
