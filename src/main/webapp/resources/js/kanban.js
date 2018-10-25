@@ -251,10 +251,12 @@ function play() {
 						task.sameIteration = true;
 
 						for(var w = 0; w < listUsers.length; w++){
-							if(listUsers[w].name == task.assignedUsers[0]){
-								listUsers[w].assigned = false;
-								document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";
-								task.assignedUsers[0] = null;
+							for(var au = 0; au < task.assignedUsers.length; au++){
+								if(listUsers[w].name == task.assignedUsers[au]){
+									listUsers[w].assigned = false;
+									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";
+									task.assignedUsers[0] = null;
+								}
 							}
 						}
 						for(var t = 0; t < divsTareas.length; t++){
@@ -268,8 +270,62 @@ function play() {
 						console.log("IF 2 " + task.name);
 						if (task.phase > 0) {
 							task.tss++;
+							console.log(task.duration);
 							console.log(task.tss);
 						}
+						
+						
+						var actualPhaseName = fases[i].firstElementChild.innerHTML;
+						
+						listUsers.forEach(function(user) {
+							if(!user.assigned && task.assignedUsers[0] != null){
+								var isTotallyFree = false;
+								
+								for(var up = 0; up<user.phases.length; up++){
+									for(var p = 0; p < fases.length; p++){
+										var phasesName = fases[p].firstElementChild.innerHTML.trim();
+										var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
+										
+										if(user.phases[up].trim() != actualPhaseName.trim()){
+											if((doingPhase.length - 3) == 0 && user.phases[up].trim().trim() == phasesName){
+												isTotallyFree = true;
+											} else {
+												isTotallyFree = false;
+											}									
+										} else {
+											for(var t = 0; t < listTareas.length; t++){
+												if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
+													isTotallyFree = true;
+												} else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] == null){
+													isTotallyFree = false;
+												}
+											}
+										}
+									}
+									
+									if(isTotallyFree){
+										console.log("assigned 2 " + task.name);
+										task.assignedUsers.push(user.name);
+										user.assigned = true;
+										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) == 0){
+											task.duration = 1;
+										} else {
+										task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length);
+										}
+										console.log("new duration " + task.duration);
+									}
+									
+								}
+								
+								if(user.assigned){
+									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
+									user.timeStopped += 1;
+								}
+							} 
+						});
+						
+						
+						
 					} else if (task.state == "Done" && task.name == elementName && task.tss == taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
 						console.log("IF 3 " + task.name);
@@ -282,7 +338,6 @@ function play() {
 							if (((fases[i + 1].lastElementChild.firstElementChild.childNodes.length - 3) +
 									(fases[i + 1].lastElementChild.lastElementChild.childNodes.length - 3))
 									< listPhases[i + 1].maxTasks) {
-
 
 								fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
 								task.state = "ToDo";
@@ -334,31 +389,73 @@ function play() {
 							task.phase == (i + 1) && !task.sameIteration){
 
 						console.log("IF 5 " + task.name);
+						var actualPhaseName = fases[i].firstElementChild.innerHTML;
+						
 						listUsers.forEach(function(user) {
-							if(!user.assigned && task.assignedUsers[0] == null){
-
-								for(var w = 0; w<user.phases.length; w++){
-									var actualPhaseName = fases[i].firstElementChild.innerHTML;
-									console.log(user.phases[w].trim() + " " + actualPhaseName.trim());
-									if(user.phases[w].trim() == actualPhaseName.trim()){
-										console.log("assigned " + task.name);
-										task.state = "Doing";
-										task.assignedUsers[0] = (user.name);
-										user.assigned = true;
-
-										if(user.assigned){
-											document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
-											user.timeStopped += 1;
-										}
-
-										for(var t = 0; t < divsTareas.length; t++){
-											if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
-												divsTareas[t].querySelector(".divState").innerHTML = "Doing";
+							if(!user.assigned){
+								if(task.assignedUsers[0] == null){
+									for(var up = 0; up <user.phases.length; up++){
+										console.log(user.phases[up].trim().trim() + " " + actualPhaseName.trim());
+										if(user.phases[up].trim().trim().trim() == actualPhaseName.trim()){
+											console.log("assigned " + task.name);
+											task.state = "Doing";
+											task.assignedUsers[0] = (user.name);
+											user.assigned = true;
+											
+											for(var t = 0; t < divsTareas.length; t++){
+												if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
+													divsTareas[t].querySelector(".divState").innerHTML = "Doing";
+												}
+											}
+										}	
+									}
+								} else {
+									var isTotallyFree = false;
+									
+									for(var up = 0; up<user.phases.length; up++){
+										for(var p = 0; p < fases.length; p++){
+											//console.log("Free state " + isTotallyFree);
+											var phasesName = fases[p].firstElementChild.innerHTML.trim();
+											var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
+											
+											if(user.phases[up].trim().trim() != actualPhaseName.trim()){
+												if((doingPhase.length - 3) == 0 && user.phases[up].trim() == phasesName){
+													isTotallyFree = true;
+												} else {
+													isTotallyFree = false;
+												}									
+											} else {
+												console.log("a");
+												for(var t = 0; t < listTareas.length; t++){
+													console.log(listTareas[t].phase);
+													if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
+														console.log("c");
+														isTotallyFree = true;//8
+													} else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] == null){
+														console.log("c2");
+														isTotallyFree = false;
+													}
+												}
 											}
 										}
-
-									}										
-
+										
+										if(isTotallyFree){
+											console.log("assigned 2 " + task.name);
+											task.assignedUsers.push(user.name);
+											user.assigned = true;
+											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) == 0){
+												task.duration = 1;
+											} else {
+											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length);
+											}
+											console.log("new duration " + task.duration);
+										}
+									}
+								}
+								
+								if(user.assigned){
+									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
+									user.timeStopped += 1;
 								}
 							} 
 						}); //foreach 				
