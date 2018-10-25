@@ -79,23 +79,23 @@ function saveModPhase() {
 function modUsers(){
 	click2 = event.target.attributes[4].value;
 	console.log(click2);
-	
+
 	var modFases = document.getElementById("modFasesUser");
 	// Mostramos los datos correspondientes a la fase
 	document.getElementById("modNameUser").value = listUsers[click2].name;
 
-	
+
 
 	listPhases.forEach(function(fase){
-		
+
 		var check = document.createElement("INPUT");
-		
+
 		check.setAttribute("type", "checkbox");
 		check.setAttribute("class", "userPhaseCheck");
 		check.setAttribute("value", fase.name);
 		check.innerHTML = fase.name;
-		
-		
+
+
 		modFases.append(check);
 
 	})
@@ -219,8 +219,9 @@ function play() {
 	var subfases = document.getElementsByClassName("subfase");
 	var fases = document.getElementsByClassName("faseName");
 	var y = 0;
-	var lowestTime = 9999999;
-	var lazyPerson = listUsers[0].name;
+	var lowestTime = 0;
+	var lazyPerson = [];
+	var counter = 0;
 
 	myInterval = setInterval(function() {
 
@@ -398,7 +399,7 @@ function play() {
 											document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 											user.timeStopped += 1;
 											user.secondsWork += task.duration;
-										// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
+											// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
 										}
 
 										for(var t = 0; t < divsTareas.length; t++){
@@ -477,21 +478,28 @@ function play() {
 				document.getElementsByClassName("userName")[a].children[1].style.opacity = "1";
 			}
 
+			lowestTime = listUsers[0].timeStopped;
 			// Buscamos el usuario más  ocioso, menos trabajador
 			listUsers.forEach(function(user) {
-
+				
 				if(lowestTime > user.timeStopped){
 
 					lowestTime = user.timeStopped;
-					lazyPerson = user.name;
+					lazyPerson[counter] = user.name;
+					counter++;
+					
+				}else if(lowestTime == 0){
+					
+					lazyPerson[counter] = user.name;
+					counter++;
 				}
 
 				console.log(user.timeStopped);
 
 			});
-
-			document.getElementsByName(lazyPerson)[0].children[1].style.color = "red";
-
+			for(var i = 0; i < lazyPerson.length; i++){
+				document.getElementsByName(lazyPerson[i])[0].children[1].style.color = "red";
+			}
 		}
 		console.log("%cLEAD!" + leadTime, "font-size: 20px; color:green");
 		leadTime += 1;
@@ -527,7 +535,7 @@ function mostrarResultados() {
 		mediaMaxFaseTime += phase.maxTime;
 		mediaMinFaseTime += phase.minTime;
 		subdiv4.innerHTML += "<p> "+phase.name+" : "+phase.period+" s</p>";
-		
+
 	});
 	subdiv4.innerHTML += "<p>Calculo maximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
 	subdiv4.innerHTML += "<p>Calculo minimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
@@ -546,29 +554,29 @@ function mostrarResultados() {
 	var taskmax = 0 ;
 	var taskmin = 0;
 	listUsers.forEach(function(user) {
-		
+
 		subsubdiv5.innerHTML += '<div class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
-						'<p> Tareas trabajadas: '+user.timeStopped+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
-			
+		'<p> Tareas trabajadas: '+user.timeStopped+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
+
 		if (user.secondsWork > max) {
 			max = user.secondsWork;
 			userMax = user.name;
 			taskmax = user.timeStopped;
-			
+
 		}else if(user.secondsWork < min){			
 			min = user.secondsWork;
 			userMin = user.name;
 			taskmin = user.timeStopped;
-			
+
 		}
-		
+
 		subsubdiv5.innerHTML += '</div>';
 	});
 	subdiv5.innerHTML += "<p>El miembro que ha trabajado más es: <strong>"+userMax+"</strong> con "+max+" segundos en "+taskmax+" tareas</p>";	
 	subdiv5.innerHTML += "<p>El miembro que ha trabajado menos es: <strong>"+userMin+"</strong> con "+min+" segundos "+taskmin+" tareas </p>";
 	subdiv5.appendChild(subsubdiv5);
 	div5.appendChild(subdiv5);
-		
+
 	// Pinta las tareas
 	listTareas.forEach(function(task) {			
 
