@@ -1,6 +1,6 @@
 <%@page import="com.kanban.app.services.KanbanService"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -11,7 +11,7 @@
 
 <title>Kanban</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta charset="UTF-8">
 <!-- JQuery  -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

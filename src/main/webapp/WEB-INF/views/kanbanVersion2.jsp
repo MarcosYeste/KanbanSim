@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Kanban</title>
 <link rel="stylesheet" href="/resources/css/kanban.css">
 
@@ -172,6 +171,7 @@
 					var userO = new Object();
 					userO.name = "<c:out value="${name}"></c:out>";
 					userO.timeStopped = 0;
+					userO.secondsWork = 0;
 					rawPhases = "<c:out value="${userphases}"></c:out>";
 					userO.phases = rawPhases.replace('[', '').replace(']', '')
 							.split(',');
@@ -194,9 +194,9 @@
 				</div>
 				<div class="modal-body">
 
-					Nombre Fase: <input type="text" id="modName"> Máximo
-					Tareas: <input type="text" id="modWip"> Tiempo Mínimo: <input
-						type="text" id="modMinTime"> Tiempo Máximo: <input
+					Nombre Fase: <input type="text" id="modName"> MÃ¡ximo
+					Tareas: <input type="text" id="modWip"> Tiempo MÃ­nimo: <input
+						type="text" id="modMinTime"> Tiempo MÃ¡ximo: <input
 						type="text" id="modMaxTime"> <br>
 					<button id="ModPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
