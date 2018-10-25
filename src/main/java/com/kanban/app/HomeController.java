@@ -140,6 +140,16 @@ public class HomeController {
 		return "success";
 
 	}
+	
+		@RequestMapping(value = "/getPhase", method = RequestMethod.POST)
+		public String getPhase(int name) {	
+
+			
+			return "success";
+
+
+		}
+		
 	public void addPhases(String phase) {
 		boolean phaseExist = false;
 
