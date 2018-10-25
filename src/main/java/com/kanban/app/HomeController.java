@@ -52,7 +52,7 @@ public class HomeController {
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
-		
+
 
 		return "kanbanVersion2";
 	}
@@ -117,39 +117,50 @@ public class HomeController {
 		return "success";
 
 	}
-	
+
 	@RequestMapping(value = "/rmvTask", method = RequestMethod.POST)
 	public String removeTask() {	
-		
+
 		taskArray.clear();
 		System.out.println(taskArray.size());
-		
+
 		return "success";
 
 	}
-	
+
 	@RequestMapping(value = "/rmvAll", method = RequestMethod.POST)
 	public String removeAll() {	
-		
+
 		taskArray.clear();
 		phasesArray.clear();
 		userArray.clear();
 		allPhases.clear();
-		
-		
+
+
 		return "success";
 
 	}
+
+
+	@RequestMapping(value = "/rmvUser", method = RequestMethod.POST)
+	public String removeUser(String name) {	
+
+		userArray.clear();
+		System.out.println("Deleted " + name + " " + userArray.size());
+
+		return "success";
+
+	}
+
+	@RequestMapping(value = "/getPhase", method = RequestMethod.POST)
+	public String getPhase() {	
+
+
+		return "success";
+
+
+	}
 	
-		@RequestMapping(value = "/getPhase", method = RequestMethod.POST)
-		public String getPhase(int name) {	
-
-			
-			return "success";
-
-
-		}
-		
 	public void addPhases(String phase) {
 		boolean phaseExist = false;
 
