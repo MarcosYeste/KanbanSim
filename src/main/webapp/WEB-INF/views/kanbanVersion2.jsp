@@ -204,7 +204,7 @@
 				<div class="modal-body">
 					Nombre Fase: <input type="text" id="modName"> Máximo
 					Tareas: <input type="text" id="modWip"> Tiempo Mínimo: <input
-						type="text" id="modMinTime"> Tiempo Máximo: <input
+						type="text" id="modMinTime">  Tiempo Máximo: <input
 						type="text" id="modMaxTime"> <br>
 					<button id="ModPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>

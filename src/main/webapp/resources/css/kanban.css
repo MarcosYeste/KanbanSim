@@ -308,16 +308,16 @@ p.estado {
 	margin-top: 5px;
 }
 
-.userCaja {
-	border: 2px solid blue;
+.userCaja{
+	border: 1px solid blue;
 	display: flex;
 	flex-direction: column;
 	text-align: left;
-	padding: 10px;
+	padding: 20px;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0
 		rgba(0, 0, 0, 0.19);
 }
-/*   DEBES PONER BIEN LOS ICONOS DE LOS USUARIOS  Y CORREGIR LOS SEGUNDOS DE LOS USUARIOS ACTIVOS */
+
 .ResultadoUsuario {
 	margin-bottom: 10px;
 	display: flex;
