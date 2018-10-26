@@ -97,6 +97,7 @@
 						tareas.state;
 						tareas.phase = 0;
 						tareas.assignedUsers = new Array();
+						tareas.staticAssigneds = new Array();
 						tareas.sameIteration = false;
 						tareas.cycleTime = 0;
 						tareas.leadTime = 0;

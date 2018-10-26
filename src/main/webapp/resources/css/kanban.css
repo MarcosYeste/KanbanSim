@@ -340,6 +340,14 @@ p.estado {
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 }
+.divAssigned{
+	text-align: left;
+	display:flex;
+	flex-direction: row;
+	background-color: white;
+	color :black;
+	
+}
 
 fieldset.teamField {
 	border: 1px groove #ddd !important;

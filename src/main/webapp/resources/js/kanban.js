@@ -7,6 +7,7 @@ var cycleTime = 0;
 var leadTime = 0;
 var click;
 var click2 = 0;
+var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 
 
@@ -33,6 +34,8 @@ for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 }
 
 document.getElementById("ModPhase").addEventListener("click", saveModPhase, false);
+document.getElementById("ModUsuario").addEventListener("click", saveModUsers, false);
+document.getElementById("RmvUsuario").addEventListener("click", rmvModUsers, false);
 
 
 //Mod Phases
@@ -77,7 +80,7 @@ function saveModPhase() {
 
 //--------------MODIFICANDO--------------------------------------------------------
 
-//Mod Users
+//Mostrar Datos Users
 function modUsers(){
 	click2 = parseInt(event.target.getAttribute("data-identification"));
 	console.log(click2);
@@ -86,11 +89,61 @@ function modUsers(){
 	// Mostramos los datos correspondientes a la fase
 	document.getElementById("modNameUser").value = listUsers[click2].name;
 
+	oldName = listUsers[click2].name;
+
 }
 
 function saveModUsers() {
-	// Modificamos los datos de la fase
 
+	listUsers[click2].name = document.getElementById("modNameUser").value;
+
+	$.ajax({
+		type: "POST",
+		url: "/modUser",
+		data: {
+
+			oldName: oldName,
+			newName: listUsers[click2].name
+
+		},success: function(data) {
+
+			$( ".userName[data-identification='"+ click2 +"'] > p:first" )
+			.html("<strong>" + listUsers[click2].name + "</strong>");
+
+			$( ".userName").attr("name", listUsers[click2].name);
+
+			listTareas.forEach(function(tareas){
+				
+				tareas.assignedUsers.forEach(function(assigned){
+					console.log(assigned);
+				})
+				
+			})
+
+		}
+	});
+
+
+
+}
+
+function rmvModUsers() {
+
+	$.ajax({
+		type: "POST",
+		url: "/rmvUser",
+		data: {
+
+			name: listUsers[click2].name
+
+		},success: function(data) {
+
+			delete listUsers[click2];
+
+			$( ".userName[data-identification='"+ click2 +"']" ).remove();
+
+		}
+	})
 }
 //-------------------------------------------------------------------------
 
@@ -205,10 +258,9 @@ function play() {
 	var subfases = document.getElementsByClassName("subfase");
 	var fases = document.getElementsByClassName("faseName");
 	var y = 0;
-	var lowestTime = 0;
-	var lazyPerson = [];
-	var counter = 0;
-	
+	var lowestTime = [];
+	var lazyPeople = [];
+
 	myInterval = setInterval(function() {
 
 		console.log("Iteration Start");  
@@ -292,7 +344,7 @@ function play() {
 								if(listUsers[w].name == task.assignedUsers[au]){
 									listUsers[w].assigned = false;
 									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";
-									
+
 								}
 							}
 						}
@@ -334,7 +386,7 @@ function play() {
 													isTotallyFree = false;
 												}
 											}
-																				
+
 										} else {
 											for(var t = 0; t < listTareas.length; t++){
 												if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
@@ -373,7 +425,7 @@ function play() {
 										console.log("Call " + user.name);
 										console.log("User asigned " + user.assigned);
 										console.log("Assigned user " + assignedUser);
-										
+
 									}
 									if(assignedUser == user.name){
 										if(task.phase == 3){
@@ -383,8 +435,8 @@ function play() {
 									}
 								});							
 							}
-							
-							
+
+
 						});
 
 
@@ -489,7 +541,7 @@ function play() {
 														isTotallyFree = false;
 													}
 												}
-																					
+
 											} else {
 												console.log("a");
 												for(var t = 0; t < listTareas.length; t++){
@@ -522,7 +574,7 @@ function play() {
 								if(user.assigned){
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 									user.timeStopped += 1;
-									
+
 									// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
 								}
 							} 
@@ -590,33 +642,13 @@ function play() {
 				document.getElementsByClassName("userName")[a].children[1].style.opacity = "1";
 			}
 
-			lowestTime = listUsers[0].timeStopped;
-			console.log("Lowest " + listUsers[0].timeStopped);
+			lowestTime = findMaxAndMin();
+			lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
 
-			// Buscamos el usuario más  ocioso, menos trabajador
-			listUsers.forEach(function(user) {
-
-				if(lowestTime == 0){
-
-					lowestTime = 99;
-					
-				// Cantidad Menos Tareas
-				}else if(lowestTime > user.timeStopped){ // Cantidad Tareas 
-
-					lowestTime = user.timeStopped;
-					lazyPerson[counter] = user.name;
-					counter++;
-
-				}
-
-				console.log(user.timeStopped);
-
-			});
-			
-			for(var i = 0; i < lazyPerson.length; i++){
-				document.getElementsByName(lazyPerson[i])[0].children[1].style.color = "red";
+			for(var i = 0; i < lazyPeople[0].length; i++){
+				document.getElementsByName(lazyPeople[0][i])[0].children[1].style.color = "red";
 			}
-			
+
 		}
 		console.log("%cLEAD!" + leadTime, "font-size: 20px; color:green");
 		leadTime += 1;
@@ -669,49 +701,55 @@ function mostrarResultados() {
 	listUsers.forEach(function(user) {
 
 		subsubdiv5.innerHTML += '<div class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
-						'<p> Tareas trabajadas: '+user.timeStopped+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
-			
-	});
-		arrayValores = findMaxAndMin();
-		console.log(arrayValores);
-	
+		'<p> Tareas trabajadas: '+user.timeStopped+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
 
-		subsubdiv5.innerHTML += '</div>';
-	
+	});
+	arrayValores = findMaxAndMin();
+	console.log(arrayValores);
+
+
+	subsubdiv5.innerHTML += '</div>';
+
 	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
-	
+
 	console.log("multi "+nombresArray[0]);
 	console.log("multi "+nombresArray[1]);
 	var Pmensaje= "<p>El miembro que ha trabajado más es: ";
-	for(var v = 0; v <nombresArray[0].length; v++ ){
-		
+
+	for(var v = 0; v < nombresArray[0].length; v++ ){
+
 		Pmensaje += "<strong>"+nombresArray[0][v]+"</strong>, ";
 	}
-	
+
 	Pmensaje += "con "+arrayValores[0]+" segundos en "+arrayValores[2]+" tareas</p>";
 	subdiv5.innerHTML += Pmensaje;
-	
 	if(nombresArray[1].length == 0){
 		var pmensaje2= "<p>No hay trabajadores perezosos</P>";
 	}else{
+
 	var pmensaje2= "<p>El miembro que ha trabajado menos es: ";
-	for(var v = 0; v <nombresArray[1].length; v++ ){
-		
+
+	for(var v = 0; v < nombresArray[1].length; v++ ){
+
 		pmensaje2 += "<strong>"+nombresArray[1][v]+"</strong>, ";
 	}
+
 	pmensaje2 += "con "+arrayValores[1]+" segundos "+arrayValores[3]+" tareas </p>";
 	}
 	subdiv5.innerHTML += pmensaje2;
 	subdiv5.appendChild(subsubdiv5);
 	div5.appendChild(subdiv5);
-
+	
 	// Pinta las tareas
+	var bigdiv = document.createElement("div");
+	var divAssigned = document.createElement("div");
+	divAssigned.className = "divAssigned";
 	listTareas.forEach(function(task) {			
 
 		var p = document.createElement("P");
 		var br = document.createElement("BR");
 		var subDiv = document.createElement("div");
-		var divAssigned = document.createElement("div");
+		
 		subDiv.className = "tareaResultado";
 		text = document.createTextNode( task.name );
 		p.appendChild(text);
@@ -723,27 +761,35 @@ function mostrarResultados() {
 		var p2 = document.createElement("P");
 		text = document.createTextNode(" Leadime: " + task.leadTime);
 		p2.appendChild(text);
-//		divAssigned.innerHTML = "<p>Asignados: ";
-//		task.staticAssigneds.forEach(function(assignedUser) { // DEBO GUARDAR EN ALGUN LADOS LOS ASIGNADOS
-//		divAssigned.innerHTML = assignedUser+"</p>";
-//		});
+		divAssigned.innerHTML += "<p>Asignados: ";
+		
+		task.staticAssigneds.forEach(function(assignedUser) { // DEBO GUARDAR EN ALGUN LADOS LOS ASIGNADOS
+			
+		divAssigned.innerHTML += assignedUser+"</p>";
+		
+		});
+		
 		subDiv.appendChild(p2);			
 		div3.appendChild(subDiv);
+		bigdiv.appendChild(div3);
+		
+//		div3.appendChild(divAssigned);
 	});
-
-	div.appendChild(div3);
+	bigdiv.appendChild(divAssigned);
+	div.appendChild(bigdiv);
 	div.appendChild(div4);
 	div.appendChild(div5);
 }
-// esta funcion me devuelve un array con el Max y el Min
+//esta funcion me devuelve un array con el Max y el Min
 function findMaxAndMin(){
 	var max = 0;
-	var min = 50;
+	var min = 500;
 	var userMax = "";
 	var userMin = "";
 	var taskmax = 0 ;
 	var taskmin = 0;
 	var array = [];
+
 listUsers.forEach(function(user) {
 	if (user.secondsWork > max) {
 		max = user.secondsWork;
@@ -756,17 +802,18 @@ listUsers.forEach(function(user) {
 		
 	}
 });
-if(min == 50){
+if(min == 500){
 	min = 0;
 }
+
 	array[0] = max;
 	array[1] = min;
 	array[2] = taskmax;
 	array[3] = taskmin;
-	
+
 	return array;
 }
-// esta funcion me devuelve los nombres de los maximos y minimos
+//esta funcion me devuelve los nombres de los maximos y minimos
 function maxAndMinUsers(userMax,userMin){
 	var arraymulti = [];
 	var array = [];
@@ -774,18 +821,18 @@ function maxAndMinUsers(userMax,userMin){
 	var i = 0;
 	var j = 0;
 	listUsers.forEach(function(user) {
-		
+
 		if(user.secondsWork == userMax){
 			array[i] = user.name;
 			i++
 		}else if(user.secondsWork == userMin){
-			
+
 			array2[j] = user.name;
 			j++
 		}
 	});
-	 arraymulti.push(array);
-	 arraymulti.push(array2);
+	arraymulti.push(array);
+	arraymulti.push(array2);
 	return arraymulti;
 }
 function generarResultados(){

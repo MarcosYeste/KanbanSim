@@ -52,11 +52,12 @@ public class HomeController {
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
-		
+
 
 		return "kanbanVersion2";
 	}
-
+	
+	// Add new Phase
 	@RequestMapping(value = "/addFase", method = RequestMethod.GET)
 	public String newFase(Model model) {
 
@@ -78,7 +79,8 @@ public class HomeController {
 
 
 	}
-
+	
+	// Add new Task
 	@RequestMapping(value = "/addTask", method = RequestMethod.GET)
 	public String newTask(Model model) {
 
@@ -86,7 +88,8 @@ public class HomeController {
 
 		return "taskForm";
 	}
-
+	
+	// Add new Task
 	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
 	public String createTask(Model model, @ModelAttribute("task") Task task) {
 
@@ -98,6 +101,7 @@ public class HomeController {
 
 	}
 
+	// Add new Users
 	@RequestMapping(value = "/addUser", method = RequestMethod.GET)
 	public String newUser(Model model) {
 
@@ -107,6 +111,7 @@ public class HomeController {
 		return "userForm";
 	}
 
+	 // Add new Users
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String createUser(Model model, @ModelAttribute("user") User user) {	
 
@@ -118,38 +123,68 @@ public class HomeController {
 
 	}
 	
+	 // Remove all Tasks
 	@RequestMapping(value = "/rmvTask", method = RequestMethod.POST)
 	public String removeTask() {	
-		
+
 		taskArray.clear();
 		System.out.println(taskArray.size());
-		
+
 		return "success";
 
 	}
 	
+	 // Remove all the items in all the arrays
 	@RequestMapping(value = "/rmvAll", method = RequestMethod.POST)
 	public String removeAll() {	
-		
+
 		taskArray.clear();
 		phasesArray.clear();
 		userArray.clear();
 		allPhases.clear();
+
+
+		return "success";
+
+	}
+
+	 // Remove Users By Name
+	@RequestMapping(value = "/rmvUser", method = RequestMethod.POST)
+	public String removeUser(String name) {
 		
+		// Corrección Hacer con un id
+		
+		for(int i = 0; i < userArray.size(); i++) {
+			if (userArray.get(i).getName().indexOf(name) != -1) {
+				System.out.println("Indice " + i);
+				userArray.remove(i);
+			}
+		}
+
+		System.out.println("Deleted " + name + " " + userArray.size());
+
+		return "success";
+
+	}
+
+	 // Modify Users By Name
+	@RequestMapping(value = "/modUser", method = RequestMethod.POST)
+	public String modifyUser(String oldName, String newName) {	
+		
+		System.out.println("OldName " + oldName);
+		System.out.println("NewName " + newName);
+		
+		for(int i = 0; i < userArray.size(); i++) {
+			if (userArray.get(i).getName().indexOf(oldName) != -1) {
+				userArray.get(i).setName(newName);
+				System.out.println("New Name " + userArray.get(i).getName());
+			}
+		}
 		
 		return "success";
 
 	}
 	
-		@RequestMapping(value = "/getPhase", method = RequestMethod.POST)
-		public String getPhase(int name) {	
-
-			
-			return "success";
-
-
-		}
-		
 	public void addPhases(String phase) {
 		boolean phaseExist = false;
 
