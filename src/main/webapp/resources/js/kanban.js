@@ -7,6 +7,7 @@ var cycleTime = 0;
 var leadTime = 0;
 var click;
 var click2 = 0;
+var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 
 
@@ -33,6 +34,8 @@ for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 }
 
 document.getElementById("ModPhase").addEventListener("click", saveModPhase, false);
+document.getElementById("ModUsuario").addEventListener("click", saveModUsers, false);
+document.getElementById("RmvUsuario").addEventListener("click", rmvModUsers, false);
 
 
 //Mod Phases
@@ -77,7 +80,7 @@ function saveModPhase() {
 
 //--------------MODIFICANDO--------------------------------------------------------
 
-//Mod Users
+//Mostrar Datos Users
 function modUsers(){
 	click2 = parseInt(event.target.getAttribute("data-identification"));
 	console.log(click2);
@@ -85,12 +88,51 @@ function modUsers(){
 	var modFases = document.getElementById("modFasesUser");
 	// Mostramos los datos correspondientes a la fase
 	document.getElementById("modNameUser").value = listUsers[click2].name;
-
+	
+	oldName = listUsers[click2].name;
+	
 }
 
 function saveModUsers() {
-	// Modificamos los datos de la fase
+	
+	listUsers[click2].name = document.getElementById("modNameUser").value;
+	
+	$.ajax({
+		type: "POST",
+		url: "/modUser",
+		data: {
+			
+			oldName: oldName,
+			newName: listUsers[click2].name
+	
+		},success: function(data) {
+			
+			
+			
+		}
+	});
+	
+	
+	
+}
 
+function rmvModUsers() {
+	
+	$.ajax({
+		type: "POST",
+		url: "/rmvUser",
+		data: {
+			
+			name: listUsers[click2].name
+	
+		},success: function(data) {
+			
+			delete listUsers[click2];
+			
+			$( ".userName[data-identification='"+ click2 +"']" ).remove();
+			
+		}
+	})
 }
 //-------------------------------------------------------------------------
 
@@ -205,9 +247,8 @@ function play() {
 	var subfases = document.getElementsByClassName("subfase");
 	var fases = document.getElementsByClassName("faseName");
 	var y = 0;
-	var lowestTime = 0;
-	var lazyPerson = [];
-	var counter = 0;
+	var lowestTime = [];
+	var lazyPeople = [];
 	
 	myInterval = setInterval(function() {
 
@@ -567,31 +608,11 @@ function play() {
 				document.getElementsByClassName("userName")[a].children[1].style.opacity = "1";
 			}
 
-			lowestTime = listUsers[0].timeStopped;
-			console.log("Lowest " + listUsers[0].timeStopped);
-
-			// Buscamos el usuario más  ocioso, menos trabajador
-			listUsers.forEach(function(user) {
-
-				if(lowestTime == 0){
-
-					lowestTime = 99;
-					
-				// Cantidad Menos Tareas
-				}else if(lowestTime > user.timeStopped){ // Cantidad Tareas 
-
-					lowestTime = user.timeStopped;
-					lazyPerson[counter] = user.name;
-					counter++;
-
-				}
-
-				console.log(user.timeStopped);
-
-			});
+			lowestTime = findMaxAndMin();
+			lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
 			
-			for(var i = 0; i < lazyPerson.length; i++){
-				document.getElementsByName(lazyPerson[i])[0].children[1].style.color = "red";
+			for(var i = 0; i < lazyPeople[0].length; i++){
+				document.getElementsByName(lazyPeople[0][i])[0].children[1].style.color = "red";
 			}
 			
 		}
@@ -660,18 +681,22 @@ function mostrarResultados() {
 	console.log("multi "+nombresArray[0]);
 	console.log("multi "+nombresArray[1]);
 	var Pmensaje= "<p>El miembro que ha trabajado más es: ";
-	for(var v = 0; v <nombresArray[0].length; v++ ){
+	
+	for(var v = 0; v < nombresArray[0].length; v++ ){
 		
 		Pmensaje += "<strong>"+nombresArray[0][v]+"</strong>, ";
 	}
 	
 	Pmensaje += "con "+arrayValores[0]+" segundos en "+arrayValores[2]+" tareas</p>";
 	subdiv5.innerHTML += Pmensaje;
+	
 	var pmensaje2= "<p>El miembro que ha trabajado menos es: ";
-	for(var v = 0; v <nombresArray[1].length; v++ ){
+	
+	for(var v = 0; v < nombresArray[1].length; v++ ){
 		
 		pmensaje2 += "<strong>"+nombresArray[1][v]+"</strong>, ";
 	}
+	
 	pmensaje2 += "con "+arrayValores[1]+" segundos "+arrayValores[3]+" tareas </p>";
 	subdiv5.innerHTML += pmensaje2;
 	subdiv5.appendChild(subsubdiv5);

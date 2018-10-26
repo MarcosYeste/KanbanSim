@@ -222,7 +222,7 @@
 
 	<!-- MODIFICACIÓN PENDIENTE (Problema Checkbox)-->
 	
-	<!-- Modal Modificar Usuarios-->
+	<!-- Modal Modificar Miembro-->
 	<div class="modal fade" id="myModal2" role="dialog">
 		<div class="modal-dialog">
 
@@ -235,7 +235,7 @@
 				
 				<div class="modal-body">
 				
-					Nombre Usuario: <input type="text" id="modNameUser" disabled>
+					Nombre Usuario: <input type="text" id="modNameUser">
 					<div>Fases:</div>
 					<div id="modFasesUser">
 					<c:forEach items="${allPhases}" var="phase">
@@ -251,6 +251,7 @@
 
 				</div>
 				<div class="modal-footer">
+				<button id="RmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar Miembro</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
