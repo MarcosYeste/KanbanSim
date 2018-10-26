@@ -514,7 +514,7 @@ function play() {
 											task.state = "Doing";
 											task.assignedUsers[0] = (user.name);
 											user.assigned = true;
-											task.staticAssigneds = (user.name);
+											task.staticAssigneds += (user.name)+", ";
 
 											for(var t = 0; t < divsTareas.length; t++){
 												if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
@@ -761,14 +761,7 @@ function mostrarResultados() {
 		var p2 = document.createElement("P");
 		text = document.createTextNode(" Leadime: " + task.leadTime);
 		p2.appendChild(text);
-		divAssigned.innerHTML += "<p>Asignados: ";
-		
-		task.staticAssigneds.forEach(function(assignedUser) { // DEBO GUARDAR EN ALGUN LADOS LOS ASIGNADOS
-			
-		divAssigned.innerHTML += assignedUser+"</p>";
-		
-		});
-		
+		divAssigned.innerHTML += "<p><strong>Asignados:</strong> "+task.staticAssigneds+" </p>";		
 		subDiv.appendChild(p2);			
 		div3.appendChild(subDiv);
 		bigdiv.appendChild(div3);

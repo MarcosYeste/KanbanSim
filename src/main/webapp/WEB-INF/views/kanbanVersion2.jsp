@@ -252,6 +252,8 @@
 
 				</div>
 				<div class="modal-footer">
+				<button id="RmvUsuario" class="btn btn-danger"
+						data-dismiss="modal">Eliminar Miembro</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
