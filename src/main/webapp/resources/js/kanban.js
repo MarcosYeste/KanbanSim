@@ -462,6 +462,7 @@ function play() {
 											task.state = "Doing";
 											task.assignedUsers[0] = (user.name);
 											user.assigned = true;
+											task.staticAssigneds = (user.name);
 
 											for(var t = 0; t < divsTareas.length; t++){
 												if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
@@ -689,12 +690,17 @@ function mostrarResultados() {
 	
 	Pmensaje += "con "+arrayValores[0]+" segundos en "+arrayValores[2]+" tareas</p>";
 	subdiv5.innerHTML += Pmensaje;
+	
+	if(nombresArray[1].length == 0){
+		var pmensaje2= "<p>No hay trabajadores perezosos</P>";
+	}else{
 	var pmensaje2= "<p>El miembro que ha trabajado menos es: ";
 	for(var v = 0; v <nombresArray[1].length; v++ ){
 		
 		pmensaje2 += "<strong>"+nombresArray[1][v]+"</strong>, ";
 	}
 	pmensaje2 += "con "+arrayValores[1]+" segundos "+arrayValores[3]+" tareas </p>";
+	}
 	subdiv5.innerHTML += pmensaje2;
 	subdiv5.appendChild(subsubdiv5);
 	div5.appendChild(subdiv5);
@@ -705,6 +711,7 @@ function mostrarResultados() {
 		var p = document.createElement("P");
 		var br = document.createElement("BR");
 		var subDiv = document.createElement("div");
+		var divAssigned = document.createElement("div");
 		subDiv.className = "tareaResultado";
 		text = document.createTextNode( task.name );
 		p.appendChild(text);
@@ -716,6 +723,10 @@ function mostrarResultados() {
 		var p2 = document.createElement("P");
 		text = document.createTextNode(" Leadime: " + task.leadTime);
 		p2.appendChild(text);
+//		divAssigned.innerHTML = "<p>Asignados: ";
+//		task.staticAssigneds.forEach(function(assignedUser) { // DEBO GUARDAR EN ALGUN LADOS LOS ASIGNADOS
+//		divAssigned.innerHTML = assignedUser+"</p>";
+//		});
 		subDiv.appendChild(p2);			
 		div3.appendChild(subDiv);
 	});
@@ -738,12 +749,16 @@ listUsers.forEach(function(user) {
 		max = user.secondsWork;
 		taskmax = user.timeStopped;
 		
-	}else if(user.secondsWork < min){			
+	}else if(user.secondsWork < min){
+		
 		min = user.secondsWork;
 		taskmin = user.timeStopped;
 		
 	}
 });
+if(min == 50){
+	min = 0;
+}
 	array[0] = max;
 	array[1] = min;
 	array[2] = taskmax;
@@ -768,7 +783,6 @@ function maxAndMinUsers(userMax,userMin){
 			array2[j] = user.name;
 			j++
 		}
-		
 	});
 	 arraymulti.push(array);
 	 arraymulti.push(array2);
