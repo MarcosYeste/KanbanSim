@@ -279,7 +279,7 @@ function play() {
 
 					console.log("-----------");
 
-					if (task.state == "Doing" && task.name == elementName && task.tss == taskDuration &&
+					if (task.state == "Doing" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1)) {
 						console.log("IF 1 " + task.name);
 						done.appendChild(divsTareas[k]);
@@ -292,10 +292,12 @@ function play() {
 								if(listUsers[w].name == task.assignedUsers[au]){
 									listUsers[w].assigned = false;
 									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";
-									task.assignedUsers[0] = null;
+									//task.assignedUsers[0] = null;
 								}
 							}
-						}
+						}//8
+						task.assignedUsers = new Array();
+						task.assignedUsers[0] = null; 
 						for(var t = 0; t < divsTareas.length; t++){
 							if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
 								divsTareas[t].querySelector(".divState").innerHTML = "Done";
@@ -366,7 +368,7 @@ function play() {
 
 
 
-					} else if (task.state == "Done" && task.name == elementName && task.tss == taskDuration &&
+					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
 						console.log("IF 3 " + task.name);
 						if (fases[i + 1] == null) {
@@ -412,7 +414,7 @@ function play() {
 								}
 							}
 
-							if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
+							if (task.phase == (i + 1) && task.tss >= 0 && task.state != "Done") {
 								// ________ESTO VA EN EL IF 4
 
 								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);								
