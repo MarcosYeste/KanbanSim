@@ -291,13 +291,12 @@ function play() {
 							for(var au = 0; au < task.assignedUsers.length; au++){
 								if(listUsers[w].name == task.assignedUsers[au]){
 									listUsers[w].assigned = false;
-									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";
-									//task.assignedUsers[0] = null;
+									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";									
 								}
 							}
-						}//8
-						task.assignedUsers = new Array();
-						task.assignedUsers[0] = null; 
+						}
+						task.assignedUsers = [];// necesario para borrar asignaciones
+						task.assignedUsers[0] = null;
 						for(var t = 0; t < divsTareas.length; t++){
 							if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
 								divsTareas[t].querySelector(".divState").innerHTML = "Done";
@@ -363,7 +362,27 @@ function play() {
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 									user.timeStopped += 1;
 								}
-							} 
+							}
+							// Este if es para aumentar los segundos trabajados
+							console.log("ARRAY: "+task.assignedUsers);
+							if(user.assigned){
+								task.assignedUsers.forEach(function(assignedUser) {
+									if(task.phase == 3){
+										console.log("Call " + user.name);
+										console.log("User asigned " + user.assigned);
+										console.log("Assigned user " + assignedUser);
+										
+									}
+									if(assignedUser == user.name){
+										if(task.phase == 3){
+											console.log("au");
+										}
+										user.secondsWork += 1;
+									}
+								});							
+							}
+							
+							
 						});
 
 
@@ -451,7 +470,7 @@ function play() {
 									}
 								} else {
 									var isTotallyFree = false;
-
+									console.log("asdfzxcv");
 									for(var up = 0; up<user.phases.length; up++){
 										for(var p = 0; p < fases.length; p++){
 											//console.log("Free state " + isTotallyFree);
@@ -500,7 +519,7 @@ function play() {
 								if(user.assigned){
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 									user.timeStopped += 1;
-									user.secondsWork += task.duration;
+									
 									// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
 								}
 							} 
