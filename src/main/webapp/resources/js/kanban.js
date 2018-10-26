@@ -361,7 +361,6 @@ function play() {
 										console.log("assigned 2 " + task.name);
 										task.assignedUsers.push(user.name);
 										user.assigned = true;
-
 										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) == 0){
 											task.duration = 1;
 										} else {
