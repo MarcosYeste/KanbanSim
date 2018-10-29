@@ -130,15 +130,7 @@ function saveModUsers() {
 			$( ".userName[data-identification='"+ click2 +"'] > p:first" )
 			.html("<strong>" + listUsers[click2].name + "</strong>");
 
-			$( ".userName").attr("name", listUsers[click2].name);
-
-			listTareas.forEach(function(tareas){
-
-				tareas.assignedUsers.forEach(function(assigned){
-
-				})
-
-			})
+			$(  ".userName[data-identification='"+ click2 +"']").attr("name", listUsers[click2].name);
 
 		}
 	});
@@ -314,7 +306,7 @@ function play() {
 								}
 							}
 						}
-						task.assignedUsers = [];// necesario para borrar asignaciones
+						task.assignedUsers = [];
 						task.assignedUsers[0] = null;
 						for(var t = 0; t < divsTareas.length; t++){
 							if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
