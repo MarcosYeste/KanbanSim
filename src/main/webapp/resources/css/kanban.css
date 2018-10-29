@@ -355,6 +355,9 @@ p.estado {
 		rgba(0, 0, 0, 0.19);
 	
 }
+.asignados{
+	text-align: center;
+}
 
 fieldset.teamField {
 	border: 1px groove #ddd !important;
