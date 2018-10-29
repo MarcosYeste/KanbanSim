@@ -166,7 +166,6 @@ function saveModUsers() {
 
 			oldName: oldName,
 			newName: listUsers[click2].name
-
 		},success: function(data) {
 
 			$( ".userName[data-identification='"+ click2 +"'] > p:first" )
@@ -851,7 +850,7 @@ function deshabilitarMenus(disable){
 
 		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
-
+		
 	}else{
 
 		document.getElementById("result").removeAttribute("disabled");

@@ -169,7 +169,6 @@ public class HomeController {
 	 // Modify Users By Name
 	@RequestMapping(value = "/modUser", method = RequestMethod.POST)
 	public String modifyUser(String oldName, String newName) {	
-		
 		for(int i = 0; i < userArray.size(); i++) {
 			if (userArray.get(i).getName().indexOf(oldName) != -1) {
 				userArray.get(i).setName(newName);
