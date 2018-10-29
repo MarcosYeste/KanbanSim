@@ -97,6 +97,7 @@
 						tareas.state;
 						tareas.phase = 0;
 						tareas.assignedUsers = new Array();
+						tareas.staticAssigneds = new Array();
 						tareas.sameIteration = false;
 						tareas.cycleTime = 0;
 						tareas.leadTime = 0;
@@ -220,9 +221,9 @@
 		</div>
 	</div>
 
-	<!-- MODIFICACIÓN PENDIENTE (Problema Checkbox)-->
+
 	
-	<!-- Modal Modificar Miembro-->
+	<!-- Modal Modificar Usuarios-->
 	<div class="modal fade" id="myModal2" role="dialog">
 		<div class="modal-dialog">
 
@@ -247,7 +248,8 @@
 
 				</div>
 				<div class="modal-footer">
-				<button id="RmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar Miembro</button>
+				<button id="RmvUsuario" class="btn btn-danger"
+						data-dismiss="modal">Eliminar Miembro</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>

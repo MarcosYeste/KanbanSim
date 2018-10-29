@@ -156,7 +156,6 @@ public class HomeController {
 		
 		for(int i = 0; i < userArray.size(); i++) {
 			if (userArray.get(i).getName().indexOf(name) != -1) {
-				System.out.println("Indice " + i);
 				userArray.remove(i);
 			}
 		}
@@ -171,13 +170,27 @@ public class HomeController {
 	@RequestMapping(value = "/modUser", method = RequestMethod.POST)
 	public String modifyUser(String oldName, String newName) {	
 		
-		System.out.println("OldName " + oldName);
-		System.out.println("NewName " + newName);
-		
 		for(int i = 0; i < userArray.size(); i++) {
 			if (userArray.get(i).getName().indexOf(oldName) != -1) {
 				userArray.get(i).setName(newName);
-				System.out.println("New Name " + userArray.get(i).getName());
+			}
+		}
+		
+		return "success";
+
+	}
+	
+
+	 // Modify Phases By Name
+	@RequestMapping(value = "/modPhase", method = RequestMethod.POST)
+	public String modifyPhase(String name, int wip, int min, int max) {	
+		
+		for(int i = 0; i < phasesArray.size(); i++) {
+			if (phasesArray.get(i).getName().indexOf(name) != -1) {
+				phasesArray.get(i).setMaxTasks(wip);
+				phasesArray.get(i).setMinTime(min);
+				phasesArray.get(i).setMaxTime(max);
+				
 			}
 		}
 		
