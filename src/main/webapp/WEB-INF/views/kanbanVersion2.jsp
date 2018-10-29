@@ -239,11 +239,7 @@
 					Nombre Usuario: <input type="text" id="modNameUser">
 					<div>Fases:</div>
 					<div id="modFasesUser">
-					<c:forEach items="${allPhases}" var="phase">
-							<input type="checkbox" class="userPhaseCheck" value="${phase}">
-							<c:out value="${phase}"></c:out> 
-							console.log(${phase});
-					</c:forEach>
+						
 					</div>
 					<br>
 					

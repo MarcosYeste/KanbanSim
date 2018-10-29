@@ -39,16 +39,22 @@
 						<form:input cssClass="form-control" id="phaseCompiler" type="hidden" 
 									value="" path="rawPhases"/>
 					</div>
-
+					<script>
+						var globalAllPhases = [];
+					</script>
 					<div>
-						<thead>
+<!-- 						<thead> -->
 							<c:forEach items="${allPhases}" var="phase">
 							<input type="checkbox" class="userPhaseCheck" name="specs" value="${phase}" path="phases">
 							<c:out value="${phase}"></c:out> 
+							<c:set value="${phase}" var="phase"/>
+							<script>
+								globalAllPhases.push("<c:out value="${phase}"></c:out>");
+								console.log("ggg " + globalAllPhases.length);
+							</script>
 							</c:forEach>
-
-						</thead>
-
+<!-- 						</thead> -->
+						
 					</div>
 
 					<br>
@@ -61,6 +67,6 @@
 			</form:form>
 		</div>
 	</div>
-	<script src="/resources/js/userFormSpecs.js"></script>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

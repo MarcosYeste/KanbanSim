@@ -47,16 +47,18 @@ public class User {
 		String[] filteredPhases = rawPhase.split(",");
 		for(String phase : filteredPhases) {
 			addPhases(phase.trim());
-			System.out.println("Phase : " + phase.trim() + " added.");
 		}
-		System.out.println("Total Phases: " );
+
 		for(String phase : this.phases) {
-			System.out.println(phase);
 		}
 	}
 
 	public ArrayList<String> getPhases() {
 		return phases;
+	}
+
+	public void setPhases(ArrayList<String> phases) {
+		this.phases = phases;
 	}
 
 	public void addPhases(String phase) {

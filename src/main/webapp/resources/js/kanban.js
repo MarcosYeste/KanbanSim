@@ -103,11 +103,52 @@ function modUsers(){
 
 	click2 = parseInt(event.target.getAttribute("data-identification"));
 
-
 	var modFases = document.getElementById("modFasesUser");
+	
 	// Mostramos los datos correspondientes a la fase
 	document.getElementById("modNameUser").value = listUsers[click2].name;
+	var phasesName = $(".titulo");
 
+	$("#modFasesUser").text("");
+	for(var i = 0; i < phasesName.length; i++){	
+		var phaseCheck = document.createElement("input");
+		var type = document.createAttribute("type");  
+		var attr = document.createAttribute("class");
+		var val = document.createAttribute("value");
+		type.value = "checkbox";  
+		attr.value = "userPhaseCheck"; 
+		val.value = phasesName[i].textContent.trim();
+		phaseCheck.setAttributeNode(type);
+		phaseCheck.setAttributeNode(attr);
+		phaseCheck.setAttributeNode(val);
+		$("#modFasesUser").append(phaseCheck);
+		$("#modFasesUser").append(phasesName[i].textContent.trim());
+	}
+	
+	var allcheckBox = $(".userPhaseCheck");
+	for(var i = 0; i < listUsers[click2].phases.length; i++){
+		for(var j = 0; j < allcheckBox.length; j++){
+			if(allcheckBox[j].value == listUsers[click2].phases[i].trim()){
+				allcheckBox[j].checked = true;
+			} 
+		}
+	}
+	
+	for(var j = 0; j < checkbox.length; j++){
+		checkbox[j].addEventListener("change", function(){phasesController(event);}, false);
+	}
+	
+	function phasesController(event){
+		if(event.target.checked){
+			listUsers[click2].phases.push(event.target.value);
+		} else {
+			for(var i = 0; i < listUsers[click2].phases.length; i++){
+				if(event.target.value == listUsers[click2].phases[i].trim()){
+					listUsers[click2].phases.splice(i, 1);
+				}
+			}
+		}
+	}
 	oldName = listUsers[click2].name;
 
 }
@@ -117,21 +158,31 @@ function saveModUsers() {
 
 	listUsers[click2].name = document.getElementById("modNameUser").value;
 
+	
 	$.ajax({
 		type: "POST",
 		url: "/modUser",
 		data: {
 
 			oldName: oldName,
-			newName: listUsers[click2].name
+			newName: listUsers[click2].name,
+			fases:listUsers[click2].phases,
 
 		},success: function(data) {
 
 			$( ".userName[data-identification='"+ click2 +"'] > p:first" )
 			.html("<strong>" + listUsers[click2].name + "</strong>");
 
-			$(  ".userName[data-identification='"+ click2 +"']").attr("name", listUsers[click2].name);
+			$(".userName[data-identification='"+ click2 +"'] ").attr("name", listUsers[click2].name);
 
+			listTareas.forEach(function(tareas){
+								
+				for(var i = 0; i < tareas.assignedUsers.length; i++){
+					if(tareas.assignedUsers[i] == oldName){
+						tareas.assignedUsers[i] = listUsers[click2].name;
+					}
+				}
+			})
 		}
 	});
 
@@ -301,7 +352,7 @@ function play() {
 							for(var au = 0; au < task.assignedUsers.length; au++){
 								if(listUsers[w].name == task.assignedUsers[au]){
 									listUsers[w].assigned = false;
-									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";
+									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";									
 
 								}
 							}
@@ -359,7 +410,6 @@ function play() {
 
 										task.assignedUsers.push(user.name);
 										user.assigned = true;
-
 										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) == 0){
 											task.duration = 1;
 										} else {
@@ -437,7 +487,7 @@ function play() {
 								}
 							}
 
-							if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done") {
+							if (task.phase == (i + 1) && task.tss >= 0 && task.state != "Done") {
 								// ________ESTO VA EN EL IF 4
 
 								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);								
