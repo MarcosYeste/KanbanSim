@@ -9,7 +9,7 @@ var click;
 var click2 = 0;
 var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
-
+var RawPhases;
 
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
@@ -102,7 +102,6 @@ function saveModPhase() {
 function modUsers(){
 
 	click2 = parseInt(event.target.getAttribute("data-identification"));
-
 	var modFases = document.getElementById("modFasesUser");
 	
 	// Mostramos los datos correspondientes a la fase
@@ -145,6 +144,10 @@ function modUsers(){
 			for(var i = 0; i < listUsers[click2].phases.length; i++){
 				if(event.target.value == listUsers[click2].phases[i].trim()){
 					listUsers[click2].phases.splice(i, 1);
+
+					if(listUsers[click2].phases.length == 0){
+						listUsers[click2].phases = [];
+					}
 				}
 			}
 		}
@@ -155,10 +158,13 @@ function modUsers(){
 
 // GUardamos los dato de usuario
 function saveModUsers() {
-
+	rawPhases = "";
 	listUsers[click2].name = document.getElementById("modNameUser").value;
-
 	
+	for(var i = 0; i < listUsers[click2].phases.length; i++){
+		rawPhases += listUsers[click2].phases[i].trim() + ",";
+	}
+
 	$.ajax({
 		type: "POST",
 		url: "/modUser",
@@ -166,7 +172,7 @@ function saveModUsers() {
 
 			oldName: oldName,
 			newName: listUsers[click2].name,
-			fases:listUsers[click2].phases,
+			phases: rawPhases
 
 		},success: function(data) {
 
