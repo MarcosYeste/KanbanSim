@@ -221,7 +221,7 @@
 		</div>
 	</div>
 
-	<!-- MODIFICACIÓN PENDIENTE (Problema Checkbox)-->
+
 	
 	<!-- Modal Modificar Usuarios-->
 	<div class="modal fade" id="myModal2" role="dialog">
@@ -236,7 +236,7 @@
 				
 				<div class="modal-body">
 				
-					Nombre Usuario: <input type="text" id="modNameUser" disabled>
+					Nombre Usuario: <input type="text" id="modNameUser">
 					<div>Fases:</div>
 					<div id="modFasesUser">
 					<c:forEach items="${allPhases}" var="phase">

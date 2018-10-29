@@ -27,11 +27,20 @@ for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de cada uno de los elementos
 for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
-	
+
 	document.getElementsByClassName("userName")[i].setAttribute("data-identification", i);
+	document.getElementsByClassName("userName")[i].children[0].children[0].setAttribute("data-identification", i);
+	document.getElementsByClassName("userName")[i].children[1].setAttribute("data-identification", i);
 
 	// Abrimos el formulario			
 	document.getElementsByClassName("userName")[i].addEventListener("click", modUsers , false);
+	document.getElementsByClassName("userName")[i].children[0].children[0].addEventListener("click", function(){
+		event.preventDefault();
+	});
+	document.getElementsByClassName("userName")[i].children[1].addEventListener("click", function(){
+		event.preventDefault();
+	});
+	
 }
 
 document.getElementById("ModPhase").addEventListener("click", saveModPhase, false);
@@ -42,7 +51,7 @@ document.getElementById("RmvUsuario").addEventListener("click", rmvModUsers, fal
 //Mod Phases
 function modPhases(){
 	click = event.target.getAttribute("data-identification");
-	console.log(click);
+
 
 	// Mostramos los datos correspondientes a la fase
 	document.getElementById("modName").value = listPhases[click].name;
@@ -83,21 +92,17 @@ function saveModPhase() {
 			max : listPhases[click].maxTime
 
 		},success: function(data) {
-			
-			console.log("Changed");
 
 		}
 	});
 
 }
 
-//--------------MODIFICANDO--------------------------------------------------------
-
 //Mostrar Datos Users
 function modUsers(){
-	
+
 	click2 = parseInt(event.target.getAttribute("data-identification"));
-	console.log(click2);
+
 
 	var modFases = document.getElementById("modFasesUser");
 	// Mostramos los datos correspondientes a la fase
@@ -107,6 +112,7 @@ function modUsers(){
 
 }
 
+// GUardamos los dato de usuario
 function saveModUsers() {
 
 	listUsers[click2].name = document.getElementById("modNameUser").value;
@@ -127,11 +133,11 @@ function saveModUsers() {
 			$( ".userName").attr("name", listUsers[click2].name);
 
 			listTareas.forEach(function(tareas){
-				
+
 				tareas.assignedUsers.forEach(function(assigned){
-					console.log(assigned);
+
 				})
-				
+
 			})
 
 		}
@@ -190,10 +196,9 @@ document.getElementById("divDeleteTasks").addEventListener("click", function() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			console.log("Deleted");
 			location.reload();
 		}else{
-			console.log("Status = "+this.status);
+
 		}
 	};
 	xhttp.open("POST", "/rmvTask", true);
@@ -205,10 +210,8 @@ document.getElementById("divDelete").addEventListener("click", function() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			console.log("New Table");
+
 			location.reload();
-		}else{
-			console.log("Status = "+this.status);
 		}
 	};
 	xhttp.open("POST", "/rmvAll", true);
@@ -227,7 +230,7 @@ function play() {
 
 	myInterval = setInterval(function() {
 
-		console.log("Iteration Start");  
+
 		for (var i = 0; i < fases.length; i++) {
 
 			var firstPhaseName = fases[0].firstElementChild.innerHTML;
@@ -235,15 +238,14 @@ function play() {
 			var done = fases[i].lastElementChild.lastElementChild;
 
 			if (firstLoop) {
-				console.log("Fisrt Loop");
+
 
 				for (var j = 0; j < divsTareas.length; j++) {
 					if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 							(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 							< listPhases[0].maxTasks) {
 
-						console.log("f");
-						console.log(listTareas[j].name);
+
 						doing.appendChild(divsTareas[0]);
 						listTareas[j].cycleTime = 0;
 						listTareas[j].state = "ToDo";
@@ -293,14 +295,14 @@ function play() {
 						divsTareas[k].lastElementChild.innerHTML = taskDuration;
 					}
 
-					console.log("-----------");
+
 
 					if (task.state == "Doing" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1)) {
-						console.log("IF 1 " + task.name);
+
 						done.appendChild(divsTareas[k]);
 						task.state = "Done";
-						console.log("%c" + task.name + " is done", "font-size: 20px");
+
 						task.sameIteration = true;
 
 						for(var w = 0; w < listUsers.length; w++){
@@ -322,11 +324,10 @@ function play() {
 
 					} else if (task.state == "Doing" && task.name == elementName && task.tss != taskDuration &&
 							task.phase == (i + 1)) {
-						console.log("IF 2 " + task.name);
+
 						if (task.phase > 0) {
 							task.tss++;
-							console.log(task.duration);
-							console.log(task.tss);
+
 						}
 
 
@@ -363,7 +364,7 @@ function play() {
 									}
 
 									if(isTotallyFree){
-										console.log("assigned 2 " + task.name);
+
 										task.assignedUsers.push(user.name);
 										user.assigned = true;
 
@@ -382,19 +383,12 @@ function play() {
 								}
 							}
 							// Este if es para aumentar los segundos trabajados
-							console.log("ARRAY: "+task.assignedUsers);
+
 							if(user.assigned){
 								task.assignedUsers.forEach(function(assignedUser) {
-									if(task.phase == 3){
-										console.log("Call " + user.name);
-										console.log("User asigned " + user.assigned);
-										console.log("Assigned user " + assignedUser);
-
-									}
+									
 									if(assignedUser == user.name){
-										if(task.phase == 3){
-											console.log("au");
-										}
+										
 										user.secondsWork += 1;
 									}
 								});							
@@ -407,7 +401,7 @@ function play() {
 
 					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
-						console.log("IF 3 " + task.name);
+
 						if (fases[i + 1] == null) {
 							//fases[i].lastElementChild.firstElementChild.appendChild(divsTareas[k]); 
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
@@ -434,12 +428,12 @@ function play() {
 
 					} else if (task.state == null && task.name == elementName && task.phase == 0) {
 
-						console.log("IF 4 " + task.name);
+
 
 						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 								< listPhases[0].maxTasks) {							
-							console.log("llo");
+
 							doing.appendChild(divsTareas[0]);
 							task.cycleTime = 0;
 							task.state = "ToDo";
@@ -465,16 +459,16 @@ function play() {
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){
 
-						console.log("IF 5 " + task.name);
+
 						var actualPhaseName = fases[i].firstElementChild.innerHTML;
 
 						listUsers.forEach(function(user) {
 							if(!user.assigned){
 								if(task.assignedUsers[0] == null){
 									for(var up = 0; up <user.phases.length; up++){
-										console.log(user.phases[up].trim().trim() + " " + actualPhaseName.trim());
+
 										if(user.phases[up].trim().trim().trim() == actualPhaseName.trim()){
-											console.log("assigned " + task.name);
+
 											task.state = "Doing";
 											task.assignedUsers[0] = (user.name);
 											user.assigned = true;
@@ -489,10 +483,10 @@ function play() {
 									}
 								} else {
 									var isTotallyFree = false;
-									console.log("asdfzxcv");
+
 									for(var up = 0; up<user.phases.length; up++){
 										for(var p = 0; p < fases.length; p++){
-											//console.log("Free state " + isTotallyFree);
+
 											var phasesName = fases[p].firstElementChild.innerHTML.trim();
 											var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
 
@@ -507,14 +501,14 @@ function play() {
 												}
 
 											} else {
-												console.log("a");
+
 												for(var t = 0; t < listTareas.length; t++){
-													console.log(listTareas[t].phase);
+
 													if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
-														console.log("c");
+
 														isTotallyFree = true;
 													} else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] == null){
-														console.log("c2");
+
 														isTotallyFree = false;
 													}
 												}
@@ -522,7 +516,6 @@ function play() {
 										}
 
 										if(isTotallyFree){
-											console.log("assigned 2 " + task.name);
 											task.assignedUsers.push(user.name);
 											user.assigned = true;
 											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) == 0){
@@ -530,7 +523,7 @@ function play() {
 											} else {
 												task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length);
 											}
-											console.log("new duration " + task.duration);
+
 										}
 									}
 								}
@@ -576,12 +569,11 @@ function play() {
 			lowestTime = findMaxAndMin();
 			lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
 
-			for(var i = 0; i < lazyPeople[0].length; i++){
-				document.getElementsByName(lazyPeople[0][i])[0].children[1].style.color = "red";
+			for(var i = 0; i < lazyPeople[1].length; i++){
+				document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
 			}
 
 		}
-		console.log("%cLEAD!" + leadTime, "font-size: 20px; color:green");
 		leadTime += 1;
 
 	}, 1000);
@@ -636,15 +628,12 @@ function mostrarResultados() {
 
 	});
 	arrayValores = findMaxAndMin();
-	console.log(arrayValores);
 
 
 	subsubdiv5.innerHTML += '</div>';
 
 	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
 
-	console.log("multi "+nombresArray[0]);
-	console.log("multi "+nombresArray[1]);
 	var Pmensaje= "<p>El miembro que ha trabajado más es: ";
 
 	for(var v = 0; v < nombresArray[0].length; v++ ){
@@ -658,19 +647,19 @@ function mostrarResultados() {
 		var pmensaje2= "<p>No hay trabajadores perezosos</P>";
 	}else{
 
-	var pmensaje2= "<p>El miembro que ha trabajado menos es: ";
+		var pmensaje2= "<p>El miembro que ha trabajado menos es: ";
 
-	for(var v = 0; v < nombresArray[1].length; v++ ){
+		for(var v = 0; v < nombresArray[1].length; v++ ){
 
-		pmensaje2 += "<strong>"+nombresArray[1][v]+"</strong>, ";
-	}
+			pmensaje2 += "<strong>"+nombresArray[1][v]+"</strong>, ";
+		}
 
-	pmensaje2 += "con "+arrayValores[1]+" segundos "+arrayValores[3]+" tareas </p>";
+		pmensaje2 += "con "+arrayValores[1]+" segundos "+arrayValores[3]+" tareas </p>";
 	}
 	subdiv5.innerHTML += pmensaje2;
 	subdiv5.appendChild(subsubdiv5);
 	div5.appendChild(subdiv5);
-	
+
 	// Pinta las tareas
 	var bigdiv = document.createElement("div");
 	var divAssigned = document.createElement("div");
@@ -680,7 +669,7 @@ function mostrarResultados() {
 		var p = document.createElement("P");
 		var br = document.createElement("BR");
 		var subDiv = document.createElement("div");
-		
+
 		subDiv.className = "tareaResultado";
 		text = document.createTextNode( task.name );
 		p.appendChild(text);
@@ -696,7 +685,7 @@ function mostrarResultados() {
 		subDiv.appendChild(p2);			
 		div3.appendChild(subDiv);
 		bigdiv.appendChild(div3);
-		
+
 //		div3.appendChild(divAssigned);
 	});
 	bigdiv.appendChild(divAssigned);
@@ -714,21 +703,21 @@ function findMaxAndMin(){
 	var taskmin = 0;
 	var array = [];
 
-listUsers.forEach(function(user) {
-	if (user.secondsWork > max) {
-		max = user.secondsWork;
-		taskmax = user.timeStopped;
-		
-	}else if(user.secondsWork < min){
-		
-		min = user.secondsWork;
-		taskmin = user.timeStopped;
-		
+	listUsers.forEach(function(user) {
+		if (user.secondsWork > max) {
+			max = user.secondsWork;
+			taskmax = user.timeStopped;
+
+		}else if(user.secondsWork < min){
+
+			min = user.secondsWork;
+			taskmin = user.timeStopped;
+
+		}
+	});
+	if(min == 500){
+		min = 0;
 	}
-});
-if(min == 500){
-	min = 0;
-}
 
 	array[0] = max;
 	array[1] = min;
@@ -781,7 +770,7 @@ function mostrarKanban(){
 }
 
 function deshabilitarMenus(disable){
-	
+
 	if (disable){
 		// Deshabilitamos los botones del header
 		for (var i = 0; i < document.getElementById("header-btn").children.length; i++){
@@ -805,7 +794,7 @@ function deshabilitarMenus(disable){
 			document.getElementsByClassName("titulo")[i].removeAttribute("data-toggle", "modal");
 
 		}
-		
+
 		// Y quitamos el acceso a el formulario de modificación
 		for (var i = 0; i < document.getElementsByClassName("userName").length; i++){
 
@@ -816,9 +805,9 @@ function deshabilitarMenus(disable){
 
 		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
-		
+
 	}else{
-		
+
 		document.getElementById("result").removeAttribute("disabled");
 		document.getElementById("result").removeAttribute("aria-disabled");
 
@@ -843,7 +832,7 @@ function deshabilitarMenus(disable){
 			document.getElementsByClassName("titulo")[i].setAttribute("data-target", "#myModal");
 			document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
 		}
-		
+
 		// Permitimos de nuevo abrir el modal de modificación y eliminación
 		for (var i = 0; i < document.getElementsByClassName("userName").length; i++){
 
