@@ -83,12 +83,55 @@ function saveModPhase() {
 //Mostrar Datos Users
 function modUsers(){
 	click2 = parseInt(event.target.getAttribute("data-identification"));
-	console.log(click2);
+	console.log("Hola " + click2);
 
 	var modFases = document.getElementById("modFasesUser");
 	// Mostramos los datos correspondientes a la fase
 	document.getElementById("modNameUser").value = listUsers[click2].name;
+	var phasesName = $(".titulo");
 
+	$("#modFasesUser").text("");
+	for(var i = 0; i < phasesName.length; i++){	
+		var phaseCheck = document.createElement("input");
+		var type = document.createAttribute("type");  
+		var attr = document.createAttribute("class");
+		var val = document.createAttribute("value");
+		type.value = "checkbox";  
+		attr.value = "userPhaseCheck"; 
+		val.value = phasesName[i].textContent.trim();
+		phaseCheck.setAttributeNode(type);
+		phaseCheck.setAttributeNode(attr);
+		phaseCheck.setAttributeNode(val);
+		$("#modFasesUser").append(phaseCheck);
+		$("#modFasesUser").append(phasesName[i].textContent.trim());
+	}
+	
+	var allcheckBox = $(".userPhaseCheck");
+	for(var i = 0; i < listUsers[click2].phases.length; i++){
+		for(var j = 0; j < allcheckBox.length; j++){
+			if(allcheckBox[j].value == listUsers[click2].phases[i].trim()){
+				allcheckBox[j].checked = true;
+			} 
+		}
+	}
+	
+	for(var j = 0; j < checkbox.length; j++){
+		checkbox[j].addEventListener("change", function(){phasesController(event);}, false);
+	}
+	
+	function phasesController(event){
+		if(event.target.checked){
+			listUsers[click2].phases.push(event.target.value);
+			console.log(event.target.value);
+		} else {
+			for(var i = 0; i < listUsers[click2].phases.length; i++){
+				if(event.target.value == listUsers[click2].phases[i].trim()){
+					listUsers[click2].phases.splice(i, 1);
+					console.log(listUsers[click2].phases);
+				}
+			}
+		}
+	}
 	oldName = listUsers[click2].name;
 
 }
@@ -110,13 +153,15 @@ function saveModUsers() {
 			$( ".userName[data-identification='"+ click2 +"'] > p:first" )
 			.html("<strong>" + listUsers[click2].name + "</strong>");
 
-			$( ".userName").attr("name", listUsers[click2].name);
+			$(".userName[data-identification='"+ click2 +"'] ").attr("name", listUsers[click2].name);
 
 			listTareas.forEach(function(tareas){
-				
-				tareas.assignedUsers.forEach(function(assigned){
-					console.log(assigned);
-				})
+								
+				for(var i = 0; i < tareas.assignedUsers.length; i++){
+					if(tareas.assignedUsers[i] == oldName){
+						tareas.assignedUsers[i] = listUsers[click2].name;
+					}
+				}
 				
 			})
 

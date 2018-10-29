@@ -229,7 +229,7 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Modificar Fase</h4>
+					<h4 class="modal-title">Modificar Miembro</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				
@@ -238,11 +238,7 @@
 					Nombre Usuario: <input type="text" id="modNameUser">
 					<div>Fases:</div>
 					<div id="modFasesUser">
-					<c:forEach items="${allPhases}" var="phase">
-							<input type="checkbox" class="userPhaseCheck" value="${phase}">
-							<c:out value="${phase}"></c:out> 
-							console.log(${phase});
-					</c:forEach>
+						
 					</div>
 					<br>
 					
