@@ -43,6 +43,7 @@ public class User {
 
 
 	public void setRawPhases(String rawPhase) {
+		this.phases = new ArrayList<String>();
 		this.rawPhases = rawPhase;
 		String[] filteredPhases = rawPhase.split(",");
 		for(String phase : filteredPhases) {
