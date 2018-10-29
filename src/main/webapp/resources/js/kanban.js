@@ -27,6 +27,7 @@ for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de cada uno de los elementos
 for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
+	
 	document.getElementsByClassName("userName")[i].setAttribute("data-identification", i);
 
 	// Abrimos el formulario			
@@ -59,9 +60,6 @@ function saveModPhase() {
 	listPhases[click].minTime = parseInt(document.getElementById("modMinTime").value);
 	listPhases[click].maxTime = parseInt(document.getElementById("modMaxTime").value);
 
-	console.table(listPhases[click]);
-
-
 	// Control de errores, si el valor introducido en cualquiera de los campos es 0 o menor a este,
 	// pon automaticamente un 1
 	if(listPhases[click].maxTasks <= 0){
@@ -74,7 +72,22 @@ function saveModPhase() {
 		listPhases[click].maxTime = 1;
 	}
 
-	console.log("Clicked");
+	$.ajax({
+		type: "POST",
+		url: "/modPhase",
+		data: {
+
+			name: listPhases[click].name,
+			wip : listPhases[click].maxTasks,
+			min : listPhases[click].minTime,
+			max : listPhases[click].maxTime
+
+		},success: function(data) {
+			
+			console.log("Changed");
+
+		}
+	});
 
 }
 
@@ -82,6 +95,7 @@ function saveModPhase() {
 
 //Mostrar Datos Users
 function modUsers(){
+	
 	click2 = parseInt(event.target.getAttribute("data-identification"));
 	console.log(click2);
 
@@ -153,32 +167,7 @@ document.getElementById("playpause").addEventListener("change", function() {
 	// Si esta en play
 	if (this.checked) {
 
-		// Deshabilitamos los botones del header
-		for (var i = 0; i < document.getElementById("header-btn").children.length; i++){
-
-			document.getElementById("header-btn").children[i].setAttribute("class", "btn btn-success disabled");
-			document.getElementById("header-btn").children[i].setAttribute("aria-disabled", "true");
-
-		}
-
-		// Deshabilitamos los botones del header
-		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
-
-			document.getElementById("doubleButton").children[i].setAttribute("disabled", "");;
-			document.getElementById("doubleButton").children[i].setAttribute("aria-disabled", "true");
-		}
-
-		// Y quitamos el acceso a el formulario de modificación
-		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
-
-			document.getElementsByClassName("titulo")[i].removeAttribute("data-target", "#myModal");
-			document.getElementsByClassName("titulo")[i].removeAttribute("data-toggle", "modal");
-
-		}
-
-		document.getElementById("result").setAttribute("disabled", "");
-		document.getElementById("result").setAttribute("aria-disabled", "true");
-
+		deshabilitarMenus(true);
 
 		play();
 
@@ -186,32 +175,7 @@ document.getElementById("playpause").addEventListener("change", function() {
 
 		clearInterval(myInterval);
 
-		document.getElementById("result").removeAttribute("disabled");
-		document.getElementById("result").removeAttribute("aria-disabled");
-
-		// Volvemos a habilitar el header
-		for (var j = 0; j < document.getElementById("header-btn").children.length; j++){
-
-			document.getElementById("header-btn").children[j].classList.remove("disabled");
-			document.getElementById("header-btn").children[j].removeAttribute("aria-disabled");
-
-		}
-
-		// Deshabilitamos los botones del header
-		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
-
-			document.getElementById("doubleButton").children[i].removeAttribute("disabled");
-			document.getElementById("doubleButton").children[i].removeAttribute("aria-disabled");
-		}
-
-		// Permitimos de nuevo abrir el modal de modificación
-		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
-
-			console.log("Cantidad Doing " + document.getElementsByClassName("doing")[i].children.length >= 1);
-			document.getElementsByClassName("titulo")[i].setAttribute("data-target", "#myModal");
-			document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
-
-		}
+		deshabilitarMenus(false);
 	}
 });
 
@@ -596,9 +560,6 @@ function play() {
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
 
-
-
-
 			listTareas.forEach(function(task) {
 				if(task.leadTime == 0){
 
@@ -614,37 +575,7 @@ function play() {
 			// Cambiamos el boton a pausa
 			document.getElementById("playpause").checked = false;
 
-			// Volvemos a habilitar el header
-			for (var j = 0; j < document.getElementById("header-btn").children.length; j++){
-
-				document.getElementById("header-btn").children[j].classList.remove("disabled");
-				document.getElementById("header-btn").children[j].removeAttribute("aria-disabled");
-
-			}
-
-			// Permitimos de nuevo abrir el modal de modificación
-			for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
-
-				document.getElementsByClassName("titulo")[i].setAttribute("data-target", "#myModal");
-				document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
-
-			}
-
-			// Deshabilitamos los botones del header
-			for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
-
-				document.getElementById("doubleButton").children[i].removeAttribute("disabled");
-				document.getElementById("doubleButton").children[i].removeAttribute("aria-disabled");
-			}
-
-			// Volvemos a habilitar los resultados
-			document.getElementById("result").removeAttribute("disabled");
-			document.getElementById("result").removeAttribute("aria-disabled");
-
-			// Volvemos todos los usuarios Y identificamos el usuario más ocioso
-			for(var a = 0; a < document.getElementsByClassName("userName").length; a++){
-				document.getElementsByClassName("userName")[a].children[1].style.opacity = "1";
-			}
+			deshabilitarMenus(false);
 
 			lowestTime = findMaxAndMin();
 			lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
@@ -853,3 +784,76 @@ function mostrarKanban(){
 	document.getElementById("result").setAttribute("onClick", "generarResultados()");;
 }
 
+function deshabilitarMenus(disable){
+	
+	if (disable){
+		// Deshabilitamos los botones del header
+		for (var i = 0; i < document.getElementById("header-btn").children.length; i++){
+
+			document.getElementById("header-btn").children[i].setAttribute("class", "btn btn-success disabled");
+			document.getElementById("header-btn").children[i].setAttribute("aria-disabled", "true");
+
+		}
+
+		// Deshabilitamos los botones del header
+		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
+
+			document.getElementById("doubleButton").children[i].setAttribute("disabled", "");;
+			document.getElementById("doubleButton").children[i].setAttribute("aria-disabled", "true");
+		}
+
+		// Y quitamos el acceso a el formulario de modificación
+		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
+
+			document.getElementsByClassName("titulo")[i].removeAttribute("data-target", "#myModal");
+			document.getElementsByClassName("titulo")[i].removeAttribute("data-toggle", "modal");
+
+		}
+		
+		// Y quitamos el acceso a el formulario de modificación
+		for (var i = 0; i < document.getElementsByClassName("userName").length; i++){
+
+			document.getElementsByClassName("userName")[i].removeAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[i].removeAttribute("data-toggle", "modal");
+
+		}
+
+		document.getElementById("result").setAttribute("disabled", "");
+		document.getElementById("result").setAttribute("aria-disabled", "true");
+		
+	}else{
+		
+		document.getElementById("result").removeAttribute("disabled");
+		document.getElementById("result").removeAttribute("aria-disabled");
+
+		// Volvemos a habilitar el header
+		for (var j = 0; j < document.getElementById("header-btn").children.length; j++){
+
+			document.getElementById("header-btn").children[j].classList.remove("disabled");
+			document.getElementById("header-btn").children[j].removeAttribute("aria-disabled");
+
+		}
+
+		// Deshabilitamos los botones del header
+		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
+
+			document.getElementById("doubleButton").children[i].removeAttribute("disabled");
+			document.getElementById("doubleButton").children[i].removeAttribute("aria-disabled");
+		}
+
+		// Permitimos de nuevo abrir el modal de modificación
+		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
+
+			document.getElementsByClassName("titulo")[i].setAttribute("data-target", "#myModal");
+			document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
+		}
+		
+		// Permitimos de nuevo abrir el modal de modificación y eliminación
+		for (var i = 0; i < document.getElementsByClassName("userName").length; i++){
+
+			document.getElementsByClassName("userName")[i].setAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[i].setAttribute("data-toggle", "modal");
+
+		}
+	}
+}
