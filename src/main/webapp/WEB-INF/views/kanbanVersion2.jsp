@@ -120,7 +120,7 @@
 						name="<c:out value='${fase.name}'></c:out>">
 
 						<c:out value="${fase.name}"></c:out>
-						
+						<small>(WIP: <c:out value="${fase.maxTasks}"></c:out>)</small>
 					</div>
 						
 					<div class="subfase"

@@ -96,10 +96,7 @@ document.getElementById("divDelete").addEventListener("click", function() {
 function play() {
 
 	var divsTareas = document.getElementsByClassName("tareas");
-	var duration = document.getElementsByClassName("duration");
-	var subfases = document.getElementsByClassName("subfase");
 	var fases = document.getElementsByClassName("faseName");
-	var y = 0;
 	var lowestTime = [];
 	var lazyPeople = [];
 
@@ -108,10 +105,11 @@ function play() {
 
 		for (var i = 0; i < fases.length; i++) {
 
-			var firstPhaseName = fases[0].firstElementChild.innerHTML;
 			var doing = fases[i].lastElementChild.firstElementChild;
 			var done = fases[i].lastElementChild.lastElementChild;
 
+//-------------------------------------------------------------------------------------------//
+			
 			if (firstLoop) {
 
 
@@ -138,7 +136,7 @@ function play() {
 				firstLoop = false;
 			} //if firstloop end
 
-
+//--------------------------------------------------------------------------------------------------------//
 			listTareas.forEach(function(task) {
 
 				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
@@ -208,16 +206,17 @@ function play() {
 						}
 
 
-						var actualPhaseName = fases[i].firstElementChild.innerHTML;
-
+						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
+					
+						
 						listUsers.forEach(function(user) {
 							if(!user.assigned && task.assignedUsers[0] != null){
 								var isTotallyFree = false;
 
 								for(var up = 0; up<user.phases.length; up++){
 									for(var p = 0; p < fases.length; p++){
-										var phasesName = fases[p].firstElementChild.innerHTML.trim();
-										var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
+										var phasesName = fases[p].children[0].childNodes[0].textContent.trim();
+//										var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
 
 										if(user.phases[up].trim() != actualPhaseName.trim()){
 											for(var t = 0; t < listTareas.length; t++){
@@ -338,14 +337,15 @@ function play() {
 							task.phase == (i + 1) && !task.sameIteration){
 
 
-						var actualPhaseName = fases[i].firstElementChild.innerHTML;
+						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
+						
 
 						listUsers.forEach(function(user) {
 							if(!user.assigned){
 								if(task.assignedUsers[0] == null){
 									for(var up = 0; up <user.phases.length; up++){
 
-										if(user.phases[up].trim().trim().trim() == actualPhaseName.trim()){
+										if(user.phases[up].trim() == actualPhaseName.trim()){
 
 											task.state = "Doing";
 											task.assignedUsers[0] = (user.name);
@@ -369,8 +369,8 @@ function play() {
 									for(var up = 0; up<user.phases.length; up++){
 										for(var p = 0; p < fases.length; p++){
 
-											var phasesName = fases[p].firstElementChild.innerHTML.trim();
-											var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
+											var phasesName = fases[p].childNodes[0].textContent.trim();
+//											var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
 
 											if(user.phases[up].trim().trim() != actualPhaseName.trim()){
 												for(var t = 0; t < listTareas.length; t++){
@@ -665,25 +665,25 @@ function deshabilitarMenus(disable){
 		}
 
 		// Deshabilitamos los botones del header
-		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
+		for (var i2 = 0; i2 < document.getElementById("doubleButton").children.length; i2++){
 
-			document.getElementById("doubleButton").children[i].setAttribute("disabled", "");;
-			document.getElementById("doubleButton").children[i].setAttribute("aria-disabled", "true");
+			document.getElementById("doubleButton").children[i2].setAttribute("disabled", "");;
+			document.getElementById("doubleButton").children[i2].setAttribute("aria-disabled", "true");
 		}
 
 		// Y quitamos el acceso a el formulario de modificación
-		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
+		for (var i3 = 0; i3 < document.getElementsByClassName("titulo").length; i3++){
 
-			document.getElementsByClassName("titulo")[i].removeAttribute("data-target", "#myModal");
-			document.getElementsByClassName("titulo")[i].removeAttribute("data-toggle", "modal");
+			document.getElementsByClassName("titulo")[i3].removeAttribute("data-target", "#myModal");
+			document.getElementsByClassName("titulo")[i3].removeAttribute("data-toggle", "modal");
 
 		}
 
 		// Y quitamos el acceso a el formulario de modificación
-		for (var i = 0; i < document.getElementsByClassName("userName").length; i++){
+		for (var i4 = 0; i4 < document.getElementsByClassName("userName").length; i4++){
 
-			document.getElementsByClassName("userName")[i].removeAttribute("data-target", "#myModal2");
-			document.getElementsByClassName("userName")[i].removeAttribute("data-toggle", "modal");
+			document.getElementsByClassName("userName")[i4].removeAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[i4].removeAttribute("data-toggle", "modal");
 
 		}
 
@@ -704,24 +704,24 @@ function deshabilitarMenus(disable){
 		}
 
 		// Deshabilitamos los botones del header
-		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
+		for (var ia = 0; ia < document.getElementById("doubleButton").children.length; ia++){
 
-			document.getElementById("doubleButton").children[i].removeAttribute("disabled");
-			document.getElementById("doubleButton").children[i].removeAttribute("aria-disabled");
+			document.getElementById("doubleButton").children[ia].removeAttribute("disabled");
+			document.getElementById("doubleButton").children[ia].removeAttribute("aria-disabled");
 		}
 
 		// Permitimos de nuevo abrir el modal de modificación
-		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
+		for (var ib = 0; ib < document.getElementsByClassName("titulo").length; ib++){
 
-			document.getElementsByClassName("titulo")[i].setAttribute("data-target", "#myModal");
-			document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
+			document.getElementsByClassName("titulo")[ib].setAttribute("data-target", "#myModal");
+			document.getElementsByClassName("titulo")[ib].setAttribute("data-toggle", "modal");
 		}
 
 		// Permitimos de nuevo abrir el modal de modificación y eliminación
-		for (var i = 0; i < document.getElementsByClassName("userName").length; i++){
+		for (var ic = 0; ic < document.getElementsByClassName("userName").length; ic++){
 
-			document.getElementsByClassName("userName")[i].setAttribute("data-target", "#myModal2");
-			document.getElementsByClassName("userName")[i].setAttribute("data-toggle", "modal");
+			document.getElementsByClassName("userName")[ic].setAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[ic].setAttribute("data-toggle", "modal");
 
 		}
 	}
