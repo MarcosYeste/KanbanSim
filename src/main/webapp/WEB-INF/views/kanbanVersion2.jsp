@@ -114,14 +114,17 @@
 
 			<c:forEach items="${phases}" var="fase">
 
-				<div class="faseName">
+				<div class="faseName"
+					style='background-color:<c:out value="${fase.color}"></c:out>'>
 					<div class="titulo" data-toggle="modal" data-target="#myModal"
 						name="<c:out value='${fase.name}'></c:out>">
 
 						<c:out value="${fase.name}"></c:out>
-
+						
 					</div>
-					<div class="subfase">
+						
+					<div class="subfase"
+						style='background-color:<c:out value="${fase.color}"></c:out>'>
 
 						<div id="doing" class="doing">
 
@@ -141,6 +144,7 @@
 				<c:set value="${fase.maxTasks}" var="maxTasks" />
 				<c:set value="${fase.maxTime}" var="maxTime" />
 				<c:set value="${fase.minTime}" var="minTime" />
+				<c:set value="${fase.color}" var="color" />
 
 				<script>
 					var phase = new Object();
@@ -148,6 +152,7 @@
 					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
 					phase.maxTime = <c:out value="${maxTime}"></c:out>;
 					phase.minTime = <c:out value="${minTime}"></c:out>;
+					phase.color = '<c:out value="${color}"></c:out>';
 					phase.period = 0;
 					listPhases.push(phase);
 				</script>
@@ -193,7 +198,7 @@
 			</c:forEach>
 		</div>
 	</fieldset>
-	
+
 	<!-- Modal Modificar Fases-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -205,10 +210,33 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="modName" disabled>
-					Máximo Tareas: <input type="text" id="modWip"> 
-					Tiempo Mínimo: <input type="text" id="modMinTime">  
-					Tiempo Máximo: <input type="text" id="modMaxTime"> <br>
+					Nombre Fase: <input type="text" id="modName" disabled> WIP:
+					<input type="text" id="modWip"> Tiempo Mínimo: <input
+						type="text" id="modMinTime"> Tiempo Máximo: <input
+						type="text" id="modMaxTime"> Color:
+					<div class="col-10">
+						<input class="form-control" type="color" id="color-input"
+							list="presetColors">
+
+						<datalist id="presetColors">
+							<option>#4ce600</option>
+							<option>#66cc00</option>
+							<option>#00ffbf</option>
+							<option>#009999</option>
+							<option>#005ce6</option>
+							<option>#563d7c</option>
+							<option>#da70d6</option>
+							<option>#cc00cc</option>
+							<option>#b30047</option>
+							<option>#e60000</option>
+							<option>#cc8800</option>
+							<option>#cccc00</option>
+							<option>#E5FB22</option>
+							<option>#BEFF00</option>
+							<option>#ace600</option>
+						</datalist>
+					</div>
+					<br>
 					<button id="ModPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
@@ -222,7 +250,7 @@
 	</div>
 
 
-	
+
 	<!-- Modal Modificar Usuarios-->
 	<div class="modal fade" id="myModal2" role="dialog">
 		<div class="modal-dialog">
@@ -233,30 +261,28 @@
 					<h4 class="modal-title">Modificar Miembro</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				
+
 				<div class="modal-body">
-				
+
 					Nombre Usuario: <input type="text" id="modNameUser">
 					<div>Fases:</div>
-					<div id="modFasesUser">
-						
-					</div>
+					<div id="modFasesUser"></div>
 					<br>
-					
+
 					<button id="ModUsuario" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
 				</div>
 				<div class="modal-footer">
-				<button id="RmvUsuario" class="btn btn-danger"
-						data-dismiss="modal">Eliminar Miembro</button>
+					<button id="RmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
+						Miembro</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 
 		</div>
 	</div>
-	
+
 	<!-- ---------------------------------------------- -->
 
 	<jsp:include page="footer.jsp"></jsp:include>

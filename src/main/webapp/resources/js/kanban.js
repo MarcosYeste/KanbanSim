@@ -5,8 +5,7 @@ var firstLoop = true;
 var myInterval;
 var cycleTime = 0;
 var leadTime = 0;
-var click;
-var click2 = 0;
+
 var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
@@ -43,177 +42,6 @@ for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 	
 }
 
-document.getElementById("ModPhase").addEventListener("click", saveModPhase, false);
-document.getElementById("ModUsuario").addEventListener("click", saveModUsers, false);
-document.getElementById("RmvUsuario").addEventListener("click", rmvModUsers, false);
-
-
-//Mod Phases
-function modPhases(){
-	click = event.target.getAttribute("data-identification");
-
-
-	// Mostramos los datos correspondientes a la fase
-	document.getElementById("modName").value = listPhases[click].name;
-	document.getElementById("modWip").value = parseInt(listPhases[click].maxTasks);
-	document.getElementById("modMinTime").value = parseInt(listPhases[click].minTime);
-	document.getElementById("modMaxTime").value = parseInt(listPhases[click].maxTime);
-
-}
-
-function saveModPhase() {
-	// Modificamos los datos de la fase
-
-	listPhases[click].name = document.getElementById("modName").value;
-	listPhases[click].maxTasks = parseInt(document.getElementById("modWip").value);
-	listPhases[click].minTime = parseInt(document.getElementById("modMinTime").value);
-	listPhases[click].maxTime = parseInt(document.getElementById("modMaxTime").value);
-
-	// Control de errores, si el valor introducido en cualquiera de los campos es 0 o menor a este,
-	// pon automaticamente un 1
-	if(listPhases[click].maxTasks <= 0){
-		listPhases[click].maxTasks = 1;
-	}
-	if(listPhases[click].minTime <= 0){
-		listPhases[click].minTime = 1;
-	}
-	if(listPhases[click].maxTime <= 0){
-		listPhases[click].maxTime = 1;
-	}
-
-	$.ajax({
-		type: "POST",
-		url: "/modPhase",
-		data: {
-
-			name: listPhases[click].name,
-			wip : listPhases[click].maxTasks,
-			min : listPhases[click].minTime,
-			max : listPhases[click].maxTime
-
-		},success: function(data) {
-
-		}
-	});
-
-}
-
-//Mostrar Datos Users
-function modUsers(){
-
-	click2 = parseInt(event.target.getAttribute("data-identification"));
-	var modFases = document.getElementById("modFasesUser");
-	
-	// Mostramos los datos correspondientes a la fase
-	document.getElementById("modNameUser").value = listUsers[click2].name;
-	var phasesName = $(".titulo");
-
-	$("#modFasesUser").text("");
-	for(var i = 0; i < phasesName.length; i++){	
-		var phaseCheck = document.createElement("input");
-		var type = document.createAttribute("type");  
-		var attr = document.createAttribute("class");
-		var val = document.createAttribute("value");
-		type.value = "checkbox";  
-		attr.value = "userPhaseCheck"; 
-		val.value = phasesName[i].textContent.trim();
-		phaseCheck.setAttributeNode(type);
-		phaseCheck.setAttributeNode(attr);
-		phaseCheck.setAttributeNode(val);
-		$("#modFasesUser").append(phaseCheck);
-		$("#modFasesUser").append(phasesName[i].textContent.trim());
-	}
-	
-	var allcheckBox = $(".userPhaseCheck");
-	for(var i = 0; i < listUsers[click2].phases.length; i++){
-		for(var j = 0; j < allcheckBox.length; j++){
-			if(allcheckBox[j].value == listUsers[click2].phases[i].trim()){
-				allcheckBox[j].checked = true;
-			} 
-		}
-	}
-	
-	for(var j = 0; j < checkbox.length; j++){
-		checkbox[j].addEventListener("change", function(){phasesController(event);}, false);
-	}
-	
-	function phasesController(event){
-		if(event.target.checked){
-			listUsers[click2].phases.push(event.target.value);
-		} else {
-			for(var i = 0; i < listUsers[click2].phases.length; i++){
-				if(event.target.value == listUsers[click2].phases[i].trim()){
-					listUsers[click2].phases.splice(i, 1);
-
-					if(listUsers[click2].phases.length == 0){
-						listUsers[click2].phases = [];
-					}
-				}
-			}
-		}
-	}
-	oldName = listUsers[click2].name;
-
-}
-
-// GUardamos los dato de usuario
-function saveModUsers() {
-	rawPhases = "";
-	listUsers[click2].name = document.getElementById("modNameUser").value;
-	
-	for(var i = 0; i < listUsers[click2].phases.length; i++){
-		rawPhases += listUsers[click2].phases[i].trim() + ",";
-	}
-
-	$.ajax({
-		type: "POST",
-		url: "/modUser",
-		data: {
-
-			oldName: oldName,
-			newName: listUsers[click2].name,
-			phases: rawPhases
-
-		},success: function(data) {
-
-			$( ".userName[data-identification='"+ click2 +"'] > p:first" )
-			.html("<strong>" + listUsers[click2].name + "</strong>");
-
-			$(".userName[data-identification='"+ click2 +"'] ").attr("name", listUsers[click2].name);
-
-			listTareas.forEach(function(tareas){
-								
-				for(var i = 0; i < tareas.assignedUsers.length; i++){
-					if(tareas.assignedUsers[i] == oldName){
-						tareas.assignedUsers[i] = listUsers[click2].name;
-					}
-				}
-			})
-		}
-	});
-
-
-
-}
-
-function rmvModUsers() {
-
-	$.ajax({
-		type: "POST",
-		url: "/rmvUser",
-		data: {
-
-			name: listUsers[click2].name
-
-		},success: function(data) {
-
-			delete listUsers[click2];
-
-			$( ".userName[data-identification='"+ click2 +"']" ).remove();
-
-		}
-	})
-}
 //-------------------------------------------------------------------------
 
 //Play Button
@@ -246,8 +74,6 @@ document.getElementById("divDeleteTasks").addEventListener("click", function() {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			location.reload();
-		}else{
-
 		}
 	};
 	xhttp.open("POST", "/rmvTask", true);
@@ -358,7 +184,9 @@ function play() {
 							for(var au = 0; au < task.assignedUsers.length; au++){
 								if(listUsers[w].name == task.assignedUsers[au]){
 									listUsers[w].assigned = false;
-									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";									
+									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";
+									document.getElementsByName(listUsers[w].name)[0].children[1].style.color = "black";
+									document.getElementsByName(listUsers[w].name)[0].style.borderColor = "blue";
 
 								}
 							}
@@ -427,6 +255,8 @@ function play() {
 
 								if(user.assigned){
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
+									document.getElementsByName(user.name)[0].children[1].style.color = phase.color;
+									document.getElementsByName(user.name)[0].style.borderColor = phase.color;
 									user.timeStopped += 1;
 								}
 							}
@@ -582,6 +412,8 @@ function play() {
 
 								if(user.assigned){
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
+									document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
+									document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
 									user.timeStopped += 1;
 
 									// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
@@ -661,8 +493,8 @@ function mostrarResultados() {
 		subdiv4.innerHTML += "<p> "+phase.name+" : "+phase.period+" s</p>";
 
 	});
-	subdiv4.innerHTML += "<p>Calculo maximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
-	subdiv4.innerHTML += "<p>Calculo minimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
+	subdiv4.innerHTML += "<p>Cálculo máximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
+	subdiv4.innerHTML += "<p>Cálculo mínimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
 	mediaMaxFaseTime = 0;
 	mediaMinFaseTime = 0 ;
 	div4.appendChild(subdiv4);
@@ -727,11 +559,11 @@ function mostrarResultados() {
 		p.appendChild(text);
 		subDiv.appendChild(p);
 		var p1 = document.createElement("P");
-		text = document.createTextNode(" Cycletime: " + (task.cycleTime ));
+		text = document.createTextNode(" Cycle Time: " + (task.cycleTime ));
 		p1.appendChild(text);
 		subDiv.appendChild(p1);
 		var p2 = document.createElement("P");
-		text = document.createTextNode(" Leadime: " + task.leadTime);
+		text = document.createTextNode(" Lead Time: " + task.leadTime);
 		p2.appendChild(text);
 		divAssigned.innerHTML += "<div class='asignados'><p><strong>Asignados:</strong></p><P> "+task.staticAssigneds+" </p><div>";		
 		subDiv.appendChild(p2);			
