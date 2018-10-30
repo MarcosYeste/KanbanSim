@@ -19,9 +19,14 @@ $(function () {
 
 for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", i);
+	document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", i);
 
 	// Abrimos el formulario			
 	document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
+	
+	document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(){
+		event.preventDefault();
+	});
 }
 
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de cada uno de los elementos

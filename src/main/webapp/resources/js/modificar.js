@@ -53,9 +53,11 @@ function saveModPhase() {
 			color: listPhases[click].color
 
 		},success: function(data) {
-
+			
+			document.getElementsByClassName("titulo")[click].children[0].innerHTML = "(WIP: " + listPhases[click].maxTasks + ")";
 			document.getElementsByClassName("subfase")[click].style.backgroundColor = listPhases[click].color;
 			document.getElementsByClassName("faseName")[click].style.backgroundColor = listPhases[click].color;
+			
 
 		}
 	});
