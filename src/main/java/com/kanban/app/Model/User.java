@@ -10,7 +10,10 @@ public class User {
 	private ArrayList<String> phases = new ArrayList<String>();
 	private boolean assigned = false;
 	private int timeStopped;
+	private int tasksWorked;
 	
+	
+
 	public User(String name, String specs) {
 		this.name = name;
 		this.rawPhases = specs;
@@ -80,5 +83,11 @@ public class User {
 				+ phases + ", assigned=" + assigned + "]";
 	}
 	
-	
+	public int getTasksWorked() {
+		return tasksWorked;
+	}
+
+	public void setTasksWorked(int tasksWorked) {
+		this.tasksWorked = tasksWorked;
+	}
 }

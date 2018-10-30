@@ -261,7 +261,7 @@ function play() {
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 									document.getElementsByName(user.name)[0].children[1].style.color = phase.color;
 									document.getElementsByName(user.name)[0].style.borderColor = phase.color;
-									user.timeStopped += 1;
+									user.tasksWorked += 1;
 								}
 							}
 							// Este if es para aumentar los segundos trabajados
@@ -419,7 +419,7 @@ function play() {
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 									document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
 									document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
-									user.timeStopped += 1;
+									user.tasksWorked += 1;
 
 									// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
 								}
@@ -513,7 +513,7 @@ function mostrarResultados() {
 	listUsers.forEach(function(user) {
 
 		subsubdiv5.innerHTML += '<div class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
-		'<p> Tareas trabajadas: '+user.timeStopped+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
+		'<p> Tareas trabajadas: '+user.tasksWorked+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
 
 	});
 	arrayValores = findMaxAndMin();
@@ -595,12 +595,12 @@ function findMaxAndMin(){
 	listUsers.forEach(function(user) {
 		if (user.secondsWork > max) {
 			max = user.secondsWork;
-			taskmax = user.timeStopped;
+			taskmax = user.tasksWorked;
 
 		}else if(user.secondsWork < min){
 
 			min = user.secondsWork;
-			taskmin = user.timeStopped;
+			taskmin = user.tasksWorked;
 
 		}
 	});
