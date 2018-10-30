@@ -7,6 +7,8 @@ public class User {
 
 	private String name;
 	private String rawPhases;
+	private String rawSkills;
+	private ArrayList<String> skills = new ArrayList<String>();
 	private ArrayList<String> phases = new ArrayList<String>();
 	private boolean assigned = false;
 	private int timeStopped;
@@ -55,6 +57,20 @@ public class User {
 			System.out.println(phase);
 		}
 	}
+	
+	public void setRawSkills(String rawSkills) {
+		this.skills = new ArrayList<String>();
+		this.rawSkills = rawSkills;
+		String[] filteredPhases = rawSkills.split(",");
+		for(String skill : filteredPhases) {
+			this.skills.add(skill.trim());
+			System.out.println("Phase : " + skill.trim() + " added.");
+		}
+
+		for(String phase : this.phases) {
+			System.out.println(phase);
+		}
+	}
 
 	public ArrayList<String> getPhases() {
 		return phases;
@@ -70,6 +86,14 @@ public class User {
 
 	public void setAssigned(boolean assigned) {
 		this.assigned = assigned;
+	}
+
+	public ArrayList<String> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(ArrayList<String> skills) {
+		this.skills = skills;
 	}
 
 	@Override
