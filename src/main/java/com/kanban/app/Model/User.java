@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class User {
 	
-
 	private String name;
 	private String rawPhases;
 	private ArrayList<String> phases = new ArrayList<String>();

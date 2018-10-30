@@ -37,7 +37,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-
+		
 		model.addAttribute("task",taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);

@@ -101,6 +101,7 @@
 						tareas.sameIteration = false;
 						tareas.cycleTime = 0;
 						tareas.leadTime = 0;
+						tareas.startTime = 0;
 						listTareas.push(tareas);
 					</script>
 
