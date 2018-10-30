@@ -5,8 +5,7 @@ var firstLoop = true;
 var myInterval;
 var cycleTime = 0;
 var leadTime = 0;
-var click;
-var click2 = 0;
+
 var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
@@ -20,9 +19,14 @@ $(function () {
 
 for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", i);
+	document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", i);
 
 	// Abrimos el formulario			
 	document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
+	
+	document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(){
+		event.preventDefault();
+	});
 }
 
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de cada uno de los elementos
@@ -43,178 +47,7 @@ for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 	
 }
 
-document.getElementById("ModPhase").addEventListener("click", saveModPhase, false);
-document.getElementById("ModUsuario").addEventListener("click", saveModUsers, false);
-document.getElementById("RmvUsuario").addEventListener("click", rmvModUsers, false);
 
-
-//Mod Phases
-function modPhases(){
-	click = event.target.getAttribute("data-identification");
-
-
-	// Mostramos los datos correspondientes a la fase
-	document.getElementById("modName").value = listPhases[click].name;
-	document.getElementById("modWip").value = parseInt(listPhases[click].maxTasks);
-	document.getElementById("modMinTime").value = parseInt(listPhases[click].minTime);
-	document.getElementById("modMaxTime").value = parseInt(listPhases[click].maxTime);
-
-}
-
-function saveModPhase() {
-	// Modificamos los datos de la fase
-
-	listPhases[click].name = document.getElementById("modName").value;
-	listPhases[click].maxTasks = parseInt(document.getElementById("modWip").value);
-	listPhases[click].minTime = parseInt(document.getElementById("modMinTime").value);
-	listPhases[click].maxTime = parseInt(document.getElementById("modMaxTime").value);
-
-	// Control de errores, si el valor introducido en cualquiera de los campos es 0 o menor a este,
-	// pon automaticamente un 1
-	if(listPhases[click].maxTasks <= 0){
-		listPhases[click].maxTasks = 1;
-	}
-	if(listPhases[click].minTime <= 0){
-		listPhases[click].minTime = 1;
-	}
-	if(listPhases[click].maxTime <= 0){
-		listPhases[click].maxTime = 1;
-	}
-
-	$.ajax({
-		type: "POST",
-		url: "/modPhase",
-		data: {
-
-			name: listPhases[click].name,
-			wip : listPhases[click].maxTasks,
-			min : listPhases[click].minTime,
-			max : listPhases[click].maxTime
-
-		},success: function(data) {
-
-		}
-	});
-
-}
-
-//Mostrar Datos Users
-function modUsers(){
-
-	click2 = parseInt(event.target.getAttribute("data-identification"));
-	var modFases = document.getElementById("modFasesUser");
-	// Mostramos los datos correspondientes a la fase
-	document.getElementById("modNameUser").value = listUsers[click2].name;
-	var phasesName = $(".titulo");
-
-	$("#modFasesUser").text("");
-	for(var i = 0; i < phasesName.length; i++){	
-		var phaseCheck = document.createElement("input");
-		var type = document.createAttribute("type");  
-		var attr = document.createAttribute("class");
-		var val = document.createAttribute("value");
-		type.value = "checkbox";  
-		attr.value = "userPhaseCheck"; 
-		val.value = phasesName[i].textContent.trim();
-		phaseCheck.setAttributeNode(type);
-		phaseCheck.setAttributeNode(attr);
-		phaseCheck.setAttributeNode(val);
-		$("#modFasesUser").append(phaseCheck);
-		$("#modFasesUser").append(phasesName[i].textContent.trim());
-	}
-	
-	var allcheckBox = $(".userPhaseCheck");
-	for(var i = 0; i < listUsers[click2].phases.length; i++){
-		for(var j = 0; j < allcheckBox.length; j++){
-			if(allcheckBox[j].value == listUsers[click2].phases[i].trim()){
-				allcheckBox[j].checked = true;
-			} 
-		}
-	}
-	
-	for(var j = 0; j < checkbox.length; j++){
-		checkbox[j].addEventListener("change", function(){phasesController(event);}, false);
-	}
-	
-	function phasesController(event){
-		if(event.target.checked){
-			listUsers[click2].phases.push(event.target.value);
-			console.log(event.target.value);
-		} else {
-			for(var i = 0; i < listUsers[click2].phases.length; i++){
-				if(event.target.value == listUsers[click2].phases[i].trim()){
-					listUsers[click2].phases.splice(i, 1);
-					console.log(listUsers[click2].phases);
-					if(listUsers[click2].phases.length == 0){
-						listUsers[click2].phases = [];
-					}
-				}
-			}
-		}
-	}
-	oldName = listUsers[click2].name;
-
-}
-
-// GUardamos los dato de usuario
-function saveModUsers() {
-	rawPhases = "";
-	listUsers[click2].name = document.getElementById("modNameUser").value;
-	for(var i = 0; i < listUsers[click2].phases.length; i++){
-		rawPhases += listUsers[click2].phases[i].trim() + ",";
-	}
-	console.log(rawPhases);
-	$.ajax({
-		type: "POST",
-		url: "/modUser",
-		data: {
-
-			oldName: oldName,
-			newName: listUsers[click2].name,
-			phases: rawPhases
-
-
-		},success: function(data) {
-
-			$( ".userName[data-identification='"+ click2 +"'] > p:first" )
-			.html("<strong>" + listUsers[click2].name + "</strong>");
-
-			$(".userName[data-identification='"+ click2 +"'] ").attr("name", listUsers[click2].name);
-
-			listTareas.forEach(function(tareas){
-								
-				for(var i = 0; i < tareas.assignedUsers.length; i++){
-					if(tareas.assignedUsers[i] == oldName){
-						tareas.assignedUsers[i] = listUsers[click2].name;
-					}
-				}
-			})
-
-		}
-	});
-
-
-
-}
-
-function rmvModUsers() {
-
-	$.ajax({
-		type: "POST",
-		url: "/rmvUser",
-		data: {
-
-			name: listUsers[click2].name
-
-		},success: function(data) {
-
-			delete listUsers[click2];
-
-			$( ".userName[data-identification='"+ click2 +"']" ).remove();
-
-		}
-	})
-}
 //-------------------------------------------------------------------------
 
 //Play Button
@@ -247,8 +80,6 @@ document.getElementById("divDeleteTasks").addEventListener("click", function() {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			location.reload();
-		}else{
-
 		}
 	};
 	xhttp.open("POST", "/rmvTask", true);
@@ -271,10 +102,7 @@ document.getElementById("divDelete").addEventListener("click", function() {
 function play() {
 
 	var divsTareas = document.getElementsByClassName("tareas");
-	var duration = document.getElementsByClassName("duration");
-	var subfases = document.getElementsByClassName("subfase");
 	var fases = document.getElementsByClassName("faseName");
-	var y = 0;
 	var lowestTime = [];
 	var lazyPeople = [];
 	var tiempoInicio = 0;
@@ -284,10 +112,11 @@ function play() {
 
 		for (var i = 0; i < fases.length; i++) {
 
-			var firstPhaseName = fases[0].firstElementChild.innerHTML;
 			var doing = fases[i].lastElementChild.firstElementChild;
 			var done = fases[i].lastElementChild.lastElementChild;
 
+//-------------------------------------------------------------------------------------------//
+			
 			if (firstLoop) {
 
 
@@ -314,7 +143,7 @@ function play() {
 				firstLoop = false;
 			} //if firstloop end
 
-
+//--------------------------------------------------------------------------------------------------------//
 			listTareas.forEach(function(task) {
 
 				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
@@ -355,12 +184,14 @@ function play() {
 							for(var au = 0; au < task.assignedUsers.length; au++){
 								if(listUsers[w].name == task.assignedUsers[au]){
 									listUsers[w].assigned = false;
-									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";									
+									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";
+									document.getElementsByName(listUsers[w].name)[0].children[1].style.color = "black";
+									document.getElementsByName(listUsers[w].name)[0].style.borderColor = "blue";
 
 								}
 							}
 						}
-						task.assignedUsers = [];// necesario para borrar asignaciones
+						task.assignedUsers = [];
 						task.assignedUsers[0] = null;
 						for(var t = 0; t < divsTareas.length; t++){
 							if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
@@ -377,16 +208,17 @@ function play() {
 						}
 
 
-						var actualPhaseName = fases[i].firstElementChild.innerHTML;
-
+						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
+					
+						
 						listUsers.forEach(function(user) {
 							if(!user.assigned && task.assignedUsers[0] != null){
 								var isTotallyFree = false;
 
 								for(var up = 0; up<user.phases.length; up++){
 									for(var p = 0; p < fases.length; p++){
-										var phasesName = fases[p].firstElementChild.innerHTML.trim();
-										var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
+										var phasesName = fases[p].children[0].childNodes[0].textContent.trim();
+//										var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
 
 										if(user.phases[up].trim() != actualPhaseName.trim()){
 											for(var t = 0; t < listTareas.length; t++){
@@ -424,7 +256,9 @@ function play() {
 
 								if(user.assigned){
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
-									user.timeStopped += 1;
+									document.getElementsByName(user.name)[0].children[1].style.color = phase.color;
+									document.getElementsByName(user.name)[0].style.borderColor = phase.color;
+									user.tasksWorked += 1;
 								}
 							}
 							// Este if es para aumentar los segundos trabajados
@@ -508,14 +342,15 @@ function play() {
 							task.phase == (i + 1) && !task.sameIteration){
 
 
-						var actualPhaseName = fases[i].firstElementChild.innerHTML;
+						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
+						
 
 						listUsers.forEach(function(user) {
 							if(!user.assigned){
 								if(task.assignedUsers[0] == null){
 									for(var up = 0; up <user.phases.length; up++){
 
-										if(user.phases[up].trim().trim().trim() == actualPhaseName.trim()){
+										if(user.phases[up].trim() == actualPhaseName.trim()){
 
 											task.state = "Doing";
 											task.assignedUsers[0] = (user.name);
@@ -539,8 +374,8 @@ function play() {
 									for(var up = 0; up<user.phases.length; up++){
 										for(var p = 0; p < fases.length; p++){
 
-											var phasesName = fases[p].firstElementChild.innerHTML.trim();
-											var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
+											var phasesName = fases[p].childNodes[0].textContent.trim();
+//											var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
 
 											if(user.phases[up].trim().trim() != actualPhaseName.trim()){
 												for(var t = 0; t < listTareas.length; t++){
@@ -582,7 +417,9 @@ function play() {
 
 								if(user.assigned){
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
-									user.timeStopped += 1;
+									document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
+									document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
+									user.tasksWorked += 1;
 
 									// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
 								}
@@ -660,8 +497,9 @@ function mostrarResultados() {
 		subdiv4.innerHTML += "<p> "+phase.name+" : "+phase.period+"''</p>";
 
 	});
-	subdiv4.innerHTML += "<p>Calculo maximo estimado de las fases es de: "+mediaMaxFaseTime+"''</p>";
-	subdiv4.innerHTML += "<p>Calculo minimo estimado de las fases es de: "+mediaMinFaseTime+"''</p>";
+
+	subdiv4.innerHTML += "<p>Cálculo máximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
+	subdiv4.innerHTML += "<p>Cálculo mínimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
 	mediaMaxFaseTime = 0;
 	mediaMinFaseTime = 0 ;
 	div4.appendChild(subdiv4);
@@ -675,7 +513,7 @@ function mostrarResultados() {
 	listUsers.forEach(function(user) {
 
 		subsubdiv5.innerHTML += '<div class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
-		'<p> Tareas trabajadas: '+user.timeStopped+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
+		'<p> Tareas trabajadas: '+user.tasksWorked+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
 
 	});
 	arrayValores = findMaxAndMin();
@@ -726,11 +564,11 @@ function mostrarResultados() {
 		p.appendChild(text);
 		subDiv.appendChild(p);
 		var p1 = document.createElement("P");
-		text = document.createTextNode(" Cycletime: " + (task.cycleTime )+"''");
+		text = document.createTextNode(" Cycle Time: " + (task.cycleTime )+"''");
 		p1.appendChild(text);
 		subDiv.appendChild(p1);
 		var p2 = document.createElement("P");
-		text = document.createTextNode(" Leadime: " + task.leadTime+"''");
+		text = document.createTextNode(" Lead Time: " + task.leadTime+"''");
 		p2.appendChild(text);
 		divAssigned.innerHTML += "<div class='asignados'><p><strong>Asignados:</strong></p><P> "+task.staticAssigneds+" </p><div>";		
 		subDiv.appendChild(p2);
@@ -759,12 +597,12 @@ function findMaxAndMin(){
 	listUsers.forEach(function(user) {
 		if (user.secondsWork > max) {
 			max = user.secondsWork;
-			taskmax = user.timeStopped;
+			taskmax = user.tasksWorked;
 
 		}else if(user.secondsWork < min){
 
 			min = user.secondsWork;
-			taskmin = user.timeStopped;
+			taskmin = user.tasksWorked;
 
 		}
 	});
@@ -834,25 +672,25 @@ function deshabilitarMenus(disable){
 		}
 
 		// Deshabilitamos los botones del header
-		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
+		for (var i2 = 0; i2 < document.getElementById("doubleButton").children.length; i2++){
 
-			document.getElementById("doubleButton").children[i].setAttribute("disabled", "");;
-			document.getElementById("doubleButton").children[i].setAttribute("aria-disabled", "true");
+			document.getElementById("doubleButton").children[i2].setAttribute("disabled", "");;
+			document.getElementById("doubleButton").children[i2].setAttribute("aria-disabled", "true");
 		}
 
 		// Y quitamos el acceso a el formulario de modificación
-		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
+		for (var i3 = 0; i3 < document.getElementsByClassName("titulo").length; i3++){
 
-			document.getElementsByClassName("titulo")[i].removeAttribute("data-target", "#myModal");
-			document.getElementsByClassName("titulo")[i].removeAttribute("data-toggle", "modal");
+			document.getElementsByClassName("titulo")[i3].removeAttribute("data-target", "#myModal");
+			document.getElementsByClassName("titulo")[i3].removeAttribute("data-toggle", "modal");
 
 		}
 
 		// Y quitamos el acceso a el formulario de modificación
-		for (var i = 0; i < document.getElementsByClassName("userName").length; i++){
+		for (var i4 = 0; i4 < document.getElementsByClassName("userName").length; i4++){
 
-			document.getElementsByClassName("userName")[i].removeAttribute("data-target", "#myModal2");
-			document.getElementsByClassName("userName")[i].removeAttribute("data-toggle", "modal");
+			document.getElementsByClassName("userName")[i4].removeAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[i4].removeAttribute("data-toggle", "modal");
 
 		}
 
@@ -873,24 +711,24 @@ function deshabilitarMenus(disable){
 		}
 
 		// Deshabilitamos los botones del header
-		for (var i = 0; i < document.getElementById("doubleButton").children.length; i++){
+		for (var ia = 0; ia < document.getElementById("doubleButton").children.length; ia++){
 
-			document.getElementById("doubleButton").children[i].removeAttribute("disabled");
-			document.getElementById("doubleButton").children[i].removeAttribute("aria-disabled");
+			document.getElementById("doubleButton").children[ia].removeAttribute("disabled");
+			document.getElementById("doubleButton").children[ia].removeAttribute("aria-disabled");
 		}
 
 		// Permitimos de nuevo abrir el modal de modificación
-		for (var i = 0; i < document.getElementsByClassName("titulo").length; i++){
+		for (var ib = 0; ib < document.getElementsByClassName("titulo").length; ib++){
 
-			document.getElementsByClassName("titulo")[i].setAttribute("data-target", "#myModal");
-			document.getElementsByClassName("titulo")[i].setAttribute("data-toggle", "modal");
+			document.getElementsByClassName("titulo")[ib].setAttribute("data-target", "#myModal");
+			document.getElementsByClassName("titulo")[ib].setAttribute("data-toggle", "modal");
 		}
 
 		// Permitimos de nuevo abrir el modal de modificación y eliminación
-		for (var i = 0; i < document.getElementsByClassName("userName").length; i++){
+		for (var ic = 0; ic < document.getElementsByClassName("userName").length; ic++){
 
-			document.getElementsByClassName("userName")[i].setAttribute("data-target", "#myModal2");
-			document.getElementsByClassName("userName")[i].setAttribute("data-toggle", "modal");
+			document.getElementsByClassName("userName")[ic].setAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[ic].setAttribute("data-toggle", "modal");
 
 		}
 	}

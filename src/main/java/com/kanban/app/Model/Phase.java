@@ -3,13 +3,14 @@ package com.kanban.app.Model;
 public class Phase {
 	
 	private String name;
+	private int order;
 	private int maxTasks;
 	private Task[] subphase1;
 	private Task[] subpthase2;
 	private int maxTime;
 	private int minTime;
+	private String color;
 
-	
 	public Phase(String name, int maxTasks) {
 		this.name = name;
 		this.maxTasks = maxTasks;
@@ -61,5 +62,12 @@ public class Phase {
 	public void setMinTime(int minTime) {
 		this.minTime = minTime;
 	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
 }
 

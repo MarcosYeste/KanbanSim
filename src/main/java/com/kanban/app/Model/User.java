@@ -9,7 +9,10 @@ public class User {
 	private ArrayList<String> phases = new ArrayList<String>();
 	private boolean assigned = false;
 	private int timeStopped;
+	private int tasksWorked;
 	
+	
+
 	public User(String name, String specs) {
 		this.name = name;
 		this.rawPhases = specs;
@@ -51,16 +54,18 @@ public class User {
 		String[] filteredPhases = rawPhase.split(",");
 		for(String phase : filteredPhases) {
 			addPhases(phase.trim());
-			System.out.println("Phase : " + phase.trim() + " added.");
 		}
-		System.out.println("Total Phases: " );
+
 		for(String phase : this.phases) {
-			System.out.println(phase);
 		}
 	}
 
 	public ArrayList<String> getPhases() {
 		return phases;
+	}
+
+	public void setPhases(ArrayList<String> phases) {
+		this.phases = phases;
 	}
 
 	public void addPhases(String phase) {
@@ -81,5 +86,11 @@ public class User {
 				+ phases + ", assigned=" + assigned + "]";
 	}
 	
-	
+	public int getTasksWorked() {
+		return tasksWorked;
+	}
+
+	public void setTasksWorked(int tasksWorked) {
+		this.tasksWorked = tasksWorked;
+	}
 }
