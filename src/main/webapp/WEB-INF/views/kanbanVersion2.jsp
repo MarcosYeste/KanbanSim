@@ -184,6 +184,7 @@
 
 					<c:set value="${user.name}" var="name" />
 					<c:set value="${user.phases}" var="userphases" />
+					<c:set value="${user.skills}" var="userSkills" />
 
 					<script>
 						var userO = new Object();
@@ -193,6 +194,9 @@
 						userO.timeStopped = 0;
 						rawPhases = "<c:out value="${userphases}"></c:out>";
 						userO.phases = rawPhases.replace('[', '').replace(']',
+								'').split(',');
+						rawSkills = "<c:out value="${userSkills}"></c:out>";
+						userO.skills = rawSkills.replace('[', '').replace(']',
 								'').split(',');
 						userO.assigned = false;
 						listUsers.push(userO);
@@ -271,7 +275,9 @@
 					<div>Fases:</div>
 					<div id="modFasesUser"></div>
 					<br>
-
+					Rendimiento de recursos por fase:
+					<div id="modSkillsUser"></div>
+					<br>
 					<button id="ModUsuario" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
