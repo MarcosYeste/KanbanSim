@@ -751,16 +751,24 @@ function sortPhases(){
 			zIndex: 9999,
 			items: "> div.faseName",
 			update: function (event, ui) {
-				var data = $(this).sortable('toArray');
-				console.log(data);
-				$.ajax({
-					data: {data:data},
-					type: 'POST',
-					url: 'sortPhase',
-					success: function(){
-						console.log(data[0]);
-					}
-				});
+				
+				   $('.titulo').each(function(index){
+				         $(this).first().attr('data-identification', index);
+				         $(this).first().first().attr('data-identification', index);
+				         console.log(index);
+				      });
+				   
+				/* PRUEBA AJAX  */
+//				var data = $(this).sortable('toArray');
+//				console.log(data);
+//				$.ajax({
+//					data: {data:data},
+//					type: 'POST',
+//					url: 'sortPhase',
+//					success: function(){
+//						console.log(data[0]);
+//					}
+//				});
 			}
 		});
 		$( "#faseDiv" ).disableSelection();
