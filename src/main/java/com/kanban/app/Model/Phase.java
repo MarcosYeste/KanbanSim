@@ -14,7 +14,6 @@ public class Phase{
 	public Phase(String name, int maxTasks) {
 		this.name = name;
 		this.maxTasks = maxTasks;
-
 	}
 	public Phase() {
 

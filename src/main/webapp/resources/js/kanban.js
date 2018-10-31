@@ -816,8 +816,9 @@ function sortPhases(){
 			update: function (event, ui) {
 				
 				   $('.titulo').each(function(index){
+					   
 				         $(this).first().attr('data-identification', index);
-				         $(this).first().first().attr('data-identification', index);
+				         $(this).children("small").attr('data-identification', index);
 				         console.log(index);
 				      });
 				   
