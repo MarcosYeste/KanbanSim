@@ -66,6 +66,14 @@ h1 {
 	display: inline;
 	margin-left: 15px;
 }
+.divSkill {
+	display: inline;
+	margin-left: 15px;
+}
+.skillInput {
+	display: inline;
+	margin-left: 15px;
+}
 
 /* Spin animation reset Button */
 div #reset:hover {

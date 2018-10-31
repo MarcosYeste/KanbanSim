@@ -43,7 +43,7 @@
 						var globalAllPhases = [];
 					</script>
 					<div>
-<!-- 						<thead> -->
+						<thead>
 							<c:forEach items="${allPhases}" var="phase">
 							<input type="checkbox" class="userPhaseCheck" name="specs" value="${phase}" path="phases">
 							<c:out value="${phase}"></c:out> 
@@ -53,10 +53,15 @@
 								console.log("ggg " + globalAllPhases.length);
 							</script>
 							</c:forEach>
-<!-- 						</thead> -->
+						</thead>
 						
 					</div>
-
+					<form:label cssClass="col-sm-12 " path="rawSkills">Rendimiento de recursos por fase:</form:label>
+					<form:input cssClass="form-control" id="skillCompiler" type="hidden" 
+									value="" path="rawSkills"/>
+					<div id="skillsDiv">
+						
+					</div>
 					<br>
 
 					<div class="col-sm-12">
