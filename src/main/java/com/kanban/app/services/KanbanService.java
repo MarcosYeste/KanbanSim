@@ -1,6 +1,7 @@
 package com.kanban.app.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,8 @@ import com.kanban.app.Model.User;
 public class KanbanService {
 	
 	public List<Phase> saveFases(Phase fases,List<Phase> phasesArray ) {
-		
+		String uniqueID = UUID.randomUUID().toString();	
+		fases.setId(uniqueID);
 		phasesArray.add(fases);
 		
 		return phasesArray;
