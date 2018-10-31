@@ -198,7 +198,6 @@
 						userO.skills = rawSkills.replace('[', '').replace(']',
 								'').split(',');
 						userO.assigned = false;
-						console.log(userO);
 						listUsers.push(userO);
 					</script>
 				</div>
@@ -275,7 +274,9 @@
 					<div>Fases:</div>
 					<div id="modFasesUser"></div>
 					<br>
-
+					Rendimiento de recursos por fase:
+					<div id="modSkillsUser"></div>
+					<br>
 					<button id="ModUsuario" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 

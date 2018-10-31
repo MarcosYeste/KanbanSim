@@ -57,7 +57,6 @@ function compilePhases(event){
 		
 
 		var inputs = document.getElementsByClassName("skillInput");
-		
 		document.getElementById("divSkill"+event.target.value.trim()).appendChild(breakLine2);
 		
 		document.getElementById("skillLevel"+event.target.value).addEventListener('input', function (evt) {
