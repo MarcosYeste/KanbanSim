@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class User {
 	
-
 	private String name;
 	private String rawPhases;
 	private String rawSkills;
@@ -12,7 +11,10 @@ public class User {
 	private ArrayList<String> phases = new ArrayList<String>();
 	private boolean assigned = false;
 	private int timeStopped;
+	private int tasksWorked;
 	
+	
+
 	public User(String name, String specs) {
 		this.name = name;
 		this.rawPhases = specs;
@@ -43,6 +45,10 @@ public class User {
 		return rawPhases;
 	}
 
+
+	public void setPhases(ArrayList<String> phases) {
+		this.phases = phases;
+	}
 
 	public void setRawPhases(String rawPhase) {
 		this.phases = new ArrayList<String>();
@@ -75,11 +81,6 @@ public class User {
 	public ArrayList<String> getPhases() {
 		return phases;
 	}
-
-	public void setPhases(ArrayList<String> phases) {
-		this.phases = phases;
-	}
-
 	public void addPhases(String phase) {
 		this.phases.add(phase);
 	}
@@ -110,5 +111,11 @@ public class User {
 				+ phases + ", assigned=" + assigned + "]";
 	}
 	
-	
+	public int getTasksWorked() {
+		return tasksWorked;
+	}
+
+	public void setTasksWorked(int tasksWorked) {
+		this.tasksWorked = tasksWorked;
+	}
 }

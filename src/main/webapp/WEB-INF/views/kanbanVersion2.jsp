@@ -101,6 +101,7 @@
 						tareas.sameIteration = false;
 						tareas.cycleTime = 0;
 						tareas.leadTime = 0;
+						tareas.startTime = 0;
 						listTareas.push(tareas);
 					</script>
 
@@ -187,8 +188,9 @@
 					<script>
 						var userO = new Object();
 						userO.name = "<c:out value="${name}"></c:out>";
-						userO.timeStopped = 0;
+						userO.tasksWorked = 0;
 						userO.secondsWork = 0;
+						userO.timeStopped = 0;
 						rawPhases = "<c:out value="${userphases}"></c:out>";
 						userO.phases = rawPhases.replace('[', '').replace(']',
 								'').split(',');
@@ -284,7 +286,6 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
 
