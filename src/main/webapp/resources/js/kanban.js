@@ -362,7 +362,6 @@ function play() {
 
 						listUsers.forEach(function(user) {
 							if(!user.assigned){
-								console.log(user.name+"No asignado");
 								if(task.assignedUsers[0] == null){
 									for(var up = 0; up <user.phases.length; up++){
 
@@ -371,11 +370,9 @@ function play() {
 											task.state = "Doing";
 											task.assignedUsers[0] = (user.name);
 											user.assigned = true;
-											console.log(user.name+"Asignado");
-											
+																						
 											if(!task.staticAssigneds.includes((user.name)+" ")){
 												
-												console.log(user.name+"Guardado en tarea");
 												task.staticAssigneds += (user.name)+" ";
 											}
 											
@@ -394,11 +391,9 @@ function play() {
 										for(var p = 0; p < fases.length; p++){
 
 											var phasesName = fases[p].childNodes[0].textContent.trim();
-//											var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
 
 											if(user.phases[up].trim().trim() != actualPhaseName.trim()){
 												for(var t = 0; t < listTareas.length; t++){
-													//if((doingPhase.length - 3) == 0 && user.phases[up].trim() == phasesName){
 													if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName){
 														isTotallyFree = true;
 													} else {
@@ -425,7 +420,6 @@ function play() {
 											task.assignedUsers.push(user.name);
 												if(!task.staticAssigneds.includes((user.name)+" ")){
 												
-												console.log(user.name+"Guardado en tarea");
 												task.staticAssigneds += (user.name)+" ";
 											}
 											user.assigned = true;
@@ -641,8 +635,8 @@ function mostrarResultados() {
 	div.appendChild(div4);
 	div.appendChild(div5);
 }
+
 function mostrarDorsoTarea(id,phasesTime){
-	console.log(phasesTime);
 var T = document.getElementById(id);
 var i = 0;
 T.innerHTML = "";
