@@ -553,6 +553,7 @@ function mostrarResultados() {
 	var bigdiv = document.createElement("div");
 	var divAssigned = document.createElement("div");
 	divAssigned.className = "divAssigned";
+	var idT= 0;
 	listTareas.forEach(function(task) {			
 
 		var p = document.createElement("P");
@@ -560,6 +561,9 @@ function mostrarResultados() {
 		var subDiv = document.createElement("div");
 
 		subDiv.className = "tareaResultado";
+		subDiv.id = "T"+idT;
+		idT++;
+		subDiv.setAttribute("onClick", "mostrarDorso(this.id)");
 		text = document.createTextNode( task.name );
 		p.appendChild(text);
 		subDiv.appendChild(p);
@@ -583,6 +587,11 @@ function mostrarResultados() {
 	div.appendChild(bigdiv);
 	div.appendChild(div4);
 	div.appendChild(div5);
+}
+function mostrarDorso(id){
+var T = document.getElementById(id);
+//	T.innerHTML= "<p>Time wasted on "+//fase[i] ejemplo + " "+task.segundosFASE Ejemplo";s
+	
 }
 //esta funcion me devuelve un array con el Max y el Min
 function findMaxAndMin(){

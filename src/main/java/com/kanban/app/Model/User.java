@@ -63,11 +63,6 @@ public class User {
 	public ArrayList<String> getPhases() {
 		return phases;
 	}
-
-	public void setPhases(ArrayList<String> phases) {
-		this.phases = phases;
-	}
-
 	public void addPhases(String phase) {
 		this.phases.add(phase);
 	}
