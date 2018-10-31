@@ -75,7 +75,7 @@ public class HomeController {
 		model.addAttribute("user", userArray);
 		
 		/* CAMBIAR */
-		fases.setId(1);
+//		fases.setId(1);
 		
 		addPhases(phasesArray.get(phasesArray.size() - 1).getName());
 		return "success";
