@@ -12,7 +12,6 @@ import com.kanban.app.Model.User;
 public class KanbanService {
 	
 	public List<Phase> saveFases(Phase fases,List<Phase> phasesArray ) {
-	
 		
 		phasesArray.add(fases);
 		
@@ -20,9 +19,7 @@ public class KanbanService {
 		
 	}
 	public List<User> saveUser(User user,List<User> userArray) {
-		
 	
-		
 		userArray.add(user);
 		
 		

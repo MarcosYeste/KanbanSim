@@ -1,9 +1,9 @@
 package com.kanban.app.Model;
 
-public class Phase {
+public class Phase{
 	
+	private int id;
 	private String name;
-	private int order;
 	private int maxTasks;
 	private Task[] subphase1;
 	private Task[] subpthase2;
@@ -14,9 +14,10 @@ public class Phase {
 	public Phase(String name, int maxTasks) {
 		this.name = name;
 		this.maxTasks = maxTasks;
+
 	}
 	public Phase() {
-		
+
 	}
 
 	public String getName() {
@@ -68,6 +69,11 @@ public class Phase {
 	public void setColor(String color) {
 		this.color = color;
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id += id;
+	}
 	
 }
-

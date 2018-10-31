@@ -12,7 +12,7 @@ document.getElementById("RmvUsuario").addEventListener("click", rmvModUsers, fal
 //Mod Phases
 function modPhases(){
 	click = event.target.getAttribute("data-identification");
-
+	console.log(click);
 
 	// Mostramos los datos correspondientes a la fase
 	document.getElementById("modName").value = listPhases[click].name;
@@ -76,7 +76,7 @@ function modUsers(){
 	for(var k = 0; k < inputsDivLength; k++){
 		document.getElementById("modSkillsUser").removeChild(document.getElementById("modSkillsUser").childNodes[0]);
 	}
-	
+
 	// Mostramos los datos correspondientes a la fase
 	document.getElementById("modNameUser").value = listUsers[click2].name;
 	var phasesName = $(".titulo");

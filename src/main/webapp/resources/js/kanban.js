@@ -10,6 +10,7 @@ var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 
+sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
@@ -23,7 +24,7 @@ for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 
 	// Abrimos el formulario			
 	document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
-	
+
 	document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(){
 		event.preventDefault();
 	});
@@ -44,9 +45,11 @@ for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 	document.getElementsByClassName("userName")[i].children[1].addEventListener("click", function(){
 		event.preventDefault();
 	});
-	
-}
 
+}
+for(var i = 0 ; i < document.getElementsByClassName("faseName").length; i++){
+	document.getElementsByClassName("faseName")[i].setAttribute("id", i);
+}
 
 //-------------------------------------------------------------------------
 
@@ -116,8 +119,8 @@ function play() {
 			var doing = fases[i].lastElementChild.firstElementChild;
 			var done = fases[i].lastElementChild.lastElementChild;
 
-//-------------------------------------------------------------------------------------------//
-			
+//			-------------------------------------------------------------------------------------------//
+
 			if (firstLoop) {
 
 
@@ -144,7 +147,7 @@ function play() {
 				firstLoop = false;
 			} //if firstloop end
 
-//--------------------------------------------------------------------------------------------------------//
+//			--------------------------------------------------------------------------------------------------------//
 			listTareas.forEach(function(task) {
 
 				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
@@ -159,15 +162,14 @@ function play() {
 					totalFases += cycleTime;
 					listPhases[i].period += cycleTime;
 					task.durarionAsignada = false;
+
 					if(i == 0){
 						
 					}else{
 						auxI = i-1;
 						task.phasesTime[auxI]= saveNewTimePhase(task,auxI);//Guardo tiempo de fase
 					}
-					
-					
-					
+
 				}
 
 				for (var k = 0; k < divsTareas.length; k++) {
@@ -219,8 +221,8 @@ function play() {
 
 
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
-					
-						
+
+
 						listUsers.forEach(function(user) {
 							if(!user.assigned && task.assignedUsers[0] != null){
 								var isTotallyFree = false;
@@ -279,9 +281,9 @@ function play() {
 
 							if(user.assigned){
 								task.assignedUsers.forEach(function(assignedUser) {
-									
+
 									if(assignedUser == user.name){
-										
+
 										user.secondsWork += 1;
 									}
 								});							
@@ -358,7 +360,7 @@ function play() {
 
 
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
-						
+
 
 						listUsers.forEach(function(user) {
 							if(!user.assigned){
@@ -370,12 +372,11 @@ function play() {
 											task.state = "Doing";
 											task.assignedUsers[0] = (user.name);
 											user.assigned = true;
-																						
 											if(!task.staticAssigneds.includes((user.name)+" ")){
 												
 												task.staticAssigneds += (user.name)+" ";
 											}
-											
+
 
 											for(var t = 0; t < divsTareas.length; t++){
 												if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
@@ -465,6 +466,7 @@ function play() {
 			document.getElementById("playpause").checked = false;
 
 			deshabilitarMenus(false);
+			sortPhases();
 
 			lowestTime = findMaxAndMin();
 			lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
@@ -760,7 +762,12 @@ function deshabilitarMenus(disable){
 
 		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
-		
+
+		$( function() {
+			$( "#faseDiv" ).sortable({ disabled : true})
+			$( "#faseDiv").css("cursor", "default");
+		});
+
 	}else{
 
 		document.getElementById("result").removeAttribute("disabled");
@@ -796,4 +803,38 @@ function deshabilitarMenus(disable){
 
 		}
 	}
+}
+function sortPhases(){
+	$( function() {
+		$( "#faseDiv" ).sortable({
+			disabled:false,
+			containment: '#faseDiv', 
+			axis:"x", 
+			tolerance:"pointer",
+			zIndex: 9999,
+			items: "> div.faseName",
+			update: function (event, ui) {
+				
+				   $('.titulo').each(function(index){
+				         $(this).first().attr('data-identification', index);
+				         $(this).first().first().attr('data-identification', index);
+				         console.log(index);
+				      });
+				   
+				/* PRUEBA AJAX  */
+//				var data = $(this).sortable('toArray');
+//				console.log(data);
+//				$.ajax({
+//					data: {data:data},
+//					type: 'POST',
+//					url: 'sortPhase',
+//					success: function(){
+//						console.log(data[0]);
+//					}
+//				});
+			}
+		});
+		$( "#faseDiv" ).disableSelection();
+		$( "#faseDiv").css("cursor", "move");
+	});
 }
