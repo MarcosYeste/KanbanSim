@@ -102,6 +102,7 @@
 						tareas.cycleTime = 0;
 						tareas.leadTime = 0;
 						tareas.startTime = 0;
+						tareas.phasesTime = new Array();
 						listTareas.push(tareas);
 					</script>
 

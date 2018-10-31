@@ -106,6 +106,7 @@ function play() {
 	var lowestTime = [];
 	var lazyPeople = [];
 	var tiempoInicio = 0;
+	var anteriorTiempo =0;
 
 	myInterval = setInterval(function() {
 
@@ -158,6 +159,15 @@ function play() {
 					totalFases += cycleTime;
 					listPhases[i].period += cycleTime;
 					task.durarionAsignada = false;
+					if(i == 0){
+						
+					}else{
+						auxI = i-1;
+						task.phasesTime[auxI]= saveNewTimePhase(task,auxI);//Guardo tiempo de fase
+					}
+					
+					
+					
 				}
 
 				for (var k = 0; k < divsTareas.length; k++) {
@@ -244,6 +254,10 @@ function play() {
 									if(isTotallyFree){
 
 										task.assignedUsers.push(user.name);
+										if(!task.staticAssigneds.includes((user.name)+" ")){											
+											
+											task.staticAssigneds += (user.name)+" ";
+										}
 										user.assigned = true;
 										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) == 0){
 											task.duration = 1;
@@ -284,6 +298,7 @@ function play() {
 						if (fases[i + 1] == null) {							
 							task.state = "Ended";
 							task.leadTime = leadTime;
+							task.phasesTime[i]= saveNewTimePhase(task,i);//Guardo tiempo de fase
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 						
@@ -347,6 +362,7 @@ function play() {
 
 						listUsers.forEach(function(user) {
 							if(!user.assigned){
+								console.log(user.name+"No asignado");
 								if(task.assignedUsers[0] == null){
 									for(var up = 0; up <user.phases.length; up++){
 
@@ -355,8 +371,11 @@ function play() {
 											task.state = "Doing";
 											task.assignedUsers[0] = (user.name);
 											user.assigned = true;
+											console.log(user.name+"Asignado");
 											
 											if(!task.staticAssigneds.includes((user.name)+" ")){
+												
+												console.log(user.name+"Guardado en tarea");
 												task.staticAssigneds += (user.name)+" ";
 											}
 											
@@ -404,6 +423,11 @@ function play() {
 
 										if(isTotallyFree){
 											task.assignedUsers.push(user.name);
+												if(!task.staticAssigneds.includes((user.name)+" ")){
+												
+												console.log(user.name+"Guardado en tarea");
+												task.staticAssigneds += (user.name)+" ";
+											}
 											user.assigned = true;
 											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) == 0){
 												task.duration = 1;
@@ -437,8 +461,9 @@ function play() {
 		});
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
-
-		
+				listTareas.forEach(function(task) {
+				console.log(task.name+" Tiempos fase : "+task.phasesTime);
+			});
 			// Finalizado completamente
 			clearInterval(myInterval);
 
@@ -457,9 +482,39 @@ function play() {
 		}
 		
 		leadTime += 1;
+		console.log("::: LEAD TIEM ::::: "+leadTime);
 
 	}, 1000);
 
+}
+function saveNewTimePhase(task,i) {
+	var tareaLead = 0;
+	var anterior = 0;
+	var result = 0;
+		
+	if(task.phasesTime[0]== undefined){ 
+		
+		task.phasesTime[0]= 0;	
+		anterior = task.phasesTime[0];
+		
+		console.log("Tiempo en "+listPhases[i].name+" = lead: "+leadTime+" - start: "+ task.startTime+" - anterior: "+anterior);
+		result = leadTime-task.startTime-anterior;anterior
+		
+	}else{
+		
+		anterior = 0;
+		for(var y = 0; y < task.phasesTime.length; y++){
+			anterior += task.phasesTime[y];
+		}
+		
+		console.log("Tiempo en "+listPhases[i].name+" = lead: "+leadTime+" - anterior: "+anterior);
+		result = leadTime-anterior;
+	}
+
+		console.log("*Result* de "+task.name+" = "+result);
+	return result;
+	
+	
 }
 function mostrarFinalTarea(tarea,task){
 	
@@ -563,7 +618,7 @@ function mostrarResultados() {
 		subDiv.className = "tareaResultado";
 		subDiv.id = "T"+idT;
 		idT++;
-		subDiv.setAttribute("onClick", "mostrarDorso(this.id)");
+		subDiv.setAttribute("onClick", "mostrarDorsoTarea(this.id,"+JSON.stringify(task.phasesTime)+")");
 		text = document.createTextNode( task.name );
 		p.appendChild(text);
 		subDiv.appendChild(p);
@@ -573,14 +628,12 @@ function mostrarResultados() {
 		subDiv.appendChild(p1);
 		var p2 = document.createElement("P");
 		text = document.createTextNode(" Lead Time: " + task.leadTime+"''");
-		p2.appendChild(text);
-		divAssigned.innerHTML += "<div class='asignados'><p><strong>Asignados:</strong></p><P> "+task.staticAssigneds+" </p><div>";		
-		subDiv.appendChild(p2);
-		
-		subDiv.innerHTML += "<p>Waiting to Start "+task.startTime+"''</p>";
-		div3.appendChild(subDiv);
+		p2.appendChild(text);	
+		subDiv.appendChild(p2);		
+		subDiv.innerHTML += "<p>Waiting to Start "+task.startTime+"''</p><small style='color:blue' >click</small>";
+		div3.appendChild(subDiv);		
 		bigdiv.appendChild(div3);
-
+		divAssigned.innerHTML += "<div class='asignados'><p><strong>Asignados:</strong></p><P> "+task.staticAssigneds+" </p><div>";	
 //		div3.appendChild(divAssigned);
 	});
 	bigdiv.appendChild(divAssigned);
@@ -588,10 +641,18 @@ function mostrarResultados() {
 	div.appendChild(div4);
 	div.appendChild(div5);
 }
-function mostrarDorso(id){
+function mostrarDorsoTarea(id,phasesTime){
+	console.log(phasesTime);
 var T = document.getElementById(id);
-//	T.innerHTML= "<p>Time wasted on "+//fase[i] ejemplo + " "+task.segundosFASE Ejemplo";s
-	
+var i = 0;
+T.innerHTML = "";
+phasesTime = phasesTime;
+listPhases.forEach(function(phase) {	
+	T.innerHTML += "<p>Time on "+phase.name+": "+phasesTime[i]+"''</p>";
+	i++;
+});
+T.innerHTML += "<small style='color:blue' >click</small>";
+T.setAttribute("onClick","mostrarResultados()");
 }
 //esta funcion me devuelve un array con el Max y el Min
 function findMaxAndMin(){
