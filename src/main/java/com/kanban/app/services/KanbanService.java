@@ -21,7 +21,8 @@ public class KanbanService {
 		
 	}
 	public List<User> saveUser(User user,List<User> userArray) {
-	
+		String uniqueID = UUID.randomUUID().toString();	
+		user.setId(uniqueID);
 		userArray.add(user);
 		
 		
@@ -29,7 +30,8 @@ public class KanbanService {
 		
 	}
 	public List<Task> saveTask(Task task,List<Task> taskArray) {
-		
+		String uniqueID = UUID.randomUUID().toString();	
+		task.setId(uniqueID);
 		
 		taskArray.add(task);
 		
