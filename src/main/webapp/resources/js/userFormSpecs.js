@@ -1,13 +1,15 @@
 var checkbox = document.getElementsByClassName("userPhaseCheck");
+var skillsList = [];
+
+
 for(var j = 0; j < checkbox.length; j++){
 	checkbox[j].addEventListener("change", function(){compilePhases(event);}, false);
 }
 function compilePhases(event){
-
 	if(event.target.checked){
 		document.getElementById("phaseCompiler").value += event.target.value + ",";
-		document.getElementById("SkillCompiler").value += event.target.value + ",";
-		
+//		document.getElementById("skillCompiler").value += event.target.value + ",";
+		//8
 		var phseSkillDiv = document.createElement("div");
 		var ide = document.createAttribute("id");
 		var divClass = document.createAttribute("class");
@@ -52,18 +54,46 @@ function compilePhases(event){
 		document.getElementById("divSkill"+event.target.value).appendChild(phseSkillInput);
 		
 		var breakLine2 = document.createElement("br");
+		
+
+		var inputs = document.getElementsByClassName("skillInput");
+		
 		document.getElementById("divSkill"+event.target.value.trim()).appendChild(breakLine2);
 		
 		document.getElementById("skillLevel"+event.target.value).addEventListener('input', function (evt) {
-		   if(evt.target.value < 10){
+			if(evt.target.value < 10){
 			   document.getElementById("skillLevel"+event.target.value).value = 10;
 		   } else if (evt.target.value > 100){
 			   document.getElementById("skillLevel"+event.target.value).value = 100;
 		   }
+			
+			for(var i = 0; i < inputs.length; i++){
+				skillsList[i] = inputs[i].value;
+			}
+			document.getElementById("skillCompiler").value = "";
+			for(var i = 0; i < skillsList.length; i++){
+				document.getElementById("skillCompiler").value +=  skillsList[i] + ",";
+			}
 		});
+		
+		skillsList.push(inputs[inputs.length - 1].value);
+		
+		
 	} else {
+		var inputs = document.getElementsByClassName("skillInput");
 		document.getElementById("phaseCompiler").value = 
 			document.getElementById("phaseCompiler").value.replace(event.target.value + ',', '');	
+		
+		for(var i = 0 ; i < inputs.length; i++){
+			if(inputs[i].getAttribute("id") == "skillLevel"+event.target.value){
+				skillsList.splice(i, 1);
+			}
+		}	
+		document.getElementById("skillCompiler").value = "";
+		for(var i = 0; i < skillsList.length; i++){
+			document.getElementById("skillCompiler").value +=  skillsList[i] + ",";
+		}
 		document.getElementById("skillsDiv").removeChild(document.getElementById("divSkill" + event.target.value));
+
 	}
 }

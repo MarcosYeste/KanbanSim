@@ -52,7 +52,7 @@ public class User {
 			addPhases(phase.trim());
 			System.out.println("Phase : " + phase.trim() + " added.");
 		}
-		System.out.println("Total Phases: " );
+
 		for(String phase : this.phases) {
 			System.out.println(phase);
 		}
@@ -64,16 +64,20 @@ public class User {
 		String[] filteredPhases = rawSkills.split(",");
 		for(String skill : filteredPhases) {
 			this.skills.add(skill.trim());
-			System.out.println("Phase : " + skill.trim() + " added.");
+			System.out.println("Skill : " + skill.trim() + " added.");
 		}
 
-		for(String phase : this.phases) {
-			System.out.println(phase);
+		for(String skill : this.skills) {
+			System.out.println(skill);
 		}
 	}
 
 	public ArrayList<String> getPhases() {
 		return phases;
+	}
+
+	public void setPhases(ArrayList<String> phases) {
+		this.phases = phases;
 	}
 
 	public void addPhases(String phase) {
@@ -95,7 +99,11 @@ public class User {
 	public void setSkills(ArrayList<String> skills) {
 		this.skills = skills;
 	}
-
+	
+	public String getRawSkills() {
+		return rawSkills;
+	}
+	
 	@Override
 	public String toString() {
 		return "User [name=" + name + ", rawPhases=" + rawPhases + ", timeStopped=" + timeStopped + ", phases="

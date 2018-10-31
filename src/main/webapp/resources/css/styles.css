@@ -16,8 +16,7 @@ header {
 	color: white;
 	font-size: 120%;
 	text-align: center;
-	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		#63bafa;
+	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #63bafa;
 }
 
 /* Modal Forms */
@@ -78,7 +77,6 @@ h1 {
 }
 
 /* Spin animation reset Button */
-
 div #reset:hover {
 	-webkit-animation-name: spin; /* Safari */
 	-webkit-animation-duration: 1000ms; /* Safari */
@@ -98,11 +96,75 @@ div #reset:hover {
 	animation-timing-function: linear;
 }
 
-@keyframes spin {
-	from { transform:rotate(0deg);}
-	to {transform: rotate(360deg);}
+@
+keyframes spin {from { transform:rotate(0deg);
+	
 }
 
-.img-edit{
+to {
+	transform: rotate(360deg);
+}
+
+}
+.img-edit {
 	z-index: -1;
+}
+
+/* FORMS */
+.form-control[type=color] {
+	height: auto;
+}
+
+/* Need styles for -webkit- and -moz- */
+.form-control[type=color]::-webkit-color-swatch-wrapper {
+	padding: 0;
+	margin: 0;
+}
+
+.form-control[type=color]:-moz-color-swatch-wrapper {
+	padding: 0;
+	margin: 0;
+}
+
+.form-control[type=color]:-ms-color-swatch-wrapper {
+	padding: 0;
+	margin: 0;
+}
+
+.form-control[type=color][list="presetColors"]::-webkit-color-swatch-wrapper {
+	padding: .5rem .75rem;
+}
+
+.form-control[type=color][list="presetColors"]:-moz-color-swatch-wrapper {
+	padding: .5rem .75rem;
+}
+
+.form-control[type=color][list="presetColors"]:-ms-color-swatch-wrapper {
+	padding: .5rem .75rem;
+}
+
+.form-control[type=color]::-webkit-color-swatch {
+	height: 22px; /* font-size + line-height */
+	padding: 0;
+	margin: 0;
+}
+
+.form-control[type=color]::-moz-color-swatch {
+	height: 22px; /* font-size + line-height */
+	padding: 0;
+	margin: 0;
+}
+
+.form-control[type=color]:-ms-color-swatch {
+	height: 22px; /* font-size + line-height */
+	padding: 0;
+	margin: 0;
+}z
+/* Idenitificar usuarios */
+.circulo {
+     width: 10px;
+     height: 10px;
+     -moz-border-radius: 50%;
+     -webkit-border-radius: 50%;
+     border-radius: 50%;
 }

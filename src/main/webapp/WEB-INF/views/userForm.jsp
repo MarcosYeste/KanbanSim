@@ -38,8 +38,6 @@
 					<div class="col-sm-12">
 						<form:input cssClass="form-control" id="phaseCompiler" type="hidden" 
 									value="" path="rawPhases"/>
-						<form:input cssClass="form-control" id="skillCompiler" type="hidden" 
-									value="" path="rawSkills"/>
 					</div>
 					<script>
 						var globalAllPhases = [];
@@ -58,6 +56,9 @@
 						</thead>
 						
 					</div>
+					<form:label cssClass="col-sm-12 " path="rawSkills">Rendimiento de recursos por fase:</form:label>
+					<form:input cssClass="form-control" id="skillCompiler" type="hidden" 
+									value="" path="rawSkills"/>
 					<div id="skillsDiv">
 						
 					</div>

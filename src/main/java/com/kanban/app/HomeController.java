@@ -174,6 +174,7 @@ public class HomeController {
 			if (userArray.get(i).getName().indexOf(oldName) != -1) {
 				userArray.get(i).setName(newName);
 				userArray.get(i).setRawPhases(phases);
+
 			}
 		}
 		
@@ -184,14 +185,14 @@ public class HomeController {
 
 	 // Modify Phases By Name
 	@RequestMapping(value = "/modPhase", method = RequestMethod.POST)
-	public String modifyPhase(String name, int wip, int min, int max) {	
+	public String modifyPhase(String name, int wip, int min, int max, String color) {	
 		
 		for(int i = 0; i < phasesArray.size(); i++) {
 			if (phasesArray.get(i).getName().indexOf(name) != -1) {
 				phasesArray.get(i).setMaxTasks(wip);
 				phasesArray.get(i).setMinTime(min);
 				phasesArray.get(i).setMaxTime(max);
-				
+				phasesArray.get(i).setColor(color);
 			}
 		}
 		
