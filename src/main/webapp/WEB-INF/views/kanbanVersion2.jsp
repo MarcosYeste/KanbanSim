@@ -53,7 +53,7 @@
 	</div>
 
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
-	<div class="contenedor">
+	<div class="contenedor" id="contenedor">
 
 		<div class="principio">
 
@@ -114,7 +114,7 @@
 
 			<c:forEach items="${phases}" var="fase">
 
-				<div class="faseName"
+				<div class="faseName" 
 					style='background-color:<c:out value="${fase.color}"></c:out>'>
 					<div class="titulo" data-toggle="modal" data-target="#myModal"
 						name="<c:out value='${fase.name}'></c:out>">
@@ -140,6 +140,7 @@
 					</div>
 				</div>
 
+	
 				<c:set value="${fase.name}" var="name" />
 				<c:set value="${fase.maxTasks}" var="maxTasks" />
 				<c:set value="${fase.maxTime}" var="maxTime" />
@@ -148,6 +149,7 @@
 
 				<script>
 					var phase = new Object();
+				
 					phase.name = "<c:out value="${name}"></c:out>";
 					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
 					phase.maxTime = <c:out value="${maxTime}"></c:out>;

@@ -64,7 +64,7 @@
 				</div>
 
 				<div class="form-group">
-					<form:label path="color" for="example-color-input"
+					<form:label path="color" for="color-input"
 						cssClass="col-2 col-form-label">Color:</form:label>
 					<div class="col-10">
 						<form:input class="form-control" type="color" value="#4ce600"
