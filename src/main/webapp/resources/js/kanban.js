@@ -282,10 +282,15 @@ function play() {
 
 							if(user.assigned){
 								task.assignedUsers.forEach(function(assignedUser) {
-
+									//guarda en Usuarios los segundos se cada fase
 									if(assignedUser.includes((user.name))){
 										user.secondsWork += 1;
-										console.log(user.name+" Segundos trabajados = "+user.secondsWork);
+										if(user.secondByPhase[i] ==  undefined){
+											
+											user.secondByPhase[i] = 1;
+										}else{
+											user.secondByPhase[i] += 1;
+										}
 									}
 								});							
 							}
@@ -545,6 +550,7 @@ function mostrarResultados() {
 	h3.innerHTML = "<strong>Tabla de Resultados</strong>";
 	div2.appendChild(h3);
 	div.appendChild(div2);
+	
 	// Resultado fases
 	div4.className = "faseResultadoDiv";
 	subdiv4.className = "faseResultado";
@@ -569,11 +575,13 @@ function mostrarResultados() {
 	subdiv5.innerHTML = "<h4><center> Resultados de usuarios</center> </h4>";
 	var arrayValores = [];
 	var nombresArray = [];
+	var idU=0;
 	listUsers.forEach(function(user) {
+		console.log(user.name+"Segundos de fase::: "+user.secondByPhase);
 		user.secondsNotWorked = leadTime - user.secondsWork;
-		subsubdiv5.innerHTML += '<div class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
-		'<p> Tareas trabajadas: '+user.tasksWorked+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p><p>Tiempo inactivo: '+user.secondsNotWorked+' Segundos</p></div>';
-
+		subsubdiv5.innerHTML += '<div id='+idU+' onclick="mostrarDorsoUsuarios(this.id,'+JSON.stringify(user.secondByPhase)+')" class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
+		'<p> Tareas trabajadas: '+user.tasksWorked+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p><p>Tiempo inactivo: '+user.secondsNotWorked+' Segundos</p><small style="color:blue">Ver más</small></div>';
+		idU++;
 	});
 	arrayValores = findMaxAndMin();
 
@@ -644,6 +652,22 @@ function mostrarResultados() {
 	div.appendChild(bigdiv);
 	div.appendChild(div4);
 	div.appendChild(div5);
+}
+
+function mostrarDorsoUsuarios(id,secondByPhase){
+	var U = document.getElementById(id);
+	var i = 0;
+	U.innerHTML = "";
+	secondByPhase = secondByPhase;
+	listPhases.forEach(function(phase) {
+		if(secondByPhase[i] == undefined || secondByPhase[i] == null){
+			secondByPhase[i]= 0;
+		}
+		U.innerHTML += "<p>"+phase.name+": "+secondByPhase[i]+"''</p>";
+		i++;
+	});
+	U.innerHTML += "<small style='color:blue'>Ver más</small>";
+	U.setAttribute("onClick","mostrarResultados()");
 }
 
 function mostrarDorsoTarea(id,phasesTime){

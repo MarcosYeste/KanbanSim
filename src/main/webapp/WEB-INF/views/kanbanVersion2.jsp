@@ -195,6 +195,7 @@
 						var userO = new Object();
 						userO.name = "<c:out value="${name}"></c:out>";
 						userO.tasksWorked = 0;
+						userO.secondByPhase = new Array();
 						userO.secondsWork = 0;
 						userO.secondsNotWorked = 0;
 						userO.timeStopped = 0;
