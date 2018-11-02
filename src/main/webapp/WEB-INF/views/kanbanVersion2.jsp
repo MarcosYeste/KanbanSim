@@ -117,7 +117,7 @@
 			<c:forEach items="${phases}" var="fase">
 
 				<div class="faseName"
-					style='background-color:<c:out value="${fase.color}"></c:out>'>
+					style='background-color:<c:out value="${fase.color}"></c:out>' id=<c:out value="${fase.id}"></c:out>>
 					<div class="titulo" data-toggle="modal" data-target="#myModal"
 						name="<c:out value='${fase.name}'></c:out>">
 

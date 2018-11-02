@@ -19,8 +19,8 @@ $(function () {
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
 
 for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
-	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", i);
-	document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", i);
+	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", listPhases[i].id);
+	document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", listPhases[i].id);
 
 	// Abrimos el formulario			
 	document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
@@ -47,10 +47,6 @@ for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 	});
 
 }
-for(var i = 0 ; i < document.getElementsByClassName("faseName").length; i++){
-	document.getElementsByClassName("faseName")[i].setAttribute("id", i);
-}
-
 //-------------------------------------------------------------------------
 
 //Play Button
@@ -814,25 +810,24 @@ function sortPhases(){
 			zIndex: 9999,
 			items: "> div.faseName",
 			update: function (event, ui) {
-				
-				   $('.titulo').each(function(index){
-					   
-				         $(this).first().attr('data-identification', index);
-				         $(this).children("small").attr('data-identification', index);
-				         console.log(index);
-				      });
-				   
+								   
 				/* PRUEBA AJAX  */
-//				var data = $(this).sortable('toArray');
-//				console.log(data);
-//				$.ajax({
-//					data: {data:data},
-//					type: 'POST',
-//					url: 'sortPhase',
-//					success: function(){
-//						console.log(data[0]);
-//					}
-//				});
+				var info = $(this).sortable("toArray");
+				var fasesString = "";
+				for (var i = 0; i < info.length; i++) {
+					fasesString += info[i] + ",";
+				};
+				
+				console.log(fasesString);
+				$.ajax({
+					data: {Stringfases : fasesString},
+					dataType: "String",
+					type: 'POST',
+					url: '/sortPhase',
+					success: function(){
+						console.log("Sent")
+					}
+				});
 			}
 		});
 		$( "#faseDiv" ).disableSelection();
