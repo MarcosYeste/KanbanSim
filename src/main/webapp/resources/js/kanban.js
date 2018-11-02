@@ -288,6 +288,11 @@ function play() {
 									}
 								});							
 							}
+							// NO BORARR ESTE ELSE Por si falla el tiempo inactivo.
+//							else{  
+//								user.secondsNotWorked += 1;
+//								console.log(user.name+" Segundos NO trabajados = "+user.secondsNotWorked);
+//							}
 
 
 						});
@@ -565,9 +570,9 @@ function mostrarResultados() {
 	var arrayValores = [];
 	var nombresArray = [];
 	listUsers.forEach(function(user) {
-
+		user.secondsNotWorked = leadTime - user.secondsWork;
 		subsubdiv5.innerHTML += '<div class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
-		'<p> Tareas trabajadas: '+user.tasksWorked+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p></div>';
+		'<p> Tareas trabajadas: '+user.tasksWorked+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p><p>Tiempo inactivo: '+user.secondsNotWorked+' Segundos</p></div>';
 
 	});
 	arrayValores = findMaxAndMin();
@@ -629,7 +634,7 @@ function mostrarResultados() {
 		text = document.createTextNode(" Lead Time: " + task.leadTime+"''");
 		p2.appendChild(text);	
 		subDiv.appendChild(p2);		
-		subDiv.innerHTML += "<p>Waiting to Start "+task.startTime+"''</p><small style='color:blue' >click</small>";
+		subDiv.innerHTML += "<p>Waiting to Start "+task.startTime+"''</p><small style='color:blue'>Ver más</small>";
 		div3.appendChild(subDiv);		
 		bigdiv.appendChild(div3);
 		divAssigned.innerHTML += "<div class='asignados'><p><strong>Asignados:</strong></p><P> "+task.staticAssigneds+" </p><div>";	
@@ -650,7 +655,7 @@ listPhases.forEach(function(phase) {
 	T.innerHTML += "<p>Time on "+phase.name+": "+phasesTime[i]+"''</p>";
 	i++;
 });
-T.innerHTML += "<small style='color:blue' >click</small>";
+T.innerHTML += "<small style='color:blue'>Ver más</small>";
 T.setAttribute("onClick","mostrarResultados()");
 }
 //esta funcion me devuelve un array con el Max y el Min

@@ -195,6 +195,7 @@
 						userO.name = "<c:out value="${name}"></c:out>";
 						userO.tasksWorked = 0;
 						userO.secondsWork = 0;
+						userO.secondsNotWorked = 0;
 						userO.timeStopped = 0;
 						rawPhases = "<c:out value="${userphases}"></c:out>";
 						userO.phases = rawPhases.replace('[', '').replace(']',
