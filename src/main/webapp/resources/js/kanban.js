@@ -216,7 +216,7 @@ function play() {
 
 
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
-
+						var phaseSkill;
 
 						listUsers.forEach(function(user) {
 							if(!user.assigned && task.assignedUsers[0] != null){
@@ -239,6 +239,7 @@ function play() {
 											}
 
 										} else if(user.phases[up].trim() == actualPhaseName.trim()){
+											phaseSkill = up;
 											for(var t = 0; t < listTareas.length; t++){
 												if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
 													isTotallyFree = true;
