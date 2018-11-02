@@ -10,6 +10,7 @@ var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 
+// Guardar al modificar Phase
 sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
@@ -159,7 +160,7 @@ function play() {
 					task.durarionAsignada = false;
 
 					if(i == 0){
-						
+
 					}else{
 						auxI = i-1;
 						task.phasesTime[auxI]= saveNewTimePhase(task,auxI);//Guardo tiempo de fase
@@ -272,10 +273,10 @@ function play() {
 								}
 
 //								if(user.assigned){
-//									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
-//									document.getElementsByName(user.name)[0].children[1].style.color = phase.color;
-//									document.getElementsByName(user.name)[0].style.borderColor = phase.color;
-//									user.tasksWorked += 1;
+//								document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
+//								document.getElementsByName(user.name)[0].children[1].style.color = phase.color;
+//								document.getElementsByName(user.name)[0].style.borderColor = phase.color;
+//								user.tasksWorked += 1;
 //								}
 							}
 							// Este if es para aumentar los segundos trabajados
@@ -296,8 +297,8 @@ function play() {
 							}
 							// NO BORARR ESTE ELSE Por si falla el tiempo inactivo.
 //							else{  
-//								user.secondsNotWorked += 1;
-//								console.log(user.name+" Segundos NO trabajados = "+user.secondsNotWorked);
+//							user.secondsNotWorked += 1;
+//							console.log(user.name+" Segundos NO trabajados = "+user.secondsNotWorked);
 //							}
 
 
@@ -314,9 +315,9 @@ function play() {
 							task.phasesTime[i]= saveNewTimePhase(task,i);//Guardo tiempo de fase
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
-						
+
 							console.log("Ha acabado con un leadtime de :: "+task.leadTime);
-							
+
 
 						} else {
 							if (((fases[i + 1].lastElementChild.firstElementChild.childNodes.length - 3) +
@@ -340,7 +341,7 @@ function play() {
 					} else if (task.state == null && task.name == elementName && task.phase == 0) {
 
 						//IF 4
-						
+
 						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 								< listPhases[0].maxTasks) {							
@@ -385,7 +386,7 @@ function play() {
 											task.assignedUsers[0] = (user.name);
 											user.assigned = true;
 											if(!task.staticAssigneds.includes((user.name)+" ")){
-												
+
 												task.staticAssigneds += (user.name)+" ";
 												user.tasksWorked += 1;
 											}
@@ -408,7 +409,7 @@ function play() {
 
 											if(user.phases[up].trim() != actualPhaseName.trim()){
 												for(var t = 0; t < listTareas.length; t++){
-													if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName){
+													if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName.trim()){
 														isTotallyFree = true;
 													} else {
 														isTotallyFree = false;
@@ -432,8 +433,8 @@ function play() {
 
 										if(isTotallyFree){
 											task.assignedUsers.push(user.name);
-												if(!task.staticAssigneds.includes((user.name)+" ")){
-													user.tasksWorked += 1;
+											if(!task.staticAssigneds.includes((user.name)+" ")){
+												user.tasksWorked += 1;
 												task.staticAssigneds += (user.name)+" ";
 											}
 											user.assigned = true;
@@ -451,8 +452,8 @@ function play() {
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 									document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
 									document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
-									
-									
+
+
 									// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
 								}
 							} 
@@ -469,7 +470,7 @@ function play() {
 		});
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
-				listTareas.forEach(function(task) {
+			listTareas.forEach(function(task) {
 //				console.log(task.name+" Tiempos fase : "+task.phasesTime);
 			});
 			// Finalizado completamente
@@ -489,7 +490,7 @@ function play() {
 			}
 
 		}
-		
+
 		leadTime += 1;
 		console.log("::: LEAD TIEM ::::: "+leadTime);
 
@@ -500,37 +501,37 @@ function saveNewTimePhase(task,i) {
 	var tareaLead = 0;
 	var anterior = 0;
 	var result = 0;
-		
+
 	if(task.phasesTime[0]== undefined){ 
-		
+
 		task.phasesTime[0]= 0;	
 		anterior = task.phasesTime[0];
-		
+
 		console.log("Tiempo en "+listPhases[i].name+" = lead: "+leadTime+" - start: "+ task.startTime+" - anterior: "+anterior);
 		result = leadTime-task.startTime-anterior;anterior
-		
+
 	}else{
-		
+
 		anterior = 0;
 		for(var y = 0; y < task.phasesTime.length; y++){
 			anterior += task.phasesTime[y];
 		}
-		
+
 		console.log("Tiempo en "+listPhases[i].name+" = lead: "+leadTime+" - anterior: "+anterior);
 		result = leadTime-anterior;
 	}
 
-		console.log("*Result* de "+task.name+" = "+result);
+	console.log("*Result* de "+task.name+" = "+result);
 	return result;
-	
-	
+
+
 }
 function mostrarFinalTarea(tarea,task){
-	
+
 	task.cycleTime = task.leadTime - task.startTime;
 	tarea.innerHTML = "<p>"+task.name+"</p><p>CycleTime: "+task.cycleTime+"</p><p>LeadTime: "+task.leadTime+"</p>";
 	return tarea;
-	
+
 }
 function mostrarResultados() {
 
@@ -671,16 +672,16 @@ function mostrarDorsoUsuarios(id,secondByPhase){
 }
 
 function mostrarDorsoTarea(id,phasesTime){
-var T = document.getElementById(id);
-var i = 0;
-T.innerHTML = "";
-phasesTime = phasesTime;
-listPhases.forEach(function(phase) {	
-	T.innerHTML += "<p>Time on "+phase.name+": "+phasesTime[i]+"''</p>";
-	i++;
-});
-T.innerHTML += "<small style='color:blue'>Ver más</small>";
-T.setAttribute("onClick","mostrarResultados()");
+	var T = document.getElementById(id);
+	var i = 0;
+	T.innerHTML = "";
+	phasesTime = phasesTime;
+	listPhases.forEach(function(phase) {	
+		T.innerHTML += "<p>Time on "+phase.name+": "+phasesTime[i]+"''</p>";
+		i++;
+	});
+	T.innerHTML += "<small style='color:blue'>Ver más</small>";
+	T.setAttribute("onClick","mostrarResultados()");
 }
 //esta funcion me devuelve un array con el Max y el Min
 function findMaxAndMin(){
@@ -846,14 +847,14 @@ function sortPhases(){
 			zIndex: 9999,
 			items: "> div.faseName",
 			update: function (event, ui) {
-								   
+
 				/* PRUEBA AJAX  */
 				var info = $(this).sortable("toArray");
 				var fasesString = "";
 				for (var i = 0; i < info.length; i++) {
 					fasesString += info[i] + ",";
 				};
-				
+
 				console.log(fasesString);
 				$.ajax({
 					data: {Stringfases : fasesString},
@@ -870,3 +871,4 @@ function sortPhases(){
 		$( "#faseDiv").css("cursor", "move");
 	});
 }
+

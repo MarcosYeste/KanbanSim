@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div class="botonesContainer1" id="botonesContainer1">
-
+		
 		<!-- Nuevo Tablero -->
 		<div class="doubleButton" id="doubleButton">
 			<button id="divDelete">
@@ -57,7 +57,7 @@
 
 		<div class="principio">
 
-			<div class="tituloInit">Etapa de inicio</div>
+			<div class="tituloInit">Backlog</div>
 			<div class="tituloInit barra"></div>
 			<div class="contenedorTareas">
 
@@ -169,7 +169,7 @@
 
 		<div class="fin">
 
-			<div class="tituloEnd">Etapa final</div>
+			<div class="tituloEnd">Fin</div>
 			<div class="tituloEnd barra"></div>
 			<div class="contenedorFinal"></div>
 
@@ -296,8 +296,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- ---------------------------------------------- -->
 
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
