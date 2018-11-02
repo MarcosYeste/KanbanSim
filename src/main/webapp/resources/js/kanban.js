@@ -182,7 +182,7 @@ function play() {
 
 					if (task.state == "Doing" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1)) {
-
+						//IF 1
 						done.appendChild(divsTareas[k]);
 						task.state = "Done";
 
@@ -209,7 +209,7 @@ function play() {
 
 					} else if (task.state == "Doing" && task.name == elementName && task.tss != taskDuration &&
 							task.phase == (i + 1)) {
-
+						//IF 2
 						if (task.phase > 0) {
 							task.tss++;
 
@@ -253,11 +253,11 @@ function play() {
 
 										task.assignedUsers.push(user.name);
 										if(!task.staticAssigneds.includes((user.name)+" ")){											
-											
+											user.tasksWorked += 1;
 											task.staticAssigneds += (user.name)+" ";
 										}
 										user.assigned = true;
-										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) == 0){
+										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 											task.duration = 1;
 										} else {
 											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length);
@@ -266,21 +266,21 @@ function play() {
 
 								}
 
-								if(user.assigned){
-									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
-									document.getElementsByName(user.name)[0].children[1].style.color = phase.color;
-									document.getElementsByName(user.name)[0].style.borderColor = phase.color;
-									user.tasksWorked += 1;
-								}
+//								if(user.assigned){
+//									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
+//									document.getElementsByName(user.name)[0].children[1].style.color = phase.color;
+//									document.getElementsByName(user.name)[0].style.borderColor = phase.color;
+//									user.tasksWorked += 1;
+//								}
 							}
 							// Este if es para aumentar los segundos trabajados
 
 							if(user.assigned){
 								task.assignedUsers.forEach(function(assignedUser) {
 
-									if(assignedUser == user.name){
-
+									if(assignedUser.includes((user.name))){
 										user.secondsWork += 1;
+										console.log(user.name+" Segundos trabajados = "+user.secondsWork);
 									}
 								});							
 							}
@@ -292,7 +292,7 @@ function play() {
 
 					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
-
+						//IF 3
 						if (fases[i + 1] == null) {							
 							task.state = "Ended";
 							task.leadTime = leadTime;
@@ -324,8 +324,8 @@ function play() {
 
 					} else if (task.state == null && task.name == elementName && task.phase == 0) {
 
-
-
+						//IF 4
+						
 						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 								< listPhases[0].maxTasks) {							
@@ -354,9 +354,9 @@ function play() {
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){
 
-
+						//IF 5
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
-
+						var phaseSkill;
 
 						listUsers.forEach(function(user) {
 							if(!user.assigned){
@@ -366,11 +366,13 @@ function play() {
 										if(user.phases[up].trim() == actualPhaseName.trim()){
 
 											task.state = "Doing";
+											task.duration = task.duration * (100 / user.skills[up]);
 											task.assignedUsers[0] = (user.name);
 											user.assigned = true;
 											if(!task.staticAssigneds.includes((user.name)+" ")){
 												
 												task.staticAssigneds += (user.name)+" ";
+												user.tasksWorked += 1;
 											}
 
 
@@ -389,7 +391,7 @@ function play() {
 
 											var phasesName = fases[p].childNodes[0].textContent.trim();
 
-											if(user.phases[up].trim().trim() != actualPhaseName.trim()){
+											if(user.phases[up].trim() != actualPhaseName.trim()){
 												for(var t = 0; t < listTareas.length; t++){
 													if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName){
 														isTotallyFree = true;
@@ -399,7 +401,7 @@ function play() {
 												}
 
 											} else {
-
+												phaseSkill = up;
 												for(var t = 0; t < listTareas.length; t++){
 
 													if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
@@ -416,15 +418,16 @@ function play() {
 										if(isTotallyFree){
 											task.assignedUsers.push(user.name);
 												if(!task.staticAssigneds.includes((user.name)+" ")){
-												
+													user.tasksWorked += 1;
 												task.staticAssigneds += (user.name)+" ";
 											}
 											user.assigned = true;
-											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) == 0){
+											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 												task.duration = 1;
 											} else {
-												task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length);
+												task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 											}
+											console.log("tiempo moificao " + task.duration);
 
 										}
 									}
@@ -434,8 +437,8 @@ function play() {
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 									document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
 									document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
-									user.tasksWorked += 1;
-
+									
+									
 									// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
 								}
 							} 
@@ -453,7 +456,7 @@ function play() {
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
 				listTareas.forEach(function(task) {
-				console.log(task.name+" Tiempos fase : "+task.phasesTime);
+//				console.log(task.name+" Tiempos fase : "+task.phasesTime);
 			});
 			// Finalizado completamente
 			clearInterval(myInterval);
