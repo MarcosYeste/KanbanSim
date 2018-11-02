@@ -30,7 +30,7 @@ public class HomeController {
 	List<Task> taskArray = new ArrayList <Task>();
 	List<User> userArray = new ArrayList <User>();
 	ArrayList<String> allPhases = new ArrayList<String>();
-
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -41,7 +41,7 @@ public class HomeController {
 		model.addAttribute("task",taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
-
+		
 		return "kanbanVersion2";
 
 	}
@@ -62,7 +62,7 @@ public class HomeController {
 	public String newFase(Model model) {
 
 		model.addAttribute("fase",new Phase());
-
+		
 		return "phaseForm";
 	}
 
@@ -73,7 +73,10 @@ public class HomeController {
 		model.addAttribute("phases", kanbanService.saveFases(fases, phasesArray));
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
-
+		
+		/* CAMBIAR */
+//		fases.setId(1);
+		
 		addPhases(phasesArray.get(phasesArray.size() - 1).getName());
 		return "success";
 
@@ -201,6 +204,15 @@ public class HomeController {
 
 	}
 	
+	// Remove all Tasks
+		@RequestMapping(value = "/sortPhase", method = RequestMethod.POST)
+		public String sortPhase(String[] data) {	
+
+			
+			
+			return "success";
+
+		}
 	public void addPhases(String phase) {
 		boolean phaseExist = false;
 

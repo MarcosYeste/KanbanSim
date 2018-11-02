@@ -39,18 +39,22 @@ function compilePhases(event){
 		var min = document.createAttribute("min");
 		var max = document.createAttribute("max");
 		var inputClass = document.createAttribute("class");
+		var required =  document.createAttribute("required");
 		ide.value = "skillLevel"+event.target.value;
 		type.value = "number";
 		step.value = "10";
 		min.value = "10";
 		max.value = "100";
+		required.value = "true";
 		inputClass.value = "skillInput";
+		
 		phseSkillInput.setAttributeNode(ide);
 		phseSkillInput.setAttributeNode(type);
 		phseSkillInput.setAttributeNode(step);
 		phseSkillInput.setAttributeNode(min);
 		phseSkillInput.setAttributeNode(max);
 		phseSkillInput.setAttributeNode(inputClass);
+		phseSkillInput.setAttributeNode(required);
 		document.getElementById("divSkill"+event.target.value).appendChild(phseSkillInput);
 		
 		var breakLine2 = document.createElement("br");

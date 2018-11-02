@@ -3,7 +3,7 @@ package com.kanban.app.Model;
 import java.util.ArrayList;
 
 public class Task {
-	
+	private String id;
 	private String name;
 	private float duration;
 	private float tss; //Time Since Started
@@ -19,6 +19,13 @@ public class Task {
 	}
 	public Task() {
 		this.tss = 0;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;

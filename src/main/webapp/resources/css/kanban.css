@@ -1,4 +1,4 @@
-/* Diseños KANBAN Div */
+/* KANBAN Y FASES*/
 .contenedor {
 	background-color: #63bafa;
 	border: 2px solid blue;
@@ -35,7 +35,42 @@
 	flex-direction: column;
 	text-align: center;
 }
+.subfase {
+	color: black;
+	text-shadow: 0.1px 1px 0.5px;
+	background-color: #63bafa;
+	display: flex;
+	justify-content: space-around;
+}
 
+.subSubfase {
+	color: white;
+	text-shadow: 0.1px 1px 0.5px #aebabd;
+	font-size: 130%;
+}
+
+.fase {
+	width: 100%;
+	display: flex;
+}
+
+.titulo, .tituloInit, .tituloEnd {
+	text-shadow: 0.1px 1px 0.5px;
+	font-size: 120%;
+	background-color: white;
+	color: blue;
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+.titulo.barra, .tituloInit.barra, .tituloEnd.barra {
+	background-color: transparent;
+}
+
+.titulo {
+	cursor: pointer !important;
+}
+/* TAREAS */
 .tareas {
 	color: black;
 	background-color: white;
@@ -56,50 +91,21 @@
 	margin-left: 10%;
 }
 
-/* Margin p of State */
 p.estado {
 	margin-top: -15px;
 	margin-bottom: -1px;
 }
 
-.subfase {
-	color: black;
-	text-shadow: 0.1px 1px 0.5px;
-	background-color: #63bafa;
-	display: flex;
-	justify-content: space-around; /* 
-	border: 1px solid #0a80f5; */
-}
-
-.subSubfase {
-	color: white;
-	text-shadow: 0.1px 1px 0.5px #aebabd;
-	font-size: 130%;
-	/* 	background-color :#366ff1; */ /* 
-	border: 1px solid #0a80f5; */
-}
-
-.fase {
-	/* border :1px solid yellow; */
-	width: 100%;
-	display: flex;
-}
-
-.titulo, .tituloInit, .tituloEnd {
-	text-shadow: 0.1px 1px 0.5px;
-	font-size: 120%;
-	background-color: white;
-	color: blue;
+/* TITULOS */
+.texto {
+	text-shadow: 3px 2px 5px #011cd6;
+	color: #0f45c4;
+	font-size: 500%;
 	text-align: center;
-	padding-bottom: 10px;
-	/* border : 1px solid darkblue; */
+	margin-top: 10px;
 }
 
-.titulo.barra, .tituloInit.barra, .tituloEnd.barra {
-	background-color: transparent;
-}
-
-/* Button Play/Pause */
+/* BOTONES */
 .playpause label {
 	display: block;
 	box-sizing: border-box;
@@ -124,14 +130,6 @@ p.estado {
 	border-width: 0px 0 0px 60px;
 }
 
-.texto {
-	text-shadow: 3px 2px 5px #011cd6;
-	color: #0f45c4;
-	font-size: 500%;
-	text-align: center;
-	margin-top: 10px;
-}
-
 #deleteAll {
 	color: black;
 	margin-left: 10px;
@@ -140,6 +138,10 @@ p.estado {
 #deleteAll:hover {
 	color: #004a00;
 	margin-left: 10px;
+}
+
+#reset, #deleteAll {
+	cursor: pointer;
 }
 
 .botonesContainer {
@@ -209,6 +211,7 @@ p.estado {
 	cursor: default;
 }
 
+/* RESULTADOS */
 .mostrarResultadosDiv {
 	justify-content: space-around;
 	display: flex;
@@ -245,28 +248,6 @@ p.estado {
 	justify-content: space-around;
 	display: flex;
 	flex-direction: row;
-}
-
-.usersContainer {
-	background-color: #e8eeff;
-	background-image: linear-gradient(0deg, #e8eeff, white);
-	padding: 13px;
-	display: flex;
-	height: auto;
-	flex-direction: row;
-	justify-content: space-around;
-	
-}
-
-.userName {
-	text-align: center;
-	border: 3px solid blue;
-	width: 6.5%;
-	height: auto;
-	border-radius: 64px;
-	padding: 20px;
-	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
 }
 
 .faseResultadoDiv {
@@ -309,7 +290,7 @@ p.estado {
 	margin-top: 5px;
 }
 
-.userCaja{
+.userCaja {
 	border: 1px solid blue;
 	display: flex;
 	flex-direction: column;
@@ -340,23 +321,46 @@ p.estado {
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 }
-.divAssigned{
+
+.divAssigned {
 	text-align: left;
-	display:flex;
+	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	background-color: white;
-	color :black;
+	color: black;
 	text-shadow: none;
 	margin-left: 20px;
 	margin-right: 20px;
 	margin-bottom: 20px;
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
-	
 }
-.asignados{
+
+.asignados {
 	text-align: center;
+}
+
+/* USUARIOS */
+.usersContainer {
+	background-color: #e8eeff;
+	background-image: linear-gradient(0deg, #e8eeff, white);
+	padding: 13px;
+	display: flex;
+	height: auto;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.userName {
+	text-align: center;
+	border: 3px solid blue;
+	width: 6.5%;
+	height: auto;
+	border-radius: 64px;
+	padding: 20px;
+	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
 }
 
 fieldset.teamField {

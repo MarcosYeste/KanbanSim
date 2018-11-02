@@ -10,6 +10,7 @@ var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 
+sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
@@ -23,7 +24,7 @@ for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 
 	// Abrimos el formulario			
 	document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
-	
+
 	document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(){
 		event.preventDefault();
 	});
@@ -44,9 +45,11 @@ for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 	document.getElementsByClassName("userName")[i].children[1].addEventListener("click", function(){
 		event.preventDefault();
 	});
-	
-}
 
+}
+for(var i = 0 ; i < document.getElementsByClassName("faseName").length; i++){
+	document.getElementsByClassName("faseName")[i].setAttribute("id", i);
+}
 
 //-------------------------------------------------------------------------
 
@@ -106,6 +109,7 @@ function play() {
 	var lowestTime = [];
 	var lazyPeople = [];
 	var tiempoInicio = 0;
+	var anteriorTiempo =0;
 
 	myInterval = setInterval(function() {
 
@@ -115,8 +119,8 @@ function play() {
 			var doing = fases[i].lastElementChild.firstElementChild;
 			var done = fases[i].lastElementChild.lastElementChild;
 
-//-------------------------------------------------------------------------------------------//
-			
+//			-------------------------------------------------------------------------------------------//
+
 			if (firstLoop) {
 
 
@@ -143,7 +147,7 @@ function play() {
 				firstLoop = false;
 			} //if firstloop end
 
-//--------------------------------------------------------------------------------------------------------//
+//			--------------------------------------------------------------------------------------------------------//
 			listTareas.forEach(function(task) {
 
 				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
@@ -158,6 +162,14 @@ function play() {
 					totalFases += cycleTime;
 					listPhases[i].period += cycleTime;
 					task.durarionAsignada = false;
+
+					if(i == 0){
+						
+					}else{
+						auxI = i-1;
+						task.phasesTime[auxI]= saveNewTimePhase(task,auxI);//Guardo tiempo de fase
+					}
+
 				}
 
 				for (var k = 0; k < divsTareas.length; k++) {
@@ -174,7 +186,7 @@ function play() {
 
 					if (task.state == "Doing" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1)) {
-
+						//IF 1
 						done.appendChild(divsTareas[k]);
 						task.state = "Done";
 
@@ -201,7 +213,7 @@ function play() {
 
 					} else if (task.state == "Doing" && task.name == elementName && task.tss != taskDuration &&
 							task.phase == (i + 1)) {
-
+						//IF 2
 						if (task.phase > 0) {
 							task.tss++;
 
@@ -209,8 +221,8 @@ function play() {
 
 
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
-					
-						
+
+
 						listUsers.forEach(function(user) {
 							if(!user.assigned && task.assignedUsers[0] != null){
 								var isTotallyFree = false;
@@ -244,8 +256,12 @@ function play() {
 									if(isTotallyFree){
 
 										task.assignedUsers.push(user.name);
+										if(!task.staticAssigneds.includes((user.name)+" ")){											
+											
+											task.staticAssigneds += (user.name)+" ";
+										}
 										user.assigned = true;
-										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) == 0){
+										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 											task.duration = 1;
 										} else {
 											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length);
@@ -265,9 +281,9 @@ function play() {
 
 							if(user.assigned){
 								task.assignedUsers.forEach(function(assignedUser) {
-									
+
 									if(assignedUser == user.name){
-										
+
 										user.secondsWork += 1;
 									}
 								});							
@@ -280,10 +296,11 @@ function play() {
 
 					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
-
+						//IF 3
 						if (fases[i + 1] == null) {							
 							task.state = "Ended";
 							task.leadTime = leadTime;
+							task.phasesTime[i]= saveNewTimePhase(task,i);//Guardo tiempo de fase
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 						
@@ -311,8 +328,8 @@ function play() {
 
 					} else if (task.state == null && task.name == elementName && task.phase == 0) {
 
-
-
+						//IF 4
+						
 						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
 								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
 								< listPhases[0].maxTasks) {							
@@ -341,9 +358,9 @@ function play() {
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){
 
-
+						//IF 5
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
-						
+						var phaseSkill;
 
 						listUsers.forEach(function(user) {
 							if(!user.assigned){
@@ -353,13 +370,14 @@ function play() {
 										if(user.phases[up].trim() == actualPhaseName.trim()){
 
 											task.state = "Doing";
+											task.duration = task.duration * (100 / user.skills[up]);
 											task.assignedUsers[0] = (user.name);
 											user.assigned = true;
-											
 											if(!task.staticAssigneds.includes((user.name)+" ")){
+												
 												task.staticAssigneds += (user.name)+" ";
 											}
-											
+
 
 											for(var t = 0; t < divsTareas.length; t++){
 												if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
@@ -375,11 +393,9 @@ function play() {
 										for(var p = 0; p < fases.length; p++){
 
 											var phasesName = fases[p].childNodes[0].textContent.trim();
-//											var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
 
-											if(user.phases[up].trim().trim() != actualPhaseName.trim()){
+											if(user.phases[up].trim() != actualPhaseName.trim()){
 												for(var t = 0; t < listTareas.length; t++){
-													//if((doingPhase.length - 3) == 0 && user.phases[up].trim() == phasesName){
 													if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName){
 														isTotallyFree = true;
 													} else {
@@ -388,7 +404,7 @@ function play() {
 												}
 
 											} else {
-
+												phaseSkill = up;
 												for(var t = 0; t < listTareas.length; t++){
 
 													if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
@@ -404,12 +420,17 @@ function play() {
 
 										if(isTotallyFree){
 											task.assignedUsers.push(user.name);
+												if(!task.staticAssigneds.includes((user.name)+" ")){
+												
+												task.staticAssigneds += (user.name)+" ";
+											}
 											user.assigned = true;
-											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) == 0){
+											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 												task.duration = 1;
 											} else {
-												task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length);
+												task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 											}
+											console.log("tiempo moificao " + task.duration);
 
 										}
 									}
@@ -437,8 +458,9 @@ function play() {
 		});
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
-
-		
+				listTareas.forEach(function(task) {
+				console.log(task.name+" Tiempos fase : "+task.phasesTime);
+			});
 			// Finalizado completamente
 			clearInterval(myInterval);
 
@@ -446,6 +468,7 @@ function play() {
 			document.getElementById("playpause").checked = false;
 
 			deshabilitarMenus(false);
+			sortPhases();
 
 			lowestTime = findMaxAndMin();
 			lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
@@ -457,9 +480,39 @@ function play() {
 		}
 		
 		leadTime += 1;
+		console.log("::: LEAD TIEM ::::: "+leadTime);
 
 	}, 1000);
 
+}
+function saveNewTimePhase(task,i) {
+	var tareaLead = 0;
+	var anterior = 0;
+	var result = 0;
+		
+	if(task.phasesTime[0]== undefined){ 
+		
+		task.phasesTime[0]= 0;	
+		anterior = task.phasesTime[0];
+		
+		console.log("Tiempo en "+listPhases[i].name+" = lead: "+leadTime+" - start: "+ task.startTime+" - anterior: "+anterior);
+		result = leadTime-task.startTime-anterior;anterior
+		
+	}else{
+		
+		anterior = 0;
+		for(var y = 0; y < task.phasesTime.length; y++){
+			anterior += task.phasesTime[y];
+		}
+		
+		console.log("Tiempo en "+listPhases[i].name+" = lead: "+leadTime+" - anterior: "+anterior);
+		result = leadTime-anterior;
+	}
+
+		console.log("*Result* de "+task.name+" = "+result);
+	return result;
+	
+	
 }
 function mostrarFinalTarea(tarea,task){
 	
@@ -563,7 +616,7 @@ function mostrarResultados() {
 		subDiv.className = "tareaResultado";
 		subDiv.id = "T"+idT;
 		idT++;
-		subDiv.setAttribute("onClick", "mostrarDorso(this.id)");
+		subDiv.setAttribute("onClick", "mostrarDorsoTarea(this.id,"+JSON.stringify(task.phasesTime)+")");
 		text = document.createTextNode( task.name );
 		p.appendChild(text);
 		subDiv.appendChild(p);
@@ -573,14 +626,12 @@ function mostrarResultados() {
 		subDiv.appendChild(p1);
 		var p2 = document.createElement("P");
 		text = document.createTextNode(" Lead Time: " + task.leadTime+"''");
-		p2.appendChild(text);
-		divAssigned.innerHTML += "<div class='asignados'><p><strong>Asignados:</strong></p><P> "+task.staticAssigneds+" </p><div>";		
-		subDiv.appendChild(p2);
-		
-		subDiv.innerHTML += "<p>Waiting to Start "+task.startTime+"''</p>";
-		div3.appendChild(subDiv);
+		p2.appendChild(text);	
+		subDiv.appendChild(p2);		
+		subDiv.innerHTML += "<p>Waiting to Start "+task.startTime+"''</p><small style='color:blue' >click</small>";
+		div3.appendChild(subDiv);		
 		bigdiv.appendChild(div3);
-
+		divAssigned.innerHTML += "<div class='asignados'><p><strong>Asignados:</strong></p><P> "+task.staticAssigneds+" </p><div>";	
 //		div3.appendChild(divAssigned);
 	});
 	bigdiv.appendChild(divAssigned);
@@ -588,10 +639,18 @@ function mostrarResultados() {
 	div.appendChild(div4);
 	div.appendChild(div5);
 }
-function mostrarDorso(id){
+
+function mostrarDorsoTarea(id,phasesTime){
 var T = document.getElementById(id);
-//	T.innerHTML= "<p>Time wasted on "+//fase[i] ejemplo + " "+task.segundosFASE Ejemplo";s
-	
+var i = 0;
+T.innerHTML = "";
+phasesTime = phasesTime;
+listPhases.forEach(function(phase) {	
+	T.innerHTML += "<p>Time on "+phase.name+": "+phasesTime[i]+"''</p>";
+	i++;
+});
+T.innerHTML += "<small style='color:blue' >click</small>";
+T.setAttribute("onClick","mostrarResultados()");
 }
 //esta funcion me devuelve un array con el Max y el Min
 function findMaxAndMin(){
@@ -705,7 +764,12 @@ function deshabilitarMenus(disable){
 
 		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
-		
+
+		$( function() {
+			$( "#faseDiv" ).sortable({ disabled : true})
+			$( "#faseDiv").css("cursor", "default");
+		});
+
 	}else{
 
 		document.getElementById("result").removeAttribute("disabled");
@@ -741,4 +805,38 @@ function deshabilitarMenus(disable){
 
 		}
 	}
+}
+function sortPhases(){
+	$( function() {
+		$( "#faseDiv" ).sortable({
+			disabled:false,
+			containment: '#faseDiv', 
+			axis:"x", 
+			tolerance:"pointer",
+			zIndex: 9999,
+			items: "> div.faseName",
+			update: function (event, ui) {
+				
+				   $('.titulo').each(function(index){
+				         $(this).first().attr('data-identification', index);
+				         $(this).first().first().attr('data-identification', index);
+				         console.log(index);
+				      });
+				   
+				/* PRUEBA AJAX  */
+//				var data = $(this).sortable('toArray');
+//				console.log(data);
+//				$.ajax({
+//					data: {data:data},
+//					type: 'POST',
+//					url: 'sortPhase',
+//					success: function(){
+//						console.log(data[0]);
+//					}
+//				});
+			}
+		});
+		$( "#faseDiv" ).disableSelection();
+		$( "#faseDiv").css("cursor", "move");
+	});
 }

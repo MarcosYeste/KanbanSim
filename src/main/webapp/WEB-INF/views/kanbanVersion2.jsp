@@ -53,7 +53,7 @@
 	</div>
 
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
-	<div class="contenedor">
+	<div class="contenedor" id="contenedor">
 
 		<div class="principio">
 
@@ -102,6 +102,7 @@
 						tareas.cycleTime = 0;
 						tareas.leadTime = 0;
 						tareas.startTime = 0;
+						tareas.phasesTime = new Array();
 						listTareas.push(tareas);
 					</script>
 
@@ -115,7 +116,7 @@
 
 			<c:forEach items="${phases}" var="fase">
 
-				<div class="faseName"
+				<div class="faseName" 
 					style='background-color:<c:out value="${fase.color}"></c:out>'>
 					<div class="titulo" data-toggle="modal" data-target="#myModal"
 						name="<c:out value='${fase.name}'></c:out>">
@@ -141,6 +142,8 @@
 					</div>
 				</div>
 
+	
+				<c:set value="${fase.id}" var="id" />
 				<c:set value="${fase.name}" var="name" />
 				<c:set value="${fase.maxTasks}" var="maxTasks" />
 				<c:set value="${fase.maxTime}" var="maxTime" />
@@ -149,6 +152,7 @@
 
 				<script>
 					var phase = new Object();
+					phase.id = "<c:out value="${id}"></c:out>";
 					phase.name = "<c:out value="${name}"></c:out>";
 					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
 					phase.maxTime = <c:out value="${maxTime}"></c:out>;
@@ -156,6 +160,7 @@
 					phase.color = '<c:out value="${color}"></c:out>';
 					phase.period = 0;
 					listPhases.push(phase);
+					console.log(phase.id);
 				</script>
 
 			</c:forEach>
