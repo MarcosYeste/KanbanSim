@@ -15,33 +15,33 @@ function modPhases(){
 	console.log(click);
 
 	// Mostramos los datos correspondientes a la fase
-	document.getElementById("modName").value = listPhases[click].name;
-	document.getElementById("modWip").value = parseInt(listPhases[click].maxTasks);
-	document.getElementById("modMinTime").value = parseInt(listPhases[click].minTime);
-	document.getElementById("modMaxTime").value = parseInt(listPhases[click].maxTime);
-	document.getElementById("color-input").value = listPhases[click].color;
+	document.getElementById("modName").value = listPhases.find(x => x.id === click).name;
+	document.getElementById("modWip").value = parseInt(listPhases.find(x => x.id === click).maxTasks);
+	document.getElementById("modMinTime").value = parseInt(listPhases.find(x => x.id === click).minTime);
+	document.getElementById("modMaxTime").value = parseInt(listPhases.find(x => x.id === click).maxTime);
+	document.getElementById("color-input").value = listPhases.find(x => x.id === click).color;
 
 }
 
 function saveModPhase() {
 	// Modificamos los datos de la fase
 
-	listPhases[click].name = document.getElementById("modName").value;
-	listPhases[click].maxTasks = parseInt(document.getElementById("modWip").value);
-	listPhases[click].minTime = parseInt(document.getElementById("modMinTime").value);
-	listPhases[click].maxTime = parseInt(document.getElementById("modMaxTime").value);
-	listPhases[click].color = document.getElementById("color-input").value;
+	listPhases.find(x => x.id === click).name = document.getElementById("modName").value;
+	listPhases.find(x => x.id === click).maxTasks = parseInt(document.getElementById("modWip").value);
+	listPhases.find(x => x.id === click).minTime = parseInt(document.getElementById("modMinTime").value);
+	listPhases.find(x => x.id === click).maxTime = parseInt(document.getElementById("modMaxTime").value);
+	listPhases.find(x => x.id === click).color = document.getElementById("color-input").value;
 
 	// Control de errores, si el valor introducido en cualquiera de los campos es 0 o menor a este,
 	// pon automaticamente un 1
-	if(listPhases[click].maxTasks <= 0){
-		listPhases[click].maxTasks = 1;
+	if(listPhases.find(x => x.id === click).maxTasks <= 0){
+		listPhases.find(x => x.id === click).maxTasks = 1;
 	}
-	if(listPhases[click].minTime <= 0){
-		listPhases[click].minTime = 1;
+	if(listPhases.find(x => x.id === click).minTime <= 0){
+		listPhases.find(x => x.id === click).minTime = 1;
 	}
-	if(listPhases[click].maxTime <= 0){
-		listPhases[click].maxTime = 1;
+	if(listPhases.find(x => x.id === click).maxTime <= 0){
+		listPhases.find(x => x.id === click).maxTime = 1;
 	}
 
 	$.ajax({
@@ -49,17 +49,18 @@ function saveModPhase() {
 		url: "/modPhase",
 		data: {
 
-			name: listPhases[click].name,
-			wip : listPhases[click].maxTasks,
-			min : listPhases[click].minTime,
-			max : listPhases[click].maxTime,
-			color: listPhases[click].color
+			name: listPhases.find(x => x.id === click).name,
+			wip : listPhases.find(x => x.id === click).maxTasks,
+			min : listPhases.find(x => x.id === click).minTime,
+			max : listPhases.find(x => x.id === click).maxTime,
+			color: listPhases.find(x => x.id === click).color
 
 		},success: function(data) {
-			
-			document.getElementsByClassName("titulo")[click].children[0].innerHTML = "(WIP: " + listPhases[click].maxTasks + ")";
-			document.getElementsByClassName("subfase")[click].style.backgroundColor = listPhases[click].color;
-			document.getElementsByClassName("faseName")[click].style.backgroundColor = listPhases[click].color;
+			var tituloInd = $(".faseName").index($("#" + click));
+			console.log(tituloInd);
+			document.getElementsByClassName("titulo")[tituloInd].children[0].innerHTML = "(WIP: " + listPhases.find(x => x.id === click).maxTasks + ")";
+			document.getElementsByClassName("subfase")[tituloInd].style.backgroundColor = listPhases.find(x => x.id === click).color;
+			document.getElementsByClassName("faseName")[tituloInd].style.backgroundColor = listPhases.find(x => x.id === click).color;
 			
 
 		}

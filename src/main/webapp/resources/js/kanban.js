@@ -19,8 +19,8 @@ $(function () {
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
 
 for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
-	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", i);
-	document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", i);
+	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", listPhases[i].id);
+	document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", listPhases[i].id);
 
 	// Abrimos el formulario			
 	document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
@@ -47,10 +47,6 @@ for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 	});
 
 }
-for(var i = 0 ; i < document.getElementsByClassName("faseName").length; i++){
-	document.getElementsByClassName("faseName")[i].setAttribute("id", i);
-}
-
 //-------------------------------------------------------------------------
 
 //Play Button
@@ -154,7 +150,6 @@ function play() {
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.state != "Ended" && task.duration == 0) {
 
 					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
-
 					task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 
 					cycleTime = parseInt(task.duration);
@@ -233,16 +228,17 @@ function play() {
 //										var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
 
 										if(user.phases[up].trim() != actualPhaseName.trim()){
-											for(var t = 0; t < listTareas.length; t++){
+											for(var t = 0; t < listTareas.length; t++){												
 												//if((doingPhase.length - 3) == 0 && user.phases[up].trim().trim() == phasesName){
-												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName){
+												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){//8
 													isTotallyFree = true;
+													console.log(user);//8
 												} else {
 													isTotallyFree = false;
 												}
 											}
 
-										} else {
+										} else if(user.phases[up].trim() == actualPhaseName.trim()){
 											for(var t = 0; t < listTareas.length; t++){
 												if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
 													isTotallyFree = true;
@@ -252,20 +248,24 @@ function play() {
 											}
 										}
 									}
-
 									if(isTotallyFree){
 
+										console.log(user);
+										console.log(task);
 										task.assignedUsers.push(user.name);
 										if(!task.staticAssigneds.includes((user.name)+" ")){											
-											user.tasksWorked += 1;
+											user.tasksWorked += 1;//8
 											task.staticAssigneds += (user.name)+" ";
 										}
 										user.assigned = true;
+										console.log("pre mod " + task.name + " " + task.duration); 
 										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
+											console.log("mod 1");
 											task.duration = 1;
 										} else {
-											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length);
+											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 										}
+										console.log("tiempo moificao " + task.name + " " + task.duration);
 									}
 
 								}
@@ -436,10 +436,9 @@ function play() {
 											} else {
 												task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 											}
-											console.log("tiempo moificao " + task.duration);
 
 										}
-									}
+									}//8
 								}
 
 								if(user.assigned){
@@ -822,24 +821,24 @@ function sortPhases(){
 			zIndex: 9999,
 			items: "> div.faseName",
 			update: function (event, ui) {
-				
-				   $('.titulo').each(function(index){
-				         $(this).first().attr('data-identification', index);
-				         $(this).first().first().attr('data-identification', index);
-				         console.log(index);
-				      });
-				   
+								   
 				/* PRUEBA AJAX  */
-//				var data = $(this).sortable('toArray');
-//				console.log(data);
-//				$.ajax({
-//					data: {data:data},
-//					type: 'POST',
-//					url: 'sortPhase',
-//					success: function(){
-//						console.log(data[0]);
-//					}
-//				});
+				var info = $(this).sortable("toArray");
+				var fasesString = "";
+				for (var i = 0; i < info.length; i++) {
+					fasesString += info[i] + ",";
+				};
+				
+				console.log(fasesString);
+				$.ajax({
+					data: {Stringfases : fasesString},
+					dataType: "String",
+					type: 'POST',
+					url: '/sortPhase',
+					success: function(){
+						console.log("Sent")
+					}
+				});
 			}
 		});
 		$( "#faseDiv" ).disableSelection();
