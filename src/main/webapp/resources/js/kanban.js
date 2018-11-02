@@ -257,7 +257,7 @@ function play() {
 
 										task.assignedUsers.push(user.name);
 										if(!task.staticAssigneds.includes((user.name)+" ")){											
-											
+											user.tasksWorked += 1;
 											task.staticAssigneds += (user.name)+" ";
 										}
 										user.assigned = true;
@@ -270,21 +270,21 @@ function play() {
 
 								}
 
-								if(user.assigned){
-									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
-									document.getElementsByName(user.name)[0].children[1].style.color = phase.color;
-									document.getElementsByName(user.name)[0].style.borderColor = phase.color;
-									user.tasksWorked += 1;
-								}
+//								if(user.assigned){
+//									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
+//									document.getElementsByName(user.name)[0].children[1].style.color = phase.color;
+//									document.getElementsByName(user.name)[0].style.borderColor = phase.color;
+//									user.tasksWorked += 1;
+//								}
 							}
 							// Este if es para aumentar los segundos trabajados
 
 							if(user.assigned){
 								task.assignedUsers.forEach(function(assignedUser) {
 
-									if(assignedUser == user.name){
-
+									if(assignedUser.includes((user.name))){
 										user.secondsWork += 1;
+										console.log(user.name+" Segundos trabajados = "+user.secondsWork);
 									}
 								});							
 							}
@@ -375,6 +375,7 @@ function play() {
 											if(!task.staticAssigneds.includes((user.name)+" ")){
 												
 												task.staticAssigneds += (user.name)+" ";
+												user.tasksWorked += 1;
 											}
 
 
@@ -420,7 +421,7 @@ function play() {
 										if(isTotallyFree){
 											task.assignedUsers.push(user.name);
 												if(!task.staticAssigneds.includes((user.name)+" ")){
-												
+													user.tasksWorked += 1;
 												task.staticAssigneds += (user.name)+" ";
 											}
 											user.assigned = true;
@@ -438,8 +439,8 @@ function play() {
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 									document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
 									document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
-									user.tasksWorked += 1;
-
+									
+									
 									// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
 								}
 							} 
@@ -457,7 +458,7 @@ function play() {
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
 				listTareas.forEach(function(task) {
-				console.log(task.name+" Tiempos fase : "+task.phasesTime);
+//				console.log(task.name+" Tiempos fase : "+task.phasesTime);
 			});
 			// Finalizado completamente
 			clearInterval(myInterval);
