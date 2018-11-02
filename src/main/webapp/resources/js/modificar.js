@@ -264,9 +264,6 @@ function saveModUsers() {
 			})
 		}
 	});
-
-
-
 }
 
 function rmvModUsers() {
@@ -280,10 +277,17 @@ function rmvModUsers() {
 
 		},success: function(data) {
 
-			delete listUsers[click2];
+			listUsers.splice(click2, 1);
+			
+			console.table(listUsers);
 
 			$( ".userName[data-identification='"+ click2 +"']").remove();
-
+			var clases = $(".userName");
+			for (var i = 0; i < clases.length; i++) {
+				if(i >= click2){
+					$( ".userName").attr("data-identification", i);
+				}
+			}
 		}
 	})
 }
