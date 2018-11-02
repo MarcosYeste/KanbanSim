@@ -74,9 +74,6 @@ public class HomeController {
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		
-		/* CAMBIAR */
-//		fases.setId(1);
-		
 		addPhases(phasesArray.get(phasesArray.size() - 1).getName());
 		return "success";
 
@@ -204,14 +201,24 @@ public class HomeController {
 
 	}
 	
-	// Remove all Tasks
+	// Modificar Tareas
 		@RequestMapping(value = "/sortPhase", method = RequestMethod.POST)
-		public String sortPhase(String[] data) {	
+		public String sortPhase(String Stringfases) {	
 
+			String[] arrayfases = Stringfases.split(",");
+			List<Phase> sortedPhases = new ArrayList <Phase>();
 			
+			for (int i = 0; i < arrayfases.length; i++) {
+				for (int j = 0; j < phasesArray.size(); j++) {
+					if(phasesArray.get(j).getId().equals(arrayfases[i])) {
+						sortedPhases.add(phasesArray.get(j));
+					}
+				}
+			}
 			
+			phasesArray = sortedPhases;
+
 			return "success";
-
 		}
 	public void addPhases(String phase) {
 		boolean phaseExist = false;
