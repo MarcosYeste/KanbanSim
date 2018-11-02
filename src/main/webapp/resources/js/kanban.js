@@ -403,7 +403,7 @@ function play() {
 
 											if(user.phases[up].trim() != actualPhaseName.trim()){
 												for(var t = 0; t < listTareas.length; t++){
-													if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName){
+													if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName.trim()){
 														isTotallyFree = true;
 													} else {
 														isTotallyFree = false;
