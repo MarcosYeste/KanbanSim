@@ -175,6 +175,7 @@
 
 		</div>
 	</div>
+	<button data-toggle="modal" data-target="#modalChrono">chrono</button>
 	<fieldset class="teamField">
 		<legend class="teamField">Miembros del Equipo:</legend>
 		<div class="usersContainer">
@@ -290,6 +291,30 @@
 				<div class="modal-footer">
 					<button id="RmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
 						Miembro</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+		<!-- Modal Modificar Temporizqdor-->
+	<div class="modal fade" id="modalChrono" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Temporizador</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+					Nombre Usuario: <input type="text" id="modChrono">
+					<button id="modChrono" class="btn btn-secondary"
+						data-dismiss="modal">Modificar</button>
+
+				</div>
+				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
