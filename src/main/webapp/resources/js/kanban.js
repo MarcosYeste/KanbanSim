@@ -159,10 +159,8 @@ function play() {
 					listPhases[i].period += cycleTime;
 					task.durarionAsignada = false;
 
-					if(i == 0){
-
-					}else{
-						auxI = i-1;
+					if(i != 0){
+						var auxI = i-1;
 						task.phasesTime[auxI]= saveNewTimePhase(task,auxI);//Guardo tiempo de fase
 					}
 
@@ -233,7 +231,6 @@ function play() {
 												//if((doingPhase.length - 3) == 0 && user.phases[up].trim().trim() == phasesName){
 												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){//8
 													isTotallyFree = true;
-													console.log(user);//8
 												} else {
 													isTotallyFree = false;
 												}
@@ -252,22 +249,20 @@ function play() {
 									}
 									if(isTotallyFree){
 
-										console.log(user);
-										console.log(task);
 										task.assignedUsers.push(user.name);
 										if(!task.staticAssigneds.includes((user.name)+" ")){											
 											user.tasksWorked += 1;//8
 											task.staticAssigneds += (user.name)+" ";
 										}
 										user.assigned = true;
-										console.log("pre mod " + task.name + " " + task.duration); 
+
 										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
-											console.log("mod 1");
+								
 											task.duration = 1;
 										} else {
 											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 										}
-										console.log("tiempo moificao " + task.name + " " + task.duration);
+										
 									}
 
 								}
@@ -295,10 +290,10 @@ function play() {
 									}
 								});							
 							}
-							// NO BORARR ESTE ELSE Por si falla el tiempo inactivo.
+							// NO BORRAR ESTE ELSE Por si falla el tiempo inactivo.
 //							else{  
 //							user.secondsNotWorked += 1;
-//							console.log(user.name+" Segundos NO trabajados = "+user.secondsNotWorked);
+
 //							}
 
 
@@ -316,7 +311,7 @@ function play() {
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 
-							console.log("Ha acabado con un leadtime de :: "+task.leadTime);
+							
 
 
 						} else {
@@ -471,7 +466,7 @@ function play() {
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
 			listTareas.forEach(function(task) {
-//				console.log(task.name+" Tiempos fase : "+task.phasesTime);
+
 			});
 			// Finalizado completamente
 			clearInterval(myInterval);
@@ -492,7 +487,7 @@ function play() {
 		}
 
 		leadTime += 1;
-		console.log("::: LEAD TIEM ::::: "+leadTime);
+		
 
 	}, 1000);
 
@@ -507,7 +502,6 @@ function saveNewTimePhase(task,i) {
 		task.phasesTime[0]= 0;	
 		anterior = task.phasesTime[0];
 
-		console.log("Tiempo en "+listPhases[i].name+" = lead: "+leadTime+" - start: "+ task.startTime+" - anterior: "+anterior);
 		result = leadTime-task.startTime-anterior;anterior
 
 	}else{
@@ -517,11 +511,11 @@ function saveNewTimePhase(task,i) {
 			anterior += task.phasesTime[y];
 		}
 
-		console.log("Tiempo en "+listPhases[i].name+" = lead: "+leadTime+" - anterior: "+anterior);
+		
 		result = leadTime-anterior;
 	}
 
-	console.log("*Result* de "+task.name+" = "+result);
+	
 	return result;
 
 
@@ -578,7 +572,7 @@ function mostrarResultados() {
 	var nombresArray = [];
 	var idU=0;
 	listUsers.forEach(function(user) {
-		console.log(user.name+"Segundos de fase::: "+user.secondByPhase);
+		
 		user.secondsNotWorked = leadTime - user.secondsWork;
 		subsubdiv5.innerHTML += '<div id='+idU+' onclick="mostrarDorsoUsuarios(this.id,'+JSON.stringify(user.secondByPhase)+')" class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
 		'<p> Tareas trabajadas: '+user.tasksWorked+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p><p>Tiempo inactivo: '+user.secondsNotWorked+' Segundos</p><small style="color:blue">Ver más</small></div>';
@@ -855,14 +849,12 @@ function sortPhases(){
 					fasesString += info[i] + ",";
 				};
 
-				console.log(fasesString);
 				$.ajax({
 					data: {Stringfases : fasesString},
 					dataType: "String",
 					type: 'POST',
 					url: '/sortPhase',
 					success: function(){
-						console.log("Sent")
 					}
 				});
 			}
@@ -871,4 +863,3 @@ function sortPhases(){
 		$( "#faseDiv").css("cursor", "move");
 	});
 }
-
