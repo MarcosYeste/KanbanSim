@@ -48,6 +48,12 @@ h1 {
 	padding: .3em;
 }
 
+#modSkillsUser > p {
+	margin-bottom: 2px; 
+	padding-top: 2%; 
+}
+
+
 /* Kanban */
 .div-head {
 	text-align: center;

@@ -6,7 +6,7 @@ var skillsList;
 var chronoTime;
 var chronoTimeTypeSelection;
 
-// Llamamos a las funciones
+//Llamamos a las funciones
 document.getElementById("ModPhase").addEventListener("click", saveModPhase, false);
 document.getElementById("ModUsuario").addEventListener("click", saveModUsers, false);
 document.getElementById("RmvUsuario").addEventListener("click", rmvModUsers, false);
@@ -64,7 +64,7 @@ function saveModPhase() {
 			document.getElementsByClassName("titulo")[tituloInd].children[0].innerHTML = "(WIP: " + listPhases.find(x => x.id === click).maxTasks + ")";
 			document.getElementsByClassName("subfase")[tituloInd].style.backgroundColor = listPhases.find(x => x.id === click).color;
 			document.getElementsByClassName("faseName")[tituloInd].style.backgroundColor = listPhases.find(x => x.id === click).color;
-			
+
 
 		}
 	});
@@ -75,7 +75,7 @@ function saveModPhase() {
 function modUsers(){
 	skillsList = [];
 	click2 = parseInt(event.target.getAttribute("data-identification"));
-	var modFases = document.getElementById("modFasesUser");//8
+	var modFases = document.getElementById("modFasesUser");
 	var inputsDivLength = document.getElementById("modSkillsUser").childNodes.length;
 	for(var k = 0; k < inputsDivLength; k++){
 		document.getElementById("modSkillsUser").removeChild(document.getElementById("modSkillsUser").childNodes[0]);
@@ -101,7 +101,7 @@ function modUsers(){
 		phaseCheck.setAttributeNode(attr);
 		phaseCheck.setAttributeNode(val);
 		$("#modFasesUser").append(phaseCheck);
-		$("#modFasesUser").append(texto);//8
+		$("#modFasesUser").append(texto);
 	}
 
 	allcheckBox = $(".userPhaseCheck");
@@ -120,113 +120,128 @@ function modUsers(){
 	}
 
 	function phasesController(event){
+		
 		var index1;
+		
 		for(var ch = 0; ch < allcheckBox.length; ch++){
-			if(allcheckBox[ch].value== event.target.value){
+			
+			if(allcheckBox[ch].value == event.target.value){
+				
 				index1 = ch;
+				
 			}
 		}
+		
 		if(event.target.checked){
+			
 			listUsers[click2].phases.push(event.target.value);
-			insertInput(index1, -1);
+			insertInput(index1, listUsers[click2].phases.indexOf(event.target.value));
+			
 		} else {
+			
 			for(var i = 0; i < listUsers[click2].phases.length; i++){
+				
 				if(event.target.value == listUsers[click2].phases[i].trim()){
+					
 					listUsers[click2].phases.splice(i, 1);
 
 					if(listUsers[click2].phases.length == 0){
+						
 						listUsers[click2].phases = [];
+						
 					}
 				}
 			}
+			
 			var inputs = document.getElementsByClassName("modSkillInput");
+			
 			for(var i = 0 ; i < inputs.length; i++){
+				
 				if(inputs[i].getAttribute("id") == "skillLevel"+event.target.value){
+					
 					skillsList.splice(i, 1);
+					
 				}
 			}	
+			
 			skillCompiler = "";
+			
 			for(var i = 0; i < skillsList.length; i++){
+				
 				skillCompiler +=  skillsList[i] + ",";
+				
 			}
-			document.getElementById("modSkillsUser").removeChild(document.getElementById("divSkill" + event.target.value));
-		}//8
+			
+			document.getElementById("modSkillsUser").removeChild(document.getElementById("performancesDivSkill" + event.target.value));
+		
+		}
 	}
+	
 	oldName = listUsers[click2].name;
 
 }
 
 function insertInput(index1, index2){
-	
-	var phseSkillDiv = document.createElement("div");
-	var ide = document.createAttribute("id");
-	ide.value = "divSkill" + allcheckBox[index1].value;
-	phseSkillDiv.setAttributeNode(ide);
-	document.getElementById("modSkillsUser").appendChild(phseSkillDiv);
-	
-	var phseSkillLabel = document.createElement("form:label");
-	var ide = document.createAttribute("id");
-	var labelClass = document.createAttribute("class");
-	ide.value = "skillLabel"+ allcheckBox[index1].value;
-	labelClass.value = "col-sm-3"
-	phseSkillLabel.setAttributeNode(ide);
-//	phseSkillLabel.setAttributeNode(labelClass);
-	document.getElementById("divSkill"+allcheckBox[index1].value).appendChild(phseSkillLabel);
-	document.getElementById("skillLabel"+allcheckBox[index1].value).innerHTML = allcheckBox[index1].value;
 
-	var breakLine = document.createElement("br");
-	document.getElementById("divSkill"+allcheckBox[index1].value).appendChild(breakLine);
+	var performancesSkillsDivMod = document.createElement("div");
+	var performancesId = document.createAttribute("id");
+	var performancesClass = document.createAttribute("class");
+	performancesId.value = "performancesDivSkill" + allcheckBox[index1].value;
+	performancesClass.value = "sliderMod";
 	
-	var phseSkillInput = document.createElement("input");
-	var ide = document.createAttribute("id");
-	var type = document.createAttribute("type");
-	var step = document.createAttribute("step");
-	var min = document.createAttribute("min");
-	var max = document.createAttribute("max");
-	var inputClass = document.createAttribute("class");
-	ide.value = "skillLevel"+allcheckBox[index1].value;
-	type.value = "number";
-	step.value = "10";
-	min.value = "10";
-	max.value = "100";
-	inputClass.value = "modSkillInput";
-	phseSkillInput.setAttributeNode(ide);
-	phseSkillInput.setAttributeNode(type);
-	phseSkillInput.setAttributeNode(step);
-	phseSkillInput.setAttributeNode(min);
-	phseSkillInput.setAttributeNode(max);
-	phseSkillInput.setAttributeNode(inputClass);
-	document.getElementById("divSkill"+allcheckBox[index1].value).appendChild(phseSkillInput);
+	performancesSkillsDivMod.setAttributeNode(performancesId);
+	performancesSkillsDivMod.setAttributeNode(performancesClass);
 	
-	var breakLine2 = document.createElement("br");//8
-	document.getElementById("divSkill"+allcheckBox[index1].value).appendChild(breakLine2);
-	if(index2 != -1){
-		document.getElementById("skillLevel"+allcheckBox[index1].value).value = listUsers[click2].skills[index2].trim();//8
-	}
+	var nombreFase = document.createElement("P");
+	var spanPorcentaje = document.createElement("SPAN");
+	var t = document.createTextNode(allcheckBox[index1].value + " : ");
+	var tId = document.createAttribute("id");
 	
-	var inputs = document.getElementsByClassName("modSkillInput");
+	tId.value =  allcheckBox[index1].value;
+	nombreFase.setAttributeNode(tId);
+	nombreFase.appendChild(t);
+	nombreFase.appendChild(spanPorcentaje);
 	
-	document.getElementById("divSkill"+allcheckBox[index1].value).appendChild(breakLine2);
+	document.getElementById("modSkillsUser").appendChild(nombreFase);
+	document.getElementById("modSkillsUser").appendChild(performancesSkillsDivMod);
 	
-	document.getElementById("skillLevel"+allcheckBox[index1].value).addEventListener('input', function (evt) {
-		if(evt.target.value < 10){
-		   document.getElementById("skillLevel"+allcheckBox[index1].value).value = 10;
-	   } else if (evt.target.value > 100){
-		   document.getElementById("skillLevel"+allcheckBox[index1].value).value = 100;
-	   }
-		
-		for(var i = 0; i < inputs.length; i++){
-			skillsList[i] = inputs[i].value;
-		}
-		skillCompiler = "";
-		for(var i = 0; i < skillsList.length; i++){
-			skillCompiler +=  skillsList[i] + ",";
-		}
-		console.log(skillCompiler);
+	var sliders = document.getElementsByClassName("sliderMod");
+
+	$( function() {
+		$( "#performancesDivSkill" + allcheckBox[index1].value ).slider({
+			value: listUsers[click2].skills[index2],
+			min: 10,
+			max: 100,
+			step: 10,
+			slide: function( event, ui ) {
+				
+				$( "#" + allcheckBox[index1].value + " > span").html( ui.value + "%" );
+				
+				for(var i = 0; i < sliders.length; i++){
+					
+					listUsers[click2].skills[index2] = ui.value;
+					
+					skillsList[i] = listUsers[click2].skills[i];
+					
+				}
+				
+				skillCompiler = "";
+				
+				for(var i = 0; i < skillsList.length; i++){
+					
+					skillCompiler +=  skillsList[i] + ",";
+					
+				}
+				
+				console.log(skillCompiler);
+
+			}
+		});
+		$( "#" + allcheckBox[index1].value + " > span").html($("#performancesDivSkill" + allcheckBox[index1].value).slider( "value" ) + "%");
 	});
 	
-	skillsList.push(inputs[inputs.length - 1].value);
-	
+	skillsList.push(listUsers[click2].skills[sliders.length - 1]);
+
 }
 
 //Guardamos los dato de usuario
@@ -263,7 +278,7 @@ function saveModUsers() {
 						tareas.assignedUsers[i] = listUsers[click2].name;
 					}
 				}
-				
+
 			})
 		}
 	});
@@ -281,7 +296,7 @@ function rmvModUsers() {
 		},success: function(data) {
 
 			listUsers.splice(click2, 1);
-			
+
 			console.table(listUsers);
 
 			$( ".userName[data-identification='"+ click2 +"']").remove();
