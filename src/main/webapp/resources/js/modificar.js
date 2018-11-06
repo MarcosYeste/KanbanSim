@@ -328,7 +328,7 @@ function chrono(){
 				    console.log(minutes + ":" + seconds);
 				    document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 				} else {
-					 document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;//8
+					 document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime, 10);//8
 				}
 			} else {
 				chronoTime = (document.getElementById("modChronoTime").value * 60);
@@ -341,7 +341,7 @@ function chrono(){
 			chronoTimeTypeSelection = radios[i].value;
 		}
 	}
-	if(chronoTime == ""){
+	if(chronoTime == "" || chronoTime == 0){
 		chronoTime = 0;
 		document.getElementById("chronoViewer").innerHTML = "00:00";
 	}

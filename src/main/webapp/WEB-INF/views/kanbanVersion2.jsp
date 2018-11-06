@@ -309,7 +309,7 @@
 				</div>
 
 				<div class="modal-body">
-					Tiempo: <input type="number" id="modChronoTime">
+					Tiempo: <input type="number" id="modChronoTime" value="0">
 
 					<div>
 						 <input type="radio" name="chronoTimeType" value="sec" checked>Segundos
