@@ -69,7 +69,7 @@
 
 				<c:forEach items="${task}" var="task">
 
-					<div id="tareas" class="tareas">
+					<div class="tareas">
 
 						<p>
 							<c:out value="${task.name}"></c:out>
@@ -119,9 +119,7 @@
 				<div class="faseName"
 					style='background-color:<c:out value="${fase.color}"></c:out>' id=<c:out value="${fase.id}"></c:out>>
 					<div class="titulo" data-toggle="modal" data-target="#myModal"
-						name="<c:out value='${fase.name}'></c:out>">
-
-						<c:out value="${fase.name}"></c:out>
+						name="<c:out value='${fase.name}'></c:out>"><c:out value="${fase.name}"></c:out>
 						<small>(WIP: <c:out value="${fase.maxTasks}"></c:out>)
 						</small>
 					</div>
@@ -177,7 +175,7 @@
 	</div>
 	<fieldset class="teamField">
 		<legend class="teamField">Miembros del Equipo:</legend>
-		<span style="float:right;" class="legUser"><div id="addUsers">Add</div></span>
+		<span style="float:right;" class="legUser"><i class="fas fa-user-plus fa-2x" id="addUser" data-toggle="modal" data-target="#addUsers"></i></span>
 		<div class="usersContainer">
 
 			<c:forEach items="${user}" var="user">
@@ -292,6 +290,37 @@
 				<div class="modal-footer">
 					<button id="RmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
 						Miembro</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- Modal Añadir Usuarios-->
+	<div class="modal fade" id="addUsers" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Añadir Miembro</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+
+					Nombre Usuario: <input type="text" id="addNameUser">
+					<div>Fases:</div>
+					<div id="addFasesUser"></div>
+					<br> Rendimiento por fase:
+					<div id="addSkillsUser"></div>
+					<br>
+					<button id="addUsuario" class="btn btn-secondary"
+						data-dismiss="modal">Añadir</button>
+
+				</div>
+				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
