@@ -34,13 +34,12 @@
 			<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
 				data-placement="top" title="Mostrar Resultados"></i>
 		</button>
-
 	</div>
 
 	<h1 class="texto">KANBAN SIM</h1>
-
+		<p  data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
 	<div class="botonesContainer">
-
+		
 		<!--  Button Play/Pause -->
 
 		<div id="divReset">
@@ -175,7 +174,6 @@
 
 		</div>
 	</div>
-	<button data-toggle="modal" data-target="#modalChrono">chrono</button>
 	<fieldset class="teamField">
 		<legend class="teamField">Miembros del Equipo:</legend>
 		<div class="usersContainer">
@@ -310,7 +308,22 @@
 				</div>
 
 				<div class="modal-body">
-					Nombre Usuario: <input type="text" id="modChrono">
+					Tiempo: <input type="number" id="modChronoTime">
+
+					<div>
+						 <input type="radio" name="chronoTimeType" value="sec" checked>Segundos
+						 <input type="radio" name="chronoTimeType" value="min">Minutos
+					 </div>
+					 
+					 <script>
+					 	if(chronoTimeTypeSelection == sec){
+					 		document.getElementById(modChronoTime).value = chronoTime;
+					 		document.getelementsByTagName("chronotimeType")[0].setAttribute("checked");
+					 	} else {
+					 		document.getElementById(modChronoTime).value = chronoTime / 60;
+					 		document.getelementsByTagName("chronotimeType")[1].setAttribute("checked");
+					 	}
+					 </script>
 					<button id="modChrono" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
