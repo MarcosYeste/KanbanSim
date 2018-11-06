@@ -5,11 +5,10 @@ var firstLoop = true;
 var myInterval;
 var cycleTime = 0;
 var leadTime = 0;
-
 var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
-
+var kanbanTss = 0;
 // Guardar al modificar Phase
 sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
@@ -110,7 +109,8 @@ function play() {
 
 	myInterval = setInterval(function() {
 
-
+		kanbanTss++;
+		
 		for (var i = 0; i < fases.length; i++) {
 
 			var doing = fases[i].lastElementChild.firstElementChild;
@@ -464,7 +464,7 @@ function play() {
 
 		});
 
-		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
+		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && chronoTime != 0)) {
 			listTareas.forEach(function(task) {
 
 			});
@@ -487,8 +487,24 @@ function play() {
 		}
 
 		leadTime += 1;
+		console.log("::: LEAD TIEM ::::: "+leadTime);
+		if(chronoTime != null){
+			if(chronoTime > 59){
+				var sec_num = parseInt(chronoTime - kanbanTss, 10);//8
+			    var minutes = Math.floor((sec_num) / 60);
+			    var seconds = sec_num - (minutes * 60);
+			    if (minutes < 10) {minutes = "0"+minutes;}
+			    if (seconds < 10) {seconds = "0"+seconds;}
+			    document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
+			} else {
+				if(chronoTime - kanbanTss < 10 ){
+					document.getElementById("chronoViewer").innerHTML = "00:0"+(chronoTime - kanbanTss);
+				} else {
+				    document.getElementById("chronoViewer").innerHTML = "00:"+(chronoTime - kanbanTss);
+				}
+			}
+		}
 		
-
 	}, 1000);
 
 }

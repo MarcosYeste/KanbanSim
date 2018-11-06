@@ -3,12 +3,16 @@ var click2 = 0;
 var skillCompiler;
 var allcheckBox;
 var skillsList;
+var chronoTime;
+var chronoTimeTypeSelection;
 
 //Llamamos a las funciones
 document.getElementById("ModPhase").addEventListener("click", saveModPhase, false);
 document.getElementById("ModUsuario").addEventListener("click", saveModUsers, false);
 document.getElementById("RmvUsuario").addEventListener("click", rmvModUsers, false);
 document.getElementById("addUser").addEventListener("click", addUsers, false);
+document.getElementById("modChrono").addEventListener("click", chrono, false);
+
 
 //Mod Phases
 function modPhases(){
@@ -306,6 +310,7 @@ function rmvModUsers() {
 		}
 	})
 }
+
 //Mostrar Datos Usuarios
 function addUsers(){
 	var userO = new Object();
@@ -497,10 +502,58 @@ function saveAddUser(){
 		url: "/addUser",
 		data: {
 
-			
+
 
 		},success: function(data) {
 			console.log(data);
 		}
 	})
+}
+
+
+if (chronoTimeTypeSelection == "sec") {
+	document.getElementById("modChronoTime").value = chronoTime;
+	document.getElementsByName("chronoTimeType")[0].setAttribute("checked", "");
+} else {
+	document.getElementById("modChronoTime").value = chronoTime / 60;
+	document.getElementsByName("chronoTimeType")[1].setAttribute("checked", "");
+}
+
+function chrono(){
+
+	var radios = $("[name=chronoTimeType]");
+
+	console.log(radios);//8
+	for(var i = 0; i < radios.length; i++){//8
+		if(radios[i].checked){
+			if(radios[i].value == "sec"){
+				chronoTime = document.getElementById("modChronoTime").value;
+				var sec_num = parseInt(chronoTime, 10);//8
+				if(chronoTime > 59){
+					var minutes = Math.floor((sec_num) / 60);
+					var seconds = sec_num - (minutes * 60);
+					if (minutes < 10) {minutes = "0"+minutes;}
+					if (seconds < 10) {seconds = "0"+seconds;}
+					console.log(minutes + ":" + seconds);
+					document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
+				} else {
+					document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime, 10);//8
+				}
+			} else {
+				chronoTime = (document.getElementById("modChronoTime").value * 60);
+				if (parseInt(document.getElementById("modChronoTime").value, 10) < 10) {
+					document.getElementById("chronoViewer").innerHTML = "0" + document.getElementById("modChronoTime").value + ":00";
+				} else {
+					document.getElementById("chronoViewer").innerHTML = document.getElementById("modChronoTime").value + ":00";
+				}
+			}
+			chronoTimeTypeSelection = radios[i].value;
+		}
+	}
+	if(chronoTime == "" || chronoTime == 0){
+		chronoTime = 0;
+		document.getElementById("chronoViewer").innerHTML = "00:00";
+	}
+
+	console.log(chronoTime);
 }
