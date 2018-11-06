@@ -585,7 +585,7 @@ function mostrarResultados() {
 
 	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
 
-	var Pmensaje= "<p>El miembro que ha trabajado más es: ";
+	var Pmensaje = "<p>El miembro que ha trabajado más es: ";
 
 	for(var v = 0; v < nombresArray[0].length; v++ ){
 

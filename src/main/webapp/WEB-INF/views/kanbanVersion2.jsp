@@ -177,6 +177,7 @@
 	</div>
 	<fieldset class="teamField">
 		<legend class="teamField">Miembros del Equipo:</legend>
+		<span style="float:right;" class="legUser"><div id="addUsers">Add</div></span>
 		<div class="usersContainer">
 
 			<c:forEach items="${user}" var="user">
@@ -281,7 +282,7 @@
 					Nombre Usuario: <input type="text" id="modNameUser">
 					<div>Fases:</div>
 					<div id="modFasesUser"></div>
-					<br> Rendimiento de recursos por fase:
+					<br> Rendimiento por fase:
 					<div id="modSkillsUser"></div>
 					<br>
 					<button id="ModUsuario" class="btn btn-secondary"

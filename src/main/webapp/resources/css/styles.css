@@ -1,5 +1,5 @@
-html{
-	overflow-x:hidden !important;
+html {
+	overflow-x: hidden !important;
 }
 /* No select */
 body {
@@ -7,8 +7,8 @@ body {
 	-moz-user-select: none; /* Firefox 2+ */
 	-ms-user-select: none; /* IE 10+ */
 	user-select: none; /* Standard syntax */
-	
 }
+
 .start {
 	margin-top: 10%;
 	margin-left: 45%;
@@ -48,37 +48,9 @@ h1 {
 	padding: .3em;
 }
 
-#modSkillsUser > p {
-	margin-bottom: 2px; 
-	padding-top: 2%; 
-}
-
-
-/* Kanban */
-.div-head {
-	text-align: center;
-	font-weight: bold;
-	border-right: 1px solid;
-}
-
-.task {
-	border: 1px solid lightblue;
-	background-color: lightblue;
-	padding: auto;
-	font-weight: normal
-}
-
-.userPhaseCheck {
-	display: inline;
-	margin-left: 15px;
-}
-.divSkill {
-	display: inline;
-	margin-left: 15px;
-}
-.skillInput {
-	display: inline;
-	margin-left: 15px;
+#modSkillsUser>p {
+	margin-bottom: 2px;
+	padding-top: 2%;
 }
 
 /* Spin animation reset Button */
@@ -101,11 +73,17 @@ div #reset:hover {
 	animation-timing-function: linear;
 }
 
-@keyframes spin {
-	from { transform:rotate(0deg);}
-	to 	 { transform: rotate(360deg);W}
+@
+keyframes spin {from { transform:rotate(0deg);
+	
 }
 
+to {
+	transform: rotate(360deg);
+	W
+}
+
+}
 .img-edit {
 	z-index: -1;
 }
@@ -130,41 +108,39 @@ div #reset:hover {
 	margin: 0;
 }
 
-.form-control[type=color][list="presetColors"]::-webkit-color-swatch-wrapper {
+.form-control[type=color][list="presetColors"]::-webkit-color-swatch-wrapper
+	{
 	padding: .5rem .75rem;
 }
 
-.form-control[type=color][list="presetColors"]:-moz-color-swatch-wrapper {
+.form-control[type=color][list="presetColors"]:-moz-color-swatch-wrapper
+	{
 	padding: .5rem .75rem;
 }
 
-.form-control[type=color][list="presetColors"]:-ms-color-swatch-wrapper {
+.form-control[type=color][list="presetColors"]:-ms-color-swatch-wrapper
+	{
 	padding: .5rem .75rem;
 }
 
 .form-control[type=color]::-webkit-color-swatch {
-	height: 22px; 
+	height: 22px;
 	padding: 0;
 	margin: 0;
 }
 
 .form-control[type=color]::-moz-color-swatch {
-	height: 22px; 
+	height: 22px;
 	padding: 0;
 	margin: 0;
 }
 
 .form-control[type=color]:-ms-color-swatch {
-	height: 22px; 
+	height: 22px;
 	padding: 0;
 	margin: 0;
 }
-
-/* Idenitificar usuarios */
-.circulo {
-     width: 10px;
-     height: 10px;
-     -moz-border-radius: 50%;
-     -webkit-border-radius: 50%;
-     border-radius: 50%;
+.legUser{
+	margin-top: -10;
+	background-color: inherit;
 }
