@@ -299,9 +299,6 @@
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
-		
-=======
 
 
 	<!-- Modal Añadir Usuarios-->
@@ -334,7 +331,6 @@
 		</div>
 	</div>
 
->>>>>>> 77ecb4c19330ce00ae03ea88a93a61a171543bfa
 	<!-- Modal Modificar Temporizqdor-->
 	<div class="modal fade" id="modalChrono" role="dialog">
 
