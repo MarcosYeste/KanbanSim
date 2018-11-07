@@ -175,6 +175,7 @@ function modUsers(){
 			}
 
 			document.getElementById("modSkillsUser").removeChild(document.getElementById("performancesDivSkill" + event.target.value));
+			document.getElementById("addSkillsUser").removeChild(document.getElementById(event.target.value));
 
 		}
 	}
@@ -425,7 +426,7 @@ function addUsers(){
 			}
 
 			document.getElementById("addSkillsUser").removeChild(document.getElementById("performancesDivSkill" + event.target.value));
-
+			document.getElementById("addSkillsUser").removeChild(document.getElementById(event.target.value));
 		}
 	}
 }
@@ -561,6 +562,6 @@ function chrono(){
 }
 
 function showTaskInfo(){
-	console.log(event.target);
+	console.log(event.target.id);
 
 }
