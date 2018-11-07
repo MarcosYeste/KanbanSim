@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div class="botonesContainer1" id="botonesContainer1">
-		
+
 		<!-- Nuevo Tablero -->
 		<div class="doubleButton" id="doubleButton">
 			<button id="divDelete">
@@ -34,11 +34,13 @@
 			<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
 				data-placement="top" title="Mostrar Resultados"></i>
 		</button>
-
 	</div>
 
 	<h1 class="texto">KANBAN SIM</h1>
-
+	
+	<!-- Temporizador -->
+	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
+	
 	<div class="botonesContainer">
 
 		<!--  Button Play/Pause -->
@@ -69,7 +71,7 @@
 
 				<c:forEach items="${task}" var="task">
 
-					<div id="tareas" class="tareas">
+					<div class="tareas"  data-toggle="modal" data-target="#modalTaskInfo">
 
 						<p>
 							<c:out value="${task.name}"></c:out>
@@ -119,10 +121,10 @@
 			<c:forEach items="${phases}" var="fase">
 
 				<div class="faseName"
-					style='background-color:<c:out value="${fase.color}"></c:out>' id=<c:out value="${fase.id}"></c:out>>
+					style='background-color:<c:out value="${fase.color}"></c:out>'
+					id=<c:out value="${fase.id}"></c:out>>
 					<div class="titulo" data-toggle="modal" data-target="#myModal"
 						name="<c:out value='${fase.name}'></c:out>">
-
 						<c:out value="${fase.name}"></c:out>
 						<small>(WIP: <c:out value="${fase.maxTasks}"></c:out>)
 						</small>
@@ -146,7 +148,8 @@
 				</div>
 
 
-				<c:set value="${fase.id}" var="id" /> <!-- Sujeto Pruebas -->
+				<c:set value="${fase.id}" var="id" />
+				<!-- Sujeto Pruebas -->
 				<c:set value="${fase.name}" var="name" />
 				<c:set value="${fase.maxTasks}" var="maxTasks" />
 				<c:set value="${fase.maxTime}" var="maxTime" />
@@ -179,6 +182,9 @@
 	</div>
 	<fieldset class="teamField">
 		<legend class="teamField">Miembros del Equipo:</legend>
+		<span style="float: right;" class="legUser"><i
+			class="fas fa-user-plus fa-2x" id="addUser" data-toggle="modal"
+			data-target="#addUsers"></i></span>
 		<div class="usersContainer">
 
 			<c:forEach items="${user}" var="user">
@@ -209,6 +215,7 @@
 								'').split(',');
 						userO.assigned = false;
 						listUsers.push(userO);
+						console.table(listUsers);
 					</script>
 				</div>
 			</c:forEach>
@@ -253,7 +260,7 @@
 						</datalist>
 					</div>
 					<br>
-					<button id="ModPhase" class="btn btn-secondary"
+					<button id="modPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
 				</div>
@@ -283,16 +290,101 @@
 					Nombre Usuario: <input type="text" id="modNameUser">
 					<div>Fases:</div>
 					<div id="modFasesUser"></div>
-					<br> Rendimiento de recursos por fase:
+					<br> Rendimiento por fase:
 					<div id="modSkillsUser"></div>
 					<br>
-					<button id="ModUsuario" class="btn btn-secondary"
+					<button id="modUsuario" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
 				</div>
 				<div class="modal-footer">
-					<button id="RmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
+					<button id="rmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
 						Miembro</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal Añadir Usuarios-->
+	<div class="modal fade" id="addUsers" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Añadir Miembro</h4>
+
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+					Nombre Usuario: <input type="text" id="addNameUser">
+					<div>Fases:</div>
+					<div id="addFasesUser"></div>
+					<br> Rendimiento por fase:
+					<div id="addSkillsUser"></div>
+					<br>
+					<button id="addUsuario" class="btn btn-secondary"
+						data-dismiss="modal">Añadir</button>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Modificar Temporizqdor-->
+	<div class="modal fade" id="modalChrono" role="dialog">
+
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Temporizador</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+					Tiempo: <input type="number" id="modChronoTime" min=0 value=0>
+
+					<div>
+						<input type="radio" name="chronoTimeType" value="sec" checked>Segundos
+						<input type="radio" name="chronoTimeType" value="min">Minutos
+					</div>
+					<button id="modChrono" class="btn btn-secondary"
+						data-dismiss="modal">Modificar</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal Task Info-->
+	<div class="modal fade" id="modalTaskInfo" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Información de tarea</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+					<p id="modalTaskName">Nombre: </p>
+					<p id="modalTaskAssignedTime">Tiempo asignado: </p>
+					<p id="modalTaskTSS">Tiempo transcurrido: </p>
+					
+
+				</div>
+				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>

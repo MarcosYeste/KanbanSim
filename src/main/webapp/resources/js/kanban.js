@@ -7,7 +7,7 @@ var leadTime = 0;
 var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
-
+var kanbanTss = 0;
 // Guardar al modificar Phase
 sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
@@ -28,6 +28,15 @@ for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 		event.preventDefault();
 	});
 }
+
+
+for(var i = 0 ; i < document.getElementsByClassName("tareas").length; i++){
+	document.getElementsByClassName("tareas")[i].setAttribute("data-identification", listTareas[i].name);
+	for(var j = 0; j < document.getElementsByClassName("tareas")[i].children.length; j++){
+		document.getElementsByClassName("tareas")[i].children[j].setAttribute("data-identification", listTareas[i].name);
+	}
+}
+
 
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de cada uno de los elementos
 for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
@@ -108,7 +117,8 @@ function play() {
 
 	myInterval = setInterval(function() {
 
-
+		kanbanTss++;
+		
 		for (var i = 0; i < fases.length; i++) {
 
 			var doing = fases[i].lastElementChild.firstElementChild;
@@ -153,11 +163,6 @@ function play() {
 
 					task.durarionAsignada = false;
 
-					if(i != 0){
-
-						var auxI = i-1;
-//						task.phasesTime[auxI]= saveNewTimePhase(task,auxI);//Guardo tiempo de fase
-					}
 
 				}
 
@@ -178,8 +183,6 @@ function play() {
 						//IF 1
 						done.appendChild(divsTareas[k]);
 						task.state = "Done";
-//aqui pasa a DONE			
-						console.log("linea 183");
 						saveTimeStates(task,leadTime,i);
 						task.sameIteration = true;
 
@@ -221,14 +224,11 @@ function play() {
 								for(var up = 0; up<user.phases.length; up++){
 									for(var p = 0; p < fases.length; p++){
 										var phasesName = fases[p].children[0].childNodes[0].textContent.trim();
-//										var doingPhase = fases[p].lastElementChild.firstElementChild.childNodes;
 
 										if(user.phases[up].trim() != actualPhaseName.trim()){
 											for(var t = 0; t < listTareas.length; t++){												
-												//if((doingPhase.length - 3) == 0 && user.phases[up].trim().trim() == phasesName){
 												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){//8
 													isTotallyFree = true;
-													console.log(user);//8
 												} else {
 													isTotallyFree = false;
 												}
@@ -247,22 +247,20 @@ function play() {
 									}
 									if(isTotallyFree){
 
-										console.log(user);
-										console.log(task);
 										task.assignedUsers.push(user.name);
 										if(!task.staticAssigneds.includes((user.name)+" ")){											
 											user.tasksWorked += 1;//8
 											task.staticAssigneds += (user.name)+" ";
 										}
 										user.assigned = true;
-										console.log("pre mod " + task.name + " " + task.duration); 
+
 										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
-											console.log("mod 1");
+								
 											task.duration = 1;
 										} else {
 											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 										}
-										console.log("tiempo moificao " + task.name + " " + task.duration);
+										
 									}
 
 								}
@@ -284,12 +282,6 @@ function play() {
 									}
 								});							
 							}
-							// NO BORARR ESTE ELSE Por si falla el tiempo inactivo.
-//							else{  
-//							user.secondsNotWorked += 1;
-//							console.log(user.name+" Segundos NO trabajados = "+user.secondsNotWorked);
-//							}
-
 
 						});
 
@@ -301,12 +293,11 @@ function play() {
 						if (fases[i + 1] == null) {							
 							task.state = "Ended";
 							task.leadTime = leadTime;
-//							task.phasesTime[i]= saveNewTimePhase(task,i);//Guardo tiempo de fase
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 
-							console.log("Ha acabado con un leadtime de :: "+task.leadTime);
+							
 
 
 						} else {
@@ -316,8 +307,6 @@ function play() {
 
 								fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
 								task.state = "ToDo";
-//aqui pasa a ToDo
-								console.log("linea 319");
 								saveTimeStates(task,leadTime,i);
 								task.phase++;
 								task.tss = 0;
@@ -342,8 +331,6 @@ function play() {
 							doing.appendChild(divsTareas[0]);
 							task.cycleTime = 0;
 							task.state = "ToDo";
-//aqui pasa a ToDo
-							console.log("linea 347");
 							saveTimeStates(task,leadTime,i);
 							task.phase = 1;
 							task.sameIteration = true;
@@ -373,8 +360,6 @@ function play() {
 									for(var up = 0; up <user.phases.length; up++){
 
 										if(user.phases[up].trim() == actualPhaseName.trim()){
-//aqui pasa a DOING
-											console.log("linea 377");
 											task.state = "Doing";
 											saveTimeStates(task,leadTime,i);
 											task.duration = task.duration * (100 / user.skills[up]);
@@ -464,10 +449,9 @@ function play() {
 
 		});
 
-		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
+		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && chronoTime != 0)) {
 			listTareas.forEach(function(task) {
-				console.log(task.timeByStats);
-//				console.log(task.name+" Tiempos fase : "+task.phasesTime);
+
 			});
 			// Finalizado completamente
 			clearInterval(myInterval);
@@ -489,10 +473,27 @@ function play() {
 
 		leadTime += 1;
 		console.log("::: LEAD TIEM ::::: "+leadTime);
-
+		if(chronoTime != null){
+			if(chronoTime > 59){
+				var sec_num = parseInt(chronoTime - kanbanTss, 10);//8
+			    var minutes = Math.floor((sec_num) / 60);
+			    var seconds = sec_num - (minutes * 60);
+			    if (minutes < 10) {minutes = "0"+minutes;}
+			    if (seconds < 10) {seconds = "0"+seconds;}
+			    document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
+			} else {
+				if(chronoTime - kanbanTss < 10 ){
+					document.getElementById("chronoViewer").innerHTML = "00:0"+(chronoTime - kanbanTss);
+				} else {
+				    document.getElementById("chronoViewer").innerHTML = "00:"+(chronoTime - kanbanTss);
+				}
+			}
+		}
+		
 	}, 1000);
 
 }
+
 
 function saveTimeStates(task,leadTime,i){
 	
@@ -558,6 +559,7 @@ function saveNewTimePhase(statsTime){
 	}
 	console.log("Total de esta fase: "+suma);
 	return suma;
+
 }
 
 function mostrarFinalTarea(tarea,task){
@@ -657,7 +659,7 @@ function mostrarResultados() {
 	var nombresArray = [];
 	var idU=0;
 	listUsers.forEach(function(user) {
-		console.log(user.name+"Segundos de fase::: "+user.secondByPhase);
+		
 		user.secondsNotWorked = leadTime - user.secondsWork;
 		subsubdiv5.innerHTML += '<div id='+idU+' onclick="mostrarDorsoUsuarios(this.id,'+JSON.stringify(user.secondByPhase)+')" class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
 		'<p> Tareas trabajadas: '+user.tasksWorked+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p><p>Tiempo inactivo: '+user.secondsNotWorked+' Segundos</p><small style="color:blue">Ver más</small></div>';
@@ -670,7 +672,7 @@ function mostrarResultados() {
 
 	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
 
-	var Pmensaje= "<p>El miembro que ha trabajado más es: ";
+	var Pmensaje = "<p>El miembro que ha trabajado más es: ";
 
 	for(var v = 0; v < nombresArray[0].length; v++ ){
 
@@ -974,14 +976,12 @@ function sortPhases(){
 					fasesString += info[i] + ",";
 				};
 
-				console.log(fasesString);
 				$.ajax({
 					data: {Stringfases : fasesString},
 					dataType: "String",
 					type: 'POST',
 					url: '/sortPhase',
 					success: function(){
-						console.log("Sent")
 					}
 				});
 			}
@@ -990,4 +990,3 @@ function sortPhases(){
 		$( "#faseDiv").css("cursor", "move");
 	});
 }
-

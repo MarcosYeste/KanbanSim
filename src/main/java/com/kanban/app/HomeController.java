@@ -108,16 +108,21 @@ public class HomeController {
 		model.addAttribute("user",new User());
 		model.addAttribute("allPhases", this.allPhases);
 
-		return "userForm";
+		return "success";
 	}
 
 	 // Add new Users
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String createUser(Model model, @ModelAttribute("user") User user) {	
-
+	public String createUser(Model model, String name, String fases, String skills) {	
+		
+		User user = new User();
+		user.setName(name);
+		user.setRawPhases(fases);
+		user.setRawSkills(skills);
 		model.addAttribute("user", kanbanService.saveUser(user, userArray));
 		model.addAttribute("phases",  phasesArray);
 		model.addAttribute("task", taskArray);
+		
 
 		return "success";
 
@@ -128,7 +133,6 @@ public class HomeController {
 	public String removeTask() {	
 
 		taskArray.clear();
-		System.out.println(taskArray.size());
 
 		return "success";
 

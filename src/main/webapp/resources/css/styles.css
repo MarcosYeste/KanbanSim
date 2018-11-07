@@ -1,5 +1,5 @@
-html{
-	overflow-x:hidden !important;
+html {
+	overflow-x: hidden !important;
 }
 /* No select */
 body {
@@ -7,8 +7,8 @@ body {
 	-moz-user-select: none; /* Firefox 2+ */
 	-ms-user-select: none; /* IE 10+ */
 	user-select: none; /* Standard syntax */
-	
 }
+
 .start {
 	margin-top: 10%;
 	margin-left: 45%;
@@ -22,7 +22,38 @@ header {
 	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #63bafa;
 }
 
-/* Modal Forms */
+/* Spin animation reset Button */
+div #reset:hover {
+	-webkit-animation-name: spin; /* Safari */
+	-webkit-animation-duration: 1000ms; /* Safari */
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-timing-function: linear;
+	-moz-animation-name: spin; /* Mozilla */
+	-moz-animation-duration: 1000ms; /* Mozilla */
+	-moz-animation-iteration-count: 1;
+	-moz-animation-timing-function: linear;
+	-ms-animation-name: spin; /* Explorer */
+	-ms-animation-duration: 1000ms; /* Explorer */
+	-ms-animation-iteration-count: 1;
+	-ms-animation-timing-function: linear;
+	animation-name: spin;
+	animation-duration: 500ms;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
+}
+
+@keyframes spin {
+	from { transform:rotate(0deg);}
+	to {transform: rotate(360deg);}
+}
+.img-edit {
+	z-index: -1;
+}
+
+
+
+/* FORMS */
+
 label, input {
 	display: block;
 }
@@ -48,63 +79,10 @@ h1 {
 	padding: .3em;
 }
 
-/* Kanban */
-.div-head {
-	text-align: center;
-	font-weight: bold;
-	border-right: 1px solid;
+#modSkillsUser>p {
+	margin-bottom: 2px;
+	padding-top: 2%;
 }
-
-.task {
-	border: 1px solid lightblue;
-	background-color: lightblue;
-	padding: auto;
-	font-weight: normal
-}
-
-.userPhaseCheck {
-	display: inline;
-	margin-left: 15px;
-}
-.divSkill {
-	display: inline;
-	margin-left: 15px;
-}
-.skillInput {
-	display: inline;
-	margin-left: 15px;
-}
-
-/* Spin animation reset Button */
-div #reset:hover {
-	-webkit-animation-name: spin; /* Safari */
-	-webkit-animation-duration: 1000ms; /* Safari */
-	-webkit-animation-iteration-count: 1;
-	-webkit-animation-timing-function: linear;
-	-moz-animation-name: spin; /* Mozilla */
-	-moz-animation-duration: 1000ms; /* Mozilla */
-	-moz-animation-iteration-count: 1;
-	-moz-animation-timing-function: linear;
-	-ms-animation-name: spin; /* Explorer */
-	-ms-animation-duration: 1000ms; /* Explorer */
-	-ms-animation-iteration-count: 1;
-	-ms-animation-timing-function: linear;
-	animation-name: spin;
-	animation-duration: 500ms;
-	animation-iteration-count: 1;
-	animation-timing-function: linear;
-}
-
-@keyframes spin {
-	from { transform:rotate(0deg);}
-	to 	 { transform: rotate(360deg);W}
-}
-
-.img-edit {
-	z-index: -1;
-}
-
-/* FORMS */
 .form-control[type=color] {
 	height: auto;
 }
@@ -124,41 +102,51 @@ div #reset:hover {
 	margin: 0;
 }
 
-.form-control[type=color][list="presetColors"]::-webkit-color-swatch-wrapper {
+.form-control[type=color][list="presetColors"]::-webkit-color-swatch-wrapper
+	{
 	padding: .5rem .75rem;
 }
 
-.form-control[type=color][list="presetColors"]:-moz-color-swatch-wrapper {
+.form-control[type=color][list="presetColors"]:-moz-color-swatch-wrapper
+	{
 	padding: .5rem .75rem;
 }
 
-.form-control[type=color][list="presetColors"]:-ms-color-swatch-wrapper {
+.form-control[type=color][list="presetColors"]:-ms-color-swatch-wrapper
+	{
 	padding: .5rem .75rem;
 }
 
 .form-control[type=color]::-webkit-color-swatch {
-	height: 22px; 
+	height: 22px;
 	padding: 0;
 	margin: 0;
 }
 
 .form-control[type=color]::-moz-color-swatch {
-	height: 22px; 
+	height: 22px;
 	padding: 0;
 	margin: 0;
 }
 
 .form-control[type=color]:-ms-color-swatch {
-	height: 22px; 
+	height: 22px;
 	padding: 0;
 	margin: 0;
 }
+.legUser{
+	margin-top: -38px;
+	margin-bottom: -38px;
+	margin-right:15px; 
+	background-color: white;
+}
 
-/* Idenitificar usuarios */
-.circulo {
-     width: 10px;
-     height: 10px;
-     -moz-border-radius: 50%;
-     -webkit-border-radius: 50%;
-     border-radius: 50%;
+/* TEMPORIZADOR */
+#chronoViewer{
+	font-weight:bold;
+	font-size: 30px;
+	position: absolute;
+	margin-left: 12%;
+	margin-top: 3%;
+	border: 1px solid black;
 }
