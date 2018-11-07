@@ -1,11 +1,9 @@
-var totalFases = 0;
-var mediaMaxFaseTime = 0;
-var mediaMinFaseTime = 0;
+//var totalFases = 0;
+//var mediaMaxFaseTime = 0;
+//var mediaMinFaseTime = 0;
 var firstLoop = true;
 var myInterval;
-var cycleTime = 0;
 var leadTime = 0;
-
 var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
@@ -153,17 +151,12 @@ function play() {
 					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 					task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 
-					cycleTime = parseInt(task.duration);
-
-					totalFases += cycleTime;
-					listPhases[i].period += cycleTime;
 					task.durarionAsignada = false;
 
-					if(i == 0){
+					if(i != 0){
 
-					}else{
-						auxI = i-1;
-						task.phasesTime[auxI]= saveNewTimePhase(task,auxI);//Guardo tiempo de fase
+						var auxI = i-1;
+//						task.phasesTime[auxI]= saveNewTimePhase(task,auxI);//Guardo tiempo de fase
 					}
 
 				}
@@ -185,7 +178,9 @@ function play() {
 						//IF 1
 						done.appendChild(divsTareas[k]);
 						task.state = "Done";
-
+//aqui pasa a DONE			
+						console.log("linea 183");
+						saveTimeStates(task,leadTime,i);
 						task.sameIteration = true;
 
 						for(var w = 0; w < listUsers.length; w++){
@@ -272,12 +267,6 @@ function play() {
 
 								}
 
-//								if(user.assigned){
-//								document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
-//								document.getElementsByName(user.name)[0].children[1].style.color = phase.color;
-//								document.getElementsByName(user.name)[0].style.borderColor = phase.color;
-//								user.tasksWorked += 1;
-//								}
 							}
 							// Este if es para aumentar los segundos trabajados
 
@@ -312,7 +301,8 @@ function play() {
 						if (fases[i + 1] == null) {							
 							task.state = "Ended";
 							task.leadTime = leadTime;
-							task.phasesTime[i]= saveNewTimePhase(task,i);//Guardo tiempo de fase
+//							task.phasesTime[i]= saveNewTimePhase(task,i);//Guardo tiempo de fase
+							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 
@@ -326,6 +316,9 @@ function play() {
 
 								fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
 								task.state = "ToDo";
+//aqui pasa a ToDo
+								console.log("linea 319");
+								saveTimeStates(task,leadTime,i);
 								task.phase++;
 								task.tss = 0;
 								task.sameIteration = true;
@@ -349,6 +342,9 @@ function play() {
 							doing.appendChild(divsTareas[0]);
 							task.cycleTime = 0;
 							task.state = "ToDo";
+//aqui pasa a ToDo
+							console.log("linea 347");
+							saveTimeStates(task,leadTime,i);
 							task.phase = 1;
 							task.sameIteration = true;
 							for(var t = 0; t < divsTareas.length; t++){
@@ -362,9 +358,6 @@ function play() {
 
 								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);	
 								task.startTime = leadTime;
-								cycleTime = parseInt(task.duration);												
-								totalFases += cycleTime;
-								listPhases[i].period += cycleTime;	
 							}								
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
@@ -380,8 +373,10 @@ function play() {
 									for(var up = 0; up <user.phases.length; up++){
 
 										if(user.phases[up].trim() == actualPhaseName.trim()){
-
+//aqui pasa a DOING
+											console.log("linea 377");
 											task.state = "Doing";
+											saveTimeStates(task,leadTime,i);
 											task.duration = task.duration * (100 / user.skills[up]);
 											task.assignedUsers[0] = (user.name);
 											user.assigned = true;
@@ -471,6 +466,7 @@ function play() {
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length) {
 			listTareas.forEach(function(task) {
+				console.log(task.timeByStats);
 //				console.log(task.name+" Tiempos fase : "+task.phasesTime);
 			});
 			// Finalizado completamente
@@ -497,35 +493,73 @@ function play() {
 	}, 1000);
 
 }
-function saveNewTimePhase(task,i) {
-	var tareaLead = 0;
-	var anterior = 0;
-	var result = 0;
 
-	if(task.phasesTime[0]== undefined){ 
-
-		task.phasesTime[0]= 0;	
-		anterior = task.phasesTime[0];
-
-		console.log("Tiempo en "+listPhases[i].name+" = lead: "+leadTime+" - start: "+ task.startTime+" - anterior: "+anterior);
-		result = leadTime-task.startTime-anterior;anterior
-
-	}else{
-
-		anterior = 0;
-		for(var y = 0; y < task.phasesTime.length; y++){
-			anterior += task.phasesTime[y];
+function saveTimeStates(task,leadTime,i){
+	
+	
+	if(task.state == "ToDo"){
+		if(task.statsTime[0] == undefined && task.statsTime[1] == undefined && task.statsTime[2] == undefined){
+			task.statsTime[0] = 0;task.statsTime[1] = 0;task.statsTime[2] =0;
 		}
-
-		console.log("Tiempo en "+listPhases[i].name+" = lead: "+leadTime+" - anterior: "+anterior);
-		result = leadTime-anterior;
+		if(task.phase != 0){			
+			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime-sumaFasesTiempo(task.phasesTime);			
+			task.timeByStats.push(task.statsTime);
+			console.log(">>>>>>>>>>>>>>>>>>>  comienza LA I VALE "+i);
+			console.log(task.statsTime);
+			task.phasesTime[i] = saveNewTimePhase(task.statsTime);
+			task.statsTime = [0,0,0];
+		}
+		
+	}else if (task.state == "Doing"){
+		
+		if(task.phase > 1){			
+				task.statsTime[0]= leadTime - task.startTime - sumaFasesTiempo(task.phasesTime);			
+		}else{			
+				task.statsTime[0]= leadTime - task.startTime;
+		}
+		
+	}else if(task.state == "Done"){
+		if(task.phase > 1){
+			task.statsTime[1]= leadTime - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime);
+		}else{
+			task.statsTime[1]= leadTime - task.statsTime[0]- task.startTime;
+		}
+		
+	}else{
+		
+		console.log("Ended");
+		if(task.phase > 1){
+			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime);
+		}else{
+			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime;
+			
+		}
+		task.timeByStats.push(task.statsTime);
+		console.log(">>>>>>>>>>>>>>>>>>>  termina LA I VALE "+i);
+		task.phasesTime[i] = saveNewTimePhase(task.statsTime);
+		task.statsTime = [0,0,0];
 	}
-
-	console.log("*Result* de "+task.name+" = "+result);
-	return result;
-
-
+	
+	
 }
+function sumaFasesTiempo(phasesTime){
+	var suma = 0;
+	for (var i = 0; i < phasesTime.length; i++) {
+		suma += phasesTime[i];
+		
+	}
+	return suma;
+}
+function saveNewTimePhase(statsTime){
+	var suma = 0;
+	for(var i = 0; i < statsTime.length; i++){
+		suma += statsTime[i];
+		
+	}
+	console.log("Total de esta fase: "+suma);
+	return suma;
+}
+
 function mostrarFinalTarea(tarea,task){
 
 	task.cycleTime = task.leadTime - task.startTime;
@@ -535,6 +569,7 @@ function mostrarFinalTarea(tarea,task){
 }
 function mostrarResultados() {
 
+	calculoTiemposTotalesFase();
 	var text = "";
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 	div.innerHTML = "";
@@ -555,17 +590,61 @@ function mostrarResultados() {
 	// Resultado fases
 	div4.className = "faseResultadoDiv";
 	subdiv4.className = "faseResultado";
-	subdiv4.innerHTML = "<h4><center> Resultados de  fases</center></h4>";
-	subdiv4.innerHTML += "<p> Tiempo total de las fases: "+totalFases+"''</p>";
+	var tabla = "<table class='table table-bordered'>";
+	tabla += "<head>";
+	tabla += "<tr>";
+	tabla += "<th rowspan = '2'></th>";
+	var cv = 0;	
 	listPhases.forEach(function(phase) {
-		mediaMaxFaseTime += phase.maxTime;
-		mediaMinFaseTime += phase.minTime;
-		subdiv4.innerHTML += "<p> "+phase.name+" : "+phase.period+"''</p>";
+
+		
+		tabla +="<th><div class='th'>"+phase.name+" ( "+phase.period+"s )</div></th>";
+		cv++;
 
 	});
-
-	subdiv4.innerHTML += "<p>Cálculo máximo estimado de las fases es de: "+mediaMaxFaseTime+" s</p>";
-	subdiv4.innerHTML += "<p>Cálculo mínimo estimado de las fases es de: "+mediaMinFaseTime+" s</p>";
+	tabla += "</tr>";
+	tabla += "<tr>";
+	for (var i = 0; i < cv; i++) {
+		tabla += "<th><div class='stados'><p>todo</p><p>doing</p><p>done</p></div></th>";
+	}
+	tabla += "</tr>";
+	tabla += "</head>";	
+	tabla += "<tbody>";
+	var numerotareas =0;
+	var sumatodo= 0;
+	var sumaDoing = 0;
+	var sumadone=0;
+	var sumaEstadosTotal = 0;
+	var sumaFaseTotal =0;
+	var l = 0;
+	listTareas.forEach(function(task) {	
+		tabla += "<tr>";
+		tabla += "<td>"+task.name+"</td>";
+		var i = 0;
+		sumaFaseTotal = mediaFasestotal(JSON.stringify(task.timeByStats));
+		
+		task.timeByStats.forEach(function(times) {	
+			var time = JSON.stringify(times);
+			time = JSON.parse(time);
+			tabla += "<td><div class='stados'><p>"+time[0]+"s</p><p>"+time[1]+"s</p><p>"+time[2]+"s</p></div></td>";
+			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
+			
+		i++;
+		});	
+		l++;
+		numerotareas = l;
+		tabla += "</tr>";
+	});
+	sumaEstadosTotal = Math.round((sumatodo + sumaDoing+ sumadone)/numerotareas);
+	tabla += "<tr>";
+	tabla += "<td>Media por fase: </td>";
+	for (var i = 0; i < cv; i++) {
+		tabla += "<td>"+sumaFaseTotal+"</td>"; // tengo que calcular esta media
+	}
+	tabla += "</tr>";
+	tabla += "<tr><td>Media Total: </td><td colspan='"+cv+"'>"+sumaEstadosTotal+"s</td></tr>";
+	tabla += "</tbody>";
+	subdiv4.innerHTML += tabla;
 	mediaMaxFaseTime = 0;
 	mediaMinFaseTime = 0 ;
 	div4.appendChild(subdiv4);
@@ -653,6 +732,46 @@ function mostrarResultados() {
 	div.appendChild(bigdiv);
 	div.appendChild(div4);
 	div.appendChild(div5);
+}
+//media de las fases por separado
+function mediaFasestotal(taskArray){
+	var array = taskArray;
+	var sumasTodo = 0;
+	var sumasdoing = 0;
+	var sumasdone = 0;
+	var sumastotales = 0;
+	var numero =0;
+	for (var i = 0; i < array.length; i++) {
+		sumasTodo = array[0][i];
+		sumasdoing = array[1][i];
+		sumasdone = array[2][i];
+		numero = i;
+	}
+ sumastotales = (sumasTodo + sumasdoing+ sumasdone)/numero;
+ return sumastotales;
+}
+function calculoTiemposTotalesFase(){
+	var i = 0;
+	listPhases.forEach(function(phase) {
+		
+			if(phase.period=undefined){
+				phase.period = 0;
+			}
+			
+			var valor = subCalculoTiempos(i);
+			phase.period = valor;
+			i++;
+	});
+}
+function subCalculoTiempos(i){
+	var total = 0 ;
+	
+	for( var k = 0 ; k < listTareas[i].phasesTime.length ; k++){
+		total += listTareas[k].phasesTime[i];
+	}
+		
+		return total;
+	
 }
 
 function mostrarDorsoUsuarios(id,secondByPhase){
