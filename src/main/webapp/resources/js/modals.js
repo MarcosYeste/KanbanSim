@@ -543,7 +543,12 @@ function chrono(){
 					console.log(minutes + ":" + seconds);
 					document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 				} else {
-					document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime, 10);
+					if (chronoTime < 10) {
+						document.getElementById("chronoViewer").innerHTML = "00:0"+chronoTime;
+					} else {
+						document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;
+					}
+					
 				}
 			} else {
 				chronoTime = (document.getElementById("modChronoTime").value * 60);
