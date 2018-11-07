@@ -173,6 +173,7 @@ function modUsers(){
 
 			}
 
+
 			document.getElementById("modSkillsUser").removeChild(document.getElementById("modPerformancesDivSkill" + event.target.value));
 			document.getElementById("modSkillsUser").removeChild(document.getElementById("mod" + event.target.value));
 		}
@@ -566,6 +567,6 @@ function chrono(){
 }
 
 function showTaskInfo(){
-	console.log(event.target);
+	console.log(event.target.id);
 
 }
