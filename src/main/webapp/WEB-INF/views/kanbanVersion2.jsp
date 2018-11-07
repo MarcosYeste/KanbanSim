@@ -210,6 +210,7 @@
 								'').split(',');
 						userO.assigned = false;
 						listUsers.push(userO);
+						console.table(listUsers);
 					</script>
 				</div>
 			</c:forEach>

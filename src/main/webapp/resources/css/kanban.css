@@ -109,7 +109,7 @@ p.estado {
 	font-weight: normal
 }
 
-.userPhaseCheck {
+.modUserPhaseCheck, .addUserPhaseCheck {
 	display: inline;
 	margin-left: 15px;
 }

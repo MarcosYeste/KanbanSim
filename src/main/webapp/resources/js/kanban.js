@@ -31,10 +31,10 @@ for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 }
 
 //
-for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
+for(var i = 0 ; i < document.getElementsByClassName("tareas").length; i++){
 	document.getElementsByClassName("tareas")[i].setAttribute("data-identification", listTareas[i].name);
-	for(var j = 0; j < document.getElementsByClassName("titulo")[i].children.length; j++){
-		document.getElementsByClassName("titulo")[i].children[j].setAttribute("data-identification", listTareas[i].name);
+	for(var j = 0; j < document.getElementsByClassName("tareas")[i].children.length; j++){
+		document.getElementsByClassName("tareas")[i].children[j].setAttribute("data-identification", listTareas[i].name);
 	}
 }
 
