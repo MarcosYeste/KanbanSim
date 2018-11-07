@@ -3,14 +3,14 @@ var click2 = 0;
 var skillCompiler;
 var allcheckBox;
 var skillsList;
-var chronoTime;
-var chronoTimeTypeSelection;
+var chronoTime = 0;
+var chronoTimeTypeSelection = "sec";
 var userO = new Object();
 
 //Llamamos a las funciones
-document.getElementById("ModPhase").addEventListener("click", saveModPhase, false);
-document.getElementById("ModUsuario").addEventListener("click", saveModUsers, false);
-document.getElementById("RmvUsuario").addEventListener("click", rmvModUsers, false);
+document.getElementById("modPhase").addEventListener("click", saveModPhase, false);
+document.getElementById("modUsuario").addEventListener("click", saveModUsers, false);
+document.getElementById("rmvUsuario").addEventListener("click", rmvModUsers, false);
 document.getElementById("addUser").addEventListener("click", addUsers, false);
 document.getElementById("addUsuario").addEventListener("click", saveAddUser, false);
 document.getElementById("modChrono").addEventListener("click", chrono, false);
@@ -77,6 +77,8 @@ function saveModPhase() {
 
 //Mostrar Datos Users
 function modUsers(){
+
+	formUserValido(saveModUsers, "mod");
 	skillsList = [];
 	click2 = parseInt(event.target.getAttribute("data-identification"));
 	var modFases = document.getElementById("modFasesUser");
@@ -120,6 +122,9 @@ function modUsers(){
 	for(var j = 0; j < allcheckBox.length; j++){
 		allcheckBox[j].addEventListener("change", function(){phasesController(event);}, false);
 	}
+	
+	document.getElementById("modNameUser").addEventListener("change", function(){
+		formUserValido(saveModUsers, "mod") }, false);
 
 	function phasesController(event){
 
@@ -176,6 +181,7 @@ function modUsers(){
 
 			document.getElementById("modSkillsUser").removeChild(document.getElementById("modPerformancesDivSkill" + event.target.value));
 			document.getElementById("modSkillsUser").removeChild(document.getElementById("mod" + event.target.value));
+			formUserValido(saveModUsers, "mod");
 		}
 	}
 
@@ -206,6 +212,8 @@ function insertInput(index1, index2){
 
 	document.getElementById("modSkillsUser").appendChild(nombreFase);
 	document.getElementById("modSkillsUser").appendChild(performancesSkillsDivMod);
+
+	formUserValido(saveModUsers, "mod");
 
 	var sliders = document.getElementsByClassName("sliderMod");
 
@@ -314,7 +322,6 @@ function rmvModUsers() {
 
 //Mostrar Datos Usuarios
 function addUsers(){
-
 	userO.name = "";
 	userO.tasksWorked = 0;
 	userO.secondByPhase = new Array();
@@ -326,6 +333,9 @@ function addUsers(){
 	rawSkills = "";
 	userO.skills = rawSkills.replace('[', '').replace(']', '').split(',');
 	userO.assigned = false;
+
+	// Comprueba que haya algo seleccionado
+	formUserValido(saveAddUser, "add");
 
 	skillsList = [];
 	var inputsDivLength = document.getElementById("addSkillsUser").childNodes.length;
@@ -363,10 +373,12 @@ function addUsers(){
 			} 
 		}
 	}
-	
+
 	for(var j = 0; j < allcheckBox.length; j++){
 		allcheckBox[j].addEventListener("change", function(){phasesController(event);}, false);
 	}
+	document.getElementById("addNameUser").addEventListener("change", function(){
+		formUserValido(saveAddUser, "add") }, false);
 
 	function phasesController(event){
 
@@ -380,7 +392,6 @@ function addUsers(){
 
 			}
 		}
-
 
 
 		if(event.target.checked){
@@ -405,6 +416,7 @@ function addUsers(){
 				}
 			}
 
+
 			var inputs = document.getElementsByClassName("sliderAdd");
 
 			for(var i = 0 ; i < inputs.length; i++){
@@ -424,7 +436,7 @@ function addUsers(){
 
 			document.getElementById("addSkillsUser").removeChild(document.getElementById("addPerformancesDivSkill" + event.target.value));
 			document.getElementById("addSkillsUser").removeChild(document.getElementById("add" + event.target.value));
-
+			formUserValido(saveAddUser, "add");
 		}
 	}
 }
@@ -451,7 +463,7 @@ function addInput(index1, index2, object){
 
 	document.getElementById("addSkillsUser").appendChild(nombreFase);
 	document.getElementById("addSkillsUser").appendChild(performancesSkillsDivMod);
-
+	formUserValido(saveAddUser, "add");
 	var sliders = document.getElementsByClassName("sliderAdd");
 
 	$( function() {
@@ -512,6 +524,36 @@ function saveAddUser(){
 
 		},success: function(data) {
 			listUsers.push(userO);
+			
+			console.table(listUsers);
+			
+			document.getElementById("addNameUser").value = "";
+			
+			document.getElementsByClassName("usersContainer")[0].innerHTML +=
+				"<div class='userName' name='"+ userO.name + 
+				"'data-toggle='modal' data-target='#myModal2'> " +
+				"<p> " +
+				"<strong>" + userO.name + "</strong> " +
+				"</p> " +
+				"<i class='fa fa-user-tie fa-2x' aria-hidden='true'></i>";
+
+			for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
+
+				document.getElementsByClassName("userName")[i].setAttribute("data-identification", i);
+				document.getElementsByClassName("userName")[i].children[0].children[0].setAttribute("data-identification", i);
+				document.getElementsByClassName("userName")[i].children[1].setAttribute("data-identification", i);
+
+				// Abrimos el formulario			
+				document.getElementsByClassName("userName")[i].addEventListener("click", modUsers , false);
+				document.getElementsByClassName("userName")[i].children[0].children[0].addEventListener("click", function(){
+					event.preventDefault();
+				});
+				document.getElementsByClassName("userName")[i].children[1].addEventListener("click", function(){
+					event.preventDefault();
+				});
+
+			}
+			userO = new Object();
 		}
 	})
 }
@@ -543,12 +585,9 @@ function chrono(){
 					console.log(minutes + ":" + seconds);
 					document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 				} else {
-					if (chronoTime < 10) {
-						document.getElementById("chronoViewer").innerHTML = "00:0"+chronoTime;
-					} else {
-						document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;
-					}
-					
+
+					if (chronoTime < 10) {chronoTime = "0"+chronoTime;}
+					document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;
 				}
 			} else {
 				chronoTime = (document.getElementById("modChronoTime").value * 60);
@@ -572,5 +611,19 @@ function chrono(){
 
 function showTaskInfo(){
 	console.log(event.target.id);
+}
+function formUserValido(funcion,accion){
 
+	// Comprovamos que el usuario introduzca algo en los campos
+	if(document.getElementById(accion + "SkillsUser").children.length == 0 || document.getElementById(accion + "NameUser").value == ""){
+		console.log(document.getElementById(accion + "SkillsUser").children.length);
+		document.getElementById(accion + "Usuario").style.opacity = 0.3;
+		document.getElementById(accion + "Usuario").removeEventListener("click", funcion, false);
+		document.getElementById(accion + "Usuario").removeAttribute("data-dismiss");
+	}else{
+		console.log(document.getElementById(accion + "SkillsUser").children.length);
+		document.getElementById(accion + "Usuario").style.opacity = 1;
+		document.getElementById(accion + "Usuario").addEventListener("click", funcion, false);
+		document.getElementById(accion + "Usuario").setAttribute("data-dismiss", "modal");
+	}
 }

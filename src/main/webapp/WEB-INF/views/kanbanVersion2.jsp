@@ -37,7 +37,10 @@
 	</div>
 
 	<h1 class="texto">KANBAN SIM</h1>
+	
+	<!-- Temporizador -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
+	
 	<div class="botonesContainer">
 
 		<!--  Button Play/Pause -->
@@ -255,7 +258,7 @@
 						</datalist>
 					</div>
 					<br>
-					<button id="ModPhase" class="btn btn-secondary"
+					<button id="modPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
 				</div>
@@ -288,12 +291,12 @@
 					<br> Rendimiento por fase:
 					<div id="modSkillsUser"></div>
 					<br>
-					<button id="ModUsuario" class="btn btn-secondary"
+					<button id="modUsuario" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
 				</div>
 				<div class="modal-footer">
-					<button id="RmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
+					<button id="rmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
 						Miembro</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
@@ -345,7 +348,7 @@
 				</div>
 
 				<div class="modal-body">
-					Tiempo: <input type="number" id="modChronoTime" value="0">
+					Tiempo: <input type="number" id="modChronoTime" min=0 value=0>
 
 					<div>
 						<input type="radio" name="chronoTimeType" value="sec" checked>Segundos
