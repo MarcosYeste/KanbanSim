@@ -258,7 +258,7 @@
 						</datalist>
 					</div>
 					<br>
-					<button id="ModPhase" class="btn btn-secondary"
+					<button id="modPhase" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
 				</div>
@@ -291,12 +291,12 @@
 					<br> Rendimiento por fase:
 					<div id="modSkillsUser"></div>
 					<br>
-					<button id="ModUsuario" class="btn btn-secondary"
+					<button id="modUsuario" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 
 				</div>
 				<div class="modal-footer">
-					<button id="RmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
+					<button id="rmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
 						Miembro</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
