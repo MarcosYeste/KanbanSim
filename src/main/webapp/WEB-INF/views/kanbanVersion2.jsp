@@ -68,7 +68,7 @@
 
 				<c:forEach items="${task}" var="task">
 
-					<div id="tareas" class="tareas">
+					<div id="tareas" class="tareas"  data-toggle="modal" data-target="#modalTaskInfo">
 
 						<p>
 							<c:out value="${task.name}"></c:out>
@@ -297,7 +297,7 @@
 		</div>
 	</div>
 		
-		<!-- Modal Modificar Temporizqdor-->
+	<!-- Modal Modificar Temporizqdor-->
 	<div class="modal fade" id="modalChrono" role="dialog">
 		<div class="modal-dialog">
 
@@ -327,6 +327,31 @@
 					 </script>
 					<button id="modChrono" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal Task Info-->
+	<div class="modal fade" id="modalTaskInfo" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Información de tarea</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+					<p id="modalTaskName">Nombre: </p>
+					<p id="modalTaskAssignedTime">Tiempo asignado: </p>
+					<p id="modalTaskTSS">Tiempo transcurrido: </p>
+					
 
 				</div>
 				<div class="modal-footer">

@@ -11,6 +11,8 @@ document.getElementById("ModPhase").addEventListener("click", saveModPhase, fals
 document.getElementById("ModUsuario").addEventListener("click", saveModUsers, false);
 document.getElementById("RmvUsuario").addEventListener("click", rmvModUsers, false);
 document.getElementById("modChrono").addEventListener("click", chrono, false);
+$(".tareas").click(showTaskInfo);
+
 
 //Mod Phases
 function modPhases(){
@@ -133,7 +135,7 @@ function modUsers(){
 		}
 		
 		if(event.target.checked){
-			
+			z
 			listUsers[click2].phases.push(event.target.value);
 			insertInput(index1, listUsers[click2].phases.indexOf(event.target.value));
 			
@@ -314,12 +316,12 @@ function chrono(){
 	
 	var radios = $("[name=chronoTimeType]");
 	
-	console.log(radios);//8
-	for(var i = 0; i < radios.length; i++){//8
+	console.log(radios);
+	for(var i = 0; i < radios.length; i++){
 		if(radios[i].checked){
 			if(radios[i].value == "sec"){
 				chronoTime = document.getElementById("modChronoTime").value;
-				var sec_num = parseInt(chronoTime, 10);//8
+				var sec_num = parseInt(chronoTime, 10);
 				if(chronoTime > 59){
 				    var minutes = Math.floor((sec_num) / 60);
 				    var seconds = sec_num - (minutes * 60);
@@ -328,7 +330,7 @@ function chrono(){
 				    console.log(minutes + ":" + seconds);
 				    document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 				} else {
-					 document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime, 10);//8
+					 document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime, 10);
 				}
 			} else {
 				chronoTime = (document.getElementById("modChronoTime").value * 60);
@@ -348,4 +350,8 @@ function chrono(){
 	
 	console.log(chronoTime);
 	
+}
+
+function showTaskInfo(){
+	console.log(event.target);
 }
