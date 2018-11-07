@@ -73,17 +73,11 @@ div #reset:hover {
 	animation-timing-function: linear;
 }
 
-@
-keyframes spin {from { transform:rotate(0deg);
-	
+@keyframes spin {
+	from { transform:rotate(0deg);}
+	to {transform: rotate(360deg);}
 }
 
-to {
-	transform: rotate(360deg);
-	W
-}
-
-}
 .img-edit {
 	z-index: -1;
 }
@@ -141,6 +135,8 @@ to {
 	margin: 0;
 }
 .legUser{
-	margin-top: -10;
-	background-color: inherit;
+	margin-top: -38px;
+	margin-bottom: -38px;
+	margin-right:15px; 
+	background-color: white;
 }
