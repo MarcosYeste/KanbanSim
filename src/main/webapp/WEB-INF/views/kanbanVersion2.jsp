@@ -300,6 +300,7 @@
 		</div>
 	</div>
 
+
 	<!-- Modal Añadir Usuarios-->
 	<div class="modal fade" id="addUsers" role="dialog">
 		<div class="modal-dialog">
@@ -329,6 +330,7 @@
 			</div>
 		</div>
 	</div>
+
 	<!-- Modal Modificar Temporizqdor-->
 	<div class="modal fade" id="modalChrono" role="dialog">
 
