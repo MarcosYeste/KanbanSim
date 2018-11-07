@@ -30,17 +30,6 @@ for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 	});
 }
 
-//
-var tasksDivs = document.getElementsByClassName("tareas");
-if(tasksDivs.length > 0){
-	for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
-		tasksDivs[i].setAttribute("data-identification", listTareas[i].name);
-		for(var j = 0; j < tasksDivs[i].children.length; j++){
-			tasksDivs[i].children[j].setAttribute("data-identification", listTareas[i].name);
-		}
-	}
-}
-
 
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de cada uno de los elementos
 for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
