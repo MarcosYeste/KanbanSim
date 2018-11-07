@@ -5,12 +5,14 @@ var allcheckBox;
 var skillsList;
 var chronoTime;
 var chronoTimeTypeSelection;
+var userO = new Object();
 
 //Llamamos a las funciones
 document.getElementById("ModPhase").addEventListener("click", saveModPhase, false);
 document.getElementById("ModUsuario").addEventListener("click", saveModUsers, false);
 document.getElementById("RmvUsuario").addEventListener("click", rmvModUsers, false);
 document.getElementById("addUser").addEventListener("click", addUsers, false);
+document.getElementById("addUsuario").addEventListener("click", saveAddUser, false);
 document.getElementById("modChrono").addEventListener("click", chrono, false);
 $(".tareas").click(showTaskInfo);
 
@@ -19,7 +21,6 @@ $(".tareas").click(showTaskInfo);
 //Mod Phases
 function modPhases(){
 	click = event.target.getAttribute("data-identification");
-	console.log(click);
 
 	// Mostramos los datos correspondientes a la fase
 	document.getElementById("modName").value = listPhases.find(x => x.id === click).name;
@@ -96,9 +97,8 @@ function modUsers(){
 		var attr = document.createAttribute("class");
 		var val = document.createAttribute("value");
 		var texto = phasesName[i].childNodes[0].textContent.trim();
-//		console.log(texto);
 		type.value = "checkbox";  
-		attr.value = "userPhaseCheck"; 
+		attr.value = "modUserPhaseCheck"; 
 		val.value = texto;
 		phaseCheck.setAttributeNode(type);
 		phaseCheck.setAttributeNode(attr);
@@ -107,8 +107,7 @@ function modUsers(){
 		$("#modFasesUser").append(texto);
 	}
 
-	allcheckBox = $(".userPhaseCheck");
-	console.log("chechboix " + allcheckBox.attr("value"));
+	allcheckBox = $(".modUserPhaseCheck");
 	for(var i = 0; i < listUsers[click2].phases.length; i++){
 		for(var j = 0; j < allcheckBox.length; j++){
 			if(allcheckBox[j].value == listUsers[click2].phases[i].trim()){
@@ -118,8 +117,8 @@ function modUsers(){
 		}
 	}
 
-	for(var j = 0; j < checkbox.length; j++){
-		checkbox[j].addEventListener("change", function(){phasesController(event);}, false);
+	for(var j = 0; j < allcheckBox.length; j++){
+		allcheckBox[j].addEventListener("change", function(){phasesController(event);}, false);
 	}
 
 	function phasesController(event){
@@ -174,9 +173,14 @@ function modUsers(){
 
 			}
 
+<<<<<<< HEAD:src/main/webapp/resources/js/modificar.js
 			document.getElementById("modSkillsUser").removeChild(document.getElementById("performancesDivSkill" + event.target.value));
 			document.getElementById("addSkillsUser").removeChild(document.getElementById(event.target.value));
 
+=======
+			document.getElementById("modSkillsUser").removeChild(document.getElementById("modPerformancesDivSkill" + event.target.value));
+			document.getElementById("modSkillsUser").removeChild(document.getElementById("mod" + event.target.value));
+>>>>>>> 1c2bd4c5e179e039f494ec83db32fe458f7190f3:src/main/webapp/resources/js/modals.js
 		}
 	}
 
@@ -189,7 +193,7 @@ function insertInput(index1, index2){
 	var performancesSkillsDivMod = document.createElement("div");
 	var performancesId = document.createAttribute("id");
 	var performancesClass = document.createAttribute("class");
-	performancesId.value = "performancesDivSkill" + allcheckBox[index1].value;
+	performancesId.value = "modPerformancesDivSkill" + allcheckBox[index1].value;
 	performancesClass.value = "sliderMod";
 
 	performancesSkillsDivMod.setAttributeNode(performancesId);
@@ -200,7 +204,7 @@ function insertInput(index1, index2){
 	var t = document.createTextNode(allcheckBox[index1].value + " : ");
 	var tId = document.createAttribute("id");
 
-	tId.value =  allcheckBox[index1].value;
+	tId.value =  "mod" + allcheckBox[index1].value;
 	nombreFase.setAttributeNode(tId);
 	nombreFase.appendChild(t);
 	nombreFase.appendChild(spanPorcentaje);
@@ -211,14 +215,14 @@ function insertInput(index1, index2){
 	var sliders = document.getElementsByClassName("sliderMod");
 
 	$( function() {
-		$( "#performancesDivSkill" + allcheckBox[index1].value ).slider({
+		$( "#modPerformancesDivSkill" + allcheckBox[index1].value ).slider({
 			value: listUsers[click2].skills[index2],
 			min: 10,
 			max: 100,
 			step: 10,
 			slide: function( event, ui ) {
 
-				$( "#" + allcheckBox[index1].value + " > span").html( ui.value + "%" );
+				$( "#mod" + allcheckBox[index1].value + " > span").html( ui.value + "%" );
 
 				for(var i = 0; i < sliders.length; i++){
 
@@ -240,7 +244,7 @@ function insertInput(index1, index2){
 
 			}
 		});
-		$( "#" + allcheckBox[index1].value + " > span").html($("#performancesDivSkill" + allcheckBox[index1].value).slider( "value" ) + "%");
+		$( "#mod" + allcheckBox[index1].value + " > span").html($("#modPerformancesDivSkill" + allcheckBox[index1].value).slider( "value" ) + "%");
 	});
 
 	skillsList.push(listUsers[click2].skills[sliders.length - 1]);
@@ -315,7 +319,7 @@ function rmvModUsers() {
 
 //Mostrar Datos Usuarios
 function addUsers(){
-	var userO = new Object();
+
 	userO.name = "";
 	userO.tasksWorked = 0;
 	userO.secondByPhase = new Array();
@@ -345,9 +349,8 @@ function addUsers(){
 		var attr = document.createAttribute("class");
 		var val = document.createAttribute("value");
 		var texto = phasesName[i].childNodes[0].textContent.trim();
-//		console.log(texto);
 		type.value = "checkbox";  
-		attr.value = "userPhaseCheck"; 
+		attr.value = "addUserPhaseCheck"; 
 		val.value = texto;
 		phaseCheck.setAttributeNode(type);
 		phaseCheck.setAttributeNode(attr);
@@ -356,8 +359,7 @@ function addUsers(){
 		$("#addFasesUser").append(texto);
 	}
 
-	allcheckBox = $(".userPhaseCheck");
-	console.log("chechboix " + allcheckBox.attr("value"));
+	allcheckBox = $(".addUserPhaseCheck");
 	for(var i = 0; i < phasesName.length; i++){
 		for(var j = 0; j < $(phasesName).length; j++){
 			if(allcheckBox[j].value == $(phasesName).text().trim()){
@@ -366,9 +368,9 @@ function addUsers(){
 			} 
 		}
 	}
-
-	for(var j = 0; j < checkbox.length; j++){
-		checkbox[j].addEventListener("change", function(){phasesController(event);}, false);
+	
+	for(var j = 0; j < allcheckBox.length; j++){
+		allcheckBox[j].addEventListener("change", function(){phasesController(event);}, false);
 	}
 
 	function phasesController(event){
@@ -411,7 +413,7 @@ function addUsers(){
 			var inputs = document.getElementsByClassName("sliderAdd");
 
 			for(var i = 0 ; i < inputs.length; i++){
-				if(inputs[i].getAttribute("id") == "performancesDivSkill"+event.target.value){
+				if(inputs[i].getAttribute("id") == "addPerformancesDivSkill"+event.target.value){
 
 					skillsList.splice(i, 1);
 				}
@@ -425,8 +427,14 @@ function addUsers(){
 
 			}
 
+<<<<<<< HEAD:src/main/webapp/resources/js/modificar.js
 			document.getElementById("addSkillsUser").removeChild(document.getElementById("performancesDivSkill" + event.target.value));
 			document.getElementById("addSkillsUser").removeChild(document.getElementById(event.target.value));
+=======
+			document.getElementById("addSkillsUser").removeChild(document.getElementById("addPerformancesDivSkill" + event.target.value));
+			document.getElementById("addSkillsUser").removeChild(document.getElementById("add" + event.target.value));
+
+>>>>>>> 1c2bd4c5e179e039f494ec83db32fe458f7190f3:src/main/webapp/resources/js/modals.js
 		}
 	}
 }
@@ -435,7 +443,7 @@ function addInput(index1, index2, object){
 	var performancesSkillsDivMod = document.createElement("div");
 	var performancesId = document.createAttribute("id");
 	var performancesClass = document.createAttribute("class");
-	performancesId.value = "performancesDivSkill" + allcheckBox[index1].value;
+	performancesId.value = "addPerformancesDivSkill" + allcheckBox[index1].value;
 	performancesClass.value = "sliderAdd";
 
 	performancesSkillsDivMod.setAttributeNode(performancesId);
@@ -446,7 +454,7 @@ function addInput(index1, index2, object){
 	var t = document.createTextNode(allcheckBox[index1].value + " : ");
 	var tId = document.createAttribute("id");
 
-	tId.value =  allcheckBox[index1].value;
+	tId.value =  "add" + allcheckBox[index1].value;
 	nombreFase.setAttributeNode(tId);
 	nombreFase.appendChild(t);
 	nombreFase.appendChild(spanPorcentaje);
@@ -457,14 +465,14 @@ function addInput(index1, index2, object){
 	var sliders = document.getElementsByClassName("sliderAdd");
 
 	$( function() {
-		$( "#performancesDivSkill" + allcheckBox[index1].value ).slider({
+		$( "#addPerformancesDivSkill" + allcheckBox[index1].value ).slider({
 			value: 10,
 			min: 10,
 			max: 100,
 			step: 10,
 			slide: function( event, ui ) {
 
-				$( "#" + allcheckBox[index1].value + " > span").html( ui.value + "%" );
+				$( "#add" + allcheckBox[index1].value + " > span").html( ui.value + "%" );
 
 				for(var i = 0; i < sliders.length; i++){
 
@@ -475,7 +483,6 @@ function addInput(index1, index2, object){
 						skillsList[i] = 10;
 					}
 
-					console.log("Skills " + skillsList);	
 				}
 
 				skillCompiler = "";
@@ -484,30 +491,37 @@ function addInput(index1, index2, object){
 
 					skillCompiler +=  skillsList[is] + ",";
 
-					console.log("value " + skillsList);
-
 				}
-
-				console.log(skillCompiler);
 
 			}
 		});
-		$( "#" + allcheckBox[index1].value + " > span").html($("#performancesDivSkill" + allcheckBox[index1].value).slider( "value" ) + "%");
+		$( "#add" + allcheckBox[index1].value + " > span").html($("#addPerformancesDivSkill" + allcheckBox[index1].value).slider( "value" ) + "%");
 	});
 
 	skillsList.push(object.skills[sliders.length - 1]);
 }
 
 function saveAddUser(){
+
+	var fases = "";
+
+	for( var i = 0; i < userO.phases.length; i++){
+		fases += userO.phases[i] + ",";
+	}
+
+	userO.name = document.getElementById("addNameUser").value;
+
 	$.ajax({
 		type: "POST",
 		url: "/addUser",
 		data: {
 
-
+			name : userO.name,
+			fases: fases,
+			skills: skillCompiler
 
 		},success: function(data) {
-			console.log(data);
+			listUsers.push(userO);
 		}
 	})
 }
@@ -524,7 +538,7 @@ if (chronoTimeTypeSelection == "sec") {
 function chrono(){
 
 	var radios = $("[name=chronoTimeType]");
-	
+
 	console.log(radios);
 	for(var i = 0; i < radios.length; i++){
 		if(radios[i].checked){
@@ -558,7 +572,7 @@ function chrono(){
 	}
 
 	console.log(chronoTime);
-	
+
 }
 
 function showTaskInfo(){
