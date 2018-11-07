@@ -173,14 +173,9 @@ function modUsers(){
 
 			}
 
-<<<<<<< HEAD:src/main/webapp/resources/js/modificar.js
-			document.getElementById("modSkillsUser").removeChild(document.getElementById("performancesDivSkill" + event.target.value));
-			document.getElementById("addSkillsUser").removeChild(document.getElementById(event.target.value));
 
-=======
 			document.getElementById("modSkillsUser").removeChild(document.getElementById("modPerformancesDivSkill" + event.target.value));
 			document.getElementById("modSkillsUser").removeChild(document.getElementById("mod" + event.target.value));
->>>>>>> 1c2bd4c5e179e039f494ec83db32fe458f7190f3:src/main/webapp/resources/js/modals.js
 		}
 	}
 
@@ -427,14 +422,9 @@ function addUsers(){
 
 			}
 
-<<<<<<< HEAD:src/main/webapp/resources/js/modificar.js
-			document.getElementById("addSkillsUser").removeChild(document.getElementById("performancesDivSkill" + event.target.value));
-			document.getElementById("addSkillsUser").removeChild(document.getElementById(event.target.value));
-=======
 			document.getElementById("addSkillsUser").removeChild(document.getElementById("addPerformancesDivSkill" + event.target.value));
 			document.getElementById("addSkillsUser").removeChild(document.getElementById("add" + event.target.value));
 
->>>>>>> 1c2bd4c5e179e039f494ec83db32fe458f7190f3:src/main/webapp/resources/js/modals.js
 		}
 	}
 }
