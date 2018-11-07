@@ -3,8 +3,8 @@ var click2 = 0;
 var skillCompiler;
 var allcheckBox;
 var skillsList;
-var chronoTime;
-var chronoTimeTypeSelection;
+var chronoTime = 0;
+var chronoTimeTypeSelection = "sec";
 var userO = new Object();
 
 //Llamamos a las funciones
@@ -525,7 +525,7 @@ if (chronoTimeTypeSelection == "sec") {
 }
 
 function chrono(){
-
+	
 	var radios = $("[name=chronoTimeType]");
 
 	console.log(radios);
@@ -542,7 +542,8 @@ function chrono(){
 					console.log(minutes + ":" + seconds);
 					document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 				} else {
-					document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime, 10);
+					if (chronoTime < 10) {chronoTime = "0"+chronoTime;}
+					document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;
 				}
 			} else {
 				chronoTime = (document.getElementById("modChronoTime").value * 60);

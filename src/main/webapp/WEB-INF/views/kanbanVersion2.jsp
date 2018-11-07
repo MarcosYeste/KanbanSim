@@ -37,7 +37,10 @@
 	</div>
 
 	<h1 class="texto">KANBAN SIM</h1>
+	
+	<!-- Temporizador -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
+	
 	<div class="botonesContainer">
 
 		<!--  Button Play/Pause -->
@@ -345,7 +348,7 @@
 				</div>
 
 				<div class="modal-body">
-					Tiempo: <input type="number" id="modChronoTime" value="0">
+					Tiempo: <input type="number" id="modChronoTime" min=0 value=0>
 
 					<div>
 						<input type="radio" name="chronoTimeType" value="sec" checked>Segundos

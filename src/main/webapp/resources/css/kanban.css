@@ -109,11 +109,16 @@ p.estado {
 	font-weight: normal
 }
 
-.modUserPhaseCheck, .addUserPhaseCheck {
+.modUserPhaseCheck, .addUserPhaseCheck, input[type='radio']{
 	display: inline;
 	margin-left: 15px;
 }
-
+input[type='radio']{
+	margin-top: 15px;
+	margin-bottom: 30px;
+	margin-left: 10px;
+	margin-right: 5px;
+}
 .divSkill {
 	display: inline;
 	margin-left: 15px;

@@ -22,7 +22,38 @@ header {
 	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #63bafa;
 }
 
-/* Modal Forms */
+/* Spin animation reset Button */
+div #reset:hover {
+	-webkit-animation-name: spin; /* Safari */
+	-webkit-animation-duration: 1000ms; /* Safari */
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-timing-function: linear;
+	-moz-animation-name: spin; /* Mozilla */
+	-moz-animation-duration: 1000ms; /* Mozilla */
+	-moz-animation-iteration-count: 1;
+	-moz-animation-timing-function: linear;
+	-ms-animation-name: spin; /* Explorer */
+	-ms-animation-duration: 1000ms; /* Explorer */
+	-ms-animation-iteration-count: 1;
+	-ms-animation-timing-function: linear;
+	animation-name: spin;
+	animation-duration: 500ms;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
+}
+
+@keyframes spin {
+	from { transform:rotate(0deg);}
+	to {transform: rotate(360deg);}
+}
+.img-edit {
+	z-index: -1;
+}
+
+
+
+/* FORMS */
+
 label, input {
 	display: block;
 }
@@ -52,43 +83,6 @@ h1 {
 	margin-bottom: 2px;
 	padding-top: 2%;
 }
-
-/* Spin animation reset Button */
-div #reset:hover {
-	-webkit-animation-name: spin; /* Safari */
-	-webkit-animation-duration: 1000ms; /* Safari */
-	-webkit-animation-iteration-count: 1;
-	-webkit-animation-timing-function: linear;
-	-moz-animation-name: spin; /* Mozilla */
-	-moz-animation-duration: 1000ms; /* Mozilla */
-	-moz-animation-iteration-count: 1;
-	-moz-animation-timing-function: linear;
-	-ms-animation-name: spin; /* Explorer */
-	-ms-animation-duration: 1000ms; /* Explorer */
-	-ms-animation-iteration-count: 1;
-	-ms-animation-timing-function: linear;
-	animation-name: spin;
-	animation-duration: 500ms;
-	animation-iteration-count: 1;
-	animation-timing-function: linear;
-}
-
-@
-keyframes spin {from { transform:rotate(0deg);
-	
-}
-
-to {
-	transform: rotate(360deg);
-	W
-}
-
-}
-.img-edit {
-	z-index: -1;
-}
-
-/* FORMS */
 .form-control[type=color] {
 	height: auto;
 }
@@ -145,4 +139,14 @@ to {
 	margin-bottom: -38px;
 	margin-right:15px; 
 	background-color: white;
+}
+
+/* TEMPORIZADOR */
+#chronoViewer{
+	font-weight:bold;
+	font-size: 30px;
+	position: absolute;
+	margin-left: 12%;
+	margin-top: 3%;
+	border: 1px solid black;
 }
