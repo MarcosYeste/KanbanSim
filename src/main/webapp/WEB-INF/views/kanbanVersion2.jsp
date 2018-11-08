@@ -383,9 +383,9 @@
 				<div class="modal-body">
 				
 					<p id="modalTaskName">Nombre: </p><p id="modalTaskNameValue"> </p>
-					<p id="modalTaskAssignedTimes">Tiempo asignado por fase: </p>
-					<p id="modalTaskTSS">Tiempo real por fases: </p>
-					<p id="modalTaskLTCT">LT y CT estimado: </p>
+					<p id="modalTaskAssignedTimes">Tiempo asignado por fase: ><p id="modalTaskTimeWorkedValue"></p>
+					<p id="modalTaskTSS">Tiempo real por fases: ><p id="modalTaskTSSValue"></p>
+					<p id="modalTaskLTCT">LT y CT estimado: ><p id="modalTaskLTCTValue"></p>
 					
 				</div>
 				<div class="modal-footer">

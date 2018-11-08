@@ -332,7 +332,9 @@ function addUsers(){
 	rawSkills = "";
 	userO.skills = rawSkills.replace('[', '').replace(']', '').split(',');
 	userO.assigned = false;
-
+	
+	document.getElementById("addNameUser").value = "";
+	
 	// Comprueba que haya algo seleccionado
 	formUserValido(saveAddUser, "add");
 
