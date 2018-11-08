@@ -297,10 +297,22 @@ input[type='radio']{
 	margin-top: 2%;
 	margin-bottom: 1%;
 	background-color: white;
-	text-align: left;
+	text-align: center;
+	display :flex;
+	justify-content: space-around;
 	text-shadow: 0.1px 0.1px 0.2px black;
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
+}
+.th{
+	display:flex;
+	flex-direction: column;	
+}
+
+.stados{
+	display:flex;
+	flex-direction: row;
+	justify-content: space-around;
 }
 
 .userResultadoDiv {
