@@ -110,9 +110,11 @@ function modUsers(){
 	}
 
 	allcheckBox = $(".modUserPhaseCheck");
+	
 	for(var i = 0; i < listUsers[click2].phases.length; i++){
 		for(var j = 0; j < allcheckBox.length; j++){
 			if(allcheckBox[j].value == listUsers[click2].phases[i].trim()){
+				console.log(allcheckBox[j].value);
 				allcheckBox[j].checked = true;	
 				insertInput(j, i);
 			} 
@@ -194,6 +196,7 @@ function insertInput(index1, index2){
 	var performancesSkillsDivMod = document.createElement("div");
 	var performancesId = document.createAttribute("id");
 	var performancesClass = document.createAttribute("class");
+	allcheckBox[index1].value = allcheckBox[index1].value.replace(" ", "");
 	performancesId.value = "modPerformancesDivSkill" + allcheckBox[index1].value;
 	performancesClass.value = "sliderMod";
 
@@ -365,15 +368,20 @@ function addUsers(){
 	}
 
 	allcheckBox = $(".addUserPhaseCheck");
+	
+	
+	
 	for(var i = 0; i < phasesName.length; i++){
 		for(var j = 0; j < $(phasesName).length; j++){
 			if(allcheckBox[j].value == $(phasesName).text().trim()){
+				allcheckBox[j].value.replace(" ", "");
+				console.log(allcheckBox[j].value);
 				allcheckBox[j].checked = true;	
 				addInput(j, i, userO);
 			} 
 		}
 	}
-
+	
 	for(var j = 0; j < allcheckBox.length; j++){
 		allcheckBox[j].addEventListener("change", function(){phasesController(event);}, false);
 	}

@@ -9,7 +9,7 @@
 <head>
 <title>Kanban</title>
 <link rel="stylesheet" href="/resources/css/kanban.css">
-
+<link rel="shortcut icon" href="#" />
 
 </head>
 <body>

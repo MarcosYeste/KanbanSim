@@ -474,9 +474,7 @@ function play() {
 		});
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && chronoTime != 0)) {
-			listTareas.forEach(function(task) {
-
-			});
+			
 			// Finalizado completamente
 			clearInterval(myInterval);
 
@@ -497,7 +495,7 @@ function play() {
 
 		leadTime += 1;
 		console.log("::: LEAD TIEM ::::: "+leadTime);
-		if(chronoTime != null){
+		if(chronoTime != ""){
 			if(chronoTime > 59){
 				var sec_num = parseInt(chronoTime - kanbanTss, 10);//8
 			    var minutes = Math.floor((sec_num) / 60);
@@ -803,18 +801,39 @@ function deshabilitarMenus(disable){
 			document.getElementsByClassName("titulo")[i3].removeAttribute("data-toggle", "modal");
 
 		}
+		
+		// Y quitamos el acceso a el formulario de modificación
+		for (var i4 = 0; i4 < document.getElementsByClassName("tareas").length; i4++){
+
+			document.getElementsByClassName("tareas")[i4].removeAttribute("data-target", "#modalTaskInfo");
+			document.getElementsByClassName("tareas")[i4].removeAttribute("data-toggle", "modal");
+
+		}
 
 		// Y quitamos el acceso a el formulario de modificación
-		for (var i4 = 0; i4 < document.getElementsByClassName("userName").length; i4++){
+		for (var i5 = 0; i5 < document.getElementsByClassName("userName").length; i5++){
 
-			document.getElementsByClassName("userName")[i4].removeAttribute("data-target", "#myModal2");
-			document.getElementsByClassName("userName")[i4].removeAttribute("data-toggle", "modal");
+			document.getElementsByClassName("userName")[i5].removeAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[i5].removeAttribute("data-toggle", "modal");
 
 		}
 
 		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
-
+		
+		// quitamos el modal en addUsers
+		document.getElementById("chronoViewer").setAttribute("disabled", "");
+		document.getElementById("chronoViewer").setAttribute("aria-disabled", "true");
+		document.getElementById("chronoViewer").removeAttribute("data-target");
+		document.getElementById("chronoViewer").removeAttribute("data-toggle");
+		
+		// quitamos el modal en addUsers
+		document.getElementById("addUser").setAttribute("disabled", "");
+		document.getElementById("addUser").setAttribute("aria-disabled", "true");
+		document.getElementById("addUser").removeAttribute("data-target");
+		document.getElementById("addUser").removeAttribute("data-toggle");
+		
+		
 		$( function() {
 			$( "#faseDiv" ).sortable({ disabled : true})
 			$( "#faseDiv").css("cursor", "default");
@@ -848,12 +867,31 @@ function deshabilitarMenus(disable){
 		}
 
 		// Permitimos de nuevo abrir el modal de modificación y eliminación
-		for (var ic = 0; ic < document.getElementsByClassName("userName").length; ic++){
+		for (var ic = 0; ic < document.getElementsByClassName("tareas").length; ic++){
 
-			document.getElementsByClassName("userName")[ic].setAttribute("data-target", "#myModal2");
-			document.getElementsByClassName("userName")[ic].setAttribute("data-toggle", "modal");
+			document.getElementsByClassName("tareas")[ic].setAttribute("data-target", "#modalTaskInfo");
+			document.getElementsByClassName("tareas")[ic].setAttribute("data-toggle", "modal");
 
 		}
+		
+		// Permitimos de nuevo abrir el modal de modificación y eliminación
+		for (var id = 0; id < document.getElementsByClassName("userName").length; id++){
+
+			document.getElementsByClassName("userName")[id].setAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[id].setAttribute("data-toggle", "modal");
+
+		}
+		// Colocamos de nuevo el modal en chrono
+		document.getElementById("chronoViewer").removeAttribute("disabled");
+		document.getElementById("chronoViewer").removeAttribute("aria-disabled");
+		document.getElementById("chronoViewer").setAttribute("data-target", "#modalChrono");
+		document.getElementById("chronoViewer").setAttribute("data-toggle", "modal");
+		
+		// Colocamos de nuevo el modal en addUsers
+		document.getElementById("addUser").removeAttribute("disabled");
+		document.getElementById("addUser").removeAttribute("aria-disabled");
+		document.getElementById("addUser").setAttribute("data-target", "#addUsers");
+		document.getElementById("addUser").setAttribute("data-toggle", "modal");
 	}
 }
 function sortPhases(){
