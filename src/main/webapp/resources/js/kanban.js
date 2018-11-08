@@ -494,8 +494,8 @@ function play() {
 		}
 
 		leadTime += 1;
-		console.log("::: LEAD TIEM ::::: "+leadTime);
-		if(chronoTime != ""){
+		console.log("::: LEAD TIME ::::: "+leadTime);
+		if(chronoTime != null){
 			if(chronoTime > 59){
 				var sec_num = parseInt(chronoTime - kanbanTss, 10);//8
 			    var minutes = Math.floor((sec_num) / 60);
@@ -830,8 +830,8 @@ function deshabilitarMenus(disable){
 		// quitamos el modal en addUsers
 		document.getElementById("addUser").setAttribute("disabled", "");
 		document.getElementById("addUser").setAttribute("aria-disabled", "true");
-		document.getElementById("addUser").removeAttribute("data-target");
-		document.getElementById("addUser").removeAttribute("data-toggle");
+		document.getElementById("addUser").children[0].removeAttribute("data-target");
+		document.getElementById("addUser").children[0].removeAttribute("data-toggle");
 		
 		
 		$( function() {
@@ -881,6 +881,7 @@ function deshabilitarMenus(disable){
 			document.getElementsByClassName("userName")[id].setAttribute("data-toggle", "modal");
 
 		}
+		
 		// Colocamos de nuevo el modal en chrono
 		document.getElementById("chronoViewer").removeAttribute("disabled");
 		document.getElementById("chronoViewer").removeAttribute("aria-disabled");
@@ -890,8 +891,8 @@ function deshabilitarMenus(disable){
 		// Colocamos de nuevo el modal en addUsers
 		document.getElementById("addUser").removeAttribute("disabled");
 		document.getElementById("addUser").removeAttribute("aria-disabled");
-		document.getElementById("addUser").setAttribute("data-target", "#addUsers");
-		document.getElementById("addUser").setAttribute("data-toggle", "modal");
+		document.getElementById("addUser").children[0].setAttribute("data-target", "#addUsers");
+		document.getElementById("addUser").children[0].setAttribute("data-toggle", "modal");
 	}
 }
 function sortPhases(){

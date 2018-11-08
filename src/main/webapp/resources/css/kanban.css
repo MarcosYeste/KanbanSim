@@ -243,7 +243,10 @@ input[type='radio']{
 	opacity: 0.3;
 	cursor: default;
 }
-
+#addUser{
+	background-color: transparent;
+	border: transparent;
+}
 /* RESULTADOS */
 .mostrarResultadosDiv {
 	justify-content: space-around;

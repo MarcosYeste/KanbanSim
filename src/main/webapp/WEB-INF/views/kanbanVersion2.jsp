@@ -37,10 +37,10 @@
 	</div>
 
 	<h1 class="texto">KANBAN SIM</h1>
-	
+
 	<!-- Temporizador -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
-	
+
 	<div class="botonesContainer">
 
 		<!--  Button Play/Pause -->
@@ -71,7 +71,8 @@
 
 				<c:forEach items="${task}" var="task">
 
-					<div class="tareas"  data-toggle="modal" data-target="#modalTaskInfo">
+					<div class="tareas" data-toggle="modal"
+						data-target="#modalTaskInfo">
 
 						<p>
 							<c:out value="${task.name}"></c:out>
@@ -180,9 +181,11 @@
 	</div>
 	<fieldset class="teamField">
 		<legend class="teamField">Miembros del Equipo:</legend>
-		<span style="float: right;" class="legUser"><i
-			class="fas fa-user-plus fa-2x" id="addUser" data-toggle="modal"
-			data-target="#addUsers"></i></span>
+		<span style="float: right;" class="legUser"><button
+				id="addUser">
+				<i class="fas fa-user-plus fa-2x" data-toggle="modal"
+					data-target="#addUsers"></i>
+			</button></span>
 		<div class="usersContainer">
 
 			<c:forEach items="${user}" var="user">
@@ -363,7 +366,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- Modal Task Info-->
 	<div class="modal fade" id="modalTaskInfo" role="dialog">
 		<div class="modal-dialog">
@@ -376,10 +379,10 @@
 				</div>
 
 				<div class="modal-body">
-					<p id="modalTaskName">Nombre: </p>
-					<p id="modalTaskAssignedTime">Tiempo asignado: </p>
-					<p id="modalTaskTSS">Tiempo transcurrido: </p>
-					
+					<p id="modalTaskName">Nombre:</p>
+					<p id="modalTaskAssignedTime">Tiempo asignado:</p>
+					<p id="modalTaskTSS">Tiempo transcurrido:</p>
+
 
 				</div>
 				<div class="modal-footer">
