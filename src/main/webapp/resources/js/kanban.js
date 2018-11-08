@@ -8,7 +8,7 @@ var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
-// Guardar al modificar Phase
+//Guardar al modificar Phase
 sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
@@ -118,7 +118,7 @@ function play() {
 	myInterval = setInterval(function() {
 
 		kanbanTss++;
-		
+
 		for (var i = 0; i < fases.length; i++) {
 
 			var doing = fases[i].lastElementChild.firstElementChild;
@@ -255,12 +255,12 @@ function play() {
 										user.assigned = true;
 
 										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
-								
+
 											task.duration = 1;
 										} else {
 											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 										}
-										
+
 									}
 
 								}
@@ -274,7 +274,7 @@ function play() {
 									if(assignedUser.includes((user.name))){
 										user.secondsWork += 1;
 										if(user.secondByPhase[i] ==  undefined){
-											
+
 											user.secondByPhase[i] = 1;
 										}else{
 											user.secondByPhase[i] += 1;
@@ -297,7 +297,7 @@ function play() {
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 
-							
+
 
 
 						} else {
@@ -449,10 +449,8 @@ function play() {
 
 		});
 
-		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && chronoTime != 0)) {
-			listTareas.forEach(function(task) {
 
-			});
+		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
 			// Finalizado completamente
 			clearInterval(myInterval);
 
@@ -472,32 +470,34 @@ function play() {
 		}
 
 		leadTime += 1;
-		console.log("::: LEAD TIEM ::::: "+leadTime);
-		if(chronoTime != null){
+
+		console.log("::: LEAD TIME ::::: "+leadTime);
+		if(chronoTime != ""){
+
 			if(chronoTime > 59){
 				var sec_num = parseInt(chronoTime - kanbanTss, 10);//8
-			    var minutes = Math.floor((sec_num) / 60);
-			    var seconds = sec_num - (minutes * 60);
-			    if (minutes < 10) {minutes = "0"+minutes;}
-			    if (seconds < 10) {seconds = "0"+seconds;}
-			    document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
+				var minutes = Math.floor((sec_num) / 60);
+				var seconds = sec_num - (minutes * 60);
+				if (minutes < 10) {minutes = "0"+minutes;}
+				if (seconds < 10) {seconds = "0"+seconds;}
+				document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 			} else {
 				if(chronoTime - kanbanTss < 10 ){
 					document.getElementById("chronoViewer").innerHTML = "00:0"+(chronoTime - kanbanTss);
 				} else {
-				    document.getElementById("chronoViewer").innerHTML = "00:"+(chronoTime - kanbanTss);
+					document.getElementById("chronoViewer").innerHTML = "00:"+(chronoTime - kanbanTss);
 				}
 			}
-		}
-		
+		} 
+
 	}, 1000);
 
 }
 
 
 function saveTimeStates(task,leadTime,i){
-	
-	
+
+
 	if(task.state == "ToDo"){
 		if(task.statsTime[0] == undefined && task.statsTime[1] == undefined && task.statsTime[2] == undefined){
 			task.statsTime[0] = 0;task.statsTime[1] = 0;task.statsTime[2] =0;
@@ -510,44 +510,44 @@ function saveTimeStates(task,leadTime,i){
 			task.phasesTime[i] = saveNewTimePhase(task.statsTime);
 			task.statsTime = [0,0,0];
 		}
-		
+
 	}else if (task.state == "Doing"){
-		
+
 		if(task.phase > 1){			
-				task.statsTime[0]= leadTime - task.startTime - sumaFasesTiempo(task.phasesTime);			
+			task.statsTime[0]= leadTime - task.startTime - sumaFasesTiempo(task.phasesTime);			
 		}else{			
-				task.statsTime[0]= leadTime - task.startTime;
+			task.statsTime[0]= leadTime - task.startTime;
 		}
-		
+
 	}else if(task.state == "Done"){
 		if(task.phase > 1){
 			task.statsTime[1]= leadTime - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime);
 		}else{
 			task.statsTime[1]= leadTime - task.statsTime[0]- task.startTime;
 		}
-		
+
 	}else{
-		
+
 		console.log("Ended");
 		if(task.phase > 1){
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime);
 		}else{
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime;
-			
+
 		}
 		task.timeByStats.push(task.statsTime);
 		console.log(">>>>>>>>>>>>>>>>>>>  termina LA I VALE "+i);
 		task.phasesTime[i] = saveNewTimePhase(task.statsTime);
 		task.statsTime = [0,0,0];
 	}
-	
-	
+
+
 }
 function sumaFasesTiempo(phasesTime){
 	var suma = 0;
 	for (var i = 0; i < phasesTime.length; i++) {
 		suma += phasesTime[i];
-		
+
 	}
 	return suma;
 }
@@ -555,7 +555,7 @@ function saveNewTimePhase(statsTime){
 	var suma = 0;
 	for(var i = 0; i < statsTime.length; i++){
 		suma += statsTime[i];
-		
+
 	}
 	console.log("Total de esta fase: "+suma);
 	return suma;
@@ -588,7 +588,7 @@ function mostrarResultados() {
 	h3.innerHTML = "<strong>Tabla de Resultados</strong>";
 	div2.appendChild(h3);
 	div.appendChild(div2);
-	
+
 	// Resultado fases
 	div4.className = "faseResultadoDiv";
 	subdiv4.className = "faseResultado";
@@ -599,7 +599,7 @@ function mostrarResultados() {
 	var cv = 0;	
 	listPhases.forEach(function(phase) {
 
-		
+
 		tabla +="<th><div class='th'>"+phase.name+" ( "+phase.period+"s )</div></th>";
 		cv++;
 
@@ -628,12 +628,12 @@ function mostrarResultados() {
 		tabla += "<td>"+task.name+"</td>";
 		var i = 0;
 		mediaPorFases.push(task.timeByStats);//guardo 3 multi array
+
 		task.timeByStats.forEach(function(times) {	
 			var time = JSON.stringify(times);
 			time = JSON.parse(time);
 			tabla += "<td><div class='stados'><p>"+time[0]+"s</p><p>"+time[1]+"s</p><p>"+time[2]+"s</p></div></td>";
 			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
-			
 			i++;
 		});	
 		
@@ -668,7 +668,7 @@ function mostrarResultados() {
 	var nombresArray = [];
 	var idU=0;
 	listUsers.forEach(function(user) {
-		
+
 		user.secondsNotWorked = leadTime - user.secondsWork;
 		subsubdiv5.innerHTML += '<div id='+idU+' onclick="mostrarDorsoUsuarios(this.id,'+JSON.stringify(user.secondByPhase)+')" class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
 		'<p> Tareas trabajadas: '+user.tasksWorked+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p><p>Tiempo inactivo: '+user.secondsNotWorked+' Segundos</p><small style="color:blue">Ver más</small></div>';
@@ -796,29 +796,30 @@ function mediaFasestotal(taskArray){
 	z++;
 	}
  return arrayFases;
+
 }
 function calculoTiemposTotalesFase(){
 	var i = 0;
 	listPhases.forEach(function(phase) {
-		
-			if(phase.period=undefined){
-				phase.period = 0;
-			}
-			
-			var valor = subCalculoTiempos(i);
-			phase.period = valor;
-			i++;
+
+		if(phase.period=undefined){
+			phase.period = 0;
+		}
+
+		var valor = subCalculoTiempos(i);
+		phase.period = valor;
+		i++;
 	});
 }
 function subCalculoTiempos(i){
 	var total = 0 ;
-	
+
 	for( var k = 0 ; k < listTareas[i].phasesTime.length ; k++){
 		total += listTareas[k].phasesTime[i];
 	}
-		
-		return total;
-	
+
+	return total;
+
 }
 
 function mostrarDorsoUsuarios(id,secondByPhase){
@@ -952,15 +953,36 @@ function deshabilitarMenus(disable){
 		}
 
 		// Y quitamos el acceso a el formulario de modificación
-		for (var i4 = 0; i4 < document.getElementsByClassName("userName").length; i4++){
+		for (var i4 = 0; i4 < document.getElementsByClassName("tareas").length; i4++){
 
-			document.getElementsByClassName("userName")[i4].removeAttribute("data-target", "#myModal2");
-			document.getElementsByClassName("userName")[i4].removeAttribute("data-toggle", "modal");
+			document.getElementsByClassName("tareas")[i4].removeAttribute("data-target", "#modalTaskInfo");
+			document.getElementsByClassName("tareas")[i4].removeAttribute("data-toggle", "modal");
+
+		}
+
+		// Y quitamos el acceso a el formulario de modificación
+		for (var i5 = 0; i5 < document.getElementsByClassName("userName").length; i5++){
+
+			document.getElementsByClassName("userName")[i5].removeAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[i5].removeAttribute("data-toggle", "modal");
 
 		}
 
 		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
+
+		// quitamos el modal en addUsers
+		document.getElementById("chronoViewer").setAttribute("disabled", "");
+		document.getElementById("chronoViewer").setAttribute("aria-disabled", "true");
+		document.getElementById("chronoViewer").removeAttribute("data-target");
+		document.getElementById("chronoViewer").removeAttribute("data-toggle");
+
+		// quitamos el modal en addUsers
+		document.getElementById("addUser").setAttribute("disabled", "");
+		document.getElementById("addUser").setAttribute("aria-disabled", "true");
+		document.getElementById("addUser").children[0].removeAttribute("data-target");
+		document.getElementById("addUser").children[0].removeAttribute("data-toggle");
+
 
 		$( function() {
 			$( "#faseDiv" ).sortable({ disabled : true})
@@ -995,12 +1017,32 @@ function deshabilitarMenus(disable){
 		}
 
 		// Permitimos de nuevo abrir el modal de modificación y eliminación
-		for (var ic = 0; ic < document.getElementsByClassName("userName").length; ic++){
+		for (var ic = 0; ic < document.getElementsByClassName("tareas").length; ic++){
 
-			document.getElementsByClassName("userName")[ic].setAttribute("data-target", "#myModal2");
-			document.getElementsByClassName("userName")[ic].setAttribute("data-toggle", "modal");
+			document.getElementsByClassName("tareas")[ic].setAttribute("data-target", "#modalTaskInfo");
+			document.getElementsByClassName("tareas")[ic].setAttribute("data-toggle", "modal");
 
 		}
+
+		// Permitimos de nuevo abrir el modal de modificación y eliminación
+		for (var id = 0; id < document.getElementsByClassName("userName").length; id++){
+
+			document.getElementsByClassName("userName")[id].setAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[id].setAttribute("data-toggle", "modal");
+
+		}
+
+		// Colocamos de nuevo el modal en chrono
+		document.getElementById("chronoViewer").removeAttribute("disabled");
+		document.getElementById("chronoViewer").removeAttribute("aria-disabled");
+		document.getElementById("chronoViewer").setAttribute("data-target", "#modalChrono");
+		document.getElementById("chronoViewer").setAttribute("data-toggle", "modal");
+
+		// Colocamos de nuevo el modal en addUsers
+		document.getElementById("addUser").removeAttribute("disabled");
+		document.getElementById("addUser").removeAttribute("aria-disabled");
+		document.getElementById("addUser").children[0].setAttribute("data-target", "#addUsers");
+		document.getElementById("addUser").children[0].setAttribute("data-toggle", "modal");
 	}
 }
 function sortPhases(){
