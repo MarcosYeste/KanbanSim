@@ -160,7 +160,7 @@ function play() {
 
 					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 					task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
-
+					task.esfuerzo += task.duration;
 					task.durarionAsignada = false;
 
 
@@ -344,6 +344,7 @@ function play() {
 								// ________ESTO VA EN EL IF 4
 
 								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);	
+								task.esfuerzo += task.duration;
 								task.startTime = leadTime;
 							}								
 						} //if end
@@ -721,7 +722,7 @@ function mostrarResultados() {
 		subDiv.className = "tareaResultado";
 		subDiv.id = "T"+idT;
 		idT++;
-		subDiv.setAttribute("onClick", "mostrarDorsoTarea(this.id,"+JSON.stringify(task.phasesTime)+")");
+		subDiv.setAttribute("onClick", "mostrarDorsoTarea(this.id,"+JSON.stringify(task.phasesTime)+","+task.esfuerzo+")");
 		text = document.createTextNode( task.name );
 		p.appendChild(text);
 		subDiv.appendChild(p);
@@ -813,9 +814,7 @@ function calculoTiemposTotalesFase(){
 }
 function subCalculoTiempos(i){
 	var total = 0 ;
-console.log(listTareas.length);
 	for( var k = 0 ; k < listTareas.length ; k++){
-		console.log(i);
 		total += listTareas[k].phasesTime[i];
 	}
 
@@ -839,7 +838,7 @@ function mostrarDorsoUsuarios(id,secondByPhase){
 	U.setAttribute("onClick","mostrarResultados()");
 }
 
-function mostrarDorsoTarea(id,phasesTime){
+function mostrarDorsoTarea(id,phasesTime,esfuerzo){
 	var T = document.getElementById(id);
 	var i = 0;
 	T.innerHTML = "";
@@ -848,6 +847,8 @@ function mostrarDorsoTarea(id,phasesTime){
 		T.innerHTML += "<p>Time on "+phase.name+": "+phasesTime[i]+"''</p>";
 		i++;
 	});
+		T.innerHTML += "<p>Esfuerzo "+esfuerzo+"''</p>";
+	
 	T.innerHTML += "<small style='color:blue'>Ver más</small>";
 	T.setAttribute("onClick","mostrarResultados()");
 }
