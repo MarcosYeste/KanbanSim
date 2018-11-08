@@ -8,6 +8,7 @@ var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
+
 //Guardar al modificar Phase
 sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
@@ -194,6 +195,9 @@ function play() {
 									document.getElementsByName(listUsers[w].name)[0].children[1].style.color = "black";
 									document.getElementsByName(listUsers[w].name)[0].style.borderColor = "blue";
 
+									if(document.getElementById("modalTaskNameValue").innerHTML == task.name){
+										document.getElementById("modalTaskWorkedValue").innerHTML += listUsers[w].name + ",";
+									}
 								}
 							}
 						}
@@ -227,7 +231,7 @@ function play() {
 
 										if(user.phases[up].trim() != actualPhaseName.trim()){
 											for(var t = 0; t < listTareas.length; t++){												
-												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){//8
+												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){
 													isTotallyFree = true;
 												} else {
 													isTotallyFree = false;
@@ -249,7 +253,7 @@ function play() {
 
 										task.assignedUsers.push(user.name);
 										if(!task.staticAssigneds.includes((user.name)+" ")){											
-											user.tasksWorked += 1;//8
+											user.tasksWorked += 1;
 											task.staticAssigneds += (user.name)+" ";
 										}
 										user.assigned = true;
@@ -352,6 +356,7 @@ function play() {
 
 						//IF 5
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
+
 						var phaseSkill;
 
 						listUsers.forEach(function(user) {
@@ -411,13 +416,26 @@ function play() {
 											}
 										}
 
-										if(isTotallyFree){
+										// Asignar tarea Empezada, tarea Multiusuario
+										if(isTotallyFree){ 
 											task.assignedUsers.push(user.name);
 											if(!task.staticAssigneds.includes((user.name)+" ")){
 												user.tasksWorked += 1;
 												task.staticAssigneds += (user.name)+" ";
+
 											}
 											user.assigned = true;
+
+//											// Usuarios Que han trabajado en esa tarea
+//											if(document.getElementById("modalTaskNameValue").innerHTML == task.name){
+//												document.getElementById("modalTaskWorkedValue").innerHTML = task.staticAssigneds
+//												do {
+//
+//													document.getElementById("modalTaskWorkedValue").innerHTML = document.getElementById("modalTaskWorkedValue").innerHTML.replace(" ", ",");
+//
+//												}while(document.getElementById("modalTaskWorkedValue").innerHTML.indexOf(" ") != -1);
+//											}
+//											console.log("Adios");
 											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 												task.duration = 1;
 											} else {
@@ -425,16 +443,15 @@ function play() {
 											}
 
 										}
-									}//8
+									}
 								}
 
 								if(user.assigned){
+
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 									document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
 									document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
 
-
-									// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
 								}
 							} 
 						}); //foreach 				
@@ -475,7 +492,7 @@ function play() {
 		if(chronoTime != ""){
 
 			if(chronoTime > 59){
-				var sec_num = parseInt(chronoTime - kanbanTss, 10);//8
+				var sec_num = parseInt(chronoTime - kanbanTss, 10);
 				var minutes = Math.floor((sec_num) / 60);
 				var seconds = sec_num - (minutes * 60);
 				if (minutes < 10) {minutes = "0"+minutes;}
@@ -636,9 +653,9 @@ function mostrarResultados() {
 			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
 			i++;
 		});	
-		
+
 		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
-		
+
 		tabla += "<td><div class='stados'><p>"+mediaPorTarea[l][0]+"s</p><p>"+mediaPorTarea[l][1]+"s</p><p>"+mediaPorTarea[l][2]+"s</p></div></td>";
 		tabla += "</tr>";
 		l++;
@@ -745,14 +762,14 @@ function mostrarResultados() {
 	div.appendChild(div5);
 }
 
-// calcula media por tareas
+//calcula media por tareas
 function calcularMediaPorTarea(mediaPorTarea,timeByStats){
 	var sumaTodo = 0;
 	var  sumaDoing = 0;
 	var sumadone = 0;
 	var num = 0 ;
-	timeByStats = timeByStats;
-	
+//	timeByStats = timeByStats;
+
 	for (var i = 0; i < timeByStats.length; i++) {
 		sumaTodo += timeByStats[i][0];
 		sumaDoing += timeByStats[i][1];
@@ -763,10 +780,10 @@ function calcularMediaPorTarea(mediaPorTarea,timeByStats){
 	sumaTodo = Math.round( (sumaTodo / num) * 10 ) / 10;
 	sumaDoing = Math.round( (sumaDoing / num) * 10 ) / 10;
 	sumadone = Math.round( (sumadone / num ) * 10 ) / 10;
-	
+
 	mediaPorTarea = [sumaTodo,sumaDoing,sumadone];
 	return mediaPorTarea;
-	
+
 }
 
 //media de las fases por separado
@@ -777,25 +794,25 @@ function mediaFasestotal(taskArray){
 	var z = 0;
 	var array = taskArray;	
 	var arrayFases  = new Array();
-	var numero =0;
+	var numero = 0;
 	while (z < array[0].length){
 		var sumaTodos =0;
 		var sumaDoing = 0;
 		var sumaDone = 0;
 		for (var i = 0; i < array.length; i++) {
-				
+
 			sumaTodos += array[i][z][0];
 			sumaDoing += array[i][z][1];
 			sumaDone  += array[i][z][2];								
-				
+
 		}
 		sumaTodos = Math.round((sumaTodos / array[0][0].length)* 10 ) / 10;
 		sumaDoing = Math.round((sumaDoing / array[0][0].length) * 10 ) / 10;
 		sumaDone  =  Math.round((sumaDone / array[0][0].length) * 10 ) / 10;
-	arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
-	z++;
+		arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
+		z++;
 	}
- return arrayFases;
+	return arrayFases;
 
 }
 function calculoTiemposTotalesFase(){
@@ -826,7 +843,7 @@ function mostrarDorsoUsuarios(id,secondByPhase){
 	var U = document.getElementById(id);
 	var i = 0;
 	U.innerHTML = "";
-	secondByPhase = secondByPhase;
+
 	listPhases.forEach(function(phase) {
 		if(secondByPhase[i] == undefined || secondByPhase[i] == null){
 			secondByPhase[i]= 0;
@@ -842,7 +859,7 @@ function mostrarDorsoTarea(id,phasesTime){
 	var T = document.getElementById(id);
 	var i = 0;
 	T.innerHTML = "";
-	phasesTime = phasesTime;
+//	phasesTime = phasesTime;
 	listPhases.forEach(function(phase) {	
 		T.innerHTML += "<p>Time on "+phase.name+": "+phasesTime[i]+"''</p>";
 		i++;
@@ -854,8 +871,8 @@ function mostrarDorsoTarea(id,phasesTime){
 function findMaxAndMin(){
 	var max = 0;
 	var min = 500;
-	var userMax = "";
-	var userMin = "";
+//	var userMax = "";
+//	var userMin = "";
 	var taskmax = 0 ;
 	var taskmin = 0;
 	var array = [];
@@ -923,7 +940,7 @@ function mostrarKanban(){
 	playPause.children[0].removeAttribute("aria-disabled");
 	playPause.children[1].style.opacity=1;
 	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
-	document.getElementById("result").setAttribute("onClick", "generarResultados()");;
+	document.getElementById("result").setAttribute("onClick", "generarResultados()");
 }
 
 function deshabilitarMenus(disable){
@@ -940,7 +957,7 @@ function deshabilitarMenus(disable){
 		// Deshabilitamos los botones del header
 		for (var i2 = 0; i2 < document.getElementById("doubleButton").children.length; i2++){
 
-			document.getElementById("doubleButton").children[i2].setAttribute("disabled", "");;
+			document.getElementById("doubleButton").children[i2].setAttribute("disabled", "");
 			document.getElementById("doubleButton").children[i2].setAttribute("aria-disabled", "true");
 		}
 
@@ -949,14 +966,6 @@ function deshabilitarMenus(disable){
 
 			document.getElementsByClassName("titulo")[i3].removeAttribute("data-target", "#myModal");
 			document.getElementsByClassName("titulo")[i3].removeAttribute("data-toggle", "modal");
-
-		}
-
-		// Y quitamos el acceso a el formulario de modificación
-		for (var i4 = 0; i4 < document.getElementsByClassName("tareas").length; i4++){
-
-			document.getElementsByClassName("tareas")[i4].removeAttribute("data-target", "#modalTaskInfo");
-			document.getElementsByClassName("tareas")[i4].removeAttribute("data-toggle", "modal");
 
 		}
 
@@ -1017,14 +1026,6 @@ function deshabilitarMenus(disable){
 		}
 
 		// Permitimos de nuevo abrir el modal de modificación y eliminación
-		for (var ic = 0; ic < document.getElementsByClassName("tareas").length; ic++){
-
-			document.getElementsByClassName("tareas")[ic].setAttribute("data-target", "#modalTaskInfo");
-			document.getElementsByClassName("tareas")[ic].setAttribute("data-toggle", "modal");
-
-		}
-
-		// Permitimos de nuevo abrir el modal de modificación y eliminación
 		for (var id = 0; id < document.getElementsByClassName("userName").length; id++){
 
 			document.getElementsByClassName("userName")[id].setAttribute("data-target", "#myModal2");
@@ -1056,12 +1057,12 @@ function sortPhases(){
 			items: "> div.faseName",
 			update: function (event, ui) {
 
-				
+
 				var info = $(this).sortable("toArray");
 				var fasesString = "";
 				for (var i = 0; i < info.length; i++) {
 					fasesString += info[i] + ",";
-				};
+				}
 
 				$.ajax({
 					data: {Stringfases : fasesString},
