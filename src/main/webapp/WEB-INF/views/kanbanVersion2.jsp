@@ -105,6 +105,7 @@
 						tareas.cycleTime = 0;
 						tareas.leadTime = 0;
 						tareas.startTime = 0;
+						tareas.esfuerzo = 0;
 						tareas.phasesTime = new Array();
 						tareas.timeByStats = new Array();
 						tareas.statsTime = new Array();
