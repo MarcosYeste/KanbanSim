@@ -1010,7 +1010,7 @@ function sortPhases(){
 			items: "> div.faseName",
 			update: function (event, ui) {
 
-				/* PRUEBA AJAX  */
+				
 				var info = $(this).sortable("toArray");
 				var fasesString = "";
 				for (var i = 0; i < info.length; i++) {
