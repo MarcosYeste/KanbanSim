@@ -449,7 +449,7 @@ function play() {
 
 		});
 
-		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && chronoTime != 0)) {
+		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
 			// Finalizado completamente
 			clearInterval(myInterval);
 
@@ -485,7 +485,7 @@ function play() {
 				    document.getElementById("chronoViewer").innerHTML = "00:"+(chronoTime - kanbanTss);
 				}
 			}
-		}
+		} 
 		
 	}, 1000);
 
