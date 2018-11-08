@@ -381,19 +381,12 @@
 				</div>
 
 				<div class="modal-body">
-<<<<<<< HEAD
-					<p id="modalTaskName">Nombre:</p>
-					<p id="modalTaskAssignedTime">Tiempo asignado:</p>
-					<p id="modalTaskTSS">Tiempo transcurrido:</p>
-
-=======
+				
 					<p id="modalTaskName">Nombre: </p><p id="modalTaskNameValue"> </p>
 					<p id="modalTaskAssignedTimes">Tiempo asignado por fase: </p>
 					<p id="modalTaskTSS">Tiempo real por fases: </p>
 					<p id="modalTaskLTCT">LT y CT estimado: </p>
 					
->>>>>>> 639fe8db62a47fdcb90043d079fddd20f55a7df0
-
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
