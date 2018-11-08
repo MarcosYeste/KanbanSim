@@ -474,9 +474,12 @@ function play() {
 
 			// Cambiamos el boton a pausa
 			document.getElementById("playpause").checked = false;
-
+			
 			deshabilitarMenus(false);
-			sortPhases();
+			
+			if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
+				sortPhases();
+			}
 
 			lowestTime = findMaxAndMin();
 			lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
@@ -486,7 +489,7 @@ function play() {
 			}
 
 		}
-
+		
 		leadTime += 1;
 
 		console.log("::: LEAD TIME ::::: "+leadTime);
