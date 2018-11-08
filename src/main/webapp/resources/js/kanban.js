@@ -474,9 +474,6 @@ function play() {
 		});
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && chronoTime != 0)) {
-			listTareas.forEach(function(task) {
-
-			});
 			// Finalizado completamente
 			clearInterval(myInterval);
 
@@ -497,7 +494,7 @@ function play() {
 
 		leadTime += 1;
 		console.log("::: LEAD TIEM ::::: "+leadTime);
-		if(chronoTime != null){
+		if(chronoTime != ""){
 			if(chronoTime > 59){
 				var sec_num = parseInt(chronoTime - kanbanTss, 10);//8
 			    var minutes = Math.floor((sec_num) / 60);

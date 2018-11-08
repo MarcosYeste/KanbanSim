@@ -376,7 +376,7 @@
 				</div>
 
 				<div class="modal-body">
-					<p id="modalTaskName">Nombre: </p>
+					<p id="modalTaskName">Nombre: </p><p id="modalTaskNameValue"> </p>
 					<p id="modalTaskAssignedTimes">Tiempo asignado por fase: </p>
 					<p id="modalTaskTSS">Tiempo real por fases: </p>
 					<p id="modalTaskLTCT">LT y CT estimado: </p>

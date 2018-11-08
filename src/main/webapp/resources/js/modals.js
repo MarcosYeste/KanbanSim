@@ -194,7 +194,7 @@ function insertInput(index1, index2){
 	var performancesSkillsDivMod = document.createElement("div");
 	var performancesId = document.createAttribute("id");
 	var performancesClass = document.createAttribute("class");
-	performancesId.value = "modPerformancesDivSkill" + allcheckBox[index1].value;
+	performancesId.value = "modPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "");
 	performancesClass.value = "sliderMod";
 
 	performancesSkillsDivMod.setAttributeNode(performancesId);
@@ -205,7 +205,7 @@ function insertInput(index1, index2){
 	var t = document.createTextNode(allcheckBox[index1].value + " : ");
 	var tId = document.createAttribute("id");
 
-	tId.value =  "mod" + allcheckBox[index1].value;
+	tId.value =  "mod" + allcheckBox[index1].value.replace(" ", "");
 	nombreFase.setAttributeNode(tId);
 	nombreFase.appendChild(t);
 	nombreFase.appendChild(spanPorcentaje);
@@ -218,14 +218,14 @@ function insertInput(index1, index2){
 	var sliders = document.getElementsByClassName("sliderMod");
 
 	$( function() {
-		$( "#modPerformancesDivSkill" + allcheckBox[index1].value ).slider({
+		$( "#modPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "") ).slider({
 			value: listUsers[click2].skills[index2],
 			min: 10,
 			max: 100,
 			step: 10,
 			slide: function( event, ui ) {
 
-				$( "#mod" + allcheckBox[index1].value + " > span").html( ui.value + "%" );
+				$( "#mod" + allcheckBox[index1].value.replace(" ", "") + " > span").html( ui.value + "%" );
 
 				for(var i = 0; i < sliders.length; i++){
 
@@ -247,7 +247,7 @@ function insertInput(index1, index2){
 
 			}
 		});
-		$( "#mod" + allcheckBox[index1].value + " > span").html($("#modPerformancesDivSkill" + allcheckBox[index1].value).slider( "value" ) + "%");
+		$( "#mod" + allcheckBox[index1].value.replace(" ", "") + " > span").html($("#modPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider( "value" ) + "%");
 	});
 
 	skillsList.push(listUsers[click2].skills[sliders.length - 1]);
@@ -445,7 +445,7 @@ function addInput(index1, index2, object){
 	var performancesSkillsDivMod = document.createElement("div");
 	var performancesId = document.createAttribute("id");
 	var performancesClass = document.createAttribute("class");
-	performancesId.value = "addPerformancesDivSkill" + allcheckBox[index1].value;
+	performancesId.value = "addPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "");
 	performancesClass.value = "sliderAdd";
 
 	performancesSkillsDivMod.setAttributeNode(performancesId);
@@ -456,7 +456,7 @@ function addInput(index1, index2, object){
 	var t = document.createTextNode(allcheckBox[index1].value + " : ");
 	var tId = document.createAttribute("id");
 
-	tId.value =  "add" + allcheckBox[index1].value;
+	tId.value =  "add" + allcheckBox[index1].value.replace(" ", "");
 	nombreFase.setAttributeNode(tId);
 	nombreFase.appendChild(t);
 	nombreFase.appendChild(spanPorcentaje);
@@ -467,14 +467,14 @@ function addInput(index1, index2, object){
 	var sliders = document.getElementsByClassName("sliderAdd");
 
 	$( function() {
-		$( "#addPerformancesDivSkill" + allcheckBox[index1].value ).slider({
+		$( "#addPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider({
 			value: 10,
 			min: 10,
 			max: 100,
 			step: 10,
 			slide: function( event, ui ) {
 
-				$( "#add" + allcheckBox[index1].value + " > span").html( ui.value + "%" );
+				$( "#add" + allcheckBox[index1].value.replace(" ", "") + " > span").html( ui.value + "%" );
 
 				for(var i = 0; i < sliders.length; i++){
 
@@ -497,7 +497,7 @@ function addInput(index1, index2, object){
 
 			}
 		});
-		$( "#add" + allcheckBox[index1].value + " > span").html($("#addPerformancesDivSkill" + allcheckBox[index1].value).slider( "value" ) + "%");
+		$( "#add" + allcheckBox[index1].value.replace(" ", "") + " > span").html($("#addPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider( "value" ) + "%");
 	});
 
 	skillsList.push(object.skills[sliders.length - 1]);
@@ -609,9 +609,6 @@ function chrono(){
 
 }
 
-function showTaskInfo(){
-	console.log(event.target.id);
-}
 function formUserValido(funcion,accion){
 
 	// Comprovamos que el usuario introduzca algo en los campos
@@ -625,5 +622,15 @@ function formUserValido(funcion,accion){
 		document.getElementById(accion + "Usuario").style.opacity = 1;
 		document.getElementById(accion + "Usuario").addEventListener("click", funcion, false);
 		document.getElementById(accion + "Usuario").setAttribute("data-dismiss", "modal");
+	}
+}
+
+function showTaskInfo(){
+	console.log(event.target.getAttribute("data-identification"));
+		
+	for(var i = 0; i < listTareas.length; i++){
+		if(event.target.getAttribute("data-identification") == listTareas[i].name){
+			document.getElementById("modalTaskNameValue").innerHTML = event.target.getAttribute("data-identification");
+		}
 	}
 }
