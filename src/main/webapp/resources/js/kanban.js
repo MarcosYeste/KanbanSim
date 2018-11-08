@@ -813,8 +813,9 @@ function calculoTiemposTotalesFase(){
 }
 function subCalculoTiempos(i){
 	var total = 0 ;
-
-	for( var k = 0 ; k < listTareas[i].phasesTime.length ; k++){
+console.log(listTareas.length);
+	for( var k = 0 ; k < listTareas.length ; k++){
+		console.log(i);
 		total += listTareas[k].phasesTime[i];
 	}
 
