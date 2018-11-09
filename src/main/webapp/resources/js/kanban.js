@@ -11,6 +11,7 @@ var kanbanTss = 0;
 var gaussianCounter = 0;
 var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas, 
 var taskNameCounter = 0;
+var taskInputMode = "constant"; //Type of backlog tasks input
 
 //Guardar al modificar Phase
 sortPhases();
@@ -20,7 +21,6 @@ $(function () {
 })
 
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
-
 for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", listPhases[i].id);
 	document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", listPhases[i].id);
@@ -474,7 +474,7 @@ function play() {
 		});
 
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
-		if(gaussian == gaussianCounter || gaussian == 0){
+		if((gaussian == gaussianCounter || gaussian == 0) && taskInputMode == "constant"){
 			getGaussian(3 , 2);
 			gaussianCounter = 0;
 			taskNameCounter ++;
@@ -501,30 +501,56 @@ function play() {
 			console.log("Gaussiano Reseteado")
 			console.log(gaussian);
 		}
+		if(taskInputMode == "manual"){
+			if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
+				// Finalizado completamente
+				clearInterval(myInterval);
+				kanbanTss = 0;
+				chronoTime = 0;
+				document.getElementById("chronoViewer").innerHTML = "00:00";
+				// Cambiamos el boton a pausa
+				document.getElementById("playpause").checked = false;
 
-		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
-			// Finalizado completamente
-			clearInterval(myInterval);
-			kanbanTss = 0;
-			chronoTime = 0;
-			document.getElementById("chronoViewer").innerHTML = "00:00";
-			// Cambiamos el boton a pausa
-			document.getElementById("playpause").checked = false;
+				deshabilitarMenus(false);
 
-			deshabilitarMenus(false);
+				if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
+					sortPhases();
+				}
 
-			if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
-				sortPhases();
+				lowestTime = findMaxAndMin();
+				lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
+
+				for(var i = 0; i < lazyPeople[1].length; i++){
+					document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
+				}
+
 			}
+		} else if (taskInputMode == "constant"){
+			if (kanbanTss == chronoTime && (chronoTime != 0)) {
+				// Finalizado completamente
+				clearInterval(myInterval);
+				kanbanTss = 0;
+				chronoTime = 0;
+				document.getElementById("chronoViewer").innerHTML = "00:00";
+				// Cambiamos el boton a pausa
+				document.getElementById("playpause").checked = false;
 
-			lowestTime = findMaxAndMin();
-			lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
+				deshabilitarMenus(false);
 
-			for(var i = 0; i < lazyPeople[1].length; i++){
-				document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
+				if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
+					sortPhases();
+				}
+
+				lowestTime = findMaxAndMin();
+				lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
+
+				for(var i = 0; i < lazyPeople[1].length; i++){
+					document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
+				}
+
 			}
-
 		}
+		
 
 		leadTime += 1;
 
@@ -715,3 +741,4 @@ function printTasks(tarea){
 		"<small class='divState'></small></p>" +
 		"<p class='duration' data-identification='" + tarea.name + "'>0</p></div>";
 }
+

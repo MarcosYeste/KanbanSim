@@ -17,7 +17,7 @@ document.getElementById("modChrono").addEventListener("click", chrono, false);
 $(".tareas").click(showTaskInfo);
 
 
-
+//8
 //Mod Phases
 function modPhases(){
 	click = event.target.getAttribute("data-identification");
@@ -629,3 +629,5 @@ function showTaskInfo(){
 		}
 	}
 }
+
+
