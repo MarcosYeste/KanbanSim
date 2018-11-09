@@ -9,7 +9,7 @@ var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
 var gaussianCounter = 0;
-var gaussian = 1; // Base, Varianza
+var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas, 
 var taskNameCounter = 0;
 
 //Guardar al modificar Phase
@@ -109,6 +109,8 @@ document.getElementById("divDelete").addEventListener("click", function() {
 	xhttp.open("POST", "/rmvAll", true);
 	xhttp.send();
 });
+
+// Corregir problema, cuando no hay tareas, al inicar el kanban el mismo se detiene 
 
 function play() {
 
@@ -472,8 +474,8 @@ function play() {
 		});
 
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
-		if(gaussian == gaussianCounter){
-			getGaussian(10 , 2);
+		if(gaussian == gaussianCounter || gaussian == 0){
+			getGaussian(3 , 2);
 			gaussianCounter = 0;
 			taskNameCounter ++;
 			// Creamos un objeto nuevo
@@ -1131,7 +1133,8 @@ function getGaussian(mean, variation){
 
 		},success: function(data) {
 			
-			gaussian = parseInt(data) 
+			gaussian = parseInt(data)
+			console.log("Nuevo Gaussian " + gaussian);
 			
 		}
 	});
@@ -1143,5 +1146,5 @@ function printTasks(tarea){
 		"<p data-identification='" + tarea.name + "'>" + tarea.name + "</p>" +
 		"<p class='estado' data-identification='" + tarea.name + "'>" +
 		"<small class='divState'></small></p>" +
-		"<p class='duration' data-identification='" + tarea.name + "'>0.0</p></div>";
+		"<p class='duration' data-identification='" + tarea.name + "'>0</p></div>";
 }
