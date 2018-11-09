@@ -9,7 +9,7 @@
 <head>
 <title>Kanban</title>
 <link rel="stylesheet" href="/resources/css/kanban.css">
-
+<link rel="shortcut icon" href="#" />
 
 </head>
 <body>
@@ -37,10 +37,10 @@
 	</div>
 
 	<h1 class="texto">KANBAN SIM</h1>
-	
+
 	<!-- Temporizador -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
-	
+
 	<div class="botonesContainer">
 
 		<!--  Button Play/Pause -->
@@ -71,7 +71,8 @@
 
 				<c:forEach items="${task}" var="task">
 
-					<div class="tareas"  data-toggle="modal" data-target="#modalTaskInfo">
+					<div class="tareas" data-toggle="modal"
+						data-target="#modalTaskInfo">
 
 						<p>
 							<c:out value="${task.name}"></c:out>
@@ -104,6 +105,7 @@
 						tareas.cycleTime = 0;
 						tareas.leadTime = 0;
 						tareas.startTime = 0;
+						tareas.esfuerzo = 0;
 						tareas.phasesTime = new Array();
 						tareas.timeByStats = new Array();
 						tareas.statsTime = new Array();
@@ -166,7 +168,6 @@
 					phase.color = '<c:out value="${color}"></c:out>';
 					phase.period = 0;
 					listPhases.push(phase);
-					console.log(phase.id);// Sujeto Pruebas
 				</script>
 
 			</c:forEach>
@@ -182,9 +183,11 @@
 	</div>
 	<fieldset class="teamField">
 		<legend class="teamField">Miembros del Equipo:</legend>
-		<span style="float: right;" class="legUser"><i
-			class="fas fa-user-plus fa-2x" id="addUser" data-toggle="modal"
-			data-target="#addUsers"></i></span>
+		<span style="float: right;" class="legUser"><button
+				id="addUser">
+				<i class="fas fa-user-plus fa-2x" data-toggle="modal"
+					data-target="#addUsers"></i>
+			</button></span>
 		<div class="usersContainer">
 
 			<c:forEach items="${user}" var="user">
@@ -215,7 +218,6 @@
 								'').split(',');
 						userO.assigned = false;
 						listUsers.push(userO);
-						console.table(listUsers);
 					</script>
 				</div>
 			</c:forEach>
@@ -365,7 +367,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- Modal Task Info-->
 	<div class="modal fade" id="modalTaskInfo" role="dialog">
 		<div class="modal-dialog">
@@ -378,12 +380,14 @@
 				</div>
 
 				<div class="modal-body">
-					<p id="modalTaskName">Nombre: </p><p id="modalTaskNameValue"> </p>
-					<p id="modalTaskAssignedTimes">Tiempo asignado por fase: </p>
-					<p id="modalTaskTSS">Tiempo real por fases: </p>
-					<p id="modalTaskLTCT">LT y CT estimado: </p>
+				
+					<p id="modalTaskName">Nombre: </p><p class="alert alert-info" id="modalTaskNameValue"> </p>
+					<p id="modalTaskAssignedTimes"> Tiempo asignado por fase: </p><p class="alert alert-info" id="modalTaskTimeWorkedValue"></p>
+					<p id="modalTaskTSS"> Tiempo real por fases:</p> <p class="alert alert-info" id="modalTaskTSSValue"></p>
+					<p id="modalTaskLTCT"> LT y CT estimado: </p><p class="alert alert-info" id="modalTaskLTCTValue"></p>
+					<p id="modalTaskWorking"> Miembros Trabajando: </p><p class="alert alert-info" id="modalTaskWorkingValue"></p>
+					<p id="modalTaskWorked"> Miembros que han Trabajado: </p><p class="alert alert-info" id="modalTaskWorkedValue"></p>
 					
-
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

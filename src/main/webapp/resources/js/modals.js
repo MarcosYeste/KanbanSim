@@ -110,6 +110,7 @@ function modUsers(){
 	}
 
 	allcheckBox = $(".modUserPhaseCheck");
+
 	for(var i = 0; i < listUsers[click2].phases.length; i++){
 		for(var j = 0; j < allcheckBox.length; j++){
 			if(allcheckBox[j].value == listUsers[click2].phases[i].trim()){
@@ -122,7 +123,7 @@ function modUsers(){
 	for(var j = 0; j < allcheckBox.length; j++){
 		allcheckBox[j].addEventListener("change", function(){phasesController(event);}, false);
 	}
-	
+
 	document.getElementById("modNameUser").addEventListener("change", function(){
 		formUserValido(saveModUsers, "mod") }, false);
 
@@ -243,8 +244,6 @@ function insertInput(index1, index2){
 
 				}
 
-				console.log(skillCompiler);
-
 			}
 		});
 		$( "#mod" + allcheckBox[index1].value.replace(" ", "") + " > span").html($("#modPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider( "value" ) + "%");
@@ -307,7 +306,6 @@ function rmvModUsers() {
 
 			listUsers.splice(click2, 1);
 
-			console.table(listUsers);
 
 			$( ".userName[data-identification='"+ click2 +"']").remove();
 			var clases = $(".userName");
@@ -333,7 +331,9 @@ function addUsers(){
 	rawSkills = "";
 	userO.skills = rawSkills.replace('[', '').replace(']', '').split(',');
 	userO.assigned = false;
-
+	
+	document.getElementById("addNameUser").value = "";
+	
 	// Comprueba que haya algo seleccionado
 	formUserValido(saveAddUser, "add");
 
@@ -365,9 +365,13 @@ function addUsers(){
 	}
 
 	allcheckBox = $(".addUserPhaseCheck");
+
+
+
 	for(var i = 0; i < phasesName.length; i++){
 		for(var j = 0; j < $(phasesName).length; j++){
 			if(allcheckBox[j].value == $(phasesName).text().trim()){
+				allcheckBox[j].value.replace(" ", "");
 				allcheckBox[j].checked = true;	
 				addInput(j, i, userO);
 			} 
@@ -397,7 +401,6 @@ function addUsers(){
 		if(event.target.checked){
 
 			userO.phases.push(event.target.value);
-			console.log(userO.phases);
 			addInput(index1, userO.phases.indexOf(event.target.value), userO);
 
 		} else {
@@ -524,11 +527,9 @@ function saveAddUser(){
 
 		},success: function(data) {
 			listUsers.push(userO);
-			
-			console.table(listUsers);
-			
+
 			document.getElementById("addNameUser").value = "";
-			
+
 			document.getElementsByClassName("usersContainer")[0].innerHTML +=
 				"<div class='userName' name='"+ userO.name + 
 				"'data-toggle='modal' data-target='#myModal2'> " +
@@ -571,7 +572,6 @@ function chrono(){
 
 	var radios = $("[name=chronoTimeType]");
 
-	console.log(radios);
 	for(var i = 0; i < radios.length; i++){
 		if(radios[i].checked){
 			if(radios[i].value == "sec"){
@@ -582,7 +582,6 @@ function chrono(){
 					var seconds = sec_num - (minutes * 60);
 					if (minutes < 10) {minutes = "0"+minutes;}
 					if (seconds < 10) {seconds = "0"+seconds;}
-					console.log(minutes + ":" + seconds);
 					document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 				} else {
 
@@ -605,20 +604,17 @@ function chrono(){
 		document.getElementById("chronoViewer").innerHTML = "00:00";
 	}
 
-	console.log(chronoTime);
-
 }
 
 function formUserValido(funcion,accion){
 
 	// Comprovamos que el usuario introduzca algo en los campos
 	if(document.getElementById(accion + "SkillsUser").children.length == 0 || document.getElementById(accion + "NameUser").value == ""){
-		console.log(document.getElementById(accion + "SkillsUser").children.length);
+		
 		document.getElementById(accion + "Usuario").style.opacity = 0.3;
 		document.getElementById(accion + "Usuario").removeEventListener("click", funcion, false);
 		document.getElementById(accion + "Usuario").removeAttribute("data-dismiss");
 	}else{
-		console.log(document.getElementById(accion + "SkillsUser").children.length);
 		document.getElementById(accion + "Usuario").style.opacity = 1;
 		document.getElementById(accion + "Usuario").addEventListener("click", funcion, false);
 		document.getElementById(accion + "Usuario").setAttribute("data-dismiss", "modal");
@@ -626,7 +622,6 @@ function formUserValido(funcion,accion){
 }
 
 function showTaskInfo(){
-	console.log(event.target.getAttribute("data-identification"));
 		
 	for(var i = 0; i < listTareas.length; i++){
 		if(event.target.getAttribute("data-identification") == listTareas[i].name){

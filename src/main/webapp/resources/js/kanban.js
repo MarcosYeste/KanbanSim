@@ -8,7 +8,8 @@ var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
-// Guardar al modificar Phase
+
+//Guardar al modificar Phase
 sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
@@ -118,7 +119,7 @@ function play() {
 	myInterval = setInterval(function() {
 
 		kanbanTss++;
-		
+
 		for (var i = 0; i < fases.length; i++) {
 
 			var doing = fases[i].lastElementChild.firstElementChild;
@@ -160,7 +161,7 @@ function play() {
 
 					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 					task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
-
+					task.esfuerzo += task.duration;
 					task.durarionAsignada = false;
 
 
@@ -194,6 +195,9 @@ function play() {
 									document.getElementsByName(listUsers[w].name)[0].children[1].style.color = "black";
 									document.getElementsByName(listUsers[w].name)[0].style.borderColor = "blue";
 
+									if(document.getElementById("modalTaskNameValue").innerHTML == task.name){
+										document.getElementById("modalTaskWorkedValue").innerHTML += listUsers[w].name + ",";
+									}
 								}
 							}
 						}
@@ -227,7 +231,7 @@ function play() {
 
 										if(user.phases[up].trim() != actualPhaseName.trim()){
 											for(var t = 0; t < listTareas.length; t++){												
-												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){//8
+												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){
 													isTotallyFree = true;
 												} else {
 													isTotallyFree = false;
@@ -249,18 +253,18 @@ function play() {
 
 										task.assignedUsers.push(user.name);
 										if(!task.staticAssigneds.includes((user.name)+" ")){											
-											user.tasksWorked += 1;//8
+											user.tasksWorked += 1;
 											task.staticAssigneds += (user.name)+" ";
 										}
 										user.assigned = true;
 
 										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
-								
+
 											task.duration = 1;
 										} else {
 											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 										}
-										
+
 									}
 
 								}
@@ -274,7 +278,7 @@ function play() {
 									if(assignedUser.includes((user.name))){
 										user.secondsWork += 1;
 										if(user.secondByPhase[i] ==  undefined){
-											
+
 											user.secondByPhase[i] = 1;
 										}else{
 											user.secondByPhase[i] += 1;
@@ -297,7 +301,7 @@ function play() {
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 
-							
+
 
 
 						} else {
@@ -344,6 +348,7 @@ function play() {
 								// ________ESTO VA EN EL IF 4
 
 								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);	
+								task.esfuerzo += task.duration;
 								task.startTime = leadTime;
 							}								
 						} //if end
@@ -352,6 +357,7 @@ function play() {
 
 						//IF 5
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
+
 						var phaseSkill;
 
 						listUsers.forEach(function(user) {
@@ -411,13 +417,26 @@ function play() {
 											}
 										}
 
-										if(isTotallyFree){
+										// Asignar tarea Empezada, tarea Multiusuario
+										if(isTotallyFree){ 
 											task.assignedUsers.push(user.name);
 											if(!task.staticAssigneds.includes((user.name)+" ")){
 												user.tasksWorked += 1;
 												task.staticAssigneds += (user.name)+" ";
+
 											}
 											user.assigned = true;
+
+//											// Usuarios Que han trabajado en esa tarea
+//											if(document.getElementById("modalTaskNameValue").innerHTML == task.name){
+//												document.getElementById("modalTaskWorkedValue").innerHTML = task.staticAssigneds
+//												do {
+//
+//													document.getElementById("modalTaskWorkedValue").innerHTML = document.getElementById("modalTaskWorkedValue").innerHTML.replace(" ", ",");
+//
+//												}while(document.getElementById("modalTaskWorkedValue").innerHTML.indexOf(" ") != -1);
+//											}
+//											console.log("Adios");
 											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 												task.duration = 1;
 											} else {
@@ -425,16 +444,15 @@ function play() {
 											}
 
 										}
-									}//8
+									}
 								}
 
 								if(user.assigned){
+
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 									document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
 									document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
 
-
-									// (M) Estos los uso para calcular las tareas trabajadas y los segundos de cada usuario trabajados
 								}
 							} 
 						}); //foreach 				
@@ -449,6 +467,7 @@ function play() {
 
 		});
 
+
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
 			// Finalizado completamente
 			clearInterval(myInterval);
@@ -457,9 +476,12 @@ function play() {
 			document.getElementById("chronoViewer").innerHTML = "00:00";
 			// Cambiamos el boton a pausa
 			document.getElementById("playpause").checked = false;
-
+			
 			deshabilitarMenus(false);
-			sortPhases();
+			
+			if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
+				sortPhases();
+			}
 
 			lowestTime = findMaxAndMin();
 			lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
@@ -469,34 +491,36 @@ function play() {
 			}
 
 		}
-
+		
 		leadTime += 1;
-		console.log("::: LEAD TIEM ::::: "+leadTime);
+
+		console.log("::: LEAD TIME ::::: "+leadTime);
 		if(chronoTime != ""){
+
 			if(chronoTime > 59){
-				var sec_num = parseInt(chronoTime - kanbanTss, 10);//8
-			    var minutes = Math.floor((sec_num) / 60);
-			    var seconds = sec_num - (minutes * 60);
-			    if (minutes < 10) {minutes = "0"+minutes;}
-			    if (seconds < 10) {seconds = "0"+seconds;}
-			    document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
+				var sec_num = parseInt(chronoTime - kanbanTss, 10);
+				var minutes = Math.floor((sec_num) / 60);
+				var seconds = sec_num - (minutes * 60);
+				if (minutes < 10) {minutes = "0"+minutes;}
+				if (seconds < 10) {seconds = "0"+seconds;}
+				document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 			} else {
 				if(chronoTime - kanbanTss < 10 ){
 					document.getElementById("chronoViewer").innerHTML = "00:0"+(chronoTime - kanbanTss);
 				} else {
-				    document.getElementById("chronoViewer").innerHTML = "00:"+(chronoTime - kanbanTss);
+					document.getElementById("chronoViewer").innerHTML = "00:"+(chronoTime - kanbanTss);
 				}
 			}
 		} 
-		
+
 	}, 1000);
 
 }
 
 
 function saveTimeStates(task,leadTime,i){
-	
-	
+
+
 	if(task.state == "ToDo"){
 		if(task.statsTime[0] == undefined && task.statsTime[1] == undefined && task.statsTime[2] == undefined){
 			task.statsTime[0] = 0;task.statsTime[1] = 0;task.statsTime[2] =0;
@@ -509,44 +533,44 @@ function saveTimeStates(task,leadTime,i){
 			task.phasesTime[i] = saveNewTimePhase(task.statsTime);
 			task.statsTime = [0,0,0];
 		}
-		
+
 	}else if (task.state == "Doing"){
-		
+
 		if(task.phase > 1){			
-				task.statsTime[0]= leadTime - task.startTime - sumaFasesTiempo(task.phasesTime);			
+			task.statsTime[0]= leadTime - task.startTime - sumaFasesTiempo(task.phasesTime);			
 		}else{			
-				task.statsTime[0]= leadTime - task.startTime;
+			task.statsTime[0]= leadTime - task.startTime;
 		}
-		
+
 	}else if(task.state == "Done"){
 		if(task.phase > 1){
 			task.statsTime[1]= leadTime - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime);
 		}else{
 			task.statsTime[1]= leadTime - task.statsTime[0]- task.startTime;
 		}
-		
+
 	}else{
-		
+
 		console.log("Ended");
 		if(task.phase > 1){
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime);
 		}else{
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime;
-			
+
 		}
 		task.timeByStats.push(task.statsTime);
 		console.log(">>>>>>>>>>>>>>>>>>>  termina LA I VALE "+i);
 		task.phasesTime[i] = saveNewTimePhase(task.statsTime);
 		task.statsTime = [0,0,0];
 	}
-	
-	
+
+
 }
 function sumaFasesTiempo(phasesTime){
 	var suma = 0;
 	for (var i = 0; i < phasesTime.length; i++) {
 		suma += phasesTime[i];
-		
+
 	}
 	return suma;
 }
@@ -554,7 +578,7 @@ function saveNewTimePhase(statsTime){
 	var suma = 0;
 	for(var i = 0; i < statsTime.length; i++){
 		suma += statsTime[i];
-		
+
 	}
 	console.log("Total de esta fase: "+suma);
 	return suma;
@@ -587,7 +611,7 @@ function mostrarResultados() {
 	h3.innerHTML = "<strong>Tabla de Resultados</strong>";
 	div2.appendChild(h3);
 	div.appendChild(div2);
-	
+
 	// Resultado fases
 	div4.className = "faseResultadoDiv";
 	subdiv4.className = "faseResultado";
@@ -598,14 +622,15 @@ function mostrarResultados() {
 	var cv = 0;	
 	listPhases.forEach(function(phase) {
 
-		
+
 		tabla +="<th><div class='th'>"+phase.name+" ( "+phase.period+"s )</div></th>";
 		cv++;
 
 	});
+	tabla += "<th><div class='th'>Media De las Tareas</div></th>";
 	tabla += "</tr>";
 	tabla += "<tr>";
-	for (var i = 0; i < cv; i++) {
+	for (var i = 0; i <= cv; i++) {
 		tabla += "<th><div class='stados'><p>todo</p><p>doing</p><p>done</p></div></th>";
 	}
 	tabla += "</tr>";
@@ -617,30 +642,38 @@ function mostrarResultados() {
 	var sumadone=0;
 	var sumaEstadosTotal = 0;
 	var sumaFaseTotal =0;
+	var mediaPorTarea = new Array();
+	var mediaPorFases = new Array();
+	var resultMediaPorFases = new Array();
 	var l = 0;
 	listTareas.forEach(function(task) {	
 		tabla += "<tr>";
 		tabla += "<td>"+task.name+"</td>";
 		var i = 0;
-		sumaFaseTotal = mediaFasestotal(JSON.stringify(task.timeByStats));
-		
+		mediaPorFases.push(task.timeByStats);//guardo 3 multi array
+
 		task.timeByStats.forEach(function(times) {	
 			var time = JSON.stringify(times);
 			time = JSON.parse(time);
 			tabla += "<td><div class='stados'><p>"+time[0]+"s</p><p>"+time[1]+"s</p><p>"+time[2]+"s</p></div></td>";
 			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
-			
-		i++;
+			i++;
 		});	
+
+		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
+
+		tabla += "<td><div class='stados'><p>"+mediaPorTarea[l][0]+"s</p><p>"+mediaPorTarea[l][1]+"s</p><p>"+mediaPorTarea[l][2]+"s</p></div></td>";
+		tabla += "</tr>";
 		l++;
 		numerotareas = l;
-		tabla += "</tr>";
 	});
+	resultMediaPorFases = mediaFasestotal(mediaPorFases);
+	console.table(resultMediaPorFases);
 	sumaEstadosTotal = Math.round((sumatodo + sumaDoing+ sumadone)/numerotareas);
 	tabla += "<tr>";
 	tabla += "<td>Media por fase: </td>";
 	for (var i = 0; i < cv; i++) {
-		tabla += "<td>"+sumaFaseTotal+"</td>"; // tengo que calcular esta media
+		tabla += "<td><div class='stados'><p>"+resultMediaPorFases[i][0]+"s</p><p>"+resultMediaPorFases[i][1]+"s</p><p>"+resultMediaPorFases[i][2]+"s</p></div></td>";
 	}
 	tabla += "</tr>";
 	tabla += "<tr><td>Media Total: </td><td colspan='"+cv+"'>"+sumaEstadosTotal+"s</td></tr>";
@@ -658,7 +691,7 @@ function mostrarResultados() {
 	var nombresArray = [];
 	var idU=0;
 	listUsers.forEach(function(user) {
-		
+
 		user.secondsNotWorked = leadTime - user.secondsWork;
 		subsubdiv5.innerHTML += '<div id='+idU+' onclick="mostrarDorsoUsuarios(this.id,'+JSON.stringify(user.secondByPhase)+')" class="userCaja"><div class="userResultName">'+user.name+'<i class="fa fa-user-tie fa-2x" aria-hidden="true"><br></i></div>'+
 		'<p> Tareas trabajadas: '+user.tasksWorked+'</p><p>Tiempo activo: '+user.secondsWork+' Segundos</p><p>Tiempo inactivo: '+user.secondsNotWorked+' Segundos</p><small style="color:blue">Ver más</small></div>';
@@ -711,7 +744,7 @@ function mostrarResultados() {
 		subDiv.className = "tareaResultado";
 		subDiv.id = "T"+idT;
 		idT++;
-		subDiv.setAttribute("onClick", "mostrarDorsoTarea(this.id,"+JSON.stringify(task.phasesTime)+")");
+		subDiv.setAttribute("onClick", "mostrarDorsoTarea(this.id,"+JSON.stringify(task.phasesTime)+","+task.esfuerzo+")");
 		text = document.createTextNode( task.name );
 		p.appendChild(text);
 		subDiv.appendChild(p);
@@ -734,52 +767,88 @@ function mostrarResultados() {
 	div.appendChild(div4);
 	div.appendChild(div5);
 }
+
+//calcula media por tareas
+function calcularMediaPorTarea(mediaPorTarea,timeByStats){
+	var sumaTodo = 0;
+	var  sumaDoing = 0;
+	var sumadone = 0;
+	var num = 0 ;
+//	timeByStats = timeByStats;
+
+	for (var i = 0; i < timeByStats.length; i++) {
+		sumaTodo += timeByStats[i][0];
+		sumaDoing += timeByStats[i][1];
+		sumadone += timeByStats[i][2];
+		num = i ;
+	}
+	num += 1;
+	sumaTodo = Math.round( (sumaTodo / num) * 10 ) / 10;
+	sumaDoing = Math.round( (sumaDoing / num) * 10 ) / 10;
+	sumadone = Math.round( (sumadone / num ) * 10 ) / 10;
+
+	mediaPorTarea = [sumaTodo,sumaDoing,sumadone];
+	return mediaPorTarea;
+
+}
+
 //media de las fases por separado
 function mediaFasestotal(taskArray){
-	var array = taskArray;
-	var sumasTodo = 0;
-	var sumasdoing = 0;
-	var sumasdone = 0;
-	var sumastotales = 0;
-	var numero =0;
-	for (var i = 0; i < array.length; i++) {
-		sumasTodo = array[0][i];
-		sumasdoing = array[1][i];
-		sumasdone = array[2][i];
-		numero = i;
+	console.table(taskArray[0]);
+	console.table(taskArray[1]);
+	console.table(taskArray[2]);
+	var z = 0;
+	var array = taskArray;	
+	var arrayFases  = new Array();
+	var numero = 0;
+	while (z < array[0].length){
+		var sumaTodos =0;
+		var sumaDoing = 0;
+		var sumaDone = 0;
+		for (var i = 0; i < array.length; i++) {
+
+			sumaTodos += array[i][z][0];
+			sumaDoing += array[i][z][1];
+			sumaDone  += array[i][z][2];								
+
+		}
+		sumaTodos = Math.round((sumaTodos / array[0][0].length)* 10 ) / 10;
+		sumaDoing = Math.round((sumaDoing / array[0][0].length) * 10 ) / 10;
+		sumaDone  =  Math.round((sumaDone / array[0][0].length) * 10 ) / 10;
+		arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
+		z++;
 	}
- sumastotales = (sumasTodo + sumasdoing+ sumasdone)/numero;
- return sumastotales;
+	return arrayFases;
+
 }
 function calculoTiemposTotalesFase(){
 	var i = 0;
 	listPhases.forEach(function(phase) {
-		
-			if(phase.period=undefined){
-				phase.period = 0;
-			}
-			
-			var valor = subCalculoTiempos(i);
-			phase.period = valor;
-			i++;
+
+		if(phase.period=undefined){
+			phase.period = 0;
+		}
+
+		var valor = subCalculoTiempos(i);
+		phase.period = valor;
+		i++;
 	});
 }
 function subCalculoTiempos(i){
 	var total = 0 ;
-	
-	for( var k = 0 ; k < listTareas[i].phasesTime.length ; k++){
+	for( var k = 0 ; k < listTareas.length ; k++){
 		total += listTareas[k].phasesTime[i];
 	}
-		
-		return total;
-	
+
+	return total;
+
 }
 
 function mostrarDorsoUsuarios(id,secondByPhase){
 	var U = document.getElementById(id);
 	var i = 0;
 	U.innerHTML = "";
-	secondByPhase = secondByPhase;
+
 	listPhases.forEach(function(phase) {
 		if(secondByPhase[i] == undefined || secondByPhase[i] == null){
 			secondByPhase[i]= 0;
@@ -791,15 +860,17 @@ function mostrarDorsoUsuarios(id,secondByPhase){
 	U.setAttribute("onClick","mostrarResultados()");
 }
 
-function mostrarDorsoTarea(id,phasesTime){
+function mostrarDorsoTarea(id,phasesTime,esfuerzo){
 	var T = document.getElementById(id);
 	var i = 0;
 	T.innerHTML = "";
-	phasesTime = phasesTime;
+//	phasesTime = phasesTime;
 	listPhases.forEach(function(phase) {	
 		T.innerHTML += "<p>Time on "+phase.name+": "+phasesTime[i]+"''</p>";
 		i++;
 	});
+		T.innerHTML += "<p>Esfuerzo "+esfuerzo+"''</p>";
+	
 	T.innerHTML += "<small style='color:blue'>Ver más</small>";
 	T.setAttribute("onClick","mostrarResultados()");
 }
@@ -807,8 +878,8 @@ function mostrarDorsoTarea(id,phasesTime){
 function findMaxAndMin(){
 	var max = 0;
 	var min = 500;
-	var userMax = "";
-	var userMin = "";
+//	var userMax = "";
+//	var userMin = "";
 	var taskmax = 0 ;
 	var taskmin = 0;
 	var array = [];
@@ -876,7 +947,7 @@ function mostrarKanban(){
 	playPause.children[0].removeAttribute("aria-disabled");
 	playPause.children[1].style.opacity=1;
 	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
-	document.getElementById("result").setAttribute("onClick", "generarResultados()");;
+	document.getElementById("result").setAttribute("onClick", "generarResultados()");
 }
 
 function deshabilitarMenus(disable){
@@ -893,7 +964,7 @@ function deshabilitarMenus(disable){
 		// Deshabilitamos los botones del header
 		for (var i2 = 0; i2 < document.getElementById("doubleButton").children.length; i2++){
 
-			document.getElementById("doubleButton").children[i2].setAttribute("disabled", "");;
+			document.getElementById("doubleButton").children[i2].setAttribute("disabled", "");
 			document.getElementById("doubleButton").children[i2].setAttribute("aria-disabled", "true");
 		}
 
@@ -906,15 +977,28 @@ function deshabilitarMenus(disable){
 		}
 
 		// Y quitamos el acceso a el formulario de modificación
-		for (var i4 = 0; i4 < document.getElementsByClassName("userName").length; i4++){
+		for (var i5 = 0; i5 < document.getElementsByClassName("userName").length; i5++){
 
-			document.getElementsByClassName("userName")[i4].removeAttribute("data-target", "#myModal2");
-			document.getElementsByClassName("userName")[i4].removeAttribute("data-toggle", "modal");
+			document.getElementsByClassName("userName")[i5].removeAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[i5].removeAttribute("data-toggle", "modal");
 
 		}
 
 		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
+
+		// quitamos el modal en addUsers
+		document.getElementById("chronoViewer").setAttribute("disabled", "");
+		document.getElementById("chronoViewer").setAttribute("aria-disabled", "true");
+		document.getElementById("chronoViewer").removeAttribute("data-target");
+		document.getElementById("chronoViewer").removeAttribute("data-toggle");
+
+		// quitamos el modal en addUsers
+		document.getElementById("addUser").setAttribute("disabled", "");
+		document.getElementById("addUser").setAttribute("aria-disabled", "true");
+		document.getElementById("addUser").children[0].removeAttribute("data-target");
+		document.getElementById("addUser").children[0].removeAttribute("data-toggle");
+
 
 		$( function() {
 			$( "#faseDiv" ).sortable({ disabled : true})
@@ -949,12 +1033,24 @@ function deshabilitarMenus(disable){
 		}
 
 		// Permitimos de nuevo abrir el modal de modificación y eliminación
-		for (var ic = 0; ic < document.getElementsByClassName("userName").length; ic++){
+		for (var id = 0; id < document.getElementsByClassName("userName").length; id++){
 
-			document.getElementsByClassName("userName")[ic].setAttribute("data-target", "#myModal2");
-			document.getElementsByClassName("userName")[ic].setAttribute("data-toggle", "modal");
+			document.getElementsByClassName("userName")[id].setAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[id].setAttribute("data-toggle", "modal");
 
 		}
+
+		// Colocamos de nuevo el modal en chrono
+		document.getElementById("chronoViewer").removeAttribute("disabled");
+		document.getElementById("chronoViewer").removeAttribute("aria-disabled");
+		document.getElementById("chronoViewer").setAttribute("data-target", "#modalChrono");
+		document.getElementById("chronoViewer").setAttribute("data-toggle", "modal");
+
+		// Colocamos de nuevo el modal en addUsers
+		document.getElementById("addUser").removeAttribute("disabled");
+		document.getElementById("addUser").removeAttribute("aria-disabled");
+		document.getElementById("addUser").children[0].setAttribute("data-target", "#addUsers");
+		document.getElementById("addUser").children[0].setAttribute("data-toggle", "modal");
 	}
 }
 function sortPhases(){
@@ -968,12 +1064,12 @@ function sortPhases(){
 			items: "> div.faseName",
 			update: function (event, ui) {
 
-				/* PRUEBA AJAX  */
+
 				var info = $(this).sortable("toArray");
 				var fasesString = "";
 				for (var i = 0; i < info.length; i++) {
 					fasesString += info[i] + ",";
-				};
+				}
 
 				$.ajax({
 					data: {Stringfases : fasesString},

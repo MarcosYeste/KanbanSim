@@ -23,8 +23,12 @@
 	width: 20%;
 }
 
-.contenedorFinal {
+.contenedorFinal{
+	max-height: 500px;
+	height: 500px;
 	padding: 40px;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 .faseName {
@@ -89,6 +93,10 @@
 	flex-direction: column;
 	margin-right: 20%;
 	margin-left: 10%;
+	/* Limite Tareas */
+	max-height: 500px;
+	height: 500px;
+	overflow:hidden;
 }
 
 p.estado {
@@ -135,7 +143,7 @@ input[type='radio']{
 	color: #0f45c4;
 	font-size: 500%;
 	text-align: center;
-	margin-top: 10px;
+	margin-top: -10px;
 }
 
 /* BOTONES */
@@ -173,7 +181,7 @@ input[type='radio']{
 	margin-left: 10px;
 }
 
-#reset, #deleteAll {
+#reset, #deleteAll, #divDeleteTasks, #addUser{
 	cursor: pointer;
 }
 
@@ -239,11 +247,17 @@ input[type='radio']{
 	color: #000091;
 }
 
-.resultbutt:disabled, .doubleButton>button:disabled {
+.resultbutt:disabled, .doubleButton>button:disabled, #addUser:disabled {
 	opacity: 0.3;
 	cursor: default;
 }
-
+#addUser{
+	background-color: transparent;
+	border: transparent;
+}
+#addUser:hover {
+	color: olive;
+}
 /* RESULTADOS */
 .mostrarResultadosDiv {
 	justify-content: space-around;
