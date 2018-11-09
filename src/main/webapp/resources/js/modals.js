@@ -6,6 +6,7 @@ var skillsList;
 var chronoTime = 0;
 var chronoTimeTypeSelection = "sec";
 var userO = new Object();
+var taskNameCounter = 0;
 
 //Llamamos a las funciones
 document.getElementById("modPhase").addEventListener("click", saveModPhase, false);
@@ -14,6 +15,7 @@ document.getElementById("rmvUsuario").addEventListener("click", rmvModUsers, fal
 document.getElementById("addUser").addEventListener("click", addUsers, false);
 document.getElementById("addUsuario").addEventListener("click", saveAddUser, false);
 document.getElementById("modChrono").addEventListener("click", chrono, false);
+document.getElementById("addTask").addEventListener("click", addTareas, false);
 $(".tareas").click(showTaskInfo);
 
 
@@ -628,4 +630,31 @@ function showTaskInfo(){
 			document.getElementById("modalTaskNameValue").innerHTML = event.target.getAttribute("data-identification");
 		}
 	}
+}
+
+
+// Mejora, si un caso, que se guarde en el controller
+function addTareas(){
+	// Incrementamos el numero
+	taskNameCounter ++;
+	// Creamos un objeto nuevo
+	var tarea = new Object();
+	tarea.name = "Task" + taskNameCounter;
+	tarea.duration = 0;
+	tarea.tss = 0;
+	tarea.state;
+	tarea.phase = 0;
+	tarea.assignedUsers = new Array();
+	tarea.staticAssigneds = new Array();
+	tarea.sameIteration = false;
+	tarea.cycleTime = 0;
+	tarea.leadTime = 0;
+	tarea.startTime = 0;
+	tarea.esfuerzo = 0;
+	tarea.phasesTime = new Array();
+	tarea.timeByStats = new Array();
+	tarea.statsTime = new Array();
+	listTareas.push(tarea);
+	console.table(listTareas);
+	printTasks(tarea);
 }

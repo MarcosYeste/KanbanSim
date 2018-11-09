@@ -498,8 +498,6 @@ function play() {
 			listTareas.push(tarea);
 			// Y lo printamos
 			printTasks(tarea);
-			console.log("Gaussiano Reseteado")
-			console.log(gaussian);
 		}
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {

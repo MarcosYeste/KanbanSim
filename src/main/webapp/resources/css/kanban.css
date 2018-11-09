@@ -147,6 +147,9 @@ input[type='radio']{
 }
 
 /* BOTONES */
+button{
+	outline: none !important;
+}
 .playpause label {
 	display: block;
 	box-sizing: border-box;
@@ -240,6 +243,7 @@ input[type='radio']{
 	text-align: center;
 	padding: 10px;
 	margin-right: 10px;
+	
 }
 
 .resultbutt:hover {
@@ -251,13 +255,22 @@ input[type='radio']{
 	opacity: 0.3;
 	cursor: default;
 }
-#addUser{
+#addUser, #addTask{
 	background-color: transparent;
 	border: transparent;
 }
 #addUser:hover {
 	color: olive;
 }
+#addTask{
+	position: absolute;
+	margin-left: 5%;
+	margin-top: 2%;
+}
+#addTask:active{
+	transform: translate(1px,2px);
+}
+
 /* RESULTADOS */
 .mostrarResultadosDiv {
 	justify-content: space-around;
