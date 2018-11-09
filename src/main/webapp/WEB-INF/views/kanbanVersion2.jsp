@@ -56,7 +56,7 @@
 	</div>
 	
 	<!-- Button Add Tasks, ONLY MANUAL -->
-	<button id="addTask"><i class="fas fa-plus fa-3x"></i></button>
+	<button id="addTask" data-toggle="tooltip" data-placement="top" title="Añadir Tareas"><i class="fas fa-plus fa-3x"></i></button>
 	
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
 	<div class="contenedor" id="contenedor">
