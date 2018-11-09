@@ -40,7 +40,7 @@
 
 	<!-- Temporizador -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
-
+	<p data-toggle="modal" data-target="#modalDistribution" id="AA">Distribution</p>
 	<div class="botonesContainer">
 
 		<!--  Button Play/Pause -->
@@ -357,6 +357,40 @@
 					<div>
 						<input type="radio" name="chronoTimeType" value="sec" checked>Segundos
 						<input type="radio" name="chronoTimeType" value="min">Minutos
+					</div>
+					<button id="modChrono" class="btn btn-secondary"
+						data-dismiss="modal">Modificar</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+		
+	<!-- Modal Modificar Distribución-->
+	<div class="modal fade" id="modalDistribution" role="dialog">
+
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Distribución</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+					Tiempo: 
+					<div>
+						<input type="radio" name="taskInputMode" value="manual" checked>Manual
+						<input type="radio" name="taskInputMode" value="constant">Constante
+					</div>
+					
+					Distribución: 
+					<div>
+						<input type="radio" name="distributionType" value="normal" checked>Normal
+						<input type="radio" name="distributionType" value="poison">Poison
+						<input type="radio" name="distributionType" value="poison">Con peso
 					</div>
 					<button id="modChrono" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
