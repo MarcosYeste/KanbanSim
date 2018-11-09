@@ -39,8 +39,9 @@
 
 	<h1 class="texto">KANBAN SIM</h1>
 
-	<!-- Temporizador -->
+	<!--Temporizador y Cambiar Distribucion -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
+	<p data-toggle="modal" data-target="#modalDistribution" id="AA">Distribucion</p>
 
 	<div class="botonesContainer">
 
@@ -368,7 +369,36 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Modal Cambiar Distribucion-->
+	<div class="modal fade" id="modalDistribution" role="dialog">
 
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Distribucion:</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+					Tipo: 
+					<div>
+						<input type="radio" name="distributionType" value="Manual" checked>Manual
+						<input type="radio" name="distributionType" value="Constante">Constante
+					</div>
+					
+					<button id="modDistribution" class="btn btn-secondary"
+						data-dismiss="modal">Modificar</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<!-- Modal Task Info-->
 	<div class="modal fade" id="modalTaskInfo" role="dialog">
 		<div class="modal-dialog">
