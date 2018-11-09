@@ -1,6 +1,3 @@
-//var totalFases = 0;
-//var mediaMaxFaseTime = 0;
-//var mediaMinFaseTime = 0;
 var firstLoop = true;
 var myInterval;
 var leadTime = 0;
@@ -110,7 +107,7 @@ document.getElementById("divDelete").addEventListener("click", function() {
 	xhttp.send();
 });
 
-// Corregir problema, cuando no hay tareas, al inicar el kanban el mismo se detiene 
+//Corregir problema, cuando no hay tareas, al inicar el kanban el mismo se detiene 
 
 function play() {
 
@@ -123,7 +120,9 @@ function play() {
 
 	myInterval = setInterval(function() {
 
-		kanbanTss++;
+		if(chronoTime != 0){
+			kanbanTss++;
+		}
 
 		for (var i = 0; i < fases.length; i++) {
 
@@ -548,7 +547,7 @@ function play() {
 
 			}
 		}
-		
+
 
 		leadTime += 1;
 
@@ -723,10 +722,10 @@ function getGaussian(mean, variation){
 			varianza: variation
 
 		},success: function(data) {
-			
+
 			gaussian = parseInt(data)
 			console.log("Nuevo Gaussian " + gaussian);
-			
+
 		}
 	});
 }
