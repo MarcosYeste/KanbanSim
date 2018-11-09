@@ -779,6 +779,8 @@ function mediaFasestotal(taskArray){
 	var array = taskArray;	
 	var arrayFases  = new Array();
 	var numero =0;
+	if(array[0] != undefined ){
+	
 	while (z < array[0].length){
 		var sumaTodos =0;
 		var sumaDoing = 0;
@@ -796,6 +798,7 @@ function mediaFasestotal(taskArray){
 	arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
 	z++;
 	}
+ }
  return arrayFases;
 
 }
