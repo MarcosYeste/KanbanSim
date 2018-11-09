@@ -8,6 +8,9 @@ var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
+var gaussianCounter = 0;
+var gaussian = 1; // Base, Varianza
+var taskNameCounter = 0;
 
 //Guardar al modificar Phase
 sortPhases();
@@ -429,15 +432,15 @@ function play() {
 
 //											// Usuarios Que han trabajado en esa tarea
 //											if(document.getElementById("modalTaskNameValue").innerHTML == task.name){
-//												document.getElementById("modalTaskWorkedValue").innerHTML = task.staticAssigneds
-//												do {
-//
-//													document.getElementById("modalTaskWorkedValue").innerHTML = document.getElementById("modalTaskWorkedValue").innerHTML.replace(" ", ",");
-//
-//												}while(document.getElementById("modalTaskWorkedValue").innerHTML.indexOf(" ") != -1);
+//											document.getElementById("modalTaskWorkedValue").innerHTML = task.staticAssigneds
+//											do {
+
+//											document.getElementById("modalTaskWorkedValue").innerHTML = document.getElementById("modalTaskWorkedValue").innerHTML.replace(" ", ",");
+
+//											}while(document.getElementById("modalTaskWorkedValue").innerHTML.indexOf(" ") != -1);
 //											}
 //											console.log("Adios");
-											
+
 											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 												task.duration = 1;
 											} else {
@@ -468,6 +471,34 @@ function play() {
 
 		});
 
+		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
+		if(gaussian == gaussianCounter){
+			getGaussian(10 , 2);
+			gaussianCounter = 0;
+			taskNameCounter ++;
+			// Creamos un objeto nuevo
+			var tarea = new Object();
+			tarea.name = "Task" + taskNameCounter;
+			tarea.duration = 0;
+			tarea.tss = 0;
+			tarea.state;
+			tarea.phase = 0;
+			tarea.assignedUsers = new Array();
+			tarea.staticAssigneds = new Array();
+			tarea.sameIteration = false;
+			tarea.cycleTime = 0;
+			tarea.leadTime = 0;
+			tarea.startTime = 0;
+			tarea.esfuerzo = 0;
+			tarea.phasesTime = new Array();
+			tarea.timeByStats = new Array();
+			tarea.statsTime = new Array();
+			listTareas.push(tarea);
+			// Y lo printamos
+			printTasks(tarea);
+			console.log("Gaussiano Reseteado")
+			console.log(gaussian);
+		}
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
 			// Finalizado completamente
@@ -477,9 +508,9 @@ function play() {
 			document.getElementById("chronoViewer").innerHTML = "00:00";
 			// Cambiamos el boton a pausa
 			document.getElementById("playpause").checked = false;
-			
+
 			deshabilitarMenus(false);
-			
+
 			if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
 				sortPhases();
 			}
@@ -492,7 +523,7 @@ function play() {
 			}
 
 		}
-		
+
 		leadTime += 1;
 
 		console.log("::: LEAD TIME ::::: "+leadTime);
@@ -512,7 +543,9 @@ function play() {
 					document.getElementById("chronoViewer").innerHTML = "00:"+(chronoTime - kanbanTss);
 				}
 			}
-		} 
+		}
+
+		gaussianCounter++;
 
 	}, 1000);
 
@@ -529,7 +562,6 @@ function saveTimeStates(task,leadTime,i){
 		if(task.phase != 0){			
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime-sumaFasesTiempo(task.phasesTime);			
 			task.timeByStats.push(task.statsTime);
-			console.log(">>>>>>>>>>>>>>>>>>>  comienza LA I VALE "+i);
 			console.log(task.statsTime);
 			task.phasesTime[i] = saveNewTimePhase(task.statsTime);
 			task.statsTime = [0,0,0];
@@ -560,7 +592,6 @@ function saveTimeStates(task,leadTime,i){
 
 		}
 		task.timeByStats.push(task.statsTime);
-		console.log(">>>>>>>>>>>>>>>>>>>  termina LA I VALE "+i);
 		task.phasesTime[i] = saveNewTimePhase(task.statsTime);
 		task.statsTime = [0,0,0];
 	}
@@ -581,7 +612,6 @@ function saveNewTimePhase(statsTime){
 		suma += statsTime[i];
 
 	}
-	console.log("Total de esta fase: "+suma);
 	return suma;
 
 }
@@ -870,8 +900,8 @@ function mostrarDorsoTarea(id,phasesTime,esfuerzo){
 		T.innerHTML += "<p>Time on "+phase.name+": "+phasesTime[i]+"''</p>";
 		i++;
 	});
-		T.innerHTML += "<p>Esfuerzo "+esfuerzo+"''</p>";
-	
+	T.innerHTML += "<p>Esfuerzo "+esfuerzo+"''</p>";
+
 	T.innerHTML += "<small style='color:blue'>Ver más</small>";
 	T.setAttribute("onClick","mostrarResultados()");
 }
@@ -1085,4 +1115,29 @@ function sortPhases(){
 		$( "#faseDiv" ).disableSelection();
 		$( "#faseDiv").css("cursor", "move");
 	});
+}
+function getGaussian(mean, variation){
+	$.ajax({
+		type: "GET",
+		url: "/nextGaussian",
+		data: {
+
+			base: mean,
+			varianza: variation
+
+		},success: function(data) {
+			
+			gaussian = parseInt(data) 
+			
+		}
+	});
+}
+function printTasks(tarea){
+	document.getElementsByClassName("contenedorTareas")[0].innerHTML +=
+		"<div class='tareas' data-toggle='modal' data-target='#modalTaskInfo' " +
+		"data-identification='" + tarea.name + "'> " +
+		"<p data-identification='" + tarea.name + "'>" + tarea.name + "</p>" +
+		"<p class='estado' data-identification='" + tarea.name + "'>" +
+		"<small class='divState'></small></p>" +
+		"<p class='duration' data-identification='" + tarea.name + "'>0.0</p></div>";
 }

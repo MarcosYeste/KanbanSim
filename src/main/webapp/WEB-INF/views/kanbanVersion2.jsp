@@ -13,6 +13,7 @@
 
 </head>
 <body>
+
 	<div class="botonesContainer1" id="botonesContainer1">
 
 		<!-- Nuevo Tablero -->
