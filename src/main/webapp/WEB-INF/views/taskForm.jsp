@@ -11,26 +11,32 @@
 </head>
 <body>
 
-	<!-- Form That Creates new Tasks -->
 		<div class="row card mb-3 border-info mx-auto" style="max-width: 40rem;">
-			<div class="card-header bg-info font-weight-bold">Crear Nueva Tarea</div>
+			<div class="card-header bg-info font-weight-bold">Configuración de Backlog</div>
 			<div class="card-body">
-				<form:form modelAttribute="task" cssClass="form-horizontal"
-					action="/addTask" method="post">
-					<div class="form-group">
-						<form:label cssClass="col-sm-3 " path="name">Nombre Tarea</form:label>
-						<div class="col-sm-12">
-							<form:input cssClass="form-control" path="name"
-								required="required" />
-						</div>
-					</div>
-					<div class="col-sm-8">
-						<button type="submit" class="btn btn-primary">SAVE</button>
-					</div>
-					</form:form>
+				<p>Entrada de tareas</p>
+				<div>
+					<input type="radio" name="taskInputMode" value="manual" checked/> Manual
+					<input type="radio" name="taskInputMode" value="constant"/> Constante	
+				</div>
+				
+				<p>Distribución</p>
+				<div>
+					<input type="radio" name="distributionType" value="normal" checked disabled>Normal
+					<input type="radio" name="distributionType" value="poison" disabled>Poison
+					<input type="radio" name="distributionType" value="weight" disabled>Con peso
+				</div>
+				
+				
+				<div id="distributionData">
+					
+				</div>
 			</div>
-		
-	</div>
-
+				<div class="col-sm-8">
+					<button id="modBacklogBtn" class="btn btn-primary">SAVE</button>
+				</div>
+			
+		</div>
+<script src="/resources/js/backlogconf.js"></script>
 </body>
 </html>
