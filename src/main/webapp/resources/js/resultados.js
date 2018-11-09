@@ -151,8 +151,10 @@ function mostrarResultados() {
 	sumaEstadosTotal = Math.round((sumatodo + sumaDoing+ sumadone)/numerotareas);
 	tabla += "<tr>";
 	tabla += "<td>Media por fase: </td>";
+	if(resultMediaPorFases[i] != undefined){
 	for (var i = 0; i < cv; i++) {
 		tabla += "<td><div class='stados'><p>"+resultMediaPorFases[i][0]+"s</p><p>"+resultMediaPorFases[i][1]+"s</p><p>"+resultMediaPorFases[i][2]+"s</p></div></td>";
+	}
 	}
 	tabla += "</tr>";
 	tabla += "<tr><td>Media Total: </td><td colspan='"+cv+"'>"+sumaEstadosTotal+"s</td></tr>";
@@ -287,11 +289,15 @@ function mediaFasestotal(taskArray){
 		var sumaDoing = 0;
 		var sumaDone = 0;
 		for (var i = 0; i < array.length; i++) {
+			if(array[i][z] != undefined){
 
+				console.log(array[i]);
+				console.log(array[i][z]);
+				console.log(array[i][z][0]);
 			sumaTodos += array[i][z][0];
 			sumaDoing += array[i][z][1];
 			sumaDone  += array[i][z][2];								
-
+			}
 		}
 		sumaTodos = Math.round((sumaTodos / array[0][0].length)* 10 ) / 10;
 		sumaDoing = Math.round((sumaDoing / array[0][0].length) * 10 ) / 10;
