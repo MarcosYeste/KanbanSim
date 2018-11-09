@@ -13,6 +13,7 @@
 
 </head>
 <body>
+
 	<div class="botonesContainer1" id="botonesContainer1">
 
 		<!-- Nuevo Tablero -->
@@ -168,7 +169,6 @@
 					phase.color = '<c:out value="${color}"></c:out>';
 					phase.period = 0;
 					listPhases.push(phase);
-					console.log(phase.id);// Sujeto Pruebas
 				</script>
 
 			</c:forEach>
@@ -219,7 +219,6 @@
 								'').split(',');
 						userO.assigned = false;
 						listUsers.push(userO);
-						console.table(listUsers);
 					</script>
 				</div>
 			</c:forEach>
@@ -383,10 +382,12 @@
 
 				<div class="modal-body">
 				
-					<p id="modalTaskName">Nombre: </p><p id="modalTaskNameValue"> </p>
-					<p id="modalTaskAssignedTimes">Tiempo asignado por fase: ><p id="modalTaskTimeWorkedValue"></p>
-					<p id="modalTaskTSS">Tiempo real por fases: ><p id="modalTaskTSSValue"></p>
-					<p id="modalTaskLTCT">LT y CT estimado: ><p id="modalTaskLTCTValue"></p>
+					<p id="modalTaskName">Nombre: </p><p class="alert alert-info" id="modalTaskNameValue"> </p>
+					<p id="modalTaskAssignedTimes"> Tiempo asignado por fase: </p><p class="alert alert-info" id="modalTaskTimeWorkedValue"></p>
+					<p id="modalTaskTSS"> Tiempo real por fases:</p> <p class="alert alert-info" id="modalTaskTSSValue"></p>
+					<p id="modalTaskLTCT"> LT y CT estimado: </p><p class="alert alert-info" id="modalTaskLTCTValue"></p>
+					<p id="modalTaskWorking"> Miembros Trabajando: </p><p class="alert alert-info" id="modalTaskWorkingValue"></p>
+					<p id="modalTaskWorked"> Miembros que han Trabajado: </p><p class="alert alert-info" id="modalTaskWorkedValue"></p>
 					
 				</div>
 				<div class="modal-footer">

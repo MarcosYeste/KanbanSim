@@ -181,7 +181,7 @@ input[type='radio']{
 	margin-left: 10px;
 }
 
-#reset, #deleteAll {
+#reset, #deleteAll, #divDeleteTasks, #addUser{
 	cursor: pointer;
 }
 
@@ -247,13 +247,16 @@ input[type='radio']{
 	color: #000091;
 }
 
-.resultbutt:disabled, .doubleButton>button:disabled {
+.resultbutt:disabled, .doubleButton>button:disabled, #addUser:disabled {
 	opacity: 0.3;
 	cursor: default;
 }
 #addUser{
 	background-color: transparent;
 	border: transparent;
+}
+#addUser:hover {
+	color: olive;
 }
 /* RESULTADOS */
 .mostrarResultadosDiv {

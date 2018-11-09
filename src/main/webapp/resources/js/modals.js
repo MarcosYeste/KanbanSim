@@ -306,7 +306,6 @@ function rmvModUsers() {
 
 			listUsers.splice(click2, 1);
 
-			console.table(listUsers);
 
 			$( ".userName[data-identification='"+ click2 +"']").remove();
 			var clases = $(".userName");
@@ -529,8 +528,6 @@ function saveAddUser(){
 		},success: function(data) {
 			listUsers.push(userO);
 
-			console.table(listUsers);
-
 			document.getElementById("addNameUser").value = "";
 
 			document.getElementsByClassName("usersContainer")[0].innerHTML +=
@@ -588,7 +585,7 @@ function chrono(){
 					document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 				} else {
 
-					if (chronoTime < 10) {chronoTime = "0"+chronoTime;}
+					if (chronoTime < 10) {chronoTime = "0"+parseInt(chronoTime);}
 					document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;
 				}
 			} else {
@@ -625,7 +622,6 @@ function formUserValido(funcion,accion){
 }
 
 function showTaskInfo(){
-	console.log(event.target.getAttribute("data-identification"));
 		
 	for(var i = 0; i < listTareas.length; i++){
 		if(event.target.getAttribute("data-identification") == listTareas[i].name){
