@@ -122,8 +122,11 @@ function play() {
 	var anteriorTiempo =0;
 
 	myInterval = setInterval(function() {
-
-		kanbanTss++;
+		
+		if(chronoTime != 0){
+			kanbanTss++;	
+		}
+		
 
 		for (var i = 0; i < fases.length; i++) {
 
