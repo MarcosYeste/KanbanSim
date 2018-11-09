@@ -381,7 +381,7 @@
 				</div>
 
 				<div class="modal-body">
-					Tiempo: 
+					Tipo: 
 					<div>
 						<input type="radio" name="taskInputMode" value="manual" checked>Manual
 						<input type="radio" name="taskInputMode" value="constant">Constante
@@ -393,7 +393,7 @@
 						<input type="radio" name="distributionType" value="poison">Poison
 						<input type="radio" name="distributionType" value="poison">Con peso
 					</div>
-					<button id="modChrono" class="btn btn-secondary"
+					<button id="modDistribution" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 				</div>
 				<div class="modal-footer">
