@@ -1,6 +1,3 @@
-//var totalFases = 0;
-//var mediaMaxFaseTime = 0;
-//var mediaMinFaseTime = 0;
 var firstLoop = true;
 var myInterval;
 var leadTime = 0;
@@ -11,7 +8,7 @@ var kanbanTss = 0;
 var gaussianCounter = 0;
 var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas, 
 var taskNameCounter = 0;
-var taskInputMode = "constant"; //Type of backlog tasks input
+var taskInputMode = "constant"; //Type of backlog tasks input 'constant', 'manual'
 
 //Guardar al modificar Phase
 sortPhases();
@@ -110,7 +107,7 @@ document.getElementById("divDelete").addEventListener("click", function() {
 	xhttp.send();
 });
 
-// Corregir problema, cuando no hay tareas, al inicar el kanban el mismo se detiene 
+//Corregir problema, cuando no hay tareas, al inicar el kanban el mismo se detiene 
 
 function play() {
 
@@ -122,11 +119,10 @@ function play() {
 	var anteriorTiempo =0;
 
 	myInterval = setInterval(function() {
-		
+
 		if(chronoTime != 0){
-			kanbanTss++;	
+			kanbanTss++;
 		}
-		
 
 		for (var i = 0; i < fases.length; i++) {
 
@@ -501,8 +497,6 @@ function play() {
 			listTareas.push(tarea);
 			// Y lo printamos
 			printTasks(tarea);
-			console.log("Gaussiano Reseteado")
-			console.log(gaussian);
 		}
 		if(taskInputMode == "manual"){
 			if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
@@ -553,7 +547,7 @@ function play() {
 
 			}
 		}
-		
+
 
 		leadTime += 1;
 
@@ -728,10 +722,10 @@ function getGaussian(mean, variation){
 			varianza: variation
 
 		},success: function(data) {
-			
+
 			gaussian = parseInt(data)
 			console.log("Nuevo Gaussian " + gaussian);
-			
+
 		}
 	});
 }

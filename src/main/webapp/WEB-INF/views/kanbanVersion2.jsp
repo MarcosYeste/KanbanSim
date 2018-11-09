@@ -54,7 +54,10 @@
 				for="playpause" tabindex=1></label>
 		</div>
 	</div>
-
+	
+	<!-- Button Add Tasks, ONLY MANUAL -->
+	<button id="addTask" data-toggle="tooltip" data-placement="top" title="Añadir Tareas"><i class="fas fa-plus fa-3x"></i></button>
+	
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
 	<div class="contenedor" id="contenedor">
 
@@ -367,7 +370,9 @@
 				</div>
 			</div>
 		</div>
-	
+
+	</div>
+
 	<!-- Modal Task Info-->
 	<div class="modal fade" id="modalTaskInfo" role="dialog">
 		<div class="modal-dialog">
