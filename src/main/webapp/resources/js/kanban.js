@@ -127,7 +127,7 @@ function play() {
 
 //			-------------------------------------------------------------------------------------------//
 
-			if (firstLoop) {
+			if (firstLoop) { 
 
 
 				for (var j = 0; j < divsTareas.length; j++) {
@@ -437,6 +437,7 @@ function play() {
 //												}while(document.getElementById("modalTaskWorkedValue").innerHTML.indexOf(" ") != -1);
 //											}
 //											console.log("Adios");
+											
 											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 												task.duration = 1;
 											} else {
