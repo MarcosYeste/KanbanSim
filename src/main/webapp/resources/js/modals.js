@@ -586,7 +586,7 @@ function chrono(){
 					document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 				} else {
 
-					if (chronoTime < 10) {chronoTime = "0"+chronoTime;}
+					if (chronoTime < 10) {chronoTime = "0"+parseInt(chronoTime);}
 					document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;
 				}
 			} else {

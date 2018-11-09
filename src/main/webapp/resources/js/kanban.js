@@ -452,7 +452,9 @@ function play() {
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
 			// Finalizado completamente
 			clearInterval(myInterval);
-
+			kanbanTss = 0;
+			chronoTime = 0;
+			document.getElementById("chronoViewer").innerHTML = "00:00";
 			// Cambiamos el boton a pausa
 			document.getElementById("playpause").checked = false;
 
