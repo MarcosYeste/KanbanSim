@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	var taskInputModeInputs = $("[name='taskInputMode']");
 	var distributionTypeInputs = $("[name='distributionType']");
-	
+
 	for(var i = 0; i < taskInputModeInputs.length; i++){
 		taskInputModeInputs[i].addEventListener("change", function(){
 			if(event.target.getAttribute("value") == "constant"){
@@ -28,7 +28,7 @@ $(document).ready(function(){
 			}
 		});
 	}	
-	
+
 	$("#modBacklogBtn").click(function(){
 		location.href = "/";
 	})

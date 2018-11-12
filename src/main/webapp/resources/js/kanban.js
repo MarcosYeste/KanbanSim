@@ -9,6 +9,7 @@ var gaussianCounter = 0;
 var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas, 
 var taskNameCounter = 0;
 var taskInputMode; 
+
 getDistribution(); //Type of backlog tasks input 'constant', 'manual'
 if(taskInputMode == null){
 	taskInputMode = "manual";
@@ -748,6 +749,7 @@ function getDistribution(){
 		data: {
 		},success: function(data) {
 			taskInputMode = data;
+			
 			$("input[value='"+ taskInputMode +"']").prop("checked", true);
 			
 			if(taskInputMode == "constant"){
@@ -755,6 +757,7 @@ function getDistribution(){
 			}else{
 				$("[name='distributionType']").attr("disabled", "");
 			}
+
 		}
 	});
 }

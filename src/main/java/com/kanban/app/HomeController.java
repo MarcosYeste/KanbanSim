@@ -238,7 +238,6 @@ public class HomeController {
 	// Get Distribution
 	@RequestMapping(value = "/changeDistr", method = RequestMethod.POST)
 	public @ResponseBody String addDistribution(String distribution) {	
-
 		this.distribution = distribution;
 		
 		return "success";
@@ -247,8 +246,7 @@ public class HomeController {
 	// Post Distribution
 	@RequestMapping(value = "/getDistr", method = RequestMethod.GET)
 	public @ResponseBody String getDistribution() {	
-
-		return distribution;
+		return this.distribution;
 	}
 
 	// Add New Phase
