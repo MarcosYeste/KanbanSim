@@ -13,9 +13,8 @@ public class Task {
 	private ArrayList<User> assignedUsers = new ArrayList<User>();
 	
 	
-	public Task(String name, float duration) {
+	public Task(String name) {
 		this.name = name;
-		this.duration = duration;
 	}
 	public Task() {
 		this.tss = 0;

@@ -1,6 +1,3 @@
-//var totalFases = 0;
-//var mediaMaxFaseTime = 0;
-//var mediaMinFaseTime = 0;
 var firstLoop = true;
 var myInterval;
 var leadTime = 0;
@@ -11,7 +8,12 @@ var kanbanTss = 0;
 var gaussianCounter = 0;
 var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas, 
 var taskNameCounter = 0;
+var taskInputMode; 
 
+getDistribution(); //Type of backlog tasks input 'constant', 'manual'
+if(taskInputMode == null){
+	taskInputMode = "manual";
+}
 //Guardar al modificar Phase
 sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
@@ -20,7 +22,6 @@ $(function () {
 })
 
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
-
 for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", listPhases[i].id);
 	document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", listPhases[i].id);
@@ -110,7 +111,7 @@ document.getElementById("divDelete").addEventListener("click", function() {
 	xhttp.send();
 });
 
-// Corregir problema, cuando no hay tareas, al inicar el kanban el mismo se detiene 
+//Corregir problema, cuando no hay tareas, al inicar el kanban el mismo se detiene 
 
 function play() {
 
@@ -123,7 +124,9 @@ function play() {
 
 	myInterval = setInterval(function() {
 
-		kanbanTss++;
+		if(chronoTime != 0){
+			kanbanTss++;
+		}
 
 		for (var i = 0; i < fases.length; i++) {
 
@@ -472,58 +475,82 @@ function play() {
 
 		});
 
-//		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
-//		if(gaussian == gaussianCounter || gaussian == 0){
-//			getGaussian(3 , 2); // base y varianza
-//			gaussianCounter = 0;
-//			taskNameCounter ++;
-//			// Creamos un objeto nuevo
-//			var tarea = new Object();
-//			tarea.name = "Task" + taskNameCounter;
-//			tarea.duration = 0;
-//			tarea.tss = 0;
-//			tarea.state;
-//			tarea.phase = 0;
-//			tarea.assignedUsers = new Array();
-//			tarea.staticAssigneds = new Array();
-//			tarea.sameIteration = false;
-//			tarea.cycleTime = 0;
-//			tarea.leadTime = 0;
-//			tarea.startTime = 0;
-//			tarea.esfuerzo = 0;
-//			tarea.phasesTime = new Array();
-//			tarea.timeByStats = new Array();
-//			tarea.statsTime = new Array();
-//			listTareas.push(tarea);
-//			// Y lo printamos
-//			printTasks(tarea);
-//			console.log("Gaussiano Reseteado")
-//			console.log(gaussian);
-//		}
-
-		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
-			// Finalizado completamente
-			clearInterval(myInterval);
-			kanbanTss = 0;
-			chronoTime = 0;
-			document.getElementById("chronoViewer").innerHTML = "00:00";
-			// Cambiamos el boton a pausa
-			document.getElementById("playpause").checked = false;
-
-			deshabilitarMenus(false);
-
-			if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
-				sortPhases();
-			}
-
-			lowestTime = findMaxAndMin();
-			lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
-
-			for(var i = 0; i < lazyPeople[1].length; i++){
-				document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
-			}
-
+		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
+		if((gaussian == gaussianCounter || gaussian == 0) && taskInputMode == "constant"){
+			getGaussian(3 , 2);
+			gaussianCounter = 0;
+			taskNameCounter ++;
+			// Creamos un objeto nuevo
+			var tarea = new Object();
+			tarea.name = "Task" + taskNameCounter;
+			tarea.duration = 0;
+			tarea.tss = 0;
+			tarea.state;
+			tarea.phase = 0;
+			tarea.assignedUsers = new Array();
+			tarea.staticAssigneds = new Array();
+			tarea.sameIteration = false;
+			tarea.cycleTime = 0;
+			tarea.leadTime = 0;
+			tarea.startTime = 0;
+			tarea.esfuerzo = 0;
+			tarea.phasesTime = new Array();
+			tarea.timeByStats = new Array();
+			tarea.statsTime = new Array();
+			listTareas.push(tarea);
+			// Y lo printamos
+			printTasks(tarea);
 		}
+		if(taskInputMode == "manual"){
+			if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
+				// Finalizado completamente
+				clearInterval(myInterval);
+				kanbanTss = 0;
+				chronoTime = 0;
+				document.getElementById("chronoViewer").innerHTML = "00:00";
+				// Cambiamos el boton a pausa
+				document.getElementById("playpause").checked = false;
+
+				deshabilitarMenus(false);
+
+				if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
+					sortPhases();
+				}
+
+				lowestTime = findMaxAndMin();
+				lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
+
+				for(var i = 0; i < lazyPeople[1].length; i++){
+					document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
+				}
+
+			}
+		} else if (taskInputMode == "constant"){
+			if (kanbanTss == chronoTime && (chronoTime != 0)) {
+				// Finalizado completamente
+				clearInterval(myInterval);
+				kanbanTss = 0;
+				chronoTime = 0;
+				document.getElementById("chronoViewer").innerHTML = "00:00";
+				// Cambiamos el boton a pausa
+				document.getElementById("playpause").checked = false;
+
+				deshabilitarMenus(false);
+
+				if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
+					sortPhases();
+				}
+
+				lowestTime = findMaxAndMin();
+				lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
+
+				for(var i = 0; i < lazyPeople[1].length; i++){
+					document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
+				}
+
+			}
+		}
+
 
 		leadTime += 1;
 
@@ -698,10 +725,9 @@ function getGaussian(mean, variation){
 			varianza: variation
 
 		},success: function(data) {
-			
+
 			gaussian = parseInt(data)
-			console.log("Nuevo Gaussian " + gaussian);
-			
+
 		}
 	});
 }
@@ -713,4 +739,24 @@ function printTasks(tarea){
 		"<p class='estado' data-identification='" + tarea.name + "'>" +
 		"<small class='divState'></small></p>" +
 		"<p class='duration' data-identification='" + tarea.name + "'>0</p></div>";
+}
+
+function getDistribution(){
+	$.ajax({
+		type: "GET",
+		url: "/getDistr",
+		data: {
+		},success: function(data) {
+			taskInputMode = data;
+			
+			$("input[value='"+ taskInputMode +"']").prop("checked", true);
+			
+			if(taskInputMode == "constant"){
+				$("[name='distributionType']").removeAttr("disabled");
+			}else{
+				$("[name='distributionType']").attr("disabled", "");
+			}
+
+		}
+	});
 }

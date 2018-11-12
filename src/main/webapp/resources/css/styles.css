@@ -149,3 +149,7 @@ h1 {
 	margin-left: 12%;
 	margin-top: 3%;
 }
+.distributionRadio {
+	display: inline;
+	margin-left: 5px;
+}
