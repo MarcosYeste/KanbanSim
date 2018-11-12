@@ -37,6 +37,6 @@
 				</div>
 			
 		</div>
-<script src="/resources/js/backlogconf.js"></script>
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

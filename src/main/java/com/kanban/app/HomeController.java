@@ -83,12 +83,10 @@ public class HomeController {
 	}
 
 	// Add new Task
-	@RequestMapping(value = "/addTask", method = RequestMethod.GET)
-	public String newTask(Model model) {
+	@RequestMapping(value = "/distributionForm", method = RequestMethod.GET)
+	public String newTask() {
 
-		model.addAttribute("task",new Task());
-
-		return "taskForm";
+		return "distributionForm";
 	}
 
 	// Add new Task
