@@ -9,7 +9,10 @@ var gaussianCounter = 0;
 var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas, 
 var taskNameCounter = 0;
 
-console.log(modDistribution());
+var taskInputMode = getDistribution(); //Type of backlog tasks input 'constant', 'manual'
+if(taskInputMode == null){
+	taskInputMode = "manual";
+}
 //Guardar al modificar Phase
 sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
@@ -724,7 +727,6 @@ function getGaussian(mean, variation){
 		},success: function(data) {
 
 			gaussian = parseInt(data)
-			console.log("Nuevo Gaussian " + gaussian);
 
 		}
 	});
@@ -739,3 +741,13 @@ function printTasks(tarea){
 		"<p class='duration' data-identification='" + tarea.name + "'>0</p></div>";
 }
 
+function getDistribution(){
+	$.ajax({
+		type: "GET",
+		url: "/getDistr",
+		data: {
+		},success: function(data) {
+			return data;
+		}
+	});
+}

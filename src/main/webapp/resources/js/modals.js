@@ -19,7 +19,6 @@ document.getElementById("addTask").addEventListener("click", addTareas, false);
 $(".tareas").click(showTaskInfo);
 
 
-//8
 //Mod Phases
 function modPhases(){
 	click = event.target.getAttribute("data-identification");
