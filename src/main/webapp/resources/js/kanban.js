@@ -8,8 +8,14 @@ var kanbanTss = 0;
 var gaussianCounter = 0;
 var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas, 
 var taskNameCounter = 0;
-var taskInputMode = "manual"; 
+
+var backLogType; 
+var distributionType;
+
 getDistribution(); //Type of backlog tasks input 'constant', 'manual'
+if(backLogType == null){
+	backLogType = "manual";
+}
 
 //Guardar al modificar Phase
 sortPhases();
@@ -473,7 +479,7 @@ function play() {
 		});
 
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
-		if((gaussian == gaussianCounter || gaussian == 0) && taskInputMode == "constant"){
+		if((gaussian == gaussianCounter || gaussian == 0) && backLogType == "constant" && distributionType == "normal"){
 			getGaussian(3 , 2);
 			gaussianCounter = 0;
 			taskNameCounter ++;
@@ -498,7 +504,7 @@ function play() {
 			// Y lo printamos
 			printTasks(tarea);
 		}
-		if(taskInputMode == "manual"){
+		if(backLogType == "manual"){
 			if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
 				// Finalizado completamente
 				clearInterval(myInterval);
@@ -522,7 +528,7 @@ function play() {
 				}
 
 			}
-		} else if (taskInputMode == "constant"){
+		} else if (backLogType == "constant"){
 			if (kanbanTss == chronoTime && (chronoTime != 0)) {
 				// Finalizado completamente
 				clearInterval(myInterval);
@@ -744,16 +750,18 @@ function getDistribution(){
 		url: "/getDistr",
 		data: {
 		},success: function(data) {
-			taskInputMode = data;
+			var formedData = data.split(',');
+			backLogType = formedData[0];
+			distributionType = formedData[1];
 			
-			$("input[value='"+ taskInputMode +"']").prop("checked", true);
+			$("input[value='"+ backLogType +"']").prop("checked", true);
+			$("input[value='"+ distributionType +"']").prop("checked", true);
 			
-			if(taskInputMode == "constant"){
+			if(backLogType == "constant"){
 				$("[name='distributionType']").removeAttr("disabled");
 			}else{
 				$("[name='distributionType']").attr("disabled", "");
 			}
-
 		}
 	});
 }
