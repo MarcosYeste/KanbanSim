@@ -235,6 +235,9 @@ public class HomeController {
 		return String.valueOf(val);
 	}
 
+	
+	
+	
 	// Get Distribution
 	@RequestMapping(value = "/changeDistr", method = RequestMethod.POST)
 	public @ResponseBody String addDistribution(String distribution) {	
