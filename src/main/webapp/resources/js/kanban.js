@@ -750,15 +750,16 @@ function getDistribution(){
 		},success: function(data) {
 			var formedData = data.split(',');
 			backLogType = formedData[0];
-			console.log(formedData[0] + " type " + formedData[1]);
-			$("input[value='"+ backLogType +"']").prop("checked", true);
 			distributionType = formedData[1];
+			
+			$("input[value='"+ backLogType +"']").prop("checked", true);
+			$("input[value='"+ distributionType +"']").prop("checked", true);
+			
 			if(backLogType == "constant"){
 				$("[name='distributionType']").removeAttr("disabled");
 			}else{
 				$("[name='distributionType']").attr("disabled", "");
 			}
-
 		}
 	});
 }
