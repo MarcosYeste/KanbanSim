@@ -8,8 +8,8 @@ var kanbanTss = 0;
 var gaussianCounter = 0;
 var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas, 
 var taskNameCounter = 0;
-
-var taskInputMode = getDistribution(); //Type of backlog tasks input 'constant', 'manual'
+var taskInputMode ;
+getDistribution(); //Type of backlog tasks input 'constant', 'manual'
 if(taskInputMode == null){
 	taskInputMode = "manual";
 }
@@ -747,7 +747,7 @@ function getDistribution(){
 		url: "/getDistr",
 		data: {
 		},success: function(data) {
-			return data;
+			taskInputMode = data;
 		}
 	});
 }

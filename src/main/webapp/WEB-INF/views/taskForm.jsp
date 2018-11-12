@@ -16,15 +16,15 @@
 			<div class="card-body">
 				<p>Entrada de tareas</p>
 				<div>
-					<input type="radio" name="taskInputMode" value="manual"/> Manual
-					<input type="radio" name="taskInputMode" value="constant"/> Constante	
+					<input type="radio" name="taskInputMode" class="distributionRadio" value="manual"/> Manual
+					<input type="radio" name="taskInputMode" class="distributionRadio" value="constant"/> Constante	
 				</div>
 				
 				<p>Distribución</p>
 				<div>
-					<input type="radio" name="distributionType" value="normal" checked disabled>Normal
-					<input type="radio" name="distributionType" value="poison" disabled>Poison
-					<input type="radio" name="distributionType" value="weight" disabled>Con peso
+					<input type="radio" name="distributionType" class="distributionRadio" value="normal" checked disabled>Normal
+					<input type="radio" name="distributionType" class="distributionRadio" value="poison" disabled>Poison
+					<input type="radio" name="distributionType" class="distributionRadio" value="weight" disabled>Con peso
 				</div>
 				
 				

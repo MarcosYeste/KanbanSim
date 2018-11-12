@@ -1,4 +1,3 @@
-var taskInputMode = "manual"; //Type of backlog tasks input 'constant', 'manual'
 
 var taskInputModeInputs = $("[name='taskInputMode']");
 var distributionTypeInputs = $("[name='distributionType']");
