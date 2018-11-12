@@ -295,7 +295,6 @@ function play() {
 						});
 
 
-
 					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
 						//IF 3
@@ -473,34 +472,34 @@ function play() {
 
 		});
 
-		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
-		if(gaussian == gaussianCounter || gaussian == 0){
-			getGaussian(3 , 2);
-			gaussianCounter = 0;
-			taskNameCounter ++;
-			// Creamos un objeto nuevo
-			var tarea = new Object();
-			tarea.name = "Task" + taskNameCounter;
-			tarea.duration = 0;
-			tarea.tss = 0;
-			tarea.state;
-			tarea.phase = 0;
-			tarea.assignedUsers = new Array();
-			tarea.staticAssigneds = new Array();
-			tarea.sameIteration = false;
-			tarea.cycleTime = 0;
-			tarea.leadTime = 0;
-			tarea.startTime = 0;
-			tarea.esfuerzo = 0;
-			tarea.phasesTime = new Array();
-			tarea.timeByStats = new Array();
-			tarea.statsTime = new Array();
-			listTareas.push(tarea);
-			// Y lo printamos
-			printTasks(tarea);
-			console.log("Gaussiano Reseteado")
-			console.log(gaussian);
-		}
+//		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
+//		if(gaussian == gaussianCounter || gaussian == 0){
+//			getGaussian(3 , 2); // base y varianza
+//			gaussianCounter = 0;
+//			taskNameCounter ++;
+//			// Creamos un objeto nuevo
+//			var tarea = new Object();
+//			tarea.name = "Task" + taskNameCounter;
+//			tarea.duration = 0;
+//			tarea.tss = 0;
+//			tarea.state;
+//			tarea.phase = 0;
+//			tarea.assignedUsers = new Array();
+//			tarea.staticAssigneds = new Array();
+//			tarea.sameIteration = false;
+//			tarea.cycleTime = 0;
+//			tarea.leadTime = 0;
+//			tarea.startTime = 0;
+//			tarea.esfuerzo = 0;
+//			tarea.phasesTime = new Array();
+//			tarea.timeByStats = new Array();
+//			tarea.statsTime = new Array();
+//			listTareas.push(tarea);
+//			// Y lo printamos
+//			printTasks(tarea);
+//			console.log("Gaussiano Reseteado")
+//			console.log(gaussian);
+//		}
 
 		if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
 			// Finalizado completamente
