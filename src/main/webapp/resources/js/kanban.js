@@ -299,7 +299,6 @@ function play() {
 						});
 
 
-
 					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
 						//IF 3

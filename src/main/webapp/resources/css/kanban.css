@@ -291,31 +291,7 @@ button{
 		rgba(0, 0, 0, 0.19);
 }
 
-.tareaResultado {
-	border: 2px solid blue;
-	padding: 10px;
-	color: black;
-	margin-top: 2%;
-	margin-bottom: 1%;
-	background-color: white;
-	text-align: center;
-	text-shadow: 0.1px 0.1px 0.2px black;
-	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
-}
-
-.tareaResultadoDiv {
-	justify-content: space-around;
-	display: flex;
-	flex-direction: row;
-}
-
-.faseResultadoDiv {
-	border-top: 1px solid blue;
-	padding: 20px;
-}
-
-.faseResultado {
+.tareaResultado, .faseResultado{
 	padding: 10px;
 	color: black;
 	margin-top: 2%;
@@ -328,6 +304,12 @@ button{
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 }
+
+.tareaResultadoDiv, .faseResultadoDiv {
+border-top: 1px solid blue;
+	padding: 20px;
+}
+
 .th{
 	display:flex;
 	flex-direction: column;	
