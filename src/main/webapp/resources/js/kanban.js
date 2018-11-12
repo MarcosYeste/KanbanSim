@@ -8,12 +8,9 @@ var kanbanTss = 0;
 var gaussianCounter = 0;
 var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas, 
 var taskNameCounter = 0;
-var taskInputMode; 
-
+var taskInputMode = "manual"; 
 getDistribution(); //Type of backlog tasks input 'constant', 'manual'
-if(taskInputMode == null){
-	taskInputMode = "manual";
-}
+
 //Guardar al modificar Phase
 sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
