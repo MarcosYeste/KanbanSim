@@ -28,21 +28,20 @@ public class HomeController {
 	@Autowired
 	KanbanService kanbanService;
 
-	List<Phase> phasesArray = new ArrayList <Phase>();
-	List<Task> taskArray = new ArrayList <Task>();
-	List<User> userArray = new ArrayList <User>();
+	List<Phase> phasesArray = new ArrayList<Phase>();
+	List<Task> taskArray = new ArrayList<Task>();
+	List<User> userArray = new ArrayList<User>();
 	ArrayList<String> allPhases = new ArrayList<String>();
-	String distribution = "manual"; 
-	String distributionType = "normal";
-	
+	String distribution = "manual";
+	String distributionType;
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-
-		model.addAttribute("task",taskArray);
+		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
 
@@ -51,7 +50,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
-	public String succes( Model model) {
+	public String succes(Model model) {
 
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
@@ -64,14 +63,14 @@ public class HomeController {
 	@RequestMapping(value = "/addFase", method = RequestMethod.GET)
 	public String newFase(Model model) {
 
-		model.addAttribute("fase",new Phase());
+		model.addAttribute("fase", new Phase());
 
 		return "phaseForm";
 	}
 
 	// este metodo recoge el formulario y va al simulador
 	@RequestMapping(value = "/addFase", method = RequestMethod.POST)
-	public String createFase(Model model, @ModelAttribute("fase") Phase fases) {	
+	public String createFase(Model model, @ModelAttribute("fase") Phase fases) {
 
 		model.addAttribute("phases", kanbanService.saveFases(fases, phasesArray));
 		model.addAttribute("task", taskArray);
@@ -79,7 +78,6 @@ public class HomeController {
 
 		addPhases(phasesArray.get(phasesArray.size() - 1).getName());
 		return "success";
-
 
 	}
 
@@ -106,7 +104,7 @@ public class HomeController {
 	@RequestMapping(value = "/addUser", method = RequestMethod.GET)
 	public String newUser(Model model) {
 
-		model.addAttribute("user",new User());
+		model.addAttribute("user", new User());
 		model.addAttribute("allPhases", this.allPhases);
 
 		return "success";
@@ -114,16 +112,15 @@ public class HomeController {
 
 	// Add new Users
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String createUser(Model model, String name, String fases, String skills) {	
+	public String createUser(Model model, String name, String fases, String skills) {
 
 		User user = new User();
 		user.setName(name);
 		user.setRawPhases(fases);
 		user.setRawSkills(skills);
 		model.addAttribute("user", kanbanService.saveUser(user, userArray));
-		model.addAttribute("phases",  phasesArray);
+		model.addAttribute("phases", phasesArray);
 		model.addAttribute("task", taskArray);
-
 
 		return "success";
 
@@ -131,7 +128,7 @@ public class HomeController {
 
 	// Remove all Tasks
 	@RequestMapping(value = "/rmvTask", method = RequestMethod.POST)
-	public String removeTask() {	
+	public String removeTask() {
 
 		taskArray.clear();
 
@@ -141,13 +138,12 @@ public class HomeController {
 
 	// Remove all the items in all the arrays
 	@RequestMapping(value = "/rmvAll", method = RequestMethod.POST)
-	public String removeAll() {	
+	public String removeAll() {
 
 		taskArray.clear();
 		phasesArray.clear();
 		userArray.clear();
 		allPhases.clear();
-
 
 		return "success";
 
@@ -159,7 +155,7 @@ public class HomeController {
 
 		// Corrección Hacer con un id
 
-		for(int i = 0; i < userArray.size(); i++) {
+		for (int i = 0; i < userArray.size(); i++) {
 			if (userArray.get(i).getName().indexOf(name) != -1) {
 				userArray.remove(i);
 			}
@@ -173,13 +169,14 @@ public class HomeController {
 
 	// Modify Users By Name
 	@RequestMapping(value = "/modUser", method = RequestMethod.POST)
-	public String modifyUser(String oldName, String newName, String phases, String skills) {	
+	public String modifyUser(String oldName, String newName, String phases, String skills) {
 
-		for(int i = 0; i < userArray.size(); i++) {
+		for (int i = 0; i < userArray.size(); i++) {
 			if (userArray.get(i).getName().indexOf(oldName) != -1) {
 				userArray.get(i).setName(newName);
 				userArray.get(i).setRawPhases(phases);
-				userArray.get(i).setRawSkills(skills);;
+				userArray.get(i).setRawSkills(skills);
+				;
 
 			}
 		}
@@ -188,12 +185,11 @@ public class HomeController {
 
 	}
 
-
 	// Modify Phases By Name
 	@RequestMapping(value = "/modPhase", method = RequestMethod.POST)
-	public String modifyPhase(String name, int wip, int min, int max, String color) {	
+	public String modifyPhase(String name, int wip, int min, int max, String color) {
 
-		for(int i = 0; i < phasesArray.size(); i++) {
+		for (int i = 0; i < phasesArray.size(); i++) {
 			if (phasesArray.get(i).getName().indexOf(name) != -1) {
 				phasesArray.get(i).setMaxTasks(wip);
 				phasesArray.get(i).setMinTime(min);
@@ -208,14 +204,14 @@ public class HomeController {
 
 	// Modificar Tareas
 	@RequestMapping(value = "/sortPhase", method = RequestMethod.POST)
-	public String sortPhase(String Stringfases) {	
+	public String sortPhase(String Stringfases) {
 
 		String[] arrayfases = Stringfases.split(",");
-		List<Phase> sortedPhases = new ArrayList <Phase>();
+		List<Phase> sortedPhases = new ArrayList<Phase>();
 
 		for (int i = 0; i < arrayfases.length; i++) {
 			for (int j = 0; j < phasesArray.size(); j++) {
-				if(phasesArray.get(j).getId().equals(arrayfases[i])) {
+				if (phasesArray.get(j).getId().equals(arrayfases[i])) {
 					sortedPhases.add(phasesArray.get(j));
 				}
 			}
@@ -228,7 +224,7 @@ public class HomeController {
 
 	// Get Gaussian
 	@RequestMapping(value = "/nextGaussian", method = RequestMethod.GET)
-	public @ResponseBody String gaussian(int base, int varianza) {	
+	public @ResponseBody String gaussian(int base, int varianza) {
 
 		Random r = new Random();
 		double val = r.nextGaussian() * varianza + base;
@@ -236,39 +232,51 @@ public class HomeController {
 		return String.valueOf(val);
 	}
 
+	// Get Poisson value
+	@RequestMapping(value = "/nextPoisson", method = RequestMethod.GET)
+	public @ResponseBody String poisson(int lambda) {	
+
+		double L = Math.exp(-lambda);
+		double p = 1.0;
+		int k = 0;
+		do {
+			k++;
+			p *= Math.random();
+		} while (p > L);
+		return String.valueOf(k - 1);
+	}
+
 	// Get Distribution
 	@RequestMapping(value = "/changeDistr", method = RequestMethod.POST)
-	public @ResponseBody String addDistribution(String distribution, String distributionType) {	
-		
+	public @ResponseBody String addDistribution(String distribution, String distributionType) {
+
 		this.distribution = distribution;
 		this.distributionType = distributionType;
-		
+
 		System.out.println(this.distribution + " " + this.distributionType);
 		return "success";
 	}
-	
+
 	// Post Distribution
 	@RequestMapping(value = "/getDistr", method = RequestMethod.GET)
-	public @ResponseBody String getDistribution() {	
+	public @ResponseBody String getDistribution() {
 
-		return this.distribution +  "," + this.distributionType;
+		return this.distribution + "," + this.distributionType;
 	}
 
 	// Add New Phase
 	public void addPhases(String phase) {
 		boolean phaseExist = false;
 
+		if (!allPhases.isEmpty()) {
 
-		if(!allPhases.isEmpty()) {
+			for (String aphase : allPhases) {
 
-			for(String aphase: allPhases) {
-
-				if(phase.trim().toUpperCase().equals(aphase.toUpperCase().trim())) {
+				if (phase.trim().toUpperCase().equals(aphase.toUpperCase().trim())) {
 					phaseExist = true;
-				} 
+				}
 			}
-			if(!phaseExist) {
-
+			if (!phaseExist) {
 
 				allPhases.add(phase.trim());
 
