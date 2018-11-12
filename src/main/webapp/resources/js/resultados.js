@@ -91,7 +91,7 @@ function mostrarResultados() {
 	div4.className = "faseResultadoDiv";
 	subdiv4.className = "faseResultado";
 	var tabla = "<table class='table table-bordered'>";
-	tabla += "<head>";
+	tabla += "<thead>";
 	tabla += "<tr>";
 	tabla += "<th rowspan = '2'></th>";
 	var cv = 0;	
@@ -108,7 +108,7 @@ function mostrarResultados() {
 		tabla += "<th><div class='stados'><p>todo</p><p>doing</p><p>done</p></div></th>";
 	}
 	tabla += "</tr>";
-	tabla += "</head>";	
+	tabla += "</thead>";	
 	tabla += "<tbody>";
 	var numerotareas =0;
 	var sumatodo= 0;
@@ -222,7 +222,7 @@ function table(){
 	var subDiv = document.getElementById("tareaResultado");
 	subDiv.innerHTML = "";
 	
-	var tablaTarea = "<table class='table table-bordered'>";
+	var tablaTarea = "<table class='table table-bordered table-fixed'>";
 	tablaTarea += "<thead>";
 	tablaTarea += "<tr>";
 
@@ -249,7 +249,7 @@ function table(){
 function behindTable(){	
 	var subDiv = document.getElementById("tareaResultado");
 	subDiv.innerHTML = "";
-	var tablaTarea = "<table class='table table-bordered'>";
+	var tablaTarea = "<table class='table table-bordered table-fixed'>";
 	tablaTarea += "<thead>";
 	tablaTarea += "<tr>";
 
@@ -263,11 +263,7 @@ function behindTable(){
 	tablaTarea += "</tr>";
 	tablaTarea += "</thead>";
 	tablaTarea += "<tbody>";
-	var i = 0;
 	
-	listTareas.forEach(function(task) {		
-		
-	});
 	listTareas.forEach(function(task) {	
 		tablaTarea += "<tr>";
 		tablaTarea += "<td>"+task.name+"''</td>";
@@ -281,6 +277,7 @@ function behindTable(){
 		tablaTarea += "</tr>";
 	});
 	tablaTarea += "</tbody>";
+	tablaTarea += "</table>";
 	subDiv.innerHTML += tablaTarea;
 }
 //calcula media por tareas
@@ -376,11 +373,10 @@ function subCalculoTiempos(i){
 	var total = 0 ;
 	for( var k = 0 ; k < listTareas.length ; k++){
 		if(listTareas[k].phasesTime[i] == undefined){
-			total += 0;
-		}else{
-			total += listTareas[k].phasesTime[i];
+			listTareas[k].phasesTime[i]= 0;
+			
 		}
-		
+		total += listTareas[k].phasesTime[i];
 	}
 
 	return total;
