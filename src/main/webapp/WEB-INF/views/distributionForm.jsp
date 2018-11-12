@@ -32,12 +32,12 @@
 					<p id="paramTitle" style="visibility: collapse; height: 0px">Parametros:</p>
 							
 					<div id="dataNormalDistribution" style="visibility: collapse; height: 0px">
-						<p>Promedio:</p> <input type="number" name="promedio" value="1">
-						<p>Varianza:</p> <input type="number" name="variznce" value="1">
+						<p>Base:</p> <input type="number" id="normalBaseValue" name="base" value="1" min="1">
+						<p>Varianza:</p> <input type="number" id="normalVarianceValue" name="variznce" value="1" min="1">
 					</div>
 					
 					<div id="dataPoissonDistribution" style="visibility: collapse; height: 0px">
-						<p>Promedio:</p> <input type="number" >
+						<p>Base:</p> <input type="number" name="poissonLambda" value="1" min="1">
 					</div>
 					
 				</div>

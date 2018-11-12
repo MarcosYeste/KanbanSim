@@ -12,7 +12,9 @@ var poisson = 0; // Colocado en 1 segundo para facilitar las pruebas,
 var poissonCounter = 0;
 var backLogType; 
 var distributionType;
-
+var inputBase = 1; //Base value for normal distribution 
+var inputVariance = 1; // Variance value for normal distribution
+var inputLambda = 1; // Lambda value for poisson distribution 
 getDistribution(); //Type of backlog tasks input 'constant', 'manual'
 if(backLogType == null){
 	backLogType = "manual";
@@ -481,32 +483,14 @@ function play() {
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(backLogType == "constant"){	
 			if((gaussian == gaussianCounter || gaussian == 0) && distributionType == "normal"){
-				getGaussian(3 , 2);
+				getGaussian(inputBase , inputVariance);
 				gaussianCounter = 0;
 				taskNameCounter ++;
 				// Creamos un objeto nuevo
 				createTaskElement();
-//				var tarea = new Object();
-//				tarea.name = "Task" + taskNameCounter;
-//				tarea.duration = 0;
-//				tarea.tss = 0;
-//				tarea.state;
-//				tarea.phase = 0;
-//				tarea.assignedUsers = new Array();
-//				tarea.staticAssigneds = new Array();
-//				tarea.sameIteration = false;
-//				tarea.cycleTime = 0;
-//				tarea.leadTime = 0;
-//				tarea.startTime = 0;
-//				tarea.esfuerzo = 0;
-//				tarea.phasesTime = new Array();
-//				tarea.timeByStats = new Array();
-//				tarea.statsTime = new Array();
-//				listTareas.push(tarea);
 				// Y lo printamos
-				printTasks(tarea);
 			} else if ((poisson == poissonCounter || poisson == 0) && distributionType == "poisson"){
-				getPoisson(3);
+				getPoisson(inputLambda);
 				poissonCounter = 0;
 				taskNameCounter ++;
 				createTaskElement();

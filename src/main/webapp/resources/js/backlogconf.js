@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+	var selected;
 	var taskInputModeInputs = $("[name='taskInputMode']");
 	var distributionTypeInputs = $("[name='distributionType']").change(function(){
 		$.ajax({
@@ -75,6 +76,21 @@ $(document).ready(function(){
 	}	
 
 	$("#modBacklogBtn").click(function(){
+		inputBase = document.getElementById("normalBaseValue");
+		inputVariance = document.getElementById("normalVarianceValue");
+		inputLambda = document.getElementById("poissonLambda");
+		
+		$(distributionTypeInputs).removeAttr("disabled");
+		$.ajax({
+			type: "POST",
+			url: "/saveDistributionData",
+			data: {
+				base:document.getElementById("normalBaseValue").value,
+				variance:document.getElementById("normalVarianceValue").value,
+				lambda:document.getElementById("poissonLambda").value
+			},success: function(data) {
+			}
+		});
 		location.href = "/";
 	})
 })

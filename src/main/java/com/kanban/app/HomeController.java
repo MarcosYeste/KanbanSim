@@ -34,6 +34,9 @@ public class HomeController {
 	ArrayList<String> allPhases = new ArrayList<String>();
 	String distribution = "manual";
 	String distributionType;
+	int base = 1;
+	int variance = 1;
+	int lambda = 1;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -245,7 +248,31 @@ public class HomeController {
 		} while (p > L);
 		return String.valueOf(k - 1);
 	}
+	
+	// Get Poisson value
+		@RequestMapping(value = "/saveDistributionData", method = RequestMethod.POST)
+		public @ResponseBody void distributionData(int base, int variance, int lambda) {	
 
+			if (base < 1) {
+				this.base = 1;
+			} else {
+				this.base = base;
+			}
+			
+			if (variance < 1) {
+				this.variance = 1;
+			} else {
+				this.variance = variance;
+			}
+			
+			if (lambda < 1) {
+				this.lambda = 1;
+			} else {
+				this.lambda = lambda;
+			}
+			
+			System.out.println(this.base + ", " +this.variance + ", " + this.lambda+ ", ");
+		}
 	// Get Distribution
 	@RequestMapping(value = "/changeDistr", method = RequestMethod.POST)
 	public @ResponseBody String addDistribution(String distribution, String distributionType) {
