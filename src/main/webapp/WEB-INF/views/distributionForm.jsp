@@ -22,13 +22,23 @@
 				
 				<p>Distribución</p>
 				<div>
-					<input type="radio" name="distributionType" class="distributionRadio" value="normal" checked disabled>Normal
+					<input type="radio" name="distributionType" class="distributionRadio" value="normal" disabled>Normal
 					<input type="radio" name="distributionType" class="distributionRadio" value="poisson" disabled>Poisson
 					<input type="radio" name="distributionType" class="distributionRadio" value="weight" disabled>Con peso
 				</div>
 				
 				
-				<div id="distributionData">
+				<div id="distributionData">				
+					<p id="paramTitle" style="visibility: collapse; height: 0px">Parametros:</p>
+							
+					<div id="dataNormalDistribution" style="visibility: collapse; height: 0px">
+						<p>Promedio:</p> <input type="number" name="promedio" value="1">
+						<p>Varianza:</p> <input type="number" name="variznce" value="1">
+					</div>
+					
+					<div id="dataPoissonDistribution" style="visibility: collapse; height: 0px">
+						<p>Promedio:</p> <input type="number" >
+					</div>
 					
 				</div>
 			</div>

@@ -8,6 +8,8 @@ var kanbanTss = 0;
 var gaussianCounter = 0;
 var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas, 
 var taskNameCounter = 0;
+var poisson = 0; // Colocado en 1 segundo para facilitar las pruebas, 
+var poissonCounter = 0;
 
 var backLogType; 
 var distributionType;
@@ -479,31 +481,41 @@ function play() {
 		});
 
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
-		if((gaussian == gaussianCounter || gaussian == 0) && backLogType == "constant" && distributionType == "normal"){
-			getGaussian(3 , 2);
-			gaussianCounter = 0;
-			taskNameCounter ++;
-			// Creamos un objeto nuevo
-			var tarea = new Object();
-			tarea.name = "Task" + taskNameCounter;
-			tarea.duration = 0;
-			tarea.tss = 0;
-			tarea.state;
-			tarea.phase = 0;
-			tarea.assignedUsers = new Array();
-			tarea.staticAssigneds = new Array();
-			tarea.sameIteration = false;
-			tarea.cycleTime = 0;
-			tarea.leadTime = 0;
-			tarea.startTime = 0;
-			tarea.esfuerzo = 0;
-			tarea.phasesTime = new Array();
-			tarea.timeByStats = new Array();
-			tarea.statsTime = new Array();
-			listTareas.push(tarea);
-			// Y lo printamos
-			printTasks(tarea);
+		if(backLogType == "constant"){	
+			if((gaussian == gaussianCounter || gaussian == 0) && distributionType == "normal"){
+				getGaussian(3 , 2);
+				gaussianCounter = 0;
+				taskNameCounter ++;
+				// Creamos un objeto nuevo
+				createTaskElement();
+//				var tarea = new Object();
+//				tarea.name = "Task" + taskNameCounter;
+//				tarea.duration = 0;
+//				tarea.tss = 0;
+//				tarea.state;
+//				tarea.phase = 0;
+//				tarea.assignedUsers = new Array();
+//				tarea.staticAssigneds = new Array();
+//				tarea.sameIteration = false;
+//				tarea.cycleTime = 0;
+//				tarea.leadTime = 0;
+//				tarea.startTime = 0;
+//				tarea.esfuerzo = 0;
+//				tarea.phasesTime = new Array();
+//				tarea.timeByStats = new Array();
+//				tarea.statsTime = new Array();
+//				listTareas.push(tarea);
+				// Y lo printamos
+				printTasks(tarea);
+			} else if ((poisson == poissonCounter || poisson == 0) && distributionType == "poisson"){
+				getPoisson(3);
+				poissonCounter = 0;
+				taskNameCounter ++;
+				createTaskElement();
+			}
+			
 		}
+		
 		if(backLogType == "manual"){
 			if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
 				// Finalizado completamente
@@ -577,6 +589,7 @@ function play() {
 		}
 
 		gaussianCounter++;
+		poissonCounter++;
 
 	}, 1000);
 
@@ -734,6 +747,23 @@ function getGaussian(mean, variation){
 		}
 	});
 }
+
+function getPoisson(lambda){
+	$.ajax({
+		type: "GET",
+		url: "/nextPoisson",
+		data: {
+
+			lambda: lambda
+
+		},success: function(data) {
+
+			poisson = parseInt(data)
+
+		}
+	});
+}
+
 function printTasks(tarea){
 	document.getElementsByClassName("contenedorTareas")[0].innerHTML +=
 		"<div class='tareas' data-toggle='modal' data-target='#modalTaskInfo' " +
@@ -755,7 +785,22 @@ function getDistribution(){
 			distributionType = formedData[1];
 			
 			$("input[value='"+ backLogType +"']").prop("checked", true);
-			$("input[value='"+ distributionType +"']").prop("checked", true);
+			
+			if($("input[value='"+ distributionType +"']").is(':disabled')){
+				$("input[value='"+ distributionType +"']").prop("checked", true);
+				
+				if(distributionType == "normal"){
+					document.getElementById("paramTitle").style.visibility = "visible";
+					document.getElementById("paramTitle").style.height = "initial";
+					document.getElementById("dataNormalDistribution").style.visibility = "visible";
+					document.getElementById("dataNormalDistribution").style.height = "initial";
+				} else if (distributionType == "poisson") {
+					document.getElementById("paramTitle").style.visibility = "visible";
+					document.getElementById("paramTitle").style.height = "initial";
+					document.getElementById("dataPoissonDistribution").style.visibility = "visible";
+					document.getElementById("dataPoissonDistribution").style.height = "initial";
+				}
+			}
 			
 			if(backLogType == "constant"){
 				$("[name='distributionType']").removeAttr("disabled");
@@ -764,4 +809,25 @@ function getDistribution(){
 			}
 		}
 	});
+}
+
+function createTaskElement(){
+	var tarea = new Object();
+	tarea.name = "Task" + taskNameCounter;
+	tarea.duration = 0;
+	tarea.tss = 0;
+	tarea.state;
+	tarea.phase = 0;
+	tarea.assignedUsers = new Array();
+	tarea.staticAssigneds = new Array();
+	tarea.sameIteration = false;
+	tarea.cycleTime = 0;
+	tarea.leadTime = 0;
+	tarea.startTime = 0;
+	tarea.esfuerzo = 0;
+	tarea.phasesTime = new Array();
+	tarea.timeByStats = new Array();
+	tarea.statsTime = new Array();
+	listTareas.push(tarea);
+	printTasks(tarea);
 }
