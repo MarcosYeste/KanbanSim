@@ -23,7 +23,7 @@
 				<p>Distribución</p>
 				<div>
 					<input type="radio" name="distributionType" class="distributionRadio" value="normal" checked disabled>Normal
-					<input type="radio" name="distributionType" class="distributionRadio" value="poison" disabled>Poison
+					<input type="radio" name="distributionType" class="distributionRadio" value="poisson" disabled>Poisson
 					<input type="radio" name="distributionType" class="distributionRadio" value="weight" disabled>Con peso
 				</div>
 				

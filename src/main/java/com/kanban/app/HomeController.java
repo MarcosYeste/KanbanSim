@@ -32,7 +32,8 @@ public class HomeController {
 	List<Task> taskArray = new ArrayList <Task>();
 	List<User> userArray = new ArrayList <User>();
 	ArrayList<String> allPhases = new ArrayList<String>();
-	String distribution = ""; 
+	String distribution = "manual"; 
+	String distributionType = "normal";
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -237,16 +238,20 @@ public class HomeController {
 
 	// Get Distribution
 	@RequestMapping(value = "/changeDistr", method = RequestMethod.POST)
-	public @ResponseBody String addDistribution(String distribution) {	
-		this.distribution = distribution;
+	public @ResponseBody String addDistribution(String distribution, String distributionType) {	
 		
+		this.distribution = distribution;
+		this.distributionType = distributionType;
+		
+		System.out.println(this.distribution + " " + this.distributionType);
 		return "success";
 	}
 	
 	// Post Distribution
 	@RequestMapping(value = "/getDistr", method = RequestMethod.GET)
 	public @ResponseBody String getDistribution() {	
-		return this.distribution;
+
+		return this.distribution +  "," + this.distributionType;
 	}
 
 	// Add New Phase

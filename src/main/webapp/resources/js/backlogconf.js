@@ -1,7 +1,17 @@
 $(document).ready(function(){
 
 	var taskInputModeInputs = $("[name='taskInputMode']");
-	var distributionTypeInputs = $("[name='distributionType']");
+	var distributionTypeInputs = $("[name='distributionType']").change(function(){
+		$.ajax({
+			type: "POST",
+			url: "/changeDistr",
+			data: {
+				distribution: "constant",
+				distributionType: this.value,
+			},success: function(data) {
+			}
+		});
+	});
 
 	for(var i = 0; i < taskInputModeInputs.length; i++){
 		taskInputModeInputs[i].addEventListener("change", function(){
@@ -12,6 +22,7 @@ $(document).ready(function(){
 					url: "/changeDistr",
 					data: {
 						distribution: "constant",
+						distributionType: "normal",
 					},success: function(data) {
 					}
 				});
@@ -22,6 +33,7 @@ $(document).ready(function(){
 					url: "/changeDistr",
 					data: {
 						distribution: "manual",
+						distributionType: "",
 					},success: function(data) {
 					}
 				});
