@@ -23,7 +23,7 @@
 	width: 20%;
 }
 
-.contenedorFinal{
+.contenedorFinal {
 	max-height: 500px;
 	height: 500px;
 	padding: 40px;
@@ -37,8 +37,10 @@
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	max-height: 550.8px;
 	text-align: center;
 }
+
 .subfase {
 	color: black;
 	text-shadow: 0.1px 1px 0.5px;
@@ -96,7 +98,7 @@
 	/* Limite Tareas */
 	max-height: 500px;
 	height: 500px;
-	overflow:hidden;
+	overflow: hidden;
 }
 
 p.estado {
@@ -117,16 +119,18 @@ p.estado {
 	font-weight: normal
 }
 
-.modUserPhaseCheck, .addUserPhaseCheck, input[type='radio']{
+.modUserPhaseCheck, .addUserPhaseCheck, input[type='radio'] {
 	display: inline;
 	margin-left: 15px;
 }
-input[type='radio']{
+
+input[type='radio'] {
 	margin-top: 15px;
 	margin-bottom: 30px;
 	margin-left: 10px;
 	margin-right: 5px;
 }
+
 .divSkill {
 	display: inline;
 	margin-left: 15px;
@@ -147,9 +151,10 @@ input[type='radio']{
 }
 
 /* BOTONES */
-button{
+button {
 	outline: none !important;
 }
+
 .playpause label {
 	display: block;
 	box-sizing: border-box;
@@ -184,7 +189,7 @@ button{
 	margin-left: 10px;
 }
 
-#reset, #deleteAll, #divDeleteTasks, #addUser{
+#reset, #deleteAll, #divDeleteTasks, #addUser {
 	cursor: pointer;
 }
 
@@ -243,7 +248,6 @@ button{
 	text-align: center;
 	padding: 10px;
 	margin-right: 10px;
-	
 }
 
 .resultbutt:hover {
@@ -255,20 +259,24 @@ button{
 	opacity: 0.3;
 	cursor: default;
 }
-#addUser, #addTask{
+
+#addUser, #addTask {
 	background-color: transparent;
 	border: transparent;
 }
+
 #addUser:hover {
 	color: olive;
 }
-#addTask{
+
+#addTask {
 	position: absolute;
 	margin-left: 5%;
 	margin-top: 2%;
 }
-#addTask:active{
-	transform: translate(1px,2px);
+
+#addTask:active {
+	transform: translate(1px, 2px);
 }
 
 /* RESULTADOS */
@@ -291,14 +299,14 @@ button{
 		rgba(0, 0, 0, 0.19);
 }
 
-.tareaResultado, .faseResultado{
+.tareaResultado, .faseResultado {
 	padding: 10px;
 	color: black;
 	margin-top: 2%;
 	margin-bottom: 1%;
 	background-color: white;
 	text-align: center;
-	display :flex;
+	display: flex;
 	justify-content: space-around;
 	text-shadow: 0.1px 0.1px 0.2px black;
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
@@ -306,17 +314,17 @@ button{
 }
 
 .tareaResultadoDiv, .faseResultadoDiv {
-border-top: 1px solid blue;
+	border-top: 1px solid blue;
 	padding: 20px;
 }
 
-.th{
-	display:flex;
-	flex-direction: column;	
+.th {
+	display: flex;
+	flex-direction: column;
 }
 
-.stados{
-	display:flex;
+.stados {
+	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 }

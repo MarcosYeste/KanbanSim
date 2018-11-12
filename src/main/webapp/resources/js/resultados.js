@@ -91,7 +91,7 @@ function mostrarResultados() {
 	div4.className = "faseResultadoDiv";
 	subdiv4.className = "faseResultado";
 	var tabla = "<table class='table table-bordered'>";
-	tabla += "<head>";
+	tabla += "<thead>";
 	tabla += "<tr>";
 	tabla += "<th rowspan = '2'></th>";
 	var cv = 0;	
@@ -108,19 +108,17 @@ function mostrarResultados() {
 		tabla += "<th><div class='stados'><p>todo</p><p>doing</p><p>done</p></div></th>";
 	}
 	tabla += "</tr>";
-	tabla += "</head>";	
+	tabla += "</thead>";	
 	tabla += "<tbody>";
 	var numerotareas =0;
 	var sumatodo= 0;
 	var sumaDoing = 0;
 	var sumadone=0;
 	var sumaEstadosTotal = 0;
-	var sumaFaseTotal =0;
 	var mediaPorTarea = new Array();
 	var mediaPorFases = new Array();
 	var resultMediaPorFases = new Array();
-	var l = 0;
-	
+	var l = 0;	
 	listTareas.forEach(function(task) {	
 		tabla += "<tr>";
 		tabla += "<td>"+task.name+"</td>";
@@ -128,6 +126,7 @@ function mostrarResultados() {
 		mediaPorFases.push(task.timeByStats);//guardo 3 multi array
 
 		var auxCV = cv;
+
 		task.timeByStats.forEach(function(times) {	
 			
 			var time = JSON.stringify(times);
@@ -146,6 +145,7 @@ function mostrarResultados() {
 		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
 
 		tabla += "<td><div class='stados'><p>"+mediaPorTarea[l][0]+"s</p><p>"+mediaPorTarea[l][1]+"s</p><p>"+mediaPorTarea[l][2]+"s</p></div></td>";
+
 		tabla += "</tr>";
 		l++;
 		numerotareas = l;
@@ -155,18 +155,16 @@ function mostrarResultados() {
 	if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
 	tabla += "<tr>";
 	tabla += "<td>Media por fase: </td>";
-	
+
 	for (var i = 0; i < cv; i++) {
 		if(resultMediaPorFases[i] != undefined){
-		tabla += "<td><div class='stados'><p>"+resultMediaPorFases[i][0]+"s</p><p>"+resultMediaPorFases[i][1]+"s</p><p>"+resultMediaPorFases[i][2]+"s</p></div></td>";
+			tabla += "<td><div class='stados'><p>"+resultMediaPorFases[i][0]+"s</p><p>"+resultMediaPorFases[i][1]+"s</p><p>"+resultMediaPorFases[i][2]+"s</p></div></td>";
 		}
 	}
 	tabla += "</tr>";
 	tabla += "<tr><td>Media Total: </td><td colspan='"+cv+"'>"+sumaEstadosTotal+"s</td></tr>";
 	tabla += "</tbody>";
 	subdiv4.innerHTML += tabla;
-	mediaMaxFaseTime = 0;
-	mediaMinFaseTime = 0 ;
 	div4.appendChild(subdiv4);
 	//Resultado Usuario
 	div5.className = "userResultadoDiv";
@@ -225,12 +223,12 @@ function mostrarResultados() {
 	div.appendChild(div4);
 	div.appendChild(div5);
 }
-// print table Task
+//print table Task
 function table(){
 	var subDiv = document.getElementById("tareaResultado");
 	subDiv.innerHTML = "";
-	
-	var tablaTarea = "<table class='table table-bordered'>";
+
+	var tablaTarea = "<table class='table table-bordered table-fixed'>";
 	tablaTarea += "<thead>";
 	tablaTarea += "<tr>";
 
@@ -239,43 +237,39 @@ function table(){
 	tablaTarea += "</tr>";
 	tablaTarea += "</thead>";
 	tablaTarea += "</tbody>";
-	
+
 	listTareas.forEach(function(task) {		
-		
+
 		tablaTarea += "<tr>";
 		tablaTarea += "<td>"+task.name+"</td><td>"+task.cycleTime+"s</td><td>"+task.leadTime+"s</td><td>"+task.esfuerzo+"</td>";		
 		tablaTarea += "<td>"+task.staticAssigneds+"</td>";
 		tablaTarea += "</tr>";
-		});
+	});
 
 	tablaTarea += "</tbody>";
 	subDiv.innerHTML += tablaTarea;
 
-	
+
 }
-// print back the table
+//print back the table
 function behindTable(){	
 	var subDiv = document.getElementById("tareaResultado");
 	subDiv.innerHTML = "";
-	var tablaTarea = "<table class='table table-bordered'>";
+	var tablaTarea = "<table class='table table-bordered table-fixed'>";
 	tablaTarea += "<thead>";
 	tablaTarea += "<tr>";
 
 	tablaTarea += "<th rowspan = '2'  style='color:blue' onclick='table()'>Ver más datos</th>";
 	tablaTarea += "<th>Backlog</th>";
 	listPhases.forEach(function(phase) {
-		
-	tablaTarea += "<th>"+phase.name+"</th>";
-	
+
+		tablaTarea += "<th>"+phase.name+"</th>";
+
 	});
 	tablaTarea += "</tr>";
 	tablaTarea += "</thead>";
 	tablaTarea += "<tbody>";
-	var i = 0;
-	
-	listTareas.forEach(function(task) {		
-		
-	});
+
 	listTareas.forEach(function(task) {	
 		tablaTarea += "<tr>";
 		tablaTarea += "<td>"+task.name+"''</td>";
@@ -289,6 +283,7 @@ function behindTable(){
 		tablaTarea += "</tr>";
 	});
 	tablaTarea += "</tbody>";
+	tablaTarea += "</table>";
 	subDiv.innerHTML += tablaTarea;
 }
 //calcula media por tareas
@@ -328,7 +323,6 @@ function mediaFasestotal(taskArray){
 	var z = 0;
 	var array = taskArray;	
 	var arrayFases  = new Array();
-	var numero =0;
 	if(array[0] != undefined ){
 
 	while (z < array[0].length){
@@ -337,16 +331,25 @@ function mediaFasestotal(taskArray){
 		var sumaDone = 0;
 		for (var i = 0; i < array.length; i++) {
 			if(array[i][z] != undefined){
-				
+
 					if(array[i][z][0] == undefined){array[i][z][0] = 0;}
 					if(array[i][z][1] == undefined){array[i][z][1] = 0;}
 					if(array[i][z][2] == undefined){array[i][z][2] = 0;}
-				
+
 					sumaTodos += array[i][z][0];
 					sumaDoing += array[i][z][1];
 					sumaDone  += array[i][z][2];
-				
-			  }
+
+				}
+			}
+			console.log("TAMAÑO ARRAY array[0][0].length "+ array[0][0].length);
+			sumaTodos = Math.round((sumaTodos / array[0].length) * 10 ) / 10;
+			sumaDoing = Math.round((sumaDoing / array[0].length) * 10 ) / 10;
+			sumaDone  =  Math.round((sumaDone / array[0].length) * 10 ) / 10;
+			arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
+			console.log("AAAAAAAASA");
+			console.table(arrayFases);
+			z++;
 		}
 		sumaTodos = Math.round((sumaTodos / array[0].length) * 10 ) / 10;
 		sumaDoing = Math.round((sumaDoing / array[0].length) * 10 ) / 10;
@@ -355,8 +358,6 @@ function mediaFasestotal(taskArray){
 		z++;
 	}
 
-  }
-	
  return arrayFases;
 
 }
@@ -365,7 +366,7 @@ function calculoTiemposTotalesFase(){
 	listPhases.forEach(function(phase) {
 
 //		if(phase.period == undefined){			
-//			phase.period = 0;
+//		phase.period = 0;
 //		}
 
 		var valor = subCalculoTiempos(i);
@@ -380,7 +381,9 @@ function subCalculoTiempos(i){
 	var total = 0 ;
 	for( var k = 0 ; k < listTareas.length ; k++){
 		if(listTareas[k].phasesTime[i] == undefined){
+
 			listTareas[k].phasesTime[i] = 0;
+
 		}
 		total += listTareas[k].phasesTime[i];
 	}
@@ -480,7 +483,7 @@ function maxAndMinUsers(userMax,userMin){
 function generarResultados(){
 	var buttonResult = document.getElementById("result");
 	document.getElementsByClassName("contenedor")[0].style.visibility = "hidden";
-	document.getElementsByClassName("usersContainer")[0].style.visibility = "hidden";
+	document.getElementsByClassName("teamField")[0].style.display = "none";
 	playPause.children[0].setAttribute("disabled", "");
 	playPause.children[0].setAttribute("aria-disabled", "true");
 	playPause.children[1].style.opacity=0.3;
@@ -490,7 +493,7 @@ function generarResultados(){
 }
 function mostrarKanban(){
 	document.getElementsByClassName("contenedor")[0].style.visibility = "visible";
-	document.getElementsByClassName("usersContainer")[0].style.visibility = "visible";
+	document.getElementsByClassName("teamField")[0].style.display = "inherit";
 	playPause.children[0].removeAttribute("disabled");
 	playPause.children[0].removeAttribute("aria-disabled");
 	playPause.children[1].style.opacity=1;
