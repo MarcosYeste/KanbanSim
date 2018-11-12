@@ -330,7 +330,7 @@ function mediaFasestotal(taskArray){
 		console.log("Tabla");
 		console.table(array);
 		for (var i = 0; i < array.length; i++) {
-			if(array[i][z] != undefined){
+			if(array[i][z][0] != undefined){
 console.log(sumaTodos+" + "+array[1][z][0]);
 console.log(sumaDoing+" + "+array[1][z][1]);
 console.log(sumaDone+" + "+array[1][z][2]);
