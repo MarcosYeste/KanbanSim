@@ -120,21 +120,29 @@ function mostrarResultados() {
 	var mediaPorFases = new Array();
 	var resultMediaPorFases = new Array();
 	var l = 0;
+	
 	listTareas.forEach(function(task) {	
 		tabla += "<tr>";
 		tabla += "<td>"+task.name+"</td>";
 		var i = 0;
 		mediaPorFases.push(task.timeByStats);//guardo 3 multi array
 
-
+		var auxCV = cv;
 		task.timeByStats.forEach(function(times) {	
+			
 			var time = JSON.stringify(times);
 			time = JSON.parse(time);
+			console.log("XXXXXX"+time);
 			tabla += "<td><div class='stados'><p>"+time[0]+"s</p><p>"+time[1]+"s</p><p>"+time[2]+"s</p></div></td>";
+			
 			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
 			i++;
+			auxCV--;
 		});	
-
+		while(auxCV>0){
+			tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
+			auxCV--;
+		}
 		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
 
 		tabla += "<td><div class='stados'><p>"+mediaPorTarea[l][0]+"s</p><p>"+mediaPorTarea[l][1]+"s</p><p>"+mediaPorTarea[l][2]+"s</p></div></td>";
@@ -144,6 +152,7 @@ function mostrarResultados() {
 	});
 	resultMediaPorFases = mediaFasestotal(mediaPorFases);	
 	sumaEstadosTotal = Math.round((sumatodo + sumaDoing+ sumadone)/numerotareas);
+	if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
 	tabla += "<tr>";
 	tabla += "<td>Media por fase: </td>";
 	
@@ -206,13 +215,12 @@ function mostrarResultados() {
 	subdiv5.innerHTML += pmensaje2;
 	subdiv5.appendChild(subsubdiv5);
 	div5.appendChild(subdiv5);
+	// TAREA 
 	var subDiv = document.createElement("div");
-	var bigdiv = document.createElement("div");
 	subDiv.className = "tareaResultado";
 	subDiv.id = "tareaResultado";
 	div3.appendChild(subDiv);
-	bigdiv.appendChild(div3);
-	div.appendChild(bigdiv);
+	div.appendChild(div3);
 	table(); // pinta la tabla de tareas
 	div.appendChild(div4);
 	div.appendChild(div5);
@@ -235,7 +243,7 @@ function table(){
 	listTareas.forEach(function(task) {		
 		
 		tablaTarea += "<tr>";
-		tablaTarea += "<td>"+task.name+"</td><td>"+task.cycleTime+"</td><td>"+task.leadTime+"</td><td>"+task.esfuerzo+"</td>";		
+		tablaTarea += "<td>"+task.name+"</td><td>"+task.cycleTime+"s</td><td>"+task.leadTime+"s</td><td>"+task.esfuerzo+"</td>";		
 		tablaTarea += "<td>"+task.staticAssigneds+"</td>";
 		tablaTarea += "</tr>";
 		});
@@ -276,7 +284,7 @@ function behindTable(){
 			if(task.phasesTime[i] == undefined){
 				task.phasesTime[i] = 0;
 			}
-			tablaTarea += "<td>"+task.phasesTime[i]+"''</td>";
+			tablaTarea += "<td>"+task.phasesTime[i]+"s</td>";
 		}
 		tablaTarea += "</tr>";
 	});
@@ -292,10 +300,10 @@ function calcularMediaPorTarea(mediaPorTarea,timeByStats){
 //	timeByStats = timeByStats;
 
 	for (var i = 0; i < timeByStats.length; i++) {
-		if(timeByStats[i][0] == undefined ){
-			timeByStats[i][0] = 0;
-			timeByStats[i][1] = 0;
-			timeByStats[i][2] = 0;
+		if(timeByStats[i] == undefined ){
+			if(timeByStats[i][0] == undefined){timeByStats[i][0]=0;}
+			if(timeByStats[i][1] == undefined){timeByStats[i][1]=0;}
+			if(timeByStats[i][2] == undefined){timeByStats[i][2]=0;}
 		}
 		sumaTodo += timeByStats[i][0];
 		sumaDoing += timeByStats[i][1];
@@ -327,8 +335,6 @@ function mediaFasestotal(taskArray){
 		var sumaTodos =0;
 		var sumaDoing = 0;
 		var sumaDone = 0;
-		console.log("Tabla");
-		console.table(array);
 		for (var i = 0; i < array.length; i++) {
 			if(array[i][z] != undefined){
 				
@@ -342,17 +348,15 @@ function mediaFasestotal(taskArray){
 				
 			  }
 		}
-		console.log("TAMAÑO ARRAY array[0][0].length "+ array[0][0].length);
 		sumaTodos = Math.round((sumaTodos / array[0].length) * 10 ) / 10;
 		sumaDoing = Math.round((sumaDoing / array[0].length) * 10 ) / 10;
-		sumaDone  =  Math.round((sumaDone / array[0].length) * 10 ) / 10;
+		sumaDone  = Math.round((sumaDone / array[0].length) * 10 ) / 10;
 		arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
-		console.log("AAAAAAAASA");
-		console.table(arrayFases);
 		z++;
 	}
 
   }
+	
  return arrayFases;
 
 }
@@ -376,11 +380,9 @@ function subCalculoTiempos(i){
 	var total = 0 ;
 	for( var k = 0 ; k < listTareas.length ; k++){
 		if(listTareas[k].phasesTime[i] == undefined){
-			total += 0;
-		}else{
-			total += listTareas[k].phasesTime[i];
+			listTareas[k].phasesTime[i] = 0;
 		}
-		
+		total += listTareas[k].phasesTime[i];
 	}
 
 	return total;
