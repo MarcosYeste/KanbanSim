@@ -113,6 +113,7 @@
 						tareas.phasesTime = new Array();
 						tareas.timeByStats = new Array();
 						tareas.statsTime = new Array();
+						tareas.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 						listTareas.push(tareas);
 					</script>
 
@@ -388,7 +389,7 @@
 				
 					<p id="modalTaskName">Nombre: </p><p class="alert alert-info" id="modalTaskNameValue"></p>
 					<p id="modalTaskAssignedTimes"> Tiempo asignado por fase: </p><p class="alert alert-info" id="modalTaskTimeWorkedValue"></p>
-					<p id="modalTaskTSS"> Tiempo real por fases:</p> <p class="alert alert-info" id="modalTaskTSSValue"></p>
+					<p id="modalTaskRealTime"> Tiempo real por fases:</p> <p class="alert alert-info" id="modalTaskRealTimeValue"></p>
 					<p id="modalTaskLTCT"> LT y CT estimado: </p><p class="alert alert-info" id="modalTaskLTCTValue"></p>
 					<p id="modalTaskWorking"> Miembros Trabajando: </p><p class="alert alert-info" id="modalTaskWorkingValue"></p>
 					<p id="modalTaskWorked"> Miembros que han Trabajado: </p><p class="alert alert-info" id="modalTaskWorkedValue"></p>

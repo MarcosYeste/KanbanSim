@@ -179,6 +179,7 @@ function play() {
 					task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 					task.esfuerzo += task.duration;
 					task.durarionAsignada = false;
+					task.firstDuration.push(task.duration);
 
 
 				}
@@ -192,7 +193,6 @@ function play() {
 					if(task.name == elementName && task.state != "Ended"){
 						divsTareas[k].lastElementChild.innerHTML = taskDuration;
 					}
-
 
 
 					if (task.state == "Doing" && task.name == elementName && task.tss >= taskDuration &&
@@ -442,17 +442,6 @@ function play() {
 											}
 											user.assigned = true;
 
-//											// Usuarios Que han trabajado en esa tarea
-//											if(document.getElementById("modalTaskNameValue").innerHTML == task.name){
-//											document.getElementById("modalTaskWorkedValue").innerHTML = task.staticAssigneds
-//											do {
-
-//											document.getElementById("modalTaskWorkedValue").innerHTML = document.getElementById("modalTaskWorkedValue").innerHTML.replace(" ", ",");
-
-//											}while(document.getElementById("modalTaskWorkedValue").innerHTML.indexOf(" ") != -1);
-//											}
-//											console.log("Adios");
-
 											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 												task.duration = 1;
 											} else {
@@ -500,9 +489,9 @@ function play() {
 				taskNameCounter ++;
 				createTaskElement();
 			}
-			
+
 		}
-		
+
 		if(backLogType == "manual"){
 			if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
 				// Finalizado completamente
@@ -577,6 +566,18 @@ function play() {
 
 		gaussianCounter++;
 		poissonCounter++;
+
+		listTareas.forEach(function(tarea){
+			if(atributo == tarea.name){
+				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.tss + "</b>";	
+
+				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
+
+				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + 0 + "</b>";
+				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
+				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
+			}
+		})
 
 	}, 1000);
 
@@ -723,7 +724,7 @@ function getGaussian(){
 		type: "GET",
 		url: "/nextGaussian",
 		data: {
-			
+
 		},success: function(data) {
 
 			gaussian = parseInt(data)
@@ -754,6 +755,11 @@ function printTasks(tarea){
 		"<p class='estado' data-identification='" + tarea.name + "'>" +
 		"<small class='divState'></small></p>" +
 		"<p class='duration' data-identification='" + tarea.name + "'>0</p></div>";
+
+	for (var i = 0; i < document.getElementsByClassName("tareas").length; i++) {
+		document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo, false);
+
+	}
 }
 
 function getDistribution(){
@@ -765,13 +771,13 @@ function getDistribution(){
 			var formedData = data.split(',');
 			backLogType = formedData[0];
 			distributionType = formedData[1];
-			
+
 			$("input[value='"+ backLogType +"']").prop("checked", true);
-			
+
 			if($("input[value='"+ distributionType +"']").is(':disabled')){
 				$("input[value='"+ distributionType +"']").prop("checked", true);
 
-				
+
 				if(distributionType == "normal"){
 					document.getElementById("paramTitle").style.visibility = "visible";
 					document.getElementById("paramTitle").style.height = "initial";
@@ -787,10 +793,10 @@ function getDistribution(){
 					document.getElementById("poissonLambda").value = formedData[4];
 				}
 			}
-			
+
 			if(backLogType == "constant"){
 				$("[name='distributionType']").removeAttr("disabled");
-				
+
 				document.getElementById("addTask").setAttribute("disabled", "");
 				document.getElementById("addTask").setAttribute("aria-disabled", "true");
 			}else{
@@ -819,6 +825,7 @@ function createTaskElement(){
 	tarea.phasesTime = new Array();
 	tarea.timeByStats = new Array();
 	tarea.statsTime = new Array();
+	tareas.firstDuration = []; // Primer tiempo que se le asigna por fase
 	listTareas.push(tarea);
 	printTasks(tarea);
 }
