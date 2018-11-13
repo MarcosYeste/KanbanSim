@@ -93,8 +93,15 @@ $(document).ready(function(){
 			}
 		}
 		
+		var backLogradios = $("[name='taskInputMode']");
+		for(var i = 0; i < backLogradios.length; i++){
+			if(backLogradios[i].checked && backLogradios[i].value == "manual"){
+				selectedBacklog = "manual";
+			} 
+		}
+		
 		console.log(selectedBacklog + "dfa");
-		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "normal"){
+		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "manual"){
 			inputBase = document.getElementById("normalBaseValue");
 			inputVariance = document.getElementById("normalVarianceValue");
 			inputLambda = document.getElementById("poissonLambda");
