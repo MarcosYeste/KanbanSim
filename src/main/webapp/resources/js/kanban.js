@@ -10,7 +10,7 @@ var gaussian = 0; //Tiempo en el que entrara la proxima tarea en distribución n
 var taskNameCounter = 0;
 var poisson = 0;  //Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
-var weight = 0; 
+var weight = "M"; 
 var weightTime = 0; //Tiempo en el que entrara la proxima tarea en uniforme con peso
 var weightCounter = 0;
 
@@ -181,8 +181,9 @@ function play() {
 					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 					task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 					task.esfuerzo += task.duration;
-					task.durarionAsignada = false;
+					task.durarionAsignada = false;					
 					task.firstDuration.push(task.duration);
+					console.log(task.firstDuration);
 
 
 				}
@@ -481,22 +482,19 @@ function play() {
 				console.log("normal");
 				getGaussian();
 				gaussianCounter = 0;
-				taskNameCounter ++;
 				// Creamos un objeto nuevo
-				createTaskElement("");
+				addTareas("");
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson == 0) && distributionType == "poisson"){
 				getPoisson();
 				console.log("poisson")
 				poissonCounter = 0;
-				taskNameCounter ++;
-				createTaskElement("");
+				addTareas("");
 			} else if ((weightTime == weightCounter || weightTime == 0) && distributionType == "weight"){
 				getWeight();
 				console.log("weight")
 				weightCounter = 0;
-				taskNameCounter ++;
-				createTaskElement(weight);
+				addTareas(weight);
 			}
 
 		}
@@ -579,7 +577,8 @@ function play() {
 
 		listTareas.forEach(function(tarea){
 			if(atributo == tarea.name){
-				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.tss + "</b>";	
+				// Show Info
+				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 
@@ -818,7 +817,6 @@ function getDistribution(){
 					document.getElementById("poissonLambda").value = formedData[4];
 				}
 			}
-
 			if(backLogType == "constant"){
 				$("[name='distributionType']").removeAttr("disabled");
 
@@ -831,26 +829,4 @@ function getDistribution(){
 			}
 		}
 	});
-}
-
-function createTaskElement(weight){
-	var tarea = new Object();
-	tarea.name = "Task" + taskNameCounter;
-	tarea.duration = 0;
-	tarea.tss = 0;
-	tarea.state;
-	tarea.phase = 0;
-	tarea.assignedUsers = new Array();
-	tarea.staticAssigneds = new Array();
-	tarea.sameIteration = false;
-	tarea.cycleTime = 0;
-	tarea.leadTime = 0;
-	tarea.startTime = 0;
-	tarea.esfuerzo = 0;
-	tarea.phasesTime = new Array();
-	tarea.timeByStats = new Array();
-	tarea.statsTime = new Array();
-	tareas.firstDuration = []; // Primer tiempo que se le asigna por fase
-	listTareas.push(tarea);
-	printTasks(tarea);
 }

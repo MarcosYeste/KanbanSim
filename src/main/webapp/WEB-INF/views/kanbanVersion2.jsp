@@ -73,7 +73,7 @@
 					var listUsers = new Array();
 				</script>
 
-				<c:forEach items="${task}" var="task">
+				<%-- <c:forEach items="${task}" var="task">
 
 					<div class="tareas" data-toggle="modal"
 						data-target="#modalTaskInfo">
@@ -95,8 +95,8 @@
 
 					<c:set value="${task.name}" var="taskName" />
 
-
-					<script>
+			<!-- Script para mostrar unicamente si se muestra por servidor -->
+					<!-- <script>
 						var tareas = new Object();
 						tareas.name = "<c:out value="${taskName}"></c:out>";
 						tareas.duration = 0;
@@ -115,9 +115,9 @@
 						tareas.statsTime = new Array();
 						tareas.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 						listTareas.push(tareas);
-					</script>
+					</script> -->
 
-				</c:forEach>
+				</c:forEach> --%>
 
 			</div>
 

@@ -624,8 +624,12 @@ function formUserValido(funcion,accion){
 function showTaskInfo(){
 	atributo = event.target.getAttribute("data-identification");
 	var object = listTareas.find(x => x.name === atributo);
-	document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>";
-
+	
+	if(distributionType == "weight"){
+		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>  ( <var>" + object.weight +"</var> )";
+	}else{
+		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>";
+	}
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
 
 	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + 0 + "</b>";
@@ -636,7 +640,7 @@ function showTaskInfo(){
 }
 
 //Mejora, si un caso, que se guarde en el controller
-function addTareas(){
+function addTareas(weight){
 	// Incrementamos el numero
 	taskNameCounter ++;
 	// Creamos un objeto nuevo
@@ -656,6 +660,9 @@ function addTareas(){
 	tarea.phasesTime = new Array();
 	tarea.timeByStats = new Array();
 	tarea.statsTime = new Array();
+	tarea.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
+	tarea.weight = weight; 
 	listTareas.push(tarea);
 	printTasks(tarea);
+	console.log(weight)
 }
