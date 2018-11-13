@@ -6,10 +6,13 @@ var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
 var gaussianCounter = 0;
-var gaussian = 0; // Colocado en 1 segundo para facilitar las pruebas, 
+var gaussian = 0; //Tiempo en el que entrara la proxima tarea en distribución normal
 var taskNameCounter = 0;
-var poisson = 0; // Colocado en 1 segundo para facilitar las pruebas, 
+var poisson = 0;  //Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
+var weight = 0; 
+var weightTime = 0; //Tiempo en el que entrara la proxima tarea en uniforme con peso
+var weightCounter = 0;
 
 var backLogType; 
 var distributionType;
@@ -480,14 +483,20 @@ function play() {
 				gaussianCounter = 0;
 				taskNameCounter ++;
 				// Creamos un objeto nuevo
-				createTaskElement();
+				createTaskElement("");
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson == 0) && distributionType == "poisson"){
 				getPoisson();
 				console.log("poisson")
 				poissonCounter = 0;
 				taskNameCounter ++;
-				createTaskElement();
+				createTaskElement("");
+			} else if ((weightTime == weightCounter || weightTime == 0) && distributionType == "weight"){
+				getWeight();
+				console.log("weight")
+				weightCounter = 0;
+				taskNameCounter ++;
+				createTaskElement(weight);
 			}
 
 		}
@@ -566,6 +575,7 @@ function play() {
 
 		gaussianCounter++;
 		poissonCounter++;
+		weightCounter++;
 
 		listTareas.forEach(function(tarea){
 			if(atributo == tarea.name){
@@ -747,6 +757,21 @@ function getPoisson(){
 	});
 }
 
+function getWeight(){
+	$.ajax({
+		type: "GET",
+		url: "/nextWeight",
+		data: {
+
+		},success: function(data) {
+			var formatedData = data.split(",")
+			weight = formatedData[0];
+			weightTime = parseInt(formatedData[1]);
+
+		}
+	});
+}
+
 function printTasks(tarea){
 	document.getElementsByClassName("contenedorTareas")[0].innerHTML +=
 		"<div class='tareas' data-toggle='modal' data-target='#modalTaskInfo' " +
@@ -808,7 +833,7 @@ function getDistribution(){
 	});
 }
 
-function createTaskElement(){
+function createTaskElement(weight){
 	var tarea = new Object();
 	tarea.name = "Task" + taskNameCounter;
 	tarea.duration = 0;
@@ -828,4 +853,5 @@ function createTaskElement(){
 	tareas.firstDuration = []; // Primer tiempo que se le asigna por fase
 	listTareas.push(tarea);
 	printTasks(tarea);
+	console.log(weight);
 }
