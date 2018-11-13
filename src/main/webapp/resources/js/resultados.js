@@ -10,7 +10,6 @@ function saveTimeStates(task,leadTime,i){
 		if(task.phase != 0){			
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime-sumaFasesTiempo(task.phasesTime);			
 			task.timeByStats.push(task.statsTime);
-			console.log(task.statsTime);
 			task.phasesTime[i] = saveNewTimePhase(task.statsTime);
 			task.statsTime = [0,0,0];
 		}
@@ -32,7 +31,6 @@ function saveTimeStates(task,leadTime,i){
 
 	}else{
 
-		console.log("Ended");
 		if(task.phase > 1){
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime);
 		}else{
@@ -78,6 +76,8 @@ function mostrarResultados() {
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 	div.innerHTML = "";
 
+	
+	
 	var h3 = document.createElement("h3");			
 	var div3 = document.createElement("div");
 	var div4 =  document.createElement("div");
@@ -90,7 +90,7 @@ function mostrarResultados() {
 	// Resultado fases
 	div4.className = "faseResultadoDiv";
 	subdiv4.className = "faseResultado";
-	var tabla = "<table class='table table-bordered'>";
+	var tabla = "<table class='table table-bordered table-fixed'>";
 	tabla += "<thead>";
 	tabla += "<tr>";
 	tabla += "<th rowspan = '2'></th>";
@@ -119,6 +119,7 @@ function mostrarResultados() {
 	var mediaPorFases = new Array();
 	var resultMediaPorFases = new Array();
 	var l = 0;	
+	var auxCV2 =0;
 	listTareas.forEach(function(task) {	
 		tabla += "<tr>";
 		tabla += "<td>"+task.name+"</td>";
@@ -126,22 +127,24 @@ function mostrarResultados() {
 		mediaPorFases.push(task.timeByStats);//guardo 3 multi array
 
 		var auxCV = cv;
+		auxCV2 = cv-1;
 
 		task.timeByStats.forEach(function(times) {	
 			
 			var time = JSON.stringify(times);
 			time = JSON.parse(time);
-			console.log("XXXXXX"+time);
 			tabla += "<td><div class='stados'><p>"+time[0]+"s</p><p>"+time[1]+"s</p><p>"+time[2]+"s</p></div></td>";
 			
 			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
 			i++;
 			auxCV--;
+			auxCV2--;
 		});	
 		while(auxCV>0){
 			tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
 			auxCV--;
 		}
+		
 		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
 
 		tabla += "<td><div class='stados'><p>"+mediaPorTarea[l][0]+"s</p><p>"+mediaPorTarea[l][1]+"s</p><p>"+mediaPorTarea[l][2]+"s</p></div></td>";
@@ -154,15 +157,24 @@ function mostrarResultados() {
 	sumaEstadosTotal = Math.round((sumatodo + sumaDoing+ sumadone)/numerotareas);
 	if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
 	tabla += "<tr>";
-	tabla += "<td>Media por fase: </td>";
+	tabla += "<td><i>Media por fase: </i></td>";
 
 	for (var i = 0; i < cv; i++) {
-		if(resultMediaPorFases[i] != undefined){
+		if(resultMediaPorFases[i] != undefined ){
+			if(!isNaN(resultMediaPorFases[i][0]) && !isNaN(resultMediaPorFases[i][0]) && !isNaN(resultMediaPorFases[i][0])){
 			tabla += "<td><div class='stados'><p>"+resultMediaPorFases[i][0]+"s</p><p>"+resultMediaPorFases[i][1]+"s</p><p>"+resultMediaPorFases[i][2]+"s</p></div></td>";
+			}else{
+				tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
+			}
 		}
 	}
+	while(auxCV2>0){
+		tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
+		auxCV2--;
+	}
+	tabla += "<td><div class='stados'></div></td>";
 	tabla += "</tr>";
-	tabla += "<tr><td>Media Total: </td><td colspan='"+cv+"'>"+sumaEstadosTotal+"s</td></tr>";
+	tabla += "<tr><td><i>Media Total: </i></td><td colspan='"+cv+"'>"+sumaEstadosTotal+"s</td><td><div class='stados'></div></td></tr>";
 	tabla += "</tbody>";
 	subdiv4.innerHTML += tabla;
 	div4.appendChild(subdiv4);
@@ -182,8 +194,7 @@ function mostrarResultados() {
 		idU++;
 	});
 	arrayValores = findMaxAndMin();
-
-
+	
 	subsubdiv5.innerHTML += '</div>';
 
 	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
@@ -292,7 +303,6 @@ function calcularMediaPorTarea(mediaPorTarea,timeByStats){
 	var  sumaDoing = 0;
 	var sumadone = 0;
 	var num = 0 ;
-//	timeByStats = timeByStats;
 
 	for (var i = 0; i < timeByStats.length; i++) {
 		if(timeByStats[i] == undefined ){
@@ -342,20 +352,16 @@ function mediaFasestotal(taskArray){
 
 				}
 			}
-			console.log("TAMAÑO ARRAY array[0][0].length "+ array[0][0].length);
 			sumaTodos = Math.round((sumaTodos / array[0].length) * 10 ) / 10;
 			sumaDoing = Math.round((sumaDoing / array[0].length) * 10 ) / 10;
 			sumaDone  =  Math.round((sumaDone / array[0].length) * 10 ) / 10;
 			arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
-			console.log("AAAAAAAASA");
-			console.table(arrayFases);
 			z++;
 		}
 		sumaTodos = Math.round((sumaTodos / array[0].length) * 10 ) / 10;
 		sumaDoing = Math.round((sumaDoing / array[0].length) * 10 ) / 10;
 		sumaDone  = Math.round((sumaDone / array[0].length) * 10 ) / 10;
 		arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
-		z++;
 	}
 
  return arrayFases;
@@ -364,11 +370,6 @@ function mediaFasestotal(taskArray){
 function calculoTiemposTotalesFase(){
 	var i = 0;
 	listPhases.forEach(function(phase) {
-
-//		if(phase.period == undefined){			
-//		phase.period = 0;
-//		}
-
 		var valor = subCalculoTiempos(i);
 		phase.period = valor;
 		if(isNaN(phase.period)){
@@ -487,6 +488,10 @@ function generarResultados(){
 	playPause.children[0].setAttribute("disabled", "");
 	playPause.children[0].setAttribute("aria-disabled", "true");
 	playPause.children[1].style.opacity=0.3;
+	// Deshabilitamos el añadir tareas,
+	document.getElementById("addTask").setAttribute("disabled", "");
+	document.getElementById("addTask").setAttribute("aria-disabled", "true");
+	
 	mostrarResultados();
 	buttonResult.value = "Mostrar Kanban";
 	buttonResult.setAttribute("onClick", "mostrarKanban()");
@@ -499,4 +504,10 @@ function mostrarKanban(){
 	playPause.children[1].style.opacity=1;
 	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
 	document.getElementById("result").setAttribute("onClick", "generarResultados()");
+	
+	// Mostramos el boton de nuevo
+	if(backLogType != "constant"){
+	document.getElementById("addTask").removeAttribute("disabled");
+	document.getElementById("addTask").removeAttribute("aria-disabled");
+	}
 }
