@@ -32,12 +32,14 @@ public class HomeController {
 	List<Task> taskArray = new ArrayList<Task>();
 	List<User> userArray = new ArrayList<User>();
 	ArrayList<String> allPhases = new ArrayList<String>();
+
 	String distribution = "manual";
 	String distributionType;
 	int base = 1;
 	int variance = 1;
 	int lambda = 1;
 
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */

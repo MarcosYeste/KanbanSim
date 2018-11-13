@@ -16,7 +16,10 @@ document.getElementById("addUser").addEventListener("click", addUsers, false);
 document.getElementById("addUsuario").addEventListener("click", saveAddUser, false);
 document.getElementById("modChrono").addEventListener("click", chrono, false);
 document.getElementById("addTask").addEventListener("click", addTareas, false);
-$(".tareas").click(showTaskInfo);
+//for (var i = 0; i < document.getElementsByClassName("tareas").length; i++) {
+//	document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo , false);
+//}
+//$(".tareas").click(showTaskInfo);
 
 
 //Mod Phases
@@ -623,12 +626,16 @@ function formUserValido(funcion,accion){
 }
 
 function showTaskInfo(){
-		
-	for(var i = 0; i < listTareas.length; i++){
-		if(event.target.getAttribute("data-identification") == listTareas[i].name){
-			document.getElementById("modalTaskNameValue").innerHTML = event.target.getAttribute("data-identification");
-		}
-	}
+	console.log("hola");
+	var T = event.target.getAttribute("data-identification");
+	document.getElementById("modalTaskName").value = listTareas.find(x => x.id === T).name;
+	
+	
+//	for(var i = 0; i < listTareas.length; i++){
+//		if(event.target.getAttribute("data-identification") == listTareas[i].name){
+//			document.getElementById("modalTaskNameValue").innerHTML = event.target.getAttribute("data-identification");
+//		}
+//	}
 }
 
 // Mejora, si un caso, que se guarde en el controller

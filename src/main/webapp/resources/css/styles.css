@@ -45,15 +45,13 @@ div #reset:hover {
 @keyframes spin {
 	from { transform:rotate(0deg);}
 	to {transform: rotate(360deg);}
+
 }
 .img-edit {
 	z-index: -1;
 }
 
-
-
 /* FORMS */
-
 label, input {
 	display: block;
 }
@@ -83,6 +81,7 @@ h1 {
 	margin-bottom: 2px;
 	padding-top: 2%;
 }
+
 .form-control[type=color] {
 	height: auto;
 }
@@ -134,22 +133,68 @@ h1 {
 	padding: 0;
 	margin: 0;
 }
-.legUser{
+
+.legUser {
 	margin-top: -38px;
 	margin-bottom: -38px;
-	margin-right:15px; 
+	margin-right: 15px;
 	background-color: white;
 }
 
 /* TEMPORIZADOR */
-#chronoViewer{
-	font-weight:bold;
+#chronoViewer {
+	font-weight: bold;
 	font-size: 30px;
 	position: absolute;
 	margin-left: 12%;
 	margin-top: 3%;
 }
+
 .distributionRadio {
 	display: inline;
 	margin-left: 5px;
+}
+
+/* TABLE */
+.table-fixed, .table-fixed thead, .table-fixed tbody{
+	max-width:100%;
+	table-layout:fixed;
+	width:100%;
+	margin:auto;
+}
+.table-fixed th, .table-fixed td {
+	padding:11px 12px;
+}
+.table-fixed thead {
+	display:table;
+	width:100%;
+}
+.table-fixed tbody {
+	height:270px;
+	overflow:auto;
+	overflow-x:hidden;
+	display:block;
+	width:100%;
+}
+.table-fixed tbody tr {
+	display:table;
+	width:100%;
+	table-layout:fixed;
+}
+/* SCROLLBAR */
+.contenedorFinal::-webkit-scrollbar-track, .table-fixed tbody::-webkit-scrollbar-track  {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+.contenedorFinal::-webkit-scrollbar, .table-fixed tbody::-webkit-scrollbar {
+  width: 5px;
+  background-color: #F5F5F5;
+}
+
+.contenedorFinal::-webkit-scrollbar-thumb, .table-fixed tbody::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: #555;
 }

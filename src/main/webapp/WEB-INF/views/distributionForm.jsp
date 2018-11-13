@@ -16,7 +16,7 @@
 			<div class="card-body">
 				<p>Entrada de tareas</p>
 				<div>
-					<input type="radio" name="taskInputMode" class="distributionRadio" value="manual"/> Manual
+					<input type="radio" name="taskInputMode" class="distributionRadio" value="manual" checked/> Manual
 					<input type="radio" name="taskInputMode" class="distributionRadio" value="constant"/> Constante	
 				</div>
 				

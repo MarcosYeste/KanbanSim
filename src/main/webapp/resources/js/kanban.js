@@ -10,6 +10,7 @@ var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas,
 var taskNameCounter = 0;
 var poisson = 0; // Colocado en 1 segundo para facilitar las pruebas, 
 var poissonCounter = 0;
+
 var backLogType; 
 var distributionType;
 var inputBase = 1; //Base value for normal distribution 
@@ -19,6 +20,7 @@ getDistribution(); //Type of backlog tasks input 'constant', 'manual'
 if(backLogType == null){
 	backLogType = "manual";
 }
+
 //Guardar al modificar Phase
 sortPhases();
 //Permitimos el tooltip de bootstrap en toda la pagina
@@ -44,6 +46,7 @@ for(var i = 0 ; i < document.getElementsByClassName("tareas").length; i++){
 	document.getElementsByClassName("tareas")[i].setAttribute("data-identification", listTareas[i].name);
 	for(var j = 0; j < document.getElementsByClassName("tareas")[i].children.length; j++){
 		document.getElementsByClassName("tareas")[i].children[j].setAttribute("data-identification", listTareas[i].name);
+		document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo , false);
 	}
 }
 
@@ -749,7 +752,7 @@ function getPoisson(lambda){
 function printTasks(tarea){
 	document.getElementsByClassName("contenedorTareas")[0].innerHTML +=
 		"<div class='tareas' data-toggle='modal' data-target='#modalTaskInfo' " +
-		"data-identification='" + tarea.name + "'> " +
+		"data-identification='" + tarea.name + "' id='"+tarea.name+"'> " +
 		"<p data-identification='" + tarea.name + "'>" + tarea.name + "</p>" +
 		"<p class='estado' data-identification='" + tarea.name + "'>" +
 		"<small class='divState'></small></p>" +
