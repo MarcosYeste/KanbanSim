@@ -770,6 +770,7 @@ function getDistribution(){
 			
 			if($("input[value='"+ distributionType +"']").is(':disabled')){
 				$("input[value='"+ distributionType +"']").prop("checked", true);
+
 				
 				if(distributionType == "normal"){
 					document.getElementById("paramTitle").style.visibility = "visible";
