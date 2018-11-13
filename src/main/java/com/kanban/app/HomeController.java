@@ -229,19 +229,19 @@ public class HomeController {
 
 	// Get Gaussian
 	@RequestMapping(value = "/nextGaussian", method = RequestMethod.GET)
-	public @ResponseBody String gaussian(int base, int varianza) {
+	public @ResponseBody String gaussian() {
 
 		Random r = new Random();
-		double val = r.nextGaussian() * varianza + base;
+		double val = r.nextGaussian() * this.variance + this.base;
 
 		return String.valueOf(val);
 	}
 
 	// Get Poisson value
 	@RequestMapping(value = "/nextPoisson", method = RequestMethod.GET)
-	public @ResponseBody String poisson(int lambda) {	
+	public @ResponseBody String poisson() {	
 
-		double L = Math.exp(-lambda);
+		double L = Math.exp(-this.lambda);
 		double p = 1.0;
 		int k = 0;
 		do {
@@ -275,6 +275,7 @@ public class HomeController {
 			
 			System.out.println(this.base + ", " +this.variance + ", " + this.lambda+ ", ");
 		}
+		
 	// Get Distribution
 	@RequestMapping(value = "/changeDistr", method = RequestMethod.POST)
 	public @ResponseBody String addDistribution(String distribution, String distributionType) {
@@ -290,7 +291,7 @@ public class HomeController {
 	@RequestMapping(value = "/getDistr", method = RequestMethod.GET)
 	public @ResponseBody String getDistribution() {
 
-		return this.distribution + "," + this.distributionType;
+		return this.distribution + "," + this.distributionType + "," + this.base + "," + this.variance + "," + this.lambda;
 	}
 
 	// Add New Phase
