@@ -853,5 +853,4 @@ function createTaskElement(weight){
 	tareas.firstDuration = []; // Primer tiempo que se le asigna por fase
 	listTareas.push(tarea);
 	printTasks(tarea);
-	console.log(weight);
 }

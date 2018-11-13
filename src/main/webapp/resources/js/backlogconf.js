@@ -93,7 +93,6 @@ $(document).ready(function(){
 			}
 		}
 		
-		console.log(selectedBacklog + "dfa");
 		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "normal"){
 			inputBase = document.getElementById("normalBaseValue");
 			inputVariance = document.getElementById("normalVarianceValue");
