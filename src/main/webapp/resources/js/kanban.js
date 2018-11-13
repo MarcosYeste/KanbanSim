@@ -789,8 +789,13 @@ function getDistribution(){
 			
 			if(backLogType == "constant"){
 				$("[name='distributionType']").removeAttr("disabled");
+				
+				document.getElementById("addTask").setAttribute("disabled", "");
+				document.getElementById("addTask").setAttribute("aria-disabled", "true");
 			}else{
 				$("[name='distributionType']").attr("disabled", "");
+				document.getElementById("addTask").removeAttribute("disabled");
+				document.getElementById("addTask").removeAttribute("aria-disabled");
 			}
 		}
 	});

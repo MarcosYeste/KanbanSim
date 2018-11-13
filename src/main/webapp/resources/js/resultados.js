@@ -76,6 +76,8 @@ function mostrarResultados() {
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 	div.innerHTML = "";
 
+	
+	
 	var h3 = document.createElement("h3");			
 	var div3 = document.createElement("div");
 	var div4 =  document.createElement("div");
@@ -88,7 +90,7 @@ function mostrarResultados() {
 	// Resultado fases
 	div4.className = "faseResultadoDiv";
 	subdiv4.className = "faseResultado";
-	var tabla = "<table class='table table-bordered'>";
+	var tabla = "<table class='table table-bordered '>";
 	tabla += "<thead>";
 	tabla += "<tr>";
 	tabla += "<th rowspan = '2'></th>";
@@ -481,6 +483,10 @@ function generarResultados(){
 	playPause.children[0].setAttribute("disabled", "");
 	playPause.children[0].setAttribute("aria-disabled", "true");
 	playPause.children[1].style.opacity=0.3;
+	// Deshabilitamos el añadir tareas,
+	document.getElementById("addTask").setAttribute("disabled", "");
+	document.getElementById("addTask").setAttribute("aria-disabled", "true");
+	
 	mostrarResultados();
 	buttonResult.value = "Mostrar Kanban";
 	buttonResult.setAttribute("onClick", "mostrarKanban()");
@@ -493,4 +499,10 @@ function mostrarKanban(){
 	playPause.children[1].style.opacity=1;
 	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
 	document.getElementById("result").setAttribute("onClick", "generarResultados()");
+	
+	// Mostramos el boton de nuevo
+	if(backLogType != "constant"){
+	document.getElementById("addTask").removeAttribute("disabled");
+	document.getElementById("addTask").removeAttribute("aria-disabled");
+	}
 }
