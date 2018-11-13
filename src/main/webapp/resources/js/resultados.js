@@ -90,7 +90,7 @@ function mostrarResultados() {
 	// Resultado fases
 	div4.className = "faseResultadoDiv";
 	subdiv4.className = "faseResultado";
-	var tabla = "<table class='table table-bordered '>";
+	var tabla = "<table class='table table-bordered table-fixed'>";
 	tabla += "<thead>";
 	tabla += "<tr>";
 	tabla += "<th rowspan = '2'></th>";
@@ -119,6 +119,7 @@ function mostrarResultados() {
 	var mediaPorFases = new Array();
 	var resultMediaPorFases = new Array();
 	var l = 0;	
+	var auxCV2 =0;
 	listTareas.forEach(function(task) {	
 		tabla += "<tr>";
 		tabla += "<td>"+task.name+"</td>";
@@ -126,6 +127,7 @@ function mostrarResultados() {
 		mediaPorFases.push(task.timeByStats);//guardo 3 multi array
 
 		var auxCV = cv;
+		auxCV2 = cv-1;
 
 		task.timeByStats.forEach(function(times) {	
 			
@@ -136,11 +138,13 @@ function mostrarResultados() {
 			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
 			i++;
 			auxCV--;
+			auxCV2--;
 		});	
 		while(auxCV>0){
 			tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
 			auxCV--;
 		}
+		
 		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
 
 		tabla += "<td><div class='stados'><p>"+mediaPorTarea[l][0]+"s</p><p>"+mediaPorTarea[l][1]+"s</p><p>"+mediaPorTarea[l][2]+"s</p></div></td>";
@@ -153,15 +157,24 @@ function mostrarResultados() {
 	sumaEstadosTotal = Math.round((sumatodo + sumaDoing+ sumadone)/numerotareas);
 	if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
 	tabla += "<tr>";
-	tabla += "<td>Media por fase: </td>";
+	tabla += "<td><i>Media por fase: </i></td>";
 
 	for (var i = 0; i < cv; i++) {
-		if(resultMediaPorFases[i] != undefined){
+		if(resultMediaPorFases[i] != undefined ){
+			if(!isNaN(resultMediaPorFases[i][0]) && !isNaN(resultMediaPorFases[i][0]) && !isNaN(resultMediaPorFases[i][0])){
 			tabla += "<td><div class='stados'><p>"+resultMediaPorFases[i][0]+"s</p><p>"+resultMediaPorFases[i][1]+"s</p><p>"+resultMediaPorFases[i][2]+"s</p></div></td>";
+			}else{
+				tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
+			}
 		}
 	}
+	while(auxCV2>0){
+		tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
+		auxCV2--;
+	}
+	tabla += "<td><div class='stados'></div></td>";
 	tabla += "</tr>";
-	tabla += "<tr><td>Media Total: </td><td colspan='"+cv+"'>"+sumaEstadosTotal+"s</td></tr>";
+	tabla += "<tr><td><i>Media Total: </i></td><td colspan='"+cv+"'>"+sumaEstadosTotal+"s</td><td><div class='stados'></div></td></tr>";
 	tabla += "</tbody>";
 	subdiv4.innerHTML += tabla;
 	div4.appendChild(subdiv4);
@@ -290,7 +303,6 @@ function calcularMediaPorTarea(mediaPorTarea,timeByStats){
 	var  sumaDoing = 0;
 	var sumadone = 0;
 	var num = 0 ;
-//	timeByStats = timeByStats;
 
 	for (var i = 0; i < timeByStats.length; i++) {
 		if(timeByStats[i] == undefined ){
@@ -344,14 +356,12 @@ function mediaFasestotal(taskArray){
 			sumaDoing = Math.round((sumaDoing / array[0].length) * 10 ) / 10;
 			sumaDone  =  Math.round((sumaDone / array[0].length) * 10 ) / 10;
 			arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
-
 			z++;
 		}
 		sumaTodos = Math.round((sumaTodos / array[0].length) * 10 ) / 10;
 		sumaDoing = Math.round((sumaDoing / array[0].length) * 10 ) / 10;
 		sumaDone  = Math.round((sumaDone / array[0].length) * 10 ) / 10;
 		arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
-		z++;
 	}
 
  return arrayFases;
@@ -360,11 +370,6 @@ function mediaFasestotal(taskArray){
 function calculoTiemposTotalesFase(){
 	var i = 0;
 	listPhases.forEach(function(phase) {
-
-//		if(phase.period == undefined){			
-//		phase.period = 0;
-//		}
-
 		var valor = subCalculoTiempos(i);
 		phase.period = valor;
 		if(isNaN(phase.period)){
