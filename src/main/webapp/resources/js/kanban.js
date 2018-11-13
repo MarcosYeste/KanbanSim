@@ -6,7 +6,7 @@ var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
 var gaussianCounter = 0;
-var gaussian = 1; // Colocado en 1 segundo para facilitar las pruebas, 
+var gaussian = 0; // Colocado en 1 segundo para facilitar las pruebas, 
 var taskNameCounter = 0;
 var poisson = 0; // Colocado en 1 segundo para facilitar las pruebas, 
 var poissonCounter = 0;
@@ -486,14 +486,16 @@ function play() {
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(backLogType == "constant"){	
 			if((gaussian == gaussianCounter || gaussian == 0) && distributionType == "normal"){
-				getGaussian(inputBase , inputVariance);
+				console.log("normal");
+				getGaussian();
 				gaussianCounter = 0;
 				taskNameCounter ++;
 				// Creamos un objeto nuevo
 				createTaskElement();
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson == 0) && distributionType == "poisson"){
-				getPoisson(inputLambda);
+				getPoisson();
+				console.log("poisson")
 				poissonCounter = 0;
 				taskNameCounter ++;
 				createTaskElement();
@@ -716,15 +718,12 @@ function sortPhases(){
 		$( "#faseDiv").css("cursor", "move");
 	});
 }
-function getGaussian(mean, variation){
+function getGaussian(){
 	$.ajax({
 		type: "GET",
 		url: "/nextGaussian",
 		data: {
-
-			base: mean,
-			varianza: variation
-
+			
 		},success: function(data) {
 
 			gaussian = parseInt(data)
@@ -733,13 +732,11 @@ function getGaussian(mean, variation){
 	});
 }
 
-function getPoisson(lambda){
+function getPoisson(){
 	$.ajax({
 		type: "GET",
 		url: "/nextPoisson",
 		data: {
-
-			lambda: lambda
 
 		},success: function(data) {
 
@@ -779,11 +776,14 @@ function getDistribution(){
 					document.getElementById("paramTitle").style.height = "initial";
 					document.getElementById("dataNormalDistribution").style.visibility = "visible";
 					document.getElementById("dataNormalDistribution").style.height = "initial";
+					document.getElementById("normalBaseValue").value = formedData[2];
+					document.getElementById("normalVarianceValue").value = formedData[3];
 				} else if (distributionType == "poisson") {
 					document.getElementById("paramTitle").style.visibility = "visible";
 					document.getElementById("paramTitle").style.height = "initial";
 					document.getElementById("dataPoissonDistribution").style.visibility = "visible";
 					document.getElementById("dataPoissonDistribution").style.height = "initial";
+					document.getElementById("poissonLambda").value = formedData[4];
 				}
 			}
 			
