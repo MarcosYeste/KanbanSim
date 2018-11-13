@@ -37,7 +37,7 @@
 					</div>
 					
 					<div id="dataPoissonDistribution" style="visibility: collapse; height: 0px">
-						<p>Base:</p> <input type="number" name="poissonLambda" value="1" min="1">
+						<p>Base:</p> <input type="number" id="poissonLambda" name="lambda" value="1" min="1">
 					</div>
 					
 				</div>
