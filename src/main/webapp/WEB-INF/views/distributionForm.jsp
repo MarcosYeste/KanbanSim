@@ -32,12 +32,12 @@
 					<p id="paramTitle" style="visibility: collapse; height: 0px">Parametros:</p>
 							
 					<div id="dataNormalDistribution" style="visibility: collapse; height: 0px">
-						<p>Base:</p> <input type="number" id="normalBaseValue" name="base" value="1" min="1">
-						<p>Varianza:</p> <input type="number" id="normalVarianceValue" name="variznce" value="1" min="1">
+						<p class="backloglabel">Base:</p> <input type="number" class="backloglabel" id="normalBaseValue" name="base" value="1" min="1"><br>
+						<p class="backloglabel">Varianza:</p> <input type="number" class="backloglabel" id="normalVarianceValue" name="variznce" value="1" min="1">
 					</div>
 					
 					<div id="dataPoissonDistribution" style="visibility: collapse; height: 0px">
-						<p>Base:</p> <input type="number" id="poissonLambda" name="lambda" value="1" min="1">
+						<p class="backloglabel">Base:</p> <input type="number" class="backloglabel" id="poissonLambda" name="lambda" value="1" min="1">
 					</div>
 					
 				</div>

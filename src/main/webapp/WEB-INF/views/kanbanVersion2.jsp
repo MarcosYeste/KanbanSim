@@ -54,10 +54,13 @@
 				for="playpause" tabindex=1></label>
 		</div>
 	</div>
-	
+
 	<!-- Button Add Tasks, ONLY MANUAL -->
-	<button id="addTask" data-toggle="tooltip" data-placement="top" title="Añadir Tareas"><i class="fas fa-plus fa-3x"></i></button>
-	
+	<button id="addTask" data-toggle="tooltip" data-placement="top"
+		title="Añadir Tareas">
+		<i class="fas fa-plus fa-3x"></i>
+	</button>
+
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
 	<div class="contenedor" id="contenedor">
 
@@ -73,7 +76,7 @@
 					var listUsers = new Array();
 				</script>
 
-				<c:forEach items="${task}" var="task">
+				<%-- <c:forEach items="${task}" var="task">
 
 					<div class="tareas" data-toggle="modal"
 						data-target="#modalTaskInfo">
@@ -95,8 +98,8 @@
 
 					<c:set value="${task.name}" var="taskName" />
 
-
-					<script>
+			<!-- Script para mostrar unicamente si se muestra por servidor -->
+					<!-- <script>
 						var tareas = new Object();
 						tareas.name = "<c:out value="${taskName}"></c:out>";
 						tareas.duration = 0;
@@ -113,10 +116,11 @@
 						tareas.phasesTime = new Array();
 						tareas.timeByStats = new Array();
 						tareas.statsTime = new Array();
+						tareas.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 						listTareas.push(tareas);
-					</script>
+					</script> -->
 
-				</c:forEach>
+				</c:forEach> --%>
 
 			</div>
 
@@ -227,6 +231,13 @@
 			</c:forEach>
 		</div>
 	</fieldset>
+
+	<!-- PRUEBAS -->
+	<div class="chart-container" style="position: relative; height: 200px; width: 90%; align: center">
+		<canvas id="myChart"></canvas>
+	</div>
+
+	<!-- ------------------------------------------------------------------------- -->
 
 	<!-- Modal Modificar Fases-->
 	<div class="modal fade" id="myModal" role="dialog">
@@ -385,14 +396,20 @@
 				</div>
 
 				<div class="modal-body">
-				
-					<p id="modalTaskName">Nombre: </p><p class="alert alert-info" id="modalTaskNameValue"></p>
-					<p id="modalTaskAssignedTimes"> Tiempo asignado por fase: </p><p class="alert alert-info" id="modalTaskTimeWorkedValue"></p>
-					<p id="modalTaskTSS"> Tiempo real por fases:</p> <p class="alert alert-info" id="modalTaskTSSValue"></p>
-					<p id="modalTaskLTCT"> LT y CT estimado: </p><p class="alert alert-info" id="modalTaskLTCTValue"></p>
-					<p id="modalTaskWorking"> Miembros Trabajando: </p><p class="alert alert-info" id="modalTaskWorkingValue"></p>
-					<p id="modalTaskWorked"> Miembros que han Trabajado: </p><p class="alert alert-info" id="modalTaskWorkedValue"></p>
-					
+
+					<p id="modalTaskName">Nombre:</p>
+					<p class="alert alert-info" id="modalTaskNameValue"></p>
+					<p id="modalTaskAssignedTimes">Tiempo asignado por fase:</p>
+					<p class="alert alert-info" id="modalTaskTimeWorkedValue"></p>
+					<p id="modalTaskRealTime">Tiempo real por fases:</p>
+					<p class="alert alert-info" id="modalTaskRealTimeValue"></p>
+					<p id="modalTaskLTCT">LT y CT estimado:</p>
+					<p class="alert alert-info" id="modalTaskLTCTValue"></p>
+					<p id="modalTaskWorking">Miembros Trabajando:</p>
+					<p class="alert alert-info" id="modalTaskWorkingValue"></p>
+					<p id="modalTaskWorked">Miembros que han Trabajado:</p>
+					<p class="alert alert-info" id="modalTaskWorkedValue"></p>
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

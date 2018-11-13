@@ -6,10 +6,13 @@ var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
 var gaussianCounter = 0;
-var gaussian = 0; // Colocado en 1 segundo para facilitar las pruebas, 
+var gaussian = 0; //Tiempo en el que entrara la proxima tarea en distribución normal
 var taskNameCounter = 0;
-var poisson = 0; // Colocado en 1 segundo para facilitar las pruebas, 
+var poisson = 0;  //Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
+var weight = "M"; 
+var weightTime = 0; //Tiempo en el que entrara la proxima tarea en uniforme con peso
+var weightCounter = 0;
 
 var backLogType; 
 var distributionType;
@@ -178,7 +181,9 @@ function play() {
 					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 					task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 					task.esfuerzo += task.duration;
-					task.durarionAsignada = false;
+					task.durarionAsignada = false;					
+					task.firstDuration.push(task.duration);
+					console.log(task.firstDuration);
 
 
 				}
@@ -192,7 +197,6 @@ function play() {
 					if(task.name == elementName && task.state != "Ended"){
 						divsTareas[k].lastElementChild.innerHTML = taskDuration;
 					}
-
 
 
 					if (task.state == "Doing" && task.name == elementName && task.tss >= taskDuration &&
@@ -442,17 +446,6 @@ function play() {
 											}
 											user.assigned = true;
 
-//											// Usuarios Que han trabajado en esa tarea
-//											if(document.getElementById("modalTaskNameValue").innerHTML == task.name){
-//											document.getElementById("modalTaskWorkedValue").innerHTML = task.staticAssigneds
-//											do {
-
-//											document.getElementById("modalTaskWorkedValue").innerHTML = document.getElementById("modalTaskWorkedValue").innerHTML.replace(" ", ",");
-
-//											}while(document.getElementById("modalTaskWorkedValue").innerHTML.indexOf(" ") != -1);
-//											}
-//											console.log("Adios");
-
 											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 												task.duration = 1;
 											} else {
@@ -489,20 +482,23 @@ function play() {
 				console.log("normal");
 				getGaussian();
 				gaussianCounter = 0;
-				taskNameCounter ++;
 				// Creamos un objeto nuevo
-				createTaskElement();
+				addTareas("");
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson == 0) && distributionType == "poisson"){
 				getPoisson();
 				console.log("poisson")
 				poissonCounter = 0;
-				taskNameCounter ++;
-				createTaskElement();
+				addTareas("");
+			} else if ((weightTime == weightCounter || weightTime == 0) && distributionType == "weight"){
+				getWeight();
+				console.log("weight")
+				weightCounter = 0;
+				addTareas(weight);
 			}
-			
+
 		}
-		
+
 		if(backLogType == "manual"){
 			if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
 				// Finalizado completamente
@@ -577,6 +573,20 @@ function play() {
 
 		gaussianCounter++;
 		poissonCounter++;
+		weightCounter++;
+
+		listTareas.forEach(function(tarea){
+			if(atributo == tarea.name){
+				// Show Info
+				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
+
+				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
+
+				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + 0 + "</b>";
+				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
+				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
+			}
+		})
 
 	}, 1000);
 
@@ -723,7 +733,7 @@ function getGaussian(){
 		type: "GET",
 		url: "/nextGaussian",
 		data: {
-			
+
 		},success: function(data) {
 
 			gaussian = parseInt(data)
@@ -746,6 +756,21 @@ function getPoisson(){
 	});
 }
 
+function getWeight(){
+	$.ajax({
+		type: "GET",
+		url: "/nextWeight",
+		data: {
+
+		},success: function(data) {
+			var formatedData = data.split(",")
+			weight = formatedData[0];
+			weightTime = parseInt(formatedData[1]);
+
+		}
+	});
+}
+
 function printTasks(tarea){
 	document.getElementsByClassName("contenedorTareas")[0].innerHTML +=
 		"<div class='tareas' data-toggle='modal' data-target='#modalTaskInfo' " +
@@ -754,6 +779,11 @@ function printTasks(tarea){
 		"<p class='estado' data-identification='" + tarea.name + "'>" +
 		"<small class='divState'></small></p>" +
 		"<p class='duration' data-identification='" + tarea.name + "'>0</p></div>";
+
+	for (var i = 0; i < document.getElementsByClassName("tareas").length; i++) {
+		document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo, false);
+
+	}
 }
 
 function getDistribution(){
@@ -765,12 +795,13 @@ function getDistribution(){
 			var formedData = data.split(',');
 			backLogType = formedData[0];
 			distributionType = formedData[1];
-			
+
 			$("input[value='"+ backLogType +"']").prop("checked", true);
-			
+
 			if($("input[value='"+ distributionType +"']").is(':disabled')){
 				$("input[value='"+ distributionType +"']").prop("checked", true);
-				
+
+
 				if(distributionType == "normal"){
 					document.getElementById("paramTitle").style.visibility = "visible";
 					document.getElementById("paramTitle").style.height = "initial";
@@ -786,10 +817,9 @@ function getDistribution(){
 					document.getElementById("poissonLambda").value = formedData[4];
 				}
 			}
-			
 			if(backLogType == "constant"){
 				$("[name='distributionType']").removeAttr("disabled");
-				
+
 				document.getElementById("addTask").setAttribute("disabled", "");
 				document.getElementById("addTask").setAttribute("aria-disabled", "true");
 			}else{
@@ -799,25 +829,4 @@ function getDistribution(){
 			}
 		}
 	});
-}
-
-function createTaskElement(){
-	var tarea = new Object();
-	tarea.name = "Task" + taskNameCounter;
-	tarea.duration = 0;
-	tarea.tss = 0;
-	tarea.state;
-	tarea.phase = 0;
-	tarea.assignedUsers = new Array();
-	tarea.staticAssigneds = new Array();
-	tarea.sameIteration = false;
-	tarea.cycleTime = 0;
-	tarea.leadTime = 0;
-	tarea.startTime = 0;
-	tarea.esfuerzo = 0;
-	tarea.phasesTime = new Array();
-	tarea.timeByStats = new Array();
-	tarea.statsTime = new Array();
-	listTareas.push(tarea);
-	printTasks(tarea);
 }

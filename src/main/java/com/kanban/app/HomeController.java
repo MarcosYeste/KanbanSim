@@ -251,6 +251,30 @@ public class HomeController {
 		return String.valueOf(k - 1);
 	}
 	
+	// Get with weight
+	@RequestMapping(value = "/nextWeight", method = RequestMethod.GET)
+	public @ResponseBody String weight() {
+
+		Random r = new Random();
+		int num = r.nextInt(10) + 1;
+		String val = "";
+		
+		if(num <= 2) {
+			val = "S";
+		} else if(num > 2 && num <= 5) {
+			val = "M";
+		} else if (num > 5 && num <=8) {
+			val = "L";
+		} else if (num > 8 && num <=10) {
+			val = "XL";
+		}
+		
+		Random ran = new Random();
+		int number = r.nextInt(5) + 1;
+		System.out.println(val);
+		return val + "," + String.valueOf(number);
+	}
+	
 	// Get Poisson value
 		@RequestMapping(value = "/saveDistributionData", method = RequestMethod.POST)
 		public @ResponseBody void distributionData(int base, int variance, int lambda) {	

@@ -7,6 +7,7 @@ var chronoTime = 0;
 var chronoTimeTypeSelection = "sec";
 var userO = new Object();
 var taskNameCounter = 0;
+var atributo;
 
 //Llamamos a las funciones
 document.getElementById("modPhase").addEventListener("click", saveModPhase, false);
@@ -16,11 +17,6 @@ document.getElementById("addUser").addEventListener("click", addUsers, false);
 document.getElementById("addUsuario").addEventListener("click", saveAddUser, false);
 document.getElementById("modChrono").addEventListener("click", chrono, false);
 document.getElementById("addTask").addEventListener("click", addTareas, false);
-//for (var i = 0; i < document.getElementsByClassName("tareas").length; i++) {
-//	document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo , false);
-//}
-//$(".tareas").click(showTaskInfo);
-
 
 //Mod Phases
 function modPhases(){
@@ -335,9 +331,9 @@ function addUsers(){
 	rawSkills = "";
 	userO.skills = rawSkills.replace('[', '').replace(']', '').split(',');
 	userO.assigned = false;
-	
+
 	document.getElementById("addNameUser").value = "";
-	
+
 	// Comprueba que haya algo seleccionado
 	formUserValido(saveAddUser, "add");
 
@@ -614,7 +610,7 @@ function formUserValido(funcion,accion){
 
 	// Comprovamos que el usuario introduzca algo en los campos
 	if(document.getElementById(accion + "SkillsUser").children.length == 0 || document.getElementById(accion + "NameUser").value == ""){
-		
+
 		document.getElementById(accion + "Usuario").style.opacity = 0.3;
 		document.getElementById(accion + "Usuario").removeEventListener("click", funcion, false);
 		document.getElementById(accion + "Usuario").removeAttribute("data-dismiss");
@@ -626,19 +622,25 @@ function formUserValido(funcion,accion){
 }
 
 function showTaskInfo(){
-	var T = event.target.getAttribute("data-identification");
-	document.getElementById("modalTaskName").value = listTareas.find(x => x.id === T).name;
+	atributo = event.target.getAttribute("data-identification");
+	var object = listTareas.find(x => x.name === atributo);
 	
-	
-//	for(var i = 0; i < listTareas.length; i++){
-//		if(event.target.getAttribute("data-identification") == listTareas[i].name){
-//			document.getElementById("modalTaskNameValue").innerHTML = event.target.getAttribute("data-identification");
-//		}
-//	}
+	if(distributionType == "weight"){
+		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>  ( <var>" + object.weight +"</var> )";
+	}else{
+		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>";
+	}
+	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
+
+	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + 0 + "</b>";
+	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
+	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";
+
+	console.table(object);
 }
 
-// Mejora, si un caso, que se guarde en el controller
-function addTareas(){
+//Mejora, si un caso, que se guarde en el controller
+function addTareas(weight){
 	// Incrementamos el numero
 	taskNameCounter ++;
 	// Creamos un objeto nuevo
@@ -658,6 +660,9 @@ function addTareas(){
 	tarea.phasesTime = new Array();
 	tarea.timeByStats = new Array();
 	tarea.statsTime = new Array();
+	tarea.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
+	tarea.weight = weight; 
 	listTareas.push(tarea);
 	printTasks(tarea);
+	console.log(weight)
 }

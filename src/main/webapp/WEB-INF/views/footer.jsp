@@ -9,3 +9,4 @@
 <script src="/resources/js/resultados.js"></script>
 <script src="/resources/js/kanban.js"></script>
 <script src="/resources/js/backlogconf.js"></script>
+<script src="/resources/js/chart.js"></script>

@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var selectedBacklog;
+	var selectedBacklog = "";
 	var distributionIsSelected = false;
 	var taskInputModeInputs = $("[name='taskInputMode']");
 	var distributionTypeInputs = $("[name='distributionType']").change(function(){
@@ -15,6 +15,7 @@ $(document).ready(function(){
 		});
 		
 		distributionIsSelected = true;
+		selectedBacklog = "constant";
 		document.getElementById("modBacklogBtn").removeAttribute("disabled");
 		
 		if(this.value == "normal" || this.value == "poisson"){
@@ -84,7 +85,23 @@ $(document).ready(function(){
 	}	
 
 	$("#modBacklogBtn").click(function(){
-		if((selectedBacklog == "constant" && distributionIsSelected)|| selectedBacklog == "normal"){
+		var radios = $("[name='distributionType']")
+		for(var i = 0; i < radios.length; i++){
+			if(radios[i].checked){
+				distributionIsSelected = true;
+				selectedBacklog = "constant";
+			}
+		}
+		
+		var backLogradios = $("[name='taskInputMode']");
+		for(var i = 0; i < backLogradios.length; i++){
+			if(backLogradios[i].checked && backLogradios[i].value == "manual"){
+				selectedBacklog = "manual";
+			} 
+		}
+		
+		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "manual"){
+
 			inputBase = document.getElementById("normalBaseValue");
 			inputVariance = document.getElementById("normalVarianceValue");
 			inputLambda = document.getElementById("poissonLambda");
