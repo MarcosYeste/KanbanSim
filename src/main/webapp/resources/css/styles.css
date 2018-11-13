@@ -1,7 +1,9 @@
 html {
 	overflow-x: hidden !important;
 }
+
 /* No select */
+
 body {
 	webkit-user-select: none; /* Safari 3.1+ */
 	-moz-user-select: none; /* Firefox 2+ */
@@ -182,18 +184,18 @@ h1 {
 	table-layout:fixed;
 }
 /* SCROLLBAR */
-.contenedorFinal::-webkit-scrollbar-track, .table-fixed tbody::-webkit-scrollbar-track  {
+.contenedorFinal::-webkit-scrollbar-track, .table-fixed tbody::-webkit-scrollbar-track, .modal-content::-webkit-scrollbar-track{
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   background-color: #F5F5F5;
 }
 
-.contenedorFinal::-webkit-scrollbar, .table-fixed tbody::-webkit-scrollbar {
+.contenedorFinal::-webkit-scrollbar, .table-fixed tbody::-webkit-scrollbar, .modal-content::-webkit-scrollbar-track{
   width: 5px;
   background-color: #F5F5F5;
 }
 
-.contenedorFinal::-webkit-scrollbar-thumb, .table-fixed tbody::-webkit-scrollbar-thumb {
+.contenedorFinal::-webkit-scrollbar-thumb, .table-fixed tbody::-webkit-scrollbar-thumb, .modal-content::-webkit-scrollbar-track{
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
   background-color: #555;
