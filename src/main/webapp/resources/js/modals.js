@@ -16,10 +16,8 @@ document.getElementById("addUser").addEventListener("click", addUsers, false);
 document.getElementById("addUsuario").addEventListener("click", saveAddUser, false);
 document.getElementById("modChrono").addEventListener("click", chrono, false);
 document.getElementById("addTask").addEventListener("click", addTareas, false);
-//for (var i = 0; i < document.getElementsByClassName("tareas").length; i++) {
-//	document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo , false);
-//}
-//$(".tareas").click(showTaskInfo);
+
+
 
 
 //Mod Phases
@@ -335,9 +333,9 @@ function addUsers(){
 	rawSkills = "";
 	userO.skills = rawSkills.replace('[', '').replace(']', '').split(',');
 	userO.assigned = false;
-	
+
 	document.getElementById("addNameUser").value = "";
-	
+
 	// Comprueba que haya algo seleccionado
 	formUserValido(saveAddUser, "add");
 
@@ -614,7 +612,7 @@ function formUserValido(funcion,accion){
 
 	// Comprovamos que el usuario introduzca algo en los campos
 	if(document.getElementById(accion + "SkillsUser").children.length == 0 || document.getElementById(accion + "NameUser").value == ""){
-		
+
 		document.getElementById(accion + "Usuario").style.opacity = 0.3;
 		document.getElementById(accion + "Usuario").removeEventListener("click", funcion, false);
 		document.getElementById(accion + "Usuario").removeAttribute("data-dismiss");
@@ -626,18 +624,10 @@ function formUserValido(funcion,accion){
 }
 
 function showTaskInfo(){
-	var T = event.target.getAttribute("data-identification");
-	document.getElementById("modalTaskName").value = listTareas.find(x => x.id === T).name;
-	
-	
-//	for(var i = 0; i < listTareas.length; i++){
-//		if(event.target.getAttribute("data-identification") == listTareas[i].name){
-//			document.getElementById("modalTaskNameValue").innerHTML = event.target.getAttribute("data-identification");
-//		}
-//	}
+	console.log("Hola");
 }
 
-// Mejora, si un caso, que se guarde en el controller
+//Mejora, si un caso, que se guarde en el controller
 function addTareas(){
 	// Incrementamos el numero
 	taskNameCounter ++;
@@ -660,4 +650,13 @@ function addTareas(){
 	tarea.statsTime = new Array();
 	listTareas.push(tarea);
 	printTasks(tarea);
+
+	for (var i = 0; i < document.getElementsByClassName("tareas").length; i++) {
+		document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo, false);
+
+		for (var j = 0; j < document.getElementsByClassName("tareas")[0].children.length; j++) {
+			document.getElementsByClassName("tareas")[i].children[j].addEventListener("click", showTaskInfo, false);
+		}
+	}
+
 }
