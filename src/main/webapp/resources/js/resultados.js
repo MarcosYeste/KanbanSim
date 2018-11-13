@@ -10,7 +10,6 @@ function saveTimeStates(task,leadTime,i){
 		if(task.phase != 0){			
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime-sumaFasesTiempo(task.phasesTime);			
 			task.timeByStats.push(task.statsTime);
-			console.log(task.statsTime);
 			task.phasesTime[i] = saveNewTimePhase(task.statsTime);
 			task.statsTime = [0,0,0];
 		}
@@ -32,7 +31,6 @@ function saveTimeStates(task,leadTime,i){
 
 	}else{
 
-		console.log("Ended");
 		if(task.phase > 1){
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime);
 		}else{
@@ -131,7 +129,6 @@ function mostrarResultados() {
 			
 			var time = JSON.stringify(times);
 			time = JSON.parse(time);
-			console.log("XXXXXX"+time);
 			tabla += "<td><div class='stados'><p>"+time[0]+"s</p><p>"+time[1]+"s</p><p>"+time[2]+"s</p></div></td>";
 			
 			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
@@ -182,8 +179,7 @@ function mostrarResultados() {
 		idU++;
 	});
 	arrayValores = findMaxAndMin();
-
-
+	
 	subsubdiv5.innerHTML += '</div>';
 
 	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
@@ -342,13 +338,11 @@ function mediaFasestotal(taskArray){
 
 				}
 			}
-			console.log("TAMAÑO ARRAY array[0][0].length "+ array[0][0].length);
 			sumaTodos = Math.round((sumaTodos / array[0].length) * 10 ) / 10;
 			sumaDoing = Math.round((sumaDoing / array[0].length) * 10 ) / 10;
 			sumaDone  =  Math.round((sumaDone / array[0].length) * 10 ) / 10;
 			arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
-			console.log("AAAAAAAASA");
-			console.table(arrayFases);
+
 			z++;
 		}
 		sumaTodos = Math.round((sumaTodos / array[0].length) * 10 ) / 10;

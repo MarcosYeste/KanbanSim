@@ -626,7 +626,6 @@ function formUserValido(funcion,accion){
 }
 
 function showTaskInfo(){
-	console.log("hola");
 	var T = event.target.getAttribute("data-identification");
 	document.getElementById("modalTaskName").value = listTareas.find(x => x.id === T).name;
 	
@@ -660,6 +659,5 @@ function addTareas(){
 	tarea.timeByStats = new Array();
 	tarea.statsTime = new Array();
 	listTareas.push(tarea);
-	console.table(listTareas);
 	printTasks(tarea);
 }
