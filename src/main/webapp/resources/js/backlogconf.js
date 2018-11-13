@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-	var selected;
+	var selectedBacklog;
+	var distributionIsSelected = false;
 	var taskInputModeInputs = $("[name='taskInputMode']");
 	var distributionTypeInputs = $("[name='distributionType']").change(function(){
 		$.ajax({
@@ -12,6 +13,10 @@ $(document).ready(function(){
 			},success: function(data) {
 			}
 		});
+		
+		distributionIsSelected = true;
+		document.getElementById("modBacklogBtn").removeAttribute("disabled");
+		
 		if(this.value == "normal" || this.value == "poisson"){
 			document.getElementById("paramTitle").style.visibility = "visible";
 			document.getElementById("paramTitle").style.height = "initial";
@@ -51,7 +56,8 @@ $(document).ready(function(){
 					},success: function(data) {
 					}
 				});
-
+				selectedBacklog = "constant";
+				document.getElementById("modBacklogBtn").setAttribute("disabled", "");
 			} else {
 				$(distributionTypeInputs).attr("disabled", "");
 				$(distributionTypeInputs).prop('checked', false);
@@ -64,6 +70,8 @@ $(document).ready(function(){
 					},success: function(data) {
 					}
 				});
+				selectedBacklog = "normal";
+				distributionIsSelected = false;
 				
 				document.getElementById("paramTitle").style.visibility = "hidden";
 				document.getElementById("paramTitle").style.height = "0px";
@@ -76,21 +84,23 @@ $(document).ready(function(){
 	}	
 
 	$("#modBacklogBtn").click(function(){
-		inputBase = document.getElementById("normalBaseValue");
-		inputVariance = document.getElementById("normalVarianceValue");
-		inputLambda = document.getElementById("poissonLambda");
-		
-		$(distributionTypeInputs).removeAttr("disabled");
-		$.ajax({
-			type: "POST",
-			url: "/saveDistributionData",
-			data: {
-				base:document.getElementById("normalBaseValue").value,
-				variance:document.getElementById("normalVarianceValue").value,
-				lambda:document.getElementById("poissonLambda").value
-			},success: function(data) {
-			}
-		});
-		location.href = "/";
+		if((selectedBacklog == "constant" && distributionIsSelected)|| selectedBacklog == "normal"){
+			inputBase = document.getElementById("normalBaseValue");
+			inputVariance = document.getElementById("normalVarianceValue");
+			inputLambda = document.getElementById("poissonLambda");
+			
+			$(distributionTypeInputs).removeAttr("disabled");
+			$.ajax({
+				type: "POST",
+				url: "/saveDistributionData",
+				data: {
+					base:document.getElementById("normalBaseValue").value,
+					variance:document.getElementById("normalVarianceValue").value,
+					lambda:document.getElementById("poissonLambda").value
+				},success: function(data) {
+				}
+			});
+			location.href = "/";
+		}
 	})
 })
