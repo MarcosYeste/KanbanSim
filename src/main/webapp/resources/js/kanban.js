@@ -178,13 +178,27 @@ function play() {
 				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.state != "Ended" && task.duration == 0) {
 
+					
+					if(distributionType == "weight"){
+						
+						if(task.weight == "S"){
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
+						} else if (task.weight == "M"){
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
+						} else if (task.weight == "L"){
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
+						} else if (task.weight == "XL"){
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
+						}
+					} else {
+						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
+					}
+					
 					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
-					task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 					task.esfuerzo += task.duration;
 					task.durarionAsignada = false;					
 					task.firstDuration.push(task.duration);
-					console.log(task.firstDuration);
-
+					
 
 				}
 
@@ -366,9 +380,24 @@ function play() {
 							if (task.phase == (i + 1) && task.tss >= 0 && task.state != "Done" && task.state != "Ended") {
 								// ________ESTO VA EN EL IF 4
 
-								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);	
+								if(distributionType == "weight"){
+									
+									if(task.weight == "S"){
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
+									} else if (task.weight == "M"){
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
+									} else if (task.weight == "L"){
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
+									} else if (task.weight == "XL"){
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
+									}
+								} else {
+									task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
+								}
+//								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);	
 								task.esfuerzo += task.duration;
 								task.startTime = leadTime;
+								task.firstDuration.push(task.duration);
 							}								
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
@@ -587,7 +616,12 @@ function play() {
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
 			}
 		})
-
+		
+		function calcTime(maxTime, minTime, percentage){
+			var range = maxTime - minTime;	
+			return (percentage * range) / 100;
+		}
+		
 	}, 1000);
 
 }
