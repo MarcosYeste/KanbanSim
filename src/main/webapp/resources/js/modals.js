@@ -1,3 +1,9 @@
+//____________________________________________________________________
+
+//________________________ VARIABLES  ________________________________
+
+//____________________________________________________________________
+
 var click = 0;
 var click2 = 0;
 var skillCompiler;
@@ -9,6 +15,14 @@ var userO = new Object();
 var taskNameCounter = 0;
 var atributo;
 
+
+//_________________________________________________________________
+
+//_______________________ EVENTOS  ________________________________
+
+//_________________________________________________________________
+
+
 //Llamamos a las funciones
 document.getElementById("modPhase").addEventListener("click", saveModPhase, false);
 document.getElementById("modUsuario").addEventListener("click", saveModUsers, false);
@@ -18,7 +32,13 @@ document.getElementById("addUsuario").addEventListener("click", saveAddUser, fal
 document.getElementById("modChrono").addEventListener("click", chrono, false);
 document.getElementById("addTask").addEventListener("click", addTareas, false);
 
-//Mod Phases
+
+//____________________________________________________________________
+
+//_______________________ MOD PHASES  ________________________________
+
+//____________________________________________________________________
+
 function modPhases(){
 	click = event.target.getAttribute("data-identification");
 
@@ -75,7 +95,13 @@ function saveModPhase() {
 
 }
 
-//Mostrar Datos Users
+
+//___________________________________________________________________
+
+//_______________________ MOD USERS  ________________________________
+
+//___________________________________________________________________
+
 function modUsers(){
 
 	formUserValido(saveModUsers, "mod");
@@ -253,7 +279,7 @@ function insertInput(index1, index2){
 
 }
 
-//Guardamos los dato de usuario
+//Guardamos los datos de usuario
 function saveModUsers() {
 	rawPhases = "";
 	listUsers[click2].name = document.getElementById("modNameUser").value;
@@ -317,6 +343,12 @@ function rmvModUsers() {
 		}
 	})
 }
+
+//___________________________________________________________________
+
+//_______________________ ADD USERS  ________________________________
+
+//___________________________________________________________________
 
 //Mostrar Datos Usuarios
 function addUsers(){
@@ -443,6 +475,7 @@ function addUsers(){
 		}
 	}
 }
+
 function addInput(index1, index2, object){
 
 	var performancesSkillsDivMod = document.createElement("div");
@@ -559,6 +592,27 @@ function saveAddUser(){
 	})
 }
 
+function formUserValido(funcion,accion){
+
+	// Comprovamos que el usuario introduzca algo en los campos
+	if(document.getElementById(accion + "SkillsUser").children.length == 0 || document.getElementById(accion + "NameUser").value == ""){
+
+		document.getElementById(accion + "Usuario").style.opacity = 0.3;
+		document.getElementById(accion + "Usuario").removeEventListener("click", funcion, false);
+		document.getElementById(accion + "Usuario").removeAttribute("data-dismiss");
+	}else{
+		document.getElementById(accion + "Usuario").style.opacity = 1;
+		document.getElementById(accion + "Usuario").addEventListener("click", funcion, false);
+		document.getElementById(accion + "Usuario").setAttribute("data-dismiss", "modal");
+	}
+}
+
+
+//______________________________________________________________________
+
+//_______________________ TEMPORIZADOR  ________________________________
+
+//______________________________________________________________________
 
 if (chronoTimeTypeSelection == "sec") {
 	document.getElementById("modChronoTime").value = chronoTime;
@@ -584,9 +638,8 @@ function chrono(){
 					if (seconds < 10) {seconds = "0"+seconds;}
 					document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 				} else {
-
 					if (chronoTime < 10) {chronoTime = "0"+parseInt(chronoTime);}
-					document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;
+					document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime);
 				}
 			} else {
 				chronoTime = (document.getElementById("modChronoTime").value * 60);
@@ -606,20 +659,12 @@ function chrono(){
 
 }
 
-function formUserValido(funcion,accion){
 
-	// Comprovamos que el usuario introduzca algo en los campos
-	if(document.getElementById(accion + "SkillsUser").children.length == 0 || document.getElementById(accion + "NameUser").value == ""){
+//_____________________________________________________________________
 
-		document.getElementById(accion + "Usuario").style.opacity = 0.3;
-		document.getElementById(accion + "Usuario").removeEventListener("click", funcion, false);
-		document.getElementById(accion + "Usuario").removeAttribute("data-dismiss");
-	}else{
-		document.getElementById(accion + "Usuario").style.opacity = 1;
-		document.getElementById(accion + "Usuario").addEventListener("click", funcion, false);
-		document.getElementById(accion + "Usuario").setAttribute("data-dismiss", "modal");
-	}
-}
+//_______________________ TAREAS INFO  ________________________________
+
+//_____________________________________________________________________
 
 function showTaskInfo(){
 	atributo = event.target.getAttribute("data-identification");
@@ -632,14 +677,20 @@ function showTaskInfo(){
 	}
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
 
-	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + 0 + "</b>";
+	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + "</b>";
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
 	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";
 
-	console.table(object);
 }
 
-//Mejora, si un caso, que se guarde en el controller
+
+//___________________________________________________________________
+
+//_______________________ ADD TAREAS ________________________________
+
+//___________________________________________________________________
+
+/* Mejora, si un caso, que se guarde en el controller */
 function addTareas(weight){
 	// Incrementamos el numero
 	taskNameCounter ++;
