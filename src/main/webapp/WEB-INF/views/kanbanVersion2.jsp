@@ -233,9 +233,9 @@
 	</fieldset>
 
 	<!-- PRUEBAS  http://www.chartjs.org/docs/latest/general/options.html -->
-	<div class="chart-container" style="position: relative; height: 200px; width: 90%; align: center">
+	<%-- <div class="chart-container" style="position: relative; height: 200px; width: 90%; align: center">
 		<canvas id="myChart"></canvas>
-	</div>
+	</div> --%>
 
 	<!-- ------------------------------------------------------------------------- -->
 

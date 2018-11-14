@@ -1,4 +1,7 @@
-/* KANBAN Y FASES*/
+
+/*---------------------------------------------------- KANBAN ----------------------------------------------*/
+
+
 .contenedor {
 	background-color: #63bafa;
 	border: 2px solid blue;
@@ -31,6 +34,10 @@
 	overflow-y: scroll;
 }
 
+
+/*---------------------------------------------------- FASES ----------------------------------------------*/
+
+
 .faseName {
 	border: 1px solid #35a6f9;
 	width: 30%;
@@ -39,6 +46,7 @@
 	flex-direction: column;
 	max-height: 550.8px;
 	text-align: center;
+	overflow: hidden;
 }
 
 .subfase {
@@ -76,7 +84,11 @@
 .titulo {
 	cursor: pointer !important;
 }
-/* TAREAS */
+
+
+/*---------------------------------------------------- TAREAS ----------------------------------------------*/
+
+
 .tareas {
 	color: black;
 	background-color: white;
@@ -141,7 +153,10 @@ input[type='radio'] {
 	margin-left: 15px;
 }
 
-/* TITULOS */
+
+/*---------------------------------------------------- TITULOS ----------------------------------------------*/
+
+
 .texto {
 	text-shadow: 3px 2px 5px #011cd6;
 	color: #0f45c4;
@@ -150,7 +165,10 @@ input[type='radio'] {
 	margin-top: -10px;
 }
 
-/* BOTONES */
+
+/*---------------------------------------------------- BOTONES ----------------------------------------------*/
+
+
 button {
 	outline: none !important;
 }
@@ -279,7 +297,10 @@ button {
 	transform: translate(1px, 2px);
 }
 
-/* RESULTADOS */
+
+/*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
+
+
 .mostrarResultadosDiv {
 	justify-content: space-around;
 	display: flex;
@@ -403,7 +424,10 @@ button {
 	text-align: center;
 }
 
-/* USUARIOS */
+
+/*---------------------------------------------------- USUARIOS ----------------------------------------------*/
+
+
 .usersContainer {
 	background-color: #e8eeff;
 	background-image: linear-gradient(0deg, #e8eeff, white);

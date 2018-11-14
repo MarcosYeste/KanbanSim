@@ -1,3 +1,7 @@
+
+/*---------------------------------------------------- GENERAL ----------------------------------------------*/
+
+
 html {
 	overflow-x: hidden !important;
 }
@@ -53,7 +57,10 @@ div #reset:hover {
 	z-index: -1;
 }
 
-/* FORMS */
+
+/*---------------------------------------------------- FORMS ----------------------------------------------*/
+
+
 label, input {
 	display: block;
 }
@@ -143,7 +150,14 @@ h1 {
 	background-color: white;
 }
 
-/* TEMPORIZADOR */
+.backloglabel{
+	display: inline;
+}
+
+
+/*---------------------------------------------------- TEMPORIZADOR ----------------------------------------------*/
+
+
 #chronoViewer {
 	font-weight: bold;
 	font-size: 40px;
@@ -157,7 +171,10 @@ h1 {
 	margin-left: 5px;
 }
 
-/* TABLE */
+
+/*---------------------------------------------------- TABLES ----------------------------------------------*/
+
+
 .table-fixed, .table-fixed thead, .table-fixed tbody{
 	max-width:100%;
 	table-layout:fixed;
@@ -183,24 +200,32 @@ h1 {
 	width:100%;
 	table-layout:fixed;
 }
-/* SCROLLBAR */
-.contenedorFinal::-webkit-scrollbar-track, .table-fixed tbody::-webkit-scrollbar-track, .modal-content::-webkit-scrollbar-track{
+
+
+/*---------------------------------------------------- SCROLLBAR ----------------------------------------------*/
+
+
+.contenedorFinal::-webkit-scrollbar-track, .table-fixed tbody::-webkit-scrollbar-track,  #modalTaskInfo::-webkit-scrollbar-track{
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   background-color: #F5F5F5;
 }
 
-.contenedorFinal::-webkit-scrollbar, .table-fixed tbody::-webkit-scrollbar, .modal-content::-webkit-scrollbar-track{
+.contenedorFinal::-webkit-scrollbar, .table-fixed tbody::-webkit-scrollbar, #modalTaskInfo::-webkit-scrollbar-track{
   width: 5px;
   background-color: #F5F5F5;
 }
 
-.contenedorFinal::-webkit-scrollbar-thumb, .table-fixed tbody::-webkit-scrollbar-thumb, .modal-content::-webkit-scrollbar-track{
+.contenedorFinal::-webkit-scrollbar-thumb, .table-fixed tbody::-webkit-scrollbar-thumb,  #modalTaskInfo::-webkit-scrollbar-track{
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
   background-color: #555;
 }
 
-.backloglabel{
-	display: inline;
+
+/*---------------------------------------------------- CHARTS ----------------------------------------------*/
+
+
+.chart-container{
+	display:none;
 }
