@@ -397,6 +397,7 @@ function play() {
 //								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);	
 								task.esfuerzo += task.duration;
 								task.startTime = leadTime;
+								task.firstDuration.push(task.duration);
 							}								
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
