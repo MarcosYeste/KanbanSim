@@ -48,6 +48,9 @@
 	text-align: center;
 	overflow: hidden;
 }
+.faseName > div:not(.titulo){
+	overflow-y: auto;
+}
 
 .subfase {
 	color: black;
@@ -61,6 +64,7 @@
 	color: white;
 	text-shadow: 0.1px 1px 0.5px #aebabd;
 	font-size: 130%;
+	table-layout: fixed;
 }
 
 .fase {
