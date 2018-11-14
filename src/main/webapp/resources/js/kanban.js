@@ -507,19 +507,19 @@ function play() {
 
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(backLogType == "constant"){	
-			if((gaussian == gaussianCounter || gaussian == 0) && distributionType == "normal"){
+			if((gaussian == gaussianCounter || gaussian <= 0) && distributionType == "normal"){
 				console.log("normal");
 				getGaussian();
 				gaussianCounter = 0;
 				// Creamos un objeto nuevo
 				addTareas("");
 				// Y lo printamos
-			} else if ((poisson == poissonCounter || poisson == 0) && distributionType == "poisson"){
+			} else if ((poisson == poissonCounter || poisson <= 0) && distributionType == "poisson"){
 				getPoisson();
 				console.log("poisson")
 				poissonCounter = 0;
 				addTareas("");
-			} else if ((weightTime == weightCounter || weightTime == 0) && distributionType == "weight"){
+			} else if ((weightTime == weightCounter || weightTime <= 0) && distributionType == "weight"){
 				getWeight();
 				console.log("weight")
 				weightCounter = 0;
