@@ -31,8 +31,10 @@ function tableTask(){
 	});
 	medioCycle = Math.round((medioCycle/cantidadTask)* 10 ) / 10;
 	medioLead =  Math.round((medioLead/cantidadTask)* 10 ) / 10;
+	if(isNaN(medioCycle)){ medioCycle = 0;}
+	if(isNaN(medioLead)){ medioLead = 0;}
 	tablaTarea += "<tr>";
-	tablaTarea += "<td>Media: </td><td>"+medioCycle+"</td><td>"+medioLead+"</td><td colspan = '2'></td>";
+	tablaTarea += "<td>Media: </td><td>"+medioCycle+"s</td><td>"+medioLead+"s</td><td colspan = '2'></td>";
 	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
 	subDiv.innerHTML += tablaTarea;
@@ -522,17 +524,18 @@ function maxAndMinUsers(userMax,userMin){
 
 
 function saveTaskResult() {
-	   var resultTask = {"cycleTime" : 4,
-			      		 "leadTime" : 10}
-		   
-		   
+	   var resultTask = {"cycleTime" : "2",
+			      		 "leadTime" : "2"}
 	   $.ajax({
-	      type: "POST",
-	      dataType : 'json',
-	      url: "/saveResult",
-	      data: JSON.stringify(resultTask), // Note it is important
-	      success :function(result) {
-	      console.log(result);
-	     }
-	  });
+			'type': 'POST',
+			'url':  '/saveResult',
+			'data': JSON.stringify(resultTask),
+			'success': function(result) {
+
+			      console.log(result);
+
+			}
+		});
+		   
+		
 }
