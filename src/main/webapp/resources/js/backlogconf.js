@@ -100,8 +100,8 @@ $(document).ready(function(){
 			} 
 		}
 		
-		console.log(selectedBacklog + "dfa");
 		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "manual"){
+
 			inputBase = document.getElementById("normalBaseValue");
 			inputVariance = document.getElementById("normalVarianceValue");
 			inputLambda = document.getElementById("poissonLambda");

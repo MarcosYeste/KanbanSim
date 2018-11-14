@@ -5,6 +5,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="/resources/js/backlogconf.js"></script>
 <script src="/resources/js/modals.js"></script>
+<script src="/resources/js/resultadosService.js"></script>
 <script src="/resources/js/resultados.js"></script>
 <script src="/resources/js/kanban.js"></script>
 <script src="/resources/js/backlogconf.js"></script>
+<script src="/resources/js/chart.js"></script>
