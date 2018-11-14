@@ -44,16 +44,6 @@ for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 	});
 }
 
-
-for(var i = 0 ; i < document.getElementsByClassName("tareas").length; i++){
-	document.getElementsByClassName("tareas")[i].setAttribute("data-identification", listTareas[i].name);
-	for(var j = 0; j < document.getElementsByClassName("tareas")[i].children.length; j++){
-		document.getElementsByClassName("tareas")[i].children[j].setAttribute("data-identification", listTareas[i].name);
-		document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo , false);
-	}
-}
-
-
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de cada uno de los elementos
 for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 
@@ -175,12 +165,12 @@ function play() {
 //			--------------------------------------------------------------------------------------------------------//
 			listTareas.forEach(function(task) {
 
-				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
+				// Asigna un tiempo a cada tarea de entre el intervalo de la fase
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.state != "Ended" && task.duration == 0) {
 
-					
+
 					if(distributionType == "weight"){
-						
+
 						if(task.weight == "S"){
 							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
 						} else if (task.weight == "M"){
@@ -193,12 +183,12 @@ function play() {
 					} else {
 						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 					}
-					
-					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
+
+					// Asigna un tiempo a cada tarea de entre el intervalo de la fase
 					task.esfuerzo += task.duration;
 					task.durarionAsignada = false;					
 					task.firstDuration.push(task.duration);
-					
+
 
 				}
 
@@ -381,7 +371,7 @@ function play() {
 								// ________ESTO VA EN EL IF 4
 
 								if(distributionType == "weight"){
-									
+
 									if(task.weight == "S"){
 										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
 									} else if (task.weight == "M"){
@@ -507,19 +497,19 @@ function play() {
 
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(backLogType == "constant"){	
-			if((gaussian == gaussianCounter || gaussian == 0) && distributionType == "normal"){
+			if((gaussian == gaussianCounter || gaussian <= 0) && distributionType == "normal"){
 				console.log("normal");
 				getGaussian();
 				gaussianCounter = 0;
 				// Creamos un objeto nuevo
 				addTareas("");
 				// Y lo printamos
-			} else if ((poisson == poissonCounter || poisson == 0) && distributionType == "poisson"){
+			} else if ((poisson == poissonCounter || poisson <= 0) && distributionType == "poisson"){
 				getPoisson();
 				console.log("poisson")
 				poissonCounter = 0;
 				addTareas("");
-			} else if ((weightTime == weightCounter || weightTime == 0) && distributionType == "weight"){
+			} else if ((weightTime == weightCounter || weightTime <= 0) && distributionType == "weight"){
 				getWeight();
 				console.log("weight")
 				weightCounter = 0;
@@ -616,12 +606,12 @@ function play() {
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
 			}
 		})
-		
+
 		function calcTime(maxTime, minTime, percentage){
 			var range = maxTime - minTime;	
 			return (percentage * range) / 100;
 		}
-		
+
 	}, 1000);
 
 }
@@ -811,7 +801,7 @@ function printTasks(tarea){
 		"data-identification='" + tarea.name + "' id='"+tarea.name+"'> " +
 		"<p data-identification='" + tarea.name + "'>" + tarea.name + "</p>" +
 		"<p class='estado' data-identification='" + tarea.name + "'>" +
-		"<small class='divState'></small></p>" +
+		"<small class='divState' data-identification='" + tarea.name + "'></small></p>" +
 		"<p class='duration' data-identification='" + tarea.name + "'>0</p></div>";
 
 	for (var i = 0; i < document.getElementsByClassName("tareas").length; i++) {

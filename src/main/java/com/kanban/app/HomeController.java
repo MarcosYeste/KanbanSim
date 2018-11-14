@@ -246,7 +246,9 @@ public class HomeController {
 
 		Random r = new Random();
 		double val = r.nextGaussian() * this.variance + this.base;
-
+		if(val <= 0) {
+			val = 1;
+		}
 		return String.valueOf(val);
 	}
 
