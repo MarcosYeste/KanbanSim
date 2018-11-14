@@ -29,14 +29,16 @@ function tableTask(){
 		tablaTarea += "</tr>";
 		cantidadTask++;
 	});
-	medioCycle = Math.round(medioCycle/cantidadTask);
-	medioLead =  Math.round(medioLead/cantidadTask);
+	medioCycle = Math.round((medioCycle/cantidadTask)* 10 ) / 10;
+	medioLead =  Math.round((medioLead/cantidadTask)* 10 ) / 10;
+	if(isNaN(medioCycle)){ medioCycle = 0;}
+	if(isNaN(medioLead)){ medioLead = 0;}
 	tablaTarea += "<tr>";
-	tablaTarea += "<td>Media: </td><td>"+medioCycle+"</td><td>"+medioLead+"</td><td colspan = '2'></td>";
+	tablaTarea += "<td>Media: </td><td>"+medioCycle+"s</td><td>"+medioLead+"s</td><td colspan = '2'></td>";
 	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
 	subDiv.innerHTML += tablaTarea;
-
+	saveTaskResult();
 
 }
 
@@ -513,4 +515,27 @@ function maxAndMinUsers(userMax,userMin){
 	arraymulti.push(array);
 	arraymulti.push(array2);
 	return arraymulti;
+}
+//_______________________________________________________________
+
+//______________________ GUARDAR RESULTADOS ______________________
+
+//_______________________________________________________________
+
+
+function saveTaskResult() {
+	   var resultTask = {"cycleTime" : "2",
+			      		 "leadTime" : "2"}
+	   $.ajax({
+			'type': 'POST',
+			'url':  '/saveResult',
+			'data': JSON.stringify(resultTask),
+			'success': function(result) {
+
+			      console.log(result);
+
+			}
+		});
+		   
+		
 }

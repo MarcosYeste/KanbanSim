@@ -1,3 +1,9 @@
+//____________________________________________________________________
+
+//_______________________ VARIABLES  ________________________________
+
+//____________________________________________________________________
+
 var firstLoop = true;
 var myInterval;
 var leadTime = 0;
@@ -6,12 +12,12 @@ var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
 var gaussianCounter = 0;
-var gaussian = 0; //Tiempo en el que entrara la proxima tarea en distribución normal
+var gaussian = 0; 		//Tiempo en el que entrara la proxima tarea en distribución normal
 var taskNameCounter = 0;
-var poisson = 0;  //Tiempo en el que entrara la proxima tarea en distribución poisson
+var poisson = 0;  		//Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
 var weight = "M"; 
-var weightTime = 0; //Tiempo en el que entrara la proxima tarea en uniforme con peso
+var weightTime = 0; 	//Tiempo en el que entrara la proxima tarea en uniforme con peso
 var weightCounter = 0;
 
 var backLogType; 
@@ -23,6 +29,11 @@ getDistribution(); //Type of backlog tasks input 'constant', 'manual'
 if(backLogType == null){
 	backLogType = "manual";
 }
+var finLength = 0;
+var sumWip = 0;
+var velocidad = 0;
+var eCT = 0;
+var eLT = 0;
 
 //Guardar al modificar Phase
 sortPhases();
@@ -30,6 +41,13 @@ sortPhases();
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
+
+
+//____________________________________________________________________
+
+//_______________________ EVENTOS  __________________________________
+
+//____________________________________________________________________
 
 //Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
 for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
@@ -61,7 +79,13 @@ for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 	});
 
 }
-//-------------------------------------------------------------------------
+
+
+//____________________________________________________________________
+
+//_______________________ BUTTONS  ___________________________________
+
+//____________________________________________________________________
 
 //Play Button
 document.getElementById("playpause").addEventListener("change", function() {
@@ -112,7 +136,12 @@ document.getElementById("divDelete").addEventListener("click", function() {
 	xhttp.send();
 });
 
-//Corregir problema, cuando no hay tareas, al inicar el kanban el mismo se detiene 
+
+//____________________________________________________________________
+
+//_______________________ PLAY  ______________________________________
+
+//____________________________________________________________________
 
 function play() {
 
@@ -124,19 +153,21 @@ function play() {
 	var anteriorTiempo =0;
 
 	myInterval = setInterval(function() {
-
+		
 		if(chronoTime != 0){
 			kanbanTss++;
 		}
-
+		
+		velocidad ++;
+		
 		for (var i = 0; i < fases.length; i++) {
 
 			var doing = fases[i].lastElementChild.firstElementChild;
 			var done = fases[i].lastElementChild.lastElementChild;
 
-//			-------------------------------------------------------------------------------------------//
+//			--------------------------------------------------------------------------------------------------------------//
 
-			if (firstLoop) { 
+			if (firstLoop) {
 
 
 				for (var j = 0; j < divsTareas.length; j++) {
@@ -162,7 +193,7 @@ function play() {
 				firstLoop = false;
 			} //if firstloop end
 
-//			--------------------------------------------------------------------------------------------------------//
+//			---------------------------------------------------------------------------------------------------------------//
 			listTareas.forEach(function(task) {
 
 				// Asigna un tiempo a cada tarea de entre el intervalo de la fase
@@ -483,10 +514,35 @@ function play() {
 
 								}
 							} 
-						}); //foreach 				
-					} //iff 5 end
-				} //divs tareas for end
-			}); //foreach end
+						}); 	//foreach	
+					} 			//if 5 end
+				} 				//divs tareas for end
+			}); 				//foreach end
+
+			sumWip = 0;
+			listPhases.forEach(function(fase) {
+				
+				sumWip += fase.maxTasks;
+
+			});
+			
+			
+			
+			// Veloz
+			if(velocidad == 10){
+				
+				finLength = document.getElementsByClassName("contenedorFinal")[0].children.length - finLength;
+
+				eCT =  sumWip / finLength;
+
+				if (eCT == "Infinity"){
+					eCT = 0;
+				}
+				
+				velocidad = 0;
+
+			}
+
 		} //end phases for
 
 
@@ -517,6 +573,9 @@ function play() {
 			}
 
 		}
+
+		// Si la introduccion de tareas es manual que se termine cuando todas las tareas equivalgan 
+		// a la cantidad de tareas introdcidas
 
 		if(backLogType == "manual"){
 			if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
@@ -571,6 +630,7 @@ function play() {
 
 		leadTime += 1;
 
+		// Calculamos el tiempo para parar el play con el timer
 		console.log("::: LEAD TIME ::::: "+leadTime);
 		if(chronoTime != ""){
 
@@ -594,6 +654,7 @@ function play() {
 		poissonCounter++;
 		weightCounter++;
 
+		// Recargamos los datos de la targeta de informacion de cada tarea
 		listTareas.forEach(function(tarea){
 			if(atributo == tarea.name){
 				// Show Info
@@ -601,12 +662,13 @@ function play() {
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 
-				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + 0 + "</b>";
+				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + "</b>";
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
 			}
 		})
 
+		// Función para Volver a calcular el tiempo para las tareas con peso
 		function calcTime(maxTime, minTime, percentage){
 			var range = maxTime - minTime;	
 			return (percentage * range) / 100;
@@ -616,6 +678,11 @@ function play() {
 
 }
 
+//____________________________________________________________________
+
+//_______________________ MENUS  _____________________________________
+
+//____________________________________________________________________
 
 function deshabilitarMenus(disable){
 
@@ -720,6 +787,14 @@ function deshabilitarMenus(disable){
 		document.getElementById("addUser").children[0].setAttribute("data-toggle", "modal");
 	}
 }
+
+
+//____________________________________________________________________
+
+//_______________________ ORDENAR FASES  _____________________________
+
+//____________________________________________________________________
+
 function sortPhases(){
 	$( function() {
 		$( "#faseDiv" ).sortable({
@@ -752,6 +827,14 @@ function sortPhases(){
 		$( "#faseDiv").css("cursor", "move");
 	});
 }
+
+
+//____________________________________________________________________
+
+//_______________________ CONSTANTES  ________________________________
+
+//____________________________________________________________________
+
 function getGaussian(){
 	$.ajax({
 		type: "GET",
@@ -793,21 +876,6 @@ function getWeight(){
 
 		}
 	});
-}
-
-function printTasks(tarea){
-	document.getElementsByClassName("contenedorTareas")[0].innerHTML +=
-		"<div class='tareas' data-toggle='modal' data-target='#modalTaskInfo' " +
-		"data-identification='" + tarea.name + "' id='"+tarea.name+"'> " +
-		"<p data-identification='" + tarea.name + "'>" + tarea.name + "</p>" +
-		"<p class='estado' data-identification='" + tarea.name + "'>" +
-		"<small class='divState' data-identification='" + tarea.name + "'></small></p>" +
-		"<p class='duration' data-identification='" + tarea.name + "'>0</p></div>";
-
-	for (var i = 0; i < document.getElementsByClassName("tareas").length; i++) {
-		document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo, false);
-
-	}
 }
 
 function getDistribution(){
@@ -853,4 +921,26 @@ function getDistribution(){
 			}
 		}
 	});
+}
+
+
+//____________________________________________________________________
+
+//_______________________ MOSTRAR TAREAS  ____________________________
+
+//____________________________________________________________________
+
+function printTasks(tarea){
+	document.getElementsByClassName("contenedorTareas")[0].innerHTML +=
+		"<div class='tareas' data-toggle='modal' data-target='#modalTaskInfo' " +
+		"data-identification='" + tarea.name + "' id='"+tarea.name+"'> " +
+		"<p data-identification='" + tarea.name + "'>" + tarea.name + "</p>" +
+		"<p class='estado' data-identification='" + tarea.name + "'>" +
+		"<small class='divState' data-identification='" + tarea.name + "'></small></p>" +
+		"<p class='duration' data-identification='" + tarea.name + "'>0</p></div>";
+
+	for (var i = 0; i < document.getElementsByClassName("tareas").length; i++) {
+		document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo, false);
+
+	}
 }
