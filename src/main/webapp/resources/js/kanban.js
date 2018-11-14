@@ -175,7 +175,7 @@ function play() {
 //			--------------------------------------------------------------------------------------------------------//
 			listTareas.forEach(function(task) {
 
-				// Assigna un tiempo a cada tarea de entre el intervalo de la fase
+				// Asigna un tiempo a cada tarea de entre el intervalo de la fase
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.state != "Ended" && task.duration == 0) {
 
 					
@@ -194,7 +194,7 @@ function play() {
 						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 					}
 					
-					// Assigna un tiempo a cada tarea de entre el intervalo de la fase
+					// Asigna un tiempo a cada tarea de entre el intervalo de la fase
 					task.esfuerzo += task.duration;
 					task.durarionAsignada = false;					
 					task.firstDuration.push(task.duration);
@@ -397,6 +397,7 @@ function play() {
 //								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);	
 								task.esfuerzo += task.duration;
 								task.startTime = leadTime;
+								task.firstDuration.push(task.duration);
 							}								
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&

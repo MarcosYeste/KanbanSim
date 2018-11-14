@@ -664,5 +664,4 @@ function addTareas(weight){
 	tarea.weight = weight; 
 	listTareas.push(tarea);
 	printTasks(tarea);
-	console.log(weight)
 }
