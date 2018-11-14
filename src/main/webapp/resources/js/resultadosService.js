@@ -5,6 +5,9 @@
 //_______________________________________________________________
 //print table Task
 function tableTask(){
+	var medioCycle = 0;
+	var medioLead = 0;
+	var cantidadTask = 0;
 	var subDiv = document.getElementById("tareaResultado");
 	subDiv.innerHTML = "";
 
@@ -18,13 +21,19 @@ function tableTask(){
 	tablaTarea += "</tbody>";
 
 	listTareas.forEach(function(task) {		
-
+		medioCycle += task.cycleTime;
+		medioLead += task.leadTime;
 		tablaTarea += "<tr>";
 		tablaTarea += "<td>"+task.name+"</td><td>"+task.cycleTime+"s</td><td>"+task.leadTime+"s</td><td>"+task.esfuerzo+"</td>";		
 		tablaTarea += "<td>"+task.staticAssigneds+"</td>";
 		tablaTarea += "</tr>";
+		cantidadTask++;
 	});
-
+	medioCycle = Math.round(medioCycle/cantidadTask);
+	medioLead =  Math.round(medioLead/cantidadTask);
+	tablaTarea += "<tr>";
+	tablaTarea += "<td>Media: </td><td>"+medioCycle+"</td><td>"+medioLead+"</td><td colspan = '2'></td>";
+	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
 	subDiv.innerHTML += tablaTarea;
 
@@ -66,6 +75,7 @@ function behindTable(){
 	tablaTarea += "</table>";
 	subDiv.innerHTML += tablaTarea;
 }
+
 //_______________________________________________________________
 
 // _______________________ FASES ________________________________
@@ -367,7 +377,7 @@ function saveNewTimePhase(statsTime){
 
 //_______________________________________________________________
 
-//___________Calculos de las MEDIAS de tarea y fases ____________
+//___________Calculos de las MEDIAS de tareas y fases ____________
 
 //_______________________________________________________________
 
