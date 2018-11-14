@@ -29,14 +29,14 @@ function tableTask(){
 		tablaTarea += "</tr>";
 		cantidadTask++;
 	});
-	medioCycle = Math.round(medioCycle/cantidadTask);
-	medioLead =  Math.round(medioLead/cantidadTask);
+	medioCycle = Math.round((medioCycle/cantidadTask)* 10 ) / 10;
+	medioLead =  Math.round((medioLead/cantidadTask)* 10 ) / 10;
 	tablaTarea += "<tr>";
 	tablaTarea += "<td>Media: </td><td>"+medioCycle+"</td><td>"+medioLead+"</td><td colspan = '2'></td>";
 	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
 	subDiv.innerHTML += tablaTarea;
-
+	saveTaskResult();
 
 }
 
@@ -513,4 +513,26 @@ function maxAndMinUsers(userMax,userMin){
 	arraymulti.push(array);
 	arraymulti.push(array2);
 	return arraymulti;
+}
+//_______________________________________________________________
+
+//______________________ GUARDAR RESULTADOS ______________________
+
+//_______________________________________________________________
+
+
+function saveTaskResult() {
+	   var resultTask = {"cycleTime" : 4,
+			      		 "leadTime" : 10}
+		   
+		   
+	   $.ajax({
+	      type: "POST",
+	      dataType : 'json',
+	      url: "/saveResult",
+	      data: JSON.stringify(resultTask), // Note it is important
+	      success :function(result) {
+	      console.log(result);
+	     }
+	  });
 }
