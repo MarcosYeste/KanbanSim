@@ -23,6 +23,13 @@ function tableTask(){
 		medioCycle += task.cycleTime;
 		medioLead += task.leadTime;
 		tablaTarea += "<tr>";
+		var color = getRandomColor();
+		addDataTask(myChartTask, "CycleTime", task.cycleTime, color);
+		console.log("1");
+		addDataTask(myChartTask, "LeadTime", task.leadTime, color);
+		console.log("2");
+		addDataTask(myChartTask, "Esfuerzo", task.esfuerzo, color);
+		console.log("3");
 		tablaTarea += "<td>"+task.name+"</td><td>"+task.cycleTime+"s</td><td>"+task.leadTime+"s</td><td>"+task.esfuerzo+"</td>";		
 		tablaTarea += "<td>"+task.staticAssigneds+"</td>";
 		tablaTarea += "</tr>";
@@ -517,8 +524,15 @@ function maxAndMinUsers(userMax,userMin){
 }
 //_______________________________________________________________
 
-//______________________ GUARDAR RESULTADOS ______________________
+//______________________ GENERAR RANDOM COLOR  ______________________
 
 //_______________________________________________________________
 
-
+function getRandomColor() {
+	  var letters = '0123456789ABCDEF';
+	  var color = '#';
+	  for (var i = 0; i < 6; i++) {
+	    color += letters[Math.floor(Math.random() * 16)];
+	  }
+	  return color;
+	}

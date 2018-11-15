@@ -9,7 +9,7 @@ function mostrarResultados() {
 	calculoTiemposTotalesFase();
 	
 //	document.getElementById("taskChart").innerHTML += '<canvas id="myChartTask"></canvas>';
-//	mostrarGraficaTareas();
+
 
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 	div.innerHTML = "";	

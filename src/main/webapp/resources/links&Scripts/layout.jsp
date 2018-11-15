@@ -27,6 +27,7 @@
 <!--  Charts chart.js  -->
 <script src="/resources/libs/js/Chart.bundle.js"></script>
 <script src="/resources/libs/js/Chart.js"></script>
+ 
 
 
 </head>

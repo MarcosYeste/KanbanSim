@@ -19,8 +19,14 @@ var poissonCounter = 0;
 var weight = "M"; 
 var weightTime = 0; 	//Tiempo en el que entrara la proxima tarea en uniforme con peso
 var weightCounter = 0;
+var numOfBacklogCalled = 0; //Veces que se ha generado un tiempo en backlog constante
+var backLogCollector = 0; //Acumulador de tiempos de entrada
+var TII = 0; //tiempo medio entre la creación de tareas
+var VII = 0; // varianza entre la creación de tareas
+
 
 var backLogType; 
+
 var distributionType;
 var inputBase = 1; //Base value for normal distribution 
 var inputVariance = 1; // Variance value for normal distribution
@@ -37,6 +43,9 @@ var eLT = 0;
 
 //Guardar al modificar Phase
 sortPhases();
+listPhases.forEach(function(fase){
+	addData(myChart, fase.name, fase.maxTime, fase.color + "66");
+})
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
@@ -551,29 +560,44 @@ function play() {
 
 		});
 
+		//Constants
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(backLogType == "constant"){	
 			if((gaussian == gaussianCounter || gaussian <= 0) && distributionType == "normal"){
 				console.log("normal");
-				getGaussian();
+				getGaussian();		
+				calcLDValues(gaussian);
 				gaussianCounter = 0;
 				// Creamos un objeto nuevo
 				addTareas("");
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson <= 0) && distributionType == "poisson"){
 				getPoisson();
+				calcLDValues(poisson);
 				console.log("poisson")
 				poissonCounter = 0;
 				addTareas("");
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distributionType == "weight"){
 				getWeight();
+				calcLDValues(weightTime);
 				console.log("weight")
 				weightCounter = 0;
 				addTareas(weight);
 			}
 
 		}
-
+		function calcLDValues(distributionValue){
+			if(distributionValue != 0){
+				backLogCollector += distributionValue;
+				numOfBacklogCalled++;
+				TII = backLogCollector / numOfBacklogCalled;
+				if(Math.abs(TII - distributionValue) > VII){
+					VII = Math.abs(TII - distributionValue);
+				}
+				console.log("DistributionValue " + distributionValue + " backlogcollector " + backLogCollector + " numofbacklogscalled " + numOfBacklogCalled +
+						" T2 " + TII + " VII " + VII);	
+			}
+		}
 		// Si la introduccion de tareas es manual que se termine cuando todas las tareas equivalgan 
 		// a la cantidad de tareas introdcidas
 

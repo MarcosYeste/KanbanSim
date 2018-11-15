@@ -11,3 +11,4 @@
 <script src="/resources/js/ChartTask.js"></script>
 <script src="/resources/js/kanban.js"></script>
 <script src="/resources/js/backlogconf.js"></script>
+
