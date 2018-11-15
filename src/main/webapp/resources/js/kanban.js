@@ -45,6 +45,12 @@ var eLT = 0;
 
 //Guardar al modificar Phase
 sortPhases();
+
+//Inicializamos la gráfica
+listUsers.forEach(function(user){
+	addData(myChart, user.name, user.tasksWorked, "rgba(0,255,233,0.5)");
+})
+
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
@@ -718,7 +724,14 @@ function play() {
 			var range = maxTime - minTime;	
 			return (percentage * range) / 100;
 		}
-
+		
+		var i = 0;
+		listUsers.forEach(function(user){
+			
+			updateData(myChart, user.name, user.tasksWorked, i);
+			i++;
+		});
+		
 	}, 1000);
 
 }
