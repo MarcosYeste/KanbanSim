@@ -1,7 +1,6 @@
 //_______________________________________________________________
 
 // _______________________ TAREAS  ________________________________
-
 //_______________________________________________________________
 //print table Task
 function tableTask(){
@@ -38,7 +37,7 @@ function tableTask(){
 	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
 	subDiv.innerHTML += tablaTarea;
-	saveTaskResult();
+	
 
 }
 
@@ -523,19 +522,3 @@ function maxAndMinUsers(userMax,userMin){
 //_______________________________________________________________
 
 
-function saveTaskResult() {
-	   var resultTask = {"cycleTime" : "2",
-			      		 "leadTime" : "2"}
-	   $.ajax({
-			'type': 'POST',
-			'url':  '/saveResult',
-			'data': JSON.stringify(resultTask),
-			'success': function(result) {
-
-			      console.log(result);
-
-			}
-		});
-		   
-		
-}

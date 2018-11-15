@@ -410,21 +410,6 @@ button {
 		rgba(0, 0, 0, 0.19);
 }
 
-.divAssigned {
-	text-align: left;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	background-color: white;
-	color: black;
-	text-shadow: none;
-	margin-left: 20px;
-	margin-right: 20px;
-	margin-bottom: 20px;
-	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
-}
-
 .asignados {
 	text-align: center;
 }
