@@ -37,6 +37,9 @@ var eLT = 0;
 
 //Guardar al modificar Phase
 sortPhases();
+listPhases.forEach(function(fase){
+	addData(myChart, fase.name, fase.maxTime, fase.color + "66");
+})
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
