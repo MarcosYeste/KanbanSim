@@ -68,3 +68,9 @@ function removeData(chart) {
 
 	chart.update();
 }
+
+function removeLabel(chart, label) {
+	chart.data.labels.splice(chart.data.labels.indexOf(label), 1);
+
+	chart.update();
+}

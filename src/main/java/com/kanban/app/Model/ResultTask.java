@@ -22,6 +22,10 @@ public class ResultTask {
 		this.mediaLead = mediaLead;
 	}
 
+	public ResultTask() {
+		super();
+	}
+
 	public int getCycleTime() {
 		return cycleTime;
 	}

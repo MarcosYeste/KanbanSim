@@ -8,6 +8,7 @@
 <script src="/resources/js/resultadosService.js"></script>
 <script src="/resources/js/resultados.js"></script>
 <script src="/resources/js/chart.js"></script>
+<script src="/resources/js/ChartTask.js"></script>
 <script src="/resources/js/kanban.js"></script>
 <script src="/resources/js/backlogconf.js"></script>
 

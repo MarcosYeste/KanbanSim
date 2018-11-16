@@ -330,9 +330,12 @@ function rmvModUsers() {
 			name: listUsers[click2].name
 
 		},success: function(data) {
-
+			
+			removeLabel(myChart,listUsers[click2].name);
+			
 			listUsers.splice(click2, 1);
-
+			
+			
 
 			$( ".userName[data-identification='"+ click2 +"']").remove();
 			var clases = $(".userName");
@@ -507,7 +510,7 @@ function addInput(index1, index2, object){
 	valorSkill = Math.round(Math.random() * (100 + 10) - 10);
 	$( function() {
 		$( "#addPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider({
-			value: parseInt(valorSkill),
+			value: 10,
 			min: 10,
 			max: 100,
 			step: 10,

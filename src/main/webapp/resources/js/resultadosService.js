@@ -1,6 +1,6 @@
 //_______________________________________________________________
 
-//_______________________ TAREAS  ________________________________
+//_______________________ TAREAS  _______________________________
 
 //_______________________________________________________________
 //print table Task
@@ -38,7 +38,7 @@ function tableTask(){
 	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
 	subDiv.innerHTML += tablaTarea;
-	saveTaskResult();
+
 
 }
 
@@ -77,7 +77,13 @@ function behindTable(){
 	tablaTarea += "</table>";
 	subDiv.innerHTML += tablaTarea;
 }
-
+function graficTask(){
+	document.getElementById("taskChart").style.visibility  = "visible";
+	listTareas.forEach(function(task) {	
+		var color = getRandomColor();
+		addDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, color,task.name);
+	});
+}
 //_______________________________________________________________
 
 //_______________________ FASES ________________________________
@@ -491,7 +497,7 @@ function findMaxAndMin(){
 	array[1] = min;
 	array[2] = taskmax;
 	array[3] = taskmin;
-	
+
 	return array;
 }
 //esta funcion me devuelve los nombres de los maximos y minimos
@@ -519,24 +525,15 @@ function maxAndMinUsers(userMax,userMin){
 }
 //_______________________________________________________________
 
-//______________________ GUARDAR RESULTADOS ______________________
+//______________________ GENERAR RANDOM COLOR  ______________________
 
 //_______________________________________________________________
 
-
-function saveTaskResult() {
-	var resultTask = {"cycleTime" : "2",
-			"leadTime" : "2"}
-	$.ajax({
-		'type': 'POST',
-		'url':  '/saveResult',
-		'data': JSON.stringify(resultTask),
-		'success': function(result) {
-
-			console.log(result);
-
-		}
-	});
-
-
+function getRandomColor() {
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+		color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
 }
