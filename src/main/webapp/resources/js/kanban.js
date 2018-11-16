@@ -23,7 +23,9 @@ var numOfBacklogCalled = 0; //Veces que se ha generado un tiempo en backlog cons
 var backLogCollector = 0; //Acumulador de tiempos de entrada
 var TII = 0; //tiempo medio entre la creación de tareas
 var VII = 0; // varianza entre la creación de tareas
-
+var T = 0; // CT medio (el real, no el estimado)
+var Vt = 0; //varianza del CT
+var cycleTimeCollector = 0; //Variable para acumular y calcular el 
 
 var backLogType; 
 
@@ -44,7 +46,7 @@ var eLT = 0;
 //Guardar al modificar Phase
 sortPhases();
 
-// Inicializamos la gráfica
+//Inicializamos la gráfica
 listUsers.forEach(function(user){
 	addData(myChart, user.name, user.tasksWorked, "rgba(0,255,233,0.5)");
 })
@@ -362,6 +364,7 @@ function play() {
 						//IF 3
 						if (fases[i + 1] == null) {							
 							task.state = "Ended";
+							task.totalTime = 0;
 							task.leadTime = leadTime;
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
@@ -530,15 +533,14 @@ function play() {
 					} 			//if 5 end
 				} 				//divs tareas for end
 			}); 				//foreach end
-
+			
 			sumWip = 0;
 			listPhases.forEach(function(fase) {
 				
 				sumWip += fase.maxTasks;
 
 			});
-			
-			
+				
 			
 			// Veloz
 			if(velocidad == 10){
@@ -557,7 +559,26 @@ function play() {
 
 		} //end phases for
 
-
+		//Calcular media cycle time
+		
+		listTareas.forEach(function(task){
+			if(task.phase >= 1 && task.state != "Ended"){
+				task.totalTime++;
+				
+			}
+		});
+		
+		T = cycleTimeCollector / listTareas.length;
+		var totalStateSum = 0;
+		for(var i = 0; i < task.statsTime.length; i++){
+			totalStateSum += task.statsTime[i];
+		}
+		console.log(totalStateSum + "   "  + Vt);
+		if(T - totalStateSum > Vt){
+			Vt = T - totalStateSum;
+		}
+		console.log(cycleTimeCollector);
+		
 		listTareas.forEach(function(task) {
 			task.sameIteration = false;
 
@@ -589,6 +610,8 @@ function play() {
 			}
 
 		}
+		
+		//Funcion para calcular el tiempo medio de la entrada de tareas y la varianza
 		function calcLDValues(distributionValue){
 			if(distributionValue != 0){
 				backLogCollector += distributionValue;
@@ -688,8 +711,13 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-
-				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + "</b>";
+				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0 && Vt != 0)){
+					console.log("if");
+					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", " + (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
+				} else {
+					console.log("else");
+					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
+				}
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
 			}

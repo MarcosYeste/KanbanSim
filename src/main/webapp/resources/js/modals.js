@@ -357,6 +357,7 @@ function addUsers(){
 	userO.secondByPhase = new Array();
 	userO.secondsWork = 0;
 	userO.secondsNotWorked = 0;
+	userO.timeStopped = 0;
 	rawPhases = "";
 	userO.phases = [];
 	rawSkills = "";
@@ -675,8 +676,14 @@ function showTaskInfo(){
 		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>";
 	}
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
-
-	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + "</b>";
+	console.log("TII " + TII + " T " + T + " VII " +  VII + " Vt "+ Vt);
+	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0 && Vt != 0)){
+		console.log("if");
+		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", " + (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
+	} else {
+		console.log("else");
+		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
+	}
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
 	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";
 
@@ -712,6 +719,7 @@ function addTareas(weight){
 	tarea.statsTime = new Array();
 	tarea.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 	tarea.weight = weight; 
+	tarea.totaltime = 0;
 	listTareas.push(tarea);
 	printTasks(tarea);
 }
