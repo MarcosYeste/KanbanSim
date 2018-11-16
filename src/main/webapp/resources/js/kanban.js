@@ -20,13 +20,12 @@ var weight = "M";
 var weightTime = 0; 	//Tiempo en el que entrara la proxima tarea en uniforme con peso
 var weightCounter = 0;
 var numOfBacklogCalled = 0; //Veces que se ha generado un tiempo en backlog constante
-var backLogCollector = 0; //Acumulador de tiempos de entrada
+var backLogCollector = []; //Acumulador de tiempos de entrada
 var TII = 0; //tiempo medio entre la creación de tareas
 var VII = 0; // varianza entre la creación de tareas
 var T = 0; // CT medio (el real, no el estimado)
 var Vt = 0; //varianza del CT
-var cycleTimeCollector = 0; //Variable para acumular y calcular el 
-
+var numOfTasksNotEnded = 0; //Numero de tareas que han entrado al tablero y no han finalizado
 var backLogType; 
 
 var distributionType;
@@ -560,24 +559,31 @@ function play() {
 		} //end phases for
 
 		//Calcular media cycle time
-		
+		console.log("TII " + TII);
+		console.log("T " + T);
+		console.log("VII " +  VII);
+		console.log("Vt "+ Vt);
+		var totalTimeSum = 0;
 		listTareas.forEach(function(task){
 			if(task.phase >= 1 && task.state != "Ended"){
 				task.totalTime++;
-				
+				console.log(task.name + "  " + task.totalTime);
+				numOfTasksNotEnded++;
+				totalTimeSum += task.totalTime
 			}
 		});
 		
-		T = cycleTimeCollector / listTareas.length;
-		var totalStateSum = 0;
-		for(var i = 0; i < task.statsTime.length; i++){
-			totalStateSum += task.statsTime[i];
-		}
-		console.log(totalStateSum + "   "  + Vt);
-		if(T - totalStateSum > Vt){
-			Vt = T - totalStateSum;
-		}
-		console.log(cycleTimeCollector);
+		T = totalTimeSum/ numOfTasksNotEnded;
+		
+		var totalSum = 0;
+		listTareas.forEach(function(task){
+			if(task.phase >= 1 && task.state != "Ended"){
+				totalSum += Math.pow(Math.abs(task.totalTime - T), 2);
+			}
+		});
+		Vt = totalSum / numOfTasksNotEnded;
+		numOfTasksNotEnded = 0;
+		
 		
 		listTareas.forEach(function(task) {
 			task.sameIteration = false;
@@ -588,7 +594,7 @@ function play() {
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(backLogType == "constant"){	
 			if((gaussian == gaussianCounter || gaussian <= 0) && distributionType == "normal"){
-				console.log("normal");
+//				console.log("normal");
 				getGaussian();		
 				calcLDValues(gaussian);
 				gaussianCounter = 0;
@@ -598,13 +604,13 @@ function play() {
 			} else if ((poisson == poissonCounter || poisson <= 0) && distributionType == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
-				console.log("poisson")
+//				console.log("poisson")
 				poissonCounter = 0;
 				addTareas("");
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distributionType == "weight"){
 				getWeight();
 				calcLDValues(weightTime);
-				console.log("weight")
+//				console.log("weight")
 				weightCounter = 0;
 				addTareas(weight);
 			}
@@ -614,14 +620,21 @@ function play() {
 		//Funcion para calcular el tiempo medio de la entrada de tareas y la varianza
 		function calcLDValues(distributionValue){
 			if(distributionValue != 0){
-				backLogCollector += distributionValue;
+				backLogCollector.push(distributionValue);
 				numOfBacklogCalled++;
-				TII = backLogCollector / numOfBacklogCalled;
-				if(Math.abs(TII - distributionValue) > VII){
-					VII = Math.abs(TII - distributionValue);
+				var totalSumBackLog = 0;
+				for(var j = 0; j < backLogCollector.length; j++){
+					totalSumBackLog+= backLogCollector[j];
 				}
-				console.log("DistributionValue " + distributionValue + " backlogcollector " + backLogCollector + " numofbacklogscalled " + numOfBacklogCalled +
-						" T2 " + TII + " VII " + VII);	
+				TII = totalSumBackLog / numOfBacklogCalled;
+				var totalSum = 0;
+				for(var i = 0; i < numOfBacklogCalled; i++){
+					totalSum += Math.pow(backLogCollector[i] - TII, 2);
+				}
+
+				VII = totalSum / numOfBacklogCalled;
+//				console.log("DistributionValue " + distributionValue + " backlogcollector " + backLogCollector + " numofbacklogscalled " + numOfBacklogCalled +
+//						" T2 " + TII + " VII " + VII);	
 			}
 		}
 		// Si la introduccion de tareas es manual que se termine cuando todas las tareas equivalgan 
