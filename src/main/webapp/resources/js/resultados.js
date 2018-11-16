@@ -1,7 +1,7 @@
 var showGraf = false;
 // Muestra el contenido de la tarea al terminar
 function mostrarFinalTarea(tarea,task){
-
+	task.leadTime = task.leadTime - task.creationTime;
 	task.cycleTime = task.leadTime - task.startTime;
 	tarea.innerHTML = "<p>"+task.name+"</p><p>CycleTime: "+task.cycleTime+"</p><p>LeadTime: "+task.leadTime+"</p>";
 	return tarea;

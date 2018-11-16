@@ -568,15 +568,15 @@ function play() {
 			}
 		});
 		
-		T = cycleTimeCollector / listTareas.length;
-		var totalStateSum = 0;
-		for(var i = 0; i < task.statsTime.length; i++){
-			totalStateSum += task.statsTime[i];
-		}
-		console.log(totalStateSum + "   "  + Vt);
-		if(T - totalStateSum > Vt){
-			Vt = T - totalStateSum;
-		}
+//		T = cycleTimeCollector / listTareas.length;
+//		var totalStateSum = 0;
+//		for(var i = 0; i < task.statsTime.length; i++){
+//			totalStateSum += task.statsTime[i];
+//		}
+//		console.log(totalStateSum + "   "  + Vt);
+//		if(T - totalStateSum > Vt){
+//			Vt = T - totalStateSum;
+//		}
 		console.log(cycleTimeCollector);
 		
 		listTareas.forEach(function(task) {
@@ -593,18 +593,18 @@ function play() {
 				calcLDValues(gaussian);
 				gaussianCounter = 0;
 				// Creamos un objeto nuevo
-				addTareas("");
+				addTareas("",leadTime);
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson <= 0) && distributionType == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
 				console.log("poisson")
 				poissonCounter = 0;
-				addTareas("");
+				addTareas("",leadTime);
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distributionType == "weight"){
 				getWeight();
 				calcLDValues(weightTime);
-				console.log("weight")
+				console.log("weight",leadTime)
 				weightCounter = 0;
 				addTareas(weight);
 			}

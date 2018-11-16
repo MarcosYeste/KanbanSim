@@ -697,7 +697,8 @@ function showTaskInfo(){
 //___________________________________________________________________
 
 /* Mejora, si un caso, que se guarde en el controller */
-function addTareas(weight){
+function addTareas(weight,creationTime){
+	if(isNaN(creationTime)){creationTime = 0;}
 	// Incrementamos el numero
 	taskNameCounter ++;
 	// Creamos un objeto nuevo
@@ -714,6 +715,7 @@ function addTareas(weight){
 	tarea.leadTime = 0;
 	tarea.startTime = 0;
 	tarea.esfuerzo = 0;
+	tarea.creationTime = creationTime;
 	tarea.phasesTime = new Array();
 	tarea.timeByStats = new Array();
 	tarea.statsTime = new Array();
