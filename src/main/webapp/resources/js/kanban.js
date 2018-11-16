@@ -364,6 +364,7 @@ function play() {
 						//IF 3
 						if (fases[i + 1] == null) {							
 							task.state = "Ended";
+							task.totalTime = 0;
 							task.leadTime = leadTime;
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
@@ -532,22 +533,6 @@ function play() {
 					} 			//if 5 end
 				} 				//divs tareas for end
 			}); 				//foreach end
-
-			
-			//Calcular media cycle time
-			listTareas.forEach(function(task){
-				if(task.phase >= 1 && task.state != "Ended"){
-					cycleTimeCollector++;
-					T = cycleTimeCollector / listTareas.length;
-					var totalStateSum = 0;
-					for(var i = 0; i < task.statsTime.length; i++){
-						totalStateSum += task.statsTime[i];
-					}
-					if(T - totalStateSum > Vt){
-						Vt = T - totalStateSum;
-					}
-				}
-			});
 			
 			sumWip = 0;
 			listPhases.forEach(function(fase) {
@@ -574,7 +559,26 @@ function play() {
 
 		} //end phases for
 
-
+		//Calcular media cycle time
+		
+		listTareas.forEach(function(task){
+			if(task.phase >= 1 && task.state != "Ended"){
+				task.totalTime++;
+				
+			}
+		});
+		
+		T = cycleTimeCollector / listTareas.length;
+		var totalStateSum = 0;
+		for(var i = 0; i < task.statsTime.length; i++){
+			totalStateSum += task.statsTime[i];
+		}
+		console.log(totalStateSum + "   "  + Vt);
+		if(T - totalStateSum > Vt){
+			Vt = T - totalStateSum;
+		}
+		console.log(cycleTimeCollector);
+		
 		listTareas.forEach(function(task) {
 			task.sameIteration = false;
 

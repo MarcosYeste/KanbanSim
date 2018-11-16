@@ -719,6 +719,7 @@ function addTareas(weight){
 	tarea.statsTime = new Array();
 	tarea.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 	tarea.weight = weight; 
+	tarea.totaltime = 0;
 	listTareas.push(tarea);
 	printTasks(tarea);
 }
