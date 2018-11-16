@@ -132,17 +132,7 @@ public class HomeController {
 		return "success";
 
 	}
-	//Guarda resultados de tarea
-	@RequestMapping(value = "/saveResult", method = RequestMethod.POST)
-	public @ResponseBody String  saveResultsTask (@RequestBody ResultTask resultTask) {
-		
-		System.out.println("::::"+resultTask.getCycleTime());
-		System.out.println("::::"+resultTask.getLeadTime());
-		
-		return "guardado";
-		
-				
-	}
+
 
 	// Remove all Tasks
 	@RequestMapping(value = "/rmvTask", method = RequestMethod.POST)

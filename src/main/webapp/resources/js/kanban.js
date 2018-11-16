@@ -344,14 +344,17 @@ function play() {
 								task.assignedUsers.forEach(function(assignedUser) {
 									//guarda en Usuarios los segundos se cada fase
 									if(assignedUser.includes((user.name))){
+										console.log("Antes");
 										user.secondsWork += 1;
 										if(user.secondByPhase[i] ==  undefined){
-
+											console.log("undef");
 											user.secondByPhase[i] = 1;
 										}else{
+											console.log("Despues");
 											user.secondByPhase[i] += 1;
 										}
 									}
+									console.log(user.name);
 								});							
 							}
 
@@ -745,7 +748,8 @@ function play() {
 		var i = 0;
 		listUsers.forEach(function(user){
 			
-			updateData(myChart, user.name, user.tasksWorked, i);
+			updateData(myChart, user.tasksWorked, i, 0);
+			updateData(myChart, user.secondsWork, i, 1);
 			i++;
 		});
 		

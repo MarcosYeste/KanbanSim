@@ -1,6 +1,6 @@
 //_______________________________________________________________
 
-// _______________________ TAREAS  ________________________________
+//_______________________ TAREAS  _______________________________
 
 //_______________________________________________________________
 //print table Task
@@ -38,7 +38,7 @@ function tableTask(){
 	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
 	subDiv.innerHTML += tablaTarea;
-	saveTaskResult();
+
 
 }
 
@@ -77,10 +77,16 @@ function behindTable(){
 	tablaTarea += "</table>";
 	subDiv.innerHTML += tablaTarea;
 }
-
+function graficTask(){
+	document.getElementById("taskChart").style.visibility  = "visible";
+	listTareas.forEach(function(task) {	
+		var color = getRandomColor();
+		addDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, color,task.name);
+	});
+}
 //_______________________________________________________________
 
-// _______________________ FASES ________________________________
+//_______________________ FASES ________________________________
 
 //_______________________________________________________________
 
@@ -133,11 +139,11 @@ function tablePhase(){
 		auxCV2 = cv-1;
 
 		task.timeByStats.forEach(function(times) {	
-			
+
 			var time = JSON.stringify(times);
 			time = JSON.parse(time);
 			tabla += "<td><div class='stados'><p>"+time[0]+"s</p><p>"+time[1]+"s</p><p>"+time[2]+"s</p></div></td>";
-			
+
 			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
 			i++;
 			auxCV--;
@@ -147,7 +153,7 @@ function tablePhase(){
 			tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
 			auxCV--;
 		}
-		
+
 		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
 
 		tabla += "<td><div class='stados'><p>"+mediaPorTarea[l][0]+"s</p><p>"+mediaPorTarea[l][1]+"s</p><p>"+mediaPorTarea[l][2]+"s</p></div></td>";
@@ -165,7 +171,7 @@ function tablePhase(){
 	for (var i = 0; i < cv; i++) {
 		if(resultMediaPorFases[i] != undefined ){
 			if(!isNaN(resultMediaPorFases[i][0]) && !isNaN(resultMediaPorFases[i][0]) && !isNaN(resultMediaPorFases[i][0])){
-			tabla += "<td><div class='stados'><p>"+resultMediaPorFases[i][0]+"s</p><p>"+resultMediaPorFases[i][1]+"s</p><p>"+resultMediaPorFases[i][2]+"s</p></div></td>";
+				tabla += "<td><div class='stados'><p>"+resultMediaPorFases[i][0]+"s</p><p>"+resultMediaPorFases[i][1]+"s</p><p>"+resultMediaPorFases[i][2]+"s</p></div></td>";
 			}else{
 				tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
 			}
@@ -199,7 +205,7 @@ function tableUser(){
 	var arrayValores = [];
 	var nombresArray = [];
 	var idU=0;
-	
+
 	var tabla = "<table class='table table-bordered table-fixed'>";
 	tabla += "<thead>";
 	tabla += "<tr>";
@@ -219,20 +225,20 @@ function tableUser(){
 	tabla += "<tr>";
 	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
 	tabla += "<td>Más Trabajador</td><td>";
-	
-	
+
+
 	for(var v = 0; v < nombresArray[0].length; v++ ){
-		
+
 		tabla += nombresArray[0][v]+" ";
 	}
-	
+
 	tabla += "con "+arrayValores[0]+"s en "+arrayValores[2]+" Tareas</td>";
 	tabla += "</tr>";
 	tabla += "<tr>";
 	tabla += "<td>Menos Trabajador</td><td>";
 	if(nombresArray[1].length == 0){
-		
-				tabla += "No hay trabajadores perezosos</td>";				
+
+		tabla += "No hay trabajadores perezosos</td>";				
 	}else{
 		for(var v = 0; v < nombresArray[1].length; v++ ){
 			tabla += nombresArray[1][v]+" ";
@@ -259,24 +265,24 @@ function behindUser(){
 	tabla += "</thead>";
 	tabla += "<tbody>";
 	tabla += "<tr>";
-		listUsers.forEach(function(user) {
-			tabla += "<td><div><p>"+user.name+"</p></div></td>";
-			for (var i = 0; i < user.secondByPhase.length; i++) {
-				if(user.secondByPhase[i] == undefined || user.secondByPhase[i] == null){
-					user.secondByPhase[i]= 0;
-				}
-				tabla += "<td>"+user.secondByPhase[i]+"s</td>";
-				
-				
-			}	
-			
-			tabla += "</tr>";
-		});
-		tabla += "</tbody>";
-		tabla += "</table>";
+	listUsers.forEach(function(user) {
+		tabla += "<td><div><p>"+user.name+"</p></div></td>";
+		for (var i = 0; i < user.secondByPhase.length; i++) {
+			if(user.secondByPhase[i] == undefined || user.secondByPhase[i] == null){
+				user.secondByPhase[i]= 0;
+			}
+			tabla += "<td>"+user.secondByPhase[i]+"s</td>";
+
+
+		}	
+
+		tabla += "</tr>";
+	});
+	tabla += "</tbody>";
+	tabla += "</table>";
 	div.innerHTML += tabla;
-	
-	
+
+
 }
 //_______________________________________________________________
 
@@ -423,12 +429,12 @@ function mediaFasestotal(taskArray){
 	var arrayFases  = new Array();
 	if(array[0] != undefined ){
 
-	while (z < array[0].length){
-		var sumaTodos =0;
-		var sumaDoing = 0;
-		var sumaDone = 0;
-		for (var i = 0; i < array.length; i++) {
-			if(array[i][z] != undefined){
+		while (z < array[0].length){
+			var sumaTodos =0;
+			var sumaDoing = 0;
+			var sumaDone = 0;
+			for (var i = 0; i < array.length; i++) {
+				if(array[i][z] != undefined){
 
 					if(array[i][z][0] == undefined){array[i][z][0] = 0;}
 					if(array[i][z][1] == undefined){array[i][z][1] = 0;}
@@ -452,7 +458,7 @@ function mediaFasestotal(taskArray){
 		arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
 	}
 
-return arrayFases;
+	return arrayFases;
 
 }
 
@@ -475,12 +481,12 @@ function findMaxAndMin(){
 		if (user.secondsWork > max) {
 			max = user.secondsWork;
 			taskmax = user.tasksWorked;
-
-		}else if(user.secondsWork < min){
+		}
+		// MAYBE
+		if(user.secondsWork < min){
 
 			min = user.secondsWork;
 			taskmin = user.tasksWorked;
-
 		}
 	});
 	if(min == 500){
@@ -512,30 +518,22 @@ function maxAndMinUsers(userMax,userMin){
 			j++
 		}
 	});
+
 	arraymulti.push(array);
 	arraymulti.push(array2);
 	return arraymulti;
 }
 //_______________________________________________________________
 
-//______________________ GUARDAR RESULTADOS ______________________
+//______________________ GENERAR RANDOM COLOR  ______________________
 
 //_______________________________________________________________
 
-
-function saveTaskResult() {
-	   var resultTask = {"cycleTime" : "2",
-			      		 "leadTime" : "2"}
-	   $.ajax({
-			'type': 'POST',
-			'url':  '/saveResult',
-			'data': JSON.stringify(resultTask),
-			'success': function(result) {
-
-			      console.log(result);
-
-			}
-		});
-		   
-		
+function getRandomColor() {
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+		color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
 }
