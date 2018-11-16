@@ -4,8 +4,8 @@ var myChart = new Chart(ctx, {
 	data: {
 		labels: [],
 		datasets: [{
-			
-			label: ['Tasks Worked'],
+
+			label: ['Task Worked'],
 			data: [],
 			backgroundColor: [
 
@@ -16,7 +16,21 @@ var myChart = new Chart(ctx, {
 					borderColor: [
 
 						],
-						borderWidth: 1
+						borderWidth: 0
+		}, {
+			label: 'Time Worked',
+			data: [],
+			type: "line",
+			backgroundColor: [
+				'rgba(0,0,0,0)'
+				],
+				hoverBackgroundColor: [
+
+					],
+					borderColor: [
+						'rgba(212,133,45,1)'
+						],
+						borderWidth: 5
 		}]
 	},
 	options: {
@@ -32,21 +46,18 @@ var myChart = new Chart(ctx, {
 
 function addData(chart, label, data, color) {
 	chart.data.labels.push(label);
-	chart.data.datasets.forEach((dataset) => {
-		dataset.data.push(data);
-		dataset.backgroundColor.push(color);
-//		color = color.substr(0,color.length - 2);
-//		dataset.hoverBackgroundColor.push(color);
-//		dataset.borderColor.push(color);
-	});
+	chart.data.datasets[0].data.push(data);
+	chart.data.datasets[0].backgroundColor.push(color);
+//	color = color.substr(0,color.length - 2);
+//	dataset.hoverBackgroundColor.push(color);
+//	dataset.borderColor.push(color);
 	chart.update();
 }
 
 
-function updateData(chart, label, data, index){
-	chart.data.datasets.forEach(function(dataset) {
-        dataset.data[index] = data;
-      });
+function updateData(chart, data, index, dataset){
+
+	chart.data.datasets[dataset].data[index] = data;
 	chart.update();
 }
 
@@ -54,6 +65,6 @@ function removeData(chart) {
 //	chart.data.labels.pop();
 	chart.data.labels = [];
 	chart.data.datasets[0].data = [];
-	
+
 	chart.update();
 }
