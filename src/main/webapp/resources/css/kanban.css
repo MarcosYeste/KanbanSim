@@ -306,7 +306,7 @@ button {
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
 
 
-.mostrarResultadosDiv {
+.mostrarResultadosDiv{
 	justify-content: space-around;
 	display: flex;
 	text-align: center;
@@ -323,6 +323,30 @@ button {
 	margin-left: 10%;
 	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
+}
+.mostrarGraficosDiv{
+	justify-content: space-around;
+	display: flex;
+	flex-direction: column;
+	background-color: #63bafa;
+	color: white;
+	text-shadow: 0.1px 1px 10px blue;
+	font-size: 120%;
+	display: table;
+	display: flex;
+	width: 80%;
+	height: auto;
+	margin-left: 10%;
+	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+}
+.chartTask{
+	 padding-top: 2%;
+	 padding-left: 10%;
+	 width: 90%;
+	 position: relative;
+	 height: auto;
+	 align: center;
 }
 
 .tareaResultado, .faseResultado, .ResultadoUsuario{
@@ -450,4 +474,8 @@ legend.teamField {
 	width: auto;
 	padding: 0 10px;
 	border-bottom: none;
+}
+
+.chartTask{
+	display:none;
 }

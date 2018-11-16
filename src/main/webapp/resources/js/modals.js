@@ -357,7 +357,6 @@ function addUsers(){
 	userO.secondByPhase = new Array();
 	userO.secondsWork = 0;
 	userO.secondsNotWorked = 0;
-	userO.timeStopped = 0;
 	rawPhases = "";
 	userO.phases = [];
 	rawSkills = "";

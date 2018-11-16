@@ -5,7 +5,7 @@ var myChart = new Chart(ctx, {
 		labels: [],
 		datasets: [{
 			
-			label: ['Max Time'],
+			label: ['Tasks Worked'],
 			data: [],
 			backgroundColor: [
 
@@ -35,17 +35,25 @@ function addData(chart, label, data, color) {
 	chart.data.datasets.forEach((dataset) => {
 		dataset.data.push(data);
 		dataset.backgroundColor.push(color);
-		color = color.substr(0,color.length - 2);
-		dataset.hoverBackgroundColor.push(color);
-		dataset.borderColor.push(color);
+//		color = color.substr(0,color.length - 2);
+//		dataset.hoverBackgroundColor.push(color);
+//		dataset.borderColor.push(color);
 	});
 	chart.update();
 }
 
+
+function updateData(chart, label, data, index){
+	chart.data.datasets.forEach(function(dataset) {
+        dataset.data[index] = data;
+      });
+	chart.update();
+}
+
 function removeData(chart) {
-	chart.data.labels.pop();
-	chart.data.datasets.forEach((dataset) => {
-		dataset.data.pop();
-	});
+//	chart.data.labels.pop();
+	chart.data.labels = [];
+	chart.data.datasets[0].data = [];
+	
 	chart.update();
 }

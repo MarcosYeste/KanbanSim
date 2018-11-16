@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp"></jsp:include>
@@ -37,13 +38,18 @@ ____________________________________________________________________
 			</button>
 
 		</div>
-
+	<div class="doubleButton">
 		<button id="result" onclick="generarResultados()" class="resultbutt">
 			<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
 				data-placement="top" title="Mostrar Resultados"></i>
 		</button>
+		<button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
+			<i class="fas fa-chart-bar fa-4x" data-toggle="tooltip"
+				data-placement="top" title="Mostrar Graficos"></i>
+		</button>
+		
 	</div>
-
+</div>
 	<h1 class="texto">KANBAN SIM</h1>
 
 	<!--Temporizador y Cambiar Distribucion -->
@@ -68,7 +74,14 @@ ____________________________________________________________________
 		<i class="fas fa-plus fa-3x"></i>
 	</button>
 
-	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
+	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv">
+		 
+	</div>
+	<div id="mostrarGraficosDiv" class="mostrarGraficosDiv">
+		 <div class="chart-container chartTask" id= "taskChart" >
+			<canvas id="myChartTask"></canvas>
+		</div> 
+	</div>
 	<div class="contenedor" id="contenedor">
 
 
@@ -269,12 +282,10 @@ ____________________________________________________________________
 	<!-- PRUEBAS  http://www.chartjs.org/docs/latest/general/options.html -->
 	<div class="chart-container" style="position: relative; height: 200px; width: 90%">
 		<canvas id="myChart"></canvas>
-	</div> 
+	</div>  
 
 
- <div class="chart-container" id= "taskChart" style="position: relative; height: 200px; width: 90%; align: center">
-		<canvas id="myChartTask"></canvas>
-	</div> 
+
 <!--
 
 ____________________________________________________________________

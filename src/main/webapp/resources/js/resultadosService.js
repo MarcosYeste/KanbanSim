@@ -23,13 +23,6 @@ function tableTask(){
 		medioCycle += task.cycleTime;
 		medioLead += task.leadTime;
 		tablaTarea += "<tr>";
-		var color = getRandomColor();
-		addDataTask(myChartTask, "CycleTime", task.cycleTime, color);
-		console.log("1");
-		addDataTask(myChartTask, "LeadTime", task.leadTime, color);
-		console.log("2");
-		addDataTask(myChartTask, "Esfuerzo", task.esfuerzo, color);
-		console.log("3");
 		tablaTarea += "<td>"+task.name+"</td><td>"+task.cycleTime+"s</td><td>"+task.leadTime+"s</td><td>"+task.esfuerzo+"</td>";		
 		tablaTarea += "<td>"+task.staticAssigneds+"</td>";
 		tablaTarea += "</tr>";
@@ -83,7 +76,13 @@ function behindTable(){
 	tablaTarea += "</table>";
 	subDiv.innerHTML += tablaTarea;
 }
-
+function graficTask(){
+	document.getElementById("taskChart").style.visibility  = "visible";
+	listTareas.forEach(function(task) {	
+	var color = getRandomColor();
+	addDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, color,task.name);
+	});
+}
 //_______________________________________________________________
 
 // _______________________ FASES ________________________________
