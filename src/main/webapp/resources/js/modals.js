@@ -686,9 +686,9 @@ function showTaskInfo(){
 	}
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
 	console.log("TII " + TII + " T " + T + " VII " +  VII + " Vt "+ Vt);
-	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0 && Vt != 0)){
+	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0)){
 		console.log("if");
-		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", " + (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
+		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
 	} else {
 		console.log("else");
 		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
@@ -706,7 +706,8 @@ function showTaskInfo(){
 //___________________________________________________________________
 
 /* Mejora, si un caso, que se guarde en el controller */
-function addTareas(weight){
+function addTareas(weight,creationTime){
+	if(isNaN(creationTime)){creationTime = 0;}
 	// Incrementamos el numero
 	taskNameCounter ++;
 	// Creamos un objeto nuevo
@@ -723,6 +724,7 @@ function addTareas(weight){
 	tarea.leadTime = 0;
 	tarea.startTime = 0;
 	tarea.esfuerzo = 0;
+	tarea.creationTime = creationTime;
 	tarea.phasesTime = new Array();
 	tarea.timeByStats = new Array();
 	tarea.statsTime = new Array();

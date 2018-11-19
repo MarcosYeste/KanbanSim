@@ -25,7 +25,7 @@ var TII = 0; //tiempo medio entre la creación de tareas
 var VII = 0; // varianza entre la creación de tareas
 var T = 0; // CT medio (el real, no el estimado)
 var Vt = 0; //varianza del CT
-var numOfTasksNotEnded = 0; //Numero de tareas que han entrado al tablero y no han finalizado
+var numOfTasksEnded = 0; //Numero de tareas que han entrado al tablero y no han finalizado
 var backLogType; 
 
 var distributionType;
@@ -344,17 +344,17 @@ function play() {
 								task.assignedUsers.forEach(function(assignedUser) {
 									//guarda en Usuarios los segundos se cada fase
 									if(assignedUser.includes((user.name))){
-										console.log("Antes");
+//										console.log("Antes");
 										user.secondsWork += 1;
 										if(user.secondByPhase[i] ==  undefined){
-											console.log("undef");
+//											console.log("undef");
 											user.secondByPhase[i] = 1;
 										}else{
-											console.log("Despues");
+//											console.log("Despues");
 											user.secondByPhase[i] += 1;
 										}
 									}
-									console.log(user.name);
+//									console.log(user.name);
 								});							
 							}
 
@@ -434,7 +434,7 @@ function play() {
 								}
 //								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);	
 								task.esfuerzo += task.duration;
-								task.startTime = leadTime;
+								task.startTime = leadTime - task.creationTime;
 								task.firstDuration.push(task.duration);
 							}								
 						} //if end
@@ -562,31 +562,33 @@ function play() {
 		} //end phases for
 
 		//Calcular media cycle time
+
 		console.log("TII " + TII);
 		console.log("T " + T);
 		console.log("VII " +  VII);
 		console.log("Vt "+ Vt);
+		
 		var totalTimeSum = 0;
 		listTareas.forEach(function(task){
-			if(task.phase >= 1 && task.state != "Ended"){
-				task.totalTime++;
-				console.log(task.name + "  " + task.totalTime);
-				numOfTasksNotEnded++;
-				totalTimeSum += task.totalTime
+			if(task.phase >= 1 && task.state == "Ended"){
+				console.log(task.name + "  " + task.cycleTime);
+				numOfTasksEnded++;
+				totalTimeSum += task.cycleTime;
 			}
 		});
 		
-		T = totalTimeSum/ numOfTasksNotEnded;
+		T = totalTimeSum / numOfTasksEnded;
 		
 		var totalSum = 0;
 		listTareas.forEach(function(task){
-			if(task.phase >= 1 && task.state != "Ended"){
-				totalSum += Math.pow(Math.abs(task.totalTime - T), 2);
+			if(task.phase >= 1 && task.state == "Ended"){
+				totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
 			}
 		});
-		Vt = totalSum / numOfTasksNotEnded;
-		numOfTasksNotEnded = 0;
-		
+
+		Vt = totalSum / numOfTasksEnded;
+		numOfTasksEnded = 0;
+
 		
 		listTareas.forEach(function(task) {
 			task.sameIteration = false;
@@ -602,20 +604,18 @@ function play() {
 				calcLDValues(gaussian);
 				gaussianCounter = 0;
 				// Creamos un objeto nuevo
-				addTareas("");
+				addTareas("",leadTime);
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson <= 0) && distributionType == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
-//				console.log("poisson")
 				poissonCounter = 0;
-				addTareas("");
+				addTareas("",leadTime);
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distributionType == "weight"){
 				getWeight();
 				calcLDValues(weightTime);
-//				console.log("weight")
 				weightCounter = 0;
-				addTareas(weight);
+				addTareas(weight,leadTime);
 			}
 
 		}
@@ -625,6 +625,7 @@ function play() {
 			if(distributionValue != 0){
 				backLogCollector.push(distributionValue);
 				numOfBacklogCalled++;
+				
 				var totalSumBackLog = 0;
 				for(var j = 0; j < backLogCollector.length; j++){
 					totalSumBackLog+= backLogCollector[j];
@@ -632,7 +633,8 @@ function play() {
 				TII = totalSumBackLog / numOfBacklogCalled;
 				var totalSum = 0;
 				for(var i = 0; i < numOfBacklogCalled; i++){
-					totalSum += Math.pow(backLogCollector[i] - TII, 2);
+//					totalSum += Math.pow(backLogCollector[i] - TII, 2);
+					totalSum += Math.abs(backLogCollector[i] - TII);
 				}
 
 				VII = totalSum / numOfBacklogCalled;
@@ -727,13 +729,17 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0 && Vt != 0)){
-					console.log("if");
-					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", " + (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
-				} else {
-					console.log("else");
-					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
-				}
+//				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0 && Vt != 0)){
+//				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && TII - T > 0 && TII != 0 && T != 0 && VII != 0){
+//					console.log("if");
+//					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", " + (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
+//				} else {
+//					console.log("else");
+//					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
+//				}
+				
+				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
+
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
 			}
