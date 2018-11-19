@@ -727,7 +727,8 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0 && Vt != 0)){
+//				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0 && Vt != 0)){
+				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && TII - T > 0 && TII != 0 && T != 0 && VII != 0){
 					console.log("if");
 					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", " + (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
 				} else {
