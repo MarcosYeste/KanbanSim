@@ -14,6 +14,7 @@ var chronoTimeTypeSelection = "sec";
 var userO = new Object();
 var taskNameCounter = 0;
 var atributo;
+var valorSkill = 10;
 
 
 //_________________________________________________________________
@@ -329,9 +330,12 @@ function rmvModUsers() {
 			name: listUsers[click2].name
 
 		},success: function(data) {
-
+			
+			removeLabel(myChart,listUsers[click2].name);
+			
 			listUsers.splice(click2, 1);
-
+			
+			
 
 			$( ".userName[data-identification='"+ click2 +"']").remove();
 			var clases = $(".userName");
@@ -502,6 +506,8 @@ function addInput(index1, index2, object){
 	formUserValido(saveAddUser, "add");
 	var sliders = document.getElementsByClassName("sliderAdd");
 
+	// Asignamos un valor random al abrir el slider de skills
+	valorSkill = Math.round(Math.random() * (100 + 10) - 10);
 	$( function() {
 		$( "#addPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider({
 			value: 10,
@@ -563,13 +569,12 @@ function saveAddUser(){
 
 			document.getElementById("addNameUser").value = "";
 
-			document.getElementsByClassName("usersContainer")[0].innerHTML +=
-				"<div class='userName' name='"+ userO.name + 
-				"'data-toggle='modal' data-target='#myModal2'> " +
-				"<p> " +
-				"<strong>" + userO.name + "</strong> " +
-				"</p> " +
-				"<i class='fa fa-user-tie fa-2x' aria-hidden='true'></i>";
+			document.getElementsByClassName("usersContainer")[0].innerHTML += "<div class='userName' name='"+ userO.name + 
+			"'data-toggle='modal' data-target='#myModal2'> " +
+			"<p> " +
+			"<strong>" + userO.name + "</strong> " +
+			"</p> " +
+			"<i class='fa fa-user-tie fa-2x' aria-hidden='true'></i>";
 
 			for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 
@@ -587,7 +592,18 @@ function saveAddUser(){
 				});
 
 			}
+
+			// Añadimos al nuevo usuario
+			addData(myChart, userO.name, userO.tasksWorked, "rgba(0,255,233,0.5)");
+			myChart.update();
+
 			userO = new Object();
+
+
+			var j = 0;
+
+			// Y updateamos los datos
+
 		}
 	})
 }
@@ -669,7 +685,7 @@ function chrono(){
 function showTaskInfo(){
 	atributo = event.target.getAttribute("data-identification");
 	var object = listTareas.find(x => x.name === atributo);
-	
+
 	if(distributionType == "weight"){
 		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>  ( <var>" + object.weight +"</var> )";
 	}else{
@@ -721,7 +737,7 @@ function addTareas(weight,creationTime){
 	tarea.statsTime = new Array();
 	tarea.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 	tarea.weight = weight; 
-	tarea.totaltime = 0;
+	tarea.totalTime = 0;
 	listTareas.push(tarea);
 	printTasks(tarea);
 }

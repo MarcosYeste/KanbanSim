@@ -1,6 +1,7 @@
 //_______________________________________________________________
 
-// _______________________ TAREAS  ________________________________
+//_______________________ TAREAS  _______________________________
+
 //_______________________________________________________________
 //print table Task
 function tableTask(){
@@ -37,7 +38,7 @@ function tableTask(){
 	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
 	subDiv.innerHTML += tablaTarea;
-	
+
 
 }
 
@@ -79,13 +80,13 @@ function behindTable(){
 function graficTask(){
 	document.getElementById("taskChart").style.visibility  = "visible";
 	listTareas.forEach(function(task) {	
-	var color = getRandomColor();
-	addDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, color,task.name);
+		var color = getRandomColor();
+		addDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, color,task.name);
 	});
 }
 //_______________________________________________________________
 
-// _______________________ FASES ________________________________
+//_______________________ FASES ________________________________
 
 //_______________________________________________________________
 
@@ -138,11 +139,11 @@ function tablePhase(){
 		auxCV2 = cv-1;
 
 		task.timeByStats.forEach(function(times) {	
-			
+
 			var time = JSON.stringify(times);
 			time = JSON.parse(time);
 			tabla += "<td><div class='stados'><p>"+time[0]+"s</p><p>"+time[1]+"s</p><p>"+time[2]+"s</p></div></td>";
-			
+
 			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
 			i++;
 			auxCV--;
@@ -152,17 +153,19 @@ function tablePhase(){
 			tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
 			auxCV--;
 		}
-		
+
 		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
 
 		tabla += "<td><div class='stados'><p>"+mediaPorTarea[l][0]+"s</p><p>"+mediaPorTarea[l][1]+"s</p><p>"+mediaPorTarea[l][2]+"s</p></div></td>";
 
 		tabla += "</tr>";
 		l++;
-		numerotareas = l;
+		
 	});
 	resultMediaPorFases = mediaFasestotal(mediaPorFases);	
-	sumaEstadosTotal = Math.round((sumatodo + sumaDoing+ sumadone)/numerotareas);
+	
+	numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
+	sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
 	if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
 	tabla += "<tr>";
 	tabla += "<td><i>Media por fase: </i></td>";
@@ -170,7 +173,7 @@ function tablePhase(){
 	for (var i = 0; i < cv; i++) {
 		if(resultMediaPorFases[i] != undefined ){
 			if(!isNaN(resultMediaPorFases[i][0]) && !isNaN(resultMediaPorFases[i][0]) && !isNaN(resultMediaPorFases[i][0])){
-			tabla += "<td><div class='stados'><p>"+resultMediaPorFases[i][0]+"s</p><p>"+resultMediaPorFases[i][1]+"s</p><p>"+resultMediaPorFases[i][2]+"s</p></div></td>";
+				tabla += "<td><div class='stados'><p>"+resultMediaPorFases[i][0]+"s</p><p>"+resultMediaPorFases[i][1]+"s</p><p>"+resultMediaPorFases[i][2]+"s</p></div></td>";
 			}else{
 				tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
 			}
@@ -180,7 +183,6 @@ function tablePhase(){
 		tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
 		auxCV2--;
 	}
-	tabla += "<td><div class='stados'></div></td>";
 	tabla += "</tr>";
 	tabla += "<tr><td><i>Media Total: </i></td><td colspan='"+cv+"'>"+sumaEstadosTotal+"s</td><td><div class='stados'></div></td></tr>";
 	tabla += "</tbody>";
@@ -204,7 +206,7 @@ function tableUser(){
 	var arrayValores = [];
 	var nombresArray = [];
 	var idU=0;
-	
+
 	var tabla = "<table class='table table-bordered table-fixed'>";
 	tabla += "<thead>";
 	tabla += "<tr>";
@@ -224,20 +226,20 @@ function tableUser(){
 	tabla += "<tr>";
 	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
 	tabla += "<td>Más Trabajador</td><td>";
-	
-	
+
+
 	for(var v = 0; v < nombresArray[0].length; v++ ){
-		
+
 		tabla += nombresArray[0][v]+" ";
 	}
-	
+
 	tabla += "con "+arrayValores[0]+"s en "+arrayValores[2]+" Tareas</td>";
 	tabla += "</tr>";
 	tabla += "<tr>";
 	tabla += "<td>Menos Trabajador</td><td>";
 	if(nombresArray[1].length == 0){
-		
-				tabla += "No hay trabajadores perezosos</td>";				
+
+		tabla += "No hay trabajadores perezosos</td>";				
 	}else{
 		for(var v = 0; v < nombresArray[1].length; v++ ){
 			tabla += nombresArray[1][v]+" ";
@@ -264,24 +266,24 @@ function behindUser(){
 	tabla += "</thead>";
 	tabla += "<tbody>";
 	tabla += "<tr>";
-		listUsers.forEach(function(user) {
-			tabla += "<td><div><p>"+user.name+"</p></div></td>";
-			for (var i = 0; i < user.secondByPhase.length; i++) {
-				if(user.secondByPhase[i] == undefined || user.secondByPhase[i] == null){
-					user.secondByPhase[i]= 0;
-				}
-				tabla += "<td>"+user.secondByPhase[i]+"s</td>";
-				
-				
-			}	
-			
-			tabla += "</tr>";
-		});
-		tabla += "</tbody>";
-		tabla += "</table>";
+	listUsers.forEach(function(user) {
+		tabla += "<td><div><p>"+user.name+"</p></div></td>";
+		for (var i = 0; i < user.secondByPhase.length; i++) {
+			if(user.secondByPhase[i] == undefined || user.secondByPhase[i] == null){
+				user.secondByPhase[i]= 0;
+			}
+			tabla += "<td>"+user.secondByPhase[i]+"s</td>";
+
+
+		}	
+
+		tabla += "</tr>";
+	});
+	tabla += "</tbody>";
+	tabla += "</table>";
 	div.innerHTML += tabla;
-	
-	
+
+
 }
 //_______________________________________________________________
 
@@ -328,7 +330,7 @@ function saveTimeStates(task,leadTime,i){
 			task.statsTime[0] = 0;task.statsTime[1] = 0;task.statsTime[2] =0;
 		}
 		if(task.phase != 0){			
-			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime-sumaFasesTiempo(task.phasesTime);			
+			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime) - task.creationTime;			
 			task.timeByStats.push(task.statsTime);
 			task.phasesTime[i] = saveNewTimePhase(task.statsTime);
 			task.statsTime = [0,0,0];
@@ -337,24 +339,24 @@ function saveTimeStates(task,leadTime,i){
 	}else if (task.state == "Doing"){
 
 		if(task.phase > 1){			
-			task.statsTime[0]= leadTime - task.startTime - sumaFasesTiempo(task.phasesTime);			
+			task.statsTime[0]= leadTime - task.startTime - sumaFasesTiempo(task.phasesTime) - task.creationTime;			
 		}else{			
-			task.statsTime[0]= leadTime - task.startTime;
+			task.statsTime[0]= leadTime - task.startTime - task.creationTime;
 		}
 
 	}else if(task.state == "Done"){
 		if(task.phase > 1){
-			task.statsTime[1]= leadTime - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime);
+			task.statsTime[1]= leadTime - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime) - task.creationTime;
 		}else{
-			task.statsTime[1]= leadTime - task.statsTime[0]- task.startTime;
+			task.statsTime[1]= leadTime - task.statsTime[0]- task.startTime - task.creationTime;
 		}
 
 	}else{
 
 		if(task.phase > 1){
-			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime);
+			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime) - task.creationTime;
 		}else{
-			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime;
+			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - task.creationTime;
 
 		}
 		task.timeByStats.push(task.statsTime);
@@ -420,44 +422,42 @@ function calcularMediaPorTarea(mediaPorTarea,timeByStats){
 
 //media de las fases por separado
 function mediaFasestotal(taskArray){
-	console.table(taskArray[0]);
-	console.table(taskArray[1]);
-	console.table(taskArray[2]);
+	var numTareas = 0;
 	var z = 0;
 	var array = taskArray;	
 	var arrayFases  = new Array();
 	if(array[0] != undefined ){
 
-	while (z < array[0].length){
-		var sumaTodos =0;
-		var sumaDoing = 0;
-		var sumaDone = 0;
-		for (var i = 0; i < array.length; i++) {
-			if(array[i][z] != undefined){
+		while (z < array[0].length){
+			var sumaTodos =0;
+			var sumaDoing = 0;
+			var sumaDone = 0;
+			for (var i = 0; i < array.length; i++) {
+				if(array[i][z] != undefined){
 
 					if(array[i][z][0] == undefined){array[i][z][0] = 0;}
 					if(array[i][z][1] == undefined){array[i][z][1] = 0;}
 					if(array[i][z][2] == undefined){array[i][z][2] = 0;}
-
-					sumaTodos += array[i][z][0];
-					sumaDoing += array[i][z][1];
-					sumaDone  += array[i][z][2];
-
+						sumaTodos += array[i][z][0];
+						sumaDoing += array[i][z][1];
+						sumaDone  += array[i][z][2];
+					
+					
+						if(z == 0){numTareas++;} // +1 en tareas con valores
 				}
+				
+				
 			}
-			sumaTodos = Math.round((sumaTodos / array[0].length) * 10 ) / 10;
-			sumaDoing = Math.round((sumaDoing / array[0].length) * 10 ) / 10;
-			sumaDone  =  Math.round((sumaDone / array[0].length) * 10 ) / 10;
+			sumaTodos = Math.round((sumaTodos / numTareas) * 10 ) / 10;
+			sumaDoing = Math.round((sumaDoing / numTareas) * 10 ) / 10;
+			sumaDone  =  Math.round((sumaDone / numTareas) * 10 ) / 10;
 			arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
 			z++;
 		}
-		sumaTodos = Math.round((sumaTodos / array[0].length) * 10 ) / 10;
-		sumaDoing = Math.round((sumaDoing / array[0].length) * 10 ) / 10;
-		sumaDone  = Math.round((sumaDone / array[0].length) * 10 ) / 10;
-		arrayFases.push([sumaTodos,sumaDoing,sumaDone]);
-	}
 
-return arrayFases;
+	}
+	arrayFases.push(numTareas);
+	return arrayFases;
 
 }
 
@@ -480,12 +480,12 @@ function findMaxAndMin(){
 		if (user.secondsWork > max) {
 			max = user.secondsWork;
 			taskmax = user.tasksWorked;
-
-		}else if(user.secondsWork < min){
+		}
+		// MAYBE
+		if(user.secondsWork < min){
 
 			min = user.secondsWork;
 			taskmin = user.tasksWorked;
-
 		}
 	});
 	if(min == 500){
@@ -517,6 +517,7 @@ function maxAndMinUsers(userMax,userMin){
 			j++
 		}
 	});
+
 	arraymulti.push(array);
 	arraymulti.push(array2);
 	return arraymulti;
@@ -528,10 +529,10 @@ function maxAndMinUsers(userMax,userMin){
 //_______________________________________________________________
 
 function getRandomColor() {
-	  var letters = '0123456789ABCDEF';
-	  var color = '#';
-	  for (var i = 0; i < 6; i++) {
-	    color += letters[Math.floor(Math.random() * 16)];
-	  }
-	  return color;
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+		color += letters[Math.floor(Math.random() * 16)];
 	}
+	return color;
+}
