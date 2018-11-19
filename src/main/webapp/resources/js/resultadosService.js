@@ -27,7 +27,8 @@ function tableTask(){
 		tablaTarea += "<td>"+task.name+"</td><td>"+task.cycleTime+"s</td><td>"+task.leadTime+"s</td><td>"+task.esfuerzo+"</td>";		
 		tablaTarea += "<td>"+task.staticAssigneds+"</td>";
 		tablaTarea += "</tr>";
-		cantidadTask++;
+		if(task.cycleTime != 0){cantidadTask++;}
+		
 	});
 	medioCycle = Math.round((medioCycle/cantidadTask)* 10 ) / 10;
 	medioLead =  Math.round((medioLead/cantidadTask)* 10 ) / 10;
