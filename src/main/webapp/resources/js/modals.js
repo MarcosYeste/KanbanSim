@@ -14,8 +14,6 @@ var chronoTimeTypeSelection = "sec";
 var userO = new Object();
 var taskNameCounter = 0;
 var atributo;
-var valorSkill = 10;
-
 
 //_________________________________________________________________
 
@@ -301,7 +299,9 @@ function saveModUsers() {
 			skills: skillCompiler
 
 		},success: function(data) {
-
+			
+			modLabel(myChart, oldName, listUsers[click2].name);
+			
 			$( ".userName[data-identification='"+ click2 +"'] > p:first" )
 			.html("<strong>" + listUsers[click2].name + "</strong>");
 
@@ -506,10 +506,9 @@ function addInput(index1, index2, object){
 	formUserValido(saveAddUser, "add");
 	var sliders = document.getElementsByClassName("sliderAdd");
 
-	// Asignamos un valor random al abrir el slider de skills
-	valorSkill = Math.round(Math.random() * (100 + 10) - 10);
 	$( function() {
 		$( "#addPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider({
+			// Asignamos un valor random al abrir el slider de skills
 			value: 10,
 			min: 10,
 			max: 100,
@@ -598,12 +597,6 @@ function saveAddUser(){
 			myChart.update();
 
 			userO = new Object();
-
-
-			var j = 0;
-
-			// Y updateamos los datos
-
 		}
 	})
 }
