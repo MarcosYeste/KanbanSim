@@ -2,7 +2,11 @@
 var ctcs = document.getElementById("myChartPhase").getContext('2d');
 
 var options = {
-		
+		responsive:true,
+		legend: {
+	          display: true,
+	          
+	        },
 		scales: {
 			xAxes: [{
 				stacked: false,
@@ -12,7 +16,7 @@ var options = {
 				barPercentage: 0.5,
 				gridLines: {
 					offsetGridLines: true
-				}
+				},
 			}],
 			yAxes: [{
 				stacked: false,
@@ -32,19 +36,20 @@ var myChartPhase = new Chart(ctcs, {
 		datasets: [{
 			label: 'Total',
 			data:[],
-			backgroundColor:[]
+			backgroundColor:[],
+			hoverBackgroundColor:[],
 		},{
 			label: 'ToDO',
 			data:[],
-			backgroundColor:[]
+			backgroundColor:[],
 		},{
 			label: 'Doing',
 			data:[],
-			backgroundColor:[]
+			backgroundColor:[],
 		},{
 			label: 'Done',
 			data:[],
-			backgroundColor:[]
+			backgroundColor:[],
 		},
 		]
 	},
@@ -60,7 +65,8 @@ function addDataPhase(chart,media,faseTime) {
 		chart.data.labels.push(listPhases[k].name);		
 				 
 			 chart.data.datasets[0].data.push(faseTime[k]);
-			 chart.data.datasets[0].backgroundColor.push(listPhases[k].color);			
+			 chart.data.datasets[0].backgroundColor.push(listPhases[k].color + "99");		
+			 chart.data.datasets[0].hoverBackgroundColor.push(listPhases[k].color);	
 			 chart.data.datasets[1].data.push(media[k][0]);			 
 			 chart.data.datasets[1].backgroundColor.push(color1);			
 			 chart.data.datasets[2].data.push(media[k][1]);
