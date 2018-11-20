@@ -27,7 +27,7 @@ var T = 0; // CT medio (el real, no el estimado)
 var Vt = 0; //varianza del CT
 var numOfTasksEnded = 0; //Numero de tareas que han entrado al tablero y no han finalizado
 var backLogType; 
-var distributionWeightValues = [];
+var distributionWeightValues = [0, 0, 0, 0];
 
 var distributionType;
 var inputBase = 1; //Base value for normal distribution 
@@ -1008,11 +1008,11 @@ function getDistribution(){
 					document.getElementById("dataPoissonDistribution").style.height = "0px";
 					
 					var weightDivValues = $(".sizeValue");
-					var weightDivSliders = $(".ui-slider-handle");
+					var weightDivSliders = $("div.ui-slider-handle");
 					
 					for(var wv = 0; wv < weightDivValues.length; wv++){
 						weightDivValues[wv].innerHTML = distributionWeightValues[wv];
-						weightDivSliders[wv].value = distributionWeightValues[wv];
+//						weightDivSliders[wv].firstChild.style.left = distributionWeightValues[wv]+ "%"; 		
 
 					}
 				}

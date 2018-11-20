@@ -139,18 +139,35 @@ $(document).ready(function(){
 	            total += ui.value;
 
 	            var max = availableTotal - total;
+//	            console.log(this.firstChild.style.cssText);
 
+	            if(ui.value >= max){
+
+	            	this.firstChild.style.cssText = "left: 20%;";
+	            }
 	            // Update each slider
 	            sliders.not(this).each(function() {
 	                var t = $(this),
 	                    value = t.slider("option", "value");
+	                totalPercentage+= t.value;
 
+	                
 	                t.slider("option", "max", max + value);
 	                t.slider('value', value);
 	            });
 	        }
 	    });
 	});
+	
+	var divsValues = document.getElementsByClassName("sizeValue");
+	var slidersTofill = document.getElementsByClassName("ui-slider-handle");
+	var spanSelector = 1;
+	for(var i = 0; i < divsValues.length; i++){
+		slidersTofill[spanSelector].style.left = divsValues[i].innerHTML+ "%";
+		console.log(spanSelector);
+		spanSelector+=2; 
+		
+	}
 	
 	$("#modBacklogBtn").click(function(){
 		var radios = $("[name='distributionType']")
@@ -176,26 +193,26 @@ $(document).ready(function(){
 		console.log(sizeValuesString);
 		
 		
-//		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "manual"){
-//
-//			inputBase = document.getElementById("normalBaseValue");
-//			inputVariance = document.getElementById("normalVarianceValue");
-//			inputLambda = document.getElementById("poissonLambda");
-//
-//			$(distributionTypeInputs).removeAttr("disabled");
-//			$.ajax({
-//				type: "POST",
-//				url: "/saveDistributionData",
-//				data: {
-//					base:document.getElementById("normalBaseValue").value,
-//					variance:document.getElementById("normalVarianceValue").value,
-//					lambda:document.getElementById("poissonLambda").value,
-//					sizeValues: sizeValuesString
-//					
-//				},success: function(data) {
-//				}
-//			});
-//			location.href = "/";
-//		}
+		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "manual"){
+
+			inputBase = document.getElementById("normalBaseValue");
+			inputVariance = document.getElementById("normalVarianceValue");
+			inputLambda = document.getElementById("poissonLambda");
+
+			$(distributionTypeInputs).removeAttr("disabled");
+			$.ajax({
+				type: "POST",
+				url: "/saveDistributionData",
+				data: {
+					base:document.getElementById("normalBaseValue").value,
+					variance:document.getElementById("normalVarianceValue").value,
+					lambda:document.getElementById("poissonLambda").value,
+					sizeValues: sizeValuesString
+					
+				},success: function(data) {
+				}
+			});
+			location.href = "/";
+		}
 	}) //end button listener
 })
