@@ -1,62 +1,50 @@
 var ctp = document.getElementById("myChartPhases").getContext("2d");
 
 var data = {
-		labels: ["Chocolate", "Vanilla", "Strawberry"],
+		labels: ["Fase1", "Fase2", "Fase3"],
 		datasets: [{
-			label: "Blue",
-			backgroundColor: "blue",
-			data: [3, 7, 4]
+			label: "Total",
+			backgroundColor: 'rgba(255, 99, 132, 0.2)',
+			data: [10, 20, 30],
+			xAxisID: "bar-x-axis1",
 		}, {
-			label: "Red",
-			backgroundColor: "red",
-			data: [4, 3, 5]
+			label: "Cycle Time",
+			backgroundColor: "rgba(0, 0, 255, 0.2)",
+			data: [3, 7, 4],
+			xAxisID: "bar-x-axis2"
 		}, {
-			label: "Green",
-			backgroundColor: "green",
-			data: [7, 2, 6]
+			label: "Lead Time",
+			backgroundColor: "rgba(255, 0, 0, 0.2)",
+			data: [4, 3, 5],
+			xAxisID: "bar-x-axis2"
+		}, {
+			label: "Esfuerzo",
+			backgroundColor: "rgba(0, 255, 0, 0.2)",
+			data: [7, 2, 6],
+			xAxisID: "bar-x-axis2"
 		}]
 };
 
-Chart.plugins.register({
-	afterDatasetsUpdate: function(chart) {
-		Chart.helpers.each(chart.getDatasetMeta(0).data, function(rectangle, index) {
-			rectangle._view.width = rectangle._model.width = 30;
-		});
-	},
-})
-
-var data = {
-	labels: ["Chocolate", "Vanilla", "Strawberry"],
-	datasets: [{
-		label: "First",
-		backgroundColor: 'rgba(255, 99, 132, 0.2)',
-		borderWidth: 1,
-		data: [10, 20, 30],
-		xAxisID: "bar-x-axis1",
-	}, {
-		label: "Blue",
-		backgroundColor: "blue",
-		data: [3, 7, 4],
-		xAxisID: "bar-x-axis1"
-	}, {
-		label: "Red",
-		backgroundColor: "red",
-		data: [4, 3, 5],
-		xAxisID: "bar-x-axis1"
-	}, {
-		label: "Green",
-		backgroundColor: "green",
-		data: [7, 2, 6],
-		xAxisID: "bar-x-axis1"
-	}]
-};
-
 var options = {
+		
 		scales: {
 			xAxes: [{
 				stacked: true,
 				id: "bar-x-axis1",
-				barThickness: 70,
+				barThickness: 80,
+			
+			}, {
+				display: false,
+				stacked: false,
+				id: "bar-x-axis2",
+				barThickness: 30,
+				// these are needed because the bar controller defaults set only the first x axis properties
+				type: 'category',
+				categoryPercentage: 1,
+				barPercentage: 0.5,
+				gridLines: {
+					offsetGridLines: true
+				}
 			}],
 			yAxes: [{
 				stacked: false,
@@ -68,8 +56,7 @@ var options = {
 		}
 };
 
-var ctx = document.getElementById("myChart").getContext("2d");
-var myBarChart = new Chart(ctx, {
+var myBarChart = new Chart(ctp, {
 	type: 'bar',
 	data: data,
 	options: options
