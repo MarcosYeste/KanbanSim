@@ -344,17 +344,17 @@ function play() {
 								task.assignedUsers.forEach(function(assignedUser) {
 									//guarda en Usuarios los segundos se cada fase
 									if(assignedUser.includes((user.name))){
-										console.log("Antes");
+//										console.log("Antes");
 										user.secondsWork += 1;
 										if(user.secondByPhase[i] ==  undefined){
-											console.log("undef");
+//											console.log("undef");
 											user.secondByPhase[i] = 1;
 										}else{
-											console.log("Despues");
+//											console.log("Despues");
 											user.secondByPhase[i] += 1;
 										}
 									}
-									console.log(user.name);
+//									console.log(user.name);
 								});							
 							}
 
@@ -434,7 +434,7 @@ function play() {
 								}
 //								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);	
 								task.esfuerzo += task.duration;
-								task.startTime = leadTime;
+								task.startTime = leadTime - task.creationTime;
 								task.firstDuration.push(task.duration);
 							}								
 						} //if end
@@ -562,6 +562,7 @@ function play() {
 		} //end phases for
 
 		//Calcular media cycle time
+
 		console.log("TII " + TII);
 		console.log("T " + T);
 		console.log("VII " +  VII);
@@ -584,9 +585,10 @@ function play() {
 				totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
 			}
 		});
+
 		Vt = totalSum / numOfTasksEnded;
 		numOfTasksEnded = 0;
-		
+
 		
 		listTareas.forEach(function(task) {
 			task.sameIteration = false;
@@ -602,18 +604,18 @@ function play() {
 				calcLDValues(gaussian);
 				gaussianCounter = 0;
 				// Creamos un objeto nuevo
-				addTareas("");
+				addTareas("",leadTime);
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson <= 0) && distributionType == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
 				poissonCounter = 0;
-				addTareas("");
+				addTareas("",leadTime);
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distributionType == "weight"){
 				getWeight();
 				calcLDValues(weightTime);
 				weightCounter = 0;
-				addTareas(weight);
+				addTareas(weight,leadTime);
 			}
 
 		}
