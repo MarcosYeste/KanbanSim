@@ -85,6 +85,13 @@ function graficTask(){
 		addDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, color,task.name);
 	});
 }
+function graficPhase(){
+	listTareas.forEach(function(task) {	
+		var color = getRandomColor();
+		addDataPhase(myChartPhase,task.phasesTime,color);
+		
+	});
+}
 //_______________________________________________________________
 
 //_______________________ FASES ________________________________
@@ -180,10 +187,11 @@ function tablePhase(){
 			}
 		}
 	}
-	while(auxCV2>0){
-		tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
-		auxCV2--;
-	}
+//	while(auxCV2>0){
+//		tabla += "<td><div class='stados'></div></td>";
+//		auxCV2--;
+//	}
+	tabla += "<td><div class='stados'></div></td>";
 	tabla += "</tr>";
 	tabla += "<tr><td><i>Media Total: </i></td><td colspan='"+cv+"'>"+sumaEstadosTotal+"s</td><td><div class='stados'></div></td></tr>";
 	tabla += "</tbody>";

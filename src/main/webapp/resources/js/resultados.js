@@ -44,17 +44,7 @@ function mostrarResultados() {
 	div.appendChild(div5);
 	tableUser();
 }
-//GeneraGrafico
-function generarGraficos(){
-	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
-	div.style.background = "white";
-	document.getElementById("taskChart").style.display = "block";
-	if(!showGraf){// esto evita que se duplique
-		graficTask();
-	}
-	
-	
-}
+
 
 // Click a mostrar resultados
 function generarResultados(){
@@ -109,4 +99,18 @@ function mostrarGraficas (){
 	generarGraficos();
 	showGraf = true;
 	document.getElementById("graficos").setAttribute("onClick", "mostrarKanban()");
+}
+//GeneraGrafico
+function generarGraficos(){
+	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
+	div.style.background = "white";
+	document.getElementById("taskChart").style.display = "block";
+	if(!showGraf){// esto evita que se duplique
+		graficTask();
+	}
+	if(!showGraf){// esto evita que se duplique
+		graficPhase();
+	}
+	
+	
 }

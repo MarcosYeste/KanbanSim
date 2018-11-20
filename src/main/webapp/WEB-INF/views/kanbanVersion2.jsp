@@ -81,6 +81,9 @@ ____________________________________________________________________
 		 <div class="chart-container chartTask" id= "taskChart" >
 			<canvas id="myChartTask"></canvas>
 		</div> 
+		 <div class="chart-container chartPhase" id= "phaseChart" >
+			<canvas id="myChartPhase"></canvas>  <!-- https://jsfiddle.net/17hvoa9t/12/  bar inside bar-->
+		</div> 
 	</div>
 	<div class="contenedor" id="contenedor">
 
