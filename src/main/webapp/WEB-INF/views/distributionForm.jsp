@@ -41,10 +41,10 @@
 					</div>
 					
 					<div id="dataWeightDistribution" style="visibility: collapse; height: 0px">
-						<p class="backloglabel">S:</p>  <div class="backloglabelInput size" id="S" ><div id="custom-handleS"  class="ui-slider-handle"></div><div>0</div></div>
-						<p class="backloglabel">M:</p>  <div class="backloglabelInput size" id="M" ><div id="custom-handleM"  class="ui-slider-handle"></div><div>0</div></div>
-						<p class="backloglabel">L:</p>  <div class="backloglabelInput size" id="L" ><div id="custom-handleL"  class="ui-slider-handle"></div><div>0</div></div>
-						<p class="backloglabel">XL:</p> <div class="backloglabelInput size" id="XL"><div id="custom-handleXL" class="ui-slider-handle"></div><div>0</div></div>
+						<p class="backloglabel">S:</p>  <div class="backloglabelInput size" id="S" ><div id="custom-handleS"  class="ui-slider-handle"></div><div class="sizeValue">0</div></div>
+						<p class="backloglabel">M:</p>  <div class="backloglabelInput size" id="M" ><div id="custom-handleM"  class="ui-slider-handle"></div><div class="sizeValue">0</div></div>
+						<p class="backloglabel">L:</p>  <div class="backloglabelInput size" id="L" ><div id="custom-handleL"  class="ui-slider-handle"></div><div class="sizeValue">0</div></div>
+						<p class="backloglabel">XL:</p> <div class="backloglabelInput size" id="XL"><div id="custom-handleXL" class="ui-slider-handle"></div><div class="sizeValue">0</div></div>
 					</div>
 					
 				</div>
