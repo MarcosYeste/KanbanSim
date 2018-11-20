@@ -27,6 +27,7 @@ var T = 0; // CT medio (el real, no el estimado)
 var Vt = 0; //varianza del CT
 var numOfTasksEnded = 0; //Numero de tareas que han entrado al tablero y no han finalizado
 var backLogType; 
+var distributionWeightValues = [];
 
 var distributionType;
 var inputBase = 1; //Base value for normal distribution 
@@ -228,7 +229,10 @@ function play() {
 					} else {
 						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 					}
-
+					
+					if(task.duration < listPhases[i].minTime){
+						task.duration = listPhases[i].minTime;
+					}
 					// Asigna un tiempo a cada tarea de entre el intervalo de la fase
 					task.esfuerzo += task.duration;
 					task.durarionAsignada = false;					
@@ -975,7 +979,8 @@ function getDistribution(){
 			var formedData = data.split(',');
 			backLogType = formedData[0];
 			distributionType = formedData[1];
-
+			distributionWeightValues = formedData[5].split(';');
+			
 			$("input[value='"+ backLogType +"']").prop("checked", true);
 
 			if($("input[value='"+ distributionType +"']").is(':disabled')){
@@ -995,6 +1000,24 @@ function getDistribution(){
 					document.getElementById("dataPoissonDistribution").style.visibility = "visible";
 					document.getElementById("dataPoissonDistribution").style.height = "initial";
 					document.getElementById("poissonLambda").value = formedData[4];
+				} else if (distributionType == "weight"){
+					document.getElementById("dataNormalDistribution").style.visibility = "hidden";
+					document.getElementById("dataNormalDistribution").style.height = "0px";
+
+					document.getElementById("dataWeightDistribution").style.visibility = "visible";
+					document.getElementById("dataWeightDistribution").style.height = "initial";
+
+					document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
+					document.getElementById("dataPoissonDistribution").style.height = "0px";
+					
+					var weightDivValues = $(".sizeValue");
+					var weightDivSliders = $(".ui-slider-handle");
+					
+					for(var wv = 0; wv < weightDivValues.length; wv++){
+						weightDivValues[wv].innerHTML = distributionWeightValues[wv];
+						weightDivSliders[wv].value = distributionWeightValues[wv];
+
+					}
 				}
 			}
 			if(backLogType == "constant"){

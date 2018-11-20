@@ -34,6 +34,7 @@ public class HomeController {
 	List<Task> taskArray = new ArrayList<Task>();
 	List<User> userArray = new ArrayList<User>();
 	ArrayList<String> allPhases = new ArrayList<String>();
+	ArrayList<Integer> sizeValues = new ArrayList<Integer>();
 
 	String distribution = "manual";
 	String distributionType;
@@ -261,16 +262,16 @@ public class HomeController {
 	public @ResponseBody String weight() {
 
 		Random r = new Random();
-		int num = r.nextInt(10) + 1;
+		int num = r.nextInt(100) + 1;
 		String val = "";
 		
-		if(num <= 2) {
+		if(num <= this.sizeValues.get(0)) {
 			val = "S";
-		} else if(num > 2 && num <= 5) {
+		} else if(num > this.sizeValues.get(0) && num <= this.sizeValues.get(0) + this.sizeValues.get(1)) {
 			val = "M";
-		} else if (num > 5 && num <=8) {
+		} else if (num > this.sizeValues.get(0) + this.sizeValues.get(1) && num <= this.sizeValues.get(0) + this.sizeValues.get(1) + this.sizeValues.get(2)) {
 			val = "L";
-		} else if (num > 8 && num <=10) {
+		} else if (num > this.sizeValues.get(0) + this.sizeValues.get(1) + this.sizeValues.get(2) && num <= this.sizeValues.get(0) + this.sizeValues.get(1) + this.sizeValues.get(2) + this.sizeValues.get(3)) {
 			val = "XL";
 		}
 		
@@ -282,7 +283,7 @@ public class HomeController {
 	
 	// Get Poisson value
 		@RequestMapping(value = "/saveDistributionData", method = RequestMethod.POST)
-		public @ResponseBody void distributionData(int base, int variance, int lambda) {	
+		public @ResponseBody void distributionData(int base, int variance, int lambda, String sizeValues) {	
 
 			if (base < 1) {
 				this.base = 1;
@@ -302,7 +303,21 @@ public class HomeController {
 				this.lambda = lambda;
 			}
 			
-			System.out.println(this.base + ", " +this.variance + ", " + this.lambda+ ", ");
+			this.sizeValues = new ArrayList<Integer>();
+			String[] auxArray = sizeValues.split(",");
+			System.out.println(sizeValues);
+			for (String value : auxArray) {
+				try {
+					this.sizeValues.add(Integer.parseInt(value));
+				} catch (Exception e) {
+					this.sizeValues.add(0);
+				}
+				
+				System.out.println("Value " + value);
+			}
+			
+			
+			System.out.println(this.base + ", " +this.variance + ", " + this.lambda+ ", " + sizeValues);
 		}
 		
 	// Get Distribution
@@ -319,8 +334,11 @@ public class HomeController {
 	// Post Distribution
 	@RequestMapping(value = "/getDistr", method = RequestMethod.GET)
 	public @ResponseBody String getDistribution() {
-
-		return this.distribution + "," + this.distributionType + "," + this.base + "," + this.variance + "," + this.lambda;
+		String sizeValues = "";
+		for (Integer value : this.sizeValues) {
+			sizeValues += value + ";";
+		}
+		return this.distribution + "," + this.distributionType + "," + this.base + "," + this.variance + "," + this.lambda + "," + sizeValues;
 	}
 
 	// Add New Phase

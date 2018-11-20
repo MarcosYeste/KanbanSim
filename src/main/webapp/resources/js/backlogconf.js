@@ -113,44 +113,6 @@ $(document).ready(function(){
 		});
 	}	
 
-	$("#modBacklogBtn").click(function(){
-		var radios = $("[name='distributionType']")
-		for(var i = 0; i < radios.length; i++){
-			if(radios[i].checked){
-				distributionIsSelected = true;
-				selectedBacklog = "constant";
-			}
-		}
-
-		var backLogradios = $("[name='taskInputMode']");
-		for(var i = 0; i < backLogradios.length; i++){
-			if(backLogradios[i].checked && backLogradios[i].value == "manual"){
-				selectedBacklog = "manual";
-			} 
-		}
-
-		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "manual"){
-
-			inputBase = document.getElementById("normalBaseValue");
-			inputVariance = document.getElementById("normalVarianceValue");
-			inputLambda = document.getElementById("poissonLambda");
-
-			$(distributionTypeInputs).removeAttr("disabled");
-			$.ajax({
-				type: "POST",
-				url: "/saveDistributionData",
-				data: {
-					base:document.getElementById("normalBaseValue").value,
-					variance:document.getElementById("normalVarianceValue").value,
-					lambda:document.getElementById("poissonLambda").value
-				},success: function(data) {
-				}
-			});
-			location.href = "/";
-		}
-	})
-	
-	
 	var sliders = $("#dataWeightDistribution .ui-slider-handle");
 	sliders.each(function() {
 	    var value = parseInt($(this).text(), 10),
@@ -189,4 +151,51 @@ $(document).ready(function(){
 	        }
 	    });
 	});
+	
+	$("#modBacklogBtn").click(function(){
+		var radios = $("[name='distributionType']")
+		for(var i = 0; i < radios.length; i++){
+			if(radios[i].checked){
+				distributionIsSelected = true;
+				selectedBacklog = "constant";
+			}
+		}
+
+		var backLogradios = $("[name='taskInputMode']");
+		for(var i = 0; i < backLogradios.length; i++){
+			if(backLogradios[i].checked && backLogradios[i].value == "manual"){
+				selectedBacklog = "manual";
+			} 
+		}
+		var sizeValuesArray = $(".sizeValue");
+		var sizeValuesString = "";
+		for(var i = 0; i < sizeValuesArray.length; i++){
+			console.log(sizeValuesArray[i].innerHTML);
+			sizeValuesString += sizeValuesArray[i].innerHTML + ",";
+		}
+		console.log(sizeValuesString);
+		
+		
+		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "manual"){
+
+			inputBase = document.getElementById("normalBaseValue");
+			inputVariance = document.getElementById("normalVarianceValue");
+			inputLambda = document.getElementById("poissonLambda");
+
+			$(distributionTypeInputs).removeAttr("disabled");
+			$.ajax({
+				type: "POST",
+				url: "/saveDistributionData",
+				data: {
+					base:document.getElementById("normalBaseValue").value,
+					variance:document.getElementById("normalVarianceValue").value,
+					lambda:document.getElementById("poissonLambda").value,
+					sizeValues: sizeValuesString
+					
+				},success: function(data) {
+				}
+			});
+			location.href = "/";
+		}
+	}) //end button listener
 })
