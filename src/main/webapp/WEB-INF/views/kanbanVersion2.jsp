@@ -283,6 +283,10 @@ ____________________________________________________________________
 	<div class="chart-container" style="position: relative; height: 200px; width: 90%">
 		<canvas id="myChart"></canvas>
 	</div>  
+	
+	<div class="chart-container" style="position: relative; height: 200px; width: 90%">
+		<canvas id="myChartPhases"></canvas>
+	</div>  
 
 
 
