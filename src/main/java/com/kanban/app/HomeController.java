@@ -35,7 +35,7 @@ public class HomeController {
 	List<User> userArray = new ArrayList<User>();
 	ArrayList<String> allPhases = new ArrayList<String>();
 	ArrayList<Integer> sizeValues = new ArrayList<Integer>();
-
+	
 	String distribution = "manual";
 	String distributionType;
 	int base = 1;
@@ -48,7 +48,12 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-
+		
+		sizeValues.add(0);
+		sizeValues.add(0);
+		sizeValues.add(0);
+		sizeValues.add(0);
+		
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
