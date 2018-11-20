@@ -42,6 +42,7 @@ var sumWip = 0;
 var velocidad = 0;
 var eCT = 0;
 var eLT = 0;
+var  indiceTareas = 0;
 
 //Guardar al modificar Phase
 sortPhases();
@@ -375,6 +376,8 @@ function play() {
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
+							updateDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, indiceTareas);
+							indiceTareas++;
 
 
 

@@ -1,4 +1,3 @@
-
 /*---------------------------------------------------- KANBAN ----------------------------------------------*/
 
 
@@ -327,10 +326,11 @@ button {
 .mostrarGraficosDiv{
 	justify-content: space-around;
 	display: flex;
+	text-align: center;
 	flex-direction: column;
 	background-color: #63bafa;
-	color: white;
-	text-shadow: 0.1px 1px 10px blue;
+	color: black;
+	text-shadow: 0.1px 1px 5px grey;
 	font-size: 120%;
 	display: table;
 	display: flex;
@@ -342,6 +342,15 @@ button {
 }
 .chartTask{
 	 padding-top: 2%;
+	 padding-left: 10%;
+	 width: 90%;
+	 position: relative;
+	 height: auto;
+	 align: center;
+}
+
+.chartPhase{
+	 padding-top: 4%;
 	 padding-left: 10%;
 	 width: 90%;
 	 position: relative;

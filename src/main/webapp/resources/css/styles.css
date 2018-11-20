@@ -153,6 +153,13 @@ h1 {
 	margin-left: 5px;
 }
 
+.chart-container .myChartPhases {
+  position: relative;
+  margin: auto;
+  height: 80vh;
+  width: 80vw;
+}
+
 /*---------------------------------------------------- TEMPORIZADOR ----------------------------------------------*/
 #chronoViewer {
 	font-weight: bold;
