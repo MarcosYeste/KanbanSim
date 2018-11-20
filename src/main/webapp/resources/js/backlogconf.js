@@ -176,26 +176,26 @@ $(document).ready(function(){
 		console.log(sizeValuesString);
 		
 		
-//		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "manual"){
-//
-//			inputBase = document.getElementById("normalBaseValue");
-//			inputVariance = document.getElementById("normalVarianceValue");
-//			inputLambda = document.getElementById("poissonLambda");
-//
-//			$(distributionTypeInputs).removeAttr("disabled");
-//			$.ajax({
-//				type: "POST",
-//				url: "/saveDistributionData",
-//				data: {
-//					base:document.getElementById("normalBaseValue").value,
-//					variance:document.getElementById("normalVarianceValue").value,
-//					lambda:document.getElementById("poissonLambda").value,
-//					sizeValues: sizeValuesString
-//					
-//				},success: function(data) {
-//				}
-//			});
-//			location.href = "/";
-//		}
+		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "manual"){
+
+			inputBase = document.getElementById("normalBaseValue");
+			inputVariance = document.getElementById("normalVarianceValue");
+			inputLambda = document.getElementById("poissonLambda");
+
+			$(distributionTypeInputs).removeAttr("disabled");
+			$.ajax({
+				type: "POST",
+				url: "/saveDistributionData",
+				data: {
+					base:document.getElementById("normalBaseValue").value,
+					variance:document.getElementById("normalVarianceValue").value,
+					lambda:document.getElementById("poissonLambda").value,
+					sizeValues: sizeValuesString
+					
+				},success: function(data) {
+				}
+			});
+			location.href = "/";
+		}
 	}) //end button listener
 })
