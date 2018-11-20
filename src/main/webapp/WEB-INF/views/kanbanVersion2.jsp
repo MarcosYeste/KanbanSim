@@ -280,11 +280,11 @@ ____________________________________________________________________
 -->
 
 	<!-- PRUEBAS  http://www.chartjs.org/docs/latest/general/options.html -->
-	<div class="chart-container" style="position: relative; height: 200px; width: 90%">
+	<%-- <div class="chart-container" style="position: relative; height: 200px; width: 90%">
 		<canvas id="myChart"></canvas>
-	</div>  
+	</div>   --%>
 	
-	<div class="chart-container" style="position: relative; height: 200px; width: 90%">
+	<div class="chart-container" style="position: relative; height: 200px; width: 100%">
 		<canvas id="myChartPhases"></canvas>
 	</div>  
 
