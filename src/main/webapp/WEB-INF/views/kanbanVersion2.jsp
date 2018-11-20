@@ -77,13 +77,22 @@ ____________________________________________________________________
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv">
 		 
 	</div>
+	<!--
+____________________________________________________________________
+
+_______________________ GRAFICOS ____________________________
+
+____________________________________________________________________
+-->
 	<div id="mostrarGraficosDiv" class="mostrarGraficosDiv">
 		 <div class="chart-container chartTask" id= "taskChart" >
+		 <h2>Gráfico de Tareas</h2>
 			<canvas id="myChartTask"></canvas>
-		</div> 
-		 <div class="chart-container chartPhase" id= "phaseChart" >
-			<canvas id="myChartPhase"></canvas>  <!-- https://jsfiddle.net/17hvoa9t/12/  bar inside bar-->
-		</div> 
+			<h2>Gráfico de Fases</h2>
+			<canvas id="myChartPhase"></canvas> 
+			<h2>Gráfico de Usuarios</h2>
+			<canvas id="myChart"></canvas>
+		</div> 		
 	</div>
 	<div class="contenedor" id="contenedor">
 
@@ -273,20 +282,6 @@ ____________________________________________________________________
 		</div>
 	</fieldset>
 	
-	
-<!--
-____________________________________________________________________
-
-______________________________ CHARTS  _____________________________
-
-____________________________________________________________________
--->
-
-	<!-- PRUEBAS  http://www.chartjs.org/docs/latest/general/options.html -->
-	<div class="chart-container" style="position: relative; height: 200px; width: 90%">
-		<canvas id="myChart"></canvas>
-	</div>  
-
 
 
 <!--

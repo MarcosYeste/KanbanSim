@@ -107,10 +107,9 @@ function generarGraficos(){
 	document.getElementById("taskChart").style.display = "block";
 	if(!showGraf){// esto evita que se duplique
 		graficTask();
-	}
-	if(!showGraf){// esto evita que se duplique
 		graficPhase();
 	}
+	
 	
 	
 }

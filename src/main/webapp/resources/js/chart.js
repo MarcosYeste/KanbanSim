@@ -74,3 +74,14 @@ function removeLabel(chart, label) {
 
 	chart.update();
 }
+function modLabel(chart, oldLabel, newLabel){
+
+	for(var i = 0; i < chart.data.labels.length; i++){
+
+		if(oldLabel == chart.data.labels[i]){
+			chart.data.labels[i] = newLabel;
+		}
+	}
+
+	chart.update();
+}
