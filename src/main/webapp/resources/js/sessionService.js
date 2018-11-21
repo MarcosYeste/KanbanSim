@@ -1,3 +1,8 @@
+//____________________________________________________________________
+
+//_____________________ SESSION USER  _______________________________
+
+//____________________________________________________________________
 function printUserSession(){
 	
 var sessionUsuarios = JSON.parse(sessionStorage.getItem("users")); console.table(sessionUsuarios);
@@ -30,8 +35,35 @@ var sessionUsuarios = JSON.parse(sessionStorage.getItem("users")); console.table
 }
 function refreshUsers(){
 	if(sessionStorage.getItem("users")){
-		console.log("dentro");
 		var sessionUsuarios = JSON.parse(sessionStorage.getItem("users"));
 		listUsers = sessionUsuarios;
 	}
+}
+//____________________________________________________________________
+
+//_____________________ SESSION PHASE  _______________________________
+
+//____________________________________________________________________
+
+function printPhaseSession(){	
+	var sessionPhase = JSON.parse(sessionStorage.getItem("phases"));
+	var fasesD = document.getElementById("faseDiv");
+	for (var i = 0; i < lista.length; i++) {
+		var divFases = '<div class="faseName" style="background-color:'+lista[i].color+'" id ="'+lista[i].id+'"">';
+		divFases += '<div class="titulo" data-toggle="modal" data-target="#myModal" name= "'+lista[i].name+'">'+lista[i].name+'<small> (WIP: '+lista[i].maxTasks+')</small></div>';
+		divFases += '<div class="subfase" style="background-color:'+lista[i].color+'"><div id="doing" class="doing"><p class="subSubfase">Doing</p></div>'+
+		'<div id="done" class="done"><p class="subSubfase">Done</p></div></div>';
+		fasesD.innerHTML += divFases;
+		
+	}
+}
+
+function refreshPhases(){
+	if(sessionStorage.getItem("phases")){
+		var sessionPhase = JSON.parse(sessionStorage.getItem("phases"));
+		listPhases = sessionPhase;
+	}
+}
+function savePhaseSession(){
+	sessionStorage.setItem("phases", JSON.stringify(listPhases));
 }

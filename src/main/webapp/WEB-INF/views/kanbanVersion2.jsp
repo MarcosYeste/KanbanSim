@@ -205,19 +205,7 @@ ____________________________________________________________________
 	
 
 		</div>
-<script>
-var lista = JSON.parse(sessionStorage.getItem("phases"));
-var fases = document.getElementById("faseDiv");
-for (var i = 0; i < lista.length; i++) {
-	var divFases = '<div class="faseName" style="background-color:'+lista[i].color+'" id ="'+lista[i].id+'"">';
-	divFases += '<div class="titulo" data-toggle="modal" data-target="#myModal" name= "'+lista[i].name+'">'+lista[i].name+'<small> (WIP: '+lista[i].maxTasks+')</small></div>';
-	divFases += '<div class="subfase" style="background-color:'+lista[i].color+'"><div id="doing" class="doing"><p class="subSubfase">Doing</p></div>'+
-	'<div id="done" class="done"><p class="subSubfase">Done</p></div></div>';
-	fases.innerHTML += divFases;
-	
-}
 
-</script>
 		<div class="fin">
 
 			<div class="tituloEnd">Fin</div>
