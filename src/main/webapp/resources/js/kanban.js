@@ -1015,8 +1015,6 @@ function getDistribution(){
 					
 					for(var wv = 0; wv < weightDivValues.length; wv++){
 						weightDivValues[wv].innerHTML = distributionWeightValues[wv];
-//						weightDivSliders[wv].firstChild.style.left = distributionWeightValues[wv]+ "%"; 		
-
 					}
 				}
 			}
