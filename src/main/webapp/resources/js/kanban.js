@@ -12,28 +12,28 @@ var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
 var gaussianCounter = 0;
-var gaussian = 0; 		//Tiempo en el que entrara la proxima tarea en distribución normal
+var gaussian = 0; 			// Tiempo en el que entrara la proxima tarea en distribución normal
 var taskNameCounter = 0;
-var poisson = 0;  		//Tiempo en el que entrara la proxima tarea en distribución poisson
+var poisson = 0;  			// Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
 var weight = "M"; 
-var weightTime = 0; 	//Tiempo en el que entrara la proxima tarea en uniforme con peso
+var weightTime = 0; 		// Tiempo en el que entrara la proxima tarea en uniforme con peso
 var weightCounter = 0;
-var numOfBacklogCalled = 0; //Veces que se ha generado un tiempo en backlog constante
-var backLogCollector = []; //Acumulador de tiempos de entrada
-var TII = 0; //tiempo medio entre la creación de tareas
-var VII = 0; // varianza entre la creación de tareas
-var T = 0; // CT medio (el real, no el estimado)
-var Vt = 0; //varianza del CT
-var numOfTasksEnded = 0; //Numero de tareas que han entrado al tablero y no han finalizado
+var numOfBacklogCalled = 0; // Veces que se ha generado un tiempo en backlog constante
+var backLogCollector = []; 	// Acumulador de tiempos de entrada
+var TII = 0; 				// Tiempo medio entre la creación de tareas
+var VII = 0; 				// Varianza entre la creación de tareas
+var T = 0; 					// CT medio (el real, no el estimado)
+var Vt = 0; 				// Varianza del CT
+var numOfTasksEnded = 0; 	// Numero de tareas que han entrado al tablero y no han finalizado
 var backLogType; 
 var distributionWeightValues = [0, 0, 0, 0];
 
 var distributionType;
-var inputBase = 1; //Base value for normal distribution 
-var inputVariance = 1; // Variance value for normal distribution
-var inputLambda = 1; // Lambda value for poisson distribution 
-getDistribution(); //Type of backlog tasks input 'constant', 'manual'
+var inputBase = 1; 			// Base value for normal distribution 
+var inputVariance = 1; 		// Variance value for normal distribution
+var inputLambda = 1; 		// Lambda value for poisson distribution 
+getDistribution(); 			// Type of backlog tasks input 'constant', 'manual'
 if(backLogType == null){
 	backLogType = "manual";
 }
