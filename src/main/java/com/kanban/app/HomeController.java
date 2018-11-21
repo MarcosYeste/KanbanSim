@@ -283,6 +283,7 @@ public class HomeController {
 		Random ran = new Random();
 		int number = r.nextInt(5) + 1;
 		System.out.println(val);
+		
 		return val + "," + String.valueOf(number);
 	}
 	
