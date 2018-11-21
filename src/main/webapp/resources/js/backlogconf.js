@@ -5,6 +5,7 @@ $(document).ready(function(){
 	var taskInputModeInputs = $("[name='taskInputMode']");
 	var totalPercentage = 0;
 	var total = 0;
+	 var subTotal = 0; //Para controlar que siempre sea un total de 100% y si no bloquear el boton
 	var divsValues = document.getElementsByClassName("sizeValue");
 	var slidersTofill = document.getElementsByClassName("ui-slider-handle");
 	var spanSelector = 1;
@@ -142,11 +143,28 @@ $(document).ready(function(){
 	            	if(total >= 100){
 	            		total = 100;
 	            		$(this).slider("option", 'value', 0);
+	            		
 	            	} else {
 	            		total += $(this).slider("option", "value");
 	            	}
 	            	
 	            });
+	            subTotal = 0;
+	            sliders.each(function() {
+	            	if(subTotal >= 100){
+	            		subTotal = 100;
+	            	} else {
+	            		subTotal += $(this).slider("option", "value");
+	            	}
+	            	 if(subTotal < 100){
+	 	        		document.getElementById("modBacklogBtn").setAttribute("disabled", "");	
+	 	            } else if (subTotal == 100){
+	 	            	document.getElementById("modBacklogBtn").removeAttribute("disabled");
+	 	            }
+	            });
+	            
+	           
+	            
 	            //Calcular el limite actual
 	            var max = 0;
             	if(!(total >= 100)){
@@ -167,6 +185,18 @@ $(document).ready(function(){
 	for(var i = 0; i < divsValues.length; i++){
 		slidersTofill[spanSelector].style.left = divsValues[i].innerHTML+ "%";	
 		spanSelector+=2; 
+		
+		if(subTotal >= 100){
+    		subTotal = 100;
+    	} else {
+    		subTotal += divsValues[i].innerHTML;
+    	}
+		
+		if(subTotal == 0){
+			document.getElementById("modBacklogBtn").setAttribute("disabled", "");	
+	    } else {
+	    	document.getElementById("modBacklogBtn").removeAttribute("disabled");
+	    }
 	}
 	//Darle el valor a los sliders
 	for(var i = 0; i < divsValues.length; i++){

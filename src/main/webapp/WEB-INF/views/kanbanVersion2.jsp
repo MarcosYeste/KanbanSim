@@ -166,39 +166,17 @@ ____________________________________________________________________
 			</div>
 
 		</div>
+<script>
+//____________________________________________________________________
 
-		<div id="faseDiv" class="fase">
+//_______________________     Session     ____________________________
 
-			<c:forEach items="${phases}" var="fase">
-
-				<div class="faseName"
-					style='background-color:<c:out value="${fase.color}"></c:out>'
-					id=<c:out value="${fase.id}"></c:out>>
-					<div class="titulo" data-toggle="modal" data-target="#myModal"
-						name="<c:out value='${fase.name}'></c:out>">
-						<c:out value="${fase.name}"></c:out>
-						<small>(WIP: <c:out value="${fase.maxTasks}"></c:out>)
-						</small>
-					</div>
-
-					<div class="subfase"
-						style='background-color:<c:out value="${fase.color}"></c:out>'>
-
-						<div id="doing" class="doing">
-
-							<p class="subSubfase">Doing</p>
-
-						</div>
-
-						<div id="done" class="done">
-
-							<p class="subSubfase">Done</p>
-
-						</div>
-					</div>
-				</div>
+//____________________________________________________________________
 
 
+</script>
+	
+<c:forEach items="${phases}" var="fase">
 				<c:set value="${fase.id}" var="id" />
 				<c:set value="${fase.name}" var="name" />
 				<c:set value="${fase.maxTasks}" var="maxTasks" />
@@ -216,11 +194,30 @@ ____________________________________________________________________
 					phase.color = '<c:out value="${color}"></c:out>';
 					phase.period = 0;
 					listPhases.push(phase);
-				</script>
+					</script>		
+				</c:forEach>
+				<script>sessionStorage.setItem("phases", JSON.stringify(listPhases));</script>
+				
 
-			</c:forEach>
+		
+		<div id="faseDiv" class="fase">  <!--  No puedo recuperar el valor del session storage -->
+
+	
+
 		</div>
+<script>
+var lista = JSON.parse(sessionStorage.getItem("phases"));
+var fases = document.getElementById("faseDiv");
+for (var i = 0; i < lista.length; i++) {
+	var divFases = '<div class="faseName" style="background-color:'+lista[i].color+'" id ="'+lista[i].id+'"">';
+	divFases += '<div class="titulo" data-toggle="modal" data-target="#myModal" name= "'+lista[i].name+'">'+lista[i].name+'<small> (WIP: '+lista[i].maxTasks+')</small></div>';
+	divFases += '<div class="subfase" style="background-color:'+lista[i].color+'"><div id="doing" class="doing"><p class="subSubfase">Doing</p></div>'+
+	'<div id="done" class="done"><p class="subSubfase">Done</p></div></div>';
+	fases.innerHTML += divFases;
+	
+}
 
+</script>
 		<div class="fin">
 
 			<div class="tituloEnd">Fin</div>
@@ -246,14 +243,11 @@ ____________________________________________________________________
 				<i class="fas fa-user-plus fa-2x" data-toggle="modal"
 					data-target="#addUsers"></i>
 			</button></span>
-		<div class="usersContainer">
+		<div class="usersContainer" id="usersContainer">
 
-			<c:forEach items="${user}" var="user">
-				<div class="userName" name="<c:out value='${user.name}'></c:out>"
-					data-toggle="modal" data-target="#myModal2">
-					<p>
-						<strong><c:out value="${user.name}"></c:out></strong>
-					</p>
+			<%-- <c:forEach items="${user}" var="user">
+				<div class="userName" name="<c:out value='${user.name}'></c:out>" data-toggle="modal" data-target="#myModal2">
+					<p>	<strong><c:out value="${user.name}"></c:out></strong></p>
 					<i class="fa fa-user-tie fa-2x" aria-hidden="true"></i>
 
 					<c:set value="${user.name}" var="name" />
@@ -278,7 +272,7 @@ ____________________________________________________________________
 						listUsers.push(userO);
 					</script>
 				</div>
-			</c:forEach>
+			</c:forEach> --%>
 		</div>
 	</fieldset>
 <!--
