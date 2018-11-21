@@ -4,6 +4,11 @@ $(document).ready(function(){
 	var distributionIsSelected = false;
 	var taskInputModeInputs = $("[name='taskInputMode']");
 	var totalPercentage = 0;
+	var total = 0;
+	var divsValues = document.getElementsByClassName("sizeValue");
+	var slidersTofill = document.getElementsByClassName("ui-slider-handle");
+	var spanSelector = 1;
+	
 	var distributionTypeInputs = $("[name='distributionType']").change(function(){
 		$.ajax({
 			type: "POST",
@@ -114,9 +119,11 @@ $(document).ready(function(){
 	}	
 
 	var sliders = $("#dataWeightDistribution .ui-slider-handle");
+//	console.log(sliders);
 	sliders.each(function() {
 	    var value = parseInt($(this).text(), 10),
 	        availableTotal = 100;
+
 	 $(this).empty().slider({
 	        value: 0,
 	        min: 0,
@@ -127,46 +134,43 @@ $(document).ready(function(){
 	        slide: function(event, ui) {
 	            // Update display to current value
 	            $(this).siblings().text(ui.value);
-
-	            // Get current total
-	            var total = 0;
-
-	            sliders.not(this).each(function() {
-	                total += $(this).slider("option", "value");
+	        },
+	        stop: function( event, ui ) {	        	
+	        	total = 0;
+	        	//Calcular la suma total para poder calcular el limite actual
+	            sliders.not(this).each(function() {	            	
+	            	if(total >= 100){
+	            		total = 100;
+	            		$(this).slider("option", 'value', 0);
+	            	} else {
+	            		total += $(this).slider("option", "value");
+	            	}
+	            	
 	            });
-
-
-	            total += ui.value;
-
-	            var max = availableTotal - total;
-//	            console.log(this.firstChild.style.cssText);
-
+	            //Calcular el limite actual
+	            var max = 0;
+            	if(!(total >= 100)){
+	            	max = availableTotal - total;
+	            } 
+            	//Controlar el limite del slider
 	            if(ui.value >= max){
-
-	            	this.firstChild.style.cssText = "left: 20%;";
-	            }
-	            // Update each slider
-	            sliders.not(this).each(function() {
-	                var t = $(this),
-	                    value = t.slider("option", "value");
-	                totalPercentage+= t.value;
-
-	                
-	                t.slider("option", "max", max + value);
-	                t.slider('value', value);
-	            });
+	            	this.firstChild.style.cssText = "left: "+max+"%";
+	            	$(this).siblings().text(max);
+	            	ui.value = max;
+	            	$(this).slider('value', max);
+	            }  
 	        }
 	    });
 	});
 	
-	var divsValues = document.getElementsByClassName("sizeValue");
-	var slidersTofill = document.getElementsByClassName("ui-slider-handle");
-	var spanSelector = 1;
+	//Rellenar los div
 	for(var i = 0; i < divsValues.length; i++){
-		slidersTofill[spanSelector].style.left = divsValues[i].innerHTML+ "%";
-		console.log(spanSelector);
+		slidersTofill[spanSelector].style.left = divsValues[i].innerHTML+ "%";	
 		spanSelector+=2; 
-		
+	}
+	//Darle el valor a los sliders
+	for(var i = 0; i < divsValues.length; i++){
+		$("#custom-handle"+i).slider("option", 'value', parseInt(divsValues[i].innerHTML));
 	}
 	
 	$("#modBacklogBtn").click(function(){

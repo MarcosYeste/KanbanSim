@@ -32,10 +32,10 @@ ____________________________________________________________________
 			</button>
 
 			<!-- Borrar Tareas -->
-			<button id="divDeleteTasks">
+			<!-- <button id="divDeleteTasks">
 				<i id="deleteTasks" class="fas fa-trash-alt fa-3x"
 					data-toggle="tooltip" data-placement="top" title="Borrar Tareas"></i>
-			</button>
+			</button> -->
 
 		</div>
 	<div class="doubleButton">
