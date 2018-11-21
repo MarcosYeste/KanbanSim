@@ -46,6 +46,7 @@ var  indiceTareas = 0;
 
 //Guardar al modificar Phase
 sortPhases();
+refreshUsers();
 
 //Inicializamos la gráfica
 listUsers.forEach(function(user){
