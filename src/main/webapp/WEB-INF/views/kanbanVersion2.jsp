@@ -300,7 +300,7 @@ ____________________________________________________________________
 						type="text" id="modMinTime"> Tiempo Máximo: <input
 						type="text" id="modMaxTime"> Color:
 					<div class="col-10">
-						<input class="form-control" type="color" id="color-input"
+						<input class="form-control" type="color" id="color-input2"
 							list="presetColors">
 
 						<datalist id="presetColors">

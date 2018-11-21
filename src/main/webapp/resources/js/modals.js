@@ -48,7 +48,7 @@ function modPhases(){
 	document.getElementById("modWip").value = parseInt(listPhases.find(x => x.id === click).maxTasks);
 	document.getElementById("modMinTime").value = parseInt(listPhases.find(x => x.id === click).minTime);
 	document.getElementById("modMaxTime").value = parseInt(listPhases.find(x => x.id === click).maxTime);
-	document.getElementById("color-input").value = listPhases.find(x => x.id === click).color;
+	document.getElementById("color-input2").value = listPhases.find(x => x.id === click).color;
 
 }
 
@@ -59,7 +59,7 @@ function saveModPhase() {
 	listPhases.find(x => x.id === click).maxTasks = parseInt(document.getElementById("modWip").value);
 	listPhases.find(x => x.id === click).minTime = parseInt(document.getElementById("modMinTime").value);
 	listPhases.find(x => x.id === click).maxTime = parseInt(document.getElementById("modMaxTime").value);
-	listPhases.find(x => x.id === click).color = document.getElementById("color-input").value;
+	listPhases.find(x => x.id === click).color = document.getElementById("color-input2").value;
 
 	// Control de errores, si el valor introducido en cualquiera de los campos es 0 o menor a este,
 	// pon automaticamente un 1
@@ -727,4 +727,34 @@ function addTareas(weight,creationTime){
 	tarea.totalTime = 0;
 	listTareas.push(tarea);
 	printTasks(tarea);
+}
+function saveAddPhase(){
+	var phaseO = new Object();
+	phase.id = getId(); // Sujeto Pruebas
+	phase.name = document.getElementById("name").value;
+	phase.maxTasks = document.getElementById("maxTasks").value;
+	phase.maxTime = document.getElementById("minTime").value;
+	phase.minTime = document.getElementById("maxTime").value;
+	phase.color = document.getElementById("color-input").value;
+	phase.period = 0;
+	
+	listPhases.push(phaseO);
+	
+	$.ajax({
+		type: "POST",
+		url: "/addPhase",
+		data: {
+
+			
+			
+		},success: function(data) {
+			
+			
+		}
+	});
+}
+
+function getId(){
+	
+	return Math.random().toString(36).substr(2, 9) + "-"  + Math.random().toString(36).substr(2, 9);
 }
