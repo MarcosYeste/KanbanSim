@@ -168,13 +168,13 @@ function play() {
 	var anteriorTiempo =0;
 
 	myInterval = setInterval(function() {
-		
+
 		if(chronoTime != 0){
 			kanbanTss++;
 		}
-		
+
 		velocidad ++;
-		
+
 		for (var i = 0; i < fases.length; i++) {
 
 			var doing = fases[i].lastElementChild.firstElementChild;
@@ -229,7 +229,7 @@ function play() {
 					} else {
 						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 					}
-					
+
 					if(task.duration < listPhases[i].minTime){
 						task.duration = listPhases[i].minTime;
 					}
@@ -378,10 +378,7 @@ function play() {
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 							updateDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, indiceTareas);
 							indiceTareas++;
-
-
-
-
+							
 						} else {
 							if (((fases[i + 1].lastElementChild.firstElementChild.childNodes.length - 3) +
 									(fases[i + 1].lastElementChild.lastElementChild.childNodes.length - 3))
@@ -542,18 +539,18 @@ function play() {
 					} 			//if 5 end
 				} 				//divs tareas for end
 			}); 				//foreach end
-			
+
 			sumWip = 0;
 			listPhases.forEach(function(fase) {
-				
+
 				sumWip += fase.maxTasks;
 
 			});
-				
-			
+
+
 			// Veloz
 			if(velocidad == 10){
-				
+
 				finLength = document.getElementsByClassName("contenedorFinal")[0].children.length - finLength;
 
 				eCT =  sumWip / finLength;
@@ -561,7 +558,7 @@ function play() {
 				if (eCT == "Infinity"){
 					eCT = 0;
 				}
-				
+
 				velocidad = 0;
 
 			}
@@ -574,7 +571,7 @@ function play() {
 		console.log("T " + T);
 		console.log("VII " +  VII);
 		console.log("Vt "+ Vt);
-		
+
 		var totalTimeSum = 0;
 		listTareas.forEach(function(task){
 			if(task.phase >= 1 && task.state == "Ended"){
@@ -583,9 +580,9 @@ function play() {
 				totalTimeSum += task.cycleTime;
 			}
 		});
-		
+
 		T = totalTimeSum / numOfTasksEnded;
-		
+
 		var totalSum = 0;
 		listTareas.forEach(function(task){
 			if(task.phase >= 1 && task.state == "Ended"){
@@ -596,7 +593,7 @@ function play() {
 		Vt = totalSum / numOfTasksEnded;
 		numOfTasksEnded = 0;
 
-		
+
 		listTareas.forEach(function(task) {
 			task.sameIteration = false;
 
@@ -626,13 +623,13 @@ function play() {
 			}
 
 		}
-		
+
 		//Funcion para calcular el tiempo medio de la entrada de tareas y la varianza
 		function calcLDValues(distributionValue){
 			if(distributionValue != 0){
 				backLogCollector.push(distributionValue);
 				numOfBacklogCalled++;
-				
+
 				var totalSumBackLog = 0;
 				for(var j = 0; j < backLogCollector.length; j++){
 					totalSumBackLog+= backLogCollector[j];
@@ -646,7 +643,7 @@ function play() {
 
 				VII = totalSum / numOfBacklogCalled;
 //				console.log("DistributionValue " + distributionValue + " backlogcollector " + backLogCollector + " numofbacklogscalled " + numOfBacklogCalled +
-//						" T2 " + TII + " VII " + VII);	
+//				" T2 " + TII + " VII " + VII);	
 			}
 		}
 		// Si la introduccion de tareas es manual que se termine cuando todas las tareas equivalgan 
@@ -738,13 +735,13 @@ function play() {
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 //				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0 && Vt != 0)){
 //				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && TII - T > 0 && TII != 0 && T != 0 && VII != 0){
-//					console.log("if");
-//					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", " + (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
+//				console.log("if");
+//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", " + (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
 //				} else {
-//					console.log("else");
-//					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
+//				console.log("else");
+//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
 //				}
-				
+
 				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
 
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
@@ -757,15 +754,15 @@ function play() {
 			var range = maxTime - minTime;	
 			return (percentage * range) / 100;
 		}
-		
+
 		var i = 0;
 		listUsers.forEach(function(user){
-			
+
 			updateData(myChart, user.tasksWorked, i, 0);
 			updateData(myChart, user.secondsWork, i, 1);
 			i++;
 		});
-		
+
 	}, 1000);
 
 }
@@ -980,7 +977,7 @@ function getDistribution(){
 			backLogType = formedData[0];
 			distributionType = formedData[1];
 			distributionWeightValues = formedData[5].split(';');
-			
+
 			$("input[value='"+ backLogType +"']").prop("checked", true);
 
 			if($("input[value='"+ distributionType +"']").is(':disabled')){
@@ -1009,10 +1006,10 @@ function getDistribution(){
 
 					document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
 					document.getElementById("dataPoissonDistribution").style.height = "0px";
-					
+
 					var weightDivValues = $(".sizeValue");
 					var weightDivSliders = $("div.ui-slider-handle");
-					
+
 					for(var wv = 0; wv < weightDivValues.length; wv++){
 						weightDivValues[wv].innerHTML = distributionWeightValues[wv];
 //						weightDivSliders[wv].firstChild.style.left = distributionWeightValues[wv]+ "%"; 		

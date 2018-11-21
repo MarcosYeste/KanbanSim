@@ -29,7 +29,9 @@ document.getElementById("rmvUsuario").addEventListener("click", rmvModUsers, fal
 document.getElementById("addUser").addEventListener("click", addUsers, false);
 document.getElementById("addUsuario").addEventListener("click", saveAddUser, false);
 document.getElementById("modChrono").addEventListener("click", chrono, false);
-document.getElementById("addTask").addEventListener("click", addTareas, false);
+document.getElementById("addTask").addEventListener("click", function(){
+	addTareas("", leadTime);
+}, false);
 
 
 //____________________________________________________________________

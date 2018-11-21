@@ -6,7 +6,7 @@ function mostrarFinalTarea(tarea,task){
 	
 	task.cycleTime = task.leadTime - task.startTime;
 	
-	tarea.innerHTML = "<p>"+task.name+"</p><p>CycleTime: "+task.cycleTime+"</p><p>LeadTime: "+task.leadTime+"</p>";
+	tarea.innerHTML = '<p data-identification="'+ task.name +'">'+task.name+'</p><p data-identification="'+ task.name + '">CycleTime: '+task.cycleTime+'</p><p data-identification="'+ task.name + '">LeadTime: '+task.leadTime+'</p>';
 	return tarea;
 	// EL LEAD FUNCIONA BIEN, EL CYCLO A MEDIAS , PERO EL CREATION TIME NO LO DA BIEN, CADA TAREA ES  +1 EN LUGAR DE GUARDAR EL LEADTIME
 }
