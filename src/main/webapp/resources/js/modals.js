@@ -52,7 +52,7 @@ function modPhases(){
 
 function saveModPhase() {
 	// Modificamos los datos de la fase
-
+	refreshUsers();
 	listPhases.find(x => x.id === click).name = document.getElementById("modName").value;
 	listPhases.find(x => x.id === click).maxTasks = parseInt(document.getElementById("modWip").value);
 	listPhases.find(x => x.id === click).minTime = parseInt(document.getElementById("modMinTime").value);
@@ -102,7 +102,7 @@ function saveModPhase() {
 //___________________________________________________________________
 
 function modUsers(){
-
+	refreshUsers();
 	formUserValido(saveModUsers, "mod");
 	skillsList = [];
 	click2 = parseInt(event.target.getAttribute("data-identification"));
@@ -212,7 +212,7 @@ function modUsers(){
 	}
 
 	oldName = listUsers[click2].name;
-
+	printUserSession ();
 }
 
 function insertInput(index1, index2){
@@ -280,14 +280,18 @@ function insertInput(index1, index2){
 
 //Guardamos los datos de usuario
 function saveModUsers() {
+	refreshUsers();
 	rawPhases = "";
 	listUsers[click2].name = document.getElementById("modNameUser").value;
 	listUsers[click2].skills = skillsList;
+	
 
 	for(var i = 0; i < listUsers[click2].phases.length; i++){
 		rawPhases += listUsers[click2].phases[i].trim() + ",";
 	}
-
+	
+	sessionStorage.setItem("users", JSON.stringify(listUsers));
+	printUserSession();
 	$.ajax({
 		type: "POST",
 		url: "/modUser",
@@ -305,7 +309,7 @@ function saveModUsers() {
 			$( ".userName[data-identification='"+ click2 +"'] > p:first" )
 			.html("<strong>" + listUsers[click2].name + "</strong>");
 
-			$(".userName[data-identification='"+ click2 +"'] ").attr("name", listUsers[click2].name);
+			$(".userName[data-identification='"+ click2 +"'] ").attr("name", listUsers[click2].name);			
 
 			listTareas.forEach(function(tareas){
 
@@ -321,7 +325,7 @@ function saveModUsers() {
 }
 
 function rmvModUsers() {
-
+	refreshUsers();
 	$.ajax({
 		type: "POST",
 		url: "/rmvUser",
@@ -334,16 +338,16 @@ function rmvModUsers() {
 			removeLabel(myChart,listUsers[click2].name);
 			
 			listUsers.splice(click2, 1);
-			
-			
-
-			$( ".userName[data-identification='"+ click2 +"']").remove();
-			var clases = $(".userName");
-			for (var i = 0; i < clases.length; i++) {
-				if(i >= click2){
-					$( ".userName").attr("data-identification", i);
-				}
-			}
+			sessionStorage.setItem("users", JSON.stringify(listUsers));
+			refreshUsers();
+			printUserSession();
+//			$( ".userName[data-identification='"+ click2 +"']").remove();
+//			var clases = $(".userName");
+//			for (var i = 0; i < clases.length; i++) {
+//				if(i >= click2){
+//					$( ".userName").attr("data-identification", i);
+//				}
+//			}
 		}
 	})
 }
@@ -546,15 +550,19 @@ function addInput(index1, index2, object){
 }
 
 function saveAddUser(){
-
+	refreshUsers();
 	var fases = "";
-
+	
 	for( var i = 0; i < userO.phases.length; i++){
 		fases += userO.phases[i] + ",";
 	}
-
 	userO.name = document.getElementById("addNameUser").value;
-
+	userO.fases = fases;
+	
+	listUsers.push(userO); 	
+	sessionStorage.setItem("users", JSON.stringify(listUsers));
+	printUserSession();
+	
 	$.ajax({
 		type: "POST",
 		url: "/addUser",
@@ -565,33 +573,19 @@ function saveAddUser(){
 			skills: skillCompiler
 
 		},success: function(data) {
-			listUsers.push(userO);
-
+			
+			
+			
 			document.getElementById("addNameUser").value = "";
 
-			document.getElementsByClassName("usersContainer")[0].innerHTML += "<div class='userName' name='"+ userO.name + 
-			"'data-toggle='modal' data-target='#myModal2'> " +
-			"<p> " +
-			"<strong>" + userO.name + "</strong> " +
-			"</p> " +
-			"<i class='fa fa-user-tie fa-2x' aria-hidden='true'></i>";
+//			document.getElementsByClassName("usersContainer")[0].innerHTML += "<div class='userName' name='"+ userO.name + 
+//			"'data-toggle='modal' data-target='#myModal2'> " +
+//			"<p> " +
+//			"<strong>" + userO.name + "</strong> " +
+//			"</p> " +
+//			"<i class='fa fa-user-tie fa-2x' aria-hidden='true'></i>";
 
-			for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
-
-				document.getElementsByClassName("userName")[i].setAttribute("data-identification", i);
-				document.getElementsByClassName("userName")[i].children[0].children[0].setAttribute("data-identification", i);
-				document.getElementsByClassName("userName")[i].children[1].setAttribute("data-identification", i);
-
-				// Abrimos el formulario			
-				document.getElementsByClassName("userName")[i].addEventListener("click", modUsers , false);
-				document.getElementsByClassName("userName")[i].children[0].children[0].addEventListener("click", function(){
-					event.preventDefault();
-				});
-				document.getElementsByClassName("userName")[i].children[1].addEventListener("click", function(){
-					event.preventDefault();
-				});
-
-			}
+			
 
 			// Añadimos al nuevo usuario
 			addData(myChart, userO.name, userO.tasksWorked, "rgba(0,255,233,0.5)");
