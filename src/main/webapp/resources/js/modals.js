@@ -509,7 +509,7 @@ function addInput(index1, index2, object){
 	document.getElementById("addSkillsUser").appendChild(performancesSkillsDivMod);
 	formUserValido(saveAddUser, "add");
 	var sliders = document.getElementsByClassName("sliderAdd");
-
+	
 	$( function() {
 		$( "#addPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider({
 			// Asignamos un valor random al abrir el slider de skills
@@ -522,7 +522,6 @@ function addInput(index1, index2, object){
 				$( "#add" + allcheckBox[index1].value.replace(" ", "") + " > span").html( ui.value + "%" );
 
 				for(var i = 0; i < sliders.length; i++){
-					console.log(ui.value);
 					object.skills[index2] = ui.value;
 
 					skillsList[i] = object.skills[i];
@@ -543,7 +542,7 @@ function addInput(index1, index2, object){
 			}
 		});
 		$( "#add" + allcheckBox[index1].value.replace(" ", "") + " > span").html($("#addPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider( "value" ) + "%");
-		object.skills[index2] = $( "#add" + allcheckBox[index1].value.replace(" ", "") + " > span").html().substr(0,2);
+		object.skills[index2] = parseInt($( "#add" + allcheckBox[index1].value.replace(" ", "") + " > span").html().substr(0, $( "#add" + allcheckBox[index1].value.replace(" ", "") + " > span").html().indexOf("%")));
 	});
 
 	skillsList.push(object.skills[sliders.length - 1]);
