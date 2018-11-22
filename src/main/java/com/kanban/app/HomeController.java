@@ -136,7 +136,16 @@ public class HomeController {
 		return "success";
 
 	}
+	
+	
+	// Add new Users
+		@RequestMapping(value = "/addPhase", method = RequestMethod.POST)
+		public String addPhase() {
 
+
+			return "success";
+
+		}
 
 	// Remove all Tasks
 	@RequestMapping(value = "/rmvTask", method = RequestMethod.POST)

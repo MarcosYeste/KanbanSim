@@ -729,6 +729,9 @@ function addTareas(weight,creationTime){
 	printTasks(tarea);
 }
 function saveAddPhase(){
+	console.log("Dentro");
+	refreshPhases();
+	
 	var phaseO = new Object();
 	phase.id = getId(); // Sujeto Pruebas
 	phase.name = document.getElementById("name").value;
@@ -739,19 +742,10 @@ function saveAddPhase(){
 	phase.period = 0;
 	
 	listPhases.push(phaseO);
+	console.log(document.getElementById("name").value);
+	savePhaseSession();
+	printUserSession();
 	
-	$.ajax({
-		type: "POST",
-		url: "/addPhase",
-		data: {
-
-			
-			
-		},success: function(data) {
-			
-			
-		}
-	});
 }
 
 function getId(){

@@ -47,6 +47,7 @@ var  indiceTareas = 0;
 //Guardar al modificar Phase
 sortPhases();
 refreshUsers();
+refreshPhases();
 
 //Inicializamos la gráfica
 listUsers.forEach(function(user){
@@ -127,7 +128,7 @@ document.getElementById("reset").addEventListener("click", function() {
 });
 
 //Botón elimianr Tareas	
-
+/*
 document.getElementById("divDeleteTasks").addEventListener("click", function() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -138,6 +139,7 @@ document.getElementById("divDeleteTasks").addEventListener("click", function() {
 	xhttp.open("POST", "/rmvTask", true);
 	xhttp.send();
 });
+*/
 
 //Botón nuevo Tablero			
 document.getElementById("divDelete").addEventListener("click", function() {
