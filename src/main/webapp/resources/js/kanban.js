@@ -853,21 +853,22 @@ function sortPhases(){
 			items: "> div.faseName",
 			update: function (event, ui) {
 
-
+				var sortArray = new Array();
 				var info = $(this).sortable("toArray");
-				var fasesString = "";
 				for (var i = 0; i < info.length; i++) {
-					fasesString += info[i] + ",";
-				}
-
-				$.ajax({
-					data: {Stringfases : fasesString},
-					dataType: "String",
-					type: 'POST',
-					url: '/sortPhase',
-					success: function(){
+					for (var j = 0; j < listPhases.length; j++) {
+					
+					if (listPhases[j].id == info[i]) {
+						sortArray.push(listPhases[j]);
 					}
-				});
+				}
+				}
+				for (var i = 0; i < sortArray.length; i++) {
+					listPhases[i] = sortArray[i];
+					
+				}
+				savePhaseSession();
+				printPhaseSession();
 			}
 		});
 		$( "#faseDiv" ).disableSelection();

@@ -783,8 +783,8 @@ function saveAddPhase(){
 	phaseO.id = getRandomId(); // Sujeto Pruebas
 	phaseO.name = document.getElementById("addName").value;
 	phaseO.maxTasks = parseInt(document.getElementById("addWip").value);
-	phaseO.maxTime = parseInt(document.getElementById("addMinTime").value);
-	phaseO.minTime = parseInt(document.getElementById("addMaxTime").value);
+	phaseO.maxTime = parseInt(document.getElementById("addMaxTime").value);
+	phaseO.minTime = parseInt(document.getElementById("addMinTime").value);
 	phaseO.color = document.getElementById("color-input").value;
 	phaseO.period = 0;
 	listPhases.push(phaseO);
