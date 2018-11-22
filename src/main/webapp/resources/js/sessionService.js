@@ -45,6 +45,7 @@ function refreshUsers(){
 
 //____________________________________________________________________
 
+
 function printPhaseSession(){	
 	var sessionPhase = JSON.parse(sessionStorage.getItem("phases"));
 	var fasesD = document.getElementById("faseDiv");

@@ -9,8 +9,7 @@
 	<div class="row card mb-3 border-info mx-auto"
 		style="max-width: 45rem;">
 
-		<div class="card-header bg-info font-weight-bold">Crear Nueva
-			Fase</div>
+		<div class="card-header bg-info font-weight-bold">Crear Nueva Fase</div>
 
 		<div class="card-body">
 
