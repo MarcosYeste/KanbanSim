@@ -14,4 +14,4 @@
 <script src="/resources/js/kanban.js"></script>
 <script src="/resources/js/backlogconf.js"></script>
 
-<script> printUserSession();</script>
+<script> printUserSession(); printPhaseSession();</script>

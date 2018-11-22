@@ -44,8 +44,10 @@ if(document.getElementById("addUsuario")){
 if(document.getElementById("addTask")){
 	document.getElementById("addTask").addEventListener("click", function(){ addTareas("", leadTime); }, false);
 }
-
-
+if(document.getElementById("addPhase")){
+	document.getElementById("addPhase").addEventListener("click", saveAddPhase, false);
+}
+document.getElementById("color-input2").value = "#4ce600";
 
 
 //____________________________________________________________________
@@ -226,7 +228,7 @@ function modUsers(){
 	}
 
 	oldName = listUsers[click2].name;
-	printUserSession ();
+	printUserSession();
 }
 
 function insertInput(index1, index2){
@@ -298,12 +300,12 @@ function saveModUsers() {
 	rawPhases = "";
 	listUsers[click2].name = document.getElementById("modNameUser").value;
 	listUsers[click2].skills = skillsList;
-	
+
 
 	for(var i = 0; i < listUsers[click2].phases.length; i++){
 		rawPhases += listUsers[click2].phases[i].trim() + ",";
 	}
-	
+
 	sessionStorage.setItem("users", JSON.stringify(listUsers));
 	printUserSession();
 	$.ajax({
@@ -317,9 +319,9 @@ function saveModUsers() {
 			skills: skillCompiler
 
 		},success: function(data) {
-			
+
 			modLabel(myChart, oldName, listUsers[click2].name);
-			
+
 			$( ".userName[data-identification='"+ click2 +"'] > p:first" )
 			.html("<strong>" + listUsers[click2].name + "</strong>");
 
@@ -348,9 +350,9 @@ function rmvModUsers() {
 			name: listUsers[click2].name
 
 		},success: function(data) {
-			
+
 			removeLabel(myChart,listUsers[click2].name);
-			
+
 			listUsers.splice(click2, 1);
 			sessionStorage.setItem("users", JSON.stringify(listUsers));
 			refreshUsers();
@@ -358,9 +360,9 @@ function rmvModUsers() {
 //			$( ".userName[data-identification='"+ click2 +"']").remove();
 //			var clases = $(".userName");
 //			for (var i = 0; i < clases.length; i++) {
-//				if(i >= click2){
-//					$( ".userName").attr("data-identification", i);
-//				}
+//			if(i >= click2){
+//			$( ".userName").attr("data-identification", i);
+//			}
 //			}
 		}
 	})
@@ -523,7 +525,7 @@ function addInput(index1, index2, object){
 	document.getElementById("addSkillsUser").appendChild(performancesSkillsDivMod);
 	formUserValido(saveAddUser, "add");
 	var sliders = document.getElementsByClassName("sliderAdd");
-	
+
 	$( function() {
 		$( "#addPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider({
 			// Asignamos un valor random al abrir el slider de skills
@@ -565,17 +567,17 @@ function addInput(index1, index2, object){
 function saveAddUser(){
 	refreshUsers();
 	var fases = "";
-	
+
 	for( var i = 0; i < userO.phases.length; i++){
 		fases += userO.phases[i] + ",";
 	}
 	userO.name = document.getElementById("addNameUser").value;
 	userO.fases = fases;
-	
+
 	listUsers.push(userO); 	
 	sessionStorage.setItem("users", JSON.stringify(listUsers));
 	printUserSession();
-	
+
 	$.ajax({
 		type: "POST",
 		url: "/addUser",
@@ -586,9 +588,9 @@ function saveAddUser(){
 			skills: skillCompiler
 
 		},success: function(data) {
-			
-			
-			
+
+
+
 			document.getElementById("addNameUser").value = "";
 
 //			document.getElementsByClassName("usersContainer")[0].innerHTML += "<div class='userName' name='"+ userO.name + 
@@ -598,7 +600,7 @@ function saveAddUser(){
 //			"</p> " +
 //			"<i class='fa fa-user-tie fa-2x' aria-hidden='true'></i>";
 
-			
+
 
 			// Añadimos al nuevo usuario
 			addData(myChart, userO.name, userO.tasksWorked, "rgba(0,255,233,0.5)");
@@ -743,27 +745,23 @@ function addTareas(weight,creationTime){
 	printTasks(tarea);
 }
 function saveAddPhase(){
-	console.log("Dentro");
 	refreshPhases();
-	
+
 	var phaseO = new Object();
-	phase.id = getId(); // Sujeto Pruebas
-	console.log(phase.id);
-	phase.name = document.getElementById("name").value;
-	console.log(document.getElementById("name").value);
-	phase.maxTasks = document.getElementById("maxTasks").value;
-	phase.maxTime = document.getElementById("minTime").value;
-	phase.minTime = document.getElementById("maxTime").value;
-	phase.color = document.getElementById("color-input").value;
-	phase.period = 0;
-	
+	phaseO.id = getRandomId(); // Sujeto Pruebas
+	phaseO.name = document.getElementById("addName").value;
+	phaseO.maxTasks = document.getElementById("addWip").value;
+	phaseO.maxTime = document.getElementById("addMinTime").value;
+	phaseO.minTime = document.getElementById("addMaxTime").value;
+	phaseO.color = document.getElementById("color-input").value;
+	phaseO.period = 0;
 	listPhases.push(phaseO);
-	console.log(document.getElementById("name").value);
-	savePhaseSession();
-	printUserSession();
 	
+	console.log(document.getElementById("addName").value);
+	savePhaseSession();
+	printPhaseSession();
 }
 
-function getId(){
-	return Math.random().toString(36).substr(2, 9) + "-"  + Math.random().toString(36).substr(2, 9);
+function getRandomId(){
+	return Math.random().toString(36).substr(2, 9) + "-"  + Math.random().toString(36).substr(2, 5) + "-" + Math.random().toString(36).substr(2, 9);
 }
