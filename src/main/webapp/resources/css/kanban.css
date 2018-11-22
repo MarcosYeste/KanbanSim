@@ -344,9 +344,9 @@ button {
 	font-size: 120%;
 	display: table;
 	display: flex;
-	width: 80%;
+	width: 95%;
 	height: auto;
-	margin-left: 10%;
+	margin-left: 3%;
 	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 }

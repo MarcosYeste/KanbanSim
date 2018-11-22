@@ -105,6 +105,7 @@ function generarGraficos(){
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 	div.style.background = "white";
 	document.getElementById("taskChart").style.display = "block";
+	refreshPhases();
 	if(!showGraf){// esto evita que se duplique
 		graficTask();
 		graficPhase();
