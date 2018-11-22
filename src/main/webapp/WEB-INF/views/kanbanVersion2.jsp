@@ -176,7 +176,7 @@ ____________________________________________________________________
 
 </script>
 	
-<c:forEach items="${phases}" var="fase">
+<%-- <c:forEach items="${phases}" var="fase">
 				<c:set value="${fase.id}" var="id" />
 				<c:set value="${fase.name}" var="name" />
 				<c:set value="${fase.maxTasks}" var="maxTasks" />
@@ -195,9 +195,7 @@ ____________________________________________________________________
 					phase.period = 0;
 					listPhases.push(phase);
 					</script>		
-				</c:forEach>
-				<script>sessionStorage.setItem("phases", JSON.stringify(listPhases));</script>
-				
+				</c:forEach> --%>			
 
 		
 		<div id="faseDiv" class="fase">  <!--  No puedo recuperar el valor del session storage -->
@@ -288,7 +286,7 @@ ____________________________________________________________________
 						type="text" id="modMinTime"> Tiempo Máximo: <input
 						type="text" id="modMaxTime"> Color:
 					<div class="col-10">
-						<input class="form-control" type="color" id="color-input"
+						<input class="form-control" type="color" id="color-input2"
 							list="presetColors">
 
 						<datalist id="presetColors">
