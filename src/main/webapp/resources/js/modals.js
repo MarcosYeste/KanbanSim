@@ -21,7 +21,6 @@ var atributo;
 
 //_________________________________________________________________
 
-
 //Llamamos a las funciones
 document.getElementById("modPhase").addEventListener("click", saveModPhase, false);
 document.getElementById("modUsuario").addEventListener("click", saveModUsers, false);
@@ -29,11 +28,30 @@ document.getElementById("rmvUsuario").addEventListener("click", rmvModUsers, fal
 document.getElementById("addUser").addEventListener("click", addUsers, false);
 document.getElementById("addUsuario").addEventListener("click", saveAddUser, false);
 document.getElementById("modChrono").addEventListener("click", chrono, false);
-document.getElementById("addPhase").addEventListener("click", saveAddPhase, false);
+document.getElementById("addPhase").addEventListener("click", function(){
+	
+	if(document.getElementById("addName").value != "" 	&& 
+	   document.getElementById("addWip").value > 0 		&& 
+	   document.getElementById("addMinTime").value > 0  && 
+	   document.getElementById("addMaxTime").value > 0){
+		
+		document.getElementById("addFasesWarning").setAttribute("class","");
+		document.getElementById("addFasesWarning").innerHTML= "";
+			
+		saveAddPhase();
+		
+		addPhases();
+		
+	}else{
+		document.getElementById("addFasesWarning").setAttribute("class","alert alert-warning");
+		document.getElementById("addFasesWarning").innerHTML = "Todos los campos deben ser rellenados";
+		
+	}
+	
+}, false);
 document.getElementById("addTask").addEventListener("click", function(){
 	addTareas("", leadTime);
 }, false);
-document.getElementById("color-input2").value = "#4ce600";
 
 //____________________________________________________________________
 
@@ -729,8 +747,17 @@ function addTareas(weight,creationTime){
 	listTareas.push(tarea);
 	printTasks(tarea);
 }
+function addPhases(){
+	document.getElementById("addName").value = "";
+	document.getElementById("addWip").value = 1;
+	document.getElementById("addMinTime").value = 1;
+	document.getElementById("addMaxTime").value = 1;
+	document.getElementById("color-input").value = "#4ce600";
+	document.getElementById("addFasesWarning").setAttribute("class","");
+	document.getElementById("addFasesWarning").innerHTML= "";
+}
 function saveAddPhase(){
-	console.log("Dentro");
+	
 	refreshPhases();
 
 	var phaseO = new Object();
@@ -744,7 +771,6 @@ function saveAddPhase(){
 
 	listPhases.push(phaseO);
 	
-	console.log(document.getElementById("addName").value);
 	savePhaseSession();
 	printPhaseSession();
 }

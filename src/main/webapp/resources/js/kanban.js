@@ -145,15 +145,8 @@ document.getElementById("divDeleteTasks").addEventListener("click", function() {
 
 //Botón nuevo Tablero			
 document.getElementById("divDelete").addEventListener("click", function() {
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-
-			location.reload();
-		}
-	};
-	xhttp.open("POST", "/rmvAll", true);
-	xhttp.send();
+	sessionStorage.clear();
+	location.reload();
 });
 
 

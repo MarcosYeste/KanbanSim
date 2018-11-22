@@ -56,7 +56,7 @@ public class HomeController {
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
 
-		return "kanbanVersion2";
+		return "kanban";
 
 	}
 
@@ -67,7 +67,7 @@ public class HomeController {
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
 
-		return "kanbanVersion2";
+		return "kanban";
 	}
 
 	// Add new Phase

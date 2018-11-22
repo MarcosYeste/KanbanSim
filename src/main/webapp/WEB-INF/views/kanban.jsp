@@ -281,14 +281,14 @@ ____________________________________________________________________
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="addName"> 
-					WIP: <input type="text" id="addWip"> 
-					Tiempo Mínimo: <input type="text" id="addMinTime"> 
-					Tiempo Máximo: <input type="text" id="addMaxTime"> 
+					Nombre Fase: <input type="text" id="addName" placeholder="Nombre Fase" required> 
+					WIP: <input type="text" id="addWip"  value="1" required> 
+					Tiempo Mínimo: <input type="text" id="addMinTime" value="1" required> 
+					Tiempo Máximo: <input type="text" id="addMaxTime" value="1" required> 
 					Color:
 					<div class="col-10">
 						<input class="form-control" type="color" id="color-input"
-							list="presetColors">
+							list="presetColors" value="#4ce600">
 
 						<datalist id="presetColors">
 							<option>#4ce600</option>
@@ -309,9 +309,8 @@ ____________________________________________________________________
 						</datalist>
 					</div>
 					<br>
-					<button id="addPhase" class="btn btn-secondary"
-						data-dismiss="modal">Añadir</button>
-
+					<button id="addPhase" class="btn btn-secondary">Añadir</button>
+					<div id="addFasesWarning"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

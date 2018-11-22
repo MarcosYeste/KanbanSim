@@ -5,6 +5,6 @@
 		<a class="btn btn-success" href="/distributionForm" role="button">Cambiar
 			Distribución</a> 
 		<a class="btn btn-success" role="button"
-			data-toggle="modal" data-target="#modalAddFases">Nueva Fase</a>
+			data-toggle="modal" data-target="#modalAddFases" id="nuevaFase">Nueva Fase</a>
 	</div>
 </header>
