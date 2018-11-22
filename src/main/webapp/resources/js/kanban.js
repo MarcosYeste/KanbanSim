@@ -895,19 +895,27 @@ function sortPhases(){
 
 
 				var info = $(this).sortable("toArray");
-				var fasesString = "";
+				console.table(info);
+				var sortArray = new Array();
 				for (var i = 0; i < info.length; i++) {
-					fasesString += info[i] + ",";
-				}
-
-				$.ajax({
-					data: {Stringfases : fasesString},
-					dataType: "String",
-					type: 'POST',
-					url: '/sortPhase',
-					success: function(){
+					for (var j = 0; j < listPhases.length; j++) {
+						
+						if (listPhases[j].id == info[i]) {
+							sortArray.push(listPhases[j]);
+						}
 					}
-				});
+				}
+				for (var i = 0; i < sortArray.length; i++) {
+					listPhases[i] = sortArray[i];
+					
+				}
+				console.log("phases");
+				console.table(listPhases);
+				console.log("sorted");
+				console.table(sortArray);
+				savePhaseSession();
+				printPhaseSession();
+				
 			}
 		});
 		$( "#faseDiv" ).disableSelection();

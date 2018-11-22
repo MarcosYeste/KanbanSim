@@ -22,12 +22,28 @@ var atributo;
 //_________________________________________________________________
 
 //Llamamos a las funciones
-document.getElementById("modPhase").addEventListener("click", saveModPhase, false);
-document.getElementById("modUsuario").addEventListener("click", saveModUsers, false);
-document.getElementById("rmvUsuario").addEventListener("click", rmvModUsers, false);
-document.getElementById("addUser").addEventListener("click", addUsers, false);
-document.getElementById("addUsuario").addEventListener("click", saveAddUser, false);
-document.getElementById("modChrono").addEventListener("click", chrono, false);
+
+if(document.getElementById("modPhase")){
+	document.getElementById("modPhase").addEventListener("click", saveModPhase, false);
+}
+if(document.getElementById("modUsuario")){
+	document.getElementById("modUsuario").addEventListener("click", saveModUsers, false);
+}
+if(document.getElementById("rmvUsuario")){
+	document.getElementById("rmvUsuario").addEventListener("click", rmvModUsers, false);
+}
+if(document.getElementById("addUser")){
+	document.getElementById("addUser").addEventListener("click", addUsers, false);
+}
+if(document.getElementById("modChrono")){
+	document.getElementById("modChrono").addEventListener("click", chrono, false);	
+}
+if(document.getElementById("addUsuario")){
+	document.getElementById("addUsuario").addEventListener("click", saveAddUser, false);
+}
+if(document.getElementById("addTask")){
+	document.getElementById("addTask").addEventListener("click", function(){ addTareas("", leadTime); }, false);
+}
 document.getElementById("addPhase").addEventListener("click", function(){
 	
 	if(document.getElementById("addName").value != "" 	&& 
@@ -49,9 +65,7 @@ document.getElementById("addPhase").addEventListener("click", function(){
 	}
 	
 }, false);
-document.getElementById("addTask").addEventListener("click", function(){
-	addTareas("", leadTime);
-}, false);
+
 
 //____________________________________________________________________
 
@@ -753,11 +767,11 @@ function addPhases(){
 	document.getElementById("addMinTime").value = 1;
 	document.getElementById("addMaxTime").value = 1;
 	document.getElementById("color-input").value = "#4ce600";
+	
 	document.getElementById("addFasesWarning").setAttribute("class","");
 	document.getElementById("addFasesWarning").innerHTML= "";
 }
 function saveAddPhase(){
-	
 	refreshPhases();
 
 	var phaseO = new Object();
@@ -768,7 +782,6 @@ function saveAddPhase(){
 	phaseO.minTime = document.getElementById("addMaxTime").value;
 	phaseO.color = document.getElementById("color-input").value;
 	phaseO.period = 0;
-
 	listPhases.push(phaseO);
 	
 	savePhaseSession();
