@@ -40,6 +40,11 @@ function refreshUsers(){
 		listUsers = sessionUsuarios;
 	}
 }
+
+function saveUsersSession(){
+	sessionStorage.setItem("users", JSON.stringify(listUsers));
+}
+
 //____________________________________________________________________
 
 //_____________________ SESSION PHASE  _______________________________
