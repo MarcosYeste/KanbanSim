@@ -85,6 +85,9 @@ function modPhases(){
 
 }
 
+/*----------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------CAMBIAR-------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------*/
 function saveModPhase() {
 	// Modificamos los datos de la fase
 	refreshUsers();
@@ -126,7 +129,9 @@ function saveModPhase() {
 	});
 
 }
-
+/*----------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------*/
 
 //___________________________________________________________________
 
@@ -777,9 +782,9 @@ function saveAddPhase(){
 	var phaseO = new Object();
 	phaseO.id = getRandomId(); // Sujeto Pruebas
 	phaseO.name = document.getElementById("addName").value;
-	phaseO.maxTasks = document.getElementById("addWip").value;
-	phaseO.maxTime = document.getElementById("addMinTime").value;
-	phaseO.minTime = document.getElementById("addMaxTime").value;
+	phaseO.maxTasks = parseInt(document.getElementById("addWip").value);
+	phaseO.maxTime = parseInt(document.getElementById("addMinTime").value);
+	phaseO.minTime = parseInt(document.getElementById("addMaxTime").value);
 	phaseO.color = document.getElementById("color-input").value;
 	phaseO.period = 0;
 	listPhases.push(phaseO);

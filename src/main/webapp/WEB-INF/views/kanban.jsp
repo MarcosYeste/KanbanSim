@@ -332,9 +332,9 @@ ____________________________________________________________________
 				</div>
 				<div class="modal-body">
 					Nombre Fase: <input type="text" id="modName" disabled> 
-					WIP: <input type="text" id="modWip"> 
-					Tiempo Mínimo: <input type="text" id="modMinTime"> 
-					Tiempo Máximo: <input type="text" id="modMaxTime"> 
+					WIP: <input type="number" id="modWip"> 
+					Tiempo Mínimo: <input type="number" id="modMinTime"> 
+					Tiempo Máximo: <input type="number" id="modMaxTime"> 
 					Color: 
 					<div class="col-10">
 						<input class="form-control" type="color" id="color-input2"

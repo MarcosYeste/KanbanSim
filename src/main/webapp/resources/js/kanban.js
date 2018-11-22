@@ -50,7 +50,6 @@ refreshPhases();
 sortPhases();
 
 
-
 //Inicializamos la gráfica
 listUsers.forEach(function(user){
 	addData(myChart, user.name, user.tasksWorked, "rgba(0,255,233,0.5)");
@@ -60,45 +59,6 @@ listUsers.forEach(function(user){
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
-
-
-//____________________________________________________________________
-
-//_______________________ EVENTOS  __________________________________
-
-//____________________________________________________________________
-
-//Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
-for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
-	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", listPhases[i].id);
-	document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", listPhases[i].id);
-
-	// Abrimos el formulario			
-	document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
-
-	document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(){
-		event.preventDefault();
-	});
-}
-
-//Añadimos un attributo auto incremental que nos servira para identificar la posición de cada uno de los elementos
-for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
-
-	document.getElementsByClassName("userName")[i].setAttribute("data-identification", i);
-	document.getElementsByClassName("userName")[i].children[0].children[0].setAttribute("data-identification", i);
-	document.getElementsByClassName("userName")[i].children[1].setAttribute("data-identification", i);
-
-	// Abrimos el formulario			
-	document.getElementsByClassName("userName")[i].addEventListener("click", modUsers , false);
-	document.getElementsByClassName("userName")[i].children[0].children[0].addEventListener("click", function(){
-		event.preventDefault();
-	});
-	document.getElementsByClassName("userName")[i].children[1].addEventListener("click", function(){
-		event.preventDefault();
-	});
-
-}
-
 
 //____________________________________________________________________
 
@@ -178,17 +138,13 @@ function play() {
 			var doing = fases[i].lastElementChild.firstElementChild;
 			var done = fases[i].lastElementChild.lastElementChild;
 
-//			--------------------------------------------------------------------------------------------------------------//
-
 			if (firstLoop) {
 
-
 				for (var j = 0; j < divsTareas.length; j++) {
-					if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
-							(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
+					if (((parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length) - 1) +
+							(parseInt(fases[0].lastElementChild.lastElementChild.childNodes.length) - 1))
 							< listPhases[0].maxTasks) {
-
-
+						
 						doing.appendChild(divsTareas[0]);
 						listTareas[j].cycleTime = 0;
 						listTareas[j].state = "ToDo";
@@ -205,8 +161,9 @@ function play() {
 
 				firstLoop = false;
 			} //if firstloop end
-
-//			---------------------------------------------------------------------------------------------------------------//
+			
+			console.log("Last Element: " + (parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length)));
+			
 			listTareas.forEach(function(task) {
 
 				// Asigna un tiempo a cada tarea de entre el intervalo de la fase
@@ -378,10 +335,12 @@ function play() {
 							indiceTareas++;
 							
 						} else {
-							if (((fases[i + 1].lastElementChild.firstElementChild.childNodes.length - 3) +
-									(fases[i + 1].lastElementChild.lastElementChild.childNodes.length - 3))
+							if (((parseInt(fases[i+1].lastElementChild.firstElementChild.childNodes.length) - 1) +
+									(parseInt(fases[i+1].lastElementChild.lastElementChild.childNodes.length)  - 1))
 									< listPhases[i + 1].maxTasks) {
-
+								
+								console.log("IF3 " + listPhases[i+1].maxTasks);
+								
 								fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
 								task.state = "ToDo";
 								saveTimeStates(task,leadTime,i);
@@ -394,15 +353,16 @@ function play() {
 										divsTareas[t].querySelector(".divState").innerHTML = "ToDo";
 									}
 								}
+								
 							}
 						}
 
 					} else if (task.state == null && task.name == elementName && task.phase == 0) {
 
 						//IF 4
-
-						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
-								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
+						console.log("IF4 ");
+						if (((parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length) - 1) +
+								(parseInt(fases[0].lastElementChild.lastElementChild.childNodes.length)  - 1))
 								< listPhases[0].maxTasks) {							
 
 							doing.appendChild(divsTareas[0]);
@@ -565,15 +525,15 @@ function play() {
 
 		//Calcular media cycle time
 
-		console.log("TII " + TII);
-		console.log("T " + T);
-		console.log("VII " +  VII);
-		console.log("Vt "+ Vt);
+//		console.log("TII " + TII);
+//		console.log("T " + T);
+//		console.log("VII " +  VII);
+//		console.log("Vt "+ Vt);
 
 		var totalTimeSum = 0;
 		listTareas.forEach(function(task){
 			if(task.phase >= 1 && task.state == "Ended"){
-				console.log(task.name + "  " + task.cycleTime);
+				//console.log(task.name + "  " + task.cycleTime);
 				numOfTasksEnded++;
 				totalTimeSum += task.cycleTime;
 			}
@@ -895,27 +855,19 @@ function sortPhases(){
 
 
 				var info = $(this).sortable("toArray");
-				console.table(info);
-				var sortArray = new Array();
+				var fasesString = "";
 				for (var i = 0; i < info.length; i++) {
-					for (var j = 0; j < listPhases.length; j++) {
-						
-						if (listPhases[j].id == info[i]) {
-							sortArray.push(listPhases[j]);
-						}
+					fasesString += info[i] + ",";
+				}
+
+				$.ajax({
+					data: {Stringfases : fasesString},
+					dataType: "String",
+					type: 'POST',
+					url: '/sortPhase',
+					success: function(){
 					}
-				}
-				for (var i = 0; i < sortArray.length; i++) {
-					listPhases[i] = sortArray[i];
-					
-				}
-				console.log("phases");
-				console.table(listPhases);
-				console.log("sorted");
-				console.table(sortArray);
-				savePhaseSession();
-				printPhaseSession();
-				
+				});
 			}
 		});
 		$( "#faseDiv" ).disableSelection();
