@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <jsp:include page="header.jsp"></jsp:include>
 
 <body>
@@ -9,10 +7,13 @@
 	<div class="row card mb-3 border-info mx-auto"
 		style="max-width: 45rem;">
 
-		<div class="card-header bg-info font-weight-bold">Crear Nueva Fase</div>
+		<div class="card-header bg-info font-weight-bold">Crear Nueva
+			Fase</div>
 
 		<div class="card-body">
-			<form>
+			<form Class="form-horizontal">
+
+
 				<div class="form-group">
 
 					<label>Nombre</label>
@@ -31,8 +32,7 @@
 
 					<div class="col-sm-12">
 
-						<input class="form-control" required="required"
-							value="1" />
+						<input class="form-control" required="required" value="1" />
 
 					</div>
 				</div>
@@ -44,16 +44,14 @@
 						<div class="form-group col">
 							<label>Tiempo Mínimo</label>
 							<div>
-								<input class="form-control" required="required"
-									value="1" />
+								<input class="form-control" required="required" value="1" />
 							</div>
 						</div>
 
 						<div class="form-group col">
 							<label>Tiempo Máximo</label>
 							<div>
-								<input class="form-control" required="required"
-									value="1" />
+								<input class="form-control" required="required" value="1" />
 							</div>
 						</div>
 					</div>
@@ -63,7 +61,7 @@
 					<label for="color-input" class="col-2 col-form-label">Color:</label>
 					<div class="col-10">
 						<input class="form-control" type="color" value="#4ce600"
-							id="color-input" list="presetColors"/>
+							id="color-input" list="presetColors" />
 					</div>
 
 					<datalist id="presetColors">
@@ -88,13 +86,13 @@
 				<div class="col-sm-8">
 					<br>
 
-					<button type="submit" class="btn btn-primary"
-						onClick="saveAddPhase()">SAVE</button>
+					<button type="submit" class="btn btn-primary" onClick="saveAddPhase()">SAVE</button>
 
 				</div>
 			</form>
 		</div>
 	</div>
+<jsp:include page="footer.jsp"></jsp:include>
 
 </body>
 </html>

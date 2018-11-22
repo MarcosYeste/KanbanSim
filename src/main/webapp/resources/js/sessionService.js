@@ -50,10 +50,10 @@ function refreshUsers(){
 function printPhaseSession(){	
 	var sessionPhase = JSON.parse(sessionStorage.getItem("phases"));
 	var fasesD = document.getElementById("faseDiv");
-	for (var i = 0; i < lista.length; i++) {
-		var divFases = '<div class="faseName" style="background-color:'+lista[i].color+'" id ="'+lista[i].id+'"">';
-		divFases += '<div class="titulo" data-toggle="modal" data-target="#myModal" name= "'+lista[i].name+'">'+lista[i].name+'<small> (WIP: '+lista[i].maxTasks+')</small></div>';
-		divFases += '<div class="subfase" style="background-color:'+lista[i].color+'"><div id="doing" class="doing"><p class="subSubfase">Doing</p></div>'+
+	for (var i = 0; i < sessionPhase.length; i++) {
+		var divFases = '<div class="faseName" style="background-color:'+sessionPhase[i].color+'" id ="'+sessionPhase[i].id+'"">';
+		divFases += '<div class="titulo" data-toggle="modal" data-target="#myModal" name= "'+sessionPhase[i].name+'">'+sessionPhase[i].name+'<small> (WIP: '+sessionPhase[i].maxTasks+')</small></div>';
+		divFases += '<div class="subfase" style="background-color:'+sessionPhase[i].color+'"><div id="doing" class="doing"><p class="subSubfase">Doing</p></div>'+
 		'<div id="done" class="done"><p class="subSubfase">Done</p></div></div>';
 		fasesD.innerHTML += divFases;
 
