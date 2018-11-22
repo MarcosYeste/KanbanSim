@@ -16,6 +16,7 @@
 .principio {
 	border: 1px solid #0a80f5;
 	width: 20%;
+	max-width:20%;
 	display: flex;
 	flex-direction: column;
 }
@@ -33,8 +34,8 @@
 	overflow-y: scroll;
 }
 #faseDiv{
-	width: 80%;
-	min-width: 80%;
+	width: 70%;
+	min-width: 70%;
 	max-width: 100%;
 	overflow-y: hidden;
 	overflow-x:auto;
@@ -257,6 +258,7 @@ button {
 .doubleButton {
 	display: flex;
 	flex-direction: row;
+	margin-right: -35px;
 }
 
 .doubleButton #divDeleteTasks {
@@ -306,7 +308,10 @@ button {
 #addTask:active {
 	transform: translate(1px, 2px);
 }
-
+#graficos{
+ margin-left: 30px;
+ margin-top: 13px !important;
+}
 
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
 
@@ -340,9 +345,9 @@ button {
 	font-size: 120%;
 	display: table;
 	display: flex;
-	width: 80%;
+	width: 95%;
 	height: auto;
-	margin-left: 10%;
+	margin-left: 3%;
 	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 }

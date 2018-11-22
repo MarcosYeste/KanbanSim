@@ -34,20 +34,20 @@ var myChartPhase = new Chart(ctcs, {
 	data: {
 		labels: [],
 		datasets: [{
-			label: 'Total',
+			label: 'Total segundos',
 			data:[],
 			backgroundColor:[],
 			hoverBackgroundColor:[],
 		},{
-			label: 'ToDO',
+			label: 'Media ToDO',
 			data:[],
 			backgroundColor:[],
 		},{
-			label: 'Doing',
+			label: 'Media Doing',
 			data:[],
 			backgroundColor:[],
 		},{
-			label: 'Done',
+			label: 'Media Done',
 			data:[],
 			backgroundColor:[],
 		},
@@ -56,7 +56,7 @@ var myChartPhase = new Chart(ctcs, {
 	options: options
 });
 
-function addDataPhase(chart,media,faseTime) {
+function addDataPhase(chart,media) {
 	 var color1 = getRandomColor();
 	 var color2 = getRandomColor();
 	 var color3 = getRandomColor();
@@ -64,7 +64,7 @@ function addDataPhase(chart,media,faseTime) {
 		
 		chart.data.labels.push(listPhases[k].name);		
 				 
-			 chart.data.datasets[0].data.push(faseTime[k]);
+			 chart.data.datasets[0].data.push(listPhases[k].period);
 			 chart.data.datasets[0].backgroundColor.push(listPhases[k].color + "99");		
 			 chart.data.datasets[0].hoverBackgroundColor.push(listPhases[k].color);	
 			 chart.data.datasets[1].data.push(media[k][0]);			 

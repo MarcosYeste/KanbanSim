@@ -12,28 +12,28 @@ var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
 var gaussianCounter = 0;
-var gaussian = 0; 		//Tiempo en el que entrara la proxima tarea en distribución normal
+var gaussian = 0; 			// Tiempo en el que entrara la proxima tarea en distribución normal
 var taskNameCounter = 0;
-var poisson = 0;  		//Tiempo en el que entrara la proxima tarea en distribución poisson
+var poisson = 0;  			// Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
 var weight = "M"; 
-var weightTime = 0; 	//Tiempo en el que entrara la proxima tarea en uniforme con peso
+var weightTime = 0; 		// Tiempo en el que entrara la proxima tarea en uniforme con peso
 var weightCounter = 0;
-var numOfBacklogCalled = 0; //Veces que se ha generado un tiempo en backlog constante
-var backLogCollector = []; //Acumulador de tiempos de entrada
-var TII = 0; //tiempo medio entre la creación de tareas
-var VII = 0; // varianza entre la creación de tareas
-var T = 0; // CT medio (el real, no el estimado)
-var Vt = 0; //varianza del CT
-var numOfTasksEnded = 0; //Numero de tareas que han entrado al tablero y no han finalizado
+var numOfBacklogCalled = 0; // Veces que se ha generado un tiempo en backlog constante
+var backLogCollector = []; 	// Acumulador de tiempos de entrada
+var TII = 0; 				// Tiempo medio entre la creación de tareas
+var VII = 0; 				// Varianza entre la creación de tareas
+var T = 0; 					// CT medio (el real, no el estimado)
+var Vt = 0; 				// Varianza del CT
+var numOfTasksEnded = 0; 	// Numero de tareas que han entrado al tablero y no han finalizado
 var backLogType; 
 var distributionWeightValues = [0, 0, 0, 0];
 
 var distributionType;
-var inputBase = 1; //Base value for normal distribution 
-var inputVariance = 1; // Variance value for normal distribution
-var inputLambda = 1; // Lambda value for poisson distribution 
-getDistribution(); //Type of backlog tasks input 'constant', 'manual'
+var inputBase = 1; 			// Base value for normal distribution 
+var inputVariance = 1; 		// Variance value for normal distribution
+var inputLambda = 1; 		// Lambda value for poisson distribution 
+getDistribution(); 			// Type of backlog tasks input 'constant', 'manual'
 if(backLogType == null){
 	backLogType = "manual";
 }
@@ -44,8 +44,11 @@ var eCT = 0;
 var eLT = 0;
 var  indiceTareas = 0;
 
+refreshUsers();
+refreshPhases();
 //Guardar al modificar Phase
 sortPhases();
+
 
 //Inicializamos la gráfica
 listUsers.forEach(function(user){
@@ -56,45 +59,6 @@ listUsers.forEach(function(user){
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
-
-
-//____________________________________________________________________
-
-//_______________________ EVENTOS  __________________________________
-
-//____________________________________________________________________
-
-//Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
-for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
-	document.getElementsByClassName("titulo")[i].setAttribute("data-identification", listPhases[i].id);
-	document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", listPhases[i].id);
-
-	// Abrimos el formulario			
-	document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
-
-	document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(){
-		event.preventDefault();
-	});
-}
-
-//Añadimos un attributo auto incremental que nos servira para identificar la posición de cada uno de los elementos
-for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
-
-	document.getElementsByClassName("userName")[i].setAttribute("data-identification", i);
-	document.getElementsByClassName("userName")[i].children[0].children[0].setAttribute("data-identification", i);
-	document.getElementsByClassName("userName")[i].children[1].setAttribute("data-identification", i);
-
-	// Abrimos el formulario			
-	document.getElementsByClassName("userName")[i].addEventListener("click", modUsers , false);
-	document.getElementsByClassName("userName")[i].children[0].children[0].addEventListener("click", function(){
-		event.preventDefault();
-	});
-	document.getElementsByClassName("userName")[i].children[1].addEventListener("click", function(){
-		event.preventDefault();
-	});
-
-}
-
 
 //____________________________________________________________________
 
@@ -126,7 +90,7 @@ document.getElementById("reset").addEventListener("click", function() {
 });
 
 //Botón elimianr Tareas	
-
+/*
 document.getElementById("divDeleteTasks").addEventListener("click", function() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -137,18 +101,12 @@ document.getElementById("divDeleteTasks").addEventListener("click", function() {
 	xhttp.open("POST", "/rmvTask", true);
 	xhttp.send();
 });
+ */
 
 //Botón nuevo Tablero			
 document.getElementById("divDelete").addEventListener("click", function() {
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-
-			location.reload();
-		}
-	};
-	xhttp.open("POST", "/rmvAll", true);
-	xhttp.send();
+	sessionStorage.clear();
+	location.reload();
 });
 
 
@@ -168,26 +126,23 @@ function play() {
 	var anteriorTiempo =0;
 
 	myInterval = setInterval(function() {
-		
+
 		if(chronoTime != 0){
 			kanbanTss++;
 		}
-		
+
 		velocidad ++;
-		
+
 		for (var i = 0; i < fases.length; i++) {
 
 			var doing = fases[i].lastElementChild.firstElementChild;
 			var done = fases[i].lastElementChild.lastElementChild;
 
-//			--------------------------------------------------------------------------------------------------------------//
-
 			if (firstLoop) {
 
-
 				for (var j = 0; j < divsTareas.length; j++) {
-					if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
-							(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
+					if (((parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length) - 1) +
+							(parseInt(fases[0].lastElementChild.lastElementChild.childNodes.length) - 1))
 							< listPhases[0].maxTasks) {
 
 						doing.appendChild(divsTareas[0]);
@@ -207,7 +162,8 @@ function play() {
 				firstLoop = false;
 			} //if firstloop end
 
-//			---------------------------------------------------------------------------------------------------------------//
+			console.log("Last Element: " + (parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length)));
+
 			listTareas.forEach(function(task) {
 
 				// Asigna un tiempo a cada tarea de entre el intervalo de la fase
@@ -228,7 +184,7 @@ function play() {
 					} else {
 						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 					}
-					
+
 					if(task.duration < listPhases[i].minTime){
 						task.duration = listPhases[i].minTime;
 					}
@@ -411,13 +367,12 @@ function play() {
 							updateDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, indiceTareas);
 							indiceTareas++;
 
-
-
-
 						} else {
-							if (((fases[i + 1].lastElementChild.firstElementChild.childNodes.length - 3) +
-									(fases[i + 1].lastElementChild.lastElementChild.childNodes.length - 3))
+							if (((parseInt(fases[i+1].lastElementChild.firstElementChild.childNodes.length) - 1) +
+									(parseInt(fases[i+1].lastElementChild.lastElementChild.childNodes.length)  - 1))
 									< listPhases[i + 1].maxTasks) {
+
+								console.log("IF3 " + listPhases[i+1].maxTasks);
 
 								fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
 								task.state = "ToDo";
@@ -431,14 +386,16 @@ function play() {
 										divsTareas[t].querySelector(".divState").innerHTML = "ToDo";
 									}
 								}
+
 							}
 						}
 
 					} else if (task.state == null && task.name == elementName && task.phase == 0) {
 
 						//IF 4
-						if (((fases[0].lastElementChild.firstElementChild.childNodes.length - 3) +
-								(fases[0].lastElementChild.lastElementChild.childNodes.length - 3))
+						console.log("IF4 ");
+						if (((parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length) - 1) +
+								(parseInt(fases[0].lastElementChild.lastElementChild.childNodes.length)  - 1))
 								< listPhases[0].maxTasks) {							
 
 							doing.appendChild(divsTareas[0]);
@@ -603,18 +560,18 @@ function play() {
 					} 			//if 5 end
 				} 				//divs tareas for end
 			}); 				//foreach end
-			
+
 			sumWip = 0;
 			listPhases.forEach(function(fase) {
-				
+
 				sumWip += fase.maxTasks;
 
 			});
-				
-			
+
+
 			// Veloz
 			if(velocidad == 10){
-				
+
 				finLength = document.getElementsByClassName("contenedorFinal")[0].children.length - finLength;
 
 				eCT =  sumWip / finLength;
@@ -622,7 +579,7 @@ function play() {
 				if (eCT == "Infinity"){
 					eCT = 0;
 				}
-				
+
 				velocidad = 0;
 
 			}
@@ -630,23 +587,30 @@ function play() {
 		} //end phases for
 
 		//Calcular media cycle time
-//
 //		console.log("TII " + TII);
 //		console.log("T " + T);
 //		console.log("VII " +  VII);
 //		console.log("Vt "+ Vt);
+//<<<<<<< HEAD
 		
 		var totalTimeSum = 0;
 		listTareas.forEach(function(task){
 			if(task.phase >= 1 && task.state == "Ended"){
 //				console.log(task.name + "  " + task.cycleTime);
+//=======
+//
+//		var totalTimeSum = 0;
+//		listTareas.forEach(function(task){
+//			if(task.phase >= 1 && task.state == "Ended"){
+//				//console.log(task.name + "  " + task.cycleTime);
+//>>>>>>> 90a2b441ec6de0dbc34bd10532236662003e430f
 				numOfTasksEnded++;
 				totalTimeSum += task.cycleTime;
 			}
 		});
-		
+
 		T = totalTimeSum / numOfTasksEnded;
-		
+
 		var totalSum = 0;
 		listTareas.forEach(function(task){
 			if(task.phase >= 1 && task.state == "Ended"){
@@ -657,7 +621,7 @@ function play() {
 		Vt = totalSum / numOfTasksEnded;
 		numOfTasksEnded = 0;
 
-		
+
 		listTareas.forEach(function(task) {
 			task.sameIteration = false;
 
@@ -687,13 +651,13 @@ function play() {
 			}
 
 		}
-		
+
 		//Funcion para calcular el tiempo medio de la entrada de tareas y la varianza
 		function calcLDValues(distributionValue){
 			if(distributionValue != 0){
 				backLogCollector.push(distributionValue);
 				numOfBacklogCalled++;
-				
+
 				var totalSumBackLog = 0;
 				for(var j = 0; j < backLogCollector.length; j++){
 					totalSumBackLog+= backLogCollector[j];
@@ -707,7 +671,7 @@ function play() {
 
 				VII = totalSum / numOfBacklogCalled;
 //				console.log("DistributionValue " + distributionValue + " backlogcollector " + backLogCollector + " numofbacklogscalled " + numOfBacklogCalled +
-//						" T2 " + TII + " VII " + VII);	
+//				" T2 " + TII + " VII " + VII);	
 			}
 		}
 		// Si la introduccion de tareas es manual que se termine cuando todas las tareas equivalgan 
@@ -799,13 +763,13 @@ function play() {
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 //				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0 && Vt != 0)){
 //				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && TII - T > 0 && TII != 0 && T != 0 && VII != 0){
-//					console.log("if");
-//					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", " + (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
+//				console.log("if");
+//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", " + (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
 //				} else {
-//					console.log("else");
-//					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
+//				console.log("else");
+//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
 //				}
-				
+
 				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
 
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
@@ -818,15 +782,15 @@ function play() {
 			var range = maxTime - minTime;	
 			return (percentage * range) / 100;
 		}
-		
+
 		var i = 0;
 		listUsers.forEach(function(user){
-			
+
 			updateData(myChart, user.tasksWorked, i, 0);
 			updateData(myChart, user.secondsWork, i, 1);
 			i++;
 		});
-		
+
 	}, 1000);
 
 }
@@ -949,6 +913,7 @@ function deshabilitarMenus(disable){
 //____________________________________________________________________
 
 function sortPhases(){
+	refreshPhases();
 	$( function() {
 		$( "#faseDiv" ).sortable({
 			disabled:false,
@@ -961,21 +926,24 @@ function sortPhases(){
 
 
 				var info = $(this).sortable("toArray");
-				var fasesString = "";
+				var sortArray = new Array();
 				for (var i = 0; i < info.length; i++) {
-					fasesString += info[i] + ",";
+					for (var j = 0; j < listPhases.length; j++) {
+
+						if (listPhases[j].id == info[i]) {
+							sortArray.push(listPhases[j]);
+						}
+					}
+				}
+				for (var i = 0; i < sortArray.length; i++) {
+					listPhases[i] = sortArray[i];
+
 				}
 
-				$.ajax({
-					data: {Stringfases : fasesString},
-					dataType: "String",
-					type: 'POST',
-					url: '/sortPhase',
-					success: function(){
-					}
-				});
+				savePhaseSession();
+				printPhaseSession();
 			}
-		});
+		})
 		$( "#faseDiv" ).disableSelection();
 		$( "#faseDiv").css("cursor", "move");
 	});
@@ -1041,7 +1009,7 @@ function getDistribution(){
 			backLogType = formedData[0];
 			distributionType = formedData[1];
 			distributionWeightValues = formedData[5].split(';');
-			
+
 			$("input[value='"+ backLogType +"']").prop("checked", true);
 
 			if($("input[value='"+ distributionType +"']").is(':disabled')){
@@ -1070,10 +1038,10 @@ function getDistribution(){
 
 					document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
 					document.getElementById("dataPoissonDistribution").style.height = "0px";
-					
+
 					var weightDivValues = $(".sizeValue");
 					var weightDivSliders = $("div.ui-slider-handle");
-					
+
 					for(var wv = 0; wv < weightDivValues.length; wv++){
 						weightDivValues[wv].innerHTML = distributionWeightValues[wv];
 					}

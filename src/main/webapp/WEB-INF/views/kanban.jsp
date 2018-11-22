@@ -32,10 +32,10 @@ ____________________________________________________________________
 			</button>
 
 			<!-- Borrar Tareas -->
-			<button id="divDeleteTasks">
+			<!-- <button id="divDeleteTasks">
 				<i id="deleteTasks" class="fas fa-trash-alt fa-3x"
 					data-toggle="tooltip" data-placement="top" title="Borrar Tareas"></i>
-			</button>
+			</button> -->
 
 		</div>
 	<div class="doubleButton">
@@ -166,39 +166,17 @@ ____________________________________________________________________
 			</div>
 
 		</div>
+<script>
+//____________________________________________________________________
 
-		<div id="faseDiv" class="fase">
+//_______________________     Session     ____________________________
 
-			<c:forEach items="${phases}" var="fase">
-
-				<div class="faseName"
-					style='background-color:<c:out value="${fase.color}"></c:out>'
-					id=<c:out value="${fase.id}"></c:out>>
-					<div class="titulo" data-toggle="modal" data-target="#myModal"
-						name="<c:out value='${fase.name}'></c:out>">
-						<c:out value="${fase.name}"></c:out>
-						<small>(WIP: <c:out value="${fase.maxTasks}"></c:out>)
-						</small>
-					</div>
-
-					<div class="subfase"
-						style='background-color:<c:out value="${fase.color}"></c:out>'>
-
-						<div id="doing" class="doing">
-
-							<p class="subSubfase">Doing</p>
-
-						</div>
-
-						<div id="done" class="done">
-
-							<p class="subSubfase">Done</p>
-
-						</div>
-					</div>
-				</div>
+//____________________________________________________________________
 
 
+</script>
+	
+<%-- <c:forEach items="${phases}" var="fase">
 				<c:set value="${fase.id}" var="id" />
 				<c:set value="${fase.name}" var="name" />
 				<c:set value="${fase.maxTasks}" var="maxTasks" />
@@ -216,9 +194,14 @@ ____________________________________________________________________
 					phase.color = '<c:out value="${color}"></c:out>';
 					phase.period = 0;
 					listPhases.push(phase);
-				</script>
+					</script>		
+				</c:forEach> --%>			
 
-			</c:forEach>
+		
+		<div id="faseDiv" class="fase">  <!--  No puedo recuperar el valor del session storage -->
+
+	
+
 		</div>
 
 		<div class="fin">
@@ -246,14 +229,11 @@ ____________________________________________________________________
 				<i class="fas fa-user-plus fa-2x" data-toggle="modal"
 					data-target="#addUsers"></i>
 			</button></span>
-		<div class="usersContainer">
+		<div class="usersContainer" id="usersContainer">
 
-			<c:forEach items="${user}" var="user">
-				<div class="userName" name="<c:out value='${user.name}'></c:out>"
-					data-toggle="modal" data-target="#myModal2">
-					<p>
-						<strong><c:out value="${user.name}"></c:out></strong>
-					</p>
+			<%-- <c:forEach items="${user}" var="user">
+				<div class="userName" name="<c:out value='${user.name}'></c:out>" data-toggle="modal" data-target="#myModal2">
+					<p>	<strong><c:out value="${user.name}"></c:out></strong></p>
 					<i class="fa fa-user-tie fa-2x" aria-hidden="true"></i>
 
 					<c:set value="${user.name}" var="name" />
@@ -278,7 +258,7 @@ ____________________________________________________________________
 						listUsers.push(userO);
 					</script>
 				</div>
-			</c:forEach>
+			</c:forEach> --%>
 		</div>
 	</fieldset>
 <!--
@@ -289,7 +269,57 @@ __________________________ MODAL FORMS  ____________________________
 
 ____________________________________________________________________
 -->
+	
+	<!-- Modal Añadir Fases-->
+	<div class="modal fade" id="modalAddFases" role="dialog">
+		<div class="modal-dialog">
 
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Añadir Fase</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					Nombre Fase: <input type="text" id="addName" placeholder="Nombre Fase" required> 
+					WIP: <input type="text" id="addWip"  value="1" required> 
+					Tiempo Mínimo: <input type="text" id="addMinTime" value="1" required> 
+					Tiempo Máximo: <input type="text" id="addMaxTime" value="1" required> 
+					Color:
+					<div class="col-10">
+						<input class="form-control" type="color" id="color-input"
+							list="presetColors" value="#4ce600">
+
+						<datalist id="presetColors">
+							<option>#4ce600</option>
+							<option>#66cc00</option>
+							<option>#00ffbf</option>
+							<option>#009999</option>
+							<option>#005ce6</option>
+							<option>#563d7c</option>
+							<option>#da70d6</option>
+							<option>#cc00cc</option>
+							<option>#b30047</option>
+							<option>#e60000</option>
+							<option>#cc8800</option>
+							<option>#cccc00</option>
+							<option>#E5FB22</option>
+							<option>#BEFF00</option>
+							<option>#ace600</option>
+						</datalist>
+					</div>
+					<br>
+					<button id="addPhase" class="btn btn-secondary">Añadir</button>
+					<div id="addFasesWarning"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
 	<!-- Modal Modificar Fases-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -301,15 +331,16 @@ ____________________________________________________________________
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="modName" disabled> WIP:
-					<input type="text" id="modWip"> Tiempo Mínimo: <input
-						type="text" id="modMinTime"> Tiempo Máximo: <input
-						type="text" id="modMaxTime"> Color:
+					Nombre Fase: <input type="text" id="modName" disabled> 
+					WIP: <input type="number" id="modWip"> 
+					Tiempo Mínimo: <input type="number" id="modMinTime"> 
+					Tiempo Máximo: <input type="number" id="modMaxTime"> 
+					Color: 
 					<div class="col-10">
-						<input class="form-control" type="color" id="color-input"
-							list="presetColors">
+						<input class="form-control" type="color" id="color-input2"
+							list="presetColors2">
 
-						<datalist id="presetColors">
+						<datalist id="presetColors2">
 							<option>#4ce600</option>
 							<option>#66cc00</option>
 							<option>#00ffbf</option>

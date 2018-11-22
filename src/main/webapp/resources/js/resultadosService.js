@@ -88,19 +88,12 @@ function graficTask(){
 function graficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();
-	var phasesTime = new Array();
-		
+	calculoTiemposTotalesFase();
 	listTareas.forEach(function(task) {	
 			mediaPorFases2.push(task.timeByStats);
-			for (var i = 0; i < task.phasesTime.length; i++) {
-				if(task.phasesTime[i] == undefined){
-					task.phasesTime[i] = 0;
-				}
-				phasesTime.push(task.phasesTime[i]);
-			}
 	});
 	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
-	addDataPhase(myChartPhase,resultMediaPorFases2,phasesTime);
+	addDataPhase(myChartPhase,resultMediaPorFases2);
 }
 //_______________________________________________________________
 

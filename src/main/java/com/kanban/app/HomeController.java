@@ -9,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kanban.app.Model.Phase;
-import com.kanban.app.Model.ResultTask;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 import com.kanban.app.services.KanbanService;
@@ -58,7 +56,7 @@ public class HomeController {
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
 
-		return "kanbanVersion2";
+		return "kanban";
 
 	}
 
@@ -69,7 +67,7 @@ public class HomeController {
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
 
-		return "kanbanVersion2";
+		return "kanban";
 	}
 
 	// Add new Phase
@@ -125,12 +123,11 @@ public class HomeController {
 
 	// Add new Users
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String createUser(Model model, String name, String fases, String skills) {
+	public String createUser(Model model, String name, String fases) {
 
 		User user = new User();
 		user.setName(name);
 		user.setRawPhases(fases);
-		user.setRawSkills(skills);
 		model.addAttribute("user", kanbanService.saveUser(user, userArray));
 		model.addAttribute("phases", phasesArray);
 		model.addAttribute("task", taskArray);
@@ -138,7 +135,16 @@ public class HomeController {
 		return "success";
 
 	}
+	
+	
+	// Add new Users
+		@RequestMapping(value = "/addPhase", method = RequestMethod.POST)
+		public String addPhase() {
 
+
+			return "success";
+
+		}
 
 	// Remove all Tasks
 	@RequestMapping(value = "/rmvTask", method = RequestMethod.POST)
