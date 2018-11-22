@@ -101,7 +101,7 @@ document.getElementById("divDeleteTasks").addEventListener("click", function() {
 	xhttp.open("POST", "/rmvTask", true);
 	xhttp.send();
 });
-*/
+ */
 
 //Botón nuevo Tablero			
 document.getElementById("divDelete").addEventListener("click", function() {
@@ -144,7 +144,7 @@ function play() {
 					if (((parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length) - 1) +
 							(parseInt(fases[0].lastElementChild.lastElementChild.childNodes.length) - 1))
 							< listPhases[0].maxTasks) {
-						
+
 						doing.appendChild(divsTareas[0]);
 						listTareas[j].cycleTime = 0;
 						listTareas[j].state = "ToDo";
@@ -161,9 +161,9 @@ function play() {
 
 				firstLoop = false;
 			} //if firstloop end
-			
+
 			console.log("Last Element: " + (parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length)));
-			
+
 			listTareas.forEach(function(task) {
 
 				// Asigna un tiempo a cada tarea de entre el intervalo de la fase
@@ -333,14 +333,14 @@ function play() {
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 							updateDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, indiceTareas);
 							indiceTareas++;
-							
+
 						} else {
 							if (((parseInt(fases[i+1].lastElementChild.firstElementChild.childNodes.length) - 1) +
 									(parseInt(fases[i+1].lastElementChild.lastElementChild.childNodes.length)  - 1))
 									< listPhases[i + 1].maxTasks) {
-								
+
 								console.log("IF3 " + listPhases[i+1].maxTasks);
-								
+
 								fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
 								task.state = "ToDo";
 								saveTimeStates(task,leadTime,i);
@@ -353,7 +353,7 @@ function play() {
 										divsTareas[t].querySelector(".divState").innerHTML = "ToDo";
 									}
 								}
-								
+
 							}
 						}
 
@@ -843,6 +843,7 @@ function deshabilitarMenus(disable){
 //____________________________________________________________________
 
 function sortPhases(){
+	refreshPhases();
 	$( function() {
 		$( "#faseDiv" ).sortable({
 			disabled:false,
@@ -855,21 +856,24 @@ function sortPhases(){
 
 
 				var info = $(this).sortable("toArray");
-				var fasesString = "";
+				var sortArray = new Array();
 				for (var i = 0; i < info.length; i++) {
-					fasesString += info[i] + ",";
+					for (var j = 0; j < listPhases.length; j++) {
+
+						if (listPhases[j].id == info[i]) {
+							sortArray.push(listPhases[j]);
+						}
+					}
+				}
+				for (var i = 0; i < sortArray.length; i++) {
+					listPhases[i] = sortArray[i];
+
 				}
 
-				$.ajax({
-					data: {Stringfases : fasesString},
-					dataType: "String",
-					type: 'POST',
-					url: '/sortPhase',
-					success: function(){
-					}
-				});
+				savePhaseSession();
+				printPhaseSession();
 			}
-		});
+		})
 		$( "#faseDiv" ).disableSelection();
 		$( "#faseDiv").css("cursor", "move");
 	});

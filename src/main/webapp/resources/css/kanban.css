@@ -258,6 +258,7 @@ button {
 .doubleButton {
 	display: flex;
 	flex-direction: row;
+	margin-right: -35px;
 }
 
 .doubleButton #divDeleteTasks {
@@ -308,8 +309,8 @@ button {
 	transform: translate(1px, 2px);
 }
 #graficos{
- padding-left: 40px;
- padding-top: 20px !important;
+ margin-left: 30px;
+ margin-top: 13px !important;
 }
 
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/

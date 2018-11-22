@@ -379,13 +379,6 @@ function rmvModUsers() {
 			sessionStorage.setItem("users", JSON.stringify(listUsers));
 			refreshUsers();
 			printUserSession();
-//			$( ".userName[data-identification='"+ click2 +"']").remove();
-//			var clases = $(".userName");
-//			for (var i = 0; i < clases.length; i++) {
-//			if(i >= click2){
-//			$( ".userName").attr("data-identification", i);
-//			}
-//			}
 		}
 	})
 }
@@ -551,7 +544,7 @@ function addInput(index1, index2, object){
 	$( function() {
 		$( "#addPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider({
 			// Asignamos un valor random al abrir el slider de skills
-			value: Math.round(Math.random() * 90 + 10),
+			value: parseInt(Math.round(Math.random() * 90 + 10)),
 			min: 10,
 			max: 100,
 			step: 10,
@@ -606,8 +599,7 @@ function saveAddUser(){
 		data: {
 
 			name : userO.name,
-			fases: fases,
-			skills: skillCompiler
+			fases: fases
 
 		},success: function(data) {
 
