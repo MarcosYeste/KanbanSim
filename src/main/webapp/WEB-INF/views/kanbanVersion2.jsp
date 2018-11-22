@@ -269,7 +269,58 @@ __________________________ MODAL FORMS  ____________________________
 
 ____________________________________________________________________
 -->
+	
+	<!-- Modal Añadir Fases-->
+	<div class="modal fade" id="modalAddFases" role="dialog">
+		<div class="modal-dialog">
 
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Añadir Fase</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					Nombre Fase: <input type="text" id="addName"> 
+					WIP: <input type="text" id="addWip"> 
+					Tiempo Mínimo: <input type="text" id="addMinTime"> 
+					Tiempo Máximo: <input type="text" id="addMaxTime"> 
+					Color:
+					<div class="col-10">
+						<input class="form-control" type="color" id="color-input"
+							list="presetColors">
+
+						<datalist id="presetColors">
+							<option>#4ce600</option>
+							<option>#66cc00</option>
+							<option>#00ffbf</option>
+							<option>#009999</option>
+							<option>#005ce6</option>
+							<option>#563d7c</option>
+							<option>#da70d6</option>
+							<option>#cc00cc</option>
+							<option>#b30047</option>
+							<option>#e60000</option>
+							<option>#cc8800</option>
+							<option>#cccc00</option>
+							<option>#E5FB22</option>
+							<option>#BEFF00</option>
+							<option>#ace600</option>
+						</datalist>
+					</div>
+					<br>
+					<button id="addPhase" class="btn btn-secondary"
+						data-dismiss="modal">Añadir</button>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
 	<!-- Modal Modificar Fases-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -281,15 +332,16 @@ ____________________________________________________________________
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="modName" disabled> WIP:
-					<input type="text" id="modWip"> Tiempo Mínimo: <input
-						type="text" id="modMinTime"> Tiempo Máximo: <input
-						type="text" id="modMaxTime"> Color:
+					Nombre Fase: <input type="text" id="modName" disabled> 
+					WIP: <input type="text" id="modWip"> 
+					Tiempo Mínimo: <input type="text" id="modMinTime"> 
+					Tiempo Máximo: <input type="text" id="modMaxTime"> 
+					Color: 
 					<div class="col-10">
 						<input class="form-control" type="color" id="color-input2"
-							list="presetColors">
+							list="presetColors2">
 
-						<datalist id="presetColors">
+						<datalist id="presetColors2">
 							<option>#4ce600</option>
 							<option>#66cc00</option>
 							<option>#00ffbf</option>

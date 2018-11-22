@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <jsp:include page="header.jsp"></jsp:include>
 
 <body>
@@ -32,8 +31,7 @@
 
 					<div class="col-sm-12">
 
-						<input class="form-control" required="required"
-							value="1" />
+						<input class="form-control" required="required" value="1" />
 
 					</div>
 				</div>
@@ -45,16 +43,14 @@
 						<div class="form-group col">
 							<label>Tiempo Mínimo</label>
 							<div>
-								<input class="form-control" required="required"
-									value="1" />
+								<input class="form-control" required="required" value="1" />
 							</div>
 						</div>
 
 						<div class="form-group col">
 							<label>Tiempo Máximo</label>
 							<div>
-								<input class="form-control" required="required"
-									value="1" />
+								<input class="form-control" required="required" value="1" />
 							</div>
 						</div>
 					</div>
@@ -64,7 +60,7 @@
 					<label for="color-input" class="col-2 col-form-label">Color:</label>
 					<div class="col-10">
 						<input class="form-control" type="color" value="#4ce600"
-							id="color-input" list="presetColors"/>
+							id="color-input" list="presetColors" />
 					</div>
 
 					<datalist id="presetColors">
@@ -96,6 +92,5 @@
 			</form>
 		</div>
 	</div>
-
 </body>
-</html>
+</html> --%>

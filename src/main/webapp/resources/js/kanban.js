@@ -44,10 +44,12 @@ var eCT = 0;
 var eLT = 0;
 var  indiceTareas = 0;
 
-//Guardar al modificar Phase
-sortPhases();
 refreshUsers();
 refreshPhases();
+//Guardar al modificar Phase
+sortPhases();
+
+
 
 //Inicializamos la gráfica
 listUsers.forEach(function(user){
