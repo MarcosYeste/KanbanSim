@@ -67,28 +67,31 @@ $(function () {
 //____________________________________________________________________
 
 //Play Button
-document.getElementById("playpause").addEventListener("change", function() {
+if(document.getElementById("playpause")){
+	document.getElementById("playpause").addEventListener("change", function() {
 
-	// Si esta en play
-	if (this.checked) {
+		// Si esta en play
+		if (this.checked) {
 
-		deshabilitarMenus(true);
+			deshabilitarMenus(true);
 
-		play();
+			play();
 
-	} else {
+		} else {
 
-		clearInterval(myInterval);
+			clearInterval(myInterval);
 
-		deshabilitarMenus(false);
-	}
-});
+			deshabilitarMenus(false);
+		}
+	});
+}
 
 //Boton Reset
-document.getElementById("reset").addEventListener("click", function() {
-	location.reload();
-});
-
+if(document.getElementById("reset")){
+	document.getElementById("reset").addEventListener("click", function() {
+		location.reload();
+	});
+}
 //Botón elimianr Tareas	
 /*
 document.getElementById("divDeleteTasks").addEventListener("click", function() {
@@ -103,12 +106,13 @@ document.getElementById("divDeleteTasks").addEventListener("click", function() {
 });
  */
 
-//Botón nuevo Tablero			
-document.getElementById("divDelete").addEventListener("click", function() {
-	sessionStorage.clear();
-	location.reload();
-});
-
+//Botón nuevo Tablero	
+if(document.getElementById("divDelete")){
+	document.getElementById("divDelete").addEventListener("click", function() {
+		sessionStorage.clear();
+		location.reload();
+	});
+}
 
 //____________________________________________________________________
 
@@ -909,7 +913,7 @@ function sortPhases(){
 			items: "> div.faseName",
 			update: function (event, ui) {
 
-
+				var sortArray = new Array();
 				var info = $(this).sortable("toArray");
 				var sortArray = new Array();
 				for (var i = 0; i < info.length; i++) {
@@ -1034,16 +1038,20 @@ function getDistribution(){
 			}
 			if(backLogType == "constant"){
 				$("[name='distributionType']").removeAttr("disabled");
-
-				document.getElementById("addTask").setAttribute("disabled", "");
-				document.getElementById("addTask").setAttribute("aria-disabled", "true");
+				if(document.getElementById("addTask")){
+					document.getElementById("addTask").setAttribute("disabled", "");
+					document.getElementById("addTask").setAttribute("aria-disabled", "true");
+				}
 			}else{
 				$("[name='distributionType']").attr("disabled", "");
 				if(document.getElementById("modBacklogBtn")){
 					document.getElementById("modBacklogBtn").removeAttribute("disabled");
 				}
-				document.getElementById("addTask").removeAttribute("disabled");
-				document.getElementById("addTask").removeAttribute("aria-disabled");
+				if(document.getElementById("addTask")){				
+					document.getElementById("addTask").removeAttribute("disabled");
+					document.getElementById("addTask").removeAttribute("aria-disabled");
+				}
+
 			}
 		}
 	});

@@ -44,6 +44,7 @@ if(document.getElementById("addUsuario")){
 if(document.getElementById("addTask")){
 	document.getElementById("addTask").addEventListener("click", function(){ addTareas("", leadTime); }, false);
 }
+if(document.getElementById("addPhase")){
 document.getElementById("addPhase").addEventListener("click", function(){
 
 	if(document.getElementById("addName").value != "" 	&& 
@@ -65,7 +66,7 @@ document.getElementById("addPhase").addEventListener("click", function(){
 	}
 
 }, false);
-
+}
 
 //____________________________________________________________________
 
@@ -600,8 +601,12 @@ function formUserValido(funcion,accion){
 //______________________________________________________________________
 
 if (chronoTimeTypeSelection == "sec") {
+	if(document.getElementById("modChronoTime")){
 	document.getElementById("modChronoTime").value = chronoTime;
+	}
+	if(document.getElementsByName("chronoTimeType")[0] != undefined){
 	document.getElementsByName("chronoTimeType")[0].setAttribute("checked", "");
+	}
 } else {
 	document.getElementById("modChronoTime").value = chronoTime / 60;
 	document.getElementsByName("chronoTimeType")[1].setAttribute("checked", "");
