@@ -123,12 +123,11 @@ public class HomeController {
 
 	// Add new Users
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String createUser(Model model, String name, String fases, String skills) {
+	public String createUser(Model model, String name, String fases) {
 
 		User user = new User();
 		user.setName(name);
 		user.setRawPhases(fases);
-		user.setRawSkills(skills);
 		model.addAttribute("user", kanbanService.saveUser(user, userArray));
 		model.addAttribute("phases", phasesArray);
 		model.addAttribute("task", taskArray);

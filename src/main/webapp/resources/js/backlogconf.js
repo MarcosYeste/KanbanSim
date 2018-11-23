@@ -106,7 +106,7 @@ $(document).ready(function(){
 				});
 				selectedBacklog = "normal";
 				distributionIsSelected = false;
-
+				document.getElementById("modBacklogBtn").removeAttribute("disabled");
 				document.getElementById("paramTitle").style.visibility = "hidden";
 				document.getElementById("paramTitle").style.height = "0px";
 				document.getElementById("dataNormalDistribution").style.visibility = "hidden";

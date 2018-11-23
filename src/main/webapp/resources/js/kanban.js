@@ -67,28 +67,31 @@ $(function () {
 //____________________________________________________________________
 
 //Play Button
-document.getElementById("playpause").addEventListener("change", function() {
-
-	// Si esta en play
-	if (this.checked) {
-
-		deshabilitarMenus(true);
-
-		play();
-
-	} else {
-
-		clearInterval(myInterval);
-
-		deshabilitarMenus(false);
-	}
-});
+if(document.getElementById("playpause")){
+	document.getElementById("playpause").addEventListener("change", function() {
+	
+		// Si esta en play
+		if (this.checked) {
+	
+			deshabilitarMenus(true);
+	
+			play();
+	
+		} else {
+	
+			clearInterval(myInterval);
+	
+			deshabilitarMenus(false);
+		}
+	});
+}
 
 //Boton Reset
-document.getElementById("reset").addEventListener("click", function() {
-	location.reload();
-});
-
+if(document.getElementById("reset")){
+	document.getElementById("reset").addEventListener("click", function() {
+		location.reload();
+	});
+}
 //Botón elimianr Tareas	
 /*
 document.getElementById("divDeleteTasks").addEventListener("click", function() {
@@ -101,14 +104,15 @@ document.getElementById("divDeleteTasks").addEventListener("click", function() {
 	xhttp.open("POST", "/rmvTask", true);
 	xhttp.send();
 });
-*/
+ */
 
-//Botón nuevo Tablero			
-document.getElementById("divDelete").addEventListener("click", function() {
-	sessionStorage.clear();
-	location.reload();
-});
-
+//Botón nuevo Tablero	
+if(document.getElementById("divDelete")){
+	document.getElementById("divDelete").addEventListener("click", function() {
+		sessionStorage.clear();
+		location.reload();
+	});
+}
 
 //____________________________________________________________________
 
@@ -144,7 +148,7 @@ function play() {
 					if (((parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length) - 1) +
 							(parseInt(fases[0].lastElementChild.lastElementChild.childNodes.length) - 1))
 							< listPhases[0].maxTasks) {
-						
+
 						doing.appendChild(divsTareas[0]);
 						listTareas[j].cycleTime = 0;
 						listTareas[j].state = "ToDo";
@@ -161,9 +165,9 @@ function play() {
 
 				firstLoop = false;
 			} //if firstloop end
-			
+
 			console.log("Last Element: " + (parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length)));
-			
+
 			listTareas.forEach(function(task) {
 
 				// Asigna un tiempo a cada tarea de entre el intervalo de la fase
@@ -256,47 +260,79 @@ function play() {
 								for(var up = 0; up<user.phases.length; up++){
 									for(var p = 0; p < fases.length; p++){
 										var phasesName = fases[p].children[0].childNodes[0].textContent.trim();
-
+										
 										if(user.phases[up].trim() != actualPhaseName.trim()){
-											for(var t = 0; t < listTareas.length; t++){												
-												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){
-													isTotallyFree = true;
-												} else {
-													isTotallyFree = false;
-												}
+											for(var t = 0; t < listTareas.length; t++){	
+												if(listTareas[t].phase - 1 >= 0){
+													if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName.trim()){
+														isTotallyFree = true;
+														console.log("1")
+													} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
+														isTotallyFree = false;
+														console.log("2" + " " + (i+1))
+													} 
+												} 
+												//Antigüo sistema
+//												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){
+//												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName.trim() && (listTareas[t].phase - 1 >= 0)){
+//													console.log(listTareas[t].name );
+//													console.log(user.name + " otra fase if 1")
+//													if(listPhases[listTareas[t].phase].name.trim() == phasesName.trim()){
+//														console.log(user.name + " otra fase if 1.1")
+//														isTotallyFree = true;
+//														console.log( " phase " + listPhases[listTareas[t].phase-1].name);
+//													}
+//												} else if(){
+//													console.log(user.name + " otra fase if 2")
+//													isTotallyFree = false;
+//												}
 											}
 
 										} else if(user.phases[up].trim() == actualPhaseName.trim()){
 											phaseSkill = up;
-											for(var t = 0; t < listTareas.length; t++){
-												if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
-													isTotallyFree = true;
-												} else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] == null){
-													isTotallyFree = false;
+											for(var t = 0; t < listTareas.length; t++){	
+												if(listTareas[t].phase - 1 >= 0){
+													console.log("if 2 a");
+													if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName.trim()){
+														isTotallyFree = true;
+													} else {
+														isTotallyFree = false;
+													}
 												}
+												//Antigüo sistema
+//												if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
+//													console.log(user.name + "misma fase if 1")
+//													isTotallyFree = true;
+//												} else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] == null){
+//													console.log(user.name + " misma fase if 2")
+//													isTotallyFree = false;
+//												}
 											}
 										}
+									}//
+
+								}
+								console.log(user.name + " veredict " + isTotallyFree);
+								if(isTotallyFree){
+									console.log(user.name);
+									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
+									document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
+									document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
+									task.assignedUsers.push(user.name);
+									if(!task.staticAssigneds.includes((user.name)+" ")){											
+										user.tasksWorked += 1;
+										task.staticAssigneds += (user.name)+" ";
 									}
-									if(isTotallyFree){
+									user.assigned = true;
 
-										task.assignedUsers.push(user.name);
-										if(!task.staticAssigneds.includes((user.name)+" ")){											
-											user.tasksWorked += 1;
-											task.staticAssigneds += (user.name)+" ";
-										}
-										user.assigned = true;
+									if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 
-										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
-
-											task.duration = 1;
-										} else {
-											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
-										}
-
+										task.duration = 1;
+									} else {
+										task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 									}
 
 								}
-
 							}
 							// Este if es para aumentar los segundos trabajados
 
@@ -324,6 +360,7 @@ function play() {
 					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
 						//IF 3
+						console.log("if3")
 						if (fases[i + 1] == null) {							
 							task.state = "Ended";
 							task.totalTime = 0;
@@ -333,14 +370,14 @@ function play() {
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 							updateDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, indiceTareas);
 							indiceTareas++;
-							
+
 						} else {
 							if (((parseInt(fases[i+1].lastElementChild.firstElementChild.childNodes.length) - 1) +
 									(parseInt(fases[i+1].lastElementChild.lastElementChild.childNodes.length)  - 1))
 									< listPhases[i + 1].maxTasks) {
-								
+
 								console.log("IF3 " + listPhases[i+1].maxTasks);
-								
+
 								fases[i + 1].lastElementChild.firstElementChild.appendChild(divsTareas[k]);
 								task.state = "ToDo";
 								saveTimeStates(task,leadTime,i);
@@ -353,7 +390,7 @@ function play() {
 										divsTareas[t].querySelector(".divState").innerHTML = "ToDo";
 									}
 								}
-								
+
 							}
 						}
 
@@ -401,9 +438,9 @@ function play() {
 							}								
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
-							task.phase == (i + 1) && !task.sameIteration){
-
+							task.phase == (i + 1) && !task.sameIteration){0
 						//IF 5
+						console.log("if 5")
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
 
 						var phaseSkill;
@@ -443,48 +480,78 @@ function play() {
 
 											if(user.phases[up].trim() != actualPhaseName.trim()){
 												for(var t = 0; t < listTareas.length; t++){
-													if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName.trim()){
-														isTotallyFree = true;
+													if(listTareas[t].phase - 1 >= 0){
+														if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName.trim()){
+															isTotallyFree = true;
+															console.log("1")
+														} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
+															isTotallyFree = false;
+															console.log("2")
+														} 
 													} else {
-														isTotallyFree = false;
+														console.log("3")
 													}
+													//Antigüo sistema
+//													if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){
+//													if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName.trim() && (listTareas[t].phase - 1 >= 0)){
+//														console.log(listTareas[t].name );
+//														if(listPhases[listTareas[t].phase].name.trim() == phasesName.trim()){
+//															isTotallyFree = true;
+//															console.log( " phase " + listPhases[listTareas[t].phase-1].name);
+//														}
+//													} else {
+//														isTotallyFree = false;
+//													}
 												}
 
 											} else {
+												
 												phaseSkill = up;
 												for(var t = 0; t < listTareas.length; t++){
-
-													if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
-
-														isTotallyFree = true;
-													} else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] == null){
-
-														isTotallyFree = false;
+													if(listTareas[t].phase - 1 >= 0){
+														if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName.trim()){
+															isTotallyFree = true;
+															console.log("4")
+														} else {
+															console.log("5")
+															isTotallyFree = false;
+														}
+													} else {
+														console.log("6")
 													}
+													//Antigüo sistema
+//													if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
+//
+//														isTotallyFree = true;
+//													} else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] == null){
+//
+//														isTotallyFree = false;
+//													}
 												}
 											}
 										}
-
+										
 										// Asignar tarea Empezada, tarea Multiusuario
-										if(isTotallyFree){ 
-											task.assignedUsers.push(user.name);
-											if(!task.staticAssigneds.includes((user.name)+" ")){
-												user.tasksWorked += 1;
-												task.staticAssigneds += (user.name)+" ";
-
-											}
-											user.assigned = true;
-
-											if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
-												task.duration = 1;
-											} else {
-												task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
-											}
-
-										}
+										
 									}
 								}
+								if(isTotallyFree){ 
+									task.assignedUsers.push(user.name);
+									if(!task.staticAssigneds.includes((user.name)+" ")){
+										user.tasksWorked += 1;
+										task.staticAssigneds += (user.name)+" ";
 
+									}
+									user.assigned = true;
+
+									if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
+										task.duration = 1;
+									} else {
+										task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
+									}
+
+								}
+								
 								if(user.assigned){
 
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
@@ -524,16 +591,23 @@ function play() {
 		} //end phases for
 
 		//Calcular media cycle time
-
 //		console.log("TII " + TII);
 //		console.log("T " + T);
 //		console.log("VII " +  VII);
 //		console.log("Vt "+ Vt);
-
+//<<<<<<< HEAD
+		
 		var totalTimeSum = 0;
 		listTareas.forEach(function(task){
 			if(task.phase >= 1 && task.state == "Ended"){
-				//console.log(task.name + "  " + task.cycleTime);
+//				console.log(task.name + "  " + task.cycleTime);
+//=======
+//
+//		var totalTimeSum = 0;
+//		listTareas.forEach(function(task){
+//			if(task.phase >= 1 && task.state == "Ended"){
+//				//console.log(task.name + "  " + task.cycleTime);
+//>>>>>>> 90a2b441ec6de0dbc34bd10532236662003e430f
 				numOfTasksEnded++;
 				totalTimeSum += task.cycleTime;
 			}
@@ -843,6 +917,7 @@ function deshabilitarMenus(disable){
 //____________________________________________________________________
 
 function sortPhases(){
+	refreshPhases();
 	$( function() {
 		$( "#faseDiv" ).sortable({
 			disabled:false,
@@ -855,22 +930,24 @@ function sortPhases(){
 
 				var sortArray = new Array();
 				var info = $(this).sortable("toArray");
+				var sortArray = new Array();
 				for (var i = 0; i < info.length; i++) {
 					for (var j = 0; j < listPhases.length; j++) {
-					
-					if (listPhases[j].id == info[i]) {
-						sortArray.push(listPhases[j]);
+
+						if (listPhases[j].id == info[i]) {
+							sortArray.push(listPhases[j]);
+						}
 					}
-				}
 				}
 				for (var i = 0; i < sortArray.length; i++) {
 					listPhases[i] = sortArray[i];
-					
+
 				}
+
 				savePhaseSession();
 				printPhaseSession();
 			}
-		});
+		})
 		$( "#faseDiv" ).disableSelection();
 		$( "#faseDiv").css("cursor", "move");
 	});
@@ -976,13 +1053,20 @@ function getDistribution(){
 			}
 			if(backLogType == "constant"){
 				$("[name='distributionType']").removeAttr("disabled");
-
-				document.getElementById("addTask").setAttribute("disabled", "");
-				document.getElementById("addTask").setAttribute("aria-disabled", "true");
+				if(document.getElementById("addTask")){
+					document.getElementById("addTask").setAttribute("disabled", "");
+					document.getElementById("addTask").setAttribute("aria-disabled", "true");
+				}
 			}else{
 				$("[name='distributionType']").attr("disabled", "");
+				if(document.getElementById("modBacklogBtn")){
+					document.getElementById("modBacklogBtn").removeAttribute("disabled");
+				}
+				if(document.getElementById("addTask")){				
 				document.getElementById("addTask").removeAttribute("disabled");
 				document.getElementById("addTask").removeAttribute("aria-disabled");
+				}
+				
 			}
 		}
 	});

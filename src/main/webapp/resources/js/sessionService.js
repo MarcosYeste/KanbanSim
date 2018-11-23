@@ -6,9 +6,10 @@
 function printUserSession(){
 
 	var sessionUsuarios = JSON.parse(sessionStorage.getItem("users"));
-
+if(document.getElementById("usersContainer")){
 	var divU = document.getElementById("usersContainer");
 	divU.innerHTML = "";
+
 	if(sessionUsuarios != null){
 		for (var i = 0; i < sessionUsuarios.length; i++) {
 			var usuarioDiv = '<div class="userName" name="'+sessionUsuarios[i].name+'" data-toggle="modal" data-target="#myModal2" data-identification="'+i+'">';
@@ -34,12 +35,18 @@ function printUserSession(){
 		}
 	}
 }
+}
 function refreshUsers(){
 	if(sessionStorage.getItem("users")){
 		var sessionUsuarios = JSON.parse(sessionStorage.getItem("users"));
 		listUsers = sessionUsuarios;
 	}
 }
+
+function saveUsersSession(){
+	sessionStorage.setItem("users", JSON.stringify(listUsers));
+}
+
 //____________________________________________________________________
 
 //_____________________ SESSION PHASE  _______________________________
@@ -50,6 +57,7 @@ function refreshUsers(){
 function printPhaseSession(){
 	var sessionPhase = JSON.parse(sessionStorage.getItem("phases"));
 	if(sessionPhase != null){
+		if(document.getElementById("faseDiv")){
 		var fasesD = document.getElementById("faseDiv");
 		fasesD.innerHTML = "";
 		for (var i = 0; i < sessionPhase.length; i++) {
@@ -61,7 +69,7 @@ function printPhaseSession(){
 			fasesD.innerHTML += divFases;
 
 		}
-
+		}
 		//Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
 		for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 			document.getElementsByClassName("titulo")[i].setAttribute("data-identification", listPhases[i].id);
