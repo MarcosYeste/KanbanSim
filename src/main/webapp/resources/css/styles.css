@@ -102,17 +102,17 @@ h1 {
 	margin: 0;
 }
 
-.form-control[type=color][list="presetColors"]::-webkit-color-swatch-wrapper
+.form-control[type=color][list="presetColors"]::-webkit-color-swatch-wrapper, .form-control[type=color][list="presetColors2"]::-webkit-color-swatch-wrapper
 	{
 	padding: .5rem .75rem;
 }
 
-.form-control[type=color][list="presetColors"]:-moz-color-swatch-wrapper
+.form-control[type=color][list="presetColors"]:-moz-color-swatch-wrapper, .form-control[type=color][list="presetColors2"]:-moz-color-swatch-wrapper
 	{
 	padding: .5rem .75rem;
 }
 
-.form-control[type=color][list="presetColors"]:-ms-color-swatch-wrapper
+.form-control[type=color][list="presetColors"]:-ms-color-swatch-wrapper, .form-control[type=color][list="presetColors2"]:-ms-color-swatch-wrapper
 	{
 	padding: .5rem .75rem;
 }

@@ -1,4 +1,5 @@
 
+if(document.getElementById("myChartTask")){
 var ctc = document.getElementById("myChartTask").getContext('2d');
 
 var myChartTask = new Chart(ctc, {
@@ -18,7 +19,7 @@ var myChartTask = new Chart(ctc, {
 	}
 });
 
-
+}
 function addDataTask(chart, cycle, lead, esfuerzo, color, taskname) {
 	var newDataset  = addDataSet(chart, cycle, lead, esfuerzo, color, taskname);
 	chart.data.datasets.push(newDataset);		
@@ -35,21 +36,22 @@ function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){      // FALT
 	};
 	 newDataset.label.push(taskname);
 	 for (var index = 0; index < chart.data.labels.length; ++index) {
+		 if(newDataset.data != undefined){
 		 	newDataset.data.push(esfuerzo);
 	        newDataset.data.push(cycle);
 	        newDataset.data.push(lead);
-	        
+		 }
 	      }
 	 console.log("newDataSet = "+newDataset);
 	
 	return newDataset;
 }
 function updateDataTask(chart, cycle, lead, esfuerzo, index){
-	
+	if(chart.data.datasets[index] != undefined){
 		chart.data.datasets[index].data[0] = esfuerzo;
 		chart.data.datasets[index].data[1] = cycle;
 		chart.data.datasets[index].data[2] = lead;
-	
+	}
 	
 	chart.update();
 }

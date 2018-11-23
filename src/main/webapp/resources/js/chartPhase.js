@@ -1,4 +1,4 @@
-
+if(document.getElementById("myChartPhase")){
 var ctcs = document.getElementById("myChartPhase").getContext('2d');
 
 var options = {
@@ -55,7 +55,7 @@ var myChartPhase = new Chart(ctcs, {
 	},
 	options: options
 });
-
+}
 function addDataPhase(chart,media) {
 	 var color1 = getRandomColor();
 	 var color2 = getRandomColor();

@@ -44,28 +44,29 @@ if(document.getElementById("addUsuario")){
 if(document.getElementById("addTask")){
 	document.getElementById("addTask").addEventListener("click", function(){ addTareas("", leadTime); }, false);
 }
+if(document.getElementById("addPhase")){
 document.getElementById("addPhase").addEventListener("click", function(){
-	
+
 	if(document.getElementById("addName").value != "" 	&& 
-	   document.getElementById("addWip").value > 0 		&& 
-	   document.getElementById("addMinTime").value > 0  && 
-	   document.getElementById("addMaxTime").value > 0){
-		
+			document.getElementById("addWip").value > 0 		&& 
+			document.getElementById("addMinTime").value > 0  && 
+			document.getElementById("addMaxTime").value > 0){
+
 		document.getElementById("addFasesWarning").setAttribute("class","");
 		document.getElementById("addFasesWarning").innerHTML= "";
-			
+
 		saveAddPhase();
-		
+
 		addPhases();
-		
+
 	}else{
 		document.getElementById("addFasesWarning").setAttribute("class","alert alert-warning");
 		document.getElementById("addFasesWarning").innerHTML = "Todos los campos deben ser rellenados";
-		
-	}
-	
-}, false);
 
+	}
+
+}, false);
+}
 
 //____________________________________________________________________
 
@@ -109,24 +110,8 @@ function saveModPhase() {
 		listPhases.find(x => x.id === click).maxTime = 1;
 	}
 
-	$.ajax({
-		type: "POST",
-		url: "/modPhase",
-		data: {
-
-			name: listPhases.find(x => x.id === click).name,
-			wip : listPhases.find(x => x.id === click).maxTasks,
-			min : listPhases.find(x => x.id === click).minTime,
-			max : listPhases.find(x => x.id === click).maxTime,
-			color: listPhases.find(x => x.id === click).color
-
-		},success: function(data) {
-			var tituloInd = $(".faseName").index($("#" + click));
-			document.getElementsByClassName("titulo")[tituloInd].children[0].innerHTML = "(WIP: " + listPhases.find(x => x.id === click).maxTasks + ")";
-			document.getElementsByClassName("subfase")[tituloInd].style.backgroundColor = listPhases.find(x => x.id === click).color;
-			document.getElementsByClassName("faseName")[tituloInd].style.backgroundColor = listPhases.find(x => x.id === click).color;
-		}
-	});
+	savePhaseSession();
+	printPhaseSession();
 
 }
 /*----------------------------------------------------------------------------------------------------------*/
@@ -208,21 +193,29 @@ function modUsers(){
 			insertInput(index1, listUsers[click2].phases.indexOf(event.target.value));
 
 		} else {
-
+			console.log("hola");
 			for(var i = 0; i < listUsers[click2].phases.length; i++){
-
+				console.log(listUsers[click2].phases.length);
 				if(event.target.value == listUsers[click2].phases[i].trim()){
 
 					listUsers[click2].phases.splice(i, 1);
+					console.log(listUsers[click2].skills);
+					listUsers[click2].skills.splice(i, 1);
+					console.log(listUsers[click2].skills);
 
 					if(listUsers[click2].phases.length == 0){
 
 						listUsers[click2].phases = [];
+						listUsers[click2].skills = [];
 
 					}
 				}
 			}
-
+			
+			if(listUsers[click2].phases.length != 0){
+				saveUsersSession();
+				refreshUsers();
+			}
 			var inputs = document.getElementsByClassName("modSkillInput");
 
 			for(var i = 0 ; i < inputs.length; i++){
@@ -250,11 +243,9 @@ function modUsers(){
 	}
 
 	oldName = listUsers[click2].name;
-	printUserSession();
 }
 
 function insertInput(index1, index2){
-
 	var performancesSkillsDivMod = document.createElement("div");
 	var performancesId = document.createAttribute("id");
 	var performancesClass = document.createAttribute("class");
@@ -280,6 +271,12 @@ function insertInput(index1, index2){
 	formUserValido(saveModUsers, "mod");
 
 	var sliders = document.getElementsByClassName("sliderMod");
+
+
+	// REVISAR
+	if(listUsers[click2].skills[index2] == undefined){
+		listUsers[click2].skills[index2] = 100;
+	}
 
 	$( function() {
 		$( "#modPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "") ).slider({
@@ -313,53 +310,31 @@ function insertInput(index1, index2){
 	});
 
 	skillsList.push(listUsers[click2].skills[sliders.length - 1]);
-
+	saveUsersSession();
 }
 
 //Guardamos los datos de usuario
 function saveModUsers() {
 	refreshUsers();
-	rawPhases = "";
 	listUsers[click2].name = document.getElementById("modNameUser").value;
 	listUsers[click2].skills = skillsList;
 
 
-	for(var i = 0; i < listUsers[click2].phases.length; i++){
-		rawPhases += listUsers[click2].phases[i].trim() + ",";
-	}
+	listTareas.forEach(function(tareas){
 
-	sessionStorage.setItem("users", JSON.stringify(listUsers));
-	printUserSession();
-	$.ajax({
-		type: "POST",
-		url: "/modUser",
-		data: {
-
-			oldName: oldName,
-			newName: listUsers[click2].name,
-			phases: rawPhases,
-			skills: skillCompiler
-
-		},success: function(data) {
-
-			modLabel(myChart, oldName, listUsers[click2].name);
-
-			$( ".userName[data-identification='"+ click2 +"'] > p:first" )
-			.html("<strong>" + listUsers[click2].name + "</strong>");
-
-			$(".userName[data-identification='"+ click2 +"'] ").attr("name", listUsers[click2].name);			
-
-			listTareas.forEach(function(tareas){
-
-				for(var i = 0; i < tareas.assignedUsers.length; i++){
-					if(tareas.assignedUsers[i] == oldName){
-						tareas.assignedUsers[i] = listUsers[click2].name;
-					}
-				}
-
-			})
+		for(var i = 0; i < tareas.assignedUsers.length; i++){
+			if(tareas.assignedUsers[i] == oldName){
+				tareas.assignedUsers[i] = listUsers[click2].name;
+			}
 		}
-	});
+
+	})
+
+	modLabel(myChart, oldName, listUsers[click2].name);
+	saveUsersSession();
+	printUserSession();
+
+
 }
 
 function rmvModUsers() {
@@ -544,7 +519,7 @@ function addInput(index1, index2, object){
 	$( function() {
 		$( "#addPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "")).slider({
 			// Asignamos un valor random al abrir el slider de skills
-			value: parseInt(Math.round(Math.random() * 90 + 10)),
+			value: 100,
 			min: 10,
 			max: 100,
 			step: 10,
@@ -557,7 +532,7 @@ function addInput(index1, index2, object){
 
 					skillsList[i] = object.skills[i];
 					if(skillsList[i] == null || skillsList[i] == ""){
-						skillsList[i] = 10;
+						skillsList[i] = 100;
 					}
 
 				}
@@ -593,36 +568,14 @@ function saveAddUser(){
 	sessionStorage.setItem("users", JSON.stringify(listUsers));
 	printUserSession();
 
-	$.ajax({
-		type: "POST",
-		url: "/addUser",
-		data: {
 
-			name : userO.name,
-			fases: fases
+	document.getElementById("addNameUser").value = "";
 
-		},success: function(data) {
+	// Añadimos al nuevo usuario
+	addData(myChart, userO.name, userO.tasksWorked, "rgba(0,255,233,0.5)");
+	myChart.update();
 
-
-
-			document.getElementById("addNameUser").value = "";
-
-//			document.getElementsByClassName("usersContainer")[0].innerHTML += "<div class='userName' name='"+ userO.name + 
-//			"'data-toggle='modal' data-target='#myModal2'> " +
-//			"<p> " +
-//			"<strong>" + userO.name + "</strong> " +
-//			"</p> " +
-//			"<i class='fa fa-user-tie fa-2x' aria-hidden='true'></i>";
-
-
-
-			// Añadimos al nuevo usuario
-			addData(myChart, userO.name, userO.tasksWorked, "rgba(0,255,233,0.5)");
-			myChart.update();
-
-			userO = new Object();
-		}
-	})
+	userO = new Object();
 }
 
 function formUserValido(funcion,accion){
@@ -648,8 +601,12 @@ function formUserValido(funcion,accion){
 //______________________________________________________________________
 
 if (chronoTimeTypeSelection == "sec") {
+	if(document.getElementById("modChronoTime")){
 	document.getElementById("modChronoTime").value = chronoTime;
+	}
+	if(document.getElementsByName("chronoTimeType")[0] != undefined){
 	document.getElementsByName("chronoTimeType")[0].setAttribute("checked", "");
+	}
 } else {
 	document.getElementById("modChronoTime").value = chronoTime / 60;
 	document.getElementsByName("chronoTimeType")[1].setAttribute("checked", "");
@@ -764,7 +721,7 @@ function addPhases(){
 	document.getElementById("addMinTime").value = 1;
 	document.getElementById("addMaxTime").value = 1;
 	document.getElementById("color-input").value = "#4ce600";
-	
+
 	document.getElementById("addFasesWarning").setAttribute("class","");
 	document.getElementById("addFasesWarning").innerHTML= "";
 }
@@ -775,12 +732,12 @@ function saveAddPhase(){
 	phaseO.id = getRandomId(); // Sujeto Pruebas
 	phaseO.name = document.getElementById("addName").value;
 	phaseO.maxTasks = parseInt(document.getElementById("addWip").value);
-	phaseO.maxTime = parseInt(document.getElementById("addMinTime").value);
-	phaseO.minTime = parseInt(document.getElementById("addMaxTime").value);
+	phaseO.maxTime = parseInt(document.getElementById("addMaxTime").value);
+	phaseO.minTime = parseInt(document.getElementById("addMinTime").value);
 	phaseO.color = document.getElementById("color-input").value;
 	phaseO.period = 0;
 	listPhases.push(phaseO);
-	
+
 	savePhaseSession();
 	printPhaseSession();
 }

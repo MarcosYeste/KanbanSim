@@ -1,4 +1,6 @@
+if(document.getElementById("myChart")){
 var ctx = document.getElementById("myChart").getContext('2d');
+
 var myChart = new Chart(ctx, {
 	type: 'bar',
 	data: {
@@ -43,22 +45,25 @@ var myChart = new Chart(ctx, {
 		}
 	}
 });
-
+}
 function addData(chart, label, data, color) {
-	chart.data.labels.push(label);
-	chart.data.datasets[0].data.push(data);
-	chart.data.datasets[0].backgroundColor.push(color);
-//	color = color.substr(0,color.length - 2);
-//	dataset.hoverBackgroundColor.push(color);
-//	dataset.borderColor.push(color);
-	chart.update();
+	if(chart != undefined){
+		chart.data.labels.push(label);
+		chart.data.datasets[0].data.push(data);
+		chart.data.datasets[0].backgroundColor.push(color);
+	//	color = color.substr(0,color.length - 2);
+	//	dataset.hoverBackgroundColor.push(color);
+	//	dataset.borderColor.push(color);
+		chart.update();
+	}
 }
 
 
 function updateData(chart, data, index, dataset){
-
-	chart.data.datasets[dataset].data[index] = data;
-	chart.update();
+	if(chart != undefined){
+		chart.data.datasets[dataset].data[index] = data;
+		chart.update();
+	}
 }
 
 function removeData(chart) {
