@@ -1,6 +1,6 @@
 
 var ctcs = document.getElementById("myChartPhase").getContext('2d');
-
+var rectangleSet = false;
 var options = {
 		responsive: true,
 		maintainAspectRatio: false,
@@ -25,7 +25,43 @@ var options = {
 			}]
 
 		}, 
-		
+		animation: {
+			onComplete: function(){
+				if (!rectangleSet) {
+					var scale = window.devicePixelRatio;
+
+					var sourceCanvas = myChartPhase.chart.canvas;
+					var copyWidth = myChartPhase.scales['y-axis-0'].width - 10;
+					var copyHeight = myChartPhase.scales['y-axis-0'].height + myChartPhase.scales['y-axis-0'].top + 10;
+
+					var targetCtx = document.getElementById("myChartAxis").getContext("2d");
+
+					targetCtx.scale(scale, scale);
+					targetCtx.canvas.width = copyWidth * scale;
+					targetCtx.canvas.height = copyHeight * scale;
+
+					targetCtx.canvas.style.width = `${copyWidth}px`;
+					targetCtx.canvas.style.height = `${copyHeight}px`;
+					targetCtx.drawImage(sourceCanvas, 0, 0, copyWidth * scale, copyHeight * scale, 0, 0, copyWidth * scale, copyHeight * scale);
+					var sourceCtx = sourceCanvas.getContext('2d');
+
+					// Normalize coordinate system to use css pixels.
+
+					sourceCtx.clearRect(0, 0, copyWidth * scale, copyHeight * scale);
+					rectangleSet = true;
+				}
+			},
+			onProgress: function(){
+				if (rectangleSet === true) {
+					var copyWidth = myChartPhase.scales['y-axis-0'].width;
+					var copyHeight = myChartPhase.scales['y-axis-0'].height + myChartPhase.scales['y-axis-0'].top + 10;
+
+					var sourceCtx = myChartPhase.chart.canvas.getContext('2d');
+					sourceCtx.clearRect(0, 0, copyWidth, copyHeight);
+				}
+			}
+		}
+
 };
 
 
@@ -73,10 +109,10 @@ function addDataPhase(chart,media) {
 		chart.data.datasets[2].backgroundColor.push(color2);			 
 		chart.data.datasets[3].data.push(media[k][2]);
 		chart.data.datasets[3].backgroundColor.push(color3);
-		
+
 		var newwidth = $('.chartAreaWrapper2').width() +60;
 		$('.chartAreaWrapper2').width(newwidth);
-		
+
 
 	}	
 	chart.update();

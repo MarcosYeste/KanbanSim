@@ -32,26 +32,16 @@ public class HomeController {
 	List<Task> taskArray = new ArrayList<Task>();
 	List<User> userArray = new ArrayList<User>();
 	ArrayList<String> allPhases = new ArrayList<String>();
-	ArrayList<Integer> sizeValues = new ArrayList<Integer>();
-	
-	String distribution = "manual";
-	String distributionType;
-	int base = 1;
-	int variance = 1;
-	int lambda = 1;
 
-	
+
+
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		
-		sizeValues.add(0);
-		sizeValues.add(0);
-		sizeValues.add(0);
-		sizeValues.add(0);
-		
+
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
@@ -135,16 +125,16 @@ public class HomeController {
 		return "success";
 
 	}
-	
-	
+
+
 	// Add new Users
-		@RequestMapping(value = "/addPhase", method = RequestMethod.POST)
-		public String addPhase() {
+	@RequestMapping(value = "/addPhase", method = RequestMethod.POST)
+	public String addPhase() {
 
 
-			return "success";
+		return "success";
 
-		}
+	}
 
 	// Remove all Tasks
 	@RequestMapping(value = "/rmvTask", method = RequestMethod.POST)
@@ -267,91 +257,31 @@ public class HomeController {
 		} while (p > L);
 		return String.valueOf(k - 1);
 	}
-	
+
 	// Get with weight
 	@RequestMapping(value = "/nextWeight", method = RequestMethod.GET)
-	public @ResponseBody String weight() {
+	public @ResponseBody String weight(int sValue, int mValue, int lValue, int xlValue) {
 
 		Random r = new Random();
 		int num = r.nextInt(100) + 1;
 		String val = "";
-		
-		if(num <= this.sizeValues.get(0)) {
+
+		if(num <= sValue) {
 			val = "S";
-		} else if(num > this.sizeValues.get(0) && num <= this.sizeValues.get(0) + this.sizeValues.get(1)) {
+		} else if(num > sValue && num <= sValue + mValue) {
 			val = "M";
-		} else if (num > this.sizeValues.get(0) + this.sizeValues.get(1) && num <= this.sizeValues.get(0) + this.sizeValues.get(1) + this.sizeValues.get(2)) {
+		} else if (num > sValue + mValue && num <= sValue + mValue + lValue) {
 			val = "L";
-		} else if (num > this.sizeValues.get(0) + this.sizeValues.get(1) + this.sizeValues.get(2) && num <= this.sizeValues.get(0) + this.sizeValues.get(1) + this.sizeValues.get(2) + this.sizeValues.get(3)) {
+		} else if (num > sValue + mValue + lValue && num <= sValue + mValue + lValue + xlValue) {
 			val = "XL";
 		}
-		
+
 		Random ran = new Random();
 		int number = r.nextInt(5) + 1;
-		System.out.println(val);
-		
+
 		return val + "," + String.valueOf(number);
 	}
-	
-	// Get Poisson value
-		@RequestMapping(value = "/saveDistributionData", method = RequestMethod.POST)
-		public @ResponseBody void distributionData(int base, int variance, int lambda, String sizeValues) {	
 
-			if (base < 1) {
-				this.base = 1;
-			} else {
-				this.base = base;
-			}
-			
-			if (variance < 1) {
-				this.variance = 1;
-			} else {
-				this.variance = variance;
-			}
-			
-			if (lambda < 1) {
-				this.lambda = 1;
-			} else {
-				this.lambda = lambda;
-			}
-			
-			this.sizeValues = new ArrayList<Integer>();
-			String[] auxArray = sizeValues.split(",");
-			System.out.println(sizeValues);
-			for (String value : auxArray) {
-				try {
-					this.sizeValues.add(Integer.parseInt(value));
-				} catch (Exception e) {
-					this.sizeValues.add(0);
-				}
-				
-				System.out.println("Value " + value);
-			}
-			
-			
-			System.out.println(this.base + ", " +this.variance + ", " + this.lambda+ ", " + sizeValues);
-		}
-		
-	// Get Distribution
-	@RequestMapping(value = "/changeDistr", method = RequestMethod.POST)
-	public @ResponseBody String addDistribution(String distribution, String distributionType) {
-
-		this.distribution = distribution;
-		this.distributionType = distributionType;
-
-		System.out.println(this.distribution + " " + this.distributionType);
-		return "success";
-	}
-
-	// Post Distribution
-	@RequestMapping(value = "/getDistr", method = RequestMethod.GET)
-	public @ResponseBody String getDistribution() {
-		String sizeValues = "";
-		for (Integer value : this.sizeValues) {
-			sizeValues += value + ";";
-		}
-		return this.distribution + "," + this.distributionType + "," + this.base + "," + this.variance + "," + this.lambda + "," + sizeValues;
-	}
 
 	// Add New Phase
 	public void addPhases(String phase) {
