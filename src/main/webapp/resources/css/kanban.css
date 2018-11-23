@@ -357,23 +357,6 @@ button {
 	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 }
-.chartTask{
-	 padding-top: 2%;
-	 padding-left: 10%;
-	 width: 90%;
-	 position: relative;
-	 height: auto;
-	 align: center;
-}
-
-.chartPhase{
-	 padding-top: 4%;
-	 padding-left: 10%;
-	 width: 90%;
-	 position: relative;
-	 height: auto;
-	 align: center;
-}
 
 .tareaResultado, .faseResultado, .ResultadoUsuario{
 	padding: 10px;

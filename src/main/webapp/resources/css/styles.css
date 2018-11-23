@@ -44,9 +44,15 @@ div #reset:hover {
 	animation-timing-function: linear;
 }
 
-@keyframes spin {
-	from { transform:rotate(0deg);}
-	to 	 { transform: rotate(360deg);}
+@
+keyframes spin {from { transform:rotate(0deg);
+	
+}
+
+to {
+	transform: rotate(360deg);
+}
+
 }
 .img-edit {
 	z-index: -1;
@@ -102,17 +108,20 @@ h1 {
 	margin: 0;
 }
 
-.form-control[type=color][list="presetColors"]::-webkit-color-swatch-wrapper, .form-control[type=color][list="presetColors2"]::-webkit-color-swatch-wrapper
+.form-control[type=color][list="presetColors"]::-webkit-color-swatch-wrapper,
+	.form-control[type=color][list="presetColors2"]::-webkit-color-swatch-wrapper
 	{
 	padding: .5rem .75rem;
 }
 
-.form-control[type=color][list="presetColors"]:-moz-color-swatch-wrapper, .form-control[type=color][list="presetColors2"]:-moz-color-swatch-wrapper
+.form-control[type=color][list="presetColors"]:-moz-color-swatch-wrapper,
+	.form-control[type=color][list="presetColors2"]:-moz-color-swatch-wrapper
 	{
 	padding: .5rem .75rem;
 }
 
-.form-control[type=color][list="presetColors"]:-ms-color-swatch-wrapper, .form-control[type=color][list="presetColors2"]:-ms-color-swatch-wrapper
+.form-control[type=color][list="presetColors"]:-ms-color-swatch-wrapper,
+	.form-control[type=color][list="presetColors2"]:-ms-color-swatch-wrapper
 	{
 	padding: .5rem .75rem;
 }
@@ -145,13 +154,6 @@ h1 {
 .backloglabel {
 	display: inline;
 	margin-left: 5px;
-}
-
-.chart-container {
-  position: relative;
-  margin: auto;
-  height: 80vh;
-  width: 80vw;
 }
 
 /*---------------------------------------------------- TEMPORIZADOR ----------------------------------------------*/
@@ -201,7 +203,8 @@ h1 {
 
 /*---------------------------------------------------- SCROLLBAR ----------------------------------------------*/
 .contenedorFinal::-webkit-scrollbar-track, .table-fixed tbody::-webkit-scrollbar-track,
-	#modalTaskInfo::-webkit-scrollbar-track, .faseName>div::-webkit-scrollbar-track, .fase::-webkit-scrollbar-track
+	#modalTaskInfo::-webkit-scrollbar-track, .faseName>div::-webkit-scrollbar-track,
+	.fase::-webkit-scrollbar-track, .chartAreaWrapper::-webkit-scrollbar-track
 	{
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	border-radius: 10px;
@@ -209,14 +212,15 @@ h1 {
 }
 
 .contenedorFinal::-webkit-scrollbar, .table-fixed tbody::-webkit-scrollbar,
-	#modalTaskInfo::-webkit-scrollbar, .faseName>div::-webkit-scrollbar, .fase::-webkit-scrollbar 
-	{
+	#modalTaskInfo::-webkit-scrollbar, .faseName>div::-webkit-scrollbar,
+	.fase::-webkit-scrollbar, .chartAreaWrapper::-webkit-scrollbar {
 	width: 5px;
 	background-color: #F5F5F5;
 }
 
 .contenedorFinal::-webkit-scrollbar-thumb, .table-fixed tbody::-webkit-scrollbar-thumb,
-	#modalTaskInfo::-webkit-scrollbar-thumb, .faseName>div::-webkit-scrollbar-thumb, .fase::-webkit-scrollbar-thumb
+	#modalTaskInfo::-webkit-scrollbar-thumb, .faseName>div::-webkit-scrollbar-thumb,
+	.fase::-webkit-scrollbar-thumb, .chartAreaWrapper::-webkit-scrollbar-thumb
 	{
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
@@ -224,3 +228,50 @@ h1 {
 }
 
 /*---------------------------------------------------- CHARTS ----------------------------------------------*/
+.chartWrapper {
+	position: relative;
+}
+
+.chartWrapper>canvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+	pointer-events: none;
+}
+
+.chartAreaWrapper {
+	overflow-x: scroll;
+	position: relative;
+	width: 100%;
+}
+
+.chartAreaWrapper2 {
+	position: relative;
+	height: 500px;
+}
+
+.chart-container {
+	position: relative;
+	margin: auto;
+	height: 80vh;
+	width: 80vw;
+}
+
+/* Real Container of Charts */
+.chartTask {
+	padding-top: 2%;
+	padding-left: 3%;
+	width: 90%;
+	position: relative;
+	height: auto;
+	align: center;
+}
+
+.chartPhase {
+	padding-top: 4%;
+	padding-left: 10%;
+	width: 90%;
+	position: relative;
+	height: auto;
+	align: center;
+}

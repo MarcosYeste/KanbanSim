@@ -96,3 +96,9 @@ function refreshPhases(){
 function savePhaseSession(){
 	sessionStorage.setItem("phases", JSON.stringify(listPhases));
 }
+
+//____________________________________________________________________
+
+//_____________________ SESSION DISTRIBUTION  ________________________
+
+//____________________________________________________________________

@@ -14,7 +14,7 @@
 
 </head>
 <body>
-<!--
+	<!--
 ____________________________________________________________________
 
 ______________________________ BOTONES  ____________________________
@@ -33,18 +33,18 @@ ____________________________________________________________________
 
 
 		</div>
-	<div class="doubleButton">
-		<button id="result" onclick="generarResultados()" class="resultbutt">
-			<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
-				data-placement="top" title="Mostrar Resultados"></i>
-		</button>
-		<button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
-			<i class="fas fa-chart-bar fa-4x" data-toggle="tooltip"
-				data-placement="top" title="Mostrar Graficos"></i>
-		</button>
-		
+		<div class="doubleButton">
+			<button id="result" onclick="generarResultados()" class="resultbutt">
+				<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
+					data-placement="top" title="Mostrar Resultados"></i>
+			</button>
+			<button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
+				<i class="fas fa-chart-bar fa-4x" data-toggle="tooltip"
+					data-placement="top" title="Mostrar Graficos"></i>
+			</button>
+
+		</div>
 	</div>
-</div>
 	<h1 class="texto">KANBAN SIM</h1>
 <!--
 ____________________________________________________________________
@@ -84,9 +84,7 @@ ____________________________________________________________________
 		<i class="fas fa-plus fa-3x"></i>
 	</button>
 
-	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv">
-		 
-	</div>
+	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
 	<!--
 ____________________________________________________________________
 
@@ -95,19 +93,29 @@ _______________________ GRAFICOS ____________________________
 ____________________________________________________________________
 -->
 	<div id="mostrarGraficosDiv" class="mostrarGraficosDiv">
-		 <div class="chart-container chartTask" id= "taskChart" >
-		 <h2>Gráfico de Tareas</h2>
+		<div class="chart-container chartTask" id="taskChart">
+			<h2>Gráfico de Tareas</h2>
 			<canvas id="myChartTask"></canvas>
 			<h2>Gráfico de Fases</h2>
-			<canvas id="myChartPhase"></canvas> 
+
+			<div class="chartWrapper">
+				<div class="chartAreaWrapper">
+					<div class="chartAreaWrapper2">
+						<canvas id="myChartPhase"></canvas>
+					</div>
+				</div>
+
+				<canvas id="myChartAxis" height="300" width="0"></canvas>
+			</div>
+			
 			<h2>Gráfico de Usuarios</h2>
 			<canvas id="myChart"></canvas>
-		</div> 		
+		</div>
 	</div>
 	<div class="contenedor" id="contenedor">
 
 
-<!--
+		<!--
 ____________________________________________________________________
 
 _______________________ INICIO TABLERO  ____________________________
@@ -130,21 +138,53 @@ ____________________________________________________________________
 			</div>
 
 		</div>
+<<<<<<< HEAD
 
 <!--
 //____________________________________________________________________
 
 //_______________________     Session     ____________________________
+=======
+		<script>
+			//____________________________________________________________________
+>>>>>>> 49021756bc0758c645b2d9c70aa93b4d480cfbea
 
-//____________________________________________________________________
+			//_______________________     Session     ____________________________
 
+<<<<<<< HEAD
 -->
 	
+=======
+			//____________________________________________________________________
+		</script>
 
-		
-		<div id="faseDiv" class="fase">  <!--  No puedo recuperar el valor del session storage -->
+		<%-- <c:forEach items="${phases}" var="fase">
+				<c:set value="${fase.id}" var="id" />
+				<c:set value="${fase.name}" var="name" />
+				<c:set value="${fase.maxTasks}" var="maxTasks" />
+				<c:set value="${fase.maxTime}" var="maxTime" />
+				<c:set value="${fase.minTime}" var="minTime" />
+				<c:set value="${fase.color}" var="color" />
 
-	
+				<script>
+					var phase = new Object();
+					phase.id = "<c:out value="${id}"></c:out>"; // Sujeto Pruebas
+					phase.name = "<c:out value="${name}"></c:out>";
+					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
+					phase.maxTime = <c:out value="${maxTime}"></c:out>;
+					phase.minTime = <c:out value="${minTime}"></c:out>;
+					phase.color = '<c:out value="${color}"></c:out>';
+					phase.period = 0;
+					listPhases.push(phase);
+					</script>		
+				</c:forEach> --%>
+
+
+		<div id="faseDiv" class="fase">
+			<!--  No puedo recuperar el valor del session storage -->
+>>>>>>> 49021756bc0758c645b2d9c70aa93b4d480cfbea
+
+
 
 		</div>
 
@@ -156,18 +196,43 @@ ____________________________________________________________________
 
 		</div>
 	</div>
+<<<<<<< HEAD
 	
 	
 
 <!--
+=======
 
+
+	<!--
+____________________________________________________________________
+
+_________________________ USUARIOS  ________________________________
+
+____________________________________________________________________
+-->
+
+	<fieldset class="teamField">
+		<legend class="teamField">Miembros del Equipo:</legend>
+		<span style="float: right;" class="legUser"><button
+				id="addUser">
+				<i class="fas fa-user-plus fa-2x" data-toggle="modal"
+					data-target="#addUsers"></i>
+			</button></span>
+		<div class="usersContainer" id="usersContainer"></div>
+	</fieldset>
+>>>>>>> 49021756bc0758c645b2d9c70aa93b4d480cfbea
+
+
+
+	<!--
 ____________________________________________________________________
 
 __________________________ MODAL FORMS  ____________________________
 
 ____________________________________________________________________
 -->
-	
+
 	<!-- Modal Añadir Fases-->
 	<div class="modal fade" id="modalAddFases" role="dialog">
 		<div class="modal-dialog">
@@ -179,11 +244,12 @@ ____________________________________________________________________
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="addName" placeholder="Nombre Fase" required> 
-					WIP: <input type="text" id="addWip"  value="1" required> 
-					Tiempo Mínimo: <input type="text" id="addMinTime" value="1" required> 
-					Tiempo Máximo: <input type="text" id="addMaxTime" value="1" required> 
-					Color:
+					Nombre Fase: <input type="text" id="addName"
+						placeholder="Nombre Fase" required> WIP: <input
+						type="text" id="addWip" value="1" min="1" required> Tiempo
+					Mínimo: <input type="text" id="addMinTime" value="1" min="1"
+						required> Tiempo Máximo: <input type="text"
+						id="addMaxTime" value="1" min="1" required> Color:
 					<div class="col-10">
 						<input class="form-control" type="color" id="color-input"
 							list="presetColors" value="#4ce600">
@@ -219,7 +285,7 @@ ____________________________________________________________________
 
 		</div>
 	</div>
-	
+
 	<!-- Modal Modificar Fases-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -231,11 +297,11 @@ ____________________________________________________________________
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="modName" disabled> 
-					WIP: <input type="number" id="modWip"> 
-					Tiempo Mínimo: <input type="number" id="modMinTime"> 
-					Tiempo Máximo: <input type="number" id="modMaxTime"> 
-					Color: 
+					Nombre Fase: <input type="text" id="modName" disabled> WIP:
+					<input type="number" id="modWip" min="1" required> Tiempo
+					Mínimo: <input type="number" id="modMinTime" min="1" required>
+					Tiempo Máximo: <input type="number" id="modMaxTime" min="1"
+						required> Color:
 					<div class="col-10">
 						<input class="form-control" type="color" id="color-input2"
 							list="presetColors2">
