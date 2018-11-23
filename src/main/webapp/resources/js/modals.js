@@ -712,10 +712,10 @@ function showTaskInfo(){
 	console.log("TII " + TII + " T " + T + " VII " +  VII + " Vt "+ Vt);
 	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0)){
 		console.log("if");
-		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
+//		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
 	} else {
 		console.log("else");
-		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
+		document.getElementById("modalTaskLTCTValue").innerHTML = "<b> 0, A0 </b>";
 	}
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
 	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";

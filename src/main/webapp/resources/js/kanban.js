@@ -28,7 +28,7 @@ var Vt = 0; 				// Varianza del CT
 var numOfTasksEnded = 0; 	// Numero de tareas que han entrado al tablero y no han finalizado
 var backLogType; 
 var distributionWeightValues = [0, 0, 0, 0];
-
+var showLTandCLtensecs = 0;
 var distributionType;
 var inputBase = 1; 			// Base value for normal distribution 
 var inputVariance = 1; 		// Variance value for normal distribution
@@ -753,7 +753,14 @@ function play() {
 		gaussianCounter++;
 		poissonCounter++;
 		weightCounter++;
-
+		
+		//Contados para mostrar lead time estimado y cycle time escimado
+		if(showLTandCLtensecs == 10){
+			showLTandCLtensecs = 0;
+		} else {
+			showLTandCLtensecs++;
+		}
+		
 		// Recargamos los datos de la targeta de informacion de cada tarea
 		listTareas.forEach(function(tarea){
 			if(atributo == tarea.name){
@@ -761,17 +768,13 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-//				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0 && Vt != 0)){
-//				if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && TII - T > 0 && TII != 0 && T != 0 && VII != 0){
-//				console.log("if");
-//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", " + (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
-//				} else {
-//				console.log("else");
-//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
-//				}
-
-				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
-
+				
+				if(showLTandCLtensecs == 10){
+					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + ", " +  eCT.toFixed(2) * 10  + "</b>";			
+				} else {
+					document.getElementById("modalTaskLTCTValue").innerHTML = "<b> 0, 0 </b>";
+				}
+				
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
 			}
@@ -790,7 +793,7 @@ function play() {
 			updateData(myChart, user.secondsWork, i, 1);
 			i++;
 		});
-
+		
 	}, 1000);
 
 }
