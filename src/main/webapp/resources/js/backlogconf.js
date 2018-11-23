@@ -1,11 +1,12 @@
 $(document).ready(function(){
 
 	var selectedBacklog = "";
+	var typeConstant = "";
 	var distributionIsSelected = false;
 	var taskInputModeInputs = $("[name='taskInputMode']");
 	var totalPercentage = 0;
 	var total = 0;
-	 var subTotal = 0; //Para controlar que siempre sea un total de 100% y si no bloquear el boton
+	var subTotal = 0; //Para controlar que siempre sea un total de 100% y si no bloquear el boton
 	var divsValues = document.getElementsByClassName("sizeValue");
 	var slidersTofill = document.getElementsByClassName("ui-slider-handle");
 	var spanSelector = 1;
@@ -28,7 +29,7 @@ $(document).ready(function(){
 		if(this.value == "normal" || this.value == "poisson" || this.value == "weight"){
 			document.getElementById("paramTitle").style.visibility = "visible";
 			document.getElementById("paramTitle").style.height = "initial";
-
+			typeConstant = this.value;
 			if(this.value == "normal"){
 				document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
 				document.getElementById("dataPoissonDistribution").style.height = "0px";
@@ -60,7 +61,8 @@ $(document).ready(function(){
 
 				document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
 				document.getElementById("dataPoissonDistribution").style.height = "0px";
-
+				
+				document.getElementById("modBacklogBtn").setAttribute("disabled", "");
 
 			}
 
@@ -192,7 +194,7 @@ $(document).ready(function(){
     		subTotal += divsValues[i].innerHTML;
     	}
 		
-		if(subTotal == 0){
+		if(subTotal < 100 && selectedBacklog == "constant" && typeConstant == "weight"){
 			document.getElementById("modBacklogBtn").setAttribute("disabled", "");	
 	    } else {
 	    	document.getElementById("modBacklogBtn").removeAttribute("disabled");

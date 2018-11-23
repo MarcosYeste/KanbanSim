@@ -109,24 +109,8 @@ function saveModPhase() {
 		listPhases.find(x => x.id === click).maxTime = 1;
 	}
 
-	$.ajax({
-		type: "POST",
-		url: "/modPhase",
-		data: {
-
-			name: listPhases.find(x => x.id === click).name,
-			wip : listPhases.find(x => x.id === click).maxTasks,
-			min : listPhases.find(x => x.id === click).minTime,
-			max : listPhases.find(x => x.id === click).maxTime,
-			color: listPhases.find(x => x.id === click).color
-
-		},success: function(data) {
-			var tituloInd = $(".faseName").index($("#" + click));
-			document.getElementsByClassName("titulo")[tituloInd].children[0].innerHTML = "(WIP: " + listPhases.find(x => x.id === click).maxTasks + ")";
-			document.getElementsByClassName("subfase")[tituloInd].style.backgroundColor = listPhases.find(x => x.id === click).color;
-			document.getElementsByClassName("faseName")[tituloInd].style.backgroundColor = listPhases.find(x => x.id === click).color;
-		}
-	});
+	savePhaseSession();
+	printPhaseSession();
 
 }
 /*----------------------------------------------------------------------------------------------------------*/
@@ -208,21 +192,29 @@ function modUsers(){
 			insertInput(index1, listUsers[click2].phases.indexOf(event.target.value));
 
 		} else {
-
+			console.log("hola");
 			for(var i = 0; i < listUsers[click2].phases.length; i++){
-
+				console.log(listUsers[click2].phases.length);
 				if(event.target.value == listUsers[click2].phases[i].trim()){
 
 					listUsers[click2].phases.splice(i, 1);
+					console.log(listUsers[click2].skills);
+					listUsers[click2].skills.splice(i, 1);
+					console.log(listUsers[click2].skills);
 
 					if(listUsers[click2].phases.length == 0){
 
 						listUsers[click2].phases = [];
+						listUsers[click2].skills = [];
 
 					}
 				}
 			}
-
+			
+			if(listUsers[click2].phases.length != 0){
+				saveUsersSession();
+				refreshUsers();
+			}
 			var inputs = document.getElementsByClassName("modSkillInput");
 
 			for(var i = 0 ; i < inputs.length; i++){
@@ -250,7 +242,6 @@ function modUsers(){
 	}
 
 	oldName = listUsers[click2].name;
-
 }
 
 function insertInput(index1, index2){
@@ -279,11 +270,13 @@ function insertInput(index1, index2){
 	formUserValido(saveModUsers, "mod");
 
 	var sliders = document.getElementsByClassName("sliderMod");
-	
+
+
+	// REVISAR
 	if(listUsers[click2].skills[index2] == undefined){
 		listUsers[click2].skills[index2] = 100;
 	}
-	
+
 	$( function() {
 		$( "#modPerformancesDivSkill" + allcheckBox[index1].value.replace(" ", "") ).slider({
 			value: listUsers[click2].skills[index2],
