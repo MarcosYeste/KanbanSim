@@ -9,6 +9,7 @@
 	width: 80%;
 	height: auto;
 	margin-left: 10%;
+	margin-bottom: 1%;
 	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 }
@@ -171,9 +172,9 @@ input[type='radio'] {
 .texto {
 	text-shadow: 3px 2px 5px #011cd6;
 	color: #0f45c4;
-	font-size: 500%;
+	font-size: 400%;
 	text-align: center;
-	margin-top: -10px;
+	margin-top: -80px;
 }
 
 
@@ -183,19 +184,24 @@ input[type='radio'] {
 button {
 	outline: none !important;
 }
-
+.playpause{
+	height: 70px;
+	display:flex;
+	flex-direction: row-reverse;
+	padding-top: 7px;
+}
 .playpause label {
 	display: block;
 	box-sizing: border-box;
 	width: 0;
-	height: 74px;
+	height: 50px; 
 	cursor: pointer;
 	border-color: transparent transparent transparent #202020;
 	transition: 100ms all ease;
 	will-change: border-width;
 	/* Play state */
 	border-style: solid;
-	border-width: 37px 0 37px 60px;
+	border-width: 27px 0 27px 60px;
 }
 
 .playpause input[type='checkbox'] {
@@ -223,27 +229,27 @@ button {
 }
 
 .botonesContainer {
-	border: 2px solid #69c9fc;
-	background-color: #7acefc;
-	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
-	border-radius: 30%;
+    border: 1px solid #1cadfb; 
+/* 	background-color: #7acefc; */
+	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 20%; 
 	margin-left: 45%;
-	width: 11%;
+	width: 10%;
 	height: auto;
 	align-items: center;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	justify-content: space-between;
-	padding-left: 35px;
-	padding-right: 35px;
+	padding-left: 27px;
+	padding-right: 8px;
+	margin-top:10px;
 	margin-bottom: 10px;
 }
 
 .botonesContainer1 {
 	color: #a6d9ff;
-	margin-top: 10px;
+	margin-top: 1px;
 	/* background-color: #63bafa;
 	background-image: linear-gradient(#63bafa, white);  */
 	display: flex;
@@ -464,7 +470,7 @@ button {
 
 .usersContainer {
 	background-color: #e8eeff;
-	background-image: linear-gradient(0deg, #e8eeff, white);
+	background-image: linear-gradient(white, #f0f5ff, white);
 	padding: 13px;
 	display: flex;
 	height: auto;
@@ -483,9 +489,10 @@ button {
 		rgba(0, 0, 0, 0.19);
 }
 
-fieldset.teamField {
-	border: 1px groove #ddd !important;
-}
+teamField {
+	width: auto;
+	height: auto;
+} 
 
 legend.teamField {
 	font-size: 1.2em !important;

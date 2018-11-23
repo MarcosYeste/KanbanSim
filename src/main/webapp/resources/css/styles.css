@@ -147,7 +147,7 @@ h1 {
 	margin-left: 5px;
 }
 
-.chart-container .myChartPhases {
+.chart-container {
   position: relative;
   margin: auto;
   height: 80vh;
@@ -160,7 +160,7 @@ h1 {
 	font-size: 40px;
 	position: absolute;
 	margin-left: 12%;
-	margin-top: 3%;
+	 margin-top: 1%;
 }
 
 .distributionRadio {

@@ -63,6 +63,11 @@ document.getElementById("addPhase").addEventListener("click", function(){
 		document.getElementById("addFasesWarning").setAttribute("class","alert alert-warning");
 		document.getElementById("addFasesWarning").innerHTML = "Todos los campos deben ser rellenados";
 
+		document.getElementById("addFasesWarning2").setAttribute("class","");
+
+		document.getElementById("addFasesWarning2").innerHTML = "";
+		
+
 	}
 
 }, false);
@@ -90,7 +95,23 @@ function modPhases(){
 /*--------------------------------------------------CAMBIAR-------------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------------*/
 function saveModPhase() {
-	// Modificamos los datos de la fase
+	// Modificamos los datos de la fase	
+//    ESTE CODIGO POR SI LO HACEMOS POR ID Y QUEREMOS QUE EL NOMBRE SE PUEDA CAMBIAR	
+//	var nuevoNombre = 	var exist = false;
+//	for (var i = 0; i < listPhases.length && !exist; i++) {
+//			if(listPhases[i].name == nuevoNombre ){
+//				exist = true;
+//		}
+//	}
+//	if(exist){
+//		document.getElementById("modPhaseWarning").setAttribute("class","alert alert-warning");
+//		document.getElementById("modPhaseWarning").innerHTML = "El miembro del equipo ya existe";
+//		document.getElementById("modPhase").removeAttribute("data-dismiss");
+//	}else{
+//		document.getElementById("modPhase").setAttribute("data-dismiss", "modal");
+//		document.getElementById("modPhaseWarning").setAttribute("class","");
+//		}
+
 	refreshUsers();
 	listPhases.find(x => x.id === click).name = document.getElementById("modName").value;
 	listPhases.find(x => x.id === click).maxTasks = parseInt(document.getElementById("modWip").value);
@@ -112,6 +133,7 @@ function saveModPhase() {
 
 	savePhaseSession();
 	printPhaseSession();
+
 
 }
 /*----------------------------------------------------------------------------------------------------------*/
@@ -316,7 +338,22 @@ function insertInput(index1, index2){
 //Guardamos los datos de usuario
 function saveModUsers() {
 	refreshUsers();
-	listUsers[click2].name = document.getElementById("modNameUser").value;
+	var nuevoNombre = document.getElementById("modNameUser").value;
+	
+	var exist = false;
+	for (var i = 0; i < listUsers.length && !exist; i++) {
+			if(listUsers[i].name == nuevoNombre ){
+				exist = true;
+		}
+	}
+	if(exist){
+		document.getElementById("modUserWarning").setAttribute("class","alert alert-warning");
+		document.getElementById("modUserWarning").innerHTML = "El miembro del equipo ya existe";
+		document.getElementById("modUsuario").removeAttribute("data-dismiss");
+	}else{
+		document.getElementById("modUsuario").setAttribute("data-dismiss", "modal");
+		
+	listUsers[click2].name = nuevoNombre;
 	listUsers[click2].skills = skillsList;
 
 
@@ -333,7 +370,7 @@ function saveModUsers() {
 	modLabel(myChart, oldName, listUsers[click2].name);
 	saveUsersSession();
 	printUserSession();
-
+	}
 
 }
 
@@ -379,6 +416,7 @@ function addUsers(){
 	userO.assigned = false;
 
 	document.getElementById("addNameUser").value = "";
+	document.getElementById("addUserWarning").setAttribute("class","");
 
 	// Comprueba que haya algo seleccionado
 	formUserValido(saveAddUser, "add");
@@ -554,28 +592,48 @@ function addInput(index1, index2, object){
 	skillsList.push(object.skills[sliders.length - 1]);
 }
 
-function saveAddUser(){
+function saveAddUser(){ 
 	refreshUsers();
 	var fases = "";
 
 	for( var i = 0; i < userO.phases.length; i++){
 		fases += userO.phases[i] + ",";
 	}
-	userO.name = document.getElementById("addNameUser").value;
-	userO.fases = fases;
+	var nuevoNombre = document.getElementById("addNameUser").value;
+	var exist = false;
+	for (var i = 0; i < listUsers.length && !exist; i++) {
+			if(listUsers[i].name == nuevoNombre ){
+				exist = true;
+		}
+	}
+	if(exist){
+		document.getElementById("addUserWarning").setAttribute("class","alert alert-warning");
+		document.getElementById("addUserWarning").innerHTML = "El miembro del equipo ya existe";
+		document.getElementById("addUsuario").removeAttribute("data-dismiss");
+	}else{
+		document.getElementById("addUsuario").setAttribute("data-dismiss", "modal");
+		document.getElementById("addUserWarning").setAttribute("class","");
+		userO.name = nuevoNombre;
 
-	listUsers.push(userO); 	
-	sessionStorage.setItem("users", JSON.stringify(listUsers));
-	printUserSession();
+			userO.fases = fases;
+
+			listUsers.push(userO); 	
+			sessionStorage.setItem("users", JSON.stringify(listUsers));
+			printUserSession();
 
 
-	document.getElementById("addNameUser").value = "";
+			document.getElementById("addNameUser").value = "";
 
-	// Añadimos al nuevo usuario
-	addData(myChart, userO.name, userO.tasksWorked, "rgba(0,255,233,0.5)");
-	myChart.update();
+			// Añadimos al nuevo usuario
+			addData(myChart, userO.name, userO.tasksWorked, "rgba(0,255,233,0.5)");
+			myChart.update();
 
-	userO = new Object();
+			userO = new Object();
+	}
+		
+	
+	
+	
 }
 
 function formUserValido(funcion,accion){
@@ -729,8 +787,27 @@ function saveAddPhase(){
 	refreshPhases();
 
 	var phaseO = new Object();
+	
+	var nuevoNombre = document.getElementById("addName").value;
+	var exist = false;
+	for (var i = 0; i < listPhases.length && !exist; i++) {
+			if(listPhases[i].name == nuevoNombre ){
+				exist = true;
+		}
+	}
+	if(exist){
+		document.getElementById("addFasesWarning2").setAttribute("class","alert alert-warning");
+		document.getElementById("addFasesWarning2").innerHTML = "El nombre de la fase ya existe";
+		document.getElementById("addPhase").removeAttribute("data-dismiss");
+	}else{
+		document.getElementById("addPhase").setAttribute("data-dismiss", "modal");
+		document.getElementById("addFasesWarning2").setAttribute("class","");
+		document.getElementById("addFasesWarning").setAttribute("class","");
+		document.getElementById("addFasesWarning").innerHTML= "";
+		
 	phaseO.id = getRandomId(); // Sujeto Pruebas
-	phaseO.name = document.getElementById("addName").value;
+	phaseO.name = nuevoNombre;
+	
 	phaseO.maxTasks = parseInt(document.getElementById("addWip").value);
 	phaseO.maxTime = parseInt(document.getElementById("addMaxTime").value);
 	phaseO.minTime = parseInt(document.getElementById("addMinTime").value);
@@ -740,6 +817,7 @@ function saveAddPhase(){
 
 	savePhaseSession();
 	printPhaseSession();
+	}
 }
 
 function getRandomId(){
