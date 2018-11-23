@@ -682,36 +682,6 @@ function addTareas(weight,creationTime){
 }
 
 
-//_____________________________________________________________________
-
-//_______________________ TAREAS INFO  ________________________________
-
-//_____________________________________________________________________
-
-function showTaskInfo(){
-	atributo = event.target.getAttribute("data-identification");
-	var object = listTareas.find(x => x.name === atributo);
-
-	if(distributionType == "weight"){
-		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>  ( <var>" + object.weight +"</var> )";
-	}else{
-		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>";
-	}
-	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
-	console.log("TII " + TII + " T " + T + " VII " +  VII + " Vt "+ Vt);
-	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0)){
-		console.log("if");
-		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
-	} else {
-		console.log("else");
-		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
-	}
-	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
-	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";
-
-}
-
-
 //______________________________________________________________________
 
 //_______________________ TEMPORIZADOR  ________________________________
@@ -764,5 +734,35 @@ function chrono(){
 		chronoTime = 0;
 		document.getElementById("chronoViewer").innerHTML = "00:00";
 	}
+
+}
+
+
+//_____________________________________________________________________
+
+//_______________________ TAREAS INFO  ________________________________
+
+//_____________________________________________________________________
+
+function showTaskInfo(){
+	atributo = event.target.getAttribute("data-identification");
+	var object = listTareas.find(x => x.name === atributo);
+
+	if(distributionType == "weight"){
+		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>  ( <var>" + object.weight +"</var> )";
+	}else{
+		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>";
+	}
+	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
+	console.log("TII " + TII + " T " + T + " VII " +  VII + " Vt "+ Vt);
+	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0)){
+		console.log("if");
+//		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
+	} else {
+		console.log("else");
+		document.getElementById("modalTaskLTCTValue").innerHTML = "<b> 0, A0 </b>";
+	}
+	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
+	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";
 
 }
