@@ -1,18 +1,17 @@
-if(document.getElementById("myChartPhase")){
+
 var ctcs = document.getElementById("myChartPhase").getContext('2d');
 
 var options = {
-		responsive:true,
+		responsive: true,
+		maintainAspectRatio: false,
 		legend: {
-	          display: true,
-	          
-	        },
+			display: true,
+
+		},
 		scales: {
 			xAxes: [{
 				stacked: false,
-				id: "bar-x-axis1",
-				barThickness: 80,
-				categoryPercentage: 1,
+				barThickness: 50,
 				barPercentage: 0.5,
 				gridLines: {
 					offsetGridLines: true
@@ -25,7 +24,8 @@ var options = {
 				},
 			}]
 
-		}
+		}, 
+		
 };
 
 
@@ -55,35 +55,39 @@ var myChartPhase = new Chart(ctcs, {
 	},
 	options: options
 });
-}
+
 function addDataPhase(chart,media) {
-	 var color1 = getRandomColor();
-	 var color2 = getRandomColor();
-	 var color3 = getRandomColor();
+	var color1 = "#008000";
+	var color2 = "#B22222";
+	var color3 = "#FF8C00";
 	for (var k = 0; k < listPhases.length; k++) {
-		
+
 		chart.data.labels.push(listPhases[k].name);		
-				 
-			 chart.data.datasets[0].data.push(listPhases[k].period);
-			 chart.data.datasets[0].backgroundColor.push(listPhases[k].color + "99");		
-			 chart.data.datasets[0].hoverBackgroundColor.push(listPhases[k].color);	
-			 chart.data.datasets[1].data.push(media[k][0]);			 
-			 chart.data.datasets[1].backgroundColor.push(color1);			
-			 chart.data.datasets[2].data.push(media[k][1]);
-			 chart.data.datasets[2].backgroundColor.push(color2);			 
-			 chart.data.datasets[3].data.push(media[k][2]);
-			 chart.data.datasets[3].backgroundColor.push(color3);
-			 
+
+		chart.data.datasets[0].data.push(listPhases[k].period);
+		chart.data.datasets[0].backgroundColor.push(listPhases[k].color + "99");		
+		chart.data.datasets[0].hoverBackgroundColor.push(listPhases[k].color);	
+		chart.data.datasets[1].data.push(media[k][0]);			 
+		chart.data.datasets[1].backgroundColor.push(color1);			
+		chart.data.datasets[2].data.push(media[k][1]);
+		chart.data.datasets[2].backgroundColor.push(color2);			 
+		chart.data.datasets[3].data.push(media[k][2]);
+		chart.data.datasets[3].backgroundColor.push(color3);
+		
+		var newwidth = $('.chartAreaWrapper2').width() +60;
+		$('.chartAreaWrapper2').width(newwidth);
+		
+
 	}	
 	chart.update();
 }
 
 //function updateDataPhase(chart, cycle, lead, esfuerzo, index){
-//	
-//		chart.data.datasets[index].data[0] = esfuerzo;
-//		chart.data.datasets[index].data[1] = cycle;
-//		chart.data.datasets[index].data[2] = lead;
-//	
-//	
-//	chart.update();
+
+//chart.data.datasets[index].data[0] = esfuerzo;
+//chart.data.datasets[index].data[1] = cycle;
+//chart.data.datasets[index].data[2] = lead;
+
+
+//chart.update();
 //}
