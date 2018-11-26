@@ -4,6 +4,25 @@
 
 //____________________________________________________________________
 
+
+//Necesarias para distribucion
+distribution.backLogType; 
+distribution.typeConstant;
+distribution.mean;			// Base value for normal distribution 
+distribution.variation;		// Variation value for normal distribution
+distribution.lambda;			// Lambda value for poisson distribution 
+distribution.distributionWeightValues = [0, 0, 0, 0];
+refreshDistributionSession();
+
+if(distribution.backLogType == null){
+	distribution.backLogType = "manual";
+}
+
+saveDistributionSession();
+
+document.getElementById("distributionChange").addEventListener("click", getDistribution(), false);
+
+
 var firstLoop = true;
 var myInterval;
 var leadTime = 0;
@@ -11,13 +30,18 @@ var oldName;
 var playPause = document.getElementsByClassName("playpause")[0];
 var RawPhases;
 var kanbanTss = 0;
+var gaussian = 0;
 var gaussianCounter = 0;
-var gaussian = 0; 			// Tiempo en el que entrara la proxima tarea en distribución normal
 var taskNameCounter = 0;
 var poisson = 0;  			// Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
 var weight = "M"; 
-var weightTime = 0; 		// Tiempo en el que entrara la proxima tarea en uniforme con peso
+var weightTime = 0; // Tiempo en el que entrara la proxima tarea en uniforme con peso
+
+if(distribution.typeConstant = "weight"){
+	getWeight();
+}
+
 var weightCounter = 0;
 var numOfBacklogCalled = 0; // Veces que se ha generado un tiempo en backlog constante
 var backLogCollector = []; 	// Acumulador de tiempos de entrada
@@ -26,26 +50,17 @@ var VII = 0; 				// Varianza entre la creación de tareas
 var T = 0; 					// CT medio (el real, no el estimado)
 var Vt = 0; 				// Varianza del CT
 var numOfTasksEnded = 0; 	// Numero de tareas que han entrado al tablero y no han finalizado
-var backLogType; 
-var distributionWeightValues = [0, 0, 0, 0];
 var showLTandCLtensecs = 0;
-var distributionType;
-var inputBase = 1; 			// Base value for normal distribution 
-var inputVariance = 1; 		// Variance value for normal distribution
-var inputLambda = 1; 		// Lambda value for poisson distribution 
-getDistribution(); 			// Type of backlog tasks input 'constant', 'manual'
-if(backLogType == null){
-	backLogType = "manual";
-}
 var finLength = 0;
 var sumWip = 0;
 var velocidad = 0;
 var eCT = 0;
 var eLT = 0;
-var  indiceTareas = 0;
+var indiceTareas = 0;
 
 refreshUsers();
 refreshPhases();
+
 //Guardar al modificar Phase
 sortPhases();
 
@@ -92,19 +107,6 @@ if(document.getElementById("reset")){
 		location.reload();
 	});
 }
-//Botón elimianr Tareas	
-/*
-document.getElementById("divDeleteTasks").addEventListener("click", function() {
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			location.reload();
-		}
-	};
-	xhttp.open("POST", "/rmvTask", true);
-	xhttp.send();
-});
- */
 
 //Botón nuevo Tablero	
 if(document.getElementById("divDelete")){
@@ -166,15 +168,13 @@ function play() {
 				firstLoop = false;
 			} //if firstloop end
 
-			console.log("Last Element: " + (parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length)));
-
 			listTareas.forEach(function(task) {
 
 				// Asigna un tiempo a cada tarea de entre el intervalo de la fase
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.state != "Ended" && task.duration == 0) {
 
 
-					if(distributionType == "weight"){
+					if(distribution.typeConstant == "weight"){
 
 						if(task.weight == "S"){
 							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
@@ -417,7 +417,7 @@ function play() {
 							if (task.phase == (i + 1) && task.tss >= 0 && task.state != "Done" && task.state != "Ended") {
 								// ________ESTO VA EN EL IF 4
 
-								if(distributionType == "weight"){
+								if(distribution.typeConstant == "weight"){
 
 									if(task.weight == "S"){
 										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
@@ -590,13 +590,6 @@ function play() {
 
 		} //end phases for
 
-		//Calcular media cycle time
-//		console.log("TII " + TII);
-//		console.log("T " + T);
-//		console.log("VII " +  VII);
-//		console.log("Vt "+ Vt);
-
-
 		var totalTimeSum = 0;
 		listTareas.forEach(function(task){
 			if(task.phase >= 1 && task.state == "Ended"){
@@ -626,8 +619,8 @@ function play() {
 
 		//Constants
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
-		if(backLogType == "constant"){	
-			if((gaussian == gaussianCounter || gaussian <= 0) && distributionType == "normal"){
+		if(distribution.backLogType == "constant"){	
+			if((gaussian == gaussianCounter || gaussian <= 0) && distribution.typeConstant == "normal"){
 //				console.log("normal");
 				getGaussian();		
 				calcLDValues(gaussian);
@@ -635,12 +628,12 @@ function play() {
 				// Creamos un objeto nuevo
 				addTareas("",leadTime);
 				// Y lo printamos
-			} else if ((poisson == poissonCounter || poisson <= 0) && distributionType == "poisson"){
+			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
 				poissonCounter = 0;
 				addTareas("",leadTime);
-			} else if ((weightTime == weightCounter || weightTime <= 0) && distributionType == "weight"){
+			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
 				getWeight();
 				calcLDValues(weightTime);
 				weightCounter = 0;
@@ -667,14 +660,13 @@ function play() {
 				}
 
 				VII = totalSum / numOfBacklogCalled;
-//				console.log("DistributionValue " + distributionValue + " backlogcollector " + backLogCollector + " numofbacklogscalled " + numOfBacklogCalled +
-//				" T2 " + TII + " VII " + VII);	
 			}
 		}
+
 		// Si la introduccion de tareas es manual que se termine cuando todas las tareas equivalgan 
 		// a la cantidad de tareas introdcidas
 
-		if(backLogType == "manual"){
+		if(distribution.backLogType == "manual"){
 			if (document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length || (kanbanTss == chronoTime && (chronoTime != 0))) {
 				// Finalizado completamente
 				clearInterval(myInterval);
@@ -698,7 +690,7 @@ function play() {
 				}
 
 			}
-		} else if (backLogType == "constant"){
+		} else if (distribution.backLogType == "constant"){
 			if (kanbanTss == chronoTime && (chronoTime != 0)) {
 				// Finalizado completamente
 				clearInterval(myInterval);
@@ -750,14 +742,14 @@ function play() {
 		gaussianCounter++;
 		poissonCounter++;
 		weightCounter++;
-		
+
 		//Contados para mostrar lead time estimado y cycle time escimado
 		if(showLTandCLtensecs == 10){
 			showLTandCLtensecs = 0;
 		} else {
 			showLTandCLtensecs++;
 		}
-		
+
 		// Recargamos los datos de la targeta de informacion de cada tarea
 		listTareas.forEach(function(tarea){
 			if(atributo == tarea.name){
@@ -765,7 +757,7 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-				
+
 				if(showLTandCLtensecs == 10){
 					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + ", " +  eCT.toFixed(2) * 10  + "</b>";			
 				} else {
@@ -789,7 +781,7 @@ function play() {
 			updateData(myChart, user.secondsWork, i, 1);
 			i++;
 		});
-		
+
 	}, 1000);
 
 }
@@ -960,11 +952,11 @@ function getGaussian(){
 		type: "GET",
 		url: "/nextGaussian",
 		data: {
-
+			mean: distribution.mean,
+			variation: distribution.variation
 		},success: function(data) {
 
 			gaussian = parseInt(data)
-
 		}
 	});
 }
@@ -974,11 +966,10 @@ function getPoisson(){
 		type: "GET",
 		url: "/nextPoisson",
 		data: {
-
+			lambda: distribution.lambda
 		},success: function(data) {
 
 			poisson = parseInt(data)
-
 		}
 	});
 }
@@ -988,84 +979,83 @@ function getWeight(){
 		type: "GET",
 		url: "/nextWeight",
 		data: {
-
+			sValue: distribution.distributionWeightValues[0],
+			mValue: distribution.distributionWeightValues[1], 
+			lValue: distribution.distributionWeightValues[2], 
+			xlValue: distribution.distributionWeightValues[3]
 		},success: function(data) {
 			var formatedData = data.split(",")
 			weight = formatedData[0];
 			weightTime = parseInt(formatedData[1]);
-
+			
 		}
 	});
 }
 
 function getDistribution(){
-	$.ajax({
-		type: "GET",
-		url: "/getDistr",
-		data: {
-		},success: function(data) {
-			var formedData = data.split(',');
-			backLogType = formedData[0];
-			distributionType = formedData[1];
-			distributionWeightValues = formedData[5].split(';');
 
-			$("input[value='"+ backLogType +"']").prop("checked", true);
+	distribution.backLogType = distribution.backLogType;
+	distribution.typeConstant = distribution.typeConstant;
+	distributionWeightValues = distribution.distributionWeightValues;
 
-			if($("input[value='"+ distributionType +"']").is(':disabled')){
-				$("input[value='"+ distributionType +"']").prop("checked", true);
+	$("input[value='"+ distribution.backLogType +"']").prop("checked", true);
+
+	if($("input[value='"+ distribution.typeConstant +"']").is(':disabled')){
+		$("input[value='"+ distribution.typeConstant +"']").prop("checked", true);
 
 
-				if(distributionType == "normal"){
-					document.getElementById("paramTitle").style.visibility = "visible";
-					document.getElementById("paramTitle").style.height = "initial";
-					document.getElementById("dataNormalDistribution").style.visibility = "visible";
-					document.getElementById("dataNormalDistribution").style.height = "initial";
-					document.getElementById("normalBaseValue").value = formedData[2];
-					document.getElementById("normalVarianceValue").value = formedData[3];
-				} else if (distributionType == "poisson") {
-					document.getElementById("paramTitle").style.visibility = "visible";
-					document.getElementById("paramTitle").style.height = "initial";
-					document.getElementById("dataPoissonDistribution").style.visibility = "visible";
-					document.getElementById("dataPoissonDistribution").style.height = "initial";
-					document.getElementById("poissonLambda").value = formedData[4];
-				} else if (distributionType == "weight"){
-					document.getElementById("dataNormalDistribution").style.visibility = "hidden";
-					document.getElementById("dataNormalDistribution").style.height = "0px";
+		if(distribution.typeConstant == "normal"){
+			document.getElementById("paramTitle").style.visibility = "visible";
+			document.getElementById("paramTitle").style.height = "initial";
+			document.getElementById("dataNormalDistribution").style.visibility = "visible";
+			document.getElementById("dataNormalDistribution").style.height = "initial";
+			document.getElementById("normalBaseValue").value = distribution.mean;
+			document.getElementById("normalVarianceValue").value = distribution.variation;
+		} else if (distribution.typeConstant == "poisson") {
+			document.getElementById("paramTitle").style.visibility = "visible";
+			document.getElementById("paramTitle").style.height = "initial";
+			document.getElementById("dataPoissonDistribution").style.visibility = "visible";
+			document.getElementById("dataPoissonDistribution").style.height = "initial";
+			document.getElementById("poissonLambda").value = distribution.lambda;
+		} else if (distribution.typeConstant == "weight"){
+			document.getElementById("dataNormalDistribution").style.visibility = "hidden";
+			document.getElementById("dataNormalDistribution").style.height = "0px";
 
-					document.getElementById("dataWeightDistribution").style.visibility = "visible";
-					document.getElementById("dataWeightDistribution").style.height = "initial";
+			document.getElementById("dataWeightDistribution").style.visibility = "visible";
+			document.getElementById("dataWeightDistribution").style.height = "initial";
 
-					document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
-					document.getElementById("dataPoissonDistribution").style.height = "0px";
+			document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
+			document.getElementById("dataPoissonDistribution").style.height = "0px";
 
-					var weightDivValues = $(".sizeValue");
-					var weightDivSliders = $("div.ui-slider-handle");
+			var weightDivValues = $(".sizeValue");
+			var weightDivSliders = $("div.ui-slider-handle");
 
-					for(var wv = 0; wv < weightDivValues.length; wv++){
-						weightDivValues[wv].innerHTML = distributionWeightValues[wv];
-					}
-				}
-			}
-			if(backLogType == "constant"){
-				$("[name='distributionType']").removeAttr("disabled");
-				if(document.getElementById("addTask")){
-					document.getElementById("addTask").setAttribute("disabled", "");
-					document.getElementById("addTask").setAttribute("aria-disabled", "true");
-				}
-			}else{
-				$("[name='distributionType']").attr("disabled", "");
-				if(document.getElementById("modBacklogBtn")){
-					document.getElementById("modBacklogBtn").removeAttribute("disabled");
-				}
-				if(document.getElementById("addTask")){				
-					document.getElementById("addTask").removeAttribute("disabled");
-					document.getElementById("addTask").removeAttribute("aria-disabled");
-				}
-
+			for(var wv = 0; wv < weightDivValues.length; wv++){
+				weightDivValues[wv].innerHTML = distributionWeightValues[wv];
 			}
 		}
-	});
+		document.getElementById("modBacklogBtn").removeAttribute("disabled");
+	}
+		
+	if(distribution.backLogType == "constant"){
+		$("[name='distributionType']").removeAttr("disabled");
+		if(document.getElementById("addTask")){
+			document.getElementById("addTask").setAttribute("disabled", "");
+			document.getElementById("addTask").setAttribute("aria-disabled", "true");
+		}
+	}else{
+		$("[name='distributionType']").attr("disabled", "");
+		if(document.getElementById("modBacklogBtn")){
+			document.getElementById("modBacklogBtn").removeAttribute("disabled");
+		}
+		if(document.getElementById("addTask")){				
+			document.getElementById("addTask").removeAttribute("disabled");
+			document.getElementById("addTask").removeAttribute("aria-disabled");
+		}
+
+	}
 }
+
 
 
 //____________________________________________________________________

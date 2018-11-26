@@ -14,6 +14,7 @@
 
 </head>
 <body>
+
 	<!--
 ____________________________________________________________________
 
@@ -75,6 +76,7 @@ ____________________________________________________________________
 	</button>
 
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
+
 	<!--
 ____________________________________________________________________
 
@@ -97,7 +99,7 @@ ____________________________________________________________________
 
 				<canvas id="myChartAxis" height="300" width="0"></canvas>
 			</div>
-			
+
 			<h2>Gráfico de Usuarios</h2>
 			<canvas id="myChart"></canvas>
 		</div>
@@ -123,93 +125,14 @@ ____________________________________________________________________
 					var listTareas = new Array();
 					var listPhases = new Array();
 					var listUsers = new Array();
+					var distribution = new Object();
 				</script>
-
-				<%-- <c:forEach items="${task}" var="task">
-
-					<div class="tareas" data-toggle="modal"
-						data-target="#modalTaskInfo">
-
-						<p>
-							<c:out value="${task.name}"></c:out>
-						</p>
-
-						<p class="estado">
-							<small class="divState"><c:out value="${task.state}"></c:out></small>
-						</p>
-
-
-						<p class="duration">
-							<c:out value="${task.duration}"></c:out>
-						</p>
-
-					</div>
-
-					<c:set value="${task.name}" var="taskName" />
-
-			<!-- Script para mostrar unicamente si se muestra por servidor -->
-					<!-- <script>
-						var tareas = new Object();
-						tareas.name = "<c:out value="${taskName}"></c:out>";
-						tareas.duration = 0;
-						tareas.tss = 0;
-						tareas.state;
-						tareas.phase = 0;
-						tareas.assignedUsers = new Array();
-						tareas.staticAssigneds = new Array();
-						tareas.sameIteration = false;
-						tareas.cycleTime = 0;
-						tareas.leadTime = 0;
-						tareas.startTime = 0;
-						tareas.esfuerzo = 0;
-						tareas.phasesTime = new Array();
-						tareas.timeByStats = new Array();
-						tareas.statsTime = new Array();
-						tareas.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
-						listTareas.push(tareas);
-					</script> -->
-
-				</c:forEach> --%>
 
 			</div>
 
 		</div>
-		<script>
-			//____________________________________________________________________
 
-			//_______________________     Session     ____________________________
-
-			//____________________________________________________________________
-		</script>
-
-		<%-- <c:forEach items="${phases}" var="fase">
-				<c:set value="${fase.id}" var="id" />
-				<c:set value="${fase.name}" var="name" />
-				<c:set value="${fase.maxTasks}" var="maxTasks" />
-				<c:set value="${fase.maxTime}" var="maxTime" />
-				<c:set value="${fase.minTime}" var="minTime" />
-				<c:set value="${fase.color}" var="color" />
-
-				<script>
-					var phase = new Object();
-					phase.id = "<c:out value="${id}"></c:out>"; // Sujeto Pruebas
-					phase.name = "<c:out value="${name}"></c:out>";
-					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
-					phase.maxTime = <c:out value="${maxTime}"></c:out>;
-					phase.minTime = <c:out value="${minTime}"></c:out>;
-					phase.color = '<c:out value="${color}"></c:out>';
-					phase.period = 0;
-					listPhases.push(phase);
-					</script>		
-				</c:forEach> --%>
-
-
-		<div id="faseDiv" class="fase">
-			<!--  No puedo recuperar el valor del session storage -->
-
-
-
-		</div>
+		<div id="faseDiv" class="fase"></div>
 
 		<div class="fin">
 
@@ -471,6 +394,100 @@ ____________________________________________________________________
 					<p class="alert alert-info" id="modalTaskWorkingValue"></p>
 					<p id="modalTaskWorked">Miembros que han Trabajado:</p>
 					<p class="alert alert-info" id="modalTaskWorkedValue"></p>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal Distribution -->
+	<div class="modal fade" id="modalDistribution" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Cambiar Distribución</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+
+					<div class="card-body">
+						<p>Entrada de tareas</p>
+						<div>
+							<input type="radio" name="taskInputMode"
+								class="distributionRadio" value="manual" checked /> Manual <input
+								type="radio" name="taskInputMode" class="distributionRadio"
+								value="constant" /> Constante
+						</div>
+
+						<p>Distribución</p>
+						<div>
+							<input type="radio" name="distributionType"
+								class="distributionRadio" value="normal" disabled>
+							Normal <input type="radio" name="distributionType"
+								class="distributionRadio" value="poisson" disabled>
+							Poisson <input type="radio" name="distributionType"
+								class="distributionRadio" value="weight" disabled> Con
+							peso
+						</div>
+
+
+						<div id="distributionData">
+							<p id="paramTitle" style="visibility: collapse; height: 0px">Parametros:</p>
+
+							<div id="dataNormalDistribution"
+								style="visibility: collapse; height: 0px">
+								<p class="backloglabel">Base:</p>
+								<input type="number" class="backloglabelInput"
+									id="normalBaseValue" name="base" value="1" min="1"><br>
+								<p class="backloglabel">Varianza:</p>
+								<input type="number" class="backloglabelInput"
+									id="normalVarianceValue" name="variznce" value="1" min="1">
+							</div>
+
+							<div id="dataPoissonDistribution"
+								style="visibility: collapse; height: 0px">
+								<p class="backloglabel">Base:</p>
+								<input type="number" class="backloglabelInput"
+									id="poissonLambda" name="lambda" value="1" min="1">
+							</div>
+
+							<div id="dataWeightDistribution"
+								style="visibility: collapse; height: 0px">
+								<p class="backloglabel">S:</p>
+								<div class="backloglabelInput size" id="S">
+									<div id="custom-handle0" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+								<p class="backloglabel">M:</p>
+								<div class="backloglabelInput size" id="M">
+									<div id="custom-handle1" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+								<p class="backloglabel">L:</p>
+								<div class="backloglabelInput size" id="L">
+									<div id="custom-handle2" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+								<p class="backloglabel">XL:</p>
+								<div class="backloglabelInput size" id="XL">
+									<div id="custom-handle3" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<button id="modBacklogBtn" class="btn btn-primary" data-dismiss="modal">SAVE</button>
+
+					</div>
 
 				</div>
 				<div class="modal-footer">
