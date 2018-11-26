@@ -38,7 +38,7 @@ var poissonCounter = 0;
 var weight = "M"; 
 var weightTime = 0; // Tiempo en el que entrara la proxima tarea en uniforme con peso
 
-if(distribution.typeConstant = "weight"){
+if(distribution.typeConstant == "weight"){
 	getWeight();
 }
 
@@ -623,7 +623,7 @@ function play() {
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(distribution.backLogType == "constant"){	
 			if((gaussian == gaussianCounter || gaussian <= 0) && distribution.typeConstant == "normal"){
-//				console.log("normal");
+				console.log("normal");
 				getGaussian();		
 				calcLDValues(gaussian);
 				gaussianCounter = 0;
@@ -632,11 +632,13 @@ function play() {
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
+				console.log("poisson")
 				calcLDValues(poisson);
 				poissonCounter = 0;
 				addTareas("",leadTime);
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
 				getWeight();
+				console.log("weught")
 				calcLDValues(weightTime);
 				weightCounter = 0;
 				addTareas(weight,leadTime);

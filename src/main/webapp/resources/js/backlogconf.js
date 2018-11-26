@@ -234,7 +234,7 @@ $(document).ready(function(){
 			saveDistributionSession();
 			refreshDistributionSession();
 
-			location.href = "/";
+//			location.href = "/";
 		}
 	}) //end button listener
 })
