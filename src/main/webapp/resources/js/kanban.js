@@ -6,21 +6,29 @@
 
 
 //Necesarias para distribucion
-distribution.backLogType; 
-distribution.typeConstant;
+distribution.backLogType = "manual"; 
+distribution.typeConstant = "";
 distribution.mean;			// Base value for normal distribution 
 distribution.variation;		// Variation value for normal distribution
 distribution.lambda;			// Lambda value for poisson distribution 
 distribution.distributionWeightValues = [0, 0, 0, 0];
+
 refreshDistributionSession();
-
-if(distribution.backLogType == null){
-	distribution.backLogType = "manual";
-}
-
 saveDistributionSession();
 
 document.getElementById("distributionChange").addEventListener("click", getDistribution(), false);
+
+if(distribution.backLogType == "manual"){
+
+	document.getElementById("addTask").removeAttribute("disabled");
+	document.getElementById("addTask").removeAttribute("aria-disabled");
+}else{
+
+	document.getElementById("addTask").setAttribute("disabled", "");
+	document.getElementById("addTask").setAttribute("aria-disabled", "true");
+
+}
+
 
 
 var firstLoop = true;
@@ -38,7 +46,7 @@ var poissonCounter = 0;
 var weight = "M"; 
 var weightTime = 0; // Tiempo en el que entrara la proxima tarea en uniforme con peso
 
-if(distribution.typeConstant = "weight"){
+if(distribution.typeConstant == "weight"){
 	getWeight();
 }
 
@@ -69,6 +77,9 @@ sortPhases();
 listUsers.forEach(function(user){
 	addData(myChart, user.name, user.tasksWorked, "rgba(0,255,233,0.5)");
 })
+
+// Botón para reinicializar la simulación
+document.getElementById("deleteAll").addEventListener("click", removeAllSession, false);
 
 //Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
@@ -971,7 +982,7 @@ function getGaussian(){
 			mean: distribution.mean,
 			variation: distribution.variation
 		},success: function(data) {
-
+			console.log("N");
 			gaussian = parseInt(data)
 		}
 	});
@@ -984,7 +995,8 @@ function getPoisson(){
 		data: {
 			lambda: distribution.lambda
 		},success: function(data) {
-
+			console.log("P");
+			console.log(distribution.lambda);
 			poisson = parseInt(data)
 		}
 	});
@@ -1000,6 +1012,7 @@ function getWeight(){
 			lValue: distribution.distributionWeightValues[2], 
 			xlValue: distribution.distributionWeightValues[3]
 		},success: function(data) {
+			console.log("W");
 			var formatedData = data.split(",")
 			weight = formatedData[0];
 			weightTime = parseInt(formatedData[1]);
@@ -1052,24 +1065,19 @@ function getDistribution(){
 		}
 		document.getElementById("modBacklogBtn").removeAttribute("disabled");
 	}
-		
+	
 	if(distribution.backLogType == "constant"){
 		$("[name='distributionType']").removeAttr("disabled");
-		if(document.getElementById("addTask")){
-			document.getElementById("addTask").setAttribute("disabled", "");
-			document.getElementById("addTask").setAttribute("aria-disabled", "true");
-		}
+		
 	}else{
 		$("[name='distributionType']").attr("disabled", "");
 		if(document.getElementById("modBacklogBtn")){
 			document.getElementById("modBacklogBtn").removeAttribute("disabled");
 		}
-		if(document.getElementById("addTask")){				
-			document.getElementById("addTask").removeAttribute("disabled");
-			document.getElementById("addTask").removeAttribute("aria-disabled");
-		}
-
+		
 	}
+	
+	
 }
 
 

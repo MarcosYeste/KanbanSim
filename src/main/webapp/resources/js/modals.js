@@ -816,6 +816,7 @@ function showTaskInfo(){
 	}else{
 		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>";
 	}
+	
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
 	console.log("TII " + TII + " T " + T + " VII " +  VII + " Vt "+ Vt);
 	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){

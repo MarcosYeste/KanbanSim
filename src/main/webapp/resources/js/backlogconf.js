@@ -35,6 +35,7 @@ $(document).ready(function(){
 
 				document.getElementById("dataNormalDistribution").style.visibility = "visible";
 				document.getElementById("dataNormalDistribution").style.height = "initial";
+				
 
 			} else if(this.value == "poisson"){
 
@@ -46,7 +47,7 @@ $(document).ready(function(){
 
 				document.getElementById("dataPoissonDistribution").style.visibility = "visible";
 				document.getElementById("dataPoissonDistribution").style.height = "initial";
-
+				
 			}else{
 
 				document.getElementById("dataNormalDistribution").style.visibility = "hidden";
@@ -84,10 +85,7 @@ $(document).ready(function(){
 
 				distribution.backLogType = "constant";
 				distribution.typeConstant = "normal";
-
-				//-----------------------
-				saveDistributionSession();
-
+				
 				document.getElementById("modBacklogBtn").setAttribute("disabled", "");
 			} else {
 				$(distributionTypeInputs).attr("disabled", "");
@@ -96,7 +94,7 @@ $(document).ready(function(){
 				// Cambiar Distribucion
 
 				distribution.backLogType = "manual";
-				distribution.typeConstant = this.value;
+				distribution.typeConstant = "";
 
 				//-----------------------
 
@@ -197,7 +195,7 @@ $(document).ready(function(){
 	for(var i = 0; i < divsValues.length; i++){
 		$("#custom-handle"+i).slider("option", 'value', parseInt(divsValues[i].innerHTML));
 	}
-
+	
 	$("#modBacklogBtn").click(function(){
 		var radios = $("[name='distributionType']")
 		for(var i = 0; i < radios.length; i++){
@@ -216,25 +214,88 @@ $(document).ready(function(){
 		var sizeValuesArray = $(".sizeValue");
 		var sizeValuesString = "";
 		for(var i = 0; i < sizeValuesArray.length; i++){
-			console.log(sizeValuesArray[i].innerHTML);
 			sizeValuesString += sizeValuesArray[i].innerHTML + ",";
 		}
-		console.log(sizeValuesString);
 
 
 		if((distribution.backLogType == "constant" && distributionIsSelected) || distribution.backLogType == "manual"){
 
 			$(distributionTypeInputs).removeAttr("disabled");
-
+			
 			distribution.mean = parseInt(document.getElementById("normalBaseValue").value);
 			distribution.variation = parseInt(document.getElementById("normalVarianceValue").value);
 			distribution.lambda = parseInt(document.getElementById("poissonLambda").value);
 			distribution.sizeValues = sizeValuesString;
-
+			
 			saveDistributionSession();
 			refreshDistributionSession();
 
-			location.href = "/";
+			if(distribution.backLogType == "manual"){
+
+				document.getElementById("addTask").removeAttribute("disabled");
+				document.getElementById("addTask").removeAttribute("aria-disabled");
+			}else{
+
+				document.getElementById("addTask").setAttribute("disabled", "");
+				document.getElementById("addTask").setAttribute("aria-disabled", "true");
+
+			}
+
 		}
 	}) //end button listener
+
+
+class CampoNumerico {
+
+  constructor(selector) {
+    this.nodo = document.querySelector(selector);
+    this.valor = '';
+    
+    this.empezarAEscucharEventos();
+  }
+  
+  empezarAEscucharEventos() {
+    this.nodo.addEventListener('keydown', function(evento) {
+      const teclaPresionada = evento.key;
+      const teclaPresionadaEsUnNumero =
+        Number.isInteger(parseInt(teclaPresionada));
+
+      const sePresionoUnaTeclaNoAdmitida = 
+        teclaPresionada != 'ArrowDown' &&
+        teclaPresionada != 'ArrowUp' &&
+        teclaPresionada != 'ArrowLeft' &&
+        teclaPresionada != 'ArrowRight' &&
+        teclaPresionada != 'Backspace' &&
+        teclaPresionada != 'Delete' &&
+        teclaPresionada != 'Enter' &&
+        !teclaPresionadaEsUnNumero;
+      const comienzaPorCero = 
+        this.nodo.value.length === 0 &&
+        teclaPresionada == 0;
+
+      if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+        evento.preventDefault(); 
+      } else if (teclaPresionadaEsUnNumero) {
+        this.valor += String(teclaPresionada);
+      }
+
+    }.bind(this));
+
+    this.nodo.addEventListener('input', function(evento) {
+      const cumpleFormatoEsperado = new RegExp(/^[0-9]+/).test(this.nodo.value);
+
+      if (!cumpleFormatoEsperado) {
+        this.nodo.value = this.valor;
+      } else {
+        this.valor = this.nodo.value;
+      }
+    }.bind(this));
+  }
+
+}
+
+new CampoNumerico('#normalBaseValue');
+new CampoNumerico('#normalVarianceValue');
+new CampoNumerico('#poissonLambda');
+
 })
