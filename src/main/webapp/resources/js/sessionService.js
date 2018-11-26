@@ -114,3 +114,22 @@ function saveDistributionSession(){
 	sessionStorage.setItem("distribution", JSON.stringify(distribution));
 }
 
+
+//____________________________________________________________________
+
+//_____________________ REMOVE SESSION STORAGE  ______________________
+
+//____________________________________________________________________
+
+function removePhaseSession(){
+	sessionStorage.removeItem("phases");
+}
+function removeUserSession(){
+	sessionStorage.removeItem("users");
+}
+
+function removeAllSession(){
+	console.log("Deleted")
+	removePhaseSession();
+	removeUserSession();
+}
