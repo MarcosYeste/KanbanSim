@@ -794,6 +794,8 @@ function play() {
 			updateData(myChart, user.secondsWork, i, 1);
 			i++;
 		});
+		updateGraficPhase();
+		
 
 	}, 1000);
 

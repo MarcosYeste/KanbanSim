@@ -99,12 +99,11 @@ function saveAddPhase(){
 	if(exist){
 		document.getElementById("addFasesWarning2").setAttribute("class","alert alert-warning");
 		document.getElementById("addFasesWarning2").innerHTML = "El nombre de la fase ya existe";
-		document.getElementById("addPhase").removeAttribute("data-dismiss");
 	}else{
-		document.getElementById("addPhase").setAttribute("data-dismiss", "modal");
 		document.getElementById("addFasesWarning2").setAttribute("class","");
 		document.getElementById("addFasesWarning").setAttribute("class","");
 		document.getElementById("addFasesWarning").innerHTML= "";
+		document.getElementById("addFasesWarning2").innerHTML= "";
 		
 	phaseO.id = getRandomId(); // Sujeto Pruebas
 	phaseO.name = nuevoNombre;
