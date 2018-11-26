@@ -35,18 +35,23 @@ ____________________________________________________________________
 
 
 		</div>
+	
+		
 	<div class="doubleButton">
 		<button id="result" onclick="generarResultados()" class="resultbutt">
 			<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
 				data-placement="top" title="Mostrar Resultados"></i>
 		</button>
+		
 		<button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
 			<i class="fas fa-chart-bar fa-4x" data-toggle="tooltip"
 				data-placement="top" title="Mostrar Graficos"></i>
 		</button>
 		
 	</div>
+	
 </div>
+	
 	<h1 class="texto">KANBAN SIM</h1>
 <!--
 ____________________________________________________________________
@@ -57,18 +62,21 @@ ____________________________________________________________________
 -->
 	
 	<fieldset class="teamField">
+	
 		<legend class="teamField">Miembros del Equipo:<span style="float: left;margin-left: 80%;" class="legUser"> <!-- margin-left :80% -->
-		<button	id="addUser"><i class="fas fa-user-plus fa-2x" data-toggle="modal"data-target="#addUsers"></i></button></span>
+		<button	id="addUser"><i class="fas fa-user-plus fa-2x" data-toggle="modal"data-target="#addUsers"></i></button>
+		</span>
+		
 		</legend>
 		
 		<div class="usersContainer" id="usersContainer">
 			
 		</div>
-		
 	</fieldset>
-	<p role="alert" style="float: left;margin-left: 25%; font-size:140%;margin-top: 1%;" id="saturacion" ></p>
+	
 	<!--Temporizador y Cambiar Distribucion -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
+	<p role="alert" style="float: left;margin-left: 25%; font-size:140%;margin-top: 1%;" id="saturacion" ></p>
 	<div class="botonesContainer">
 
 		<!--  Button Play/Pause -->
@@ -78,19 +86,18 @@ ____________________________________________________________________
 		</div>
 		<div class="playpause">
 			<input type="checkbox" value="None" id="playpause" name="check" /> <label	for="playpause" tabindex=1></label>
-		</div>
-		
+		</div>		
 		
 	</div>
 
 	<!-- Button Add Tasks, ONLY MANUAL -->
 	<button id="addTask" data-toggle="tooltip" data-placement="top"	title="Añadir Tareas">
 		<i class="fas fa-plus fa-3x"></i>
-	</button>
-
+	</button>	
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv">
 		 
 	</div>
+
 	<!--
 ____________________________________________________________________
 
@@ -118,6 +125,7 @@ ____________________________________________________________________
 			<canvas id="myChart"></canvas>
 		</div> 		
 	</div>
+	
 	<div class="contenedor" id="contenedor">
 
 
