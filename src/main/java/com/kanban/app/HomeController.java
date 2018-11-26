@@ -265,7 +265,7 @@ public class HomeController {
 		Random r = new Random();
 		int num = r.nextInt(100) + 1;
 		String val = "";
-
+		System.out.println(sValue + ", " + mValue + ", " + lValue + ", " + xlValue);
 		if(num <= sValue) {
 			val = "S";
 		} else if(num > sValue && num <= sValue + mValue) {

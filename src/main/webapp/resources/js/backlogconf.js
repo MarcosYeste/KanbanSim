@@ -213,7 +213,9 @@ $(document).ready(function(){
 		}
 		var sizeValuesArray = $(".sizeValue");
 		var sizeValuesString = "";
+		distribution.distributionWeightValues = [];
 		for(var i = 0; i < sizeValuesArray.length; i++){
+			distribution.distributionWeightValues.push(sizeValuesArray[i].innerHTML);
 			sizeValuesString += sizeValuesArray[i].innerHTML + ",";
 		}
 
@@ -225,7 +227,8 @@ $(document).ready(function(){
 			distribution.mean = parseInt(document.getElementById("normalBaseValue").value);
 			distribution.variation = parseInt(document.getElementById("normalVarianceValue").value);
 			distribution.lambda = parseInt(document.getElementById("poissonLambda").value);
-			distribution.sizeValues = sizeValuesString;
+//			distribution.sizeValues = sizeValuesString;
+//			distribution.distributionWeightValues = sizeValuesArray;
 			
 			saveDistributionSession();
 			refreshDistributionSession();

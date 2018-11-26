@@ -187,14 +187,24 @@ function play() {
 
 					if(distribution.typeConstant == "weight"){
 
+//						if(task.weight == "S"){
+//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
+//						} else if (task.weight == "M"){
+//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
+//						} else if (task.weight == "L"){
+//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
+//						} else if (task.weight == "XL"){
+//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
+//						}
+						
 						if(task.weight == "S"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25)) +  listPhases[i].minTime);
 						} else if (task.weight == "M"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
 						} else if (task.weight == "L"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
 						} else if (task.weight == "XL"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
 						}
 					} else {
 						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
@@ -450,14 +460,24 @@ function play() {
 
 								if(distribution.typeConstant == "weight"){
 
+//									if(task.weight == "S"){
+//										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
+//									} else if (task.weight == "M"){
+//										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
+//									} else if (task.weight == "L"){
+//										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
+//									} else if (task.weight == "XL"){
+//										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
+//									}
+									
 									if(task.weight == "S"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) ) +  listPhases[i].minTime);
 									} else if (task.weight == "M"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) ) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
 									} else if (task.weight == "L"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) ) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
 									} else if (task.weight == "XL"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) ) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
 									}
 								} else {
 									task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
@@ -634,7 +654,7 @@ function play() {
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(distribution.backLogType == "constant"){	
 			if((gaussian == gaussianCounter || gaussian <= 0) && distribution.typeConstant == "normal"){
-//				console.log("normal");
+				console.log("normal");
 				getGaussian();		
 				calcLDValues(gaussian);
 				gaussianCounter = 0;
@@ -643,11 +663,14 @@ function play() {
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
+				console.log("poisson")
 				calcLDValues(poisson);
 				poissonCounter = 0;
 				addTareas("",leadTime);
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
 				getWeight();
+				console.log("weught")
+				console.log(weight)
 				calcLDValues(weightTime);
 				weightCounter = 0;
 				addTareas(weight,leadTime);
@@ -770,12 +793,26 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-
-				if(showLTandCLtensecs == 10){
-					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + ", " +  eCT.toFixed(2) * 10  + "</b>";			
-				} else {
-					document.getElementById("modalTaskLTCTValue").innerHTML = "<b> 0, 0 </b>";
-				}
+			if(showLTandCLtensecs == 10){
+				if(TII < T ){
+					console.log("SATURACION");
+					document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
+					document.getElementById("saturacion").setAttribute("class","alert alert-danger");				
+					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
+				}else{
+					console.log("FLUIDO");
+					document.getElementById("saturacion").innerHTML = "";
+					document.getElementById("saturacion").setAttribute("class","");
+					var auxLT= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
+					if(!isNaN(auxLT) || isFinite(auxLT)){
+						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
+					}else{
+						console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"+auxLT);
+						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
+					}
+				}					
+					
+			}
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
 			}
@@ -991,6 +1028,7 @@ function getPoisson(){
 }
 
 function getWeight(){
+
 	$.ajax({
 		type: "GET",
 		url: "/nextWeight",
@@ -1002,6 +1040,7 @@ function getWeight(){
 		},success: function(data) {
 			console.log("W");
 			var formatedData = data.split(",")
+			console.log(data);
 			weight = formatedData[0];
 			weightTime = parseInt(formatedData[1]);
 			
