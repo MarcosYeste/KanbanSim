@@ -70,7 +70,11 @@ function behindTable(){
 			if(task.phasesTime[i] == undefined){
 				task.phasesTime[i] = 0;
 			}
+			if(task.phasesTime[i] == 0){
+				tablaTarea += "<td> - </td>";
+			}else{
 			tablaTarea += "<td>"+task.phasesTime[i]+"s</td>";
+			}
 		}
 		tablaTarea += "</tr>";
 	});

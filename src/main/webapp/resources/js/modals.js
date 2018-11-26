@@ -15,7 +15,6 @@ var userO = new Object();
 var taskNameCounter = 0;
 var atributo;
 
-
 //_________________________________________________________________
 
 //_______________________ EVENTOS  ________________________________
@@ -46,35 +45,34 @@ if(document.getElementById("addTask")){
 	document.getElementById("addTask").addEventListener("click", function(){ addTareas("", leadTime); }, false);
 }
 if(document.getElementById("addPhase")){
-	document.getElementById("addPhase").addEventListener("click", function(){
+document.getElementById("addPhase").addEventListener("click", function(){
 
-		if(document.getElementById("addName").value != "" 	&& 
-				document.getElementById("addWip").value > 0 		&& 
-				document.getElementById("addMinTime").value > 0  && 
-				document.getElementById("addMaxTime").value > 0){
+	if(document.getElementById("addName").value != "" 	&& 
+			document.getElementById("addWip").value > 0 		&& 
+			document.getElementById("addMinTime").value > 0  && 
+			document.getElementById("addMaxTime").value > 0){
 
-			document.getElementById("addFasesWarning").setAttribute("class","");
-			document.getElementById("addFasesWarning").innerHTML= "";
+		document.getElementById("addFasesWarning").setAttribute("class","");
+		document.getElementById("addFasesWarning").innerHTML= "";
 
-			saveAddPhase();
+		saveAddPhase();
 
-			addPhases();
+		addPhases();
 
-		}else{
-			document.getElementById("addFasesWarning").setAttribute("class","alert alert-warning");
-			document.getElementById("addFasesWarning").innerHTML = "Todos los campos deben ser rellenados";
+	}else{
+		document.getElementById("addFasesWarning").setAttribute("class","alert alert-warning");
+		document.getElementById("addFasesWarning").innerHTML = "Todos los campos deben ser rellenados";
 
-		}
+		document.getElementById("addFasesWarning2").setAttribute("class","");
 
-	}, false);
+		document.getElementById("addFasesWarning2").innerHTML = "";
+		
+
+	}
+
+}, false);
 }
 
-
-//____________________________________________________________________
-
-//_______________________ ADD PHASES  ________________________________
-
-//____________________________________________________________________
 
 function addPhases(){
 	document.getElementById("addName").value = "";
@@ -90,32 +88,37 @@ function saveAddPhase(){
 	refreshPhases();
 
 	var phaseO = new Object();
+	
+	var nuevoNombre = document.getElementById("addName").value;
+	var exist = false;
+	for (var i = 0; i < listPhases.length && !exist; i++) {
+			if(listPhases[i].name == nuevoNombre ){
+				exist = true;
+		}
+	}
+	if(exist){
+		document.getElementById("addFasesWarning2").setAttribute("class","alert alert-warning");
+		document.getElementById("addFasesWarning2").innerHTML = "El nombre de la fase ya existe";
+		document.getElementById("addPhase").removeAttribute("data-dismiss");
+	}else{
+		document.getElementById("addPhase").setAttribute("data-dismiss", "modal");
+		document.getElementById("addFasesWarning2").setAttribute("class","");
+		document.getElementById("addFasesWarning").setAttribute("class","");
+		document.getElementById("addFasesWarning").innerHTML= "";
+		
 	phaseO.id = getRandomId(); // Sujeto Pruebas
-	phaseO.name = document.getElementById("addName").value;
-	if(document.getElementById("addWip").value <= 0 || document.getElementById("addWip").value == null){
-		phaseO.maxTasks = parseInt(1);
-	}else{
-		phaseO.maxTasks = parseInt(document.getElementById("addWip").value);
-	}
+	phaseO.name = nuevoNombre;
 	
-	if(document.getElementById("addWip").value <= 0 || document.getElementById("addWip").value == null){
-		phaseO.maxTime = parseInt(1);
-	}else{
-		phaseO.maxTime = parseInt(document.getElementById("addMaxTime").value);
-	}
-	
-	if(document.getElementById("addWip").value <= 0 || document.getElementById("addWip").value == null){
-		phaseO.minTime =  parseInt(1);
-	}else{
-		phaseO.minTime = parseInt(document.getElementById("addMinTime").value);
-	}
-	
+	phaseO.maxTasks = parseInt(document.getElementById("addWip").value);
+	phaseO.maxTime = parseInt(document.getElementById("addMaxTime").value);
+	phaseO.minTime = parseInt(document.getElementById("addMinTime").value);
 	phaseO.color = document.getElementById("color-input").value;
 	phaseO.period = 0;
 	listPhases.push(phaseO);
 
 	savePhaseSession();
 	printPhaseSession();
+	}
 }
 
 function getRandomId(){
@@ -141,8 +144,27 @@ function modPhases(){
 
 }
 
+/*----------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------CAMBIAR-------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------*/
 function saveModPhase() {
-	// Modificamos los datos de la fase
+	// Modificamos los datos de la fase	
+//    ESTE CODIGO POR SI LO HACEMOS POR ID Y QUEREMOS QUE EL NOMBRE SE PUEDA CAMBIAR	
+//	var nuevoNombre = 	var exist = false;
+//	for (var i = 0; i < listPhases.length && !exist; i++) {
+//			if(listPhases[i].name == nuevoNombre ){
+//				exist = true;
+//		}
+//	}
+//	if(exist){
+//		document.getElementById("modPhaseWarning").setAttribute("class","alert alert-warning");
+//		document.getElementById("modPhaseWarning").innerHTML = "El miembro del equipo ya existe";
+//		document.getElementById("modPhase").removeAttribute("data-dismiss");
+//	}else{
+//		document.getElementById("modPhase").setAttribute("data-dismiss", "modal");
+//		document.getElementById("modPhaseWarning").setAttribute("class","");
+//		}
+
 	refreshUsers();
 	listPhases.find(x => x.id === click).name = document.getElementById("modName").value;
 	listPhases.find(x => x.id === click).maxTasks = parseInt(document.getElementById("modWip").value);
@@ -165,7 +187,12 @@ function saveModPhase() {
 	savePhaseSession();
 	printPhaseSession();
 
+
 }
+/*----------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------*/
+
 
 
 //___________________________________________________________________
@@ -189,6 +216,7 @@ function addUsers(){
 	userO.assigned = false;
 
 	document.getElementById("addNameUser").value = "";
+	document.getElementById("addUserWarning").setAttribute("class","");
 
 	// Comprueba que haya algo seleccionado
 	formUserValido(saveAddUser, "add");
@@ -364,28 +392,48 @@ function addInput(index1, index2, object){
 	skillsList.push(object.skills[sliders.length - 1]);
 }
 
-function saveAddUser(){
+function saveAddUser(){ 
 	refreshUsers();
 	var fases = "";
 
 	for( var i = 0; i < userO.phases.length; i++){
 		fases += userO.phases[i] + ",";
 	}
-	userO.name = document.getElementById("addNameUser").value;
-	userO.fases = fases;
+	var nuevoNombre = document.getElementById("addNameUser").value;
+	var exist = false;
+	for (var i = 0; i < listUsers.length && !exist; i++) {
+			if(listUsers[i].name == nuevoNombre ){
+				exist = true;
+		}
+	}
+	if(exist){
+		document.getElementById("addUserWarning").setAttribute("class","alert alert-warning");
+		document.getElementById("addUserWarning").innerHTML = "El miembro del equipo ya existe";
+		document.getElementById("addUsuario").removeAttribute("data-dismiss");
+	}else{
+		document.getElementById("addUsuario").setAttribute("data-dismiss", "modal");
+		document.getElementById("addUserWarning").setAttribute("class","");
+		userO.name = nuevoNombre;
 
-	listUsers.push(userO); 	
-	sessionStorage.setItem("users", JSON.stringify(listUsers));
-	printUserSession();
+			userO.fases = fases;
+
+			listUsers.push(userO); 	
+			sessionStorage.setItem("users", JSON.stringify(listUsers));
+			printUserSession();
 
 
-	document.getElementById("addNameUser").value = "";
+			document.getElementById("addNameUser").value = "";
 
-	// Añadimos al nuevo usuario
-	addData(myChart, userO.name, userO.tasksWorked, "rgba(0,255,233,0.5)");
-	myChart.update();
+			// Añadimos al nuevo usuario
+			addData(myChart, userO.name, userO.tasksWorked, "rgba(0,255,233,0.5)");
+			myChart.update();
 
-	userO = new Object();
+			userO = new Object();
+	}
+		
+	
+	
+	
 }
 
 function formUserValido(funcion,accion){
@@ -497,7 +545,7 @@ function modUsers(){
 					}
 				}
 			}
-
+			
 			if(listUsers[click2].phases.length != 0){
 				saveUsersSession();
 				refreshUsers();
@@ -602,7 +650,22 @@ function insertInput(index1, index2){
 //Guardamos los datos de usuario
 function saveModUsers() {
 	refreshUsers();
-	listUsers[click2].name = document.getElementById("modNameUser").value;
+	var nuevoNombre = document.getElementById("modNameUser").value;
+	
+	var exist = false;
+	for (var i = 0; i < listUsers.length && !exist; i++) {
+			if(listUsers[i].name == nuevoNombre ){
+				exist = true;
+		}
+	}
+	if(exist){
+		document.getElementById("modUserWarning").setAttribute("class","alert alert-warning");
+		document.getElementById("modUserWarning").innerHTML = "El miembro del equipo ya existe";
+		document.getElementById("modUsuario").removeAttribute("data-dismiss");
+	}else{
+		document.getElementById("modUsuario").setAttribute("data-dismiss", "modal");
+		
+	listUsers[click2].name = nuevoNombre;
 	listUsers[click2].skills = skillsList;
 
 
@@ -619,7 +682,7 @@ function saveModUsers() {
 	modLabel(myChart, oldName, listUsers[click2].name);
 	saveUsersSession();
 	printUserSession();
-
+	}
 
 }
 
@@ -690,10 +753,10 @@ function addTareas(weight,creationTime){
 
 if (chronoTimeTypeSelection == "sec") {
 	if(document.getElementById("modChronoTime")){
-		document.getElementById("modChronoTime").value = chronoTime;
+	document.getElementById("modChronoTime").value = chronoTime;
 	}
 	if(document.getElementsByName("chronoTimeType")[0] != undefined){
-		document.getElementsByName("chronoTimeType")[0].setAttribute("checked", "");
+	document.getElementsByName("chronoTimeType")[0].setAttribute("checked", "");
 	}
 } else {
 	document.getElementById("modChronoTime").value = chronoTime / 60;
@@ -757,10 +820,10 @@ function showTaskInfo(){
 	console.log("TII " + TII + " T " + T + " VII " +  VII + " Vt "+ Vt);
 	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0)){
 		console.log("if");
-//		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
+		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
 	} else {
 		console.log("else");
-		document.getElementById("modalTaskLTCTValue").innerHTML = "<b> 0, A0 </b>";
+		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) + ", 0" + "</b>";
 	}
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
 	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";

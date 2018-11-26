@@ -2,8 +2,10 @@
 <header>
 	<div id="header-btn" class="btn-group">
 		<a class="btn btn-success" href="/" role="button">Home</a> 
-		<a class="btn btn-success" href="/distributionForm" role="button">Cambiar
-			Distribución</a> 
+		
+		<a class="btn btn-success" role="button"
+		data-toggle="modal" data-target="#modalDistribution" id="distributionChange">Cambiar Distribución</a> 
+		
 		<a class="btn btn-success" role="button"
 			data-toggle="modal" data-target="#modalAddFases" id="nuevaFase">Nueva Fase</a>
 	</div>

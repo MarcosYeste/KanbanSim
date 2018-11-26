@@ -1,7 +1,5 @@
 $(document).ready(function(){
 
-	var selectedBacklog = "";
-	var typeConstant = "";
 	var distributionIsSelected = false;
 	var taskInputModeInputs = $("[name='taskInputMode']");
 	var totalPercentage = 0;
@@ -10,26 +8,24 @@ $(document).ready(function(){
 	var divsValues = document.getElementsByClassName("sizeValue");
 	var slidersTofill = document.getElementsByClassName("ui-slider-handle");
 	var spanSelector = 1;
-	
+
 	var distributionTypeInputs = $("[name='distributionType']").change(function(){
-		$.ajax({
-			type: "POST",
-			url: "/changeDistr",
-			data: {
-				distribution: "constant",
-				distributionType: this.value,
-			},success: function(data) {
-			}
-		});
+
+		// Cambiar Distribucion
+
+		distribution.backLogType = "constant";
+		distribution.typeConstant = this.value;
+
+		//-----------------------
 
 		distributionIsSelected = true;
-		selectedBacklog = "constant";
 		document.getElementById("modBacklogBtn").removeAttribute("disabled");
 
 		if(this.value == "normal" || this.value == "poisson" || this.value == "weight"){
 			document.getElementById("paramTitle").style.visibility = "visible";
 			document.getElementById("paramTitle").style.height = "initial";
-			typeConstant = this.value;
+			distribution.typeConstant = this.value;
+
 			if(this.value == "normal"){
 				document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
 				document.getElementById("dataPoissonDistribution").style.height = "0px";
@@ -61,7 +57,7 @@ $(document).ready(function(){
 
 				document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
 				document.getElementById("dataPoissonDistribution").style.height = "0px";
-				
+
 				document.getElementById("modBacklogBtn").setAttribute("disabled", "");
 
 			}
@@ -83,30 +79,27 @@ $(document).ready(function(){
 		taskInputModeInputs[i].addEventListener("change", function(){
 			if(event.target.getAttribute("value") == "constant"){
 				$(distributionTypeInputs).removeAttr("disabled");
-				$.ajax({
-					type: "POST",
-					url: "/changeDistr",
-					data: {
-						distribution: "constant",
-						distributionType: "normal",
-					},success: function(data) {
-					}
-				});
-				selectedBacklog = "constant";
+
+				// Cambiar Distribucion
+
+				distribution.backLogType = "constant";
+				distribution.typeConstant = "normal";
+
+				//-----------------------
+				saveDistributionSession();
+
 				document.getElementById("modBacklogBtn").setAttribute("disabled", "");
 			} else {
 				$(distributionTypeInputs).attr("disabled", "");
 				$(distributionTypeInputs).prop('checked', false);
-				$.ajax({
-					type: "POST",
-					url: "/changeDistr",
-					data: {
-						distribution: "manual",
-						distributionType: "",
-					},success: function(data) {
-					}
-				});
-				selectedBacklog = "normal";
+
+				// Cambiar Distribucion
+
+				distribution.backLogType = "manual";
+				distribution.typeConstant = this.value;
+
+				//-----------------------
+
 				distributionIsSelected = false;
 				document.getElementById("modBacklogBtn").removeAttribute("disabled");
 				document.getElementById("paramTitle").style.visibility = "hidden";
@@ -122,102 +115,102 @@ $(document).ready(function(){
 	}	
 
 	var sliders = $("#dataWeightDistribution .ui-slider-handle");
-//	console.log(sliders);
-	sliders.each(function() {
-	    var value = parseInt($(this).text(), 10),
-	        availableTotal = 100;
 
-	 $(this).empty().slider({
-	        value: 0,
-	        min: 0,
-	        max: 100,
-	        range: "max",
-	        step: 1,
-	        animate: 100,
-	        slide: function(event, ui) {
-	            // Update display to current value
-	            $(this).siblings().text(ui.value);
-	        },
-	        stop: function( event, ui ) {	        	
-	        	total = 0;
-	        	//Calcular la suma total para poder calcular el limite actual
-	            sliders.not(this).each(function() {	            	
-	            	if(total >= 100){
-	            		total = 100;
-	            		$(this).slider("option", 'value', 0);
-	            		
-	            	} else {
-	            		total += $(this).slider("option", "value");
-	            	}
-	            	
-	            });
-	            subTotal = 0;
-	            sliders.each(function() {
-	            	if(subTotal >= 100){
-	            		subTotal = 100;
-	            	} else {
-	            		subTotal += $(this).slider("option", "value");
-	            	}
-	            	 if(subTotal < 100){
-	 	        		document.getElementById("modBacklogBtn").setAttribute("disabled", "");	
-	 	            } else if (subTotal == 100){
-	 	            	document.getElementById("modBacklogBtn").removeAttribute("disabled");
-	 	            }
-	            });
-	            
-	           
-	            
-	            //Calcular el limite actual
-	            var max = 0;
-            	if(!(total >= 100)){
-	            	max = availableTotal - total;
-	            } 
-            	//Controlar el limite del slider
-	            if(ui.value >= max){
-	            	this.firstChild.style.cssText = "left: "+max+"%";
-	            	$(this).siblings().text(max);
-	            	ui.value = max;
-	            	$(this).slider('value', max);
-	            }  
-	        }
-	    });
+	sliders.each(function() {
+		var value = parseInt($(this).text(), 10),
+		availableTotal = 100;
+
+		$(this).empty().slider({
+			value: 0,
+			min: 0,
+			max: 100,
+			range: "max",
+			step: 1,
+			animate: 100,
+			slide: function(event, ui) {
+				// Update display to current value
+				$(this).siblings().text(ui.value);
+			},
+			stop: function( event, ui ) {	        	
+				total = 0;
+				//Calcular la suma total para poder calcular el limite actual
+				sliders.not(this).each(function() {	            	
+					if(total >= 100){
+						total = 100;
+						$(this).slider("option", 'value', 0);
+
+					} else {
+						total += $(this).slider("option", "value");
+					}
+
+				});
+				subTotal = 0;
+				sliders.each(function() {
+					if(subTotal >= 100){
+						subTotal = 100;
+					} else {
+						subTotal += $(this).slider("option", "value");
+					}
+					if(subTotal < 100){
+						document.getElementById("modBacklogBtn").setAttribute("disabled", "");	
+					} else if (subTotal == 100){
+						document.getElementById("modBacklogBtn").removeAttribute("disabled");
+					}
+				});
+
+
+
+				//Calcular el limite actual
+				var max = 0;
+				if(!(total >= 100)){
+					max = availableTotal - total;
+				} 
+				//Controlar el limite del slider
+				if(ui.value >= max){
+					this.firstChild.style.cssText = "left: "+max+"%";
+					$(this).siblings().text(max);
+					ui.value = max;
+					$(this).slider('value', max);
+				}  
+			}
+		});
 	});
-	
+
 	//Rellenar los div
 	for(var i = 0; i < divsValues.length; i++){
 		slidersTofill[spanSelector].style.left = divsValues[i].innerHTML+ "%";	
 		spanSelector+=2; 
-		
+
 		if(subTotal >= 100){
-    		subTotal = 100;
-    	} else {
-    		subTotal += divsValues[i].innerHTML;
-    	}
-		
-		if(subTotal < 100 && selectedBacklog == "constant" && typeConstant == "weight"){
+			subTotal = 100;
+		} else {
+			subTotal += divsValues[i].innerHTML;
+		}
+
+		if(subTotal < 100 && distribution.backLogType == "constant" && distribution.typeConstant == "weight"){
 			document.getElementById("modBacklogBtn").setAttribute("disabled", "");	
-	    } else {
-	    	document.getElementById("modBacklogBtn").removeAttribute("disabled");
-	    }
+		} else {
+			document.getElementById("modBacklogBtn").removeAttribute("disabled");
+		}
 	}
 	//Darle el valor a los sliders
 	for(var i = 0; i < divsValues.length; i++){
 		$("#custom-handle"+i).slider("option", 'value', parseInt(divsValues[i].innerHTML));
 	}
-	
+
 	$("#modBacklogBtn").click(function(){
 		var radios = $("[name='distributionType']")
 		for(var i = 0; i < radios.length; i++){
 			if(radios[i].checked){
 				distributionIsSelected = true;
-				selectedBacklog = "constant";
+				distribution.backLogType = "constant";
 			}
 		}
 
 		var backLogradios = $("[name='taskInputMode']");
 		for(var i = 0; i < backLogradios.length; i++){
 			if(backLogradios[i].checked && backLogradios[i].value == "manual"){
-				selectedBacklog = "manual";
+				distribution.backLogType = "manual";
 			} 
 		}
 		var sizeValuesArray = $(".sizeValue");
@@ -227,27 +220,20 @@ $(document).ready(function(){
 			sizeValuesString += sizeValuesArray[i].innerHTML + ",";
 		}
 		console.log(sizeValuesString);
-		
-		
-		if((selectedBacklog == "constant" && distributionIsSelected) || selectedBacklog == "manual"){
 
-			inputBase = document.getElementById("normalBaseValue");
-			inputVariance = document.getElementById("normalVarianceValue");
-			inputLambda = document.getElementById("poissonLambda");
+
+		if((distribution.backLogType == "constant" && distributionIsSelected) || distribution.backLogType == "manual"){
 
 			$(distributionTypeInputs).removeAttr("disabled");
-			$.ajax({
-				type: "POST",
-				url: "/saveDistributionData",
-				data: {
-					base:document.getElementById("normalBaseValue").value,
-					variance:document.getElementById("normalVarianceValue").value,
-					lambda:document.getElementById("poissonLambda").value,
-					sizeValues: sizeValuesString
-					
-				},success: function(data) {
-				}
-			});
+
+			distribution.mean = parseInt(document.getElementById("normalBaseValue").value);
+			distribution.variation = parseInt(document.getElementById("normalVarianceValue").value);
+			distribution.lambda = parseInt(document.getElementById("poissonLambda").value);
+			distribution.sizeValues = sizeValuesString;
+
+			saveDistributionSession();
+			refreshDistributionSession();
+
 			location.href = "/";
 		}
 	}) //end button listener

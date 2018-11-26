@@ -44,9 +44,15 @@ div #reset:hover {
 	animation-timing-function: linear;
 }
 
-@keyframes spin {
-	from { transform:rotate(0deg);}
-	to {transform: rotate(360deg);}
+@
+keyframes spin {from { transform:rotate(0deg);
+	
+}
+
+to {
+	transform: rotate(360deg);
+}
+
 }
 .img-edit {
 	z-index: -1;
@@ -156,7 +162,7 @@ h1 {
 	font-size: 40px;
 	position: absolute;
 	margin-left: 12%;
-	margin-top: 3%;
+	 margin-top: 1%;
 }
 
 .distributionRadio {
@@ -198,7 +204,8 @@ h1 {
 /*---------------------------------------------------- SCROLLBAR ----------------------------------------------*/
 .contenedorFinal::-webkit-scrollbar-track, .table-fixed tbody::-webkit-scrollbar-track,
 	#modalTaskInfo::-webkit-scrollbar-track, .faseName>div::-webkit-scrollbar-track,
-	.fase::-webkit-scrollbar-track {
+	.fase::-webkit-scrollbar-track, .chartAreaWrapper::-webkit-scrollbar-track
+	{
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
@@ -206,14 +213,15 @@ h1 {
 
 .contenedorFinal::-webkit-scrollbar, .table-fixed tbody::-webkit-scrollbar,
 	#modalTaskInfo::-webkit-scrollbar, .faseName>div::-webkit-scrollbar,
-	.fase::-webkit-scrollbar {
+	.fase::-webkit-scrollbar, .chartAreaWrapper::-webkit-scrollbar {
 	width: 5px;
 	background-color: #F5F5F5;
 }
 
 .contenedorFinal::-webkit-scrollbar-thumb, .table-fixed tbody::-webkit-scrollbar-thumb,
 	#modalTaskInfo::-webkit-scrollbar-thumb, .faseName>div::-webkit-scrollbar-thumb,
-	.fase::-webkit-scrollbar-thumb {
+	.fase::-webkit-scrollbar-thumb, .chartAreaWrapper::-webkit-scrollbar-thumb
+	{
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
 	background-color: #555;
@@ -242,28 +250,28 @@ h1 {
 	height: 500px;
 }
 
-.chart-container{
+.chart-container {
 	position: relative;
 	margin: auto;
 	height: 80vh;
 	width: 80vw;
 }
 
- /* Real Container of Charts */
-.chartTask{
-	 padding-top: 2%;
-	 padding-left: 3%;
-	 width: 90%;
-	 position: relative;
-	 height: auto;
-	 align: center;
+/* Real Container of Charts */
+.chartTask {
+	padding-top: 2%;
+	padding-left: 3%;
+	width: 90%;
+	position: relative;
+	height: auto;
+	align: center;
 }
 
-.chartPhase{
-	 padding-top: 4%;
-	 padding-left: 10%;
-	 width: 90%;
-	 position: relative;
-	 height: auto;
-	 align: center;
+.chartPhase {
+	padding-top: 4%;
+	padding-left: 10%;
+	width: 90%;
+	position: relative;
+	height: auto;
+	align: center;
 }

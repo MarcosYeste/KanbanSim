@@ -14,7 +14,12 @@
 
 </head>
 <body>
+<<<<<<< HEAD
+
 	<!--
+=======
+<!--
+>>>>>>> fd5d4f58398e21ba2751d45dbc8fdc686494499f
 ____________________________________________________________________
 
 ______________________________ BOTONES  ____________________________
@@ -31,27 +36,38 @@ ____________________________________________________________________
 					data-placement="top" title="Nuevo Tablero"></i>
 			</button>
 
-			<!-- Borrar Tareas -->
-			<!-- <button id="divDeleteTasks">
-				<i id="deleteTasks" class="fas fa-trash-alt fa-3x"
-					data-toggle="tooltip" data-placement="top" title="Borrar Tareas"></i>
-			</button> -->
 
 		</div>
-		<div class="doubleButton">
-			<button id="result" onclick="generarResultados()" class="resultbutt">
-				<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
-					data-placement="top" title="Mostrar Resultados"></i>
-			</button>
-			<button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
-				<i class="fas fa-chart-bar fa-4x" data-toggle="tooltip"
-					data-placement="top" title="Mostrar Graficos"></i>
-			</button>
-
-		</div>
+	<div class="doubleButton">
+		<button id="result" onclick="generarResultados()" class="resultbutt">
+			<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
+				data-placement="top" title="Mostrar Resultados"></i>
+		</button>
+		<button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
+			<i class="fas fa-chart-bar fa-4x" data-toggle="tooltip"
+				data-placement="top" title="Mostrar Graficos"></i>
+		</button>
+		
 	</div>
+</div>
 	<h1 class="texto">KANBAN SIM</h1>
+<!--
+____________________________________________________________________
 
+_________________________ USUARIOS  ________________________________
+
+____________________________________________________________________
+-->
+	
+	<fieldset class="teamField">
+		<legend class="teamField">Miembros del Equipo:<span style="float: left;margin-left: 80%;" class="legUser">
+		<button	id="addUser"><i class="fas fa-user-plus fa-2x" data-toggle="modal"data-target="#addUsers"></i></button></span>
+		</legend>
+		
+		<div class="usersContainer" id="usersContainer">
+			
+		</div>
+	</fieldset>
 	<!--Temporizador y Cambiar Distribucion -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
 
@@ -63,8 +79,7 @@ ____________________________________________________________________
 			<i id="reset" class="fas fa-redo fa-3x"></i>
 		</div>
 		<div class="playpause">
-			<input type="checkbox" value="None" id="playpause" name="check" /> <label
-				for="playpause" tabindex=1></label>
+			<input type="checkbox" value="None" id="playpause" name="check" /> <label	for="playpause" tabindex=1></label>
 		</div>
 	</div>
 
@@ -74,7 +89,9 @@ ____________________________________________________________________
 		<i class="fas fa-plus fa-3x"></i>
 	</button>
 
-	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
+	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv">
+		 
+	</div>
 	<!--
 ____________________________________________________________________
 
@@ -83,8 +100,8 @@ _______________________ GRAFICOS ____________________________
 ____________________________________________________________________
 -->
 	<div id="mostrarGraficosDiv" class="mostrarGraficosDiv">
-		<div class="chart-container chartTask" id="taskChart">
-			<h2>Gráfico de Tareas</h2>
+		 <div class="chart-container chartTask" id= "taskChart" >
+		 <h2>Gráfico de Tareas</h2>
 			<canvas id="myChartTask"></canvas>
 			<h2>Gráfico de Fases</h2>
 
@@ -97,15 +114,15 @@ ____________________________________________________________________
 
 				<canvas id="myChartAxis" height="300" width="0"></canvas>
 			</div>
-			
+
 			<h2>Gráfico de Usuarios</h2>
 			<canvas id="myChart"></canvas>
-		</div>
+		</div> 		
 	</div>
 	<div class="contenedor" id="contenedor">
 
 
-		<!--
+<!--
 ____________________________________________________________________
 
 _______________________ INICIO TABLERO  ____________________________
@@ -123,93 +140,15 @@ ____________________________________________________________________
 					var listTareas = new Array();
 					var listPhases = new Array();
 					var listUsers = new Array();
+					var distribution = new Object();
 				</script>
-
-				<%-- <c:forEach items="${task}" var="task">
-
-					<div class="tareas" data-toggle="modal"
-						data-target="#modalTaskInfo">
-
-						<p>
-							<c:out value="${task.name}"></c:out>
-						</p>
-
-						<p class="estado">
-							<small class="divState"><c:out value="${task.state}"></c:out></small>
-						</p>
-
-
-						<p class="duration">
-							<c:out value="${task.duration}"></c:out>
-						</p>
-
-					</div>
-
-					<c:set value="${task.name}" var="taskName" />
-
-			<!-- Script para mostrar unicamente si se muestra por servidor -->
-					<!-- <script>
-						var tareas = new Object();
-						tareas.name = "<c:out value="${taskName}"></c:out>";
-						tareas.duration = 0;
-						tareas.tss = 0;
-						tareas.state;
-						tareas.phase = 0;
-						tareas.assignedUsers = new Array();
-						tareas.staticAssigneds = new Array();
-						tareas.sameIteration = false;
-						tareas.cycleTime = 0;
-						tareas.leadTime = 0;
-						tareas.startTime = 0;
-						tareas.esfuerzo = 0;
-						tareas.phasesTime = new Array();
-						tareas.timeByStats = new Array();
-						tareas.statsTime = new Array();
-						tareas.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
-						listTareas.push(tareas);
-					</script> -->
-
-				</c:forEach> --%>
 
 			</div>
 
 		</div>
-		<script>
-			//____________________________________________________________________
 
-			//_______________________     Session     ____________________________
+		<div id="faseDiv" class="fase"></div>
 
-			//____________________________________________________________________
-		</script>
-
-		<%-- <c:forEach items="${phases}" var="fase">
-				<c:set value="${fase.id}" var="id" />
-				<c:set value="${fase.name}" var="name" />
-				<c:set value="${fase.maxTasks}" var="maxTasks" />
-				<c:set value="${fase.maxTime}" var="maxTime" />
-				<c:set value="${fase.minTime}" var="minTime" />
-				<c:set value="${fase.color}" var="color" />
-
-				<script>
-					var phase = new Object();
-					phase.id = "<c:out value="${id}"></c:out>"; // Sujeto Pruebas
-					phase.name = "<c:out value="${name}"></c:out>";
-					phase.maxTasks = <c:out value="${maxTasks}"></c:out>;
-					phase.maxTime = <c:out value="${maxTime}"></c:out>;
-					phase.minTime = <c:out value="${minTime}"></c:out>;
-					phase.color = '<c:out value="${color}"></c:out>';
-					phase.period = 0;
-					listPhases.push(phase);
-					</script>		
-				</c:forEach> --%>
-
-
-		<div id="faseDiv" class="fase">
-			<!--  No puedo recuperar el valor del session storage -->
-
-
-
-		</div>
 
 		<div class="fin">
 
@@ -219,36 +158,18 @@ ____________________________________________________________________
 
 		</div>
 	</div>
+	
+	
 
+<!--
 
-	<!--
-____________________________________________________________________
-
-_________________________ USUARIOS  ________________________________
-
-____________________________________________________________________
--->
-
-	<fieldset class="teamField">
-		<legend class="teamField">Miembros del Equipo:</legend>
-		<span style="float: right;" class="legUser"><button
-				id="addUser">
-				<i class="fas fa-user-plus fa-2x" data-toggle="modal"
-					data-target="#addUsers"></i>
-			</button></span>
-		<div class="usersContainer" id="usersContainer"></div>
-	</fieldset>
-
-
-
-	<!--
 ____________________________________________________________________
 
 __________________________ MODAL FORMS  ____________________________
 
 ____________________________________________________________________
 -->
-
+	
 	<!-- Modal Añadir Fases-->
 	<div class="modal fade" id="modalAddFases" role="dialog">
 		<div class="modal-dialog">
@@ -260,12 +181,11 @@ ____________________________________________________________________
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="addName"
-						placeholder="Nombre Fase" required> WIP: <input
-						type="text" id="addWip" value="1" min="1" required> Tiempo
-					Mínimo: <input type="text" id="addMinTime" value="1" min="1"
-						required> Tiempo Máximo: <input type="text"
-						id="addMaxTime" value="1" min="1" required> Color:
+					Nombre Fase: <input type="text" id="addName" placeholder="Nombre Fase" required> 
+					WIP: <input type="text" id="addWip"  value="1" required> 
+					Tiempo Mínimo: <input type="text" id="addMinTime" value="1" required> 
+					Tiempo Máximo: <input type="text" id="addMaxTime" value="1" required> 
+					Color:
 					<div class="col-10">
 						<input class="form-control" type="color" id="color-input"
 							list="presetColors" value="#4ce600">
@@ -290,8 +210,10 @@ ____________________________________________________________________
 					</div>
 					<br>
 					<button id="addPhase" class="btn btn-secondary">Añadir</button>
-					<div id="addFasesWarning"></div>
+					
 				</div>
+				<div id="addFasesWarning"></div>
+				<div id="addFasesWarning2"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
@@ -299,7 +221,7 @@ ____________________________________________________________________
 
 		</div>
 	</div>
-
+	
 	<!-- Modal Modificar Fases-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -311,11 +233,11 @@ ____________________________________________________________________
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="modName" disabled> WIP:
-					<input type="number" id="modWip" min="1" required> Tiempo
-					Mínimo: <input type="number" id="modMinTime" min="1" required>
-					Tiempo Máximo: <input type="number" id="modMaxTime" min="1"
-						required> Color:
+					Nombre Fase: <input type="text" id="modName" disabled> 
+					WIP: <input type="number" id="modWip"> 
+					Tiempo Mínimo: <input type="number" id="modMinTime"> 
+					Tiempo Máximo: <input type="number" id="modMaxTime"> 
+					Color: 
 					<div class="col-10">
 						<input class="form-control" type="color" id="color-input2"
 							list="presetColors2">
@@ -339,10 +261,9 @@ ____________________________________________________________________
 						</datalist>
 					</div>
 					<br>
-					<button id="modPhase" class="btn btn-secondary"
-						data-dismiss="modal">Modificar</button>
-
+					<button id="modPhase" class="btn btn-secondary"	data-dismiss="modal">Modificar</button>
 				</div>
+				<div id="modPhaseWarning"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
@@ -376,9 +297,9 @@ ____________________________________________________________________
 						data-dismiss="modal">Modificar</button>
 
 				</div>
+				<div id="modUserWarning"></div>
 				<div class="modal-footer">
-					<button id="rmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
-						Miembro</button>
+					<button id="rmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar Miembro</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -409,6 +330,7 @@ ____________________________________________________________________
 						data-dismiss="modal">Añadir</button>
 
 				</div>
+				<div id="addUserWarning"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
@@ -471,6 +393,100 @@ ____________________________________________________________________
 					<p class="alert alert-info" id="modalTaskWorkingValue"></p>
 					<p id="modalTaskWorked">Miembros que han Trabajado:</p>
 					<p class="alert alert-info" id="modalTaskWorkedValue"></p>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal Distribution -->
+	<div class="modal fade" id="modalDistribution" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Cambiar Distribución</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+
+					<div class="card-body">
+						<p>Entrada de tareas</p>
+						<div>
+							<input type="radio" name="taskInputMode"
+								class="distributionRadio" value="manual" checked /> Manual <input
+								type="radio" name="taskInputMode" class="distributionRadio"
+								value="constant" /> Constante
+						</div>
+
+						<p>Distribución</p>
+						<div>
+							<input type="radio" name="distributionType"
+								class="distributionRadio" value="normal" disabled>
+							Normal <input type="radio" name="distributionType"
+								class="distributionRadio" value="poisson" disabled>
+							Poisson <input type="radio" name="distributionType"
+								class="distributionRadio" value="weight" disabled> Con
+							peso
+						</div>
+
+
+						<div id="distributionData">
+							<p id="paramTitle" style="visibility: collapse; height: 0px">Parametros:</p>
+
+							<div id="dataNormalDistribution"
+								style="visibility: collapse; height: 0px">
+								<p class="backloglabel">Base:</p>
+								<input type="number" class="backloglabelInput"
+									id="normalBaseValue" name="base" value="1" min="1"><br>
+								<p class="backloglabel">Varianza:</p>
+								<input type="number" class="backloglabelInput"
+									id="normalVarianceValue" name="variznce" value="1" min="1">
+							</div>
+
+							<div id="dataPoissonDistribution"
+								style="visibility: collapse; height: 0px">
+								<p class="backloglabel">Base:</p>
+								<input type="number" class="backloglabelInput"
+									id="poissonLambda" name="lambda" value="1" min="1">
+							</div>
+
+							<div id="dataWeightDistribution"
+								style="visibility: collapse; height: 0px">
+								<p class="backloglabel">S:</p>
+								<div class="backloglabelInput size" id="S">
+									<div id="custom-handle0" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+								<p class="backloglabel">M:</p>
+								<div class="backloglabelInput size" id="M">
+									<div id="custom-handle1" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+								<p class="backloglabel">L:</p>
+								<div class="backloglabelInput size" id="L">
+									<div id="custom-handle2" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+								<p class="backloglabel">XL:</p>
+								<div class="backloglabelInput size" id="XL">
+									<div id="custom-handle3" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<button id="modBacklogBtn" class="btn btn-primary" data-dismiss="modal">SAVE</button>
+
+					</div>
 
 				</div>
 				<div class="modal-footer">
