@@ -65,10 +65,8 @@ ____________________________________________________________________
 			
 		</div>
 		
-<p role="alert" style="float: left;margin-left: 25%; font-size:140%;margin-top: 1%;" id="saturacion" ></p>
-		
 	</fieldset>
-	
+	<p role="alert" style="float: left;margin-left: 25%; font-size:140%;margin-top: 1%;" id="saturacion" ></p>
 	<!--Temporizador y Cambiar Distribucion -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
 	<div class="botonesContainer">
