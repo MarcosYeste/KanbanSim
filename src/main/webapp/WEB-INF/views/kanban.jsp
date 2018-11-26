@@ -69,8 +69,8 @@ ____________________________________________________________________
 	</fieldset>
 	<!--Temporizador y Cambiar Distribucion -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
-<p role="alert" style="float: left;margin-left: 25%; font-size:150%;margin-top: 1.5%;" id="saturacion" ></p>
-<p role="alert" style="float: right;margin-right: 25%; font-size:150%;margin-top: 1.5%;" id="saturacion2" ></p>
+<p role="alert" style="float: left;margin-left: 25%; font-size:140%;margin-top: 1%;" id="saturacion" ></p>
+<p role="alert" style="float: right;margin-right: 25%; font-size:140%;margin-top: 1%;" id="saturacion2" ></p>
 	<div class="botonesContainer">
 
 		<!--  Button Play/Pause -->
@@ -86,8 +86,7 @@ ____________________________________________________________________
 	</div>
 
 	<!-- Button Add Tasks, ONLY MANUAL -->
-	<button id="addTask" data-toggle="tooltip" data-placement="top"
-		title="Añadir Tareas">
+	<button id="addTask" data-toggle="tooltip" data-placement="top"	title="Añadir Tareas">
 		<i class="fas fa-plus fa-3x"></i>
 	</button>
 
