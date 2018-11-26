@@ -773,12 +773,26 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-
-				if(showLTandCLtensecs == 10){
-					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + ", " +  eCT.toFixed(2) * 10  + "</b>";			
-				} else {
-					document.getElementById("modalTaskLTCTValue").innerHTML = "<b> 0, 0 </b>";
-				}
+			if(showLTandCLtensecs == 10){
+				if(TII < T ){
+					console.log("SATURACION");
+					document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
+					document.getElementById("saturacion").setAttribute("class","alert alert-danger");				
+					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
+				}else{
+					console.log("FLUIDO");
+					document.getElementById("saturacion").innerHTML = "";
+					document.getElementById("saturacion").setAttribute("class","");
+					var auxLT= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
+					if(!isNaN(auxLT) || isFinite(auxLT)){
+						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
+					}else{
+						console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"+auxLT);
+						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
+					}
+				}					
+					
+			}
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
 			}
