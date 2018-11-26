@@ -668,7 +668,7 @@ function play() {
 
 				VII = totalSum / numOfBacklogCalled;
 //				console.log("DistributionValue " + distributionValue + " backlogcollector " + backLogCollector + " numofbacklogscalled " + numOfBacklogCalled +
-//				" T2 " + TII + " VII " + VII);	
+//				"  T2" + TII + " VII " + VII);	
 			}
 		}
 		// Si la introduccion de tareas es manual que se termine cuando todas las tareas equivalgan 
@@ -766,9 +766,17 @@ function play() {
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 				
-				if(showLTandCLtensecs == 10){
+				if(showLTandCLtensecs == 10 && T >= TII){
+					document.getElementById("saturacion").innerHTML = "";
+					document.getElementById("saturacion").setAttribute("class","");
+					document.getElementById("saturacion2").innerHTML = "";
+					document.getElementById("saturacion2").setAttribute("class","");
 					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + ", " +  eCT.toFixed(2) * 10  + "</b>";			
 				} else {
+					document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
+					document.getElementById("saturacion").setAttribute("class","alert alert-danger");
+					document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
+					document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
 					document.getElementById("modalTaskLTCTValue").innerHTML = "<b> 0, 0 </b>";
 				}
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
