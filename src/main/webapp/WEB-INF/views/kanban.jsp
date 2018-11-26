@@ -14,8 +14,12 @@
 
 </head>
 <body>
+<<<<<<< HEAD
 
 	<!--
+=======
+<!--
+>>>>>>> fd5d4f58398e21ba2751d45dbc8fdc686494499f
 ____________________________________________________________________
 
 ______________________________ BOTONES  ____________________________
@@ -32,27 +36,38 @@ ____________________________________________________________________
 					data-placement="top" title="Nuevo Tablero"></i>
 			</button>
 
-			<!-- Borrar Tareas -->
-			<!-- <button id="divDeleteTasks">
-				<i id="deleteTasks" class="fas fa-trash-alt fa-3x"
-					data-toggle="tooltip" data-placement="top" title="Borrar Tareas"></i>
-			</button> -->
 
 		</div>
-		<div class="doubleButton">
-			<button id="result" onclick="generarResultados()" class="resultbutt">
-				<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
-					data-placement="top" title="Mostrar Resultados"></i>
-			</button>
-			<button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
-				<i class="fas fa-chart-bar fa-4x" data-toggle="tooltip"
-					data-placement="top" title="Mostrar Graficos"></i>
-			</button>
-
-		</div>
+	<div class="doubleButton">
+		<button id="result" onclick="generarResultados()" class="resultbutt">
+			<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
+				data-placement="top" title="Mostrar Resultados"></i>
+		</button>
+		<button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
+			<i class="fas fa-chart-bar fa-4x" data-toggle="tooltip"
+				data-placement="top" title="Mostrar Graficos"></i>
+		</button>
+		
 	</div>
+</div>
 	<h1 class="texto">KANBAN SIM</h1>
+<!--
+____________________________________________________________________
 
+_________________________ USUARIOS  ________________________________
+
+____________________________________________________________________
+-->
+	
+	<fieldset class="teamField">
+		<legend class="teamField">Miembros del Equipo:<span style="float: left;margin-left: 80%;" class="legUser">
+		<button	id="addUser"><i class="fas fa-user-plus fa-2x" data-toggle="modal"data-target="#addUsers"></i></button></span>
+		</legend>
+		
+		<div class="usersContainer" id="usersContainer">
+			
+		</div>
+	</fieldset>
 	<!--Temporizador y Cambiar Distribucion -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
 
@@ -64,8 +79,7 @@ ____________________________________________________________________
 			<i id="reset" class="fas fa-redo fa-3x"></i>
 		</div>
 		<div class="playpause">
-			<input type="checkbox" value="None" id="playpause" name="check" /> <label
-				for="playpause" tabindex=1></label>
+			<input type="checkbox" value="None" id="playpause" name="check" /> <label	for="playpause" tabindex=1></label>
 		</div>
 	</div>
 
@@ -75,8 +89,9 @@ ____________________________________________________________________
 		<i class="fas fa-plus fa-3x"></i>
 	</button>
 
-	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
-
+	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv">
+		 
+	</div>
 	<!--
 ____________________________________________________________________
 
@@ -85,8 +100,8 @@ _______________________ GRAFICOS ____________________________
 ____________________________________________________________________
 -->
 	<div id="mostrarGraficosDiv" class="mostrarGraficosDiv">
-		<div class="chart-container chartTask" id="taskChart">
-			<h2>Gráfico de Tareas</h2>
+		 <div class="chart-container chartTask" id= "taskChart" >
+		 <h2>Gráfico de Tareas</h2>
 			<canvas id="myChartTask"></canvas>
 			<h2>Gráfico de Fases</h2>
 
@@ -102,12 +117,12 @@ ____________________________________________________________________
 
 			<h2>Gráfico de Usuarios</h2>
 			<canvas id="myChart"></canvas>
-		</div>
+		</div> 		
 	</div>
 	<div class="contenedor" id="contenedor">
 
 
-		<!--
+<!--
 ____________________________________________________________________
 
 _______________________ INICIO TABLERO  ____________________________
@@ -134,6 +149,7 @@ ____________________________________________________________________
 
 		<div id="faseDiv" class="fase"></div>
 
+
 		<div class="fin">
 
 			<div class="tituloEnd">Fin</div>
@@ -142,36 +158,18 @@ ____________________________________________________________________
 
 		</div>
 	</div>
+	
+	
 
+<!--
 
-	<!--
-____________________________________________________________________
-
-_________________________ USUARIOS  ________________________________
-
-____________________________________________________________________
--->
-
-	<fieldset class="teamField">
-		<legend class="teamField">Miembros del Equipo:</legend>
-		<span style="float: right;" class="legUser"><button
-				id="addUser">
-				<i class="fas fa-user-plus fa-2x" data-toggle="modal"
-					data-target="#addUsers"></i>
-			</button></span>
-		<div class="usersContainer" id="usersContainer"></div>
-	</fieldset>
-
-
-
-	<!--
 ____________________________________________________________________
 
 __________________________ MODAL FORMS  ____________________________
 
 ____________________________________________________________________
 -->
-
+	
 	<!-- Modal Añadir Fases-->
 	<div class="modal fade" id="modalAddFases" role="dialog">
 		<div class="modal-dialog">
@@ -183,12 +181,11 @@ ____________________________________________________________________
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="addName"
-						placeholder="Nombre Fase" required> WIP: <input
-						type="text" id="addWip" value="1" min="1" required> Tiempo
-					Mínimo: <input type="text" id="addMinTime" value="1" min="1"
-						required> Tiempo Máximo: <input type="text"
-						id="addMaxTime" value="1" min="1" required> Color:
+					Nombre Fase: <input type="text" id="addName" placeholder="Nombre Fase" required> 
+					WIP: <input type="text" id="addWip"  value="1" required> 
+					Tiempo Mínimo: <input type="text" id="addMinTime" value="1" required> 
+					Tiempo Máximo: <input type="text" id="addMaxTime" value="1" required> 
+					Color:
 					<div class="col-10">
 						<input class="form-control" type="color" id="color-input"
 							list="presetColors" value="#4ce600">
@@ -213,8 +210,10 @@ ____________________________________________________________________
 					</div>
 					<br>
 					<button id="addPhase" class="btn btn-secondary">Añadir</button>
-					<div id="addFasesWarning"></div>
+					
 				</div>
+				<div id="addFasesWarning"></div>
+				<div id="addFasesWarning2"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
@@ -222,7 +221,7 @@ ____________________________________________________________________
 
 		</div>
 	</div>
-
+	
 	<!-- Modal Modificar Fases-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -234,11 +233,11 @@ ____________________________________________________________________
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="modName" disabled> WIP:
-					<input type="number" id="modWip" min="1" required> Tiempo
-					Mínimo: <input type="number" id="modMinTime" min="1" required>
-					Tiempo Máximo: <input type="number" id="modMaxTime" min="1"
-						required> Color:
+					Nombre Fase: <input type="text" id="modName" disabled> 
+					WIP: <input type="number" id="modWip"> 
+					Tiempo Mínimo: <input type="number" id="modMinTime"> 
+					Tiempo Máximo: <input type="number" id="modMaxTime"> 
+					Color: 
 					<div class="col-10">
 						<input class="form-control" type="color" id="color-input2"
 							list="presetColors2">
@@ -262,10 +261,9 @@ ____________________________________________________________________
 						</datalist>
 					</div>
 					<br>
-					<button id="modPhase" class="btn btn-secondary"
-						data-dismiss="modal">Modificar</button>
-
+					<button id="modPhase" class="btn btn-secondary"	data-dismiss="modal">Modificar</button>
 				</div>
+				<div id="modPhaseWarning"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
@@ -299,9 +297,9 @@ ____________________________________________________________________
 						data-dismiss="modal">Modificar</button>
 
 				</div>
+				<div id="modUserWarning"></div>
 				<div class="modal-footer">
-					<button id="rmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
-						Miembro</button>
+					<button id="rmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar Miembro</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -332,6 +330,7 @@ ____________________________________________________________________
 						data-dismiss="modal">Añadir</button>
 
 				</div>
+				<div id="addUserWarning"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
