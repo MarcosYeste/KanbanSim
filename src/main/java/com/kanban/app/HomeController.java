@@ -248,7 +248,7 @@ public class HomeController {
 	@RequestMapping(value = "/nextPoisson", method = RequestMethod.GET)
 	public @ResponseBody String poisson(int lambda) {	
 
-		double L = Math.exp(lambda);
+		double L = Math.exp(-lambda);
 		double p = 1.0;
 		int k = 0;
 		do {
