@@ -15,6 +15,7 @@
 </head>
 <body>
 <!--
+
 ____________________________________________________________________
 
 ______________________________ BOTONES  ____________________________
@@ -104,7 +105,17 @@ ____________________________________________________________________
 		 <h2>Gráfico de Tareas</h2>
 			<canvas id="myChartTask"></canvas>
 			<h2>Gráfico de Fases</h2>
-			<canvas id="myChartPhase"></canvas> 
+
+			<div class="chartWrapper">
+				<div class="chartAreaWrapper">
+					<div class="chartAreaWrapper2">
+						<canvas id="myChartPhase"></canvas>
+					</div>
+				</div>
+
+				<canvas id="myChartAxis" height="300" width="0"></canvas>
+			</div>
+
 			<h2>Gráfico de Usuarios</h2>
 			<canvas id="myChart"></canvas>
 		</div> 		
@@ -130,28 +141,15 @@ ____________________________________________________________________
 					var listTareas = new Array();
 					var listPhases = new Array();
 					var listUsers = new Array();
+					var distribution = new Object();
 				</script>
 
 			</div>
 
 		</div>
 
-<!--
-//____________________________________________________________________
+		<div id="faseDiv" class="fase"></div>
 
-//_______________________     Session     ____________________________
-
-//____________________________________________________________________
-
--->
-	
-
-		
-		<div id="faseDiv" class="fase">  <!--  No puedo recuperar el valor del session storage -->
-
-	
-
-		</div>
 
 		<div class="fin">
 
@@ -396,6 +394,100 @@ ____________________________________________________________________
 					<p class="alert alert-info" id="modalTaskWorkingValue"></p>
 					<p id="modalTaskWorked">Miembros que han Trabajado:</p>
 					<p class="alert alert-info" id="modalTaskWorkedValue"></p>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal Distribution -->
+	<div class="modal fade" id="modalDistribution" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Cambiar Distribución</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+
+					<div class="card-body">
+						<p>Entrada de tareas</p>
+						<div>
+							<input type="radio" name="taskInputMode"
+								class="distributionRadio" value="manual" checked /> Manual <input
+								type="radio" name="taskInputMode" class="distributionRadio"
+								value="constant" /> Constante
+						</div>
+
+						<p>Distribución</p>
+						<div>
+							<input type="radio" name="distributionType"
+								class="distributionRadio" value="normal" disabled>
+							Normal <input type="radio" name="distributionType"
+								class="distributionRadio" value="poisson" disabled>
+							Poisson <input type="radio" name="distributionType"
+								class="distributionRadio" value="weight" disabled> Con
+							peso
+						</div>
+
+
+						<div id="distributionData">
+							<p id="paramTitle" style="visibility: collapse; height: 0px">Parametros:</p>
+
+							<div id="dataNormalDistribution"
+								style="visibility: collapse; height: 0px">
+								<p class="backloglabel">Base:</p>
+								<input type="number" class="backloglabelInput"
+									id="normalBaseValue" name="base" value="1" min="1"><br>
+								<p class="backloglabel">Varianza:</p>
+								<input type="number" class="backloglabelInput"
+									id="normalVarianceValue" name="variznce" value="1" min="1">
+							</div>
+
+							<div id="dataPoissonDistribution"
+								style="visibility: collapse; height: 0px">
+								<p class="backloglabel">Base:</p>
+								<input type="number" class="backloglabelInput"
+									id="poissonLambda" name="lambda" value="1" min="1">
+							</div>
+
+							<div id="dataWeightDistribution"
+								style="visibility: collapse; height: 0px">
+								<p class="backloglabel">S:</p>
+								<div class="backloglabelInput size" id="S">
+									<div id="custom-handle0" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+								<p class="backloglabel">M:</p>
+								<div class="backloglabelInput size" id="M">
+									<div id="custom-handle1" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+								<p class="backloglabel">L:</p>
+								<div class="backloglabelInput size" id="L">
+									<div id="custom-handle2" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+								<p class="backloglabel">XL:</p>
+								<div class="backloglabelInput size" id="XL">
+									<div id="custom-handle3" class="ui-slider-handle"></div>
+									<div class="sizeValue">0</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<button id="modBacklogBtn" class="btn btn-primary" data-dismiss="modal">SAVE</button>
+
+					</div>
 
 				</div>
 				<div class="modal-footer">

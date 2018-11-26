@@ -234,10 +234,10 @@ public class HomeController {
 
 	// Get Gaussian
 	@RequestMapping(value = "/nextGaussian", method = RequestMethod.GET)
-	public @ResponseBody String gaussian() {
+	public @ResponseBody String gaussian(int mean ,int variation) {
 
 		Random r = new Random();
-		double val = r.nextGaussian() * this.variance + this.base;
+		double val = r.nextGaussian() * variation + mean;
 		if(val <= 0) {
 			val = 1;
 		}
@@ -246,9 +246,9 @@ public class HomeController {
 
 	// Get Poisson value
 	@RequestMapping(value = "/nextPoisson", method = RequestMethod.GET)
-	public @ResponseBody String poisson() {	
+	public @ResponseBody String poisson(int lambda) {	
 
-		double L = Math.exp(-this.lambda);
+		double L = Math.exp(lambda);
 		double p = 1.0;
 		int k = 0;
 		do {

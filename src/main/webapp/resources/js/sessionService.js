@@ -102,3 +102,15 @@ function savePhaseSession(){
 //_____________________ SESSION DISTRIBUTION  ________________________
 
 //____________________________________________________________________
+
+function refreshDistributionSession(){
+
+	if(sessionStorage.getItem("distribution")){
+		var sessionDist = JSON.parse(sessionStorage.getItem("distribution"));
+		distribution = sessionDist;
+	}
+}
+function saveDistributionSession(){
+	sessionStorage.setItem("distribution", JSON.stringify(distribution));
+}
+
