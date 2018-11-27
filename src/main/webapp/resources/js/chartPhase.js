@@ -1,4 +1,3 @@
-
 var ctcs = document.getElementById("myChartPhase").getContext('2d');
 var rectangleSet = false;
 var options = {
@@ -10,7 +9,6 @@ var options = {
 		},
 		scales: {
 			xAxes: [{
-				stacked: false,
 				barThickness: 50,
 				barPercentage: 0.5,
 				gridLines: {
@@ -18,9 +16,13 @@ var options = {
 				},
 			}],
 			yAxes: [{
-				stacked: false,
 				ticks: {
-					beginAtZero: true
+					beginAtZero: true,
+					min: 0,
+                    stepSize: 5,
+				},
+				scaleLabel: {
+					display: true
 				},
 			}]
 
@@ -118,12 +120,15 @@ function addDataPhase(chart,media) {
 	chart.update();
 }
 
-//function updateDataPhase(chart, cycle, lead, esfuerzo, index){
+function updateDataPhase(chart, media){
+	for (var k = 0; k < listPhases.length; k++) {
 
-//chart.data.datasets[index].data[0] = esfuerzo;
-//chart.data.datasets[index].data[1] = cycle;
-//chart.data.datasets[index].data[2] = lead;
-
-
-//chart.update();
-//}
+		chart.data.datasets[0].data[k] = (listPhases[k].period);
+		chart.data.datasets[1].data[k] = (media[k][0]);
+		chart.data.datasets[2].data[k] = (media[k][1]);
+		chart.data.datasets[3].data[k] = (media[k][2]);
+		
+	}
+	
+	chart.update();
+}

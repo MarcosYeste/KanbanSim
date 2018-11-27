@@ -375,41 +375,6 @@ ____________________________________________________________________
 
 	</div>
 
-	<!-- Modal Task Info-->
-	<div class="modal fade" id="modalTaskInfo" role="dialog">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Información de tarea</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-
-				<div class="modal-body">
-
-					<p id="modalTaskName">Nombre:</p>
-					<p class="alert alert-info" id="modalTaskNameValue"></p>
-					<p id="modalTaskAssignedTimes">Tiempo asignado por fase:</p>
-					<p class="alert alert-info" id="modalTaskTimeWorkedValue"></p>
-					<p id="modalTaskRealTime">Tiempo real por fases:</p>
-					<p class="alert alert-info" id="modalTaskRealTimeValue"></p>
-					<p id="modalTaskLTCT">LT y CT estimado:</p>
-					<p class="alert alert-info" id="modalTaskLTCTValue"></p>
-					<p id="modalTaskWorking">Miembros Trabajando:</p>
-					<p class="alert alert-info" id="modalTaskWorkingValue"></p>
-					<p id="modalTaskWorked">Miembros que han Trabajado:</p>
-					<p class="alert alert-info" id="modalTaskWorkedValue"></p>
-
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
 	<!-- Modal Distribution -->
 	<div class="modal fade" id="modalDistribution" role="dialog">
 		<div class="modal-dialog">
@@ -502,7 +467,50 @@ ____________________________________________________________________
 			</div>
 		</div>
 	</div>
+	
+	
+<!--
+____________________________________________________________________
 
+__________________________ MODAL INFO  ____________________________
+
+____________________________________________________________________
+-->
+	
+	<!-- Modal Task Info-->
+	<div class="modal fade" id="modalTaskInfo" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Información de tarea</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+
+					<p id="modalTaskName">Nombre:</p>
+					<p class="alert alert-info" id="modalTaskNameValue"></p>
+					<p id="modalTaskAssignedTimes">Tiempo asignado por fase:</p>
+					<p class="alert alert-info" id="modalTaskTimeWorkedValue"></p>
+					<p id="modalTaskRealTime">Tiempo real por fases:</p>
+					<p class="alert alert-info" id="modalTaskRealTimeValue"></p>
+					<p id="modalTaskLTCT">LT y CT estimado:</p>
+					<p class="alert alert-info" id="modalTaskLTCTValue"></p>
+					<p id="modalTaskWorking">Miembros Trabajando:</p>
+					<p class="alert alert-info" id="modalTaskWorkingValue"></p>
+					<p id="modalTaskWorked">Miembros que han Trabajado:</p>
+					<p class="alert alert-info" id="modalTaskWorkedValue"></p>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

@@ -78,7 +78,7 @@ function mostrarKanban(){
 	document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
 	
 	// Mostramos el boton de nuevo
-	if(backLogType != "constant"){
+	if(distribution.backLogType != "constant"){
 	document.getElementById("addTask").removeAttribute("disabled");
 	document.getElementById("addTask").removeAttribute("aria-disabled");
 	}
@@ -106,11 +106,8 @@ function generarGraficos(){
 	div.style.background = "white";
 	document.getElementById("taskChart").style.display = "block";
 	refreshPhases();
-	if(!showGraf){// esto evita que se duplique
+	if(!showGraf){ // esto evita que se duplique
 		graficTask();
 		graficPhase();
 	}
-	
-	
-	
 }
