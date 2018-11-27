@@ -46,9 +46,6 @@ var poissonCounter = 0;
 var weight = "M"; 
 var weightTime = 0; // Tiempo en el que entrara la proxima tarea en uniforme con peso
 
-if(distribution.typeConstant == "weight"){
-	getWeight();
-}
 
 var weightCounter = 0;
 var numOfBacklogCalled = 0; // Veces que se ha generado un tiempo en backlog constante
@@ -175,7 +172,10 @@ function play() {
 
 					} //if end
 				} //for end
-
+				if(distribution.typeConstant == "weight"){
+					getWeight();
+					console.log("enter")
+				}
 				firstLoop = false;
 			} //if firstloop end
 
@@ -1041,6 +1041,7 @@ function getWeight(){
 			var formatedData = data.split(",")
 			console.log(data);
 			weight = formatedData[0];
+			console.log("get " + weight);
 			weightTime = parseInt(formatedData[1]);
 			
 		}
