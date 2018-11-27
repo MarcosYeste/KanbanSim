@@ -1,11 +1,11 @@
 var showGraf = false;
-// Muestra el contenido de la tarea al terminar
+//Muestra el contenido de la tarea al terminar
 function mostrarFinalTarea(tarea,task){
-	
+
 	task.leadTime = task.leadTime - task.creationTime;
-	
+
 	task.cycleTime = task.leadTime - task.startTime;
-	
+
 	tarea.innerHTML = '<p data-identification="'+ task.name +'">'+task.name+'</p><p data-identification="'+ task.name + '">CycleTime: '+task.cycleTime+'</p><p data-identification="'+ task.name + '">LeadTime: '+task.leadTime+'</p>';
 	return tarea;
 	// EL LEAD FUNCIONA BIEN, EL CYCLO A MEDIAS , PERO EL CREATION TIME NO LO DA BIEN, CADA TAREA ES  +1 EN LUGAR DE GUARDAR EL LEADTIME
@@ -16,8 +16,8 @@ function mostrarResultados() {
 
 	div.style.background = "#63bafa";
 	div.innerHTML = "";	
-	
-	
+
+
 	//RESULTADOS TAREA 
 	var div3 = document.createElement("div");
 	div3.className = "tareaResultadoDiv";
@@ -27,10 +27,10 @@ function mostrarResultados() {
 	div3.appendChild(subDiv);
 	div.appendChild(div3);	
 	tableTask(); 
-	
+
 	//RESULTADOS FASES
 	tablePhase();
-	
+
 	//RESULTADOS USER
 	var div5 = document.createElement("div");
 	var subdiv5 = document.createElement("div");
@@ -46,7 +46,7 @@ function mostrarResultados() {
 }
 
 
-// Click a mostrar resultados
+//Click a mostrar resultados
 function generarResultados(){
 	document.getElementsByClassName("mostrarGraficosDiv")[0].style.display = "none";
 	var buttonResult = document.getElementById("result");
@@ -64,7 +64,7 @@ function generarResultados(){
 	buttonResult.setAttribute("onClick", "mostrarKanban()");
 	document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
 }
-// Click a mostrar kanban
+//Click a mostrar kanban
 function mostrarKanban(){
 	document.getElementsByClassName("mostrarGraficosDiv")[0].style.display = "none";
 //	document.getElementsByClassName("contenedor")[0].style.display = "block";
@@ -76,16 +76,16 @@ function mostrarKanban(){
 	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";	
 	document.getElementById("result").setAttribute("onClick", "generarResultados()");
 	document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
-	
+
 	// Mostramos el boton de nuevo
 	if(distribution.backLogType != "constant"){
-	document.getElementById("addTask").removeAttribute("disabled");
-	document.getElementById("addTask").removeAttribute("aria-disabled");
+		document.getElementById("addTask").removeAttribute("disabled");
+		document.getElementById("addTask").removeAttribute("aria-disabled");
 	}
 }
 //click mostrar Graficos
 function mostrarGraficas (){
-	
+
 	document.getElementsByClassName("mostrarGraficosDiv")[0].style.background = "white";
 	document.getElementsByClassName("mostrarGraficosDiv")[0].style.display = "block";
 	document.getElementsByClassName("mostrarResultadosDiv")[0].style.display = "none";
@@ -107,7 +107,6 @@ function generarGraficos(){
 	document.getElementById("taskChart").style.display = "block";
 	refreshPhases();
 	if(!showGraf){ // esto evita que se duplique
-		graficTask();
 		graficPhase();
 	}
 }

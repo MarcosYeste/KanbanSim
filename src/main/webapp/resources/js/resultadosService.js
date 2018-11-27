@@ -82,13 +82,6 @@ function behindTable(){
 	tablaTarea += "</table>";
 	subDiv.innerHTML += tablaTarea;
 }
-function graficTask(){
-	document.getElementById("taskChart").style.visibility  = "visible";
-	listTareas.forEach(function(task) {	
-		var color = getRandomColor();
-		addDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, color,task.name);
-	});
-}
 function graficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();

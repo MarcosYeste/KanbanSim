@@ -23,11 +23,13 @@ if(document.getElementById("myChartTask")){
 function addDataTask(chart, cycle, lead, esfuerzo, color, taskname) {
 
 	var newDataset  = addDataSet(chart, cycle, lead, esfuerzo, color, taskname);
-	chart.data.datasets.push(newDataset);		
-	chart.update();
+	if(newDataset != -1){
+		chart.data.datasets.push(newDataset);		
+		chart.update();
+	}
 
 }
-function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){      // FALTA EVITAR QUE SE VEAN MAS LINEAS DE LAS QUE DEBERIA
+function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){      
 
 	var newDataset = {
 			label: [],
@@ -37,6 +39,17 @@ function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){      // FALT
 			borderWidth: 5
 	};
 	newDataset.label.push(taskname);
+	
+	// Si la tarea ya existe en la array
+	if(chart.data.datasets.length > 0){
+		for (var i = 0; i < chart.data.datasets.length; i++) {
+			// No me la añadas de nuevo
+			if(chart.data.datasets[i].label[0] == taskname){
+				return -1;
+			}
+		}
+	}
+	// Pero si no existe añadela
 	for (var index = 0; index < chart.data.labels.length; ++index) {
 		if(newDataset.data != undefined){
 			newDataset.data.push(esfuerzo);
@@ -44,7 +57,6 @@ function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){      // FALT
 			newDataset.data.push(lead);
 		}
 	}
-	console.log("newDataSet = "+newDataset);
 
 	return newDataset;
 }

@@ -281,8 +281,7 @@ function play() {
 														isTotallyFree = false;
 													} else {
 													}
-												} else {
-													
+												} else {													
 //													isTotallyFree = true;
 												}
 												
@@ -334,7 +333,7 @@ function play() {
 									for(var ind = 0; ind < fases.length; ind++){
 										for(var userP = 0; userP < user.phases.length; userP++){
 											if(listPhases[ind].name.trim() == user.phases[userP].trim() && listPhases[task.phase - 1].name.trim() == user.phases[userP].trim()){
-										
+											
 												document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 												document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
 												document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
@@ -363,13 +362,17 @@ function play() {
 								task.assignedUsers.forEach(function(assignedUser) {
 									//guarda en Usuarios los segundos se cada fase
 									if(assignedUser.includes((user.name))){
+
 										user.secondsWork += 1;
 										if(user.secondByPhase[i] ==  undefined){
+
 											user.secondByPhase[i] = 1;
 										}else{
+
 											user.secondByPhase[i] += 1;
 										}
 									}
+
 								});							
 							}
 
@@ -381,9 +384,9 @@ function play() {
 						//IF 3
 						if (fases[i + 1] == null) {							
 							task.state = "Ended";
-							task.totalTime = -1;
+							task.totalTime = 0;
 							task.leadTime = leadTime;
-							task.phase = 0;
+							task.phase = (-1);
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
@@ -449,7 +452,7 @@ function play() {
 								} else {
 									task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 								}
-//								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);	
+
 								task.esfuerzo += task.duration;
 								task.startTime = leadTime - task.creationTime;
 								task.firstDuration.push(task.duration);
@@ -516,7 +519,7 @@ function play() {
 															if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null){
 																isTotallyFree = true;
 															} else if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim()){
-																//if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim())
+																
 																isTotallyFree = false;
 															}
 														} 
@@ -585,18 +588,18 @@ function play() {
 
 		var totalTimeSum = 0;
 		listTareas.forEach(function(task){
-			if(task.phase = -1 && task.state == "Ended"){
+			if(task.phase == -1 && task.state == "Ended"){
+
 				numOfTasksEnded++;
 				totalTimeSum += task.cycleTime;
 			}
 		});
 
 		T = totalTimeSum / numOfTasksEnded;
-		console.log("totalTimeSum === "+totalTimeSum+" /// numOfTasksEnded "+numOfTasksEnded);
 
 		var totalSum = 0;
 		listTareas.forEach(function(task){
-			if(task.phase >= -1 && task.state == "Ended"){
+			if(task.phase == -1 && task.state == "Ended"){
 				totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
 			}
 		});
@@ -647,7 +650,7 @@ function play() {
 				TII = totalSumBackLog / numOfBacklogCalled;
 				var totalSum = 0;
 				for(var i = 0; i < numOfBacklogCalled; i++){
-//					totalSum += Math.pow(backLogCollector[i] - TII, 2);
+
 					totalSum += Math.abs(backLogCollector[i] - TII);
 				}
 
@@ -750,16 +753,13 @@ function play() {
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 			if(showLTandCLtensecs == 10){
-				console.log("TII ===== "+TII+" <<<>>> "+T+" ======  T");
 				if(TII < T ){
-					console.log("SATURACION");
 					document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
 					document.getElementById("saturacion").setAttribute("class","alert alert-danger");
 					document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
 					document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
 					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
 				}else{
-					console.log("FLUIDO");
 					document.getElementById("saturacion").innerHTML = "";
 					document.getElementById("saturacion").setAttribute("class","");
 					document.getElementById("saturacion2").innerHTML = "";
@@ -768,7 +768,6 @@ function play() {
 					if(!isNaN(auxLT) || isFinite(auxLT)){
 						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
 					}else{
-						console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"+auxLT);
 						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
 					}
 				}					
