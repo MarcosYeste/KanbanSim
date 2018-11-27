@@ -461,6 +461,8 @@ function formUserValido(funcion,accion){
 function modUsers(){
 	refreshUsers();
 	formUserValido(saveModUsers, "mod");
+	document.getElementById("modUserWarning").setAttribute("class","");
+	document.getElementById("modUserWarning").innerHTML = "";
 	skillsList = [];
 	click2 = parseInt(event.target.getAttribute("data-identification"));
 	var modFases = document.getElementById("modFasesUser");
@@ -653,11 +655,14 @@ function saveModUsers() {
 	var nuevoNombre = document.getElementById("modNameUser").value;
 	
 	var exist = false;
-	for (var i = 0; i < listUsers.length && !exist; i++) {
-			if(listUsers[i].name == nuevoNombre ){
-				exist = true;
-		}
+	if(listUsers[click2].name != nuevoNombre){
+			for (var i = 0; i < listUsers.length && !exist; i++) {				
+				if(listUsers[i].name == nuevoNombre){					
+					exist = true;
+				}
+			}
 	}
+	
 	if(exist){
 		document.getElementById("modUserWarning").setAttribute("class","alert alert-warning");
 		document.getElementById("modUserWarning").innerHTML = "El miembro del equipo ya existe";
@@ -823,11 +828,15 @@ function showTaskInfo(){
 		console.log("if");
 		if( TII < T ){
 			document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
-			document.getElementById("saturacion").setAttribute("class","alert alert-danger");					
+			document.getElementById("saturacion").setAttribute("class","alert alert-danger");	
+			document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
+			document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
 			document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0, "+  eCT.toFixed(2) * 10  + "</b>";		
 		}else{			
 			document.getElementById("saturacion").innerHTML = "";
 			document.getElementById("saturacion").setAttribute("class","");
+			document.getElementById("saturacion2").innerHTML = "";
+			document.getElementById("saturacion2").setAttribute("class","");
 			var auxLTs= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
 			if(!isNaN(auxLT) || isFinite(auxLT)){
 				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
