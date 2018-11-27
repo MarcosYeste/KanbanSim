@@ -51,9 +51,6 @@ function addData(chart, label, data, color) {
 		chart.data.labels.push(label);
 		chart.data.datasets[0].data.push(data);
 		chart.data.datasets[0].backgroundColor.push(color);
-	//	color = color.substr(0,color.length - 2);
-	//	dataset.hoverBackgroundColor.push(color);
-	//	dataset.borderColor.push(color);
 		chart.update();
 	}
 }
@@ -79,6 +76,7 @@ function removeLabel(chart, label) {
 
 	chart.update();
 }
+
 function modLabel(chart, oldLabel, newLabel){
 
 	for(var i = 0; i < chart.data.labels.length; i++){

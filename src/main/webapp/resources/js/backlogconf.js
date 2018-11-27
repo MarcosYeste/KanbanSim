@@ -218,7 +218,7 @@ $(document).ready(function(){
 			distribution.distributionWeightValues.push(sizeValuesArray[i].innerHTML);
 			sizeValuesString += sizeValuesArray[i].innerHTML + ",";
 		}
-
+		console.log(sizeValuesString);
 
 		if((distribution.backLogType == "constant" && distributionIsSelected) || distribution.backLogType == "manual"){
 
@@ -248,6 +248,8 @@ $(document).ready(function(){
 	}) //end button listener
 
 
+	
+//-------------------------------- CONTROL ENTRADA DIGITOS --------------------------------------------------------------//
 class CampoNumerico {
 
   constructor(selector) {

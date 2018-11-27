@@ -9,7 +9,6 @@ var options = {
 		},
 		scales: {
 			xAxes: [{
-				stacked: false,
 				barThickness: 50,
 				barPercentage: 0.5,
 				gridLines: {
@@ -17,12 +16,13 @@ var options = {
 				},
 			}],
 			yAxes: [{
-				stacked: false,
 				ticks: {
-					beginAtZero: true
+					beginAtZero: true,
+					min: 0,
+                    stepSize: 5,
 				},
 				scaleLabel: {
-					display: true,
+					display: true
 				},
 			}]
 
@@ -127,7 +127,8 @@ function updateDataPhase(chart, media){
 		chart.data.datasets[1].data[k] = (media[k][0]);
 		chart.data.datasets[2].data[k] = (media[k][1]);
 		chart.data.datasets[3].data[k] = (media[k][2]);
-
-	}	
+		
+	}
+	
 	chart.update();
 }
