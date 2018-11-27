@@ -99,6 +99,16 @@ function graficPhase(){
 	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
 	addDataPhase(myChartPhase,resultMediaPorFases2);
 }
+function updateGraficPhase(){
+	var mediaPorFases2 = new Array();
+	var resultMediaPorFases2 = new Array();
+	calculoTiemposTotalesFase();
+	listTareas.forEach(function(task) {	
+			mediaPorFases2.push(task.timeByStats);
+	});
+	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
+	updateDataPhase(myChartPhase,resultMediaPorFases2);
+}
 //_______________________________________________________________
 
 //_______________________ FASES ________________________________

@@ -44,11 +44,8 @@ var taskNameCounter = 0;
 var poisson = 0;  			// Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
 var weight = "M"; 
-var weightTime = 0; // Tiempo en el que entrara la proxima tarea en uniforme con peso
+var weightTime = 1; // Tiempo en el que entrara la proxima tarea en uniforme con peso
 
-if(distribution.typeConstant == "weight"){
-	getWeight();
-}
 
 var weightCounter = 0;
 var numOfBacklogCalled = 0; // Veces que se ha generado un tiempo en backlog constante
@@ -175,7 +172,10 @@ function play() {
 
 					} //if end
 				} //for end
-
+				if(distribution.typeConstant == "weight"){
+					getWeight();
+					console.log("enter")
+				}
 				firstLoop = false;
 			} //if firstloop end
 
@@ -187,25 +187,17 @@ function play() {
 
 					if(distribution.typeConstant == "weight"){
 
-//						if(task.weight == "S"){
-//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
-//						} else if (task.weight == "M"){
-//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
-//						} else if (task.weight == "L"){
-//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
-//						} else if (task.weight == "XL"){
-//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
-//						}
-						
 						if(task.weight == "S"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25)) +  listPhases[i].minTime);
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
 						} else if (task.weight == "M"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
 						} else if (task.weight == "L"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
 						} else if (task.weight == "XL"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
 						}
+						
+
 					} else {
 						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 					}
@@ -460,24 +452,14 @@ function play() {
 
 								if(distribution.typeConstant == "weight"){
 
-//									if(task.weight == "S"){
-//										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
-//									} else if (task.weight == "M"){
-//										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
-//									} else if (task.weight == "L"){
-//										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
-//									} else if (task.weight == "XL"){
-//										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
-//									}
-									
 									if(task.weight == "S"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) ) +  listPhases[i].minTime);
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
 									} else if (task.weight == "M"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) ) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
 									} else if (task.weight == "L"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) ) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
 									} else if (task.weight == "XL"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) ) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
 									}
 									
 								} else {
@@ -836,6 +818,8 @@ function play() {
 			updateData(myChart, user.secondsWork, i, 1);
 			i++;
 		});
+		updateGraficPhase();
+		
 
 	}, 1000);
 
@@ -1043,8 +1027,9 @@ function getWeight(){
 		},success: function(data) {
 			console.log("W");
 			var formatedData = data.split(",")
-			console.log(data);
+			console.log(distribution.distributionWeightValues);
 			weight = formatedData[0];
+			console.log("get " + weight);
 			weightTime = parseInt(formatedData[1]);
 			
 		}
