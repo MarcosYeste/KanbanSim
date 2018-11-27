@@ -98,9 +98,7 @@ function graficPhase(){
 	});
 	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
 	
-	if(resultMediaPorFases2[0][0] != undefined){
 		addDataPhase(myChartPhase,resultMediaPorFases2);
-	}
 }
 function updateGraficPhase(){
 	var mediaPorFases2 = new Array();

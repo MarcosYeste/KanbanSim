@@ -174,7 +174,6 @@ function play() {
 				} //for end
 				if(distribution.typeConstant == "weight"){
 					getWeight();
-					console.log("enter")
 				}
 				firstLoop = false;
 			} //if firstloop end
@@ -275,23 +274,14 @@ function play() {
 
 										if(user.phases[up].trim() != actualPhaseName.trim()){
 											for(var t = 0; t < listTareas.length; t++){	
-												console.log(user.name + " User phase " + user.phases[up].trim());
 												if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
 													if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null ){
 														isTotallyFree = true;
-														console.log("1")
 													} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 														isTotallyFree = false;
-														console.log("2" + " " + (i+1))
-														console.log("taskphase22 " + listPhases[listTareas[t].phase - 1].name.trim());
-														console.log("checking phase2 " + phasesName.trim());
-														console.log("assigned2 " + listTareas[t].assignedUsers[0]);
-														console.log("task " + listTareas[t].name)
 													} else {
-														console.log("semivoid2");
 													}
 												} else {
-													console.log("voids");
 													
 //													isTotallyFree = true;
 												}
@@ -318,15 +308,11 @@ function play() {
 											phaseSkill = up;
 											for(var t = 0; t < listTareas.length; t++){	
 												if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == actualPhaseName.trim()){
-													console.log("if 2 a");
 													if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null){
 														isTotallyFree = true;
-														console.log("if 2 b");
 													} else if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim()){
 														//if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim())
 														isTotallyFree = false;
-														console.log("if 2 c");
-														console.log(task.name + " " + actualPhaseName.trim())
 													}
 												} 
 												//Antigüo sistema
@@ -342,17 +328,13 @@ function play() {
 									}//
 
 								}
-								console.log(user.name + " veredict " + isTotallyFree + " fase " + listPhases[i].name + " task " + task.name);
 								
 								if(isTotallyFree){
 									
 									for(var ind = 0; ind < fases.length; ind++){
 										for(var userP = 0; userP < user.phases.length; userP++){
-//											console.log("listPhases[ind].name.trim() " + listPhases[ind].name.trim());
-//											console.log("user.phases[userP].trim() " + user.phases[userP].trim());
-//											console.log("listPhases[task.phase - 1].name.trim() " + listPhases[task.phase - 1].name.trim());
 											if(listPhases[ind].name.trim() == user.phases[userP].trim() && listPhases[task.phase - 1].name.trim() == user.phases[userP].trim()){
-												console.log(user.name);
+										
 												document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 												document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
 												document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
@@ -381,17 +363,13 @@ function play() {
 								task.assignedUsers.forEach(function(assignedUser) {
 									//guarda en Usuarios los segundos se cada fase
 									if(assignedUser.includes((user.name))){
-//										console.log("Antes");
 										user.secondsWork += 1;
 										if(user.secondByPhase[i] ==  undefined){
-//											console.log("undef");
 											user.secondByPhase[i] = 1;
 										}else{
-//											console.log("Despues");
 											user.secondByPhase[i] += 1;
 										}
 									}
-//									console.log(user.name);
 								});							
 							}
 
@@ -401,10 +379,9 @@ function play() {
 					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
 						//IF 3
-						console.log("if3")
 						if (fases[i + 1] == null) {							
 							task.state = "Ended";
-							task.totalTime = 0;
+							task.totalTime = -1;
 							task.leadTime = leadTime;
 							task.phase = 0;
 							saveTimeStates(task,leadTime,i);
@@ -520,23 +497,14 @@ function play() {
 
 												if(user.phases[up].trim() != actualPhaseName.trim()){
 													for(var t = 0; t < listTareas.length; t++){	
-														console.log(user.name + " User phase " + user.phases[up].trim() + " taskphase " + (listTareas[t].phase - 1));
 														if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
 															if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null ){
 																isTotallyFree = true;
-																console.log("1")
 															} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 																isTotallyFree = false;
-																console.log("2" + " " + (i+1))
-																console.log("taskphase5 " + listPhases[listTareas[t].phase - 1].name.trim());
-																console.log("checking phase5 " + phasesName.trim());
-																console.log("assigned5 " + listTareas[t].assignedUsers[0]);
-																console.log("task5 " + listTareas[t].name)
 															} else {
-																console.log("semivoid5");
 															}
 														} else {
-															console.log("voids5");
 															
 														}
 													}
@@ -545,15 +513,11 @@ function play() {
 													phaseSkill = up;
 													for(var t = 0; t < listTareas.length; t++){	
 														if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == actualPhaseName.trim()){
-															console.log("if 2 a");
 															if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null){
 																isTotallyFree = true;
-																console.log("if 2 b");
 															} else if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim()){
 																//if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim())
 																isTotallyFree = false;
-																console.log("if 2 c");
-																console.log(task.name + " " + actualPhaseName.trim())
 															}
 														} 
 													}
@@ -621,18 +585,18 @@ function play() {
 
 		var totalTimeSum = 0;
 		listTareas.forEach(function(task){
-			if(task.phase >= 1 && task.state == "Ended"){
-
+			if(task.phase = -1 && task.state == "Ended"){
 				numOfTasksEnded++;
 				totalTimeSum += task.cycleTime;
 			}
 		});
 
 		T = totalTimeSum / numOfTasksEnded;
+		console.log("totalTimeSum === "+totalTimeSum+" /// numOfTasksEnded "+numOfTasksEnded);
 
 		var totalSum = 0;
 		listTareas.forEach(function(task){
-			if(task.phase >= 1 && task.state == "Ended"){
+			if(task.phase >= -1 && task.state == "Ended"){
 				totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
 			}
 		});
@@ -650,7 +614,6 @@ function play() {
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(distribution.backLogType == "constant"){	
 			if((gaussian == gaussianCounter || gaussian <= 0) && distribution.typeConstant == "normal"){
-				console.log("normal");
 				getGaussian();		
 				calcLDValues(gaussian);
 				gaussianCounter = 0;
@@ -659,14 +622,11 @@ function play() {
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
-				console.log("poisson")
 				calcLDValues(poisson);
 				poissonCounter = 0;
 				addTareas("",leadTime);
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
 				getWeight();
-				console.log("weught")
-				console.log(weight)
 				calcLDValues(weightTime);
 				weightCounter = 0;
 				addTareas(weight,leadTime);
@@ -790,6 +750,7 @@ function play() {
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 			if(showLTandCLtensecs == 10){
+				console.log("TII ===== "+TII+" <<<>>> "+T+" ======  T");
 				if(TII < T ){
 					console.log("SATURACION");
 					document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
@@ -1007,7 +968,6 @@ function getGaussian(){
 			mean: distribution.mean,
 			variation: distribution.variation
 		},success: function(data) {
-			console.log("N");
 			gaussian = parseInt(data)
 		}
 	});
@@ -1020,8 +980,6 @@ function getPoisson(){
 		data: {
 			lambda: distribution.lambda
 		},success: function(data) {
-			console.log("P");
-			console.log(distribution.lambda);
 			poisson = parseInt(data)
 		}
 	});
@@ -1038,11 +996,8 @@ function getWeight(){
 			lValue: distribution.distributionWeightValues[2], 
 			xlValue: distribution.distributionWeightValues[3]
 		},success: function(data) {
-			console.log("W");
 			var formatedData = data.split(",")
-			console.log(distribution.distributionWeightValues);
 			weight = formatedData[0];
-			console.log("get " + weight);
 			weightTime = parseInt(formatedData[1]);
 			
 		}
