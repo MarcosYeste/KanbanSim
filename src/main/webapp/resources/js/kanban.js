@@ -479,6 +479,7 @@ function play() {
 									} else if (task.weight == "XL"){
 										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) ) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
 									}
+									
 								} else {
 									task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 								}
