@@ -41,7 +41,7 @@ var kanbanTss = 0;
 var gaussian = 0;
 var gaussianCounter = 0;
 var taskNameCounter = 0;
-var poisson = 0;  			// Tiempo en el que entrara la proxima tarea en distribución poisson
+var poisson = 0;  	// Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
 var weight = "M"; 
 var weightTime = 1; // Tiempo en el que entrara la proxima tarea en uniforme con peso
@@ -283,7 +283,13 @@ function play() {
 													} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 														isTotallyFree = false;
 														console.log("2" + " " + (i+1))
-													} 
+														console.log("taskphase22 " + listPhases[listTareas[t].phase - 1].name.trim());
+														console.log("checking phase2 " + phasesName.trim());
+														console.log("assigned2 " + listTareas[t].assignedUsers[0]);
+														console.log("task " + listTareas[t].name)
+													} else {
+														console.log("semivoid2");
+													}
 												} else {
 													console.log("voids");
 													
@@ -400,6 +406,7 @@ function play() {
 							task.state = "Ended";
 							task.totalTime = 0;
 							task.leadTime = leadTime;
+							task.phase = 0;
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
@@ -509,11 +516,11 @@ function play() {
 										for(var up = 0; up<user.phases.length; up++){
 											for(var p = 0; p < fases.length; p++){
 
-												var phasesName = fases[p].childNodes[0].textContent.trim();
+												var phasesName = fases[p].children[0].childNodes[0].textContent.trim();
 
 												if(user.phases[up].trim() != actualPhaseName.trim()){
 													for(var t = 0; t < listTareas.length; t++){	
-														console.log(user.name + " User phase " + user.phases[up].trim());
+														console.log(user.name + " User phase " + user.phases[up].trim() + " taskphase " + (listTareas[t].phase - 1));
 														if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
 															if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null ){
 																isTotallyFree = true;
@@ -521,9 +528,15 @@ function play() {
 															} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 																isTotallyFree = false;
 																console.log("2" + " " + (i+1))
-															} 
+																console.log("taskphase5 " + listPhases[listTareas[t].phase - 1].name.trim());
+																console.log("checking phase5 " + phasesName.trim());
+																console.log("assigned5 " + listTareas[t].assignedUsers[0]);
+																console.log("task5 " + listTareas[t].name)
+															} else {
+																console.log("semivoid5");
+															}
 														} else {
-															console.log("voids");
+															console.log("voids5");
 															
 														}
 													}
