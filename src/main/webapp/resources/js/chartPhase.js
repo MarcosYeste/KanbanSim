@@ -100,8 +100,7 @@ function addDataPhase(chart,media) {
 	var color3 = "#FF8C00";
 	for (var k = 0; k < listPhases.length; k++) {
 
-		chart.data.labels.push(listPhases[k].name);		
-
+		chart.data.labels.push(listPhases[k].name);				
 		chart.data.datasets[0].data.push(listPhases[k].period);
 		chart.data.datasets[0].backgroundColor.push(listPhases[k].color + "99");		
 		chart.data.datasets[0].hoverBackgroundColor.push(listPhases[k].color);	
