@@ -348,9 +348,6 @@ function play() {
 									
 									for(var ind = 0; ind < fases.length; ind++){
 										for(var userP = 0; userP < user.phases.length; userP++){
-//											console.log("listPhases[ind].name.trim() " + listPhases[ind].name.trim());
-//											console.log("user.phases[userP].trim() " + user.phases[userP].trim());
-//											console.log("listPhases[task.phase - 1].name.trim() " + listPhases[task.phase - 1].name.trim());
 											if(listPhases[ind].name.trim() == user.phases[userP].trim() && listPhases[task.phase - 1].name.trim() == user.phases[userP].trim()){
 												console.log(user.name);
 												document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
@@ -381,17 +378,17 @@ function play() {
 								task.assignedUsers.forEach(function(assignedUser) {
 									//guarda en Usuarios los segundos se cada fase
 									if(assignedUser.includes((user.name))){
-//										console.log("Antes");
+
 										user.secondsWork += 1;
 										if(user.secondByPhase[i] ==  undefined){
-//											console.log("undef");
+
 											user.secondByPhase[i] = 1;
 										}else{
-//											console.log("Despues");
+
 											user.secondByPhase[i] += 1;
 										}
 									}
-//									console.log(user.name);
+
 								});							
 							}
 
@@ -472,7 +469,7 @@ function play() {
 								} else {
 									task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 								}
-//								task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);	
+
 								task.esfuerzo += task.duration;
 								task.startTime = leadTime - task.creationTime;
 								task.firstDuration.push(task.duration);
@@ -550,7 +547,7 @@ function play() {
 																isTotallyFree = true;
 																console.log("if 2 b");
 															} else if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim()){
-																//if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim())
+																
 																isTotallyFree = false;
 																console.log("if 2 c");
 																console.log(task.name + " " + actualPhaseName.trim())
@@ -687,7 +684,7 @@ function play() {
 				TII = totalSumBackLog / numOfBacklogCalled;
 				var totalSum = 0;
 				for(var i = 0; i < numOfBacklogCalled; i++){
-//					totalSum += Math.pow(backLogCollector[i] - TII, 2);
+
 					totalSum += Math.abs(backLogCollector[i] - TII);
 				}
 
