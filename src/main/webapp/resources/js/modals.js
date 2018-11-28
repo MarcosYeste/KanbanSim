@@ -831,7 +831,7 @@ function showTaskInfo(){
 	console.log("TII " + TII + " T " + T + " VII " +  VII + " Vt "+ Vt);
 	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){
 		console.log("if");
-		if( TII < T ){
+		if( TII <= T ){
 			document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
 			document.getElementById("saturacion").setAttribute("class","alert alert-danger");	
 			document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";

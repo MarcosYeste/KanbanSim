@@ -787,13 +787,14 @@ function play() {
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 			if(showLTandCLtensecs == 10){
-				if(TII < T ){
+				if(TII <= T ){
 					console.log("SATURACION");
 					document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
 					document.getElementById("saturacion").setAttribute("class","alert alert-danger");
 					document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
 					document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
+					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
+					console.log("aaa");
 				}else{
 					console.log("FLUIDO");
 					document.getElementById("saturacion").innerHTML = "";
