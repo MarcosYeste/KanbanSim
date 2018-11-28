@@ -90,8 +90,8 @@ function graficPhase(){
 			mediaPorFases2.push(task.timeByStats);
 	});
 	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
-	
-		addDataPhase(myChartPhase,resultMediaPorFases2);
+	console.log(resultMediaPorFases2[resultMediaPorFases2.length-2]);
+		addDataPhase(myChartPhase,resultMediaPorFases2[resultMediaPorFases2.length-2]);
 }
 function updateGraficPhase(){
 	var mediaPorFases2 = new Array();
@@ -101,7 +101,8 @@ function updateGraficPhase(){
 			mediaPorFases2.push(task.timeByStats);
 	});
 	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
-	updateDataPhase(myChartPhase,resultMediaPorFases2);
+	
+	updateDataPhase(myChartPhase,resultMediaPorFases2[resultMediaPorFases2.length-2]);
 }
 //_______________________________________________________________
 
@@ -469,9 +470,7 @@ function mediaFasestotal(taskArray){
 				
 				
 			}
-			arraySumaEstados.push(sumaTodos);
-			arraySumaEstados.push(sumaDoing);
-			arraySumaEstados.push(sumaDone);
+			arraySumaEstados.push([sumaTodos,sumaDoing,sumaDone]);
 			sumaTodos = Math.round((sumaTodos / numTareas) * 10 ) / 10;
 			sumaDoing = Math.round((sumaDoing / numTareas) * 10 ) / 10;
 			sumaDone  =  Math.round((sumaDone / numTareas) * 10 ) / 10;
