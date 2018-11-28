@@ -91,9 +91,7 @@ function graficPhase(){
 	});
 	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
 	
-	if(resultMediaPorFases2[0][0] != undefined){
 		addDataPhase(myChartPhase,resultMediaPorFases2);
-	}
 }
 function updateGraficPhase(){
 	var mediaPorFases2 = new Array();
@@ -374,8 +372,8 @@ function saveTimeStates(task,leadTime,i){
 		}
 
 	}else{
-
-		if(task.phase > 1){
+		console.log(task.phase+" FASEEE");
+		if(task.phase >= -1){
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime) - task.creationTime;
 		}else{
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - task.creationTime;
