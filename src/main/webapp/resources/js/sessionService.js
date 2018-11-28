@@ -129,7 +129,6 @@ function removeUserSession(){
 }
 
 function removeAllSession(){
-	console.log("Deleted")
 	removePhaseSession();
 	removeUserSession();
 }

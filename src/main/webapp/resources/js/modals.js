@@ -528,15 +528,11 @@ function modUsers(){
 			insertInput(index1, listUsers[click2].phases.indexOf(event.target.value));
 
 		} else {
-			console.log("hola");
 			for(var i = 0; i < listUsers[click2].phases.length; i++){
-				console.log(listUsers[click2].phases.length);
 				if(event.target.value == listUsers[click2].phases[i].trim()){
 
 					listUsers[click2].phases.splice(i, 1);
-					console.log(listUsers[click2].skills);
 					listUsers[click2].skills.splice(i, 1);
-					console.log(listUsers[click2].skills);
 
 					if(listUsers[click2].phases.length == 0){
 
@@ -828,9 +824,9 @@ function showTaskInfo(){
 	}
 
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
-	console.log("TII " + TII + " T " + T + " VII " +  VII + " Vt "+ Vt);
+	
 	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){
-		console.log("if");
+	
 		if( TII < T ){
 			document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
 			document.getElementById("saturacion").setAttribute("class","alert alert-danger");	
@@ -849,9 +845,6 @@ function showTaskInfo(){
 				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
 			}	
 		}					
-//		document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eCT.toFixed(2) * 10 + ", " + ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2) + "</b>";		
-	} else {
-		console.log("else");
 	}
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
 	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";
