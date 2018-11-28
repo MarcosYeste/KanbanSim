@@ -90,8 +90,7 @@ function graficPhase(){
 		mediaPorFases2.push(task.timeByStats);
 	});
 	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
-
-	addDataPhase(myChartPhase,resultMediaPorFases2);
+	addDataPhase(myChartPhase,resultMediaPorFases2[resultMediaPorFases2.length-2]);
 }
 function updateGraficPhase(){
 	var mediaPorFases2 = new Array();
@@ -100,9 +99,9 @@ function updateGraficPhase(){
 	listTareas.forEach(function(task) {	
 		mediaPorFases2.push(task.timeByStats);
 	});
-	console.table(mediaPorFases2);
-	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
-	updateDataPhase(myChartPhase,resultMediaPorFases2);
+	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);
+	console.table(resultMediaPorFases2);
+	updateDataPhase(myChartPhase,resultMediaPorFases2[resultMediaPorFases2.length-2]);
 }
 //_______________________________________________________________
 
@@ -373,8 +372,8 @@ function saveTimeStates(task,leadTime,i){
 		}
 
 	}else{
-		console.log(task.phase+" FASEEE");
-		if(task.phase >= -1){
+
+		if(task.phase > 1){
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime) - task.creationTime;
 		}else{
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - task.creationTime;
