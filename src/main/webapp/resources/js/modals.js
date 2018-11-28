@@ -652,13 +652,13 @@ function saveModUsers() {
 	var exist = false;
 
 	if(listUsers[click2].name != nuevoNombre){
-			for (var i = 0; i < listUsers.length && !exist; i++) {				
-				if(listUsers[i].name == nuevoNombre){					
-					exist = true;
-				}
+		for (var i = 0; i < listUsers.length && !exist; i++) {				
+			if(listUsers[i].name == nuevoNombre){					
+				exist = true;
 			}
+		}
 	}
-	
+
 	if(exist){
 		document.getElementById("modUserWarning").setAttribute("class","alert alert-warning");
 		document.getElementById("modUserWarning").innerHTML = "El miembro del equipo ya existe";
@@ -743,7 +743,7 @@ function addTareas(weight,creationTime){
 	tarea.totalTime = 0;
 	listTareas.push(tarea);
 	printTasks(tarea);
-	
+
 	if(document.getElementById("taskChart").style.visibility != "visible"){
 		document.getElementById("taskChart").style.visibility  = "visible";
 	}
@@ -824,9 +824,9 @@ function showTaskInfo(){
 	}
 
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
-	
+
 	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){
-	
+
 		if( TII < T ){
 			document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
 			document.getElementById("saturacion").setAttribute("class","alert alert-danger");	

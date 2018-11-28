@@ -90,6 +90,7 @@ function graficPhase(){
 		mediaPorFases2.push(task.timeByStats);
 	});
 	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
+
 	addDataPhase(myChartPhase,resultMediaPorFases2);
 }
 function updateGraficPhase(){
@@ -372,8 +373,8 @@ function saveTimeStates(task,leadTime,i){
 		}
 
 	}else{
-
-		if(task.phase > 1){
+		console.log(task.phase+" FASEEE");
+		if(task.phase >= -1){
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime) - task.creationTime;
 		}else{
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - task.creationTime;
@@ -446,6 +447,7 @@ function mediaFasestotal(taskArray){
 	var z = 0;
 	var array = taskArray;	
 	var arrayFases  = new Array();
+	var arraySumaEstados = new Array();
 	if(array[0] != undefined ){
 
 		while (z < array[0].length){
@@ -468,6 +470,9 @@ function mediaFasestotal(taskArray){
 
 
 			}
+			arraySumaEstados.push(sumaTodos);
+			arraySumaEstados.push(sumaDoing);
+			arraySumaEstados.push(sumaDone);
 			sumaTodos = Math.round((sumaTodos / numTareas) * 10 ) / 10;
 			sumaDoing = Math.round((sumaDoing / numTareas) * 10 ) / 10;
 			sumaDone  =  Math.round((sumaDone / numTareas) * 10 ) / 10;
@@ -476,6 +481,7 @@ function mediaFasestotal(taskArray){
 		}
 
 	}
+	arrayFases.push(arraySumaEstados);
 	arrayFases.push(numTareas);
 	return arrayFases;
 
