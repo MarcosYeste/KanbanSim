@@ -446,6 +446,7 @@ function mediaFasestotal(taskArray){
 	var z = 0;
 	var array = taskArray;	
 	var arrayFases  = new Array();
+	var arraySumaEstados = new Array();
 	if(array[0] != undefined ){
 
 		while (z < array[0].length){
@@ -468,6 +469,9 @@ function mediaFasestotal(taskArray){
 				
 				
 			}
+			arraySumaEstados.push(sumaTodos);
+			arraySumaEstados.push(sumaDoing);
+			arraySumaEstados.push(sumaDone);
 			sumaTodos = Math.round((sumaTodos / numTareas) * 10 ) / 10;
 			sumaDoing = Math.round((sumaDoing / numTareas) * 10 ) / 10;
 			sumaDone  =  Math.round((sumaDone / numTareas) * 10 ) / 10;
@@ -476,6 +480,7 @@ function mediaFasestotal(taskArray){
 		}
 
 	}
+	arrayFases.push(arraySumaEstados);
 	arrayFases.push(numTareas);
 	return arrayFases;
 
