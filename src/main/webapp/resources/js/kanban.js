@@ -314,10 +314,8 @@ function play() {
 												} 
 												//Antigüo sistema
 //												if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
-//												console.log(user.name + "misma fase if 1")
 //												isTotallyFree = true;
 //												} else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] == null){
-//												console.log(user.name + " misma fase if 2")
 //												isTotallyFree = false;
 //												}
 											}
