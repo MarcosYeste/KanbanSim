@@ -44,16 +44,13 @@ div #reset:hover {
 	animation-timing-function: linear;
 }
 
-@
-keyframes spin {from { transform:rotate(0deg);
-	
-}
-
-to {
-	transform: rotate(360deg);
-}
+@keyframes spin 
+{
+	from { transform:rotate(0deg);}
+	to {transform: rotate(360deg);}
 
 }
+
 .img-edit {
 	z-index: -1;
 }
@@ -274,4 +271,8 @@ h1 {
 	position: relative;
 	height: auto;
 	align: center;
+}
+
+.chartTask{
+	display:none;
 }

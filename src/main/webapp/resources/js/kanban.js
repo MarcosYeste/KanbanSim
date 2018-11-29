@@ -75,7 +75,7 @@ listUsers.forEach(function(user){
 	addData(myChart, user.name, user.tasksWorked, "rgba(0,255,233,0.5)");
 })
 
-// Botón para reinicializar la simulación
+//Botón para reinicializar la simulación
 document.getElementById("deleteAll").addEventListener("click", removeAllSession, false);
 
 //Permitimos el tooltip de bootstrap en toda la pagina
@@ -137,7 +137,7 @@ function play() {
 	var lowestTime = [];
 	var lazyPeople = [];
 	var tiempoInicio = 0;
-	var anteriorTiempo =0;
+	var anteriorTiempo = 0;
 
 	myInterval = setInterval(function() {
 
@@ -195,7 +195,7 @@ function play() {
 						} else if (task.weight == "XL"){
 							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
 						}
-						
+
 
 					} else {
 						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
@@ -274,6 +274,7 @@ function play() {
 
 										if(user.phases[up].trim() != actualPhaseName.trim()){
 											for(var t = 0; t < listTareas.length; t++){	
+
 												if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
 													if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null ){
 														isTotallyFree = true;
@@ -281,24 +282,20 @@ function play() {
 														isTotallyFree = false;
 													} else {
 													}
-												} else {													
-//													isTotallyFree = true;
 												}
-												
+
 												/**/
-												
+
 												//Antigüo sistema
 //												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){
 //												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName.trim() && (listTareas[t].phase - 1 >= 0)){
-//												console.log(listTareas[t].name );
-//												console.log(user.name + " otra fase if 1")
 //												if(listPhases[listTareas[t].phase].name.trim() == phasesName.trim()){
-//												console.log(user.name + " otra fase if 1.1")
+
 //												isTotallyFree = true;
-//												console.log( " phase " + listPhases[listTareas[t].phase-1].name);
+
 //												}
 //												} else if(){
-//												console.log(user.name + " otra fase if 2")
+
 //												isTotallyFree = false;
 //												}
 											}
@@ -307,6 +304,7 @@ function play() {
 											phaseSkill = up;
 											for(var t = 0; t < listTareas.length; t++){	
 												if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == actualPhaseName.trim()){
+
 													if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null){
 														isTotallyFree = true;
 													} else if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim()){
@@ -316,10 +314,8 @@ function play() {
 												} 
 												//Antigüo sistema
 //												if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
-//												console.log(user.name + "misma fase if 1")
 //												isTotallyFree = true;
 //												} else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] == null){
-//												console.log(user.name + " misma fase if 2")
 //												isTotallyFree = false;
 //												}
 											}
@@ -327,13 +323,13 @@ function play() {
 									}//
 
 								}
-								
+
 								if(isTotallyFree){
-									
+
 									for(var ind = 0; ind < fases.length; ind++){
 										for(var userP = 0; userP < user.phases.length; userP++){
 											if(listPhases[ind].name.trim() == user.phases[userP].trim() && listPhases[task.phase - 1].name.trim() == user.phases[userP].trim()){
-											
+
 												document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
 												document.getElementsByName(user.name)[0].children[1].style.color = fases[i].style.backgroundColor;
 												document.getElementsByName(user.name)[0].style.borderColor = fases[i].style.backgroundColor;
@@ -353,7 +349,7 @@ function play() {
 											}
 										}
 									}
-									
+
 								}
 							}
 							// Este if es para aumentar los segundos trabajados
@@ -382,6 +378,8 @@ function play() {
 					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
 						//IF 3
+
+						// Tarea Finaliza
 						if (fases[i + 1] == null) {							
 							task.state = "Ended";
 							task.totalTime = 0;
@@ -392,8 +390,10 @@ function play() {
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 							updateDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, indiceTareas);
 							indiceTareas++;
+							updateGraficPhase();
 
 						} else {
+							// SI hay siguiente fase, pasa la tarea a ella, en estado ToDo
 							if (((parseInt(fases[i+1].lastElementChild.firstElementChild.childNodes.length) - 1) +
 									(parseInt(fases[i+1].lastElementChild.lastElementChild.childNodes.length)  - 1))
 									< listPhases[i + 1].maxTasks) {
@@ -448,7 +448,7 @@ function play() {
 									} else if (task.weight == "XL"){
 										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
 									}
-									
+
 								} else {
 									task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 								}
@@ -456,7 +456,9 @@ function play() {
 								task.esfuerzo += task.duration;
 								task.startTime = leadTime - task.creationTime;
 								task.firstDuration.push(task.duration);
-							}								
+								updateGraficPhase();
+							}			
+
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){0
@@ -500,6 +502,7 @@ function play() {
 
 												if(user.phases[up].trim() != actualPhaseName.trim()){
 													for(var t = 0; t < listTareas.length; t++){	
+
 														if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
 															if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null ){
 																isTotallyFree = true;
@@ -507,8 +510,6 @@ function play() {
 																isTotallyFree = false;
 															} else {
 															}
-														} else {
-															
 														}
 													}
 
@@ -516,11 +517,14 @@ function play() {
 													phaseSkill = up;
 													for(var t = 0; t < listTareas.length; t++){	
 														if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == actualPhaseName.trim()){
+
 															if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null){
 																isTotallyFree = true;
+
 															} else if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim()){
-																
+
 																isTotallyFree = false;
+
 															}
 														} 
 													}
@@ -752,29 +756,29 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-			if(showLTandCLtensecs == 10){
 
-				if(TII < T ){
-					document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
-					document.getElementById("saturacion").setAttribute("class","alert alert-danger");
-					document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
-					document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-					document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
-					console.log("aaa");
-				}else{
-					document.getElementById("saturacion").innerHTML = "";
-					document.getElementById("saturacion").setAttribute("class","");
-					document.getElementById("saturacion2").innerHTML = "";
-					document.getElementById("saturacion2").setAttribute("class","");
-					var auxLT= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
-					if(!isNaN(auxLT) || isFinite(auxLT)){
-						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
+				if(showLTandCLtensecs == 10){
+					if(TII < T ){
+						document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
+						document.getElementById("saturacion").setAttribute("class","alert alert-danger");
+						document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
+						document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
+						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
 					}else{
-						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
-					}
-				}					
-					
-			}
+						document.getElementById("saturacion").innerHTML = "";
+						document.getElementById("saturacion").setAttribute("class","");
+						document.getElementById("saturacion2").innerHTML = "";
+						document.getElementById("saturacion2").setAttribute("class","");
+						var auxLT= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
+						if(!isNaN(auxLT) || isFinite(auxLT)){
+							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
+						}else{
+							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
+						}
+					}					
+
+				}
+
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
 			}
@@ -793,8 +797,7 @@ function play() {
 			updateData(myChart, user.secondsWork, i, 1);
 			i++;
 		});
-		updateGraficPhase();
-		
+
 
 	}, 1000);
 
@@ -817,7 +820,7 @@ function deshabilitarMenus(disable){
 
 		}
 
-		// Deshabilitamos los botones del header
+		// Deshabilitamos los botones
 		for (var i2 = 0; i2 < document.getElementById("doubleButton").children.length; i2++){
 
 			document.getElementById("doubleButton").children[i2].setAttribute("disabled", "");
@@ -1000,7 +1003,7 @@ function getWeight(){
 			var formatedData = data.split(",")
 			weight = formatedData[0];
 			weightTime = parseInt(formatedData[1]);
-			
+
 		}
 	});
 }
@@ -1049,19 +1052,19 @@ function getDistribution(){
 		}
 		document.getElementById("modBacklogBtn").removeAttribute("disabled");
 	}
-	
+
 	if(distribution.backLogType == "constant"){
 		$("[name='distributionType']").removeAttr("disabled");
-		
+
 	}else{
 		$("[name='distributionType']").attr("disabled", "");
 		if(document.getElementById("modBacklogBtn")){
 			document.getElementById("modBacklogBtn").removeAttribute("disabled");
 		}
-		
+
 	}
-	
-	
+
+
 }
 
 

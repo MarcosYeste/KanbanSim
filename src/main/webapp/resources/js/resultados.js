@@ -91,13 +91,11 @@ function mostrarGraficas (){
 	document.getElementsByClassName("mostrarResultadosDiv")[0].style.display = "none";
 	document.getElementsByClassName("contenedor")[0].style.visibility = "hidden";
 	document.getElementsByClassName("teamField")[0].style.display = "none";
-	playPause.children[0].setAttribute("disabled", "");
-	playPause.children[0].setAttribute("aria-disabled", "true");
-	playPause.children[1].style.opacity=0.3;
+	playPause.children[0].removeAttribute("disabled");
+	playPause.children[0].removeAttribute("aria-disabled");
 	document.getElementById("addTask").setAttribute("disabled", "");
 	document.getElementById("addTask").setAttribute("aria-disabled", "true");
 	generarGraficos();
-	showGraf = true;
 	document.getElementById("graficos").setAttribute("onClick", "mostrarKanban()");
 }
 //GeneraGrafico
@@ -106,7 +104,5 @@ function generarGraficos(){
 	div.style.background = "white";
 	document.getElementById("taskChart").style.display = "block";
 	refreshPhases();
-	if(!showGraf){ // esto evita que se duplique
-		graficPhase();
-	}
+	graficPhase();
 }

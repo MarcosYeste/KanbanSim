@@ -19,10 +19,11 @@ var options = {
 				ticks: {
 					beginAtZero: true,
 					min: 0,
-                    stepSize: 5,
+					max: 1,
+					display: false,
 				},
 				scaleLabel: {
-					display: true
+					display: false
 				},
 			}]
 
@@ -95,39 +96,84 @@ var myChartPhase = new Chart(ctcs, {
 });
 
 function addDataPhase(chart,media) {
+	removePhasesChart(chart);
 	var color1 = "#008000";
 	var color2 = "#B22222";
 	var color3 = "#FF8C00";
 	for (var k = 0; k < listPhases.length; k++) {
 
-		chart.data.labels.push(listPhases[k].name);				
+
+		// Si la tarea ya existe en la array
+		if(chart.data.labels.length > 0){
+			for (var i = 0; i < chart.data.labels.length; i++) {
+				// No me la añadas de nuevo
+				if(chart.data.labels[i] == listPhases[k].name){
+					updateDataPhase(chart, media);
+					return;
+				}
+			}
+		}
+
+		chart.data.labels.push(listPhases[k].name);		
 		chart.data.datasets[0].data.push(listPhases[k].period);
 		chart.data.datasets[0].backgroundColor.push(listPhases[k].color + "99");		
 		chart.data.datasets[0].hoverBackgroundColor.push(listPhases[k].color);	
-		chart.data.datasets[1].data.push(media[k][0]);			 
-		chart.data.datasets[1].backgroundColor.push(color1);			
-		chart.data.datasets[2].data.push(media[k][1]);
-		chart.data.datasets[2].backgroundColor.push(color2);			 
-		chart.data.datasets[3].data.push(media[k][2]);
+		if(media[k] != undefined){
+			chart.data.datasets[1].data.push(media[k][0]);		
+		}else {
+			chart.data.datasets[1].data.push(0)
+		}
+		chart.data.datasets[1].backgroundColor.push(color1);
+
+		if(media[k] != undefined){
+			chart.data.datasets[2].data.push(media[k][1]);		
+		}else {
+			chart.data.datasets[2].data.push(0)
+		}
+		chart.data.datasets[2].backgroundColor.push(color2);
+
+		if(media[k] != undefined){
+			chart.data.datasets[3].data.push(media[k][2]);	
+		}else {
+			chart.data.datasets[3].data.push(0)
+		}
 		chart.data.datasets[3].backgroundColor.push(color3);
 
 		var newwidth = $('.chartAreaWrapper2').width() +60;
 		$('.chartAreaWrapper2').width(newwidth);
-
 
 	}	
 	chart.update();
 }
 
 function updateDataPhase(chart, media){
-	for (var k = 0; k < listPhases.length; k++) {
 
+	for (var k = 0; k < listPhases.length; k++) {
 		chart.data.datasets[0].data[k] = (listPhases[k].period);
 		chart.data.datasets[1].data[k] = (media[k][0]);
 		chart.data.datasets[2].data[k] = (media[k][1]);
 		chart.data.datasets[3].data[k] = (media[k][2]);
-		
 	}
 	
+	var max = Math.max.apply(undefined, chart.data.datasets[0].data);
+	chart.update();
+	chart.options.scales.yAxes[0].ticks.max = parseInt(max);
+	chart.update();
+}
+
+function removePhaseData(chart) {
+	for (var k = 0; k < listPhases.length; k++) {
+		chart.data.datasets[0].data[k] = [];
+		chart.data.datasets[1].data[k] = [];
+		chart.data.datasets[2].data[k] = [];
+		chart.data.datasets[3].data[k] = [];
+	}
+	chart.update();
+}
+function removePhasesChart(chart){
+
+	chart.data.datasets.forEach(function(data){
+		data.data = [];
+	})
 	chart.update();
 }

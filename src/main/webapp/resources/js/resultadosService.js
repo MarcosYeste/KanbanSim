@@ -28,7 +28,7 @@ function tableTask(){
 		tablaTarea += "<td>"+task.staticAssigneds+"</td>";
 		tablaTarea += "</tr>";
 		if(task.cycleTime != 0){cantidadTask++;}
-		
+
 	});
 	medioCycle = Math.round((medioCycle/cantidadTask)* 10 ) / 10;
 	medioLead =  Math.round((medioLead/cantidadTask)* 10 ) / 10;
@@ -39,7 +39,6 @@ function tableTask(){
 	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
 	subDiv.innerHTML += tablaTarea;
-
 
 }
 
@@ -73,7 +72,7 @@ function behindTable(){
 			if(task.phasesTime[i] == 0){
 				tablaTarea += "<td> - </td>";
 			}else{
-			tablaTarea += "<td>"+task.phasesTime[i]+"s</td>";
+				tablaTarea += "<td>"+task.phasesTime[i]+"s</td>";
 			}
 		}
 		tablaTarea += "</tr>";
@@ -82,26 +81,27 @@ function behindTable(){
 	tablaTarea += "</table>";
 	subDiv.innerHTML += tablaTarea;
 }
+
 function graficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
 	listTareas.forEach(function(task) {	
-			mediaPorFases2.push(task.timeByStats);
+		mediaPorFases2.push(task.timeByStats);
 	});
 	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
-	
-		addDataPhase(myChartPhase,resultMediaPorFases2);
+	addDataPhase(myChartPhase,resultMediaPorFases2[resultMediaPorFases2.length-2]);
 }
+
 function updateGraficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
 	listTareas.forEach(function(task) {	
-			mediaPorFases2.push(task.timeByStats);
+		mediaPorFases2.push(task.timeByStats);
 	});
 	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
-	updateDataPhase(myChartPhase,resultMediaPorFases2);
+	updateDataPhase(myChartPhase,resultMediaPorFases2[resultMediaPorFases2.length-2]);
 }
 //_______________________________________________________________
 
@@ -179,10 +179,10 @@ function tablePhase(){
 
 		tabla += "</tr>";
 		l++;
-		
+
 	});
 	resultMediaPorFases = mediaFasestotal(mediaPorFases);	
-	
+
 	numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
 	sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
 	if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
@@ -199,8 +199,8 @@ function tablePhase(){
 		}
 	}
 //	while(auxCV2>0){
-//		tabla += "<td><div class='stados'></div></td>";
-//		auxCV2--;
+//	tabla += "<td><div class='stados'></div></td>";
+//	auxCV2--;
 //	}
 	tabla += "<td><div class='stados'></div></td>";
 	tabla += "</tr>";
@@ -372,7 +372,7 @@ function saveTimeStates(task,leadTime,i){
 		}
 
 	}else{
-		console.log(task.phase+" FASEEE");
+
 		if(task.phase >= -1){
 			task.statsTime[2]= leadTime - task.statsTime[1] - task.statsTime[0]- task.startTime - sumaFasesTiempo(task.phasesTime) - task.creationTime;
 		}else{
@@ -446,6 +446,7 @@ function mediaFasestotal(taskArray){
 	var z = 0;
 	var array = taskArray;	
 	var arrayFases  = new Array();
+	var arraySumaEstados = new Array();
 	if(array[0] != undefined ){
 
 		while (z < array[0].length){
@@ -458,16 +459,17 @@ function mediaFasestotal(taskArray){
 					if(array[i][z][0] == undefined){array[i][z][0] = 0;}
 					if(array[i][z][1] == undefined){array[i][z][1] = 0;}
 					if(array[i][z][2] == undefined){array[i][z][2] = 0;}
-						sumaTodos += array[i][z][0];
-						sumaDoing += array[i][z][1];
-						sumaDone  += array[i][z][2];
-					
-					
-						if(z == 0){numTareas++;} // +1 en tareas con valores
+					sumaTodos += array[i][z][0];
+					sumaDoing += array[i][z][1];
+					sumaDone  += array[i][z][2];
+
+
+					if(z == 0){numTareas++;} // +1 en tareas con valores
 				}
-				
-				
+
+
 			}
+			arraySumaEstados.push([sumaTodos,sumaDoing,sumaDone]);
 			sumaTodos = Math.round((sumaTodos / numTareas) * 10 ) / 10;
 			sumaDoing = Math.round((sumaDoing / numTareas) * 10 ) / 10;
 			sumaDone  =  Math.round((sumaDone / numTareas) * 10 ) / 10;
@@ -476,6 +478,7 @@ function mediaFasestotal(taskArray){
 		}
 
 	}
+	arrayFases.push(arraySumaEstados);
 	arrayFases.push(numTareas);
 	return arrayFases;
 
