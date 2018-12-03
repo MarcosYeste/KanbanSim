@@ -280,7 +280,6 @@ function play() {
 														isTotallyFree = true;
 													} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 														isTotallyFree = false;
-													} else {
 													}
 												}
 
