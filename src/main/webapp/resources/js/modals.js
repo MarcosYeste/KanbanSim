@@ -839,8 +839,8 @@ function showTaskInfo(){
 			document.getElementById("saturacion2").innerHTML = "";
 			document.getElementById("saturacion2").setAttribute("class","");
 			var auxLTs= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
-			if(!isNaN(auxLT) || isFinite(auxLT)){
-				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
+			if(!isNaN(auxLTs) || isFinite(auxLTs)){
+				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLTs + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
 			}else{
 				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
 			}	

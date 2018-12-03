@@ -100,8 +100,10 @@ function updateGraficPhase(){
 	listTareas.forEach(function(task) {	
 		mediaPorFases2.push(task.timeByStats);
 	});
-	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
+	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);
+	if(resultMediaPorFases2[resultMediaPorFases2.length-2] != undefined){
 	updateDataPhase(myChartPhase,resultMediaPorFases2[resultMediaPorFases2.length-2]);
+	}
 }
 //_______________________________________________________________
 

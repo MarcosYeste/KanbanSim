@@ -45,7 +45,10 @@ var options = {
 
 					targetCtx.canvas.style.width = `${copyWidth}px`;
 					targetCtx.canvas.style.height = `${copyHeight}px`;
+					if(copyHeight > 10){
+						console.log(copyWidth+" y "+copyHeight+" |||  "+scale);
 					targetCtx.drawImage(sourceCanvas, 0, 0, copyWidth * scale, copyHeight * scale, 0, 0, copyWidth * scale, copyHeight * scale);
+					}
 					var sourceCtx = sourceCanvas.getContext('2d');
 
 					// Normalize coordinate system to use css pixels.
@@ -147,18 +150,19 @@ function addDataPhase(chart,media) {
 }
 
 function updateDataPhase(chart, media){
-
-	for (var k = 0; k < listPhases.length; k++) {
-		chart.data.datasets[0].data[k] = (listPhases[k].period);
-		chart.data.datasets[1].data[k] = (media[k][0]);
-		chart.data.datasets[2].data[k] = (media[k][1]);
-		chart.data.datasets[3].data[k] = (media[k][2]);
+if(media.length == listPhases.length){
+		for (var k = 0; k < listPhases.length; k++) {
+			chart.data.datasets[0].data[k] = (listPhases[k].period);
+			chart.data.datasets[1].data[k] = (media[k][0]);
+			chart.data.datasets[2].data[k] = (media[k][1]);
+			chart.data.datasets[3].data[k] = (media[k][2]);
+		}
+		
+		var max = Math.max.apply(undefined, chart.data.datasets[0].data);
+		chart.update();
+		chart.options.scales.yAxes[0].ticks.max = parseInt(max);
+		chart.update();
 	}
-	
-	var max = Math.max.apply(undefined, chart.data.datasets[0].data);
-	chart.update();
-	chart.options.scales.yAxes[0].ticks.max = parseInt(max);
-	chart.update();
 }
 
 function removePhaseData(chart) {
