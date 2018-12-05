@@ -1038,7 +1038,7 @@ function getDistribution(){
 
 			document.getElementById("dataWeightDistribution").style.visibility = "visible";
 			document.getElementById("dataWeightDistribution").style.height = "initial";
-
+			
 			document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
 			document.getElementById("dataPoissonDistribution").style.height = "0px";
 
