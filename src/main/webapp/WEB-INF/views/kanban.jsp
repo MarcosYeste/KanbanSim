@@ -149,6 +149,7 @@ ____________________________________________________________________
 					var listPhases = new Array();
 					var listUsers = new Array();
 					var distribution = new Object();
+					var listResultados = new Array();
 				</script>
 
 			</div>

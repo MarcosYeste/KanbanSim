@@ -1,3 +1,151 @@
+function nuevoObjetoResultados(){
+	var resultadosO = new Object();
+	resultadosO.taskCycle = [];
+	resultadosO.taskLead  = [];
+	resultadosO.taskEsfuerzo  = [];
+	resultadosO.taskUsuarios  = [];
+	resultadosO.taskMediaCL = [];
+	resultadosO.taskBacklog = [];
+	resultadosO.taskPhasesSeconds = [];
+	
+	resultadosO.phaseStatesSeconds = [];
+	resultadosO.phaseMediaFase = [];
+	resultadosO.phaseMediaTask = [];
+	resultadosO.phaseMediaTotal = 0;
+	resultadosO.phaseSecondsTotal = [];
+	
+	resultadosO.userTaskWorked  = [];
+	resultadosO.userActiveTime = [];
+	resultadosO.userInactiveTime = [];
+	resultadosO.userBestWorker  = [];
+	resultadosO.userLessWorker = [];
+	resultadosO.userSecondsPhase  = [];
+	resultadosO.userNamesWorstBest = [];
+	return resultadosO;
+}
+
+function rellenarResultados(){
+	resultadosO = nuevoObjetoResultados();
+		var mediaCycle = 0;
+		var mediaLead = 0;
+		var cantidadTask = 0;
+		var mediaPorFases = new Array();
+		var resultMediaPorFases = new Array();
+		var mediaPorTarea = new Array();
+		var numerotareas = 0;
+		var sumatodo = 0;
+		var sumaDoing = 0;
+		var sumadone = 0;
+		var sumaEstadosTotal = 0;
+		var nombresArray = [];
+		listTareas.forEach(function(task) {	
+			
+			resultadosO.taskCycle.push(task.cycleTime);
+			resultadosO.taskLead.push(task.leadTime);
+			resultadosO.taskEsfuerzo.push(task.esfuerzo);
+			resultadosO.taskUsuarios.push(task.staticAssigneds);
+			resultadosO.taskBacklog.push(task.startTime);
+			resultadosO.taskPhasesSeconds.push(task.phasesTime);
+			resultadosO.phaseStatesSeconds.push(task.timeByStats);
+			mediaPorFases.push(task.timeByStats);
+			mediaCycle += task.cycleTime;
+			mediaLead += task.leadTime;
+			if(task.cycleTime != 0){cantidadTask++;}
+					
+			mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
+			task.timeByStats.forEach(function(times) {	
+				var time = JSON.stringify(times);
+				time = JSON.parse(time);
+				sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
+			});
+			
+			
+			
+		});
+		resultMediaPorFases = mediaFasestotal(mediaPorFases);
+		numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
+		sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
+		if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
+		
+		mediaCycle = Math.round((mediaCycle/cantidadTask)* 10 ) / 10;
+		mediaLead =  Math.round((mediaLead/cantidadTask)* 10 ) / 10;
+		if(isNaN(mediaCycle)){ mediaCycle = 0;}
+		if(isNaN(mediaLead)){ mediaLead = 0;}
+	
+		
+		
+		resultadosO.taskMediaCL.push(mediaCycle,mediaLead);
+		resultadosO.phaseMediaFase.push(resultMediaPorFases);
+		resultadosO.phaseMediaTask.push(mediaPorTarea);
+		resultadosO.phaseMediaTotal = sumaEstadosTotal;
+	
+		listPhases.forEach(function(phase) {
+			resultadosO.phaseSecondsTotal.push(phase.period);
+		});
+	
+		listUsers.forEach(function(user) {
+			
+			resultadosO.userTaskWorked.push(user.tasksWorked);
+			resultadosO.userActiveTime.push(user.secondsWork);
+			user.secondsNotWorked = leadTime - user.secondsWork;
+			resultadosO.userInactiveTime.push(user.secondsNotWorked);
+			
+			for (var i = 0; i < user.secondByPhase.length; i++) {
+				if(user.secondByPhase[i] == undefined || user.secondByPhase[i] == null){
+					user.secondByPhase[i]= 0;
+				}
+			}
+			resultadosO.userSecondsPhase.push(user.secondByPhase);
+		});
+	
+	resultadosO.userBestWorker.push(buscarMasTrabajador('max'));
+	resultadosO.userLessWorker.push(buscarMasTrabajador('min'));
+	
+	nombresArray = maxAndMinUsers(resultadosO.userBestWorker[0][0],resultadosO.userLessWorker[0][0]);
+	resultadosO.userNamesWorstBest.push(nombresArray);
+
+if(listResultados.length == 0){
+	listResultados.push(resultadosO);
+}else {
+	listResultados.splice(0,1,resultadosO);
+}
+
+}
+
+
+
+function buscarMasTrabajador(opcion){
+	var arrayValores = [];
+	var nombresArray = [];
+	var array = [];
+	arrayValores = findMaxAndMin();
+	//DE MOMENTO CONSERVAR ESTE COMENTARIO HASTA QUE DECIDA COMO PINTAR LOS NOMBRES
+//	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
+//	for(var v = 0; v < nombresArray[0].length; v++ ){
+//
+//		tabla += nombresArray[0][v]+" ";
+//	}
+//	tabla += "con "+arrayValores[0]+"s en "+arrayValores[2]+" Tareas</td>";
+//	tabla += "<td>Menos Trabajador</td><td>";
+//	if(nombresArray[1].length == 0){
+//
+//		tabla += "No hay trabajadores perezosos</td>";				
+//	}else{
+//		for(var v = 0; v < nombresArray[1].length; v++ ){
+//			tabla += nombresArray[1][v]+" ";
+//		}
+//		tabla += "con "+arrayValores[1]+"s en "+arrayValores[3]+" Tareas</td>";
+//	}
+	if(opcion == 'max'){
+		array.push(arrayValores[0],arrayValores[2]);
+		return array;
+	}else{
+		array.push(arrayValores[1],arrayValores[3]);
+		return array;
+	}	
+}
+
+
 //_______________________________________________________________
 
 //_______________________ TAREAS  _______________________________
@@ -5,12 +153,9 @@
 //_______________________________________________________________
 //print table Task
 function tableTask(){
-	var medioCycle = 0;
-	var medioLead = 0;
-	var cantidadTask = 0;
+	
 	var subDiv = document.getElementById("tareaResultado");
 	subDiv.innerHTML = "";
-
 	var tablaTarea = "<table class='table table-bordered table-fixed'>";
 	tablaTarea += "<thead>";
 	tablaTarea += "<tr>";
@@ -19,25 +164,20 @@ function tableTask(){
 	tablaTarea += "</tr>";
 	tablaTarea += "</thead>";
 	tablaTarea += "</tbody>";
-
-	listTareas.forEach(function(task) {		
-		medioCycle += task.cycleTime;
-		medioLead += task.leadTime;
+	var i = 0;
+	listTareas.forEach(function(task) {
 		tablaTarea += "<tr>";
-		tablaTarea += "<td>"+task.name+"</td><td>"+task.cycleTime+"s</td><td>"+task.leadTime+"s</td><td>"+task.esfuerzo+"</td>";		
-		tablaTarea += "<td>"+task.staticAssigneds+"</td>";
+		tablaTarea += "<td>"+task.name+"</td><td>"+listResultados[0].taskCycle[i]+"s</td><td>"+listResultados[0].taskLead[i]+"s</td><td>"+listResultados[0].taskEsfuerzo[i]+"</td>";		
+		tablaTarea += "<td>"+listResultados[0].taskUsuarios[i]+"</td>";
 		tablaTarea += "</tr>";
-		if(task.cycleTime != 0){cantidadTask++;}
-
+		
+	i++;
 	});
-	medioCycle = Math.round((medioCycle/cantidadTask)* 10 ) / 10;
-	medioLead =  Math.round((medioLead/cantidadTask)* 10 ) / 10;
-	if(isNaN(medioCycle)){ medioCycle = 0;}
-	if(isNaN(medioLead)){ medioLead = 0;}
-	tablaTarea += "<tr>";
-	tablaTarea += "<td>Media: </td><td>"+medioCycle+"s</td><td>"+medioLead+"s</td><td colspan = '2'></td>";
+	tablaTarea += "<tr>";						// este 0  sera la posicion de la partida guardada
+	tablaTarea += "<td>Media: </td><td>"+listResultados[0].taskMediaCL[0]+"s</td><td>"+listResultados[0].taskMediaCL[1]+"s</td><td colspan = '2'></td>";
 	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
+	
 	subDiv.innerHTML += tablaTarea;
 
 }
@@ -60,22 +200,24 @@ function behindTable(){
 	tablaTarea += "</tr>";
 	tablaTarea += "</thead>";
 	tablaTarea += "<tbody>";
-
+	var z = 0;
 	listTareas.forEach(function(task) {	
 		tablaTarea += "<tr>";
 		tablaTarea += "<td>"+task.name+"''</td>";
-		tablaTarea += "<td>"+task.startTime+"''</td>";
-		for (var i = 0; i < task.phasesTime.length; i++) {
-			if(task.phasesTime[i] == undefined){
-				task.phasesTime[i] = 0;
+		tablaTarea += "<td>"+listResultados[0].taskBacklog[z]+"''</td>";
+		for (var i = 0; i < listResultados[0].taskPhasesSeconds[0].length; i++) {
+			if(listResultados[0].taskPhasesSeconds[z][i] == undefined){
+				listResultados[0].taskPhasesSeconds[z][i] = 0;
 			}
-			if(task.phasesTime[i] == 0){
+			if(listResultados[0].taskPhasesSeconds[z][i] == 0){
 				tablaTarea += "<td> - </td>";
 			}else{
-				tablaTarea += "<td>"+task.phasesTime[i]+"s</td>";
+				tablaTarea += "<td>"+listResultados[0].taskPhasesSeconds[z][i]+"s</td>";
 			}
+			
 		}
 		tablaTarea += "</tr>";
+		z++;
 	});
 	tablaTarea += "</tbody>";
 	tablaTarea += "</table>";
@@ -86,23 +228,20 @@ function graficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
-	listTareas.forEach(function(task) {	
-		mediaPorFases2.push(task.timeByStats);
-	});
-	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);	
-	addDataPhase(myChartPhase,resultMediaPorFases2[resultMediaPorFases2.length-2]);
+	addDataPhase(myChartPhase,listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2]);
 }
 
 function updateGraficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
-	listTareas.forEach(function(task) {	
-		mediaPorFases2.push(task.timeByStats);
-	});
-	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);
-	if(resultMediaPorFases2[resultMediaPorFases2.length-2] != undefined){
-	updateDataPhase(myChartPhase,resultMediaPorFases2[resultMediaPorFases2.length-2]);
+//	listTareas.forEach(function(task) {	
+//		mediaPorFases2.push(task.timeByStats);
+//	});
+//	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);
+	
+	if(listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2] != undefined){
+	updateDataPhase(myChartPhase,listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2]);
 	}
 }
 //_______________________________________________________________
@@ -127,7 +266,7 @@ function tablePhase(){
 	var cv = 0;	
 	listPhases.forEach(function(phase) {
 
-		tabla +="<th><div class='th'>"+phase.name+" ( "+phase.period+"s )</div></th>";
+		tabla +="<th><div class='th'>"+phase.name+" ( "+listResultados[0].phaseSecondsTotal[cv]+"s )</div></th>";
 		cv++;
 
 	});
@@ -140,32 +279,26 @@ function tablePhase(){
 	tabla += "</tr>";
 	tabla += "</thead>";	
 	tabla += "<tbody>";
-	var numerotareas =0;
-	var sumatodo= 0;
-	var sumaDoing = 0;
-	var sumadone=0;
-	var sumaEstadosTotal = 0;
 	var mediaPorTarea = new Array();
 	var mediaPorFases = new Array();
 	var resultMediaPorFases = new Array();
 	var l = 0;	
 	var auxCV2 =0;
+	
+	
+	
+	
 	listTareas.forEach(function(task) {	
 		tabla += "<tr>";
 		tabla += "<td>"+task.name+"</td>";
 		var i = 0;
-		mediaPorFases.push(task.timeByStats);//guardo 3 multi array
-
 		var auxCV = cv;
 		auxCV2 = cv-1;
-
-		task.timeByStats.forEach(function(times) {	
+		listResultados[0].phaseStatesSeconds[l].forEach(function(times) {	
 
 			var time = JSON.stringify(times);
 			time = JSON.parse(time);
 			tabla += "<td><div class='stados'><p>"+time[0]+"s</p><p>"+time[1]+"s</p><p>"+time[2]+"s</p></div></td>";
-
-			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
 			i++;
 			auxCV--;
 			auxCV2--;
@@ -174,39 +307,31 @@ function tablePhase(){
 			tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
 			auxCV--;
 		}
-
-		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
-
-		tabla += "<td><div class='stados'><p>"+mediaPorTarea[l][0]+"s</p><p>"+mediaPorTarea[l][1]+"s</p><p>"+mediaPorTarea[l][2]+"s</p></div></td>";
+													  // este 0  sera la posicion de la partida guardada
+		tabla += "<td><div class='stados'><p>"+listResultados[0].phaseMediaTask[0][l][0]+"s</p><p>"+listResultados[0].phaseMediaTask[0][l][1]+"s</p><p>"+listResultados[0].phaseMediaTask[0][l][2]+"s</p></div></td>";
 
 		tabla += "</tr>";
 		l++;
+		
 
 	});
-	resultMediaPorFases = mediaFasestotal(mediaPorFases);	
-
-	numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
-	sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
-	if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
 	tabla += "<tr>";
 	tabla += "<td><i>Media por fase: </i></td>";
 
 	for (var i = 0; i < cv; i++) {
-		if(resultMediaPorFases[i] != undefined ){
-			if(!isNaN(resultMediaPorFases[i][0]) && !isNaN(resultMediaPorFases[i][0]) && !isNaN(resultMediaPorFases[i][0])){
-				tabla += "<td><div class='stados'><p>"+resultMediaPorFases[i][0]+"s</p><p>"+resultMediaPorFases[i][1]+"s</p><p>"+resultMediaPorFases[i][2]+"s</p></div></td>";
+		if(listResultados[0].phaseMediaFase[0][i] != undefined ){
+			
+			if(!isNaN(listResultados[0].phaseMediaFase[0][i][0]) && !isNaN(listResultados[0].phaseMediaFase[0][i][1]) && !isNaN(listResultados[0].phaseMediaFase[0][i][2])){
+				
+				tabla += "<td><div class='stados'><p>"+listResultados[0].phaseMediaFase[0][i][0]+"s</p><p>"+listResultados[0].phaseMediaFase[0][i][1]+"s</p><p>"+listResultados[0].phaseMediaFase[0][i][2]+"s</p></div></td>";
 			}else{
 				tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
 			}
 		}
 	}
-//	while(auxCV2>0){
-//	tabla += "<td><div class='stados'></div></td>";
-//	auxCV2--;
-//	}
 	tabla += "<td><div class='stados'></div></td>";
 	tabla += "</tr>";
-	tabla += "<tr><td><i>Media Total: </i></td><td colspan='"+cv+"'>"+sumaEstadosTotal+"s</td><td><div class='stados'></div></td></tr>";
+	tabla += "<tr><td><i>Media Total: </i></td><td colspan='"+cv+"'>"+listResultados[0].phaseMediaTotal+"s</td><td><div class='stados'></div></td></tr>";
 	tabla += "</tbody>";
 	subdiv4.innerHTML += tabla;
 	div4.appendChild(subdiv4);
@@ -218,6 +343,11 @@ function tablePhase(){
 //_______________________ USUARIOS ________________________________
 
 //_______________________________________________________________
+
+
+
+
+
 
 
 function tableUser(){
@@ -238,35 +368,33 @@ function tableUser(){
 	tabla += "</thead>";
 	tabla += "<tbody>";
 	tabla += "<tr>";
+	var i = 0;
 	listUsers.forEach(function(user) {
-		user.secondsNotWorked = leadTime - user.secondsWork;
 		tabla += "<td><div><p>"+user.name+"</p></div></td>";
-		tabla += "<td>"+user.tasksWorked+"</td><td>"+user.secondsWork+"</td><td>"+user.secondsNotWorked+"</td>";
+		tabla += "<td>"+listResultados[0].userTaskWorked[i]+"</td><td>"+listResultados[0].userActiveTime[i]+"</td><td>"+listResultados[0].userInactiveTime[i]+"</td>";
 		tabla += "</tr>";
+		i++;
 	});
-	arrayValores = findMaxAndMin();
 	tabla += "<tr>";
-	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
 	tabla += "<td>Más Trabajador</td><td>";
 
 
-	for(var v = 0; v < nombresArray[0].length; v++ ){
+	for(var v = 0; v < listResultados[0].userNamesWorstBest[0][0].length; v++ ){
 
-		tabla += nombresArray[0][v]+" ";
+		tabla += listResultados[0].userNamesWorstBest[0][v]+" ";
 	}
-
-	tabla += "con "+arrayValores[0]+"s en "+arrayValores[2]+" Tareas</td>";
+	tabla += "con "+listResultados[0].userBestWorker[0][0]+"s en "+listResultados[0].userBestWorker[0][1]+" Tareas</td>";
 	tabla += "</tr>";
 	tabla += "<tr>";
 	tabla += "<td>Menos Trabajador</td><td>";
-	if(nombresArray[1].length == 0){
+	if(listResultados[0].userNamesWorstBest[0][1].length == 0){
 
 		tabla += "No hay trabajadores perezosos</td>";				
 	}else{
-		for(var v = 0; v < nombresArray[1].length; v++ ){
-			tabla += nombresArray[1][v]+" ";
+		for(var v = 0; v < listResultados[0].userNamesWorstBest[0][1].length; v++ ){
+			tabla += listResultados[0].userNamesWorstBest[1][v]+" ";
 		}
-		tabla += "con "+arrayValores[1]+"s en "+arrayValores[3]+" Tareas</td>";
+		tabla += "con "+listResultados[0].userLessWorker[0][0]+"s en "+listResultados[0].userLessWorker[0][1]+" Tareas</td>";
 	}
 	tabla += "</tr>";
 	tabla += "</tbody>";
@@ -288,24 +416,29 @@ function behindUser(){
 	tabla += "</thead>";
 	tabla += "<tbody>";
 	tabla += "<tr>";
-	listUsers.forEach(function(user) {
-		tabla += "<td><div><p>"+user.name+"</p></div></td>";
-		for (var i = 0; i < user.secondByPhase.length; i++) {
-			if(user.secondByPhase[i] == undefined || user.secondByPhase[i] == null){
-				user.secondByPhase[i]= 0;
+	var k = 0;
+	listPhases.forEach(function(phase) {
+		tabla += "<td><div><p>"+phase.name+"</p></div></td>";
+		
+		for (var i = 0; i < listResultados[0].userSecondsPhase[0].length; i++) {
+			if(listResultados[0].userSecondsPhase[0][i] == undefined || listResultados[0].userSecondsPhase[0][i] == null){
+				listResultados[0].userSecondsPhase[0][i]= 0;
+				
 			}
-			tabla += "<td>"+user.secondByPhase[i]+"s</td>";
+			tabla += "<td>"+listResultados[0].userSecondsPhase[0][i]+"s</td>";
 
 
-		}	
+		}
 
 		tabla += "</tr>";
+		i++;
 	});
 	tabla += "</tbody>";
 	tabla += "</table>";
+	//para guardar;
 	div.innerHTML += tabla;
 
-
+	
 }
 //_______________________________________________________________
 
