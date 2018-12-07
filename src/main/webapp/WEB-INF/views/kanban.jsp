@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp"></jsp:include>
@@ -16,7 +15,6 @@
 <body>
 
 <!--
-
 ____________________________________________________________________
 
 ______________________________ BOTONES  ____________________________
@@ -53,6 +51,7 @@ ____________________________________________________________________
 </div>
 	
 	<h1 class="texto">KANBAN SIM</h1>
+	
 <!--
 ____________________________________________________________________
 
@@ -72,15 +71,18 @@ ____________________________________________________________________
 		<div class="usersContainer" id="usersContainer">
 			
 		</div>
+		
 	</fieldset>
+	
 	<p role="alert" style="float: left;margin-left: 25%; font-size:140%;margin-top: 1%; position: absolute;" id="saturacion" ></p>
 	<p role="alert" style="float: right;margin-right: 25%; font-size:140%;margin-top: 1%;" id="saturacion2" ></p>
+	
 	<!--Temporizador y Cambiar Distribucion -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
 	
 	<div class="botonesContainer">
 
-		<!--  Button Play/Pause -->
+		<!--  Botón Play/Pause -->
 
 		<div id="divReset">
 			<i id="reset" class="fas fa-redo fa-3x"></i>
@@ -91,7 +93,7 @@ ____________________________________________________________________
 		
 	</div>
 
-	<!-- Button Add Tasks, ONLY MANUAL -->
+	<!-- Botón Add Tasks, SOLO MANUAL -->
 	<button id="addTask" data-toggle="tooltip" data-placement="top"	title="Añadir Tareas">
 		<i class="fas fa-plus fa-3x"></i>
 	</button>	
@@ -376,7 +378,7 @@ ____________________________________________________________________
 
 	</div>
 
-	<!-- Modal Distribution -->
+	<!-- Modal Distribución -->
 	<div class="modal fade" id="modalDistribution" role="dialog">
 		<div class="modal-dialog">
 
@@ -478,7 +480,7 @@ __________________________ MODAL INFO  ____________________________
 ____________________________________________________________________
 -->
 	
-	<!-- Modal Task Info-->
+	<!-- Modal Info Tareas -->
 	<div class="modal fade" id="modalTaskInfo" role="dialog">
 		<div class="modal-dialog">
 

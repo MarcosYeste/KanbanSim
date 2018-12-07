@@ -8,8 +8,8 @@
 //Necesarias para distribucion
 distribution.backLogType = "manual"; 
 distribution.typeConstant = "";
-distribution.mean;			// Base value for normal distribution 
-distribution.variation;		// Variation value for normal distribution
+distribution.mean;				// Base value for normal distribution 
+distribution.variation;			// Variation value for normal distribution
 distribution.lambda;			// Lambda value for poisson distribution 
 distribution.distributionWeightValues = [0, 0, 0, 0];
 
@@ -28,8 +28,6 @@ if(distribution.backLogType == "manual"){
 	document.getElementById("addTask").setAttribute("aria-disabled", "true");
 
 }
-
-
 
 var firstLoop = true;
 var myInterval;
