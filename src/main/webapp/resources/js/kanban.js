@@ -385,7 +385,7 @@ function play() {
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
-							updateDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, indiceTareas);
+							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
 							indiceTareas++;
 							updateGraficPhase();
 
@@ -789,7 +789,7 @@ function play() {
 
 		var i = 0;
 		listUsers.forEach(function(user){
-
+			
 			updateData(myChart, user.tasksWorked, i, 0);
 			updateData(myChart, user.secondsWork, i, 1);
 			i++;
