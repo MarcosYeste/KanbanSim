@@ -816,8 +816,8 @@ function chrono(){
 function showTaskInfo(){
 	atributo = event.target.getAttribute("data-identification");
 	var object = listTareas.find(x => x.name === atributo);
-
-	if(distribution.distributionType == "weight"){
+	
+	if(distribution.typeConstant == "weight"){
 		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>  ( <var>" + object.weight +"</var> )";
 	}else{
 		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>";

@@ -280,7 +280,6 @@ function play() {
 														isTotallyFree = true;
 													} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 														isTotallyFree = false;
-													} else {
 													}
 												}
 
@@ -1039,7 +1038,7 @@ function getDistribution(){
 
 			document.getElementById("dataWeightDistribution").style.visibility = "visible";
 			document.getElementById("dataWeightDistribution").style.height = "initial";
-
+			
 			document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
 			document.getElementById("dataPoissonDistribution").style.height = "0px";
 
