@@ -675,30 +675,21 @@ function getRandomColor() {
 	return color;
 }
 
-function saveResultsDOS(){
-	var objectoJSON = JSON.stringify(listResultados[0]);
-	console.log(objectoJSON);
-//	
-//	$.ajax({
-//		 type: "POST",
-//		 url: "/saveResults",
-//		 success: function(msg) {
-//			
-//		 },error : function (e){
-//			 console.log(e);
-//		 }
-//		});
-//	
-	
-	 var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	     console.log("funciona");
-	    }
-	  };
-	  xhttp.open("POST", "/saveResults", true);
-	  xhttp.send(listResultados[0]);
-	
-	
+
+
+function saveResults(){
+	var object = JSON.stringify(listResultados[0]);
+	$.ajax({
+		type: "POST",
+		url: "/saveResults",
+		data: {
+
+			resultados: "hola"
+
+		},success: function(data) {
+
+			console.log("Success")
+		}
+	})
 }
 
