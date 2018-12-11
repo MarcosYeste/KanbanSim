@@ -694,3 +694,20 @@ function getRandomColor() {
 	}
 	return color;
 }
+function saveResults(){
+	var object = JSON.stringify(listResultados[0]);
+	console.log(object);
+	$.ajax({
+		type: "POST",
+		url: "/saveResults",
+		processData: false,
+		data: {
+
+			resultados: object
+
+		},success: function(data) {
+
+			console.log("Success")
+		}
+	})
+}

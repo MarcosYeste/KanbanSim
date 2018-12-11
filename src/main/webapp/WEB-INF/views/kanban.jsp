@@ -46,6 +46,11 @@ ____________________________________________________________________
 				data-placement="top" title="Mostrar Graficos"></i>
 		</button>
 		
+		<button onclick="saveResults()" class="resultbutt">
+			<i class="fas fa-chart-bar fa-4x" data-toggle="tooltip"
+				data-placement="top" title="Guardar Resultados"></i>
+		</button>
+		
 	</div>
 	
 </div>

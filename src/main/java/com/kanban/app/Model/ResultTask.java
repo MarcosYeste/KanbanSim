@@ -54,6 +54,8 @@ public class ResultTask {
 		return mediaLead;
 	}
 	
-	
+	public String toString() { 
+	      return "Results [ cycleTime: "+cycleTime+", leadTime: "+ leadTime+ "esfuerzo: "+esfuerzo+", usuarios: "+ usuarios+ " ]"; 
+	   }
 
 }
