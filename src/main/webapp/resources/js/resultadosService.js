@@ -215,7 +215,8 @@ function graficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
-	addDataPhase(myChartPhase,listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2]);
+//	addDataPhase(myChartPhase,listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2]);
+	addDataPhase(myChartPhase,listResultados[0].phaseSumaStates[0]);
 }
 
 function updateGraficPhase(){
@@ -223,8 +224,10 @@ function updateGraficPhase(){
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
 	
-	if(listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2] != undefined){
-	updateDataPhase(myChartPhase,listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2]);
+	
+	
+	if(listResultados[0] != undefined){
+	updateDataPhase(myChartPhase,listResultados[0].phaseSumaStates[0]);
 	}
 }
 //_______________________________________________________________
@@ -362,7 +365,6 @@ function tableUser(){
 	tabla += "<tr>";
 	tabla += "<td>Más Trabajador</td><td>";
 
-
 	for(var v = 0; v < listResultados[0].userNamesWorstBest[0][0].length; v++ ){
 
 		tabla += listResultados[0].userNamesWorstBest[0][v]+" ";
@@ -375,8 +377,10 @@ function tableUser(){
 
 		tabla += "No hay trabajadores perezosos</td>";				
 	}else{
+		console.log(listResultados[0].userNamesWorstBest[0][1].length);
 		for(var v = 0; v < listResultados[0].userNamesWorstBest[0][1].length; v++ ){
-			tabla += listResultados[0].userNamesWorstBest[1][v]+" ";
+			console.log(v);
+			tabla += listResultados[0].userNamesWorstBest[0][1][v]+" ";
 		}
 		tabla += "con "+listResultados[0].userLessWorker[0][0]+"s en "+listResultados[0].userLessWorker[0][1]+" Tareas</td>";
 	}
@@ -689,7 +693,7 @@ function saveResults(){
 		url: "/saveResults",
 		data: {
 
-			resultados: "hola"
+			resultados: object
 
 		},success: function(data) {
 
