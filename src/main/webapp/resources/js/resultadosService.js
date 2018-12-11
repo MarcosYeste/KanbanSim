@@ -9,7 +9,8 @@ function nuevoObjetoResultados(){
 	resultadosO.taskPhasesSeconds = [];
 	
 	resultadosO.phaseStatesSeconds = [];
-	resultadosO.phaseMediaFase = [];
+	resultadosO.phaseSumaStates = [];
+	resultadosO.phaseMediaFase = [];	
 	resultadosO.phaseMediaTask = [];
 	resultadosO.phaseMediaTotal = 0;
 	resultadosO.phaseSecondsTotal = [];
@@ -75,6 +76,9 @@ function rellenarResultados(){
 		
 		
 		resultadosO.taskMediaCL.push(mediaCycle,mediaLead);
+		resultadosO.phaseSumaStates.push(resultMediaPorFases[resultMediaPorFases.length-2]);
+		resultMediaPorFases.splice(resultMediaPorFases.length-2, 2);
+		
 		resultadosO.phaseMediaFase.push(resultMediaPorFases);
 		resultadosO.phaseMediaTask.push(mediaPorTarea);
 		resultadosO.phaseMediaTotal = sumaEstadosTotal;
@@ -119,23 +123,6 @@ function buscarMasTrabajador(opcion){
 	var nombresArray = [];
 	var array = [];
 	arrayValores = findMaxAndMin();
-	//DE MOMENTO CONSERVAR ESTE COMENTARIO HASTA QUE DECIDA COMO PINTAR LOS NOMBRES
-//	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
-//	for(var v = 0; v < nombresArray[0].length; v++ ){
-//
-//		tabla += nombresArray[0][v]+" ";
-//	}
-//	tabla += "con "+arrayValores[0]+"s en "+arrayValores[2]+" Tareas</td>";
-//	tabla += "<td>Menos Trabajador</td><td>";
-//	if(nombresArray[1].length == 0){
-//
-//		tabla += "No hay trabajadores perezosos</td>";				
-//	}else{
-//		for(var v = 0; v < nombresArray[1].length; v++ ){
-//			tabla += nombresArray[1][v]+" ";
-//		}
-//		tabla += "con "+arrayValores[1]+"s en "+arrayValores[3]+" Tareas</td>";
-//	}
 	if(opcion == 'max'){
 		array.push(arrayValores[0],arrayValores[2]);
 		return array;
@@ -228,20 +215,19 @@ function graficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
-	addDataPhase(myChartPhase,listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2]);
+//	addDataPhase(myChartPhase,listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2]);
+	addDataPhase(myChartPhase,listResultados[0].phaseSumaStates[0]);
 }
 
 function updateGraficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
-//	listTareas.forEach(function(task) {	
-//		mediaPorFases2.push(task.timeByStats);
-//	});
-//	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);
 	
-	if(listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2] != undefined){
-	updateDataPhase(myChartPhase,listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2]);
+	
+	
+	if(listResultados[0] != undefined){
+	updateDataPhase(myChartPhase,listResultados[0].phaseSumaStates[0]);
 	}
 }
 //_______________________________________________________________
@@ -253,6 +239,7 @@ function updateGraficPhase(){
 
 
 function tablePhase(){
+	console.log(listResultados[0]);
 	// Resultado fases
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 	var div4 =  document.createElement("div");
@@ -378,7 +365,6 @@ function tableUser(){
 	tabla += "<tr>";
 	tabla += "<td>Más Trabajador</td><td>";
 
-
 	for(var v = 0; v < listResultados[0].userNamesWorstBest[0][0].length; v++ ){
 
 		tabla += listResultados[0].userNamesWorstBest[0][v]+" ";
@@ -391,8 +377,10 @@ function tableUser(){
 
 		tabla += "No hay trabajadores perezosos</td>";				
 	}else{
+		console.log(listResultados[0].userNamesWorstBest[0][1].length);
 		for(var v = 0; v < listResultados[0].userNamesWorstBest[0][1].length; v++ ){
-			tabla += listResultados[0].userNamesWorstBest[1][v]+" ";
+			console.log(v);
+			tabla += listResultados[0].userNamesWorstBest[0][1][v]+" ";
 		}
 		tabla += "con "+listResultados[0].userLessWorker[0][0]+"s en "+listResultados[0].userLessWorker[0][1]+" Tareas</td>";
 	}
@@ -694,3 +682,23 @@ function getRandomColor() {
 	}
 	return color;
 }
+
+
+
+function saveResults(){
+	var object = JSON.stringify(listResultados[0]);
+	console.log(object);
+	$.ajax({
+		type: "POST",
+		url: "/saveResults",
+		data: {
+
+			resultados: object
+
+		},success: function(data) {
+
+			console.log("Success")
+		}
+	})
+}
+
