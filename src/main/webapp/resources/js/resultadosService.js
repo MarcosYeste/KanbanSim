@@ -376,7 +376,7 @@ function tableUser(){
 		tabla += "No hay trabajadores perezosos</td>";				
 	}else{
 		for(var v = 0; v < listResultados[0].userNamesWorstBest[0][1].length; v++ ){
-			tabla += listResultados[0].userNamesWorstBest[0][v]+" ";
+			tabla += listResultados[0].userNamesWorstBest[1][v]+" ";
 		}
 		tabla += "con "+listResultados[0].userLessWorker[0][0]+"s en "+listResultados[0].userLessWorker[0][1]+" Tareas</td>";
 	}

@@ -14,6 +14,7 @@ public class Results {
 	private double[][][] phaseMediaTask; // --
 	private double phaseMediaTotal;
 	private int[] phaseSecondsTotal;
+	private int[][][] phaseSumaStates;
 	private int[] userTaskWorked;
 	private int[] userActiveTime;
 	private int[] userInactiveTime;
@@ -22,10 +23,10 @@ public class Results {
 	private int[][] userSecondsPhase; // --
 	private String[][] userNamesWorstBest; // --
 	
-
+		
 	public Results(int[] taskCycle, int[] taskLead, int[] taskEsfuerzo, String[] taskUsuarios, double[] taskMediaCL,
 			int[] taskBacklog, int[][] taskPhasesSeconds,
-			int[][][] phaseStatesSeconds, double[][][] phaseMediaFase, double[][][] phaseMediaTask, double phaseMediaTotal,
+			int[][][] phaseStatesSeconds,int[][][] phaseSumaStates, double[][][] phaseMediaFase, double[][][] phaseMediaTask, double phaseMediaTotal,
 			int[] phaseSecondsTotal, int[] userTaskWorked, int[] userActiveTime, int[] userInactiveTime,
 			int[] userBestWorker, int[] userLessWorker, int[][] userSecondsPhase, String[][] userNamesWorstBest) {
 		
@@ -42,6 +43,7 @@ public class Results {
 		this.phaseMediaTask = phaseMediaTask;
 		this.phaseMediaTotal = phaseMediaTotal;
 		this.phaseSecondsTotal = phaseSecondsTotal;
+		this.phaseSumaStates = phaseSumaStates;
 		this.userTaskWorked = userTaskWorked;
 		this.userActiveTime = userActiveTime;
 		this.userInactiveTime = userInactiveTime;
@@ -202,6 +204,12 @@ public class Results {
 	public void setUserNamesWorstBest(String[][] userNamesWorstBest) {
 		this.userNamesWorstBest = userNamesWorstBest;
 	}
+	public int[][][] getPhaseSumaStates() {
+		return phaseSumaStates;
+	}
 
+	public void setPhaseSumaStates(int[][][] phaseSumaStates) {
+		this.phaseSumaStates = phaseSumaStates;
+	}
 	
 }

@@ -1,6 +1,7 @@
 package com.kanban.app;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kanban.app.Model.Phase;
@@ -26,6 +26,13 @@ import com.kanban.app.Model.ResultTask;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 import com.kanban.app.services.KanbanService;
+
+import org.json.CDL;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Handles requests for the application home page.
@@ -70,19 +77,44 @@ public class HomeController {
 	}
 	
 	// Save Results Server
+		@SuppressWarnings("unused")
 		@RequestMapping(value = "/saveResults", method = RequestMethod.POST)
 		public String guardarResultados(String resultados) {
 			System.out.println(resultados);
-			
-			GsonBuilder builder = new GsonBuilder();
-			builder.setPrettyPrinting(); 
-			Gson gson = builder.create();
-			
-			/// SOLUCIONAR PROBLEMA STATIC TO NON-STATIC GSON
-			Results prueba = gson.fromJson(resultados, Results.class);
-		
-			System.out.println(prueba);
+					
+			JSONParser parser = new JSONParser();
+			Object obj = null;
+			try {
+				obj = parser.parse(resultados);
+			} catch (ParseException e) {
+				
+				e.printStackTrace();
+			}
+			JSONObject jsonobject = (JSONObject) obj;
+            
+			Object taskCycle 			= 	jsonobject.get("taskCycle"); 		  // int[]
+			Object taskLead 			= 	jsonobject.get("taskLead"); 		  // int[]
+			Object taskEsfuerzo 		= 	jsonobject.get("taskEsfuerzo");		  // int[]
+			Object taskUsuarios 		= 	jsonobject.get("taskUsuarios");		  // String[]
+			Object taskMediaCL 			= 	jsonobject.get("taskMediaCL");		  // int[]
+			Object taskBacklog 			= 	jsonobject.get("taskBacklog");		  // int[]
+			Object taskPhasesSeconds  	= 	jsonobject.get("taskPhasesSeconds");  // int[][]
+			Object phaseStatesSeconds 	= 	jsonobject.get("phaseStatesSeconds"); // int[][][]
+			Object phaseSumaStates 		= 	jsonobject.get("phaseSumaStates");	  // int[][][]
+            Object phaseMediaFase 		= 	jsonobject.get("phaseMediaFase");	  // double[][][]
+            Object phaseMediaTask 		= 	jsonobject.get("phaseMediaTask");	  // double[][][]
+            Object phaseMediaTotal 		= 	jsonobject.get("phaseMediaTotal");	  // double
+            Object phaseSecondsTotal 	= 	jsonobject.get("phaseSecondsTotal");  // int[]
+            Object userTaskWorked 		= 	jsonobject.get("userTaskWorked");	  // int[]
+            Object userActiveTime 		= 	jsonobject.get("userActiveTime");	  // int[]
+            Object userInactiveTime 	= 	jsonobject.get("userInactiveTime");	  // int[]
+            Object userBestWorker 		= 	jsonobject.get("userBestWorker");	  // int[]
+            Object userLessWorker 		= 	jsonobject.get("userLessWorker");	  // int[]
+            Object userSecondsPhase		= 	jsonobject.get("userSecondsPhase");	  // int[][]
+            Object userNamesWorstBest 	= 	jsonobject.get("userNamesWorstBest"); // String[][]
 
+            System.out.println((String.valueOf(phaseMediaFase)));
+            
 			return "success";
 		}
 	

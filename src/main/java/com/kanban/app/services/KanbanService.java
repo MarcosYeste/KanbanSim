@@ -3,6 +3,7 @@ package com.kanban.app.services;
 import java.util.List;
 import java.util.UUID;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.kanban.app.Model.Phase;
@@ -40,20 +41,20 @@ public class KanbanService {
 		return taskArray;
 		
 	}
-	public Results saveResultados(Results resultados) {
-		
-		Results nuevosResultados = new Results(resultados.getTaskCycle(), resultados.getTaskLead(), resultados.getTaskEsfuerzo(), resultados.getTaskUsuarios(), resultados.getTaskMediaCL(),
-				resultados.getTaskBacklog(),resultados.getTaskPhasesSeconds(), resultados.getPhaseStatesSeconds(),
-				resultados.getPhaseMediaFase(),resultados.getPhaseMediaTask(),resultados.getPhaseMediaTotal(),resultados.getPhaseSecondsTotal(), resultados.getUserTaskWorked(),
-				resultados.getUserActiveTime(),resultados.getUserInactiveTime(), resultados.getUserBestWorker(), resultados.getUserLessWorker(), resultados.getUserSecondsPhase(),
-				resultados.getUserNamesWorstBest());
-		
-		// repository.save(resultados);
-		
-		return nuevosResultados;
-		
-		
-	} 
+	
+//	public Results saveResultados(JSONObject jsonobject) {
+//		
+//		Results nuevosResultados = new Results((int[]) jsonobject.get("taskCycle"),(int[]) jsonobject.get("taskLead"), (int[]) jsonobject.get("taskEsfuerzo"), (String[]) jsonobject.get("taskUsuarios"), (double[]) jsonobject.get("taskMediaCL"),
+//				(int[]) jsonobject.get("taskBacklog"),(int[][]) jsonobject.get("taskPhasesSeconds"), (int[][][]) jsonobject.get("phaseStatesSeconds"), (int[][][]) jsonobject.get("phaseSumaStates"),
+//				(double[][][]) jsonobject.get("phaseMediaFase"),(double[][][]) jsonobject.get("phaseMediaTask"),(Double) jsonobject.get("phaseMediaTotal"),(int[]) jsonobject.get("phaseSecondsTotal"), (int[]) jsonobject.get("userTaskWorked"),
+//				(int[]) jsonobject.get("userActiveTime"),(int[]) jsonobject.get("userInactiveTime"),(int[]) jsonobject.get("userBestWorker"), (int[]) jsonobject.get("userLessWorker"), (int[][]) jsonobject.get("userSecondsPhase"),
+//				(String[][]) jsonobject.get("userNamesWorstBest"));
+//		
+//		// repository.save(resultados);
+//		
+//		return nuevosResultados;
+//		
+//	} 
 
 	
 
