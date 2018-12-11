@@ -9,7 +9,8 @@ function nuevoObjetoResultados(){
 	resultadosO.taskPhasesSeconds = [];
 	
 	resultadosO.phaseStatesSeconds = [];
-	resultadosO.phaseMediaFase = [];
+	resultadosO.phaseSumaStates = [];
+	resultadosO.phaseMediaFase = [];	
 	resultadosO.phaseMediaTask = [];
 	resultadosO.phaseMediaTotal = 0;
 	resultadosO.phaseSecondsTotal = [];
@@ -75,6 +76,9 @@ function rellenarResultados(){
 		
 		
 		resultadosO.taskMediaCL.push(mediaCycle,mediaLead);
+		resultadosO.phaseSumaStates.push(resultMediaPorFases[resultMediaPorFases.length-2]);
+		resultMediaPorFases.splice(resultMediaPorFases.length-2, 2);
+		
 		resultadosO.phaseMediaFase.push(resultMediaPorFases);
 		resultadosO.phaseMediaTask.push(mediaPorTarea);
 		resultadosO.phaseMediaTotal = sumaEstadosTotal;
@@ -679,6 +683,7 @@ function getRandomColor() {
 
 function saveResults(){
 	var object = JSON.stringify(listResultados[0]);
+	console.log(object);
 	$.ajax({
 		type: "POST",
 		url: "/saveResults",
