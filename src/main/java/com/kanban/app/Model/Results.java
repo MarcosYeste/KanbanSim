@@ -7,13 +7,11 @@ public class Results {
 	private int[] taskEsfuerzo;
 	private String[] taskUsuarios;
 	private double[] taskMediaCL;// opcional
-	private double taskMediaCycle;
-	private double taskMediaLead;
 	private int[] taskBacklog;
 	private int [][] taskPhasesSeconds; // --
-	private int[][] phaseStatesSeconds; // --
-	private double[][] phaseMediaFase; // --
-	private double[][] phaseMediaTask; // --
+	private int[][][] phaseStatesSeconds; // --
+	private double[][][] phaseMediaFase; // --
+	private double[][][] phaseMediaTask; // --
 	private double phaseMediaTotal;
 	private int[] phaseSecondsTotal;
 	private int[] userTaskWorked;
@@ -26,8 +24,8 @@ public class Results {
 	
 
 	public Results(int[] taskCycle, int[] taskLead, int[] taskEsfuerzo, String[] taskUsuarios, double[] taskMediaCL,
-			double taskMediaCycle, double taskMediaLead, int[] taskBacklog, int[][] taskPhasesSeconds,
-			int[][] phaseStatesSeconds, double[][] phaseMediaFase, double[][] phaseMediaTask, double phaseMediaTotal,
+			int[] taskBacklog, int[][] taskPhasesSeconds,
+			int[][][] phaseStatesSeconds, double[][][] phaseMediaFase, double[][][] phaseMediaTask, double phaseMediaTotal,
 			int[] phaseSecondsTotal, int[] userTaskWorked, int[] userActiveTime, int[] userInactiveTime,
 			int[] userBestWorker, int[] userLessWorker, int[][] userSecondsPhase, String[][] userNamesWorstBest) {
 		
@@ -37,8 +35,6 @@ public class Results {
 		this.taskEsfuerzo = taskEsfuerzo;
 		this.taskUsuarios = taskUsuarios;
 		this.taskMediaCL = taskMediaCL;
-		this.taskMediaCycle = taskMediaCycle;
-		this.taskMediaLead = taskMediaLead;
 		this.taskBacklog = taskBacklog;
 		this.taskPhasesSeconds = taskPhasesSeconds;
 		this.phaseStatesSeconds = phaseStatesSeconds;
@@ -95,22 +91,6 @@ public class Results {
 		this.taskMediaCL = taskMediaCL;
 	}
 
-	public double getTaskMediaCycle() {
-		return taskMediaCycle;
-	}
-
-	public void setTaskMediaCycle(double taskMediaCycle) {
-		this.taskMediaCycle = taskMediaCycle;
-	}
-
-	public double getTaskMediaLead() {
-		return taskMediaLead;
-	}
-
-	public void setTaskMediaLead(double taskMediaLead) {
-		this.taskMediaLead = taskMediaLead;
-	}
-
 	public int[] getTaskBacklog() {
 		return taskBacklog;
 	}
@@ -127,27 +107,27 @@ public class Results {
 		this.taskPhasesSeconds = taskPhasesSeconds;
 	}
 
-	public int[][] getPhaseStatesSeconds() {
+	public int[][][] getPhaseStatesSeconds() {
 		return phaseStatesSeconds;
 	}
 
-	public void setPhaseStatesSeconds(int[][] phaseStatesSeconds) {
+	public void setPhaseStatesSeconds(int[][][] phaseStatesSeconds) {
 		this.phaseStatesSeconds = phaseStatesSeconds;
 	}
 
-	public double[][] getPhaseMediaFase() {
+	public double[][][] getPhaseMediaFase() {
 		return phaseMediaFase;
 	}
 
-	public void setPhaseMediaFase(double[][] phaseMediaFase) {
+	public void setPhaseMediaFase(double[][][] phaseMediaFase) {
 		this.phaseMediaFase = phaseMediaFase;
 	}
 
-	public double[][] getPhaseMediaTask() {
+	public double[][][] getPhaseMediaTask() {
 		return phaseMediaTask;
 	}
 
-	public void setPhaseMediaTask(double[][] phaseMediaTask) {
+	public void setPhaseMediaTask(double[][][] phaseMediaTask) {
 		this.phaseMediaTask = phaseMediaTask;
 	}
 

@@ -74,14 +74,14 @@ public class HomeController {
 		public String guardarResultados(String resultados) {
 			System.out.println(resultados);
 			
-//			GsonBuilder builder = new GsonBuilder();
-//			builder.setPrettyPrinting(); 
-//			Gson gson = builder.create();
-//			
-//			/// SOLUCIONAR PROBLEMA STATIC TO NON-STATIC GSON
-//			ResultTask prueba = gson.fromJson(resultados, ResultTask.class);
-//		
-//			System.out.println(prueba);
+			GsonBuilder builder = new GsonBuilder();
+			builder.setPrettyPrinting(); 
+			Gson gson = builder.create();
+			
+			/// SOLUCIONAR PROBLEMA STATIC TO NON-STATIC GSON
+			Results prueba = gson.fromJson(resultados, Results.class);
+		
+			System.out.println(prueba);
 
 			return "success";
 		}

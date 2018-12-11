@@ -43,7 +43,7 @@ public class KanbanService {
 	public Results saveResultados(Results resultados) {
 		
 		Results nuevosResultados = new Results(resultados.getTaskCycle(), resultados.getTaskLead(), resultados.getTaskEsfuerzo(), resultados.getTaskUsuarios(), resultados.getTaskMediaCL(),
-				resultados.getTaskMediaCL()[0], resultados.getTaskMediaCL()[1], resultados.getTaskBacklog(),resultados.getTaskPhasesSeconds(), resultados.getPhaseStatesSeconds(),
+				resultados.getTaskBacklog(),resultados.getTaskPhasesSeconds(), resultados.getPhaseStatesSeconds(),
 				resultados.getPhaseMediaFase(),resultados.getPhaseMediaTask(),resultados.getPhaseMediaTotal(),resultados.getPhaseSecondsTotal(), resultados.getUserTaskWorked(),
 				resultados.getUserActiveTime(),resultados.getUserInactiveTime(), resultados.getUserBestWorker(), resultados.getUserLessWorker(), resultados.getUserSecondsPhase(),
 				resultados.getUserNamesWorstBest());
