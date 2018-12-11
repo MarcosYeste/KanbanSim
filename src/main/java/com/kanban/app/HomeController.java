@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kanban.app.Model.Phase;
+import com.kanban.app.Model.Results;
 import com.kanban.app.Model.ResultTask;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
@@ -159,7 +161,16 @@ public class HomeController {
 		return "success";
 
 	}
-
+//	// Save results Kanban 
+//	@RequestMapping(value = "/saveResults", method = RequestMethod.POST)
+//	
+//	public String saveResults( Results resultados ) {
+//		
+//		kanbanService.saveResultados(resultados);
+//
+//		return "success";
+//
+//	}
 	// Remove all Tasks
 	@RequestMapping(value = "/rmvTask", method = RequestMethod.POST)
 	public String removeTask() {

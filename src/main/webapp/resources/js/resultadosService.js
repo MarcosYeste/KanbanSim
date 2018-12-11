@@ -119,23 +119,6 @@ function buscarMasTrabajador(opcion){
 	var nombresArray = [];
 	var array = [];
 	arrayValores = findMaxAndMin();
-	//DE MOMENTO CONSERVAR ESTE COMENTARIO HASTA QUE DECIDA COMO PINTAR LOS NOMBRES
-//	nombresArray = maxAndMinUsers(arrayValores[0],arrayValores[1]);
-//	for(var v = 0; v < nombresArray[0].length; v++ ){
-//
-//		tabla += nombresArray[0][v]+" ";
-//	}
-//	tabla += "con "+arrayValores[0]+"s en "+arrayValores[2]+" Tareas</td>";
-//	tabla += "<td>Menos Trabajador</td><td>";
-//	if(nombresArray[1].length == 0){
-//
-//		tabla += "No hay trabajadores perezosos</td>";				
-//	}else{
-//		for(var v = 0; v < nombresArray[1].length; v++ ){
-//			tabla += nombresArray[1][v]+" ";
-//		}
-//		tabla += "con "+arrayValores[1]+"s en "+arrayValores[3]+" Tareas</td>";
-//	}
 	if(opcion == 'max'){
 		array.push(arrayValores[0],arrayValores[2]);
 		return array;
@@ -235,10 +218,6 @@ function updateGraficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
-//	listTareas.forEach(function(task) {	
-//		mediaPorFases2.push(task.timeByStats);
-//	});
-//	resultMediaPorFases2 = mediaFasestotal(mediaPorFases2);
 	
 	if(listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2] != undefined){
 	updateDataPhase(myChartPhase,listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2]);
@@ -253,6 +232,7 @@ function updateGraficPhase(){
 
 
 function tablePhase(){
+	console.log(listResultados[0]);
 	// Resultado fases
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 	var div4 =  document.createElement("div");
@@ -694,15 +674,17 @@ function getRandomColor() {
 	}
 	return color;
 }
+
+
+
 function saveResults(){
 	var object = JSON.stringify(listResultados[0]);
-	console.log(object);
 	$.ajax({
 		type: "POST",
 		url: "/saveResults",
 		data: {
 
-			resultados: object
+			resultados: "hola"
 
 		},success: function(data) {
 
@@ -710,3 +692,4 @@ function saveResults(){
 		}
 	})
 }
+

@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.kanban.app.Model.Phase;
+import com.kanban.app.Model.Results;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 
@@ -37,6 +38,20 @@ public class KanbanService {
 		
 		
 		return taskArray;
+		
+	}
+	public Results saveResultados(Results resultados) {
+		
+		Results nuevosResultados = new Results(resultados.getTaskCycle(), resultados.getTaskLead(), resultados.getTaskEsfuerzo(), resultados.getTaskUsuarios(), resultados.getTaskMediaCL(),
+				resultados.getTaskMediaCL()[0], resultados.getTaskMediaCL()[1], resultados.getTaskBacklog(),resultados.getTaskPhasesSeconds(), resultados.getPhaseStatesSeconds(),
+				resultados.getPhaseMediaFase(),resultados.getPhaseMediaTask(),resultados.getPhaseMediaTotal(),resultados.getPhaseSecondsTotal(), resultados.getUserTaskWorked(),
+				resultados.getUserActiveTime(),resultados.getUserInactiveTime(), resultados.getUserBestWorker(), resultados.getUserLessWorker(), resultados.getUserSecondsPhase(),
+				resultados.getUserNamesWorstBest());
+		
+		// repository.save(resultados);
+		
+		return nuevosResultados;
+		
 		
 	} 
 
