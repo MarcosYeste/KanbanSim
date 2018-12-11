@@ -8,8 +8,8 @@
 //Necesarias para distribucion
 distribution.backLogType = "manual"; 
 distribution.typeConstant = "";
-distribution.mean;			// Base value for normal distribution 
-distribution.variation;		// Variation value for normal distribution
+distribution.mean;				// Base value for normal distribution 
+distribution.variation;			// Variation value for normal distribution
 distribution.lambda;			// Lambda value for poisson distribution 
 distribution.distributionWeightValues = [0, 0, 0, 0];
 
@@ -28,8 +28,6 @@ if(distribution.backLogType == "manual"){
 	document.getElementById("addTask").setAttribute("aria-disabled", "true");
 
 }
-
-
 
 var firstLoop = true;
 var myInterval;
@@ -280,7 +278,6 @@ function play() {
 														isTotallyFree = true;
 													} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 														isTotallyFree = false;
-													} else {
 													}
 												}
 
@@ -388,7 +385,7 @@ function play() {
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
-							updateDataTask(myChartTask, task.cycleTime, task.leadTime, task.esfuerzo, indiceTareas);
+							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
 							indiceTareas++;
 							updateGraficPhase();
 
@@ -792,7 +789,7 @@ function play() {
 
 		var i = 0;
 		listUsers.forEach(function(user){
-
+			
 			updateData(myChart, user.tasksWorked, i, 0);
 			updateData(myChart, user.secondsWork, i, 1);
 			i++;
@@ -1039,7 +1036,7 @@ function getDistribution(){
 
 			document.getElementById("dataWeightDistribution").style.visibility = "visible";
 			document.getElementById("dataWeightDistribution").style.height = "initial";
-
+			
 			document.getElementById("dataPoissonDistribution").style.visibility = "hidden";
 			document.getElementById("dataPoissonDistribution").style.height = "0px";
 

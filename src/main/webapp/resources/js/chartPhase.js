@@ -46,7 +46,6 @@ var options = {
 					targetCtx.canvas.style.width = `${copyWidth}px`;
 					targetCtx.canvas.style.height = `${copyHeight}px`;
 					if(copyHeight > 10){
-						console.log(copyWidth+" y "+copyHeight+" |||  "+scale);
 					targetCtx.drawImage(sourceCanvas, 0, 0, copyWidth * scale, copyHeight * scale, 0, 0, copyWidth * scale, copyHeight * scale);
 					}
 					var sourceCtx = sourceCanvas.getContext('2d');

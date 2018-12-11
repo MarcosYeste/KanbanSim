@@ -7,17 +7,18 @@ function mostrarFinalTarea(tarea,task){
 	task.cycleTime = task.leadTime - task.startTime;
 
 	tarea.innerHTML = '<p data-identification="'+ task.name +'">'+task.name+'</p><p data-identification="'+ task.name + '">CycleTime: '+task.cycleTime+'</p><p data-identification="'+ task.name + '">LeadTime: '+task.leadTime+'</p>';
+	rellenarResultados();
 	return tarea;
-	// EL LEAD FUNCIONA BIEN, EL CYCLO A MEDIAS , PERO EL CREATION TIME NO LO DA BIEN, CADA TAREA ES  +1 EN LUGAR DE GUARDAR EL LEADTIME
 }
 function mostrarResultados() {
 	calculoTiemposTotalesFase();
+	 
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 
 	div.style.background = "#63bafa";
 	div.innerHTML = "";	
-
-
+	rellenarResultados();
+	
 	//RESULTADOS TAREA 
 	var div3 = document.createElement("div");
 	div3.className = "tareaResultadoDiv";
@@ -43,6 +44,7 @@ function mostrarResultados() {
 	div5.appendChild(subdiv5);
 	div.appendChild(div5);
 	tableUser();
+	
 }
 
 
@@ -85,7 +87,7 @@ function mostrarKanban(){
 }
 //click mostrar Graficos
 function mostrarGraficas (){
-
+	rellenarResultados();
 	document.getElementsByClassName("mostrarGraficosDiv")[0].style.background = "white";
 	document.getElementsByClassName("mostrarGraficosDiv")[0].style.display = "block";
 	document.getElementsByClassName("mostrarResultadosDiv")[0].style.display = "none";
