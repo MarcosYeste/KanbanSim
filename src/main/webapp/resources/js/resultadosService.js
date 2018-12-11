@@ -700,7 +700,6 @@ function saveResults(){
 	$.ajax({
 		type: "POST",
 		url: "/saveResults",
-		processData: false,
 		data: {
 
 			resultados: object
