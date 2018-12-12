@@ -3,11 +3,9 @@ package com.kanban.app.services;
 import java.util.List;
 import java.util.UUID;
 
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.kanban.app.Model.Phase;
-import com.kanban.app.Model.Results;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 

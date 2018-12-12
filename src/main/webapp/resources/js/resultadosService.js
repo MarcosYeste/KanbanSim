@@ -405,21 +405,21 @@ function behindUser(){
 	tabla += "<tbody>";
 	tabla += "<tr>";
 	var k = 0;
-	listPhases.forEach(function(phase) {
-		tabla += "<td><div><p>"+phase.name+"</p></div></td>";
+	listUsers.forEach(function(user) {
+		tabla += "<td><div><p>"+user.name+"</p></div></td>";		
 		
-		for (var i = 0; i < listResultados[0].userSecondsPhase[0].length; i++) {
-			if(listResultados[0].userSecondsPhase[0][i] == undefined || listResultados[0].userSecondsPhase[0][i] == null){
-				listResultados[0].userSecondsPhase[0][i]= 0;
+		for (var i = 0; i < listResultados[0].userSecondsPhase[k].length; i++) {
+			if(listResultados[0].userSecondsPhase[k][i] == undefined || listResultados[0].userSecondsPhase[k][i] == null){
+				listResultados[0].userSecondsPhase[k][i]= 0;
 				
 			}
-			tabla += "<td>"+listResultados[0].userSecondsPhase[0][i]+"s</td>";
+			tabla += "<td>"+listResultados[0].userSecondsPhase[k][i]+"s</td>";
 
 
 		}
 
 		tabla += "</tr>";
-		i++;
+		k++;
 	});
 	tabla += "</tbody>";
 	tabla += "</table>";

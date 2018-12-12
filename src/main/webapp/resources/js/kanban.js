@@ -367,6 +367,8 @@ function play() {
 									}
 
 								});							
+							}else{
+								user.secondByPhase[i] = 0;
 							}
 
 						});
