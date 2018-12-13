@@ -47,7 +47,7 @@ function rellenarResultados(){
 			resultadosO.taskUsuarios.push(task.staticAssigneds);
 			resultadosO.taskBacklog.push(task.startTime);
 			resultadosO.taskPhasesSeconds.push(task.phasesTime);
-			resultadosO.phaseStatesSeconds.push(task.timeByStats);
+			resultadosO.phaseStatesSeconds.push(task.timeByStats);			
 			mediaPorFases.push(task.timeByStats);
 			mediaCycle += task.cycleTime;
 			mediaLead += task.leadTime;
@@ -62,7 +62,7 @@ function rellenarResultados(){
 			
 			
 			
-		});
+		});	
 		resultMediaPorFases = mediaFasestotal(mediaPorFases);
 		numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
 		sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
