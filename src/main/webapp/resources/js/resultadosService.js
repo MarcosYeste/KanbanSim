@@ -98,7 +98,9 @@ function rellenarResultados(){
 			if(user.secondByPhase[i] == undefined || user.secondByPhase[i] == null){
 				user.secondByPhase[i]= 0;
 			}
+
 		}
+		console.log("USER SECOND PHASE : "+user.secondByPhase);
 		resultadosO.userSecondsPhase.push(user.secondByPhase);
 	});
 
@@ -106,7 +108,7 @@ function rellenarResultados(){
 	resultadosO.userLessWorker.push(buscarMasTrabajador('min'));
 
 	nombresArray = maxAndMinUsers(resultadosO.userBestWorker[0][0],resultadosO.userLessWorker[0][0]);
-	resultadosO.userNamesWorstBest.push(nombresArray);
+	resultadosO.userNamesWorstBest = nombresArray;
 
 	if(listResultados.length == 0){
 		listResultados.push(resultadosO);
@@ -140,7 +142,7 @@ function buscarMasTrabajador(opcion){
 //_______________________________________________________________
 //print table Task
 function tableTask(){
-	
+
 	if(listResultados[0].taskCycle[0] != undefined){
 		document.getElementById("saveResult").removeAttribute("disabled");
 		document.getElementById("saveResult").setAttribute("aria-disabled", "false");
@@ -148,7 +150,7 @@ function tableTask(){
 		document.getElementById("saveResult").setAttribute("disabled", "");
 		document.getElementById("saveResult").setAttribute("aria-disabled", "true");
 	}
-	
+
 	var subDiv = document.getElementById("tareaResultado");
 	subDiv.innerHTML = "";
 	var tablaTarea = "<table class='table table-bordered table-fixed'>";
@@ -371,28 +373,39 @@ function tableUser(){
 		i++;
 	});
 	tabla += "<tr>";
+
 	tabla += "<td>Más Trabajador</td><td>";
-
-	for(var v = 0; v < listResultados[0].userNamesWorstBest[0][0].length; v++ ){
-
-		tabla += listResultados[0].userNamesWorstBest[0][v]+" ";
+	if(listResultados[0].userNamesWorstBest[0] == undefined){ listResultados[0].userNamesWorstBest[0] = [" "]}
+	for(var v = 0; v < listResultados[0].userNamesWorstBest[0].length; v++ ){
+		if(listResultados[0].userNamesWorstBest[0][v] != undefined ){
+			tabla += listResultados[0].userNamesWorstBest[0][v]+" ";
+		}
 	}
 	tabla += "con "+listResultados[0].userBestWorker[0][0]+"s en "+listResultados[0].userBestWorker[0][1]+" Tareas</td>";
 	tabla += "</tr>";
 	tabla += "<tr>";
 	tabla += "<td>Menos Trabajador</td><td>";
-	if(listResultados[0].userNamesWorstBest[0][1].length == 0){
+	var encontrado = false;
+	if(listResultados[0].userNamesWorstBest[1] == undefined){ listResultados[0].userNamesWorstBest[1] = [" "]}
+	for (var i = 0; i < listResultados[0].userNamesWorstBest[1].length && !encontrado; i++) {
+		if(listResultados[0].userNamesWorstBest[1][i] != ""){
+			encontrado = true;
 
-		tabla += "No hay trabajadores perezosos</td>";				
-	}else{
-		console.log(listResultados[0].userNamesWorstBest[0][1].length);
-		for(var v = 0; v < listResultados[0].userNamesWorstBest[0][1].length; v++ ){
-			console.log(v);
-			tabla += listResultados[0].userNamesWorstBest[0][1][v]+" ";
+
 		}
-		tabla += "con "+listResultados[0].userLessWorker[0][0]+"s en "+listResultados[0].userLessWorker[0][1]+" Tareas</td>";
 	}
+	if(!encontrado){tabla += "No hay trabajadores perezosos</td>";}
+
+	for(var v = 0; v < listResultados[0].userNamesWorstBest[1].length; v++ ){
+		if(listResultados[0].userNamesWorstBest[1][v] != undefined ){
+			tabla += listResultados[0].userNamesWorstBest[1][v]+" ";
+		}
+	}
+	if(encontrado){tabla += "con "+listResultados[0].userLessWorker[0][0]+"s en "+listResultados[0].userLessWorker[0][1]+" Tareas</td>";}
+
+
 	tabla += "</tr>";
+
 	tabla += "</tbody>";
 	tabla += "</table>";
 	div.innerHTML += tabla;
@@ -413,21 +426,23 @@ function behindUser(){
 	tabla += "<tbody>";
 	tabla += "<tr>";
 	var k = 0;
-	listPhases.forEach(function(phase) {
-		tabla += "<td><div><p>"+phase.name+"</p></div></td>";
 
-		for (var i = 0; i < listResultados[0].userSecondsPhase[0].length; i++) {
-			if(listResultados[0].userSecondsPhase[0][i] == undefined || listResultados[0].userSecondsPhase[0][i] == null){
-				listResultados[0].userSecondsPhase[0][i]= 0;
+	listUsers.forEach(function(user) {
+		tabla += "<td><div><p>"+user.name+"</p></div></td>";		
+
+		for (var i = 0; i < listResultados[0].userSecondsPhase[k].length; i++) {
+			if(listResultados[0].userSecondsPhase[k][i] == undefined || listResultados[0].userSecondsPhase[k][i] == null){
+				listResultados[0].userSecondsPhase[k][i]= 0;
+
 
 			}
-			tabla += "<td>"+listResultados[0].userSecondsPhase[0][i]+"s</td>";
+			tabla += "<td>"+listResultados[0].userSecondsPhase[k][i]+"s</td>";
 
 
 		}
 
 		tabla += "</tr>";
-		i++;
+		k++;
 	});
 	tabla += "</tbody>";
 	tabla += "</table>";
@@ -632,13 +647,16 @@ function findMaxAndMin(){
 
 	listUsers.forEach(function(user) {
 		if (user.secondsWork > max) {
+			console.log(user.name+" : "+user.secondsWork+" Maximo actual "+max);
 			max = user.secondsWork;
+			console.log("Nuevo Maximo : "+max);
 			taskmax = user.tasksWorked;
 		}
 		// MAYBE
 		if(user.secondsWork < min){
-
+			console.log(user.name+" : "+user.secondsWork+" Minimo actual "+min);
 			min = user.secondsWork;
+			console.log("Nuevo minimo : "+min);
 			taskmin = user.tasksWorked;
 		}
 	});
@@ -655,25 +673,34 @@ function findMaxAndMin(){
 }
 //esta funcion me devuelve los nombres de los maximos y minimos
 function maxAndMinUsers(userMax,userMin){
+
 	var arraymulti = [];
 	var array = [];
 	var array2 = [];
 	var i = 0;
-	var j = 0;
-	listUsers.forEach(function(user) {
+	if(userMax != 0){   
+		listUsers.forEach(function(user) {
 
-		if(user.secondsWork == userMax){
-			array[i] = user.name;
-			i++
-		}else if(user.secondsWork == userMin){
+			if(user.secondsWork == userMax){	
+				console.log(user.name+"  "+user.secondsWork+ " ==  MAX "+userMax);
+				array[i] = user.name;
+				array2[i] = "";
 
-			array2[j] = user.name;
-			j++
-		}
-	});
 
-	arraymulti.push(array);
-	arraymulti.push(array2);
+			}else if(user.secondsWork == userMin){
+				console.log(user.name+"  "+user.secondsWork+ " ==  MIN "+userMin);
+				array2[i] = user.name;
+				array[i] = "";
+			}else{
+				array[i] = "";
+				array2[i] = "";
+			}
+			i++;
+		});
+
+		arraymulti.push(array);
+		arraymulti.push(array2);
+	}
 	return arraymulti;
 }
 //_______________________________________________________________

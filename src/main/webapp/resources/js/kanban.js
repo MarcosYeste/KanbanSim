@@ -367,6 +367,11 @@ function play() {
 									}
 
 								});							
+							}else{
+								if(user.secondByPhase[i] == undefined){
+									user.secondByPhase[i] = 0;
+								}
+								
 							}
 
 						});
@@ -682,7 +687,9 @@ function play() {
 				lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
 
 				for(var i = 0; i < lazyPeople[1].length; i++){
-					document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
+					if(lazyPeople[1][i] != ""){
+						document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
+					}
 				}
 
 			}

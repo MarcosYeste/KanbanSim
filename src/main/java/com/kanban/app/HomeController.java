@@ -1,36 +1,25 @@
 package com.kanban.app;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonToken;
 import com.kanban.app.Model.Phase;
-import com.kanban.app.Model.Results;
-import com.kanban.app.Model.ResultTask;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 import com.kanban.app.services.KanbanService;
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  * Handles requests for the application home page.
@@ -120,7 +109,7 @@ public class HomeController {
 		int[] backlog = KanbanService.fromStrtoIntArray(String.valueOf(taskBacklog));
 		int[][] tiempoPorFases = KanbanService.fromStrtoIntArray2D(String.valueOf(taskPhasesSeconds));
 		int[][][] tiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseStatesSeconds));
-		//int[][][] sumaTiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseSumaStates));
+		int[][][] sumaTiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseSumaStates));
 		double[][][] tiempoMedioPorFase = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaFase));
 		double[][][] tiempoMedioTarea = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaTask));
 		int[] totalTiempoPorFase = KanbanService.fromStrtoIntArray(String.valueOf(phaseSecondsTotal));
@@ -129,17 +118,9 @@ public class HomeController {
 		int[] tiempoOciosoPorUsuario = KanbanService.fromStrtoIntArray(String.valueOf(userInactiveTime));
 		int[] tiemposMejoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userBestWorker));
 		int[] tiemposPeoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userLessWorker));
-//		int[][] tiempoTrabajadoUsuarioPorFase = KanbanService.fromStrtoIntArray2D(String.valueOf(userSecondsPhase));
+		int[][] tiempoTrabajadoUsuarioPorFase = KanbanService.fromStrtoIntArray2D(String.valueOf(userSecondsPhase));
 		String[][] usuariosMasYMenosTrabajadores = KanbanService.fromStrtoStrArray2D(String.valueOf(userNamesWorstBest));		
-		
-		for (int i = 0; i < tiempoPorEstados.length; i++) {
-			for (int j = 0; j < tiempoPorEstados[i].length; j++) {
-				for (int j2 = 0; j2 < tiempoPorEstados[i][j].length; j2++) {
-					System.out.print(tiempoPorEstados[i][j][j2] + " ");
-				}
-			}
-		}
-		
+				
 		
 		return "success";
 	}

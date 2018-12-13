@@ -4,11 +4,9 @@ import java.lang.annotation.Documented;
 import java.util.List;
 import java.util.UUID;
 
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.kanban.app.Model.Phase;
-import com.kanban.app.Model.Results;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 
@@ -118,46 +116,46 @@ public class KanbanService {
 		int[][][] intArray = new int[x.length][][];
 
 		for (int i = 0; i < x.length; i++) {
-			System.out.println("x[i] " + x[i]);
+			//System.out.println("x[i] " + x[i]);
 			String[] y = x[i].split("],");
 
 			if(i == 0) {
 				intArray = new int[x.length][y.length][];
 			}
 
-			System.out.println("Bucle Inicial I");
+			//System.out.println("Bucle Inicial I");
 
 			for (int j = 0; j < y.length; j++) {
 
 				y[j] = y[j].replaceAll("[\\[\\]]", "");
-				System.out.println("Y[j] " + y[j]);
+				//System.out.println("Y[j] " + y[j]);
 				String[] z = y[j].split(",");
 
 				if(i == 0 && j == 0) {
-					System.out.println("Hola");
+					//System.out.println("Hola");
 					intArray = new int[x.length][y.length][z.length];
 				}
 
-				System.out.println("x=" + x.length + " Y=" + y.length + "  z=" + z.length);
+				//System.out.println("x=" + x.length + " Y=" + y.length + "  z=" + z.length);
 				for (int k = 0; k < z.length; k++) {
 					
 					try {
 						
-						System.out.println("try");
+						//System.out.println("try");
 						intArray[i][j][k] = Integer.parseInt(z[k]);
-						System.out.println(Integer.parseInt(z[k]));
-						System.out.println(z[k]);
+						//System.out.println(Integer.parseInt(z[k]));
+						//System.out.println(z[k]);
 						
 					} catch (Exception e) {
 						
 						try {
-							System.out.println("i=" + i + " j=" + j);
-							System.out.println("Catch");
+							//System.out.println("i=" + i + " j=" + j);
+							//System.out.println("Catch");
 							intArray[i][j][0] = 0;
-							System.out.println("exception " + intArray[i][j][0]);
+//							//System.out.println("exception " + intArray[i][j][0]);
 							
 						}catch (Exception n) {
-							System.out.println("PEta");
+//							//System.out.println("PEta");
 						}
 					}
 
