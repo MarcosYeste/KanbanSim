@@ -120,7 +120,7 @@ public class HomeController {
 		int[] backlog = KanbanService.fromStrtoIntArray(String.valueOf(taskBacklog));
 		int[][] tiempoPorFases = KanbanService.fromStrtoIntArray2D(String.valueOf(taskPhasesSeconds));
 		int[][][] tiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseStatesSeconds));
-		int[][][] sumaTiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseSumaStates));
+		//int[][][] sumaTiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseSumaStates));
 		double[][][] tiempoMedioPorFase = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaFase));
 		double[][][] tiempoMedioTarea = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaTask));
 		int[] totalTiempoPorFase = KanbanService.fromStrtoIntArray(String.valueOf(phaseSecondsTotal));
@@ -129,8 +129,17 @@ public class HomeController {
 		int[] tiempoOciosoPorUsuario = KanbanService.fromStrtoIntArray(String.valueOf(userInactiveTime));
 		int[] tiemposMejoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userBestWorker));
 		int[] tiemposPeoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userLessWorker));
-		int[][] tiempoTrabajadoUsuarioPorFase = KanbanService.fromStrtoIntArray2D(String.valueOf(userSecondsPhase));
-		String[][] usuariosMasYMenosTrabajadores = KanbanService.fromStrtoStrArray2D(String.valueOf(userNamesWorstBest));
+//		int[][] tiempoTrabajadoUsuarioPorFase = KanbanService.fromStrtoIntArray2D(String.valueOf(userSecondsPhase));
+		String[][] usuariosMasYMenosTrabajadores = KanbanService.fromStrtoStrArray2D(String.valueOf(userNamesWorstBest));		
+		
+		for (int i = 0; i < tiempoPorEstados.length; i++) {
+			for (int j = 0; j < tiempoPorEstados[i].length; j++) {
+				for (int j2 = 0; j2 < tiempoPorEstados[i][j].length; j2++) {
+					System.out.print(tiempoPorEstados[i][j][j2] + " ");
+				}
+			}
+		}
+		
 		
 		return "success";
 	}

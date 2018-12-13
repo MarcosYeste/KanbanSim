@@ -57,7 +57,11 @@ public class KanbanService {
 	//		
 	//	} 
 
-
+	/*
+	 * 
+	 * 					CONVERSIONES 
+	 * 
+	 */
 	// Converts a String to an array of integers
 	public static int[] fromStrtoIntArray(String str) {
 
@@ -66,8 +70,12 @@ public class KanbanService {
 		int[] intArray = new int[strArray.length];
 
 		for (int i = 0; i < strArray.length; i++) {
+			try {
+				intArray[i] = Integer.parseInt(strArray[i]);
+			} catch (NumberFormatException e) {
+				intArray[i] = 0;
+			}
 
-			intArray[i] = Integer.parseInt(strArray[i]);
 
 		}
 
@@ -75,7 +83,7 @@ public class KanbanService {
 
 	}
 
-	// Converts a String to an two-dimensional array of integers
+	// Converts a String to a two-dimensional array of integers
 	public static int[][] fromStrtoIntArray2D(String str) {
 
 		String[] rows = str.split("],");
@@ -90,7 +98,12 @@ public class KanbanService {
 			}
 
 			for (int j = 0; j < cols.length; j++) {
-				intArray[i][j] = Integer.parseInt(cols[j]);
+				try {
+					intArray[i][j] = Integer.parseInt(cols[j]);
+				} catch (NumberFormatException e) {
+					intArray[i][j] = 0;
+				}
+
 			}
 		}
 
@@ -98,30 +111,56 @@ public class KanbanService {
 
 	}
 
-	// Converts a String to an three-dimensional array of integers
+	// Converts a String to a three-dimensional array of integers
 	public static int[][][] fromStrtoIntArray3D(String str) {
-
+		str = str.replaceAll("\\[\\]", "[[]]");
 		String[] x = str.split("]],");
 		int[][][] intArray = new int[x.length][][];
 
 		for (int i = 0; i < x.length; i++) {
-			
+			System.out.println("x[i] " + x[i]);
 			String[] y = x[i].split("],");
 
 			if(i == 0) {
 				intArray = new int[x.length][y.length][];
 			}
 
+			System.out.println("Bucle Inicial I");
+
 			for (int j = 0; j < y.length; j++) {
+
 				y[j] = y[j].replaceAll("[\\[\\]]", "");
+				System.out.println("Y[j] " + y[j]);
 				String[] z = y[j].split(",");
-				
-				if(j == 0) {
+
+				if(i == 0 && j == 0) {
+					System.out.println("Hola");
 					intArray = new int[x.length][y.length][z.length];
 				}
-				
+
+				System.out.println("x=" + x.length + " Y=" + y.length + "  z=" + z.length);
 				for (int k = 0; k < z.length; k++) {
-					intArray[i][j][k] = Integer.parseInt(z[k]);
+					
+					try {
+						
+						System.out.println("try");
+						intArray[i][j][k] = Integer.parseInt(z[k]);
+						System.out.println(Integer.parseInt(z[k]));
+						System.out.println(z[k]);
+						
+					} catch (Exception e) {
+						
+						try {
+							System.out.println("i=" + i + " j=" + j);
+							System.out.println("Catch");
+							intArray[i][j][0] = 0;
+							System.out.println("exception " + intArray[i][j][0]);
+							
+						}catch (Exception n) {
+							System.out.println("PEta");
+						}
+					}
+
 				}
 			}
 		}
@@ -138,46 +177,54 @@ public class KanbanService {
 		double[] doubleArray = new double[strArray.length];
 
 		for (int i = 0; i < strArray.length; i++) {
-
-			doubleArray[i] = Double.parseDouble(strArray[i]);
-
+			try {
+				doubleArray[i] = Double.parseDouble(strArray[i]);
+			} catch (Exception e) {
+				doubleArray[i] = 0;
+			}
 		}
 
 		return doubleArray;
 
 	}
-	
-	// Converts a String to an three-dimensional array of integers
-		public static double[][][] fromStrtoDoubleArray3D(String str) {
 
-			String[] x = str.split("]],");
-			double[][][] doubleArray = new double[x.length][][];
+	// Converts a String to a three-dimensional array of integers
+	public static double[][][] fromStrtoDoubleArray3D(String str) {
 
-			for (int i = 0; i < x.length; i++) {
-				
-				String[] y = x[i].split("],");
+		String[] x = str.split("]],");
+		double[][][] doubleArray = new double[x.length][][];
 
-				if(i == 0) {
-					doubleArray = new double[x.length][y.length][];
-				}
+		for (int i = 0; i < x.length; i++) {
 
-				for (int j = 0; j < y.length; j++) {
-					y[j] = y[j].replaceAll("[\\[\\]]", "");
-					String[] z = y[j].split(",");
-					
-					if(j == 0) {
-						doubleArray = new double[x.length][y.length][z.length];
-					}
-					
-					for (int k = 0; k < z.length; k++) {
-						doubleArray[i][j][k] = Double.parseDouble(z[k]);
-					}
-				}
+			String[] y = x[i].split("],");
+
+			if(i == 0) {
+				doubleArray = new double[x.length][y.length][];
 			}
 
-			return doubleArray;
+			for (int j = 0; j < y.length; j++) {
+				y[j] = y[j].replaceAll("[\\[\\]]", "");
+				String[] z = y[j].split(",");
 
+				if(j == 0) {
+					doubleArray = new double[x.length][y.length][z.length];
+				}
+
+				for (int k = 0; k < z.length; k++) {
+
+					try {
+						doubleArray[i][j][k] = Double.parseDouble(z[k]);
+					} catch (NumberFormatException e) {
+						doubleArray[i][j][k] = 0;
+					}
+
+				}
+			}
 		}
+
+		return doubleArray;
+
+	}
 
 	// Converts a String to an array of Strings
 	public static String[] fromStrtoStrArray(String str) {
@@ -189,7 +236,7 @@ public class KanbanService {
 
 	}
 
-	// Converts a String to an two-dimensional array of Strings
+	// Converts a String to a two-dimensional array of Strings
 	public static String[][] fromStrtoStrArray2D(String str) {
 
 		String[] rows = str.split("],");

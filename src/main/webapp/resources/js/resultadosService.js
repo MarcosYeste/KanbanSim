@@ -7,14 +7,14 @@ function nuevoObjetoResultados(){
 	resultadosO.taskMediaCL = [];
 	resultadosO.taskBacklog = [];
 	resultadosO.taskPhasesSeconds = [];
-	
+
 	resultadosO.phaseStatesSeconds = [];
 	resultadosO.phaseSumaStates = [];
 	resultadosO.phaseMediaFase = [];	
 	resultadosO.phaseMediaTask = [];
 	resultadosO.phaseMediaTotal = 0;
 	resultadosO.phaseSecondsTotal = [];
-	
+
 	resultadosO.userTaskWorked  = [];
 	resultadosO.userActiveTime = [];
 	resultadosO.userInactiveTime = [];
@@ -27,92 +27,92 @@ function nuevoObjetoResultados(){
 
 function rellenarResultados(){
 	resultadosO = nuevoObjetoResultados();
-		var mediaCycle = 0;
-		var mediaLead = 0;
-		var cantidadTask = 0;
-		var mediaPorFases = new Array();
-		var resultMediaPorFases = new Array();
-		var mediaPorTarea = new Array();
-		var numerotareas = 0;
-		var sumatodo = 0;
-		var sumaDoing = 0;
-		var sumadone = 0;
-		var sumaEstadosTotal = 0;
-		var nombresArray = [];
-		listTareas.forEach(function(task) {	
-			
-			resultadosO.taskCycle.push(task.cycleTime);
-			resultadosO.taskLead.push(task.leadTime);
-			resultadosO.taskEsfuerzo.push(task.esfuerzo);
-			resultadosO.taskUsuarios.push(task.staticAssigneds);
-			resultadosO.taskBacklog.push(task.startTime);
-			resultadosO.taskPhasesSeconds.push(task.phasesTime);
-			resultadosO.phaseStatesSeconds.push(task.timeByStats);
-			mediaPorFases.push(task.timeByStats);
-			mediaCycle += task.cycleTime;
-			mediaLead += task.leadTime;
-			if(task.cycleTime != 0){cantidadTask++;}
-					
-			mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
-			task.timeByStats.forEach(function(times) {	
-				var time = JSON.stringify(times);
-				time = JSON.parse(time);
-				sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
-			});
-			
-			
-			
+	var mediaCycle = 0;
+	var mediaLead = 0;
+	var cantidadTask = 0;
+	var mediaPorFases = new Array();
+	var resultMediaPorFases = new Array();
+	var mediaPorTarea = new Array();
+	var numerotareas = 0;
+	var sumatodo = 0;
+	var sumaDoing = 0;
+	var sumadone = 0;
+	var sumaEstadosTotal = 0;
+	var nombresArray = [];
+	listTareas.forEach(function(task) {	
+
+		resultadosO.taskCycle.push(task.cycleTime);
+		resultadosO.taskLead.push(task.leadTime);
+		resultadosO.taskEsfuerzo.push(task.esfuerzo);
+		resultadosO.taskUsuarios.push(task.staticAssigneds);
+		resultadosO.taskBacklog.push(task.startTime);
+		resultadosO.taskPhasesSeconds.push(task.phasesTime);
+		resultadosO.phaseStatesSeconds.push(task.timeByStats);
+		mediaPorFases.push(task.timeByStats);
+		mediaCycle += task.cycleTime;
+		mediaLead += task.leadTime;
+		if(task.cycleTime != 0){cantidadTask++;}
+
+		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
+		task.timeByStats.forEach(function(times) {	
+			var time = JSON.stringify(times);
+			time = JSON.parse(time);
+			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
 		});
-		resultMediaPorFases = mediaFasestotal(mediaPorFases);
-		numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
-		sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
-		if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
-		
-		mediaCycle = Math.round((mediaCycle/cantidadTask)* 10 ) / 10;
-		mediaLead =  Math.round((mediaLead/cantidadTask)* 10 ) / 10;
-		if(isNaN(mediaCycle)){ mediaCycle = 0;}
-		if(isNaN(mediaLead)){ mediaLead = 0;}
-	
-		
-		
-		resultadosO.taskMediaCL.push(mediaCycle,mediaLead);
-		resultadosO.phaseSumaStates.push(resultMediaPorFases[resultMediaPorFases.length-2]);
-		resultMediaPorFases.splice(resultMediaPorFases.length-2, 2);
-		
-		resultadosO.phaseMediaFase.push(resultMediaPorFases);
-		resultadosO.phaseMediaTask.push(mediaPorTarea);
-		resultadosO.phaseMediaTotal = sumaEstadosTotal;
-	
-		listPhases.forEach(function(phase) {
-			resultadosO.phaseSecondsTotal.push(phase.period);
-		});
-	
-		listUsers.forEach(function(user) {
-			
-			resultadosO.userTaskWorked.push(user.tasksWorked);
-			resultadosO.userActiveTime.push(user.secondsWork);
-			user.secondsNotWorked = leadTime - user.secondsWork;
-			resultadosO.userInactiveTime.push(user.secondsNotWorked);
-			
-			for (var i = 0; i < user.secondByPhase.length; i++) {
-				if(user.secondByPhase[i] == undefined || user.secondByPhase[i] == null){
-					user.secondByPhase[i]= 0;
-				}
+
+
+
+	});
+	resultMediaPorFases = mediaFasestotal(mediaPorFases);
+	numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
+	sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
+	if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
+
+	mediaCycle = Math.round((mediaCycle/cantidadTask)* 10 ) / 10;
+	mediaLead =  Math.round((mediaLead/cantidadTask)* 10 ) / 10;
+	if(isNaN(mediaCycle)){ mediaCycle = 0;}
+	if(isNaN(mediaLead)){ mediaLead = 0;}
+
+
+
+	resultadosO.taskMediaCL.push(mediaCycle,mediaLead);
+	resultadosO.phaseSumaStates.push(resultMediaPorFases[resultMediaPorFases.length-2]);
+	resultMediaPorFases.splice(resultMediaPorFases.length-2, 2);
+
+	resultadosO.phaseMediaFase.push(resultMediaPorFases);
+	resultadosO.phaseMediaTask.push(mediaPorTarea);
+	resultadosO.phaseMediaTotal = sumaEstadosTotal;
+
+	listPhases.forEach(function(phase) {
+		resultadosO.phaseSecondsTotal.push(phase.period);
+	});
+
+	listUsers.forEach(function(user) {
+
+		resultadosO.userTaskWorked.push(user.tasksWorked);
+		resultadosO.userActiveTime.push(user.secondsWork);
+		user.secondsNotWorked = leadTime - user.secondsWork;
+		resultadosO.userInactiveTime.push(user.secondsNotWorked);
+
+		for (var i = 0; i < user.secondByPhase.length; i++) {
+			if(user.secondByPhase[i] == undefined || user.secondByPhase[i] == null){
+				user.secondByPhase[i]= 0;
 			}
-			resultadosO.userSecondsPhase.push(user.secondByPhase);
-		});
-	
+		}
+		resultadosO.userSecondsPhase.push(user.secondByPhase);
+	});
+
 	resultadosO.userBestWorker.push(buscarMasTrabajador('max'));
 	resultadosO.userLessWorker.push(buscarMasTrabajador('min'));
-	
+
 	nombresArray = maxAndMinUsers(resultadosO.userBestWorker[0][0],resultadosO.userLessWorker[0][0]);
 	resultadosO.userNamesWorstBest.push(nombresArray);
 
-if(listResultados.length == 0){
-	listResultados.push(resultadosO);
-}else {
-	listResultados.splice(0,1,resultadosO);
-}
+	if(listResultados.length == 0){
+		listResultados.push(resultadosO);
+	}else {
+		listResultados.splice(0,1,resultadosO);
+	}
 
 }
 
@@ -141,6 +141,14 @@ function buscarMasTrabajador(opcion){
 //print table Task
 function tableTask(){
 	
+	if(listResultados[0].taskCycle[0] != undefined){
+		document.getElementById("saveResult").removeAttribute("disabled");
+		document.getElementById("saveResult").setAttribute("aria-disabled", "false");
+	}else{
+		document.getElementById("saveResult").setAttribute("disabled", "");
+		document.getElementById("saveResult").setAttribute("aria-disabled", "true");
+	}
+	
 	var subDiv = document.getElementById("tareaResultado");
 	subDiv.innerHTML = "";
 	var tablaTarea = "<table class='table table-bordered table-fixed'>";
@@ -157,14 +165,14 @@ function tableTask(){
 		tablaTarea += "<td>"+task.name+"</td><td>"+listResultados[0].taskCycle[i]+"s</td><td>"+listResultados[0].taskLead[i]+"s</td><td>"+listResultados[0].taskEsfuerzo[i]+"</td>";		
 		tablaTarea += "<td>"+listResultados[0].taskUsuarios[i]+"</td>";
 		tablaTarea += "</tr>";
-		
-	i++;
+
+		i++;
 	});
 	tablaTarea += "<tr>";						// este 0  sera la posicion de la partida guardada
 	tablaTarea += "<td>Media: </td><td>"+listResultados[0].taskMediaCL[0]+"s</td><td>"+listResultados[0].taskMediaCL[1]+"s</td><td colspan = '2'></td>";
 	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
-	
+
 	subDiv.innerHTML += tablaTarea;
 
 }
@@ -201,7 +209,7 @@ function behindTable(){
 			}else{
 				tablaTarea += "<td>"+listResultados[0].taskPhasesSeconds[z][i]+"s</td>";
 			}
-			
+
 		}
 		tablaTarea += "</tr>";
 		z++;
@@ -223,11 +231,11 @@ function updateGraficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
-	
-	
-	
+
+
+
 	if(listResultados[0] != undefined){
-	updateDataPhase(myChartPhase,listResultados[0].phaseSumaStates[0]);
+		updateDataPhase(myChartPhase,listResultados[0].phaseSumaStates[0]);
 	}
 }
 //_______________________________________________________________
@@ -271,10 +279,10 @@ function tablePhase(){
 	var resultMediaPorFases = new Array();
 	var l = 0;	
 	var auxCV2 =0;
-	
-	
-	
-	
+
+
+
+
 	listTareas.forEach(function(task) {	
 		tabla += "<tr>";
 		tabla += "<td>"+task.name+"</td>";
@@ -294,12 +302,12 @@ function tablePhase(){
 			tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
 			auxCV--;
 		}
-													  // este 0  sera la posicion de la partida guardada
+		// este 0  sera la posicion de la partida guardada
 		tabla += "<td><div class='stados'><p>"+listResultados[0].phaseMediaTask[0][l][0]+"s</p><p>"+listResultados[0].phaseMediaTask[0][l][1]+"s</p><p>"+listResultados[0].phaseMediaTask[0][l][2]+"s</p></div></td>";
 
 		tabla += "</tr>";
 		l++;
-		
+
 
 	});
 	tabla += "<tr>";
@@ -307,9 +315,9 @@ function tablePhase(){
 
 	for (var i = 0; i < cv; i++) {
 		if(listResultados[0].phaseMediaFase[0][i] != undefined ){
-			
+
 			if(!isNaN(listResultados[0].phaseMediaFase[0][i][0]) && !isNaN(listResultados[0].phaseMediaFase[0][i][1]) && !isNaN(listResultados[0].phaseMediaFase[0][i][2])){
-				
+
 				tabla += "<td><div class='stados'><p>"+listResultados[0].phaseMediaFase[0][i][0]+"s</p><p>"+listResultados[0].phaseMediaFase[0][i][1]+"s</p><p>"+listResultados[0].phaseMediaFase[0][i][2]+"s</p></div></td>";
 			}else{
 				tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
@@ -407,11 +415,11 @@ function behindUser(){
 	var k = 0;
 	listPhases.forEach(function(phase) {
 		tabla += "<td><div><p>"+phase.name+"</p></div></td>";
-		
+
 		for (var i = 0; i < listResultados[0].userSecondsPhase[0].length; i++) {
 			if(listResultados[0].userSecondsPhase[0][i] == undefined || listResultados[0].userSecondsPhase[0][i] == null){
 				listResultados[0].userSecondsPhase[0][i]= 0;
-				
+
 			}
 			tabla += "<td>"+listResultados[0].userSecondsPhase[0][i]+"s</td>";
 
@@ -426,7 +434,7 @@ function behindUser(){
 	//para guardar;
 	div.innerHTML += tabla;
 
-	
+
 }
 //_______________________________________________________________
 
@@ -683,7 +691,15 @@ function getRandomColor() {
 	return color;
 }
 
+//_______________________________________________________________
 
+//______________________ RESULTADOS  ____________________________
+
+//_______________________________________________________________
+
+$( "#result" ).click(function() {
+	$( "#saveResult" ).toggle();
+});
 
 function saveResults(){
 	var object = JSON.stringify(listResultados[0]);
