@@ -319,6 +319,11 @@ button {
  margin-top: 13px !important;
 }
 
+#saveResultsButton{
+	position:absolute;
+	margin-top: 100px;
+}
+
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
 
 

@@ -7,14 +7,14 @@ function nuevoObjetoResultados(){
 	resultadosO.taskMediaCL = [];
 	resultadosO.taskBacklog = [];
 	resultadosO.taskPhasesSeconds = [];
-	
+
 	resultadosO.phaseStatesSeconds = [];
 	resultadosO.phaseSumaStates = [];
 	resultadosO.phaseMediaFase = [];	
 	resultadosO.phaseMediaTask = [];
 	resultadosO.phaseMediaTotal = 0;
 	resultadosO.phaseSecondsTotal = [];
-	
+
 	resultadosO.userTaskWorked  = [];
 	resultadosO.userActiveTime = [];
 	resultadosO.userInactiveTime = [];
@@ -85,35 +85,64 @@ function rellenarResultados(){
 	
 		listPhases.forEach(function(phase) {
 			resultadosO.phaseSecondsTotal.push(phase.period);
+
 		});
-	
-		listUsers.forEach(function(user) {
-			
-			resultadosO.userTaskWorked.push(user.tasksWorked);
-			resultadosO.userActiveTime.push(user.secondsWork);
-			user.secondsNotWorked = leadTime - user.secondsWork;
-			resultadosO.userInactiveTime.push(user.secondsNotWorked);
-			
-			for (var i = 0; i < user.secondByPhase.length; i++) {
-				if(user.secondByPhase[i] == undefined || user.secondByPhase[i] == null){
-					user.secondByPhase[i]= 0;
-				}
+
+
+	resultMediaPorFases = mediaFasestotal(mediaPorFases);
+	numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
+	sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
+	if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
+
+	mediaCycle = Math.round((mediaCycle/cantidadTask)* 10 ) / 10;
+	mediaLead =  Math.round((mediaLead/cantidadTask)* 10 ) / 10;
+	if(isNaN(mediaCycle)){ mediaCycle = 0;}
+	if(isNaN(mediaLead)){ mediaLead = 0;}
+
+
+
+	resultadosO.taskMediaCL.push(mediaCycle,mediaLead);
+	resultadosO.phaseSumaStates.push(resultMediaPorFases[resultMediaPorFases.length-2]);
+	resultMediaPorFases.splice(resultMediaPorFases.length-2, 2);
+
+	resultadosO.phaseMediaFase.push(resultMediaPorFases);
+	resultadosO.phaseMediaTask.push(mediaPorTarea);
+	resultadosO.phaseMediaTotal = sumaEstadosTotal;
+
+	listPhases.forEach(function(phase) {
+		resultadosO.phaseSecondsTotal.push(phase.period);
+	});
+
+	listUsers.forEach(function(user) {
+
+		resultadosO.userTaskWorked.push(user.tasksWorked);
+		resultadosO.userActiveTime.push(user.secondsWork);
+		console.log(user.name+": ha trabajado: "+user.secondsWork+"s el leadtime: "+leadTime+"s TiempoCreacion: "+user.creationTime);
+		user.secondsNotWorked = leadTime - user.secondsWork - user.creationTime;
+		console.log("Segundos no trabajados: "+user.secondsNotWorked);
+		resultadosO.userInactiveTime.push(user.secondsNotWorked);
+
+		for (var i = 0; i < user.secondByPhase.length; i++) {
+			if(user.secondByPhase[i] == undefined || user.secondByPhase[i] == null){
+				user.secondByPhase[i]= 0;
 			}
-			console.log("USER SECOND PHASE : "+user.secondByPhase);
-			resultadosO.userSecondsPhase.push(user.secondByPhase);
-		});
-	
+
+		}
+		console.log("USER SECOND PHASE : "+user.secondByPhase);
+		resultadosO.userSecondsPhase.push(user.secondByPhase);
+	});
+
 	resultadosO.userBestWorker.push(buscarMasTrabajador('max'));
 	resultadosO.userLessWorker.push(buscarMasTrabajador('min'));
-	
+
 	nombresArray = maxAndMinUsers(resultadosO.userBestWorker[0][0],resultadosO.userLessWorker[0][0]);
 	resultadosO.userNamesWorstBest = nombresArray;
 
-if(listResultados.length == 0){
-	listResultados.push(resultadosO);
-}else {
-	listResultados.splice(0,1,resultadosO);
-}
+	if(listResultados.length == 0){
+		listResultados.push(resultadosO);
+	}else {
+		listResultados.splice(0,1,resultadosO);
+	}
 
 }
 
@@ -141,7 +170,15 @@ function buscarMasTrabajador(opcion){
 //_______________________________________________________________
 //print table Task
 function tableTask(){
-	
+
+	if(listResultados[0].taskCycle[0] != undefined){
+		document.getElementById("saveResult").removeAttribute("disabled");
+		document.getElementById("saveResult").setAttribute("aria-disabled", "false");
+	}else{
+		document.getElementById("saveResult").setAttribute("disabled", "");
+		document.getElementById("saveResult").setAttribute("aria-disabled", "true");
+	}
+
 	var subDiv = document.getElementById("tareaResultado");
 	subDiv.innerHTML = "";
 	var tablaTarea = "<table class='table table-bordered table-fixed'>";
@@ -158,14 +195,14 @@ function tableTask(){
 		tablaTarea += "<td>"+task.name+"</td><td>"+listResultados[0].taskCycle[i]+"s</td><td>"+listResultados[0].taskLead[i]+"s</td><td>"+listResultados[0].taskEsfuerzo[i]+"</td>";		
 		tablaTarea += "<td>"+listResultados[0].taskUsuarios[i]+"</td>";
 		tablaTarea += "</tr>";
-		
-	i++;
+
+		i++;
 	});
 	tablaTarea += "<tr>";						// este 0  sera la posicion de la partida guardada
 	tablaTarea += "<td>Media: </td><td>"+listResultados[0].taskMediaCL[0]+"s</td><td>"+listResultados[0].taskMediaCL[1]+"s</td><td colspan = '2'></td>";
 	tablaTarea += "</tr>";
 	tablaTarea += "</tbody>";
-	
+
 	subDiv.innerHTML += tablaTarea;
 
 }
@@ -202,7 +239,7 @@ function behindTable(){
 			}else{
 				tablaTarea += "<td>"+listResultados[0].taskPhasesSeconds[z][i]+"s</td>";
 			}
-			
+
 		}
 		tablaTarea += "</tr>";
 		z++;
@@ -224,11 +261,11 @@ function updateGraficPhase(){
 	var mediaPorFases2 = new Array();
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
-	
-	
-	
+
+
+
 	if(listResultados[0] != undefined){
-	updateDataPhase(myChartPhase,listResultados[0].phaseSumaStates[0]);
+		updateDataPhase(myChartPhase,listResultados[0].phaseSumaStates[0]);
 	}
 }
 //_______________________________________________________________
@@ -272,10 +309,10 @@ function tablePhase(){
 	var resultMediaPorFases = new Array();
 	var l = 0;	
 	var auxCV2 =0;
-	
-	
-	
-	
+
+
+
+
 	listTareas.forEach(function(task) {	
 		tabla += "<tr>";
 		tabla += "<td>"+task.name+"</td>";
@@ -295,12 +332,12 @@ function tablePhase(){
 			tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
 			auxCV--;
 		}
-													  // este 0  sera la posicion de la partida guardada
+		// este 0  sera la posicion de la partida guardada
 		tabla += "<td><div class='stados'><p>"+listResultados[0].phaseMediaTask[0][l][0]+"s</p><p>"+listResultados[0].phaseMediaTask[0][l][1]+"s</p><p>"+listResultados[0].phaseMediaTask[0][l][2]+"s</p></div></td>";
 
 		tabla += "</tr>";
 		l++;
-		
+
 
 	});
 	tabla += "<tr>";
@@ -308,9 +345,9 @@ function tablePhase(){
 
 	for (var i = 0; i < cv; i++) {
 		if(listResultados[0].phaseMediaFase[0][i] != undefined ){
-			
+
 			if(!isNaN(listResultados[0].phaseMediaFase[0][i][0]) && !isNaN(listResultados[0].phaseMediaFase[0][i][1]) && !isNaN(listResultados[0].phaseMediaFase[0][i][2])){
-				
+
 				tabla += "<td><div class='stados'><p>"+listResultados[0].phaseMediaFase[0][i][0]+"s</p><p>"+listResultados[0].phaseMediaFase[0][i][1]+"s</p><p>"+listResultados[0].phaseMediaFase[0][i][2]+"s</p></div></td>";
 			}else{
 				tabla += "<td><div class='stados'><p>0s</p><p>0s</p><p>0s</p></div></td>";
@@ -363,39 +400,39 @@ function tableUser(){
 		tabla += "</tr>";
 		i++;
 	});
-		tabla += "<tr>";
-		
-		tabla += "<td>Más Trabajador</td><td>";
+	tabla += "<tr>";
+
+	tabla += "<td>Más Trabajador</td><td>";
 	if(listResultados[0].userNamesWorstBest[0] == undefined){ listResultados[0].userNamesWorstBest[0] = [" "]}
-		for(var v = 0; v < listResultados[0].userNamesWorstBest[0].length; v++ ){
-			if(listResultados[0].userNamesWorstBest[0][v] != undefined ){
+	for(var v = 0; v < listResultados[0].userNamesWorstBest[0].length; v++ ){
+		if(listResultados[0].userNamesWorstBest[0][v] != undefined ){
 			tabla += listResultados[0].userNamesWorstBest[0][v]+" ";
-			}
 		}
-		tabla += "con "+listResultados[0].userBestWorker[0][0]+"s en "+listResultados[0].userBestWorker[0][1]+" Tareas</td>";
-		tabla += "</tr>";
-		tabla += "<tr>";
-		tabla += "<td>Menos Trabajador</td><td>";
-		var encontrado = false;
-		if(listResultados[0].userNamesWorstBest[1] == undefined){ listResultados[0].userNamesWorstBest[1] = [" "]}
-		for (var i = 0; i < listResultados[0].userNamesWorstBest[1].length && !encontrado; i++) {
-			if(listResultados[0].userNamesWorstBest[1][i] != ""){
-				encontrado = true;
-				
-	
-			}
+	}
+	tabla += "con "+listResultados[0].userBestWorker[0][0]+"s en "+listResultados[0].userBestWorker[0][1]+" Tareas</td>";
+	tabla += "</tr>";
+	tabla += "<tr>";
+	tabla += "<td>Menos Trabajador</td><td>";
+	var encontrado = false;
+	if(listResultados[0].userNamesWorstBest[1] == undefined){ listResultados[0].userNamesWorstBest[1] = [" "]}
+	for (var i = 0; i < listResultados[0].userNamesWorstBest[1].length && !encontrado; i++) {
+		if(listResultados[0].userNamesWorstBest[1][i] != ""){
+			encontrado = true;
+
+
 		}
-		if(!encontrado){tabla += "No hay trabajadores perezosos</td>";}
-			
-			for(var v = 0; v < listResultados[0].userNamesWorstBest[1].length; v++ ){
-				if(listResultados[0].userNamesWorstBest[1][v] != undefined ){
-				tabla += listResultados[0].userNamesWorstBest[1][v]+" ";
-				}
-			}
-			if(encontrado){tabla += "con "+listResultados[0].userLessWorker[0][0]+"s en "+listResultados[0].userLessWorker[0][1]+" Tareas</td>";}
-			
-	
-		tabla += "</tr>";
+	}
+	if(!encontrado){tabla += "No hay trabajadores perezosos</td>";}
+
+	for(var v = 0; v < listResultados[0].userNamesWorstBest[1].length; v++ ){
+		if(listResultados[0].userNamesWorstBest[1][v] != undefined ){
+			tabla += listResultados[0].userNamesWorstBest[1][v]+" ";
+		}
+	}
+	if(encontrado){tabla += "con "+listResultados[0].userLessWorker[0][0]+"s en "+listResultados[0].userLessWorker[0][1]+" Tareas</td>";}
+
+
+	tabla += "</tr>";
 
 	tabla += "</tbody>";
 	tabla += "</table>";
@@ -417,13 +454,15 @@ function behindUser(){
 	tabla += "<tbody>";
 	tabla += "<tr>";
 	var k = 0;
+
 	listUsers.forEach(function(user) {
 		tabla += "<td><div><p>"+user.name+"</p></div></td>";		
-		
+
 		for (var i = 0; i < listResultados[0].userSecondsPhase[k].length; i++) {
 			if(listResultados[0].userSecondsPhase[k][i] == undefined || listResultados[0].userSecondsPhase[k][i] == null){
 				listResultados[0].userSecondsPhase[k][i]= 0;
-				
+
+
 			}
 			tabla += "<td>"+listResultados[0].userSecondsPhase[k][i]+"s</td>";
 
@@ -438,7 +477,7 @@ function behindUser(){
 	//para guardar;
 	div.innerHTML += tabla;
 
-	
+
 }
 //_______________________________________________________________
 
@@ -662,33 +701,33 @@ function findMaxAndMin(){
 }
 //esta funcion me devuelve los nombres de los maximos y minimos
 function maxAndMinUsers(userMax,userMin){
-	
+
 	var arraymulti = [];
 	var array = [];
 	var array2 = [];
 	var i = 0;
 	if(userMax != 0){   
-	listUsers.forEach(function(user) {
+		listUsers.forEach(function(user) {
 
-		if(user.secondsWork == userMax){	
-			console.log(user.name+"  "+user.secondsWork+ " ==  MAX "+userMax);
-			array[i] = user.name;
-			array2[i] = "";
-			
-			
-		}else if(user.secondsWork == userMin){
-			console.log(user.name+"  "+user.secondsWork+ " ==  MIN "+userMin);
-			array2[i] = user.name;
-			array[i] = "";
-		}else{
-			array[i] = "";
-			array2[i] = "";
-		}
-		i++;
-	});
+			if(user.secondsWork == userMax){	
+				console.log(user.name+"  "+user.secondsWork+ " ==  MAX "+userMax);
+				array[i] = user.name;
+				array2[i] = "";
 
-	arraymulti.push(array);
-	arraymulti.push(array2);
+
+			}else if(user.secondsWork == userMin){
+				console.log(user.name+"  "+user.secondsWork+ " ==  MIN "+userMin);
+				array2[i] = user.name;
+				array[i] = "";
+			}else{
+				array[i] = "";
+				array2[i] = "";
+			}
+			i++;
+		});
+
+		arraymulti.push(array);
+		arraymulti.push(array2);
 	}
 	return arraymulti;
 }
@@ -707,7 +746,15 @@ function getRandomColor() {
 	return color;
 }
 
+//_______________________________________________________________
 
+//______________________ RESULTADOS  ____________________________
+
+//_______________________________________________________________
+
+$( "#result" ).click(function() {
+	$( "#saveResult" ).toggle();
+});
 
 function saveResults(){
 	var object = JSON.stringify(listResultados[0]);

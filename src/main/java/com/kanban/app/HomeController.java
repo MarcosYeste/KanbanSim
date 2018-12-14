@@ -119,7 +119,8 @@ public class HomeController {
 		int[] tiemposMejoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userBestWorker));
 		int[] tiemposPeoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userLessWorker));
 		int[][] tiempoTrabajadoUsuarioPorFase = KanbanService.fromStrtoIntArray2D(String.valueOf(userSecondsPhase));
-		String[][] usuariosMasYMenosTrabajadores = KanbanService.fromStrtoStrArray2D(String.valueOf(userNamesWorstBest));
+		String[][] usuariosMasYMenosTrabajadores = KanbanService.fromStrtoStrArray2D(String.valueOf(userNamesWorstBest));		
+				
 		
 		return "success";
 	}
