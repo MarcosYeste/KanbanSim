@@ -743,7 +743,7 @@ function addTareas(weight,creationTime){
 	tarea.totalTime = 0;
 	listTareas.push(tarea);
 	printTasks(tarea);
-
+	
 	if(document.getElementById("taskChart").style.visibility != "visible"){
 		document.getElementById("taskChart").style.visibility  = "visible";
 	}
