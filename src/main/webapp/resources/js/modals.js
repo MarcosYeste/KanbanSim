@@ -380,7 +380,7 @@ function saveAddUser(){
 	console.log(listUsers);
 	saveUsersSession();
 	refreshUsers();
-	console.log(listUsers);
+
 	var fases = "";
 
 	for( var i = 0; i < userO.phases.length; i++){
@@ -406,8 +406,7 @@ function saveAddUser(){
 		userO.creationTime = leadTime;
 		listUsers.push(userO); 	
 		sessionStorage.setItem("users", JSON.stringify(listUsers));
-		printUserSession();
-
+		printLastUser();
 
 		document.getElementById("addNameUser").value = "";
 
@@ -417,10 +416,6 @@ function saveAddUser(){
 
 		userO = new Object();
 	}
-
-
-
-
 }
 
 function formUserValido(funcion,accion){
@@ -446,7 +441,7 @@ function formUserValido(funcion,accion){
 //___________________________________________________________________
 
 function modUsers(){
-	refreshUsers();
+	
 	formUserValido(saveModUsers, "mod");
 	document.getElementById("modUserWarning").setAttribute("class","");
 	document.getElementById("modUserWarning").innerHTML = "";
@@ -533,7 +528,7 @@ function modUsers(){
 
 			if(listUsers[click2].phases.length != 0){
 				saveUsersSession();
-				refreshUsers();
+				
 			}
 			var inputs = document.getElementsByClassName("modSkillInput");
 
@@ -629,12 +624,12 @@ function insertInput(index1, index2){
 	});
 
 	skillsList.push(listUsers[click2].skills[sliders.length - 1]);
-	saveUsersSession();
+	
 }
 
 //Guardamos los datos de usuario
 function saveModUsers() {
-	refreshUsers();
+
 	var nuevoNombre = document.getElementById("modNameUser").value;
 
 	var exist = false;
@@ -670,7 +665,8 @@ function saveModUsers() {
 
 		modLabel(myChart, oldName, listUsers[click2].name);
 		saveUsersSession();
-		printUserSession();
+		modUserSession(click2);
+		
 	}
 
 }

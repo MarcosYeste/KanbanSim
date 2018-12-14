@@ -60,7 +60,8 @@ var velocidad = 0;
 var eCT = 0;
 var eLT = 0;
 var indiceTareas = 0;
-
+ 
+emptyUserData();
 refreshUsers();
 refreshPhases();
 
@@ -70,6 +71,7 @@ sortPhases();
 
 //Inicializamos la gráfica
 listUsers.forEach(function(user){
+	
 	addData(myChart, user.name, user.tasksWorked, "rgba(0,255,233,0.5)");
 })
 
@@ -796,12 +798,19 @@ function play() {
 
 		var i = 0;
 		listUsers.forEach(function(user){
-			
+						
 			updateData(myChart, user.tasksWorked, i, 0);
 			updateData(myChart, user.secondsWork, i, 1);
 			i++;
 		});
 
+		for (var i = 0; i < listUsers.length; i++) {
+			if(listUsers[i].assigned){
+				document.getElementsByClassName("userName")[i].removeAttribute("data-target");
+				document.getElementsByClassName("userName")[i].removeAttribute("data-toggle");
+			}
+		}
+		
 	}, 1000);
 
 }
@@ -841,15 +850,15 @@ function deshabilitarMenus(disable){
 		// Y quitamos el acceso a el formulario de modificación
 		for (var i5 = 0; i5 < document.getElementsByClassName("userName").length; i5++){
 
-			document.getElementsByClassName("userName")[i5].removeAttribute("data-target", "#myModal2");
-			document.getElementsByClassName("userName")[i5].removeAttribute("data-toggle", "modal");
+			document.getElementsByClassName("userName")[i5].removeAttribute("data-target");
+			document.getElementsByClassName("userName")[i5].removeAttribute("data-toggle");
 
 		}
 
 		document.getElementById("result").setAttribute("disabled", "");
 		document.getElementById("result").setAttribute("aria-disabled", "true");
 
-		// quitamos el modal en addUsers
+		// quitamos el modal
 		document.getElementById("chronoViewer").setAttribute("disabled", "");
 		document.getElementById("chronoViewer").setAttribute("aria-disabled", "true");
 		document.getElementById("chronoViewer").removeAttribute("data-target");
@@ -896,9 +905,10 @@ function deshabilitarMenus(disable){
 
 		// Permitimos de nuevo abrir el modal de modificación y eliminación
 		for (var id = 0; id < document.getElementsByClassName("userName").length; id++){
-
+			if(!listUsers[id].assigned){
 			document.getElementsByClassName("userName")[id].setAttribute("data-target", "#myModal2");
 			document.getElementsByClassName("userName")[id].setAttribute("data-toggle", "modal");
+			}
 
 		}
 
