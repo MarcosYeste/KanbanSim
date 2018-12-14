@@ -11,7 +11,7 @@ if(document.getElementById("usersContainer")){
 	divU.innerHTML = "";
 
 	if(sessionUsuarios != null){
-		for (var i = 0; i < sessionUsuarios.length; i++) {
+		for (var i = 0; i < sessionUsuarios.length; i++) {			
 			var usuarioDiv = '<div class="userName" name="'+sessionUsuarios[i].name+'" data-toggle="modal" data-target="#myModal2" data-identification="'+i+'">';
 			usuarioDiv += '<p data-identification="'+i+'"><strong data-identification="'+i+'">'+sessionUsuarios[i].name+'</strong></p>';
 			usuarioDiv += '<i class="fa fa-user-tie fa-2x" aria-hidden="true" data-identification="'+i+'"></i></div>';

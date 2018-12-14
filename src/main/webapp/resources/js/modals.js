@@ -147,22 +147,6 @@ function modPhases(){
 /*--------------------------------------------------CAMBIAR-------------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------------*/
 function saveModPhase() {
-	// Modificamos los datos de la fase	
-//	ESTE CODIGO POR SI LO HACEMOS POR ID Y QUEREMOS QUE EL NOMBRE SE PUEDA CAMBIAR	
-//	var nuevoNombre = 	var exist = false;
-//	for (var i = 0; i < listPhases.length && !exist; i++) {
-//	if(listPhases[i].name == nuevoNombre ){
-//	exist = true;
-//	}
-//	}
-//	if(exist){
-//	document.getElementById("modPhaseWarning").setAttribute("class","alert alert-warning");
-//	document.getElementById("modPhaseWarning").innerHTML = "El miembro del equipo ya existe";
-//	document.getElementById("modPhase").removeAttribute("data-dismiss");
-//	}else{
-//	document.getElementById("modPhase").setAttribute("data-dismiss", "modal");
-//	document.getElementById("modPhaseWarning").setAttribute("class","");
-//	}
 
 	refreshUsers();
 	listPhases.find(x => x.id === click).name = document.getElementById("modName").value;

@@ -646,22 +646,31 @@ function findMaxAndMin(){
 	var array = [];
 
 	listUsers.forEach(function(user) {
+		
 		if (user.secondsWork > max) {
+			
 			console.log(user.name+" : "+user.secondsWork+" Maximo actual "+max);
 			max = user.secondsWork;
 			console.log("Nuevo Maximo : "+max);
 			taskmax = user.tasksWorked;
+			
 		}
+		
 		// MAYBE
 		if(user.secondsWork < min){
+			
 			console.log(user.name+" : "+user.secondsWork+" Minimo actual "+min);
 			min = user.secondsWork;
 			console.log("Nuevo minimo : "+min);
 			taskmin = user.tasksWorked;
+			
 		}
 	});
+	
 	if(min == 500){
+		
 		min = 0;
+		
 	}
 
 	array[0] = max;

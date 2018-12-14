@@ -272,7 +272,7 @@ function play() {
 
 										if(user.phases[up].trim() != actualPhaseName.trim()){
 											for(var t = 0; t < listTareas.length; t++){	
-
+												
 												if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
 													if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null ){
 														isTotallyFree = true;
@@ -300,6 +300,7 @@ function play() {
 										} else if(user.phases[up].trim() == actualPhaseName.trim()){
 											phaseSkill = up;
 											for(var t = 0; t < listTareas.length; t++){	
+												
 												if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == actualPhaseName.trim()){
 
 													if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null){
@@ -504,7 +505,6 @@ function play() {
 
 												if(user.phases[up].trim() != actualPhaseName.trim()){
 													for(var t = 0; t < listTareas.length; t++){	
-
 														if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
 															if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null ){
 																isTotallyFree = true;
@@ -802,7 +802,6 @@ function play() {
 			i++;
 		});
 
-
 	}, 1000);
 
 }
@@ -1067,11 +1066,7 @@ function getDistribution(){
 		}
 
 	}
-
-
 }
-
-
 
 //____________________________________________________________________
 
