@@ -116,10 +116,8 @@ function rellenarResultados(){
 	listUsers.forEach(function(user) {
 
 		resultadosO.userTaskWorked.push(user.tasksWorked);
-		resultadosO.userActiveTime.push(user.secondsWork);
-		console.log(user.name+": ha trabajado: "+user.secondsWork+"s el leadtime: "+leadTime+"s TiempoCreacion: "+user.creationTime);
+		resultadosO.userActiveTime.push(user.secondsWork);		
 		user.secondsNotWorked = leadTime - user.secondsWork - user.creationTime;
-		console.log("Segundos no trabajados: "+user.secondsNotWorked);
 		resultadosO.userInactiveTime.push(user.secondsNotWorked);
 
 		for (var i = 0; i < user.secondByPhase.length; i++) {
@@ -128,10 +126,20 @@ function rellenarResultados(){
 			}
 
 		}
-		console.log("USER SECOND PHASE : "+user.secondByPhase);
 		resultadosO.userSecondsPhase.push(user.secondByPhase);
 	});
-
+	console.log("SECOND FASE ANTES:"+resultadosO.userSecondsPhase);
+	
+	for (var i = 0; i < listUsers.length; i++) {
+		for (var j = 0; j < listPhases.length; j++) {
+			if(resultadosO.userSecondsPhase[i][j] == undefined){
+				resultadosO.userSecondsPhase[i][j]= 0;
+				}
+			}
+		}
+	
+	console.log("SECOND FASE DESPUES:"+resultadosO.userSecondsPhase);
+	
 	resultadosO.userBestWorker.push(buscarMasTrabajador('max'));
 	resultadosO.userLessWorker.push(buscarMasTrabajador('min'));
 
@@ -675,16 +683,12 @@ function findMaxAndMin(){
 
 	listUsers.forEach(function(user) {
 		if (user.secondsWork > max) {
-			console.log(user.name+" : "+user.secondsWork+" Maximo actual "+max);
 			max = user.secondsWork;
-			console.log("Nuevo Maximo : "+max);
 			taskmax = user.tasksWorked;
 		}
 		// MAYBE
 		if(user.secondsWork < min){
-			console.log(user.name+" : "+user.secondsWork+" Minimo actual "+min);
 			min = user.secondsWork;
-			console.log("Nuevo minimo : "+min);
 			taskmin = user.tasksWorked;
 		}
 	});
@@ -710,13 +714,11 @@ function maxAndMinUsers(userMax,userMin){
 		listUsers.forEach(function(user) {
 
 			if(user.secondsWork == userMax){	
-				console.log(user.name+"  "+user.secondsWork+ " ==  MAX "+userMax);
 				array[i] = user.name;
 				array2[i] = "";
 
 
 			}else if(user.secondsWork == userMin){
-				console.log(user.name+"  "+user.secondsWork+ " ==  MIN "+userMin);
 				array2[i] = user.name;
 				array[i] = "";
 			}else{

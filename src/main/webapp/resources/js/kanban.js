@@ -13,6 +13,7 @@ distribution.variation;			// Variation value for normal distribution
 distribution.lambda;			// Lambda value for poisson distribution 
 distribution.distributionWeightValues = [0, 0, 0, 0];
 
+
 refreshDistributionSession();
 saveDistributionSession();
 
