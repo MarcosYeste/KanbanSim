@@ -27,42 +27,68 @@ function nuevoObjetoResultados(){
 
 function rellenarResultados(){
 	resultadosO = nuevoObjetoResultados();
-	var mediaCycle = 0;
-	var mediaLead = 0;
-	var cantidadTask = 0;
-	var mediaPorFases = new Array();
-	var resultMediaPorFases = new Array();
-	var mediaPorTarea = new Array();
-	var numerotareas = 0;
-	var sumatodo = 0;
-	var sumaDoing = 0;
-	var sumadone = 0;
-	var sumaEstadosTotal = 0;
-	var nombresArray = [];
-	listTareas.forEach(function(task) {	
+		var mediaCycle = 0;
+		var mediaLead = 0;
+		var cantidadTask = 0;
+		var mediaPorFases = new Array();
+		var resultMediaPorFases = new Array();
+		var mediaPorTarea = new Array();
+		var numerotareas = 0;
+		var sumatodo = 0;
+		var sumaDoing = 0;
+		var sumadone = 0;
+		var sumaEstadosTotal = 0;
+		var nombresArray = [];
+		listTareas.forEach(function(task) {	
+			
+			resultadosO.taskCycle.push(task.cycleTime);
+			resultadosO.taskLead.push(task.leadTime);
+			resultadosO.taskEsfuerzo.push(task.esfuerzo);
+			resultadosO.taskUsuarios.push(task.staticAssigneds);
+			resultadosO.taskBacklog.push(task.startTime);
+			resultadosO.taskPhasesSeconds.push(task.phasesTime);
+			resultadosO.phaseStatesSeconds.push(task.timeByStats);			
+			mediaPorFases.push(task.timeByStats);
+			mediaCycle += task.cycleTime;
+			mediaLead += task.leadTime;
+			if(task.cycleTime != 0){cantidadTask++;}
+					
+			mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
+			task.timeByStats.forEach(function(times) {	
+				var time = JSON.stringify(times);
+				time = JSON.parse(time);
+				sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
+			});
+			
+			
+			
+		});	
+		resultMediaPorFases = mediaFasestotal(mediaPorFases);
+		numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
+		sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
+		if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
+		
+		mediaCycle = Math.round((mediaCycle/cantidadTask)* 10 ) / 10;
+		mediaLead =  Math.round((mediaLead/cantidadTask)* 10 ) / 10;
+		if(isNaN(mediaCycle)){ mediaCycle = 0;}
+		if(isNaN(mediaLead)){ mediaLead = 0;}
+	
+		
+		
+		resultadosO.taskMediaCL.push(mediaCycle,mediaLead);
+		resultadosO.phaseSumaStates.push(resultMediaPorFases[resultMediaPorFases.length-2]);
+		resultMediaPorFases.splice(resultMediaPorFases.length-2, 2);
+		
+		resultadosO.phaseMediaFase.push(resultMediaPorFases);
+		resultadosO.phaseMediaTask.push(mediaPorTarea);
+		resultadosO.phaseMediaTotal = sumaEstadosTotal;
+	
+		listPhases.forEach(function(phase) {
+			resultadosO.phaseSecondsTotal.push(phase.period);
 
-		resultadosO.taskCycle.push(task.cycleTime);
-		resultadosO.taskLead.push(task.leadTime);
-		resultadosO.taskEsfuerzo.push(task.esfuerzo);
-		resultadosO.taskUsuarios.push(task.staticAssigneds);
-		resultadosO.taskBacklog.push(task.startTime);
-		resultadosO.taskPhasesSeconds.push(task.phasesTime);
-		resultadosO.phaseStatesSeconds.push(task.timeByStats);
-		mediaPorFases.push(task.timeByStats);
-		mediaCycle += task.cycleTime;
-		mediaLead += task.leadTime;
-		if(task.cycleTime != 0){cantidadTask++;}
-
-		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
-		task.timeByStats.forEach(function(times) {	
-			var time = JSON.stringify(times);
-			time = JSON.parse(time);
-			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
 		});
 
 
-
-	});
 	resultMediaPorFases = mediaFasestotal(mediaPorFases);
 	numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
 	sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
@@ -91,7 +117,9 @@ function rellenarResultados(){
 
 		resultadosO.userTaskWorked.push(user.tasksWorked);
 		resultadosO.userActiveTime.push(user.secondsWork);
-		user.secondsNotWorked = leadTime - user.secondsWork;
+		console.log(user.name+": ha trabajado: "+user.secondsWork+"s el leadtime: "+leadTime+"s TiempoCreacion: "+user.creationTime);
+		user.secondsNotWorked = leadTime - user.secondsWork - user.creationTime;
+		console.log("Segundos no trabajados: "+user.secondsNotWorked);
 		resultadosO.userInactiveTime.push(user.secondsNotWorked);
 
 		for (var i = 0; i < user.secondByPhase.length; i++) {

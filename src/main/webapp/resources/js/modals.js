@@ -192,6 +192,7 @@ function addUsers(){
 	userO.secondsWork = 0;
 	userO.secondsNotWorked = 0;
 	userO.timeStopped = 0;
+	userO.creationTime = 0;
 	rawPhases = "";
 	userO.phases = [];
 	rawSkills = "";
@@ -376,7 +377,10 @@ function addInput(index1, index2, object){
 }
 
 function saveAddUser(){ 
+	console.log(listUsers);
+	saveUsersSession();
 	refreshUsers();
+	console.log(listUsers);
 	var fases = "";
 
 	for( var i = 0; i < userO.phases.length; i++){
@@ -399,7 +403,7 @@ function saveAddUser(){
 		userO.name = nuevoNombre;
 
 		userO.fases = fases;
-
+		userO.creationTime = leadTime;
 		listUsers.push(userO); 	
 		sessionStorage.setItem("users", JSON.stringify(listUsers));
 		printUserSession();
