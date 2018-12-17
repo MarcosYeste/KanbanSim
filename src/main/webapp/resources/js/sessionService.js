@@ -198,7 +198,15 @@ function modPhaseSession(id){
 	$(".faseName[id='"+ id +"']").css("background-color", listPhases.find(x => x.id === click).color);
 	$(".faseName[id='"+ id +"'] > .subfase").css("background-color", listPhases.find(x => x.id === click).color);
 	
-	
+	for (var i = 0; i < listPhases.find(x => x.id === click).assignedUsers.length; i++) {
+			$(".userName[name='" + listPhases.find(x => x.id === click).assignedUsers[i] + "']").css("border-color", listPhases.find(x => x.id === click).color); 
+			$(".userName[name='" + listPhases.find(x => x.id === click).assignedUsers[i] + "']").children("I").css(
+					{
+						'color' : listPhases.find(x => x.id === click).color,
+						'opacity': '0.3',
+						}); 
+		
+	}
 }
 
 //____________________________________________________________________
