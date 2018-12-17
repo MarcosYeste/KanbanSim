@@ -242,10 +242,18 @@ function play() {
 									document.getElementsByName(listUsers[w].name)[0].children[1].style.opacity = "1";
 									document.getElementsByName(listUsers[w].name)[0].children[1].style.color = "black";
 									document.getElementsByName(listUsers[w].name)[0].style.borderColor = "blue";
-
+									
 									if(document.getElementById("modalTaskNameValue").innerHTML == task.name){
 										document.getElementById("modalTaskWorkedValue").innerHTML += listUsers[w].name + ",";
 									}
+									console.log(listPhases[i].assignedUsers);
+									for(var lp = 0; lp < listPhases[i].assignedUsers.length; lp++){
+										if(task.assignedUsers[au] == listPhases[i].assignedUsers[lp]){
+											console.log("este es");
+											listPhases[i].assignedUsers.splice(lp, 1);
+										}
+									}
+									console.log(listPhases[i].assignedUsers);
 								}
 							}
 						}
@@ -344,8 +352,8 @@ function play() {
 												}
 												user.assigned = true;
 //												ASSIGNED USERS
-//												listPhases[i].assignedUsers.push(user.name);
-												
+												listPhases[i].assignedUsers.push(user.name);
+												console.log(listPhases[i].assignedUsers);
 												if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 
 													task.duration = 1;
@@ -489,6 +497,8 @@ function play() {
 												task.duration = task.duration * (100 / user.skills[up]);
 												task.assignedUsers[0] = (user.name);
 												user.assigned = true;
+												listPhases[i].assignedUsers.push(user.name);
+												console.log(listPhases[i].assignedUsers);
 												if(!task.staticAssigneds.includes((user.name)+" ")){
 
 													task.staticAssigneds += (user.name)+" ";
@@ -553,7 +563,8 @@ function play() {
 										}
 										user.assigned = true;
 //										ASSIGNED USERS
-//										listPhases[i].assignedUsers.push(user.name);
+										listPhases[i].assignedUsers.push(user.name);
+										console.log(listPhases[i].assignedUsers);
 										
 										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 											task.duration = 1;
