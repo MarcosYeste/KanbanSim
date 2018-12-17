@@ -147,22 +147,6 @@ function modPhases(){
 /*--------------------------------------------------CAMBIAR-------------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------------*/
 function saveModPhase() {
-	// Modificamos los datos de la fase	
-//	ESTE CODIGO POR SI LO HACEMOS POR ID Y QUEREMOS QUE EL NOMBRE SE PUEDA CAMBIAR	
-//	var nuevoNombre = 	var exist = false;
-//	for (var i = 0; i < listPhases.length && !exist; i++) {
-//	if(listPhases[i].name == nuevoNombre ){
-//	exist = true;
-//	}
-//	}
-//	if(exist){
-//	document.getElementById("modPhaseWarning").setAttribute("class","alert alert-warning");
-//	document.getElementById("modPhaseWarning").innerHTML = "El miembro del equipo ya existe";
-//	document.getElementById("modPhase").removeAttribute("data-dismiss");
-//	}else{
-//	document.getElementById("modPhase").setAttribute("data-dismiss", "modal");
-//	document.getElementById("modPhaseWarning").setAttribute("class","");
-//	}
 
 	refreshUsers();
 	listPhases.find(x => x.id === click).name = document.getElementById("modName").value;
@@ -208,6 +192,7 @@ function addUsers(){
 	userO.secondsWork = 0;
 	userO.secondsNotWorked = 0;
 	userO.timeStopped = 0;
+	userO.creationTime = 0;
 	rawPhases = "";
 	userO.phases = [];
 	rawSkills = "";
@@ -392,7 +377,10 @@ function addInput(index1, index2, object){
 }
 
 function saveAddUser(){ 
+	console.log(listUsers);
+	saveUsersSession();
 	refreshUsers();
+
 	var fases = "";
 
 	for( var i = 0; i < userO.phases.length; i++){
@@ -415,11 +403,10 @@ function saveAddUser(){
 		userO.name = nuevoNombre;
 
 		userO.fases = fases;
-
+		userO.creationTime = leadTime;
 		listUsers.push(userO); 	
 		sessionStorage.setItem("users", JSON.stringify(listUsers));
-		printUserSession();
-
+		printLastUser();
 
 		document.getElementById("addNameUser").value = "";
 
@@ -429,10 +416,6 @@ function saveAddUser(){
 
 		userO = new Object();
 	}
-
-
-
-
 }
 
 function formUserValido(funcion,accion){
@@ -458,7 +441,7 @@ function formUserValido(funcion,accion){
 //___________________________________________________________________
 
 function modUsers(){
-	refreshUsers();
+	
 	formUserValido(saveModUsers, "mod");
 	document.getElementById("modUserWarning").setAttribute("class","");
 	document.getElementById("modUserWarning").innerHTML = "";
@@ -545,7 +528,7 @@ function modUsers(){
 
 			if(listUsers[click2].phases.length != 0){
 				saveUsersSession();
-				refreshUsers();
+				
 			}
 			var inputs = document.getElementsByClassName("modSkillInput");
 
@@ -641,12 +624,12 @@ function insertInput(index1, index2){
 	});
 
 	skillsList.push(listUsers[click2].skills[sliders.length - 1]);
-	saveUsersSession();
+	
 }
 
 //Guardamos los datos de usuario
 function saveModUsers() {
-	refreshUsers();
+
 	var nuevoNombre = document.getElementById("modNameUser").value;
 
 	var exist = false;
@@ -682,7 +665,8 @@ function saveModUsers() {
 
 		modLabel(myChart, oldName, listUsers[click2].name);
 		saveUsersSession();
-		printUserSession();
+		modUserSession(click2);
+		
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kanban.app.Model.Phase;
+import com.kanban.app.Model.Results;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 import com.kanban.app.services.KanbanService;
@@ -112,6 +113,7 @@ public class HomeController {
 		int[][][] sumaTiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseSumaStates));
 		double[][][] tiempoMedioPorFase = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaFase));
 		double[][][] tiempoMedioTarea = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaTask));
+		double MediaTiempoTotalFase= Double.parseDouble(phaseMediaTotal.toString());
 		int[] totalTiempoPorFase = KanbanService.fromStrtoIntArray(String.valueOf(phaseSecondsTotal));
 		int[] tareasTrabajadas = KanbanService.fromStrtoIntArray(String.valueOf(userTaskWorked));
 		int[] tiempoTrabajadoPorUsuario = KanbanService.fromStrtoIntArray(String.valueOf(userActiveTime));
@@ -120,7 +122,11 @@ public class HomeController {
 		int[] tiemposPeoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userLessWorker));
 		int[][] tiempoTrabajadoUsuarioPorFase = KanbanService.fromStrtoIntArray2D(String.valueOf(userSecondsPhase));
 		String[][] usuariosMasYMenosTrabajadores = KanbanService.fromStrtoStrArray2D(String.valueOf(userNamesWorstBest));		
-				
+		
+		Results resultadosPlay = new Results(cycleTime, leadTime, esfuerzo, usuarios, mediaCycleTime, backlog, tiempoPorFases,
+				tiempoPorEstados, sumaTiempoPorEstados, tiempoMedioPorFase, tiempoMedioTarea, MediaTiempoTotalFase, totalTiempoPorFase, 
+				tareasTrabajadas, tiempoTrabajadoPorUsuario, tiempoOciosoPorUsuario, tiemposMejoresTrabajadores, tiemposPeoresTrabajadores, tiempoTrabajadoUsuarioPorFase, 
+				usuariosMasYMenosTrabajadores);
 		
 		return "success";
 	}

@@ -27,42 +27,68 @@ function nuevoObjetoResultados(){
 
 function rellenarResultados(){
 	resultadosO = nuevoObjetoResultados();
-	var mediaCycle = 0;
-	var mediaLead = 0;
-	var cantidadTask = 0;
-	var mediaPorFases = new Array();
-	var resultMediaPorFases = new Array();
-	var mediaPorTarea = new Array();
-	var numerotareas = 0;
-	var sumatodo = 0;
-	var sumaDoing = 0;
-	var sumadone = 0;
-	var sumaEstadosTotal = 0;
-	var nombresArray = [];
-	listTareas.forEach(function(task) {	
+		var mediaCycle = 0;
+		var mediaLead = 0;
+		var cantidadTask = 0;
+		var mediaPorFases = new Array();
+		var resultMediaPorFases = new Array();
+		var mediaPorTarea = new Array();
+		var numerotareas = 0;
+		var sumatodo = 0;
+		var sumaDoing = 0;
+		var sumadone = 0;
+		var sumaEstadosTotal = 0;
+		var nombresArray = [];
+		listTareas.forEach(function(task) {	
+			
+			resultadosO.taskCycle.push(task.cycleTime);
+			resultadosO.taskLead.push(task.leadTime);
+			resultadosO.taskEsfuerzo.push(task.esfuerzo);
+			resultadosO.taskUsuarios.push(task.staticAssigneds);
+			resultadosO.taskBacklog.push(task.startTime);
+			resultadosO.taskPhasesSeconds.push(task.phasesTime);
+			resultadosO.phaseStatesSeconds.push(task.timeByStats);			
+			mediaPorFases.push(task.timeByStats);
+			mediaCycle += task.cycleTime;
+			mediaLead += task.leadTime;
+			if(task.cycleTime != 0){cantidadTask++;}
+					
+			mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
+			task.timeByStats.forEach(function(times) {	
+				var time = JSON.stringify(times);
+				time = JSON.parse(time);
+				sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
+			});
+			
+			
+			
+		});	
+		resultMediaPorFases = mediaFasestotal(mediaPorFases);
+		numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
+		sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
+		if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
+		
+		mediaCycle = Math.round((mediaCycle/cantidadTask)* 10 ) / 10;
+		mediaLead =  Math.round((mediaLead/cantidadTask)* 10 ) / 10;
+		if(isNaN(mediaCycle)){ mediaCycle = 0;}
+		if(isNaN(mediaLead)){ mediaLead = 0;}
+	
+		
+		
+		resultadosO.taskMediaCL.push(mediaCycle,mediaLead);
+		resultadosO.phaseSumaStates.push(resultMediaPorFases[resultMediaPorFases.length-2]);
+		resultMediaPorFases.splice(resultMediaPorFases.length-2, 2);
+		
+		resultadosO.phaseMediaFase.push(resultMediaPorFases);
+		resultadosO.phaseMediaTask.push(mediaPorTarea);
+		resultadosO.phaseMediaTotal = sumaEstadosTotal;
+	
+		listPhases.forEach(function(phase) {
+			resultadosO.phaseSecondsTotal.push(phase.period);
 
-		resultadosO.taskCycle.push(task.cycleTime);
-		resultadosO.taskLead.push(task.leadTime);
-		resultadosO.taskEsfuerzo.push(task.esfuerzo);
-		resultadosO.taskUsuarios.push(task.staticAssigneds);
-		resultadosO.taskBacklog.push(task.startTime);
-		resultadosO.taskPhasesSeconds.push(task.phasesTime);
-		resultadosO.phaseStatesSeconds.push(task.timeByStats);
-		mediaPorFases.push(task.timeByStats);
-		mediaCycle += task.cycleTime;
-		mediaLead += task.leadTime;
-		if(task.cycleTime != 0){cantidadTask++;}
-
-		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
-		task.timeByStats.forEach(function(times) {	
-			var time = JSON.stringify(times);
-			time = JSON.parse(time);
-			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
 		});
 
 
-
-	});
 	resultMediaPorFases = mediaFasestotal(mediaPorFases);
 	numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
 	sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
@@ -90,8 +116,8 @@ function rellenarResultados(){
 	listUsers.forEach(function(user) {
 
 		resultadosO.userTaskWorked.push(user.tasksWorked);
-		resultadosO.userActiveTime.push(user.secondsWork);
-		user.secondsNotWorked = leadTime - user.secondsWork;
+		resultadosO.userActiveTime.push(user.secondsWork);		
+		user.secondsNotWorked = leadTime - user.secondsWork - user.creationTime;
 		resultadosO.userInactiveTime.push(user.secondsNotWorked);
 
 		for (var i = 0; i < user.secondByPhase.length; i++) {
@@ -100,10 +126,20 @@ function rellenarResultados(){
 			}
 
 		}
-		console.log("USER SECOND PHASE : "+user.secondByPhase);
 		resultadosO.userSecondsPhase.push(user.secondByPhase);
 	});
-
+	console.log("SECOND FASE ANTES:"+resultadosO.userSecondsPhase);
+	
+	for (var i = 0; i < listUsers.length; i++) {
+		for (var j = 0; j < listPhases.length; j++) {
+			if(resultadosO.userSecondsPhase[i][j] == undefined){
+				resultadosO.userSecondsPhase[i][j]= 0;
+				}
+			}
+		}
+	
+	console.log("SECOND FASE DESPUES:"+resultadosO.userSecondsPhase);
+	
 	resultadosO.userBestWorker.push(buscarMasTrabajador('max'));
 	resultadosO.userLessWorker.push(buscarMasTrabajador('min'));
 
@@ -646,22 +682,25 @@ function findMaxAndMin(){
 	var array = [];
 
 	listUsers.forEach(function(user) {
+		
 		if (user.secondsWork > max) {
-			console.log(user.name+" : "+user.secondsWork+" Maximo actual "+max);
 			max = user.secondsWork;
-			console.log("Nuevo Maximo : "+max);
 			taskmax = user.tasksWorked;
+			
 		}
+		
 		// MAYBE
 		if(user.secondsWork < min){
-			console.log(user.name+" : "+user.secondsWork+" Minimo actual "+min);
 			min = user.secondsWork;
-			console.log("Nuevo minimo : "+min);
 			taskmin = user.tasksWorked;
+			
 		}
 	});
+	
 	if(min == 500){
+		
 		min = 0;
+		
 	}
 
 	array[0] = max;
@@ -682,13 +721,11 @@ function maxAndMinUsers(userMax,userMin){
 		listUsers.forEach(function(user) {
 
 			if(user.secondsWork == userMax){	
-				console.log(user.name+"  "+user.secondsWork+ " ==  MAX "+userMax);
 				array[i] = user.name;
 				array2[i] = "";
 
 
 			}else if(user.secondsWork == userMin){
-				console.log(user.name+"  "+user.secondsWork+ " ==  MIN "+userMin);
 				array2[i] = user.name;
 				array[i] = "";
 			}else{
