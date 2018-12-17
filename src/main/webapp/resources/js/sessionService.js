@@ -81,7 +81,7 @@ function refreshUsers(){
 
 function modUserSession(id){
 	$( ".userName[data-identification='"+ id +"'] > p:first" )
-	.html("<strong>" + listUsers[click2].name + "</strong>");
+	.html("<strong data-identification='"+ id +"'>" + listUsers[click2].name + "</strong>");
 
 	$(".userName[data-identification='"+ id +"'] ").attr("name", listUsers[click2].name);
 }

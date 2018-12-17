@@ -672,7 +672,6 @@ function saveModUsers() {
 }
 
 function rmvModUsers() {
-	refreshUsers();
 	$.ajax({
 		type: "POST",
 		url: "/rmvUser",
@@ -687,7 +686,14 @@ function rmvModUsers() {
 			listUsers.splice(click2, 1);
 			sessionStorage.setItem("users", JSON.stringify(listUsers));
 			refreshUsers();
-			printUserSession();
+			 $("div").remove(".userName[data-identification='"+ click2 +"']");
+			
+			 for (var i = 0; i < $("div.userName[data-identification]").length; i++) {
+				document.getElementsByClassName("userName")[i].setAttribute("data-identification", i);
+				document.getElementsByClassName("userName")[i].children[0].setAttribute("data-identification", i);
+				document.getElementsByClassName("userName")[i].children[0].children[0].setAttribute("data-identification", i);
+				document.getElementsByClassName("userName")[i].children[1].setAttribute("data-identification", i);
+			}
 		}
 	})
 }
