@@ -85,8 +85,6 @@ function addPhases(){
 	document.getElementById("addFasesWarning").innerHTML= "";
 }
 function saveAddPhase(){
-	refreshPhases();
-
 	var phaseO = new Object();
 
 	var nuevoNombre = document.getElementById("addName").value;
@@ -113,10 +111,11 @@ function saveAddPhase(){
 		phaseO.minTime = parseInt(document.getElementById("addMinTime").value);
 		phaseO.color = document.getElementById("color-input").value;
 		phaseO.period = 0;
+		phaseO.assignedUsers = new Array();
+		
 		listPhases.push(phaseO);
-
 		savePhaseSession();
-		printPhaseSession();
+		printLastPhase();
 	}
 }
 
@@ -148,7 +147,6 @@ function modPhases(){
 /*----------------------------------------------------------------------------------------------------------*/
 function saveModPhase() {
 
-	refreshUsers();
 	listPhases.find(x => x.id === click).name = document.getElementById("modName").value;
 	listPhases.find(x => x.id === click).maxTasks = parseInt(document.getElementById("modWip").value);
 	listPhases.find(x => x.id === click).minTime = parseInt(document.getElementById("modMinTime").value);
@@ -168,10 +166,12 @@ function saveModPhase() {
 	}
 
 	savePhaseSession();
-	printPhaseSession();
-
-
+	
+	modPhaseSession(click);
+	
 }
+
+
 /*----------------------------------------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------------*/
@@ -672,7 +672,6 @@ function saveModUsers() {
 }
 
 function rmvModUsers() {
-	refreshUsers();
 	$.ajax({
 		type: "POST",
 		url: "/rmvUser",
@@ -687,7 +686,14 @@ function rmvModUsers() {
 			listUsers.splice(click2, 1);
 			sessionStorage.setItem("users", JSON.stringify(listUsers));
 			refreshUsers();
-			printUserSession();
+			 $("div").remove(".userName[data-identification='"+ click2 +"']");
+			
+			 for (var i = 0; i < $("div.userName[data-identification]").length; i++) {
+				document.getElementsByClassName("userName")[i].setAttribute("data-identification", i);
+				document.getElementsByClassName("userName")[i].children[0].setAttribute("data-identification", i);
+				document.getElementsByClassName("userName")[i].children[0].children[0].setAttribute("data-identification", i);
+				document.getElementsByClassName("userName")[i].children[1].setAttribute("data-identification", i);
+			}
 		}
 	})
 }

@@ -48,8 +48,6 @@ function printLastUser(){
 				usuarioDiv += '<p data-identification="'+i+'"><strong data-identification="'+i+'">'+sessionUsuarios[i].name+'</strong></p>';
 				usuarioDiv += '<i class="fa fa-user-tie fa-2x" aria-hidden="true" data-identification="'+i+'"></i></div>';
 				divU.innerHTML+= usuarioDiv;
-			}else{
-				console.log("sale");
 			}
 
 		}
@@ -81,7 +79,7 @@ function refreshUsers(){
 
 function modUserSession(id){
 	$( ".userName[data-identification='"+ id +"'] > p:first" )
-	.html("<strong>" + listUsers[click2].name + "</strong>");
+	.html("<strong data-identification='"+ id +"'>" + listUsers[click2].name + "</strong>");
 
 	$(".userName[data-identification='"+ id +"'] ").attr("name", listUsers[click2].name);
 }
@@ -146,6 +144,41 @@ function printPhaseSession(){
 	}
 }
 
+function printLastPhase(){
+	var sessionPhase = JSON.parse(sessionStorage.getItem("phases"));
+
+	if(sessionPhase != null){
+		if(document.getElementById("faseDiv")){
+
+			var fasesD = document.getElementById("faseDiv");
+
+			for (var i = 0; i < sessionPhase.length; i++) {
+				if(i == sessionPhase.length - 1){
+					var divFases = '<div class="faseName" style="background-color:'+sessionPhase[i].color+'" id ="'+sessionPhase[i].id+'"">';
+					divFases += '<div class="titulo" data-toggle="modal" data-target="#myModal" name= "'+sessionPhase[i].name+'">'+sessionPhase[i].name+'<small> (WIP: '+sessionPhase[i].maxTasks+')</small></div>';
+					divFases += '<div class="subfase" style="background-color:'+sessionPhase[i].color+'"><div id="doing" class="doing"><p class="subSubfase">Doing</p></div>'+
+					'<div id="done" class="done"><p class="subSubfase">Done</p></div></div>';
+					fasesD.innerHTML += divFases;
+				}
+			}
+		}
+
+
+		//Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
+		for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
+			document.getElementsByClassName("titulo")[i].setAttribute("data-identification", listPhases[i].id);
+			document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", listPhases[i].id);
+
+			// Abrimos el formulario			
+			document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
+
+			document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(){
+				event.preventDefault();
+			});
+		}
+	}
+}
+
 function refreshPhases(){
 
 	if(sessionStorage.getItem("phases")){
@@ -153,8 +186,19 @@ function refreshPhases(){
 		listPhases = sessionPhase;
 	}
 }
+
 function savePhaseSession(){
 	sessionStorage.setItem("phases", JSON.stringify(listPhases));
+}
+
+function modPhaseSession(id){
+	$( ".faseName[id='"+ id +"'] > div > small" )
+	.html(" (WIP:" + listPhases.find(x => x.id === click).maxTasks + ")");
+	
+	$(".faseName[id='"+ id +"']").css("background-color", listPhases.find(x => x.id === click).color);
+	$(".faseName[id='"+ id +"'] > .subfase").css("background-color", listPhases.find(x => x.id === click).color);
+	
+	
 }
 
 //____________________________________________________________________

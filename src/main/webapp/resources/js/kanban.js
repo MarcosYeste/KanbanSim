@@ -231,7 +231,10 @@ function play() {
 						task.state = "Done";
 						saveTimeStates(task,leadTime,i);
 						task.sameIteration = true;
-
+						
+//						FINALIZAR ARRAY USUARIOS ASIGNADOS A CADA FASE
+//						listPhases[i].assignedUsers
+						
 						for(var w = 0; w < listUsers.length; w++){
 							for(var au = 0; au < task.assignedUsers.length; au++){
 								if(listUsers[w].name == task.assignedUsers[au]){
@@ -340,7 +343,9 @@ function play() {
 													task.staticAssigneds += (user.name)+" ";
 												}
 												user.assigned = true;
-
+//												ASSIGNED USERS
+//												listPhases[i].assignedUsers.push(user.name);
+												
 												if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 
 													task.duration = 1;
@@ -513,7 +518,6 @@ function play() {
 																isTotallyFree = true;
 															} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 																isTotallyFree = false;
-															} else {
 															}
 														}
 													}
@@ -548,7 +552,9 @@ function play() {
 
 										}
 										user.assigned = true;
-
+//										ASSIGNED USERS
+//										listPhases[i].assignedUsers.push(user.name);
+										
 										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 											task.duration = 1;
 										} else {
