@@ -139,7 +139,7 @@ function play() {
 	var lazyPeople = [];
 	var tiempoInicio = 0;
 	var anteriorTiempo = 0;
-
+	
 	myInterval = setInterval(function() {
 
 		if(chronoTime != 0){
@@ -1113,6 +1113,5 @@ function printTasks(tarea){
 
 	for (var i = 0; i < document.getElementsByClassName("tareas").length; i++) {
 		document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo, false);
-
 	}
 }

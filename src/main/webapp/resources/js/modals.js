@@ -13,7 +13,7 @@ var chronoTime = 0;
 var chronoTimeTypeSelection = "sec";
 var userO = new Object();
 var taskNameCounter = 0;
-var atributo;
+var atributo = "Task1";
 
 //_________________________________________________________________
 
@@ -804,6 +804,7 @@ function chrono(){
 //_____________________________________________________________________
 
 function showTaskInfo(){
+	
 	atributo = event.target.getAttribute("data-identification");
 	var object = listTareas.find(x => x.name === atributo);
 	

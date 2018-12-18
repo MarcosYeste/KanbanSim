@@ -192,12 +192,15 @@ function savePhaseSession(){
 }
 
 function modPhaseSession(id){
+	// Cambiamos el El html del WIP
 	$( ".faseName[id='"+ id +"'] > div > small" )
 	.html(" (WIP:" + listPhases.find(x => x.id === click).maxTasks + ")");
 	
+	// Modificamos también el color
 	$(".faseName[id='"+ id +"']").css("background-color", listPhases.find(x => x.id === click).color);
 	$(".faseName[id='"+ id +"'] > .subfase").css("background-color", listPhases.find(x => x.id === click).color);
 	
+	// Y por último el color del usuario, junto con su opacidad, para que se modifique y quede como el color de la faseb 
 	for (var i = 0; i < listPhases.find(x => x.id === click).assignedUsers.length; i++) {
 			$(".userName[name='" + listPhases.find(x => x.id === click).assignedUsers[i] + "']").css("border-color", listPhases.find(x => x.id === click).color); 
 			$(".userName[name='" + listPhases.find(x => x.id === click).assignedUsers[i] + "']").children("I").css(
