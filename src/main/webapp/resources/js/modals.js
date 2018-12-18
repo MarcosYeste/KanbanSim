@@ -377,7 +377,6 @@ function addInput(index1, index2, object){
 }
 
 function saveAddUser(){ 
-	console.log(listUsers);
 	saveUsersSession();
 	refreshUsers();
 

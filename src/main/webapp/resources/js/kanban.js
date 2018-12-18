@@ -246,14 +246,14 @@ function play() {
 									if(document.getElementById("modalTaskNameValue").innerHTML == task.name){
 										document.getElementById("modalTaskWorkedValue").innerHTML += listUsers[w].name + ",";
 									}
-									console.log(listPhases[i].assignedUsers);
+							
 									for(var lp = 0; lp < listPhases[i].assignedUsers.length; lp++){
 										if(task.assignedUsers[au] == listPhases[i].assignedUsers[lp]){
-											console.log("este es");
+											
 											listPhases[i].assignedUsers.splice(lp, 1);
 										}
 									}
-									console.log(listPhases[i].assignedUsers);
+									
 								}
 							}
 						}
@@ -353,7 +353,7 @@ function play() {
 												user.assigned = true;
 //												ASSIGNED USERS
 												listPhases[i].assignedUsers.push(user.name);
-												console.log(listPhases[i].assignedUsers);
+												
 												if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 
 													task.duration = 1;
@@ -407,6 +407,7 @@ function play() {
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
+							console.log(listResultados[0].taskLead[indiceTareas]);
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
 							indiceTareas++;
 							updateGraficPhase();
@@ -498,7 +499,7 @@ function play() {
 												task.assignedUsers[0] = (user.name);
 												user.assigned = true;
 												listPhases[i].assignedUsers.push(user.name);
-												console.log(listPhases[i].assignedUsers);
+												
 												if(!task.staticAssigneds.includes((user.name)+" ")){
 
 													task.staticAssigneds += (user.name)+" ";
@@ -564,7 +565,7 @@ function play() {
 										user.assigned = true;
 //										ASSIGNED USERS
 										listPhases[i].assignedUsers.push(user.name);
-										console.log(listPhases[i].assignedUsers);
+										
 										
 										if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
 											task.duration = 1;
@@ -829,7 +830,7 @@ function play() {
 			}
 		}
 		
-	}, 1000);
+	},10);
 
 }
 

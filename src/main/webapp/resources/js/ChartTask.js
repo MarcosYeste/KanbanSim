@@ -9,6 +9,12 @@ if(document.getElementById("myChartTask")){
 			datasets: []
 		},
 		options: {
+			legend: {
+				display: true,
+				labels : {
+					usePointStyle : true,
+				},
+			},
 			scales: {
 				yAxes: [{
 					ticks: {
@@ -24,11 +30,11 @@ function addDataTask(chart, cycle, lead, esfuerzo, color, taskname) {
 
 	var newDataset  = addDataSet(chart, cycle, lead, esfuerzo, color, taskname);
 	if(newDataset != -1){
-		chart.data.datasets.push(newDataset);		
+		chart.data.datasets.push(newDataset);	
 		chart.update();
 	}
-
 }
+
 function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){      
 
 	var newDataset = {
@@ -39,7 +45,7 @@ function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){
 			borderWidth: 5
 	};
 	newDataset.label.push(taskname);
-	
+
 	// Si la tarea ya existe en la array
 	if(chart.data.datasets.length > 0){
 		for (var i = 0; i < chart.data.datasets.length; i++) {
@@ -60,6 +66,7 @@ function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){
 
 	return newDataset;
 }
+
 function updateDataTask(chart, cycle, lead, esfuerzo, index){
 	if(chart.data.datasets[index] != undefined){
 		chart.data.datasets[index].data[0] = esfuerzo;
@@ -69,3 +76,4 @@ function updateDataTask(chart, cycle, lead, esfuerzo, index){
 
 	chart.update();
 }
+

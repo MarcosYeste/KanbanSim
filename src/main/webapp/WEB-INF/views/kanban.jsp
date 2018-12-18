@@ -120,6 +120,7 @@ ____________________________________________________________________
 		 <div class="chart-container chartTask" id= "taskChart" >
 		 <h2>Gráfico de Tareas</h2>
 			<canvas id="myChartTask"></canvas>
+			
 			<h2>Gráfico de Fases</h2>
 
 			<div class="chartWrapper">
