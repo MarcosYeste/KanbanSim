@@ -121,6 +121,9 @@ ____________________________________________________________________
 		 <h2>Gráfico de Tareas</h2>
 			<canvas id="myChartTask"></canvas>
 			
+			<div id="js-legend" class="chart-legend"></div>
+			
+			<br>
 			<h2>Gráfico de Fases</h2>
 
 			<div class="chartWrapper">

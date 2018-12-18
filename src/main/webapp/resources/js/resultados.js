@@ -12,13 +12,13 @@ function mostrarFinalTarea(tarea,task){
 }
 function mostrarResultados() {
 	calculoTiemposTotalesFase();
-	 
+
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 
 	div.style.background = "#63bafa";
 	div.innerHTML = "";	
 	rellenarResultados();
-	
+
 	//RESULTADOS TAREA 
 	var div3 = document.createElement("div");
 	div3.className = "tareaResultadoDiv";
@@ -44,7 +44,7 @@ function mostrarResultados() {
 	div5.appendChild(subdiv5);
 	div.appendChild(div5);
 	tableUser();
-	
+
 }
 
 
@@ -99,6 +99,7 @@ function mostrarGraficas (){
 	document.getElementById("addTask").setAttribute("aria-disabled", "true");
 	generarGraficos();
 	document.getElementById("graficos").setAttribute("onClick", "mostrarKanban()");
+
 }
 //GeneraGrafico
 function generarGraficos(){
@@ -107,4 +108,29 @@ function generarGraficos(){
 	document.getElementById("taskChart").style.display = "block";
 	refreshPhases();
 	graficPhase();
+
+
+	console.log(document.getElementsByClassName("columnas").length);
+	// Sirve para ocultar los elementos de la leyenda en el grafico de tareas
+	for (var j = 0; j < document.getElementsByClassName("columnas").length; j++) {
+		
+		
+		document.getElementsByClassName("columnas")[j].addEventListener("click", function(e){
+			//console.log(this);
+			var index = $(this).index();
+			// console.log($(this));
+			$(this).toggleClass("strike")
+			var ci = e.view.myChartTask;
+//			console.log(ci.data.datasets[index]._meta[1]);
+			// console.log(index)
+			for (var i = 0; i < 1; i++) {
+				var curr = ci.data.datasets[index]._meta[1];
+
+				curr.hidden = !curr.hidden
+			}
+
+			// We hid a dataset ... rerender the chart
+			ci.update();
+		})
+	}
 }

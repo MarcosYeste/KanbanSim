@@ -10,10 +10,22 @@ if(document.getElementById("myChartTask")){
 		},
 		options: {
 			legend: {
-				display: true,
+				display: false,
 				labels : {
 					usePointStyle : true,
 				},
+			},
+			legendCallback: function(chart) {
+				var text = [];
+				text.push('<div class="leyenda">');
+				for (var i = 0; i < chart.data.datasets.length; i++) {
+
+					text.push('<div class="columnas"><span style="background-color:' + chart.data.datasets[i].borderColor + '"></span>');
+					text.push(chart.data.datasets[i].label + '</div>');
+
+				}
+				text.push('</div>');
+				return text.join("");
 			},
 			scales: {
 				yAxes: [{
@@ -31,6 +43,9 @@ function addDataTask(chart, cycle, lead, esfuerzo, color, taskname) {
 	var newDataset  = addDataSet(chart, cycle, lead, esfuerzo, color, taskname);
 	if(newDataset != -1){
 		chart.data.datasets.push(newDataset);	
+
+		document.getElementById('js-legend').innerHTML = chart.generateLegend();
+
 		chart.update();
 	}
 }
@@ -76,4 +91,3 @@ function updateDataTask(chart, cycle, lead, esfuerzo, index){
 
 	chart.update();
 }
-

@@ -276,3 +276,38 @@ h1 {
 .chartTask{
 	 display:none; 
 }
+
+
+.chart-legend div span{
+	display:inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+}
+
+.chart-legend{
+  	height:250px;
+  	overflow:auto;
+}
+
+.chart-legend div{
+  cursor:pointer;
+}
+
+/* Nos aseguramos que se pinten bien las leyendas de la gráfica de tarea */
+.leyenda{
+	display:flex;
+	justify-content:space-around;
+	flex-wrap: wrap;
+	align-items: baseline;
+	align-content:space-around;
+	flex-basis: 1;	
+}
+.columnas{
+	padding: 4px;
+	width: 110px;
+	max-width: 110px;
+}
+.strike{
+     text-decoration: line-through !important;
+}

@@ -268,6 +268,7 @@ function play() {
 					} else if (task.state == "Doing" && task.name == elementName && task.tss != taskDuration &&
 							task.phase == (i + 1)) {
 						//IF 2
+						console.log("IF 2 " + task.name);
 						if (task.phase > 0) {
 							task.tss++;
 
@@ -288,13 +289,13 @@ function play() {
 											for(var t = 0; t < listTareas.length; t++){	
 												
 												if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
-													if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null ){
+													if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null && listPhases[task.phase - 1].name.trim() == user.phases[up].trim()){//&& listPhases[task.phase - 1].name.trim() == user.phases[up].trim()
 														isTotallyFree = true;
 													} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 														isTotallyFree = false;
 													}
 												}
-
+												console.log("if 2 1 " + task.name);
 												/**/
 
 												//Antigüo sistema
@@ -324,6 +325,7 @@ function play() {
 														isTotallyFree = false;
 													}
 												} 
+												console.log("IF 2 2 " + task.name);
 												//Antigüo sistema
 //												if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
 //												isTotallyFree = true;
@@ -360,6 +362,7 @@ function play() {
 												} else {
 													task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 												}
+												console.log("IF 2 duration " + task.name + " " + task.duration);
 											}
 										}
 									}
@@ -483,12 +486,15 @@ function play() {
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){0
 						//IF 5
+						console.log("IF 5 " + task.name);
+							
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
 
 							var phaseSkill;
 
 							listUsers.forEach(function(user) {
 								if(!user.assigned){
+									console.log("IF 5 1 "  + task.name);
 									if(task.assignedUsers[0] == null){
 										for(var up = 0; up <user.phases.length; up++){
 
@@ -516,19 +522,23 @@ function play() {
 										}
 									} else {
 										var isTotallyFree = false;
-
+										console.log("IF 5 2 " + task.name);
 										for(var up = 0; up<user.phases.length; up++){
 											for(var p = 0; p < fases.length; p++){
 
 												var phasesName = fases[p].children[0].childNodes[0].textContent.trim();
-
+												console.log("phase name " + phasesName + " user " + user.name + "user phase " + user.phases[up].trim() + " task phase " + task.phase);
 												if(user.phases[up].trim() != actualPhaseName.trim()){
 													for(var t = 0; t < listTareas.length; t++){	
 														if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
-															if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null ){
+															if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null && listPhases[task.phase - 1].name.trim() == user.phases[up].trim()){//&& listPhases[task.phase - 1].name.trim() == user.phases[up].trim()
 																isTotallyFree = true;
+																console.log("IF 5 2 1 1 " + listTareas[t].name + " " + listTareas[t].phase);
 															} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 																isTotallyFree = false;
+																console.log("IF 5 2 1 2");
+															} else {
+																console.log("void 5 2 1")
 															}
 														}
 													}
@@ -540,11 +550,13 @@ function play() {
 
 															if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null){
 																isTotallyFree = true;
-
+																console.log("IF 5 2 2 1");
 															} else if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim()){
 
 																isTotallyFree = false;
-
+																console.log("IF 5 2 2 2");
+															} else {
+																console.log("void 5 2 2")
 															}
 														} 
 													}
@@ -561,7 +573,7 @@ function play() {
 											user.tasksWorked += 1;
 											task.staticAssigneds += (user.name)+" ";
 
-										}
+										} 
 										user.assigned = true;
 //										ASSIGNED USERS
 										listPhases[i].assignedUsers.push(user.name);
@@ -572,7 +584,7 @@ function play() {
 										} else {
 											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 										}
-
+										console.log("IF 5 duration " + task.name + " " + task.duration);
 									}
 
 									if(user.assigned){
@@ -830,8 +842,7 @@ function play() {
 			}
 		}
 		
-	},10);
-
+	}, 1000);
 }
 
 //____________________________________________________________________
