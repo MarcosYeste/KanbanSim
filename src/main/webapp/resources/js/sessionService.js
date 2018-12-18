@@ -244,6 +244,8 @@ function removeUserSession(){
 }
 
 function removeAllSession(){
-	removePhaseSession();
-	removeUserSession();
+	if(!playing){
+		removePhaseSession();
+		removeUserSession();
+	}
 }

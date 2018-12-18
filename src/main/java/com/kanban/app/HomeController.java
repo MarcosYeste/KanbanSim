@@ -128,6 +128,12 @@ public class HomeController {
 				tareasTrabajadas, tiempoTrabajadoPorUsuario, tiempoOciosoPorUsuario, tiemposMejoresTrabajadores, tiemposPeoresTrabajadores, tiempoTrabajadoUsuarioPorFase, 
 				usuariosMasYMenosTrabajadores);
 		
+		System.out.println(resultadosPlay.getPhaseMediaTotal());
+		
+		for( int res : resultadosPlay.getTaskCycle()) {
+			System.out.println(res);
+		}
+		
 		return "success";
 	}
 
