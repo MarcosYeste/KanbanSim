@@ -9,6 +9,24 @@ if(document.getElementById("myChartTask")){
 			datasets: []
 		},
 		options: {
+			legend: {
+				display: false,
+				labels : {
+					usePointStyle : true,
+				},
+			},
+			legendCallback: function(chart) {
+				var text = [];
+				text.push('<div class="leyenda">');
+				for (var i = 0; i < chart.data.datasets.length; i++) {
+
+					text.push('<div class="columnas"><span style="background-color:' + chart.data.datasets[i].borderColor + '"></span>');
+					text.push(chart.data.datasets[i].label + '</div>');
+
+				}
+				text.push('</div>');
+				return text.join("");
+			},
 			scales: {
 				yAxes: [{
 					ticks: {
@@ -24,11 +42,14 @@ function addDataTask(chart, cycle, lead, esfuerzo, color, taskname) {
 
 	var newDataset  = addDataSet(chart, cycle, lead, esfuerzo, color, taskname);
 	if(newDataset != -1){
-		chart.data.datasets.push(newDataset);		
+		chart.data.datasets.push(newDataset);	
+
+		document.getElementById('js-legend').innerHTML = chart.generateLegend();
+
 		chart.update();
 	}
-
 }
+
 function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){      
 
 	var newDataset = {
@@ -39,7 +60,7 @@ function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){
 			borderWidth: 5
 	};
 	newDataset.label.push(taskname);
-	
+
 	// Si la tarea ya existe en la array
 	if(chart.data.datasets.length > 0){
 		for (var i = 0; i < chart.data.datasets.length; i++) {
@@ -60,6 +81,7 @@ function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){
 
 	return newDataset;
 }
+
 function updateDataTask(chart, cycle, lead, esfuerzo, index){
 	if(chart.data.datasets[index] != undefined){
 		chart.data.datasets[index].data[0] = esfuerzo;
