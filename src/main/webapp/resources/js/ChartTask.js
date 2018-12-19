@@ -87,7 +87,9 @@ function updateDataTask(chart, cycle, lead, esfuerzo, index){
 		chart.data.datasets[index].data[0] = esfuerzo;
 		chart.data.datasets[index].data[1] = cycle;
 		chart.data.datasets[index].data[2] = lead;
+		console.table(chart.data.datasets[index].data);
 	}
 
 	chart.update();
+		
 }

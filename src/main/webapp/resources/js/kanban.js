@@ -410,11 +410,11 @@ function play() {
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
-							console.log(listResultados[0].taskLead[indiceTareas]);
+							console.log(task.name);
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
 							indiceTareas++;
 							updateGraficPhase();
-
+							
 						} else {
 							// SI hay siguiente fase, pasa la tarea a ella, en estado ToDo
 							if (((parseInt(fases[i+1].lastElementChild.firstElementChild.childNodes.length) - 1) +
@@ -842,7 +842,7 @@ function play() {
 			}
 		}
 		
-	}, 1000);
+	}, 250);
 }
 
 //____________________________________________________________________
