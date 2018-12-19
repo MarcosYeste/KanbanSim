@@ -212,6 +212,18 @@ function modPhaseSession(id){
 	}
 }
 
+function emptyPhaseData(){
+	var sessionPhases = JSON.parse(sessionStorage.getItem("phases"));
+	if(sessionPhases != null){
+		for (var i = 0; i < sessionPhases.length; i++) {
+			sessionPhases[i].assignedUsers = [];
+		}
+
+		sessionStorage.setItem("phases", JSON.stringify(sessionPhases));
+	}
+}
+
+
 //____________________________________________________________________
 
 //_____________________ SESSION DISTRIBUTION  ________________________

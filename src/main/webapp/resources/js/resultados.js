@@ -1,11 +1,8 @@
 var showGraf = false;
 //Muestra el contenido de la tarea al terminar
 function mostrarFinalTarea(tarea,task){
-
 	task.leadTime = task.leadTime - task.creationTime;
-
 	task.cycleTime = task.leadTime - task.startTime;
-
 	tarea.innerHTML = '<p data-identification="'+ task.name +'">'+task.name+'</p><p data-identification="'+ task.name + '">CycleTime: '+task.cycleTime+'</p><p data-identification="'+ task.name + '">LeadTime: '+task.leadTime+'</p>';
 	rellenarResultados();
 	return tarea;
@@ -130,6 +127,7 @@ function mostrarGraficas (){
 				ci.update();
 			})
 		}
+
 	}
 }
 
@@ -140,4 +138,7 @@ function generarGraficos(){
 	document.getElementById("taskChart").style.display = "block";
 	refreshPhases();
 	graficPhase();
+
+	myChartTask.update();
+
 }

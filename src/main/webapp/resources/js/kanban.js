@@ -314,7 +314,7 @@ function play() {
 
 										} else if(user.phases[up].trim() == actualPhaseName.trim()){
 											phaseSkill = up;
-											console.log("if 2 2");
+											//console.log("if 2 2");
 											for(var t = 0; t < listTareas.length; t++){	
 												
 												if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == actualPhaseName.trim()){
@@ -326,7 +326,7 @@ function play() {
 														isTotallyFree = false;
 													}
 												} 
-												console.log("IF 2 2 " + task.name);
+												//console.log("IF 2 2 " + task.name);
 												//Antigüo sistema
 //												if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
 //												isTotallyFree = true;
@@ -363,7 +363,7 @@ function play() {
 												} else {
 													task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 												}
-												console.log("IF 2 duration " + task.name + " " + task.duration);
+												//console.log("IF 2 duration " + task.name + " " + task.duration);
 											}
 										}
 									}
@@ -409,13 +409,13 @@ function play() {
 							task.leadTime = leadTime;
 							task.phase = (-1);
 							saveTimeStates(task,leadTime,i);
-							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
+							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);							
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
-							//console.log(listResultados[0].taskLead[indiceTareas]);
-							indiceTareas = getIndex(task.name) - 1;
-							console.log(indiceTareas);
+
+							indiceTareas = getIndex(task.name) - 1;							
+
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
-							//indiceTareas++;
+						
 							updateGraficPhase();
 							
 						} else {
@@ -489,16 +489,16 @@ function play() {
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){0
 						//IF 5
-						console.log("IF 5 " + task.name);
+						//console.log("IF 5 " + task.name);
 							
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
-							console.log("if 5");
-							console.log(task.name);
+							//console.log("if 5");
+							//console.log(task.name);
 							var phaseSkill;
 
 							listUsers.forEach(function(user) {
 								if(!user.assigned){
-									console.log("IF 5 1 "  + task.name);
+									//console.log("IF 5 1 "  + task.name);
 									if(task.assignedUsers[0] == null){
 										for(var up = 0; up <user.phases.length; up++){
 
@@ -515,7 +515,7 @@ function play() {
 													task.staticAssigneds += (user.name)+" ";
 													user.tasksWorked += 1;
 												}
-												console.log("subif1");
+												//console.log("subif1");
 
 												for(var t = 0; t < divsTareas.length; t++){
 													if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
@@ -531,18 +531,18 @@ function play() {
 											for(var p = 0; p < fases.length; p++){
 
 												var phasesName = fases[p].children[0].childNodes[0].textContent.trim();
-												console.log("phase name " + phasesName + " user " + user.name + "user phase " + user.phases[up].trim() + " task phase " + task.phase);
+												//console.log("phase name " + phasesName + " user " + user.name + "user phase " + user.phases[up].trim() + " task phase " + task.phase);
 												if(user.phases[up].trim() != actualPhaseName.trim()){
 													for(var t = 0; t < listTareas.length; t++){	
 														if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
 															if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null && listPhases[task.phase - 1].name.trim() == user.phases[up].trim()){//&& listPhases[task.phase - 1].name.trim() == user.phases[up].trim()
 																isTotallyFree = true;
-																console.log("IF 5 2 1 1 " + listTareas[t].name + " " + listTareas[t].phase);
+																//console.log("IF 5 2 1 1 " + listTareas[t].name + " " + listTareas[t].phase);
 															} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 																isTotallyFree = false;
-																console.log("IF 5 2 1 2");
+																//console.log("IF 5 2 1 2");
 															} else {
-																console.log("void 5 2 1")
+																//console.log("void 5 2 1")
 															}
 														}
 													}
@@ -554,13 +554,13 @@ function play() {
 
 															if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null){
 																isTotallyFree = true;
-																console.log("IF 5 2 2 1");
+																//console.log("IF 5 2 2 1");
 															} else if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim()){
 
 																isTotallyFree = false;
-																console.log("IF 5 2 2 2");
+																//console.log("IF 5 2 2 2");
 															} else {
-																console.log("void 5 2 2")
+																//console.log("void 5 2 2")
 															}
 														} 
 													}
@@ -587,12 +587,12 @@ function play() {
 											task.duration = 1;
 										} else {
 											task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
-											console.log("TSS "+task.tss+"ASSIGNED LENGTH "+task.assignedUsers.length+" user.skills[phaseSkill] "+ user.skills[phaseSkill]);
+											//console.log("TSS "+task.tss+"ASSIGNED LENGTH "+task.assignedUsers.length+" user.skills[phaseSkill] "+ user.skills[phaseSkill]);
 											
 										}
-										console.log("IF 5 duration " + task.name + " " + task.duration);
+										//console.log("IF 5 duration " + task.name + " " + task.duration);
 									}
-									console.log(task.name + " time " + task.duration);
+									//console.log(task.name + " time " + task.duration);
 									if(user.assigned){
 
 										document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
@@ -762,7 +762,7 @@ function play() {
 		leadTime += 1;
 
 		// Calculamos el tiempo para parar el play con el timer
-		console.log("::: LEAD TIME ::::: "+leadTime);
+		console.log("::: SEGUNDOS ::::: "+leadTime);
 		if(chronoTime != ""){
 
 			if(chronoTime > 59){
@@ -848,7 +848,7 @@ function play() {
 			}
 		}
 		
-	}, 250);
+	}, 100);
 }
 
 //____________________________________________________________________
