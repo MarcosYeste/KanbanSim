@@ -169,10 +169,10 @@ h1 {
 
 /*---------------------------------------------------- TABLES ----------------------------------------------*/
 .table-fixed, .table-fixed thead, .table-fixed tbody {
-	max-width: 100%;
 	table-layout: fixed;
 	width: 100%;
 	margin: auto;
+	
 }
 
 .table-fixed th, .table-fixed td {
@@ -187,7 +187,7 @@ h1 {
 .table-fixed tbody {
 	height: 270px;
 	overflow: auto;
-	overflow-x: hidden;
+/* 	overflow-x: hidden; */	
 	display: block;
 	width: 100%;
 }
@@ -196,6 +196,12 @@ h1 {
 	display: table;
 	width: 100%;
 	table-layout: fixed;
+}
+.table-fixed .lim{
+	width: 100%;
+	min-width: 10%;
+	max-width: 100%;
+	overflow-x:auto;
 }
 
 /*---------------------------------------------------- SCROLLBAR ----------------------------------------------*/

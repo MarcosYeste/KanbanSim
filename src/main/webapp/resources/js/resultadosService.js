@@ -176,13 +176,13 @@ function buscarMasTrabajador(opcion){
 //print table Task
 function tableTask(){
 
-	if(listResultados[0].taskCycle[0] != undefined){
-		document.getElementById("saveResult").removeAttribute("disabled");
-		document.getElementById("saveResult").setAttribute("aria-disabled", "false");
-	}else{
-		document.getElementById("saveResult").setAttribute("disabled", "");
-		document.getElementById("saveResult").setAttribute("aria-disabled", "true");
-	}
+//	if(listResultados[0].taskCycle[0] != undefined){
+//		document.getElementById("saveResult").removeAttribute("disabled");
+//		document.getElementById("saveResult").setAttribute("aria-disabled", "false");
+//	}else{
+//		document.getElementById("saveResult").setAttribute("disabled", "");
+//		document.getElementById("saveResult").setAttribute("aria-disabled", "true");
+//	}
 
 	var subDiv = document.getElementById("tareaResultado");
 	subDiv.innerHTML = "";
