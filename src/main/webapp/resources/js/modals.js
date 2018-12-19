@@ -115,6 +115,7 @@ function saveAddPhase(){
 		
 		listPhases.push(phaseO);
 		savePhaseSession();
+		emptyPhaseData();
 		printLastPhase();
 	}
 }
@@ -664,7 +665,6 @@ function saveModUsers() {
 
 		modLabel(myChart, oldName, listUsers[click2].name);
 		saveUsersSession();
-		emptyPhaseData();
 		modUserSession(click2);
 		
 	}
