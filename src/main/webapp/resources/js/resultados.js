@@ -1,12 +1,8 @@
 var showGraf = false;
 //Muestra el contenido de la tarea al terminar
 function mostrarFinalTarea(tarea,task){
-	console.log(task.name+"----"+task.leadTime+" - "+task.creationTime);
 	task.leadTime = task.leadTime - task.creationTime;
-console.log("lead"+task.leadTime);
 	task.cycleTime = task.leadTime - task.startTime;
-console.log("cycle"+task.cycleTime);
-console.log(":::::::::::::::::::::::");
 	tarea.innerHTML = '<p data-identification="'+ task.name +'">'+task.name+'</p><p data-identification="'+ task.name + '">CycleTime: '+task.cycleTime+'</p><p data-identification="'+ task.name + '">LeadTime: '+task.leadTime+'</p>';
 	rellenarResultados();
 	return tarea;
@@ -110,20 +106,14 @@ function generarGraficos(){
 	refreshPhases();
 	graficPhase();
 
-
-	console.log(document.getElementsByClassName("columnas").length);
 	// Sirve para ocultar los elementos de la leyenda en el grafico de tareas
 	for (var j = 0; j < document.getElementsByClassName("columnas").length; j++) {
 		
 		
 		document.getElementsByClassName("columnas")[j].addEventListener("click", function(e){
-			//console.log(this);
 			var index = $(this).index();
-			// console.log($(this));
 			$(this).toggleClass("strike")
 			var ci = e.view.myChartTask;
-//			console.log(ci.data.datasets[index]._meta[1]);
-			// console.log(index)
 			for (var i = 0; i < 1; i++) {
 				var curr = ci.data.datasets[index]._meta[1];
 
