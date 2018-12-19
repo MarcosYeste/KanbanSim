@@ -7,7 +7,7 @@ var myChart = new Chart(ctx, {
 		labels: [],
 		datasets: [{
 
-			label: ['Task Worked'],
+			label: ['Tareas Trabajadas'],
 			data: [],
 			backgroundColor: [
 
@@ -20,7 +20,7 @@ var myChart = new Chart(ctx, {
 						],
 						borderWidth: 0
 		}, {
-			label: 'Time Worked',
+			label: 'Tiempo Trabajado',
 			data: [],
 			type: "line",
 			backgroundColor: [

@@ -80,15 +80,17 @@ var myChartPhase = new Chart(ctcs, {
 			backgroundColor:[],
 			hoverBackgroundColor:[],
 		},{
-			label: 'Media ToDO',
+
+			label: 'Tiempo Total ToDo',
 			data:[],
 			backgroundColor:[],
 		},{
-			label: 'Media Doing',
+			label: 'Tiempo Total Doing',
 			data:[],
 			backgroundColor:[],
 		},{
-			label: 'Media Done',
+			label: 'Tiempo Total Done',
+
 			data:[],
 			backgroundColor:[],
 		},

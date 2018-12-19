@@ -128,7 +128,6 @@ function rellenarResultados(){
 		}
 		resultadosO.userSecondsPhase.push(user.secondByPhase);
 	});
-	console.log("SECOND FASE ANTES:"+resultadosO.userSecondsPhase);
 	
 	for (var i = 0; i < listUsers.length; i++) {
 		for (var j = 0; j < listPhases.length; j++) {
@@ -137,8 +136,6 @@ function rellenarResultados(){
 				}
 			}
 		}
-	
-	console.log("SECOND FASE DESPUES:"+resultadosO.userSecondsPhase);
 	
 	resultadosO.userBestWorker.push(buscarMasTrabajador('max'));
 	resultadosO.userLessWorker.push(buscarMasTrabajador('min'));
@@ -285,7 +282,6 @@ function updateGraficPhase(){
 
 
 function tablePhase(){
-	console.log(listResultados[0]);
 	// Resultado fases
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
 	var div4 =  document.createElement("div");
@@ -767,7 +763,6 @@ $( "#result" ).click(function() {
 
 function saveResults(){
 	var object = JSON.stringify(listResultados[0]);
-	console.log(object);
 	$.ajax({
 		type: "POST",
 		url: "/saveResults",
