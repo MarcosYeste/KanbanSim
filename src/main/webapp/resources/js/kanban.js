@@ -724,12 +724,14 @@ function play() {
 
 				lowestTime = findMaxAndMin();
 				lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
-
+				
+			if(lazyPeople[1] != undefined){
 				for(var i = 0; i < lazyPeople[1].length; i++){
 					if(lazyPeople[1][i] != ""){
 						document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
 					}
 				}
+			}
 
 			}
 		} else if (distribution.backLogType == "constant"){
@@ -757,9 +759,9 @@ function play() {
 
 			}
 		}
-
-
 		leadTime += 1;
+if(divsTareas.length == 0){leadTime = 0;}
+		
 
 		// Calculamos el tiempo para parar el play con el timer
 		console.log("::: SEGUNDOS ::::: "+leadTime);
