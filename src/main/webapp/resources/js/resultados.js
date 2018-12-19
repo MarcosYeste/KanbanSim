@@ -97,7 +97,39 @@ function mostrarGraficas (){
 	generarGraficos();
 	document.getElementById("graficos").setAttribute("onClick", "mostrarKanban()");
 
+
+	if(document.getElementById("js-legend")){
+		for (var i = 0; i < myChartTask.data.datasets.length; i++) {
+			if(myChartTask.data.datasets[i]._meta[1].hidden == true){
+				myChartTask.data.datasets[i]._meta[1].hidden = false
+			}
+			myChartTask.update();
+		}
+
+		for (var j = 0; j < document.getElementsByClassName("columnas").length; j++) {
+			document.getElementsByClassName("columnas")[j].setAttribute("class", "columnas");
+		}
+
+		// Sirve para ocultar los elementos de la leyenda en el grafico de tareas
+		for (var j = 0; j < document.getElementsByClassName("columnas").length; j++) {
+
+			document.getElementsByClassName("columnas")[j].addEventListener("click", function(e){
+				var index = $(this).index();
+				$(this).toggleClass("strike");
+				var ci = e.view.myChartTask;
+				for (var i = 0; i < 1; i++) {
+					var curr = ci.data.datasets[index]._meta[1];
+
+					curr.hidden = !curr.hidden
+				}
+
+				// We hid a dataset ... rerender the chart
+				ci.update();
+			})
+		}
+	}
 }
+
 //GeneraGrafico
 function generarGraficos(){
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
@@ -106,22 +138,4 @@ function generarGraficos(){
 	refreshPhases();
 	graficPhase();
 
-	// Sirve para ocultar los elementos de la leyenda en el grafico de tareas
-	for (var j = 0; j < document.getElementsByClassName("columnas").length; j++) {
-		
-		
-		document.getElementsByClassName("columnas")[j].addEventListener("click", function(e){
-			var index = $(this).index();
-			$(this).toggleClass("strike")
-			var ci = e.view.myChartTask;
-			for (var i = 0; i < 1; i++) {
-				var curr = ci.data.datasets[index]._meta[1];
-
-				curr.hidden = !curr.hidden
-			}
-
-			// We hid a dataset ... rerender the chart
-			ci.update();
-		})
-	}
 }

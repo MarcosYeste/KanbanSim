@@ -415,7 +415,7 @@ function play() {
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
 							//indiceTareas++;
 							updateGraficPhase();
-
+							
 						} else {
 							// SI hay siguiente fase, pasa la tarea a ella, en estado ToDo
 							if (((parseInt(fases[i+1].lastElementChild.firstElementChild.childNodes.length) - 1) +
@@ -846,9 +846,7 @@ function play() {
 			}
 		}
 		
-
 	}, 100);
-
 }
 
 //____________________________________________________________________
