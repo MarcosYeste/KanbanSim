@@ -83,6 +83,8 @@ function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){
 }
 
 function updateDataTask(chart, cycle, lead, esfuerzo, index){
+	console.log("index" + index);
+	console.log("datas " + cycle + " " + lead + " " + esfuerzo)
 	if(chart.data.datasets[index] != undefined){
 		chart.data.datasets[index].data[0] = esfuerzo;
 		chart.data.datasets[index].data[1] = cycle;
@@ -90,4 +92,10 @@ function updateDataTask(chart, cycle, lead, esfuerzo, index){
 	}
 
 	chart.update();
+}
+
+function getIndex(taskName){
+	console.log("TaskName " + taskName);
+	console.log("Subsstring " + taskName.substring(4, taskName.length));
+	return parseInt(taskName.substring(4, taskName.length));
 }
