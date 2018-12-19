@@ -410,8 +410,10 @@ function play() {
 							task.phase = (-1);
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
+							console.log(listTareas);
+							console.log(listResultados[0]);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
-							console.log(listResultados[0].taskLead[indiceTareas]);
+							console.log("** "+task.name+" CYCLE TIME "+listResultados[0].taskCycle[indiceTareas]+" LEAD TIME "+listResultados[0].taskEsfuerzo[indiceTareas]);
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
 							indiceTareas++;
 							updateGraficPhase();
@@ -846,7 +848,7 @@ function play() {
 			}
 		}
 		
-	}, 1000);
+	}, 100);
 }
 
 //____________________________________________________________________

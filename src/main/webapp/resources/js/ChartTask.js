@@ -83,11 +83,19 @@ function addDataSet(chart, cycle, lead, esfuerzo, color, taskname){
 }
 
 function updateDataTask(chart, cycle, lead, esfuerzo, index){
+	console.log("DENTRO FUNCION CYLE "+cycle+" LEAD "+ lead+" ESFUERZO "+esfuerzo);
+	console.log(" IF UNDEFINED ?? "+chart.data.datasets[index]+" CON INDICE "+index);
 	if(chart.data.datasets[index] != undefined){
+		console.log("DENTRO IF "+cycle+" LEAD "+ lead+" ESFUERZO "+esfuerzo);
 		chart.data.datasets[index].data[0] = esfuerzo;
 		chart.data.datasets[index].data[1] = cycle;
 		chart.data.datasets[index].data[2] = lead;
+		console.log("GUARDADO :: "+chart.data.datasets[index].data[0]+" "+chart.data.datasets[index].data[1]+" "+chart.data.datasets[index].data[2]);
 	}
-
+try{
 	chart.update();
+}catch (e) {
+	console.log("NO HACE UPDATE");
+}
+	
 }
