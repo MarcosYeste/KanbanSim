@@ -411,11 +411,11 @@ function play() {
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
-							//console.log(listResultados[0].taskLead[indiceTareas]);
+							
 							indiceTareas = getIndex(task.name) - 1;
 							console.log(indiceTareas);
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
-							//indiceTareas++;
+						
 							updateGraficPhase();
 							
 						} else {

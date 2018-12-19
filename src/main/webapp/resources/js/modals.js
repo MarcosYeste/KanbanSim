@@ -166,7 +166,7 @@ function saveModPhase() {
 	}
 
 	savePhaseSession();
-	
+	emptyPhaseData();
 	modPhaseSession(click);
 	
 }
@@ -664,6 +664,7 @@ function saveModUsers() {
 
 		modLabel(myChart, oldName, listUsers[click2].name);
 		saveUsersSession();
+		emptyPhaseData();
 		modUserSession(click2);
 		
 	}

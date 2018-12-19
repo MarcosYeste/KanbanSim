@@ -130,6 +130,7 @@ function mostrarGraficas (){
 				ci.update();
 			})
 		}
+		
 	}
 }
 
@@ -140,4 +141,5 @@ function generarGraficos(){
 	document.getElementById("taskChart").style.display = "block";
 	refreshPhases();
 	graficPhase();
+	myChartTask.update();
 }

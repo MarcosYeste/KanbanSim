@@ -267,8 +267,6 @@ function updateGraficPhase(){
 	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
 
-
-
 	if(listResultados[0] != undefined){
 		updateDataPhase(myChartPhase,listResultados[0].phaseSumaStates[0]);
 	}
