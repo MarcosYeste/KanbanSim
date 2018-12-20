@@ -1,5 +1,7 @@
 package com.kanban.app;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -22,6 +24,7 @@ import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 import com.kanban.app.services.KanbanService;
 
+
 /**
  * Handles requests for the application home page.
  */
@@ -36,8 +39,6 @@ public class HomeController {
 	List<Task> taskArray = new ArrayList<Task>();
 	List<User> userArray = new ArrayList<User>();
 	ArrayList<String> allPhases = new ArrayList<String>();
-
-
 
 
 	/**
@@ -55,12 +56,12 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
-	public String succes(Model model) {
-
+	public String succes(Model model) throws MalformedURLException {
+		
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
-
+		
 		return "kanban";
 	}
 
@@ -359,6 +360,7 @@ public class HomeController {
 		return val + "," + String.valueOf(number);
 	}
 
+	
 
 	// Add New Phase
 	public void addPhases(String phase) {
