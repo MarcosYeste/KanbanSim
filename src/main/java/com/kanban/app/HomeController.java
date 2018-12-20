@@ -21,6 +21,9 @@ import com.kanban.app.Model.Results;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 import com.kanban.app.services.KanbanService;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 /**
  * Handles requests for the application home page.
@@ -60,7 +63,18 @@ public class HomeController {
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
-
+		try {
+			
+			
+			HttpResponse response = Unirest.get("https://kunban-1205.restdb.io/rest/columns")
+					  .header("x-apikey", "5b6b016c7f5a7fb0b8936dc5d57f71bcc356c")
+					  .header("cache-control", "no-cache")
+					  .asString();
+			System.out.println(response.getBody());
+		} catch (UnirestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "kanban";
 	}
 
