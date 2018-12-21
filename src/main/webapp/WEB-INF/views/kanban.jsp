@@ -46,13 +46,13 @@ ____________________________________________________________________
 				data-placement="top" title="Mostrar Graficos"></i>
 		</button>
 		
-		<!-- <div id="saveResultsButton">
+		 <div id="saveResultsButton">
 			<button id="saveResult" onclick="saveResults()" class="resultbutt"
 				style="display: none">
 				<i class="fas fa-save fa-4x" data-toggle="tooltip"
 					data-placement="top" title="Guardar Resultados"></i>
 			</button>
-		</div> -->
+		</div> 
 		
 	</div>
 	
