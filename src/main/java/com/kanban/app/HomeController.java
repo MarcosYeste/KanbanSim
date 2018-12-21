@@ -23,6 +23,9 @@ import com.kanban.app.Model.Results;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 import com.kanban.app.services.KanbanService;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 
 /**
@@ -57,84 +60,106 @@ public class HomeController {
 
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public String succes(Model model) throws MalformedURLException {
-		
+
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
-		
+
 		return "kanban";
 	}
 
 	// Save Results Server
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/saveResults", method = RequestMethod.POST)
-	public String guardarResultados(String resultados) {
-		System.out.println(resultados);
+	public String guardarResultados(String resultados) throws ParseException {
+		//		System.out.println(resultados);
+		//
+		// JSONParser parser = new JSONParser();
+		//		
+		//		Object obj = null;
+		//		try {
+		//			obj = parser.parse(resultados);
+		//		} catch (ParseException e) {
+		//
+		//			e.printStackTrace();
+		//		}
+		//		JSONObject jsonobject = (JSONObject) obj;
+		//
+		//		Object taskCycle 			= 	jsonobject.get("taskCycle"); 		  // int[]
+		//		Object taskLead 			= 	jsonobject.get("taskLead"); 		  // int[]
+		//		Object taskEsfuerzo 		= 	jsonobject.get("taskEsfuerzo");		  // int[]
+		//		Object taskUsuarios 		= 	jsonobject.get("taskUsuarios");		  // String[]
+		//		Object taskMediaCL 			= 	jsonobject.get("taskMediaCL");		  // double[]
+		//		Object taskBacklog 			= 	jsonobject.get("taskBacklog");		  // int[]
+		//		Object taskPhasesSeconds  	= 	jsonobject.get("taskPhasesSeconds");  // int[][]
+		//		Object phaseStatesSeconds 	= 	jsonobject.get("phaseStatesSeconds"); // int[][][]
+		//		Object phaseSumaStates 		= 	jsonobject.get("phaseSumaStates");	  // int[][][]
+		//		Object phaseMediaFase 		= 	jsonobject.get("phaseMediaFase");	  // double[][][]
+		//		Object phaseMediaTask 		= 	jsonobject.get("phaseMediaTask");	  // double[][][]
+		//		Object phaseMediaTotal 		= 	jsonobject.get("phaseMediaTotal");	  // double
+		//		Object phaseSecondsTotal 	= 	jsonobject.get("phaseSecondsTotal");  // int[]
+		//		Object userTaskWorked 		= 	jsonobject.get("userTaskWorked");	  // int[]
+		//		Object userActiveTime 		= 	jsonobject.get("userActiveTime");	  // int[]
+		//		Object userInactiveTime 	= 	jsonobject.get("userInactiveTime");	  // int[]
+		//		Object userBestWorker 		= 	jsonobject.get("userBestWorker");	  // int[]
+		//		Object userLessWorker 		= 	jsonobject.get("userLessWorker");	  // int[]
+		//		Object userSecondsPhase		= 	jsonobject.get("userSecondsPhase");	  // int[][]
+		//		Object userNamesWorstBest 	= 	jsonobject.get("userNamesWorstBest"); // String[][]
+		//
+		//		int[] cycleTime = KanbanService.fromStrtoIntArray(String.valueOf(taskCycle));
+		//		int[] leadTime = KanbanService.fromStrtoIntArray(String.valueOf(taskLead));
+		//		int[] esfuerzo = KanbanService.fromStrtoIntArray(String.valueOf(taskEsfuerzo));
+		//		String[] usuarios = KanbanService.fromStrtoStrArray(String.valueOf(taskUsuarios));
+		//		double[] mediaCycleTime = KanbanService.fromStrtoDoubleArray(String.valueOf(taskMediaCL));
+		//		int[] backlog = KanbanService.fromStrtoIntArray(String.valueOf(taskBacklog));
+		//		int[][] tiempoPorFases = KanbanService.fromStrtoIntArray2D(String.valueOf(taskPhasesSeconds));
+		//		int[][][] tiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseStatesSeconds));
+		//		int[][][] sumaTiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseSumaStates));
+		//		double[][][] tiempoMedioPorFase = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaFase));
+		//		double[][][] tiempoMedioTarea = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaTask));
+		//		double MediaTiempoTotalFase= Double.parseDouble(phaseMediaTotal.toString());
+		//		int[] totalTiempoPorFase = KanbanService.fromStrtoIntArray(String.valueOf(phaseSecondsTotal));
+		//		int[] tareasTrabajadas = KanbanService.fromStrtoIntArray(String.valueOf(userTaskWorked));
+		//		int[] tiempoTrabajadoPorUsuario = KanbanService.fromStrtoIntArray(String.valueOf(userActiveTime));
+		//		int[] tiempoOciosoPorUsuario = KanbanService.fromStrtoIntArray(String.valueOf(userInactiveTime));
+		//		int[] tiemposMejoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userBestWorker));
+		//		int[] tiemposPeoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userLessWorker));
+		//		int[][] tiempoTrabajadoUsuarioPorFase = KanbanService.fromStrtoIntArray2D(String.valueOf(userSecondsPhase));
+		//		String[][] usuariosMasYMenosTrabajadores = KanbanService.fromStrtoStrArray2D(String.valueOf(userNamesWorstBest));		
+		//		
+		//		Results resultadosPlay = new Results(cycleTime, leadTime, esfuerzo, usuarios, mediaCycleTime, backlog, tiempoPorFases,
+		//				tiempoPorEstados, sumaTiempoPorEstados, tiempoMedioPorFase, tiempoMedioTarea, MediaTiempoTotalFase, totalTiempoPorFase, 
+		//				tareasTrabajadas, tiempoTrabajadoPorUsuario, tiempoOciosoPorUsuario, tiemposMejoresTrabajadores, tiemposPeoresTrabajadores, tiempoTrabajadoUsuarioPorFase, 
+		//				usuariosMasYMenosTrabajadores);
+		//		
+		//		System.out.println(resultadosPlay.getPhaseMediaTotal());
+		//		
+		//		for( int res : resultadosPlay.getTaskCycle()) {
+		//			System.out.println(res);
+		//		}
+		//		
 
-		JSONParser parser = new JSONParser();
-		
-		Object obj = null;
 		try {
-			obj = parser.parse(resultados);
-		} catch (ParseException e) {
+
+			HttpResponse post = Unirest.post("https://kanban-edd1.restdb.io/rest/kanban")
+					.header("content-type", "application/json")
+					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
+					.header("cache-control", "no-cache")
+					.body(resultados)
+					.asString();
+
+			HttpResponse response = Unirest.get("https://kanban-edd1.restdb.io/rest/kanban")
+					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
+					.header("cache-control", "no-cache")
+					.asString();
+
+			System.out.println(response.getBody());
+
+		} catch (UnirestException e) {
 
 			e.printStackTrace();
 		}
-		JSONObject jsonobject = (JSONObject) obj;
 
-		Object taskCycle 			= 	jsonobject.get("taskCycle"); 		  // int[]
-		Object taskLead 			= 	jsonobject.get("taskLead"); 		  // int[]
-		Object taskEsfuerzo 		= 	jsonobject.get("taskEsfuerzo");		  // int[]
-		Object taskUsuarios 		= 	jsonobject.get("taskUsuarios");		  // String[]
-		Object taskMediaCL 			= 	jsonobject.get("taskMediaCL");		  // double[]
-		Object taskBacklog 			= 	jsonobject.get("taskBacklog");		  // int[]
-		Object taskPhasesSeconds  	= 	jsonobject.get("taskPhasesSeconds");  // int[][]
-		Object phaseStatesSeconds 	= 	jsonobject.get("phaseStatesSeconds"); // int[][][]
-		Object phaseSumaStates 		= 	jsonobject.get("phaseSumaStates");	  // int[][][]
-		Object phaseMediaFase 		= 	jsonobject.get("phaseMediaFase");	  // double[][][]
-		Object phaseMediaTask 		= 	jsonobject.get("phaseMediaTask");	  // double[][][]
-		Object phaseMediaTotal 		= 	jsonobject.get("phaseMediaTotal");	  // double
-		Object phaseSecondsTotal 	= 	jsonobject.get("phaseSecondsTotal");  // int[]
-		Object userTaskWorked 		= 	jsonobject.get("userTaskWorked");	  // int[]
-		Object userActiveTime 		= 	jsonobject.get("userActiveTime");	  // int[]
-		Object userInactiveTime 	= 	jsonobject.get("userInactiveTime");	  // int[]
-		Object userBestWorker 		= 	jsonobject.get("userBestWorker");	  // int[]
-		Object userLessWorker 		= 	jsonobject.get("userLessWorker");	  // int[]
-		Object userSecondsPhase		= 	jsonobject.get("userSecondsPhase");	  // int[][]
-		Object userNamesWorstBest 	= 	jsonobject.get("userNamesWorstBest"); // String[][]
-
-		int[] cycleTime = KanbanService.fromStrtoIntArray(String.valueOf(taskCycle));
-		int[] leadTime = KanbanService.fromStrtoIntArray(String.valueOf(taskLead));
-		int[] esfuerzo = KanbanService.fromStrtoIntArray(String.valueOf(taskEsfuerzo));
-		String[] usuarios = KanbanService.fromStrtoStrArray(String.valueOf(taskUsuarios));
-		double[] mediaCycleTime = KanbanService.fromStrtoDoubleArray(String.valueOf(taskMediaCL));
-		int[] backlog = KanbanService.fromStrtoIntArray(String.valueOf(taskBacklog));
-		int[][] tiempoPorFases = KanbanService.fromStrtoIntArray2D(String.valueOf(taskPhasesSeconds));
-		int[][][] tiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseStatesSeconds));
-		int[][][] sumaTiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseSumaStates));
-		double[][][] tiempoMedioPorFase = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaFase));
-		double[][][] tiempoMedioTarea = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaTask));
-		double MediaTiempoTotalFase= Double.parseDouble(phaseMediaTotal.toString());
-		int[] totalTiempoPorFase = KanbanService.fromStrtoIntArray(String.valueOf(phaseSecondsTotal));
-		int[] tareasTrabajadas = KanbanService.fromStrtoIntArray(String.valueOf(userTaskWorked));
-		int[] tiempoTrabajadoPorUsuario = KanbanService.fromStrtoIntArray(String.valueOf(userActiveTime));
-		int[] tiempoOciosoPorUsuario = KanbanService.fromStrtoIntArray(String.valueOf(userInactiveTime));
-		int[] tiemposMejoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userBestWorker));
-		int[] tiemposPeoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userLessWorker));
-		int[][] tiempoTrabajadoUsuarioPorFase = KanbanService.fromStrtoIntArray2D(String.valueOf(userSecondsPhase));
-		String[][] usuariosMasYMenosTrabajadores = KanbanService.fromStrtoStrArray2D(String.valueOf(userNamesWorstBest));		
-		
-		Results resultadosPlay = new Results(cycleTime, leadTime, esfuerzo, usuarios, mediaCycleTime, backlog, tiempoPorFases,
-				tiempoPorEstados, sumaTiempoPorEstados, tiempoMedioPorFase, tiempoMedioTarea, MediaTiempoTotalFase, totalTiempoPorFase, 
-				tareasTrabajadas, tiempoTrabajadoPorUsuario, tiempoOciosoPorUsuario, tiemposMejoresTrabajadores, tiemposPeoresTrabajadores, tiempoTrabajadoUsuarioPorFase, 
-				usuariosMasYMenosTrabajadores);
-		
-		System.out.println(resultadosPlay.getPhaseMediaTotal());
-		
-		for( int res : resultadosPlay.getTaskCycle()) {
-			System.out.println(res);
-		}
-		
 		return "success";
 	}
 
@@ -360,7 +385,7 @@ public class HomeController {
 		return val + "," + String.valueOf(number);
 	}
 
-	
+
 
 	// Add New Phase
 	public void addPhases(String phase) {
