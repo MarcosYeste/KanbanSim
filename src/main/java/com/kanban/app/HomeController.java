@@ -1,13 +1,14 @@
 package com.kanban.app;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
+//import org.json.simple.JSONObject; Ccomentado para recuperar resultado
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kanban.app.Model.Phase;
-import com.kanban.app.Model.Results;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 import com.kanban.app.services.KanbanService;
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
@@ -73,7 +74,7 @@ public class HomeController {
 	public String guardarResultados(String resultados) throws ParseException {
 		//		System.out.println(resultados);
 		//
-		// JSONParser parser = new JSONParser();
+		 JSONParser parser = new JSONParser();
 		//		
 		//		Object obj = null;
 		//		try {
@@ -138,27 +139,50 @@ public class HomeController {
 		//		}
 		//		
 
-		try {
-
-			HttpResponse post = Unirest.post("https://kanban-edd1.restdb.io/rest/kanban")
-					.header("content-type", "application/json")
-					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
-					.header("cache-control", "no-cache")
-					.body(resultados)
-					.asString();
-
-			HttpResponse response = Unirest.get("https://kanban-edd1.restdb.io/rest/kanban")
-					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
-					.header("cache-control", "no-cache")
-					.asString();
-
-			System.out.println(response.getBody());
-
-		} catch (UnirestException e) {
-
-			e.printStackTrace();
+		 
+		 // PRUEBAS PARA TENERLAS DE PATRÓN
+//			JSONObject data = new JSONObject();
+//			data.put("name", "foo");
+//			data.put("num", new Integer(100));
+//			data.put("balance", new Double(1000.21));
+//			data.put("is_vip", new Boolean(true));
+			//System.out.println(data);
+//			HttpResponse response = Unirest.post("https://kunban-1205.restdb.io/rest/columns")
+//					  .header("content-type", "application/json")
+//					  .header("x-apikey", "5b6b016c7f5a7fb0b8936dc5d57f71bcc356c")
+//					  .header("cache-control", "no-cache")
+//					  .body("{\"name\":\"xyz\",\"data\":"+data+"}")
+//					  .asString();
+//			
+//			HttpResponse responses = Unirest.get("https://kunban-1205.restdb.io/rest/columns")
+//					  .header("x-apikey", "5b6b016c7f5a7fb0b8936dc5d57f71bcc356c")
+//					  .header("cache-control", "no-cache")
+//					  .asJson();
+//			
+//			System.out.println(responses.getBody());
+//			 JsonNode node = (JsonNode) responses.getBody();
+//			 System.out.println(node.getArray().getJSONObject(1).get("data"));
+//			 JSONObject node2 = (JSONObject) node.getArray().getJSONObject(1).get("data");
+//			 System.out.println(" a " + node2.getDouble("balance")); 
+		 try {
+			 HttpResponse ret = Unirest.get("https://kanban-edd1.restdb.io/rest/kanbanblueprint")
+						.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
+						.header("cache-control", "no-cache")
+						.asJson();
+			System.out.println(ret.getBody());
+			JsonNode noderet = (JsonNode) ret.getBody();
+			 System.out.println(noderet.getArray().getJSONObject(0).get("listUsers"));
+			 try {
+				 JSONArray noderet2 = (JSONArray) noderet.getArray().getJSONObject(0).get("listUsers");
+				 System.out.println(noderet2.getJSONObject(0).getString("name")); 
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("pup " + e);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-
 		return "success";
 	}
 
@@ -410,5 +434,22 @@ public class HomeController {
 
 		}
 		phaseExist = false;
+	}
+	
+	
+	
+	@RequestMapping(value = "/saveBluePrint", method = RequestMethod.POST)
+	public @ResponseBody void saveBluePrint(String name, String data) {
+
+
+
+	}
+	
+	@RequestMapping(value = "/getSavedBluePrint", method = RequestMethod.GET)
+	public @ResponseBody String getSavedBluePrint(String name) {
+
+		
+
+		return "a";
 	}
 }
