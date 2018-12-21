@@ -69,100 +69,6 @@ public class HomeController {
 		return "kanban";
 	}
 
-	// Save Results Server
-	@SuppressWarnings({ "unused", "rawtypes" })
-	@RequestMapping(value = "/saveResults", method = RequestMethod.POST)
-	public String guardarResultados(String resultados){
-		System.out.println(resultados);
-
-
-		JSONParser parser = new JSONParser();
-
-		Object obj = null;
-		try {
-			obj = parser.parse(resultados);
-		} catch (ParseException e) {
-
-			e.printStackTrace();
-		}
-		JSONObject jsonobject = (JSONObject) obj;
-
-		Object blueprint = jsonobject.get("nameBlueprint");
-		Object listUsers = jsonobject.get("listUsers");
-		Object listPhases = jsonobject.get("listPhases");
-
-		System.out.println(blueprint);
-		System.out.println(listUsers);
-		System.out.println(listPhases);
-
-		
-//		try {
-//
-//			HttpResponse post = Unirest.post("https://kanban-edd1.restdb.io/rest/kanbanblueprint")
-//					.header("content-type", "application/json")
-//					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
-//					.header("cache-control", "no-cache")
-//					.body("{\"NameBlueprint\":\""+ blueprint +"\",\"listUsers\":"+ listUsers+",\"listPhases\":"+ listPhases+"}")
-//					.asString();
-//
-//		} catch (UnirestException e) {
-//
-//			e.printStackTrace();
-//		}
-
-		// PRUEBAS PARA TENERLAS DE PATRÓN
-		//			JSONObject data = new JSONObject();
-		//			data.put("name", "foo");
-		//			data.put("num", new Integer(100));
-		//			data.put("balance", new Double(1000.21));
-		//			data.put("is_vip", new Boolean(true));
-		//System.out.println(data);
-		//			HttpResponse response = Unirest.post("https://kunban-1205.restdb.io/rest/columns")
-		//					  .header("content-type", "application/json")
-		//					  .header("x-apikey", "5b6b016c7f5a7fb0b8936dc5d57f71bcc356c")
-		//					  .header("cache-control", "no-cache")
-		//					  .body("{\"name\":\"xyz\",\"data\":"+data+"}")
-		//					  .asString();
-		//			
-		//			HttpResponse responses = Unirest.get("https://kunban-1205.restdb.io/rest/columns")
-		//					  .header("x-apikey", "5b6b016c7f5a7fb0b8936dc5d57f71bcc356c")
-		//					  .header("cache-control", "no-cache")
-		//					  .asJson();
-		//			
-		//			System.out.println(responses.getBody());
-		//			 JsonNode node = (JsonNode) responses.getBody();
-		//			 System.out.println(node.getArray().getJSONObject(1).get("data"));
-		//			 JSONObject node2 = (JSONObject) node.getArray().getJSONObject(1).get("data");
-		//			 System.out.println(" a " + node2.getDouble("balance")); 
-
-		try {
-			
-			HttpResponse ret = Unirest.get("https://kanban-edd1.restdb.io/rest/kanbanblueprint")
-					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
-					.header("cache-control", "no-cache")
-					.asJson();
-			System.out.println(ret.getBody());
-			
-			JsonNode noderet = (JsonNode) ret.getBody();
-			System.out.println(noderet.getArray().getJSONObject(0).get("listUsers"));
-			
-			try {
-				
-				JSONArray noderet2 = (JSONArray) noderet.getArray().getJSONObject(0).get("listUsers");
-				System.out.println(noderet2.getJSONObject(0).getString("name")); 
-				
-			} catch (Exception e) {
-
-				System.out.println("pup " + e);
-			}
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-
-		return "success";
-	}
-
 	// Add new Phase
 	@RequestMapping(value = "/addFase", method = RequestMethod.GET)
 	public String newFase(Model model) {
@@ -416,17 +322,75 @@ public class HomeController {
 
 
 	@RequestMapping(value = "/saveBluePrint", method = RequestMethod.POST)
-	public @ResponseBody void saveBluePrint(String name, String data) {
+	public @ResponseBody void saveBluePrint(String data) {
+
+		System.out.println(data);
 
 
+		JSONParser parser = new JSONParser();
 
+		Object obj = null;
+		try {
+			obj = parser.parse(data);
+		} catch (ParseException e) {
+
+			e.printStackTrace();
+		}
+		JSONObject jsonobject = (JSONObject) obj;
+
+		Object blueprint = jsonobject.get("nameBlueprint");
+		Object listUsers = jsonobject.get("listUsers");
+		Object listPhases = jsonobject.get("listPhases");
+
+		System.out.println(blueprint);
+		System.out.println(listUsers);
+		System.out.println(listPhases);
+
+
+		try {
+
+			HttpResponse post = Unirest.post("https://kanban-edd1.restdb.io/rest/kanbanblueprint")
+					.header("content-type", "application/json")
+					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
+					.header("cache-control", "no-cache")
+					.body("{\"NameBlueprint\":\""+ blueprint +"\",\"listUsers\":"+ listUsers+",\"listPhases\":"+ listPhases+"}")
+					.asString();
+
+		} catch (UnirestException e) {
+
+			e.printStackTrace();
+		}
+		
 	}
 
 	@RequestMapping(value = "/getSavedBluePrint", method = RequestMethod.GET)
 	public @ResponseBody String getSavedBluePrint(String name) {
 
+		try {
 
+			HttpResponse ret = Unirest.get("https://kanban-edd1.restdb.io/rest/kanbanblueprint")
+					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
+					.header("cache-control", "no-cache")
+					.asJson();
+			System.out.println(ret.getBody());
 
-		return "a";
+			JsonNode noderet = (JsonNode) ret.getBody();
+			System.out.println(noderet.getArray().getJSONObject(0).get("listUsers"));
+
+			try {
+
+				JSONArray noderet2 = (JSONArray) noderet.getArray().getJSONObject(0).get("listUsers");
+				System.out.println(noderet2.getJSONObject(0).getString("name")); 
+
+			} catch (Exception e) {
+
+				System.out.println("pup " + e);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return "success";
 	}
 }
