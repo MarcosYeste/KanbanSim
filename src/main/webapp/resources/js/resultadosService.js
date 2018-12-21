@@ -760,7 +760,9 @@ $( "#result" ).click(function() {
 });
 
 function saveResults(){
-	var object = JSON.stringify(listResultados[0]);
+
+	// Enviamos una ARRAY de usuarios
+	var object = JSON.stringify({"nameBlueprint" : "Prueba", listUsers, listPhases});
 	$.ajax({
 		type: "POST",
 		url: "/saveResults",

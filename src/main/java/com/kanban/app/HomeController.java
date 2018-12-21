@@ -1,5 +1,6 @@
 package com.kanban.app;
 
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -71,19 +73,29 @@ public class HomeController {
 	// Save Results Server
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/saveResults", method = RequestMethod.POST)
-	public String guardarResultados(String resultados) throws ParseException {
-		//		System.out.println(resultados);
-		//
-		// JSONParser parser = new JSONParser();
-		//		
-		//		Object obj = null;
-		//		try {
-		//			obj = parser.parse(resultados);
-		//		} catch (ParseException e) {
-		//
-		//			e.printStackTrace();
-		//		}
-		//		JSONObject jsonobject = (JSONObject) obj;
+	public String guardarResultados(String resultados){
+		System.out.println(resultados);
+
+
+		JSONParser parser = new JSONParser();
+
+		Object obj = null;
+		try {
+			obj = parser.parse(resultados);
+		} catch (ParseException e) {
+
+			e.printStackTrace();
+		}
+		JSONObject jsonobject = (JSONObject) obj;
+		
+		Object blueprint = jsonobject.get("nameBlueprint");
+		Object listUsers = jsonobject.get("listUsers");
+		Object listPhases = jsonobject.get("listPhases");
+		
+		System.out.println(blueprint);
+		System.out.println(listUsers);
+		System.out.println(listPhases);
+		
 		//
 		//		Object taskCycle 			= 	jsonobject.get("taskCycle"); 		  // int[]
 		//		Object taskLead 			= 	jsonobject.get("taskLead"); 		  // int[]
@@ -138,27 +150,27 @@ public class HomeController {
 		//			System.out.println(res);
 		//		}
 		//		
-
-		try {
-
-			HttpResponse post = Unirest.post("https://kanban-edd1.restdb.io/rest/kanban")
-					.header("content-type", "application/json")
-					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
-					.header("cache-control", "no-cache")
-					.body(resultados)
-					.asString();
-
-			HttpResponse response = Unirest.get("https://kanban-edd1.restdb.io/rest/kanban")
-					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
-					.header("cache-control", "no-cache")
-					.asString();
-
-			System.out.println(response.getBody());
-
-		} catch (UnirestException e) {
-
-			e.printStackTrace();
-		}
+		//
+								try {
+						
+									HttpResponse post = Unirest.post("https://kanban-edd1.restdb.io/rest/kanbanblueprint")
+											.header("content-type", "application/json")
+											.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
+											.header("cache-control", "no-cache")
+											.body("{\"NameBlueprint\":\""+ blueprint +"\",\"listUsers\":"+ listUsers+",\"listPhases\":"+ listPhases+"}")
+											.asString();
+						
+									HttpResponse response = Unirest.get("https://kanban-edd1.restdb.io/rest/kanbanblueprint")
+											.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
+											.header("cache-control", "no-cache")
+											.asString();
+						
+									System.out.println(response.getBody());
+						
+								} catch (UnirestException e) {
+						
+									e.printStackTrace();
+								}
 
 		return "success";
 	}
