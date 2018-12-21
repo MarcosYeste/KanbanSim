@@ -64,12 +64,18 @@ public class HomeController {
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
 		try {
-			
+			HttpResponse response2 = Unirest.post("https://kunban-1205.restdb.io/rest/columns")
+					  .header("content-type", "application/json")
+					  .header("x-apikey", "5b6b016c7f5a7fb0b8936dc5d57f71bcc356c")
+					  .header("cache-control", "no-cache")
+					  .body("{\"name\":\"coumna\"")
+					  .asString();
 			
 			HttpResponse response = Unirest.get("https://kunban-1205.restdb.io/rest/columns")
 					  .header("x-apikey", "5b6b016c7f5a7fb0b8936dc5d57f71bcc356c")
 					  .header("cache-control", "no-cache")
 					  .asString();
+			
 			System.out.println(response.getBody());
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
