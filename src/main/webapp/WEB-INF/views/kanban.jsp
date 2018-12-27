@@ -54,10 +54,12 @@ ____________________________________________________________________
 			</button>
 		</div> 
 		
+		
+		
 	</div>
 	
 </div>
-	
+	<button onclick="getBlueprints()"> GET BluePrint</button>
 	<h1 class="texto">KANBAN SIM</h1>
 	
 <!--

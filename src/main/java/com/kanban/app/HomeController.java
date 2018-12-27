@@ -339,8 +339,8 @@ public class HomeController {
 		JSONObject jsonobject = (JSONObject) obj;
 
 		Object blueprint = jsonobject.get("nameBlueprint");
-		Object listUsers = jsonobject.get("listUsers");
-		Object listPhases = jsonobject.get("listPhases");
+		Object listUsers = jsonobject.get("listU");
+		Object listPhases = jsonobject.get("listP");
 
 		System.out.println(blueprint);
 		System.out.println(listUsers);
@@ -360,37 +360,38 @@ public class HomeController {
 
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	@RequestMapping(value = "/getSavedBluePrint", method = RequestMethod.GET)
-	public @ResponseBody String getSavedBluePrint(String name) {
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/getBluePrint", method = RequestMethod.GET)
+	public @ResponseBody String getSavedBluePrint() {
+
+		JsonNode noderet = null;
 
 		try {
+
 
 			HttpResponse ret = Unirest.get("https://kanban-edd1.restdb.io/rest/kanbanblueprint")
 					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
 					.header("cache-control", "no-cache")
 					.asJson();
-			System.out.println(ret.getBody());
 
-			JsonNode noderet = (JsonNode) ret.getBody();
-			System.out.println(noderet.getArray().getJSONObject(0).get("listUsers"));
+			noderet = (JsonNode) ret.getBody();
 
-			try {
+			System.out.println(noderet);
 
-				JSONArray noderet2 = (JSONArray) noderet.getArray().getJSONObject(0).get("listUsers");
-				System.out.println(noderet2.getJSONObject(0).getString("name")); 
-
-			} catch (Exception e) {
-
-				System.out.println("pup " + e);
-			}
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
-		return "success";
+		// Paso el objeto como una String que recojo por el JS como JSON
+		return noderet.toString();
 	}
+
+	// Completar función para coger el nombre y la id del objeto en base de datos, con tal de despues poder mostrarlos 
+	// con un desplegble y poder buscarlos en base de datos para lograr mostrarlo o en su defecto, para guardarlo y/o modificarlo,
+	// Segun el nombre introducido, supondremos que si el usuario introduce un nombre que ya existe en DB, le preguntaremos 
+	// Si realmente quiere sobeescribir y continuaremos, sino, simplemente subiremos a base de datos el objeto
 }
