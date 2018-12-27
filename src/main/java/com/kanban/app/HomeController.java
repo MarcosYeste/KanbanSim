@@ -1,16 +1,13 @@
 package com.kanban.app;
 
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import org.json.JSONArray;
 //import org.json.JSONObject; // comentado para recuperar resultado
-import org.json.simple.JSONObject; 
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,38 +53,30 @@ public class HomeController {
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
-		//Prueba para generar plantillas
-		String [] plantillas = new String[4];
-		plantillas[0] = "Pizzeria" ;
-		plantillas[1] = "Analisis";
-		plantillas[2] = "Desarrollo Web";
-		plantillas[3] = "Pizzeria Version 2";
-		Arrays.sort(plantillas);
-		model.addAttribute("plantillas", plantillas);
 
-		return "inicio";
+		return "success";
 
 	}
-	//Recupera plantilla seleccionada y la manda al kanban para pintarla
-	@RequestMapping(value = "/plantilla", method = RequestMethod.POST)
-	public String getPlantilla( /* @ModelAttribute("plantilla") Plantilla plantilla */Model model) {
-		
-		//model.addAttribute("plantilla", findById(plantilla.id) );
-		model.addAttribute("task", taskArray);
-		model.addAttribute("user", userArray);
-		model.addAttribute("phases", phasesArray);
-		
-		return "kanban";
-	}
-	
-//	@RequestMapping(value = "/success", method = RequestMethod.GET)
-//	public String succes(Model model) throws MalformedURLException {
-//
+//	//Recupera plantilla seleccionada y la manda al kanban para pintarla
+//	@RequestMapping(value = "/plantilla", method = RequestMethod.POST)
+//	public String getPlantilla( Model model) {
+//		
+//	
 //		model.addAttribute("task", taskArray);
 //		model.addAttribute("user", userArray);
 //		model.addAttribute("phases", phasesArray);
-//		return "kanban";
+//		
+//		return "success";
 //	}
+	
+	@RequestMapping(value = "/success", method = RequestMethod.GET)
+	public String succes(Model model) throws MalformedURLException {
+
+		model.addAttribute("task", taskArray);
+		model.addAttribute("user", userArray);
+		model.addAttribute("phases", phasesArray);
+		return "kanban";
+	}
 
 	// Add new Phase
 	@RequestMapping(value = "/addFase", method = RequestMethod.GET)
@@ -359,8 +348,8 @@ public class HomeController {
 		JSONObject jsonobject = (JSONObject) obj;
 
 		Object blueprint = jsonobject.get("nameBlueprint");
-		Object listUsers = jsonobject.get("listUsers");
-		Object listPhases = jsonobject.get("listPhases");
+		Object listUsers = jsonobject.get("listU");
+		Object listPhases = jsonobject.get("listP");
 
 		System.out.println(blueprint);
 		System.out.println(listUsers);
@@ -380,37 +369,35 @@ public class HomeController {
 
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	@RequestMapping(value = "/getSavedBluePrint", method = RequestMethod.GET)
-	public @ResponseBody String getSavedBluePrint(String name) {
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/getBluePrint", method = RequestMethod.GET)
+	public @ResponseBody String getSavedBluePrint() {
+
+		JsonNode noderet = null;
 
 		try {
+
 
 			HttpResponse ret = Unirest.get("https://kanban-edd1.restdb.io/rest/kanbanblueprint")
 					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
 					.header("cache-control", "no-cache")
 					.asJson();
-			System.out.println(ret.getBody());
 
-			JsonNode noderet = (JsonNode) ret.getBody();
-			System.out.println(noderet.getArray().getJSONObject(0).get("listUsers"));
+			noderet = (JsonNode) ret.getBody();
 
-			try {
+			System.out.println(noderet);
 
-				JSONArray noderet2 = (JSONArray) noderet.getArray().getJSONObject(0).get("listUsers");
-				System.out.println(noderet2.getJSONObject(0).getString("name")); 
-
-			} catch (Exception e) {
-
-				System.out.println("pup " + e);
-			}
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
-		return "success";
+		// Paso el objeto como una String que recojo por el JS como JSON
+		return noderet.toString();
 	}
+
+	
 }

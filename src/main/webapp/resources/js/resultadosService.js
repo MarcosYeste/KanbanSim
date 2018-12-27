@@ -27,66 +27,66 @@ function nuevoObjetoResultados(){
 
 function rellenarResultados(){
 	resultadosO = nuevoObjetoResultados();
-		var mediaCycle = 0;
-		var mediaLead = 0;
-		var cantidadTask = 0;
-		var mediaPorFases = new Array();
-		var resultMediaPorFases = new Array();
-		var mediaPorTarea = new Array();
-		var numerotareas = 0;
-		var sumatodo = 0;
-		var sumaDoing = 0;
-		var sumadone = 0;
-		var sumaEstadosTotal = 0;
-		var nombresArray = [];
-		listTareas.forEach(function(task) {	
-			
-			resultadosO.taskCycle.push(task.cycleTime);
-			resultadosO.taskLead.push(task.leadTime);
-			resultadosO.taskEsfuerzo.push(task.esfuerzo);
-			resultadosO.taskUsuarios.push(task.staticAssigneds);
-			resultadosO.taskBacklog.push(task.startTime);
-			resultadosO.taskPhasesSeconds.push(task.phasesTime);
-			resultadosO.phaseStatesSeconds.push(task.timeByStats);			
-			mediaPorFases.push(task.timeByStats);
-			mediaCycle += task.cycleTime;
-			mediaLead += task.leadTime;
-			if(task.cycleTime != 0){cantidadTask++;}
-					
-			mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
-			task.timeByStats.forEach(function(times) {	
-				var time = JSON.stringify(times);
-				time = JSON.parse(time);
-				sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
-			});
-			
-			
-			
-		});	
-		resultMediaPorFases = mediaFasestotal(mediaPorFases);
-		numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
-		sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
-		if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
-		
-		mediaCycle = Math.round((mediaCycle/cantidadTask)* 10 ) / 10;
-		mediaLead =  Math.round((mediaLead/cantidadTask)* 10 ) / 10;
-		if(isNaN(mediaCycle)){ mediaCycle = 0;}
-		if(isNaN(mediaLead)){ mediaLead = 0;}
-	
-		
-		
-		resultadosO.taskMediaCL.push(mediaCycle,mediaLead);
-		resultadosO.phaseSumaStates.push(resultMediaPorFases[resultMediaPorFases.length-2]);
-		resultMediaPorFases.splice(resultMediaPorFases.length-2, 2);
-		
-		resultadosO.phaseMediaFase.push(resultMediaPorFases);
-		resultadosO.phaseMediaTask.push(mediaPorTarea);
-		resultadosO.phaseMediaTotal = sumaEstadosTotal;
-	
-		listPhases.forEach(function(phase) {
-			resultadosO.phaseSecondsTotal.push(phase.period);
+	var mediaCycle = 0;
+	var mediaLead = 0;
+	var cantidadTask = 0;
+	var mediaPorFases = new Array();
+	var resultMediaPorFases = new Array();
+	var mediaPorTarea = new Array();
+	var numerotareas = 0;
+	var sumatodo = 0;
+	var sumaDoing = 0;
+	var sumadone = 0;
+	var sumaEstadosTotal = 0;
+	var nombresArray = [];
+	listTareas.forEach(function(task) {	
 
+		resultadosO.taskCycle.push(task.cycleTime);
+		resultadosO.taskLead.push(task.leadTime);
+		resultadosO.taskEsfuerzo.push(task.esfuerzo);
+		resultadosO.taskUsuarios.push(task.staticAssigneds);
+		resultadosO.taskBacklog.push(task.startTime);
+		resultadosO.taskPhasesSeconds.push(task.phasesTime);
+		resultadosO.phaseStatesSeconds.push(task.timeByStats);			
+		mediaPorFases.push(task.timeByStats);
+		mediaCycle += task.cycleTime;
+		mediaLead += task.leadTime;
+		if(task.cycleTime != 0){cantidadTask++;}
+
+		mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea,task.timeByStats));
+		task.timeByStats.forEach(function(times) {	
+			var time = JSON.stringify(times);
+			time = JSON.parse(time);
+			sumatodo += time[0];sumaDoing += time[1];sumadone += time[2];
 		});
+
+
+
+	});	
+	resultMediaPorFases = mediaFasestotal(mediaPorFases);
+	numerotareas = resultMediaPorFases[resultMediaPorFases.length-1];
+	sumaEstadosTotal = Math.round(((sumatodo + sumaDoing+ sumadone)/numerotareas) * 10 ) / 10;
+	if(isNaN(sumaEstadosTotal)){sumaEstadosTotal = 0;}
+
+	mediaCycle = Math.round((mediaCycle/cantidadTask)* 10 ) / 10;
+	mediaLead =  Math.round((mediaLead/cantidadTask)* 10 ) / 10;
+	if(isNaN(mediaCycle)){ mediaCycle = 0;}
+	if(isNaN(mediaLead)){ mediaLead = 0;}
+
+
+
+	resultadosO.taskMediaCL.push(mediaCycle,mediaLead);
+	resultadosO.phaseSumaStates.push(resultMediaPorFases[resultMediaPorFases.length-2]);
+	resultMediaPorFases.splice(resultMediaPorFases.length-2, 2);
+
+	resultadosO.phaseMediaFase.push(resultMediaPorFases);
+	resultadosO.phaseMediaTask.push(mediaPorTarea);
+	resultadosO.phaseMediaTotal = sumaEstadosTotal;
+
+	listPhases.forEach(function(phase) {
+		resultadosO.phaseSecondsTotal.push(phase.period);
+
+	});
 
 
 	resultMediaPorFases = mediaFasestotal(mediaPorFases);
@@ -128,15 +128,15 @@ function rellenarResultados(){
 		}
 		resultadosO.userSecondsPhase.push(user.secondByPhase);
 	});
-	
+
 	for (var i = 0; i < listUsers.length; i++) {
 		for (var j = 0; j < listPhases.length; j++) {
 			if(resultadosO.userSecondsPhase[i][j] == undefined){
 				resultadosO.userSecondsPhase[i][j]= 0;
-				}
 			}
 		}
-	
+	}
+
 	resultadosO.userBestWorker.push(buscarMasTrabajador('max'));
 	resultadosO.userLessWorker.push(buscarMasTrabajador('min'));
 
@@ -177,11 +177,11 @@ function buscarMasTrabajador(opcion){
 function tableTask(){
 
 //	if(listResultados[0].taskCycle[0] != undefined){
-//		document.getElementById("saveResult").removeAttribute("disabled");
-//		document.getElementById("saveResult").setAttribute("aria-disabled", "false");
+//	document.getElementById("saveResult").removeAttribute("disabled");
+//	document.getElementById("saveResult").setAttribute("aria-disabled", "false");
 //	}else{
-//		document.getElementById("saveResult").setAttribute("disabled", "");
-//		document.getElementById("saveResult").setAttribute("aria-disabled", "true");
+//	document.getElementById("saveResult").setAttribute("disabled", "");
+//	document.getElementById("saveResult").setAttribute("aria-disabled", "true");
 //	}
 
 	var subDiv = document.getElementById("tareaResultado");
@@ -676,25 +676,25 @@ function findMaxAndMin(){
 	var array = [];
 
 	listUsers.forEach(function(user) {
-		
+
 		if (user.secondsWork > max) {
 			max = user.secondsWork;
 			taskmax = user.tasksWorked;
-			
+
 		}
-		
+
 		// MAYBE
 		if(user.secondsWork < min){
 			min = user.secondsWork;
 			taskmin = user.tasksWorked;
-			
+
 		}
 	});
-	
+
 	if(min == 500){
-		
+
 		min = 0;
-		
+
 	}
 
 	array[0] = max;
@@ -759,10 +759,13 @@ $( "#result" ).click(function() {
 	$( "#saveResult" ).toggle();
 });
 
-function saveBlueprint(){
+function saveBlueprint(text){
+
+	var listU = JSON.parse(sessionStorage.getItem("users"));
+	var listP = JSON.parse(sessionStorage.getItem("phases"));
 
 	// Enviamos una ARRAY de usuarios
-	var object = JSON.stringify({"nameBlueprint" : "Prueba", listUsers, listPhases});
+	var object = JSON.stringify({"nameBlueprint" : text, listU, listP});
 	$.ajax({
 		type: "POST",
 		url: "/saveBluePrint",
@@ -777,3 +780,28 @@ function saveBlueprint(){
 	})
 }
 
+function getBlueprints(){
+	
+	$.ajax({
+		type: "GET",
+		url: "/getBluePrint",
+		success: function(data) {
+			bluePrint = JSON.parse(data);
+			getNameBluePrint();
+		}
+	})
+}
+
+function getNameBluePrint() {
+	if(bluePrint != null){
+		nameBlueprintArray = [[],[]];
+		for (var i = 0; i < bluePrint.length; i++) {
+			nameBlueprintArray[0].push(bluePrint[i].NameBlueprint);
+			nameBlueprintArray[1].push(bluePrint[i]._id);
+		}
+		
+		for (var i = 0; i < nameBlueprintArray.length; i++) {
+			console.log(nameBlueprintArray[i]);
+		}
+	}
+}

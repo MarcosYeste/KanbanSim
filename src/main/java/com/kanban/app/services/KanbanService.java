@@ -1,6 +1,5 @@
 package com.kanban.app.services;
 
-import java.lang.annotation.Documented;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,25 +40,7 @@ public class KanbanService {
 
 	}
 
-	//	public Results saveResultados(JSONObject jsonobject) {
-	//		
-	//		Results nuevosResultados = new Results((int[]) jsonobject.get("taskCycle"),(int[]) jsonobject.get("taskLead"), (int[]) jsonobject.get("taskEsfuerzo"), (String[]) jsonobject.get("taskUsuarios"), (double[]) jsonobject.get("taskMediaCL"),
-	//				(int[]) jsonobject.get("taskBacklog"),(int[][]) jsonobject.get("taskPhasesSeconds"), (int[][][]) jsonobject.get("phaseStatesSeconds"), (int[][][]) jsonobject.get("phaseSumaStates"),
-	//				(double[][][]) jsonobject.get("phaseMediaFase"),(double[][][]) jsonobject.get("phaseMediaTask"),(Double) jsonobject.get("phaseMediaTotal"),(int[]) jsonobject.get("phaseSecondsTotal"), (int[]) jsonobject.get("userTaskWorked"),
-	//				(int[]) jsonobject.get("userActiveTime"),(int[]) jsonobject.get("userInactiveTime"),(int[]) jsonobject.get("userBestWorker"), (int[]) jsonobject.get("userLessWorker"), (int[][]) jsonobject.get("userSecondsPhase"),
-	//				(String[][]) jsonobject.get("userNamesWorstBest"));
-	//		
-	//		// repository.save(resultados);
-	//		
-	//		return nuevosResultados;
-	//		
-	//	} 
 
-	/*
-	 * 
-	 * 					CONVERSIONES 
-	 * 
-	 */
 	// Converts a String to an array of integers
 	public static int[] fromStrtoIntArray(String str) {
 

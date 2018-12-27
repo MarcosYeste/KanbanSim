@@ -15,6 +15,11 @@ var userO = new Object();
 var taskNameCounter = 0;
 var atributo = "Task1";
 
+
+//Variable global donde guardar el JSON con los datos de las plantillas(Blueprints)
+var bluePrint = null;
+var nameBlueprintArray = [[],[]];
+
 //_________________________________________________________________
 
 //_______________________ EVENTOS  ________________________________
@@ -112,7 +117,7 @@ function saveAddPhase(){
 		phaseO.color = document.getElementById("color-input").value;
 		phaseO.period = 0;
 		phaseO.assignedUsers = new Array();
-		
+
 		listPhases.push(phaseO);
 		savePhaseSession();
 		emptyPhaseData();
@@ -169,7 +174,7 @@ function saveModPhase() {
 	savePhaseSession();
 	emptyPhaseData();
 	modPhaseSession(click);
-	
+
 }
 
 
@@ -441,7 +446,7 @@ function formUserValido(funcion,accion){
 //___________________________________________________________________
 
 function modUsers(){
-	
+
 	formUserValido(saveModUsers, "mod");
 	document.getElementById("modUserWarning").setAttribute("class","");
 	document.getElementById("modUserWarning").innerHTML = "";
@@ -528,7 +533,7 @@ function modUsers(){
 
 			if(listUsers[click2].phases.length != 0){
 				saveUsersSession();
-				
+
 			}
 			var inputs = document.getElementsByClassName("modSkillInput");
 
@@ -587,7 +592,6 @@ function insertInput(index1, index2){
 	var sliders = document.getElementsByClassName("sliderMod");
 
 
-	// REVISAR
 	if(listUsers[click2].skills[index2] == undefined){
 		listUsers[click2].skills[index2] = 100;
 	}
@@ -624,7 +628,7 @@ function insertInput(index1, index2){
 	});
 
 	skillsList.push(listUsers[click2].skills[sliders.length - 1]);
-	
+
 }
 
 //Guardamos los datos de usuario
@@ -666,7 +670,7 @@ function saveModUsers() {
 		modLabel(myChart, oldName, listUsers[click2].name);
 		saveUsersSession();
 		modUserSession(click2);
-		
+
 	}
 
 }
@@ -686,9 +690,9 @@ function rmvModUsers() {
 			listUsers.splice(click2, 1);
 			sessionStorage.setItem("users", JSON.stringify(listUsers));
 			refreshUsers();
-			 $("div").remove(".userName[data-identification='"+ click2 +"']");
-			
-			 for (var i = 0; i < $("div.userName[data-identification]").length; i++) {
+			$("div").remove(".userName[data-identification='"+ click2 +"']");
+
+			for (var i = 0; i < $("div.userName[data-identification]").length; i++) {
 				document.getElementsByClassName("userName")[i].setAttribute("data-identification", i);
 				document.getElementsByClassName("userName")[i].children[0].setAttribute("data-identification", i);
 				document.getElementsByClassName("userName")[i].children[0].children[0].setAttribute("data-identification", i);
@@ -733,7 +737,7 @@ function addTareas(weight,creationTime){
 	tarea.totalTime = 0;
 	listTareas.push(tarea);
 	printTasks(tarea);
-	
+
 	if(document.getElementById("taskChart").style.visibility != "visible"){
 		document.getElementById("taskChart").style.visibility  = "visible";
 	}
@@ -804,10 +808,10 @@ function chrono(){
 //_____________________________________________________________________
 
 function showTaskInfo(){
-	
+
 	atributo = event.target.getAttribute("data-identification");
 	var object = listTareas.find(x => x.name === atributo);
-	
+
 	if(distribution.typeConstant == "weight"){
 		document.getElementById("modalTaskNameValue").innerHTML = "<b>" + object.name + "</b>  ( <var>" + object.weight +"</var> )";
 	}else{
@@ -839,5 +843,70 @@ function showTaskInfo(){
 	}
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
 	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";
+}
 
+
+//_____________________________________________________________________
+
+//_______________________ BLUEPRINTS  _________________________________
+
+//_____________________________________________________________________
+
+//Button saveResults
+if(document.getElementById("saveResult")){
+document.getElementById("saveResult").addEventListener("click", function(){
+	// Hace la peticion a la base de datos para que le de las plantillas
+	getBlueprints();
+	
+}, false);
+}
+
+
+function loadSelectBlueprintNames(){
+	emptyDropDownList();
+	if(nameBlueprintArray[0] != ""){
+		for (var i = 0; i < nameBlueprintArray[0].length; i++) {
+
+			var x = document.createElement("OPTION");
+			x.setAttribute("value", nameBlueprintArray[1][i]);
+			var t = document.createTextNode(nameBlueprintArray[0][i]);
+			x.appendChild(t);
+			document.getElementById("selectBlueprintName").appendChild(x);
+
+		}
+	}
+}
+function emptyDropDownList(){
+	$('#selectBlueprintName')
+	.find('option')
+	.remove()
+	.end()
+}
+
+document.getElementById("nuevaPlantilla").addEventListener("click", function(){
+
+	getBlueprints();
+	loadSelectBlueprintNames();
+
+}, false);
+
+function ValidateNameBlueprint(){
+	for (var i = 0; i < nameBlueprintArray[0].length; i++) {
+		if(document.getElementById("inputBlueprintName").value.toLowerCase() == nameBlueprintArray[0][i].toLowerCase()){
+			console.log("Already Exists");
+			document.getElementById("inputBlueprintName").value = "";
+			return;
+		}
+	}
+	saveBlueprint(document.getElementById("inputBlueprintName").value);
+	document.getElementById("inputBlueprintName").value = "";
+}
+
+if(document.getElementById("addBlueprint")){
+	document.getElementById("addBlueprint").addEventListener("click", function(){
+
+		getBlueprints();
+		ValidateNameBlueprint();
+		
+	}, false);
 }

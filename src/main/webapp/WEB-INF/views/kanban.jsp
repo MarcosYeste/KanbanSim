@@ -48,17 +48,17 @@ ____________________________________________________________________
 		</button>
 		
 		 <div id="saveResultsButton">
-			<button id="saveResult" onclick="saveBlueprint()" class="resultbutt"
-				style="display: none">
+			<button id="saveResult" class="resultbutt" data-toggle="modal" data-target="#modalBlueprint">
 				<i class="fas fa-save fa-4x" data-toggle="tooltip"
 					data-placement="top" title="Guardar Resultados"></i>
 			</button>
 		</div> 
 		
+		
+		
 	</div>
 	
 </div>
-	
 	<h1 class="texto">KANBAN SIM</h1>
 	
 <!--
@@ -483,6 +483,66 @@ ____________________________________________________________________
 				</div>
 			</div>
 		</div>
+	</div>
+	
+<!--
+____________________________________________________________________
+
+__________________________ MODAL PLANTILLA  ________________________
+
+____________________________________________________________________
+-->
+	
+	<!-- Modal Plantillas-->
+	<div class="modal fade" id="modalBlueprint" role="dialog">
+
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Añadir/Modificar Plantilla</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+					Nombre Plantilla: <input type="text" id="inputBlueprintName">
+
+					<button id="addBlueprint" class="btn btn-secondary"
+						data-dismiss="modal">Añadir</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	
+	<!-- Modal Seleccionar Plantillas-->
+	<div class="modal fade" id="modalSelectBlueprint" role="dialog">
+
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Añadir/Modificar Plantilla</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+					Nombre Plantilla: <select id="selectBlueprintName"></select>
+
+					<button id="selectBlueprint" class="btn btn-secondary"
+						data-dismiss="modal">Selecionar</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	
 	

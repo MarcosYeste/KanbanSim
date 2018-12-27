@@ -8,5 +8,8 @@
 		
 		<a class="btn btn-success" role="button"
 			data-toggle="modal" data-target="#modalAddFases" id="nuevaFase">Nueva Fase</a>
+			
+		<a class="btn btn-success" role="button"
+			data-toggle="modal" data-target="#modalSelectBlueprint" id="nuevaPlantilla">Cargar Plantilla</a>
 	</div>
 </header>

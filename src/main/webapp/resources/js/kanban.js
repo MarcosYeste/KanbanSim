@@ -69,6 +69,8 @@ refreshPhases();
 //Guardar al modificar Phase
 sortPhases();
 
+// Hacemos la peticion inicial a la base datos por las plantillas
+getBlueprints();
 
 //Inicializamos la gráfica
 listUsers.forEach(function(user){
