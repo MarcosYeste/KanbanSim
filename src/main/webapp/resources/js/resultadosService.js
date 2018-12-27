@@ -759,13 +759,13 @@ $( "#result" ).click(function() {
 	$( "#saveResult" ).toggle();
 });
 
-function saveBlueprint(){
+function saveBlueprint(text){
 
 	var listU = JSON.parse(sessionStorage.getItem("users"));
 	var listP = JSON.parse(sessionStorage.getItem("phases"));
 
 	// Enviamos una ARRAY de usuarios
-	var object = JSON.stringify({"nameBlueprint" : "Trabajo", listU, listP});
+	var object = JSON.stringify({"nameBlueprint" : text, listU, listP});
 	$.ajax({
 		type: "POST",
 		url: "/saveBluePrint",
@@ -787,18 +787,21 @@ function getBlueprints(){
 		url: "/getBluePrint",
 		success: function(data) {
 			bluePrint = JSON.parse(data);
-			console.log(bluePrint);
 			getNameBluePrint();
-			
 		}
 	})
 }
 
 function getNameBluePrint() {
 	if(bluePrint != null){
+		nameBlueprintArray = [[],[]];
 		for (var i = 0; i < bluePrint.length; i++) {
-			console.log(bluePrint[i].NameBlueprint);
-			console.log(bluePrint[i]._id);
+			nameBlueprintArray[0].push(bluePrint[i].NameBlueprint);
+			nameBlueprintArray[1].push(bluePrint[i]._id);
+		}
+		
+		for (var i = 0; i < nameBlueprintArray.length; i++) {
+			console.log(nameBlueprintArray[i]);
 		}
 	}
 }
