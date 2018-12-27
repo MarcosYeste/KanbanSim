@@ -15,6 +15,10 @@ var userO = new Object();
 var taskNameCounter = 0;
 var atributo = "Task1";
 
+
+// Variable global donde guardar el JSON con los datos de las plantillas(Blueprints)
+var bluePrint = null;
+
 //_________________________________________________________________
 
 //_______________________ EVENTOS  ________________________________
