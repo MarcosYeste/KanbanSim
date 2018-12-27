@@ -1,11 +1,15 @@
 package com.kanban.app;
 
+import java.lang.reflect.Array;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+//import org.json.JSONObject; // comentado para recuperar resultado
+import org.json.simple.JSONObject; 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kanban.app.Model.Phase;
-import com.kanban.app.Model.Results;
 import com.kanban.app.Model.Task;
 import com.kanban.app.Model.User;
 import com.kanban.app.services.KanbanService;
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
 
 /**
  * Handles requests for the application home page.
@@ -41,8 +46,6 @@ public class HomeController {
 	ArrayList<String> allPhases = new ArrayList<String>();
 
 
-
-
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -58,97 +61,12 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
-	public String succes(Model model) {
+	public String succes(Model model) throws MalformedURLException {
 
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
-		try {
-			
-			
-			HttpResponse response = Unirest.get("https://kunban-1205.restdb.io/rest/columns")
-					  .header("x-apikey", "5b6b016c7f5a7fb0b8936dc5d57f71bcc356c")
-					  .header("cache-control", "no-cache")
-					  .asString();
-			System.out.println(response.getBody());
-		} catch (UnirestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return "kanban";
-	}
-
-	// Save Results Server
-	@SuppressWarnings("unused")
-	@RequestMapping(value = "/saveResults", method = RequestMethod.POST)
-	public String guardarResultados(String resultados) {
-		System.out.println(resultados);
-
-		JSONParser parser = new JSONParser();
-		
-		Object obj = null;
-		try {
-			obj = parser.parse(resultados);
-		} catch (ParseException e) {
-
-			e.printStackTrace();
-		}
-		JSONObject jsonobject = (JSONObject) obj;
-
-		Object taskCycle 			= 	jsonobject.get("taskCycle"); 		  // int[]
-		Object taskLead 			= 	jsonobject.get("taskLead"); 		  // int[]
-		Object taskEsfuerzo 		= 	jsonobject.get("taskEsfuerzo");		  // int[]
-		Object taskUsuarios 		= 	jsonobject.get("taskUsuarios");		  // String[]
-		Object taskMediaCL 			= 	jsonobject.get("taskMediaCL");		  // double[]
-		Object taskBacklog 			= 	jsonobject.get("taskBacklog");		  // int[]
-		Object taskPhasesSeconds  	= 	jsonobject.get("taskPhasesSeconds");  // int[][]
-		Object phaseStatesSeconds 	= 	jsonobject.get("phaseStatesSeconds"); // int[][][]
-		Object phaseSumaStates 		= 	jsonobject.get("phaseSumaStates");	  // int[][][]
-		Object phaseMediaFase 		= 	jsonobject.get("phaseMediaFase");	  // double[][][]
-		Object phaseMediaTask 		= 	jsonobject.get("phaseMediaTask");	  // double[][][]
-		Object phaseMediaTotal 		= 	jsonobject.get("phaseMediaTotal");	  // double
-		Object phaseSecondsTotal 	= 	jsonobject.get("phaseSecondsTotal");  // int[]
-		Object userTaskWorked 		= 	jsonobject.get("userTaskWorked");	  // int[]
-		Object userActiveTime 		= 	jsonobject.get("userActiveTime");	  // int[]
-		Object userInactiveTime 	= 	jsonobject.get("userInactiveTime");	  // int[]
-		Object userBestWorker 		= 	jsonobject.get("userBestWorker");	  // int[]
-		Object userLessWorker 		= 	jsonobject.get("userLessWorker");	  // int[]
-		Object userSecondsPhase		= 	jsonobject.get("userSecondsPhase");	  // int[][]
-		Object userNamesWorstBest 	= 	jsonobject.get("userNamesWorstBest"); // String[][]
-
-		int[] cycleTime = KanbanService.fromStrtoIntArray(String.valueOf(taskCycle));
-		int[] leadTime = KanbanService.fromStrtoIntArray(String.valueOf(taskLead));
-		int[] esfuerzo = KanbanService.fromStrtoIntArray(String.valueOf(taskEsfuerzo));
-		String[] usuarios = KanbanService.fromStrtoStrArray(String.valueOf(taskUsuarios));
-		double[] mediaCycleTime = KanbanService.fromStrtoDoubleArray(String.valueOf(taskMediaCL));
-		int[] backlog = KanbanService.fromStrtoIntArray(String.valueOf(taskBacklog));
-		int[][] tiempoPorFases = KanbanService.fromStrtoIntArray2D(String.valueOf(taskPhasesSeconds));
-		int[][][] tiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseStatesSeconds));
-		int[][][] sumaTiempoPorEstados = KanbanService.fromStrtoIntArray3D(String.valueOf(phaseSumaStates));
-		double[][][] tiempoMedioPorFase = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaFase));
-		double[][][] tiempoMedioTarea = KanbanService.fromStrtoDoubleArray3D(String.valueOf(phaseMediaTask));
-		double MediaTiempoTotalFase= Double.parseDouble(phaseMediaTotal.toString());
-		int[] totalTiempoPorFase = KanbanService.fromStrtoIntArray(String.valueOf(phaseSecondsTotal));
-		int[] tareasTrabajadas = KanbanService.fromStrtoIntArray(String.valueOf(userTaskWorked));
-		int[] tiempoTrabajadoPorUsuario = KanbanService.fromStrtoIntArray(String.valueOf(userActiveTime));
-		int[] tiempoOciosoPorUsuario = KanbanService.fromStrtoIntArray(String.valueOf(userInactiveTime));
-		int[] tiemposMejoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userBestWorker));
-		int[] tiemposPeoresTrabajadores = KanbanService.fromStrtoIntArray(String.valueOf(userLessWorker));
-		int[][] tiempoTrabajadoUsuarioPorFase = KanbanService.fromStrtoIntArray2D(String.valueOf(userSecondsPhase));
-		String[][] usuariosMasYMenosTrabajadores = KanbanService.fromStrtoStrArray2D(String.valueOf(userNamesWorstBest));		
-		
-		Results resultadosPlay = new Results(cycleTime, leadTime, esfuerzo, usuarios, mediaCycleTime, backlog, tiempoPorFases,
-				tiempoPorEstados, sumaTiempoPorEstados, tiempoMedioPorFase, tiempoMedioTarea, MediaTiempoTotalFase, totalTiempoPorFase, 
-				tareasTrabajadas, tiempoTrabajadoPorUsuario, tiempoOciosoPorUsuario, tiemposMejoresTrabajadores, tiemposPeoresTrabajadores, tiempoTrabajadoUsuarioPorFase, 
-				usuariosMasYMenosTrabajadores);
-		
-		System.out.println(resultadosPlay.getPhaseMediaTotal());
-		
-		for( int res : resultadosPlay.getTaskCycle()) {
-			System.out.println(res);
-		}
-		
-		return "success";
 	}
 
 	// Add new Phase
@@ -374,6 +292,7 @@ public class HomeController {
 	}
 
 
+
 	// Add New Phase
 	public void addPhases(String phase) {
 		boolean phaseExist = false;
@@ -398,5 +317,80 @@ public class HomeController {
 
 		}
 		phaseExist = false;
+	}
+
+
+
+	@RequestMapping(value = "/saveBluePrint", method = RequestMethod.POST)
+	public @ResponseBody void saveBluePrint(String data) {
+
+		System.out.println(data);
+
+
+		JSONParser parser = new JSONParser();
+
+		Object obj = null;
+		try {
+			obj = parser.parse(data);
+		} catch (ParseException e) {
+
+			e.printStackTrace();
+		}
+		JSONObject jsonobject = (JSONObject) obj;
+
+		Object blueprint = jsonobject.get("nameBlueprint");
+		Object listUsers = jsonobject.get("listUsers");
+		Object listPhases = jsonobject.get("listPhases");
+
+		System.out.println(blueprint);
+		System.out.println(listUsers);
+		System.out.println(listPhases);
+
+
+		try {
+
+			HttpResponse post = Unirest.post("https://kanban-edd1.restdb.io/rest/kanbanblueprint")
+					.header("content-type", "application/json")
+					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
+					.header("cache-control", "no-cache")
+					.body("{\"NameBlueprint\":\""+ blueprint +"\",\"listUsers\":"+ listUsers+",\"listPhases\":"+ listPhases+"}")
+					.asString();
+
+		} catch (UnirestException e) {
+
+			e.printStackTrace();
+		}
+		
+	}
+
+	@RequestMapping(value = "/getSavedBluePrint", method = RequestMethod.GET)
+	public @ResponseBody String getSavedBluePrint(String name) {
+
+		try {
+
+			HttpResponse ret = Unirest.get("https://kanban-edd1.restdb.io/rest/kanbanblueprint")
+					.header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
+					.header("cache-control", "no-cache")
+					.asJson();
+			System.out.println(ret.getBody());
+
+			JsonNode noderet = (JsonNode) ret.getBody();
+			System.out.println(noderet.getArray().getJSONObject(0).get("listUsers"));
+
+			try {
+
+				JSONArray noderet2 = (JSONArray) noderet.getArray().getJSONObject(0).get("listUsers");
+				System.out.println(noderet2.getJSONObject(0).getString("name")); 
+
+			} catch (Exception e) {
+
+				System.out.println("pup " + e);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return "success";
 	}
 }

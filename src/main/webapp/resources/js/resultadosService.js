@@ -759,14 +759,16 @@ $( "#result" ).click(function() {
 	$( "#saveResult" ).toggle();
 });
 
-function saveResults(){
-	var object = JSON.stringify(listResultados[0]);
+function saveBlueprint(){
+
+	// Enviamos una ARRAY de usuarios
+	var object = JSON.stringify({"nameBlueprint" : "Prueba", listUsers, listPhases});
 	$.ajax({
 		type: "POST",
-		url: "/saveResults",
+		url: "/saveBluePrint",
 		data: {
 
-			resultados: object
+			data: object
 
 		},success: function(data) {
 
