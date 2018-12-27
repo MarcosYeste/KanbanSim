@@ -3,6 +3,7 @@ package com.kanban.app;
 import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -55,19 +56,38 @@ public class HomeController {
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
+		//Prueba para generar plantillas
+		String [] plantillas = new String[4];
+		plantillas[0] = "Pizzeria" ;
+		plantillas[1] = "Analisis";
+		plantillas[2] = "Desarrollo Web";
+		plantillas[3] = "Pizzeria Version 2";
+		Arrays.sort(plantillas);
+		model.addAttribute("plantillas", plantillas);
 
-		return "kanban";
+		return "inicio";
 
 	}
-
-	@RequestMapping(value = "/success", method = RequestMethod.GET)
-	public String succes(Model model) throws MalformedURLException {
-
+	//Recupera plantilla seleccionada y la manda al kanban para pintarla
+	@RequestMapping(value = "/plantilla", method = RequestMethod.POST)
+	public String getPlantilla( /* @ModelAttribute("plantilla") Plantilla plantilla */Model model) {
+		
+		//model.addAttribute("plantilla", findById(plantilla.id) );
 		model.addAttribute("task", taskArray);
 		model.addAttribute("user", userArray);
 		model.addAttribute("phases", phasesArray);
+		
 		return "kanban";
 	}
+	
+//	@RequestMapping(value = "/success", method = RequestMethod.GET)
+//	public String succes(Model model) throws MalformedURLException {
+//
+//		model.addAttribute("task", taskArray);
+//		model.addAttribute("user", userArray);
+//		model.addAttribute("phases", phasesArray);
+//		return "kanban";
+//	}
 
 	// Add new Phase
 	@RequestMapping(value = "/addFase", method = RequestMethod.GET)
