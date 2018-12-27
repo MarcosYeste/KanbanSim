@@ -389,9 +389,44 @@ public class HomeController {
 		// Paso el objeto como una String que recojo por el JS como JSON
 		return noderet.toString();
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/updateBluePrint", method = RequestMethod.GET)
+	public @ResponseBody void updateBluePrint(String id, String data) {
+		
+		
 
-	// Completar función para coger el nombre y la id del objeto en base de datos, con tal de despues poder mostrarlos 
-	// con un desplegble y poder buscarlos en base de datos para lograr mostrarlo o en su defecto, para guardarlo y/o modificarlo,
-	// Segun el nombre introducido, supondremos que si el usuario introduce un nombre que ya existe en DB, le preguntaremos 
-	// Si realmente quiere sobeescribir y continuaremos, sino, simplemente subiremos a base de datos el objeto
+		JSONParser parser = new JSONParser();
+
+		Object obj = null;
+		try {
+			obj = parser.parse(data);
+		} catch (ParseException e) {
+
+			e.printStackTrace();
+		}
+		JSONObject jsonobject = (JSONObject) obj;
+		
+		
+		Object listUsers = jsonobject.get("listU");
+		Object listPhases = jsonobject.get("listP");
+
+		System.out.println(listUsers);
+		System.out.println(listPhases);
+
+		try {
+
+
+			HttpResponse response = Unirest.put("https://kanban-edd1.restdb.io/rest/kanbanblueprint/" + id)
+					  .header("content-type", "application/json")
+					  .header("x-apikey", "4fd55f8dbb6159535486c82b500686095b3c5")
+					  .header("cache-control", "no-cache")
+					  .body("{\"listUsers\":"+ listUsers+",\"listPhases\":"+ listPhases+"}")
+					  .asJson();
+
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }

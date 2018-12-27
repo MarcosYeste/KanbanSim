@@ -852,7 +852,7 @@ function showTaskInfo(){
 
 //_____________________________________________________________________
 
-//Button saveResults
+//Botón para guardar las plantillas
 document.getElementById("saveResult").addEventListener("click", function(){
 	// Hace la peticion a la base de datos para que le de las plantillas
 	getBlueprints();
@@ -860,7 +860,7 @@ document.getElementById("saveResult").addEventListener("click", function(){
 }, false);
 
 
-
+// Crea una lista de 'opciones' para elegir las plantillas
 function loadSelectBlueprintNames(){
 	emptyDropDownList();
 	if(nameBlueprintArray[0] != ""){
@@ -875,6 +875,7 @@ function loadSelectBlueprintNames(){
 		}
 	}
 }
+// Vacia las opciones
 function emptyDropDownList(){
 	$('#selectBlueprintName')
 	.find('option')
@@ -882,6 +883,7 @@ function emptyDropDownList(){
 	.end()
 }
 
+// Carga las opciones de plantillas
 document.getElementById("nuevaPlantilla").addEventListener("click", function(){
 
 	getBlueprints();
@@ -889,21 +891,44 @@ document.getElementById("nuevaPlantilla").addEventListener("click", function(){
 
 }, false);
 
+// Validacion a la hora de guardar la plantilla
 function ValidateNameBlueprint(){
 	for (var i = 0; i < nameBlueprintArray[0].length; i++) {
-		if(document.getElementById("inputBlueprintName").value.toLowerCase() == nameBlueprintArray[0][i].toLowerCase()){
-			console.log("Already Exists");
+		if(document.getElementById("inputBlueprintName").value.toLowerCase().trim() == nameBlueprintArray[0][i].toLowerCase().trim()) {
+			if(confirm("¿Esta plantilla ya existe, quieres sobreescribirla?")){
+				updateBlueprints(nameBlueprintArray[1][i]);
+			}
 			document.getElementById("inputBlueprintName").value = "";
 			return;
 		}
 	}
-	saveBlueprint(document.getElementById("inputBlueprintName").value);
+	if (document.getElementById("inputBlueprintName").value.trim() == ""){
+		console.log("There's Nothing Writen");
+	}else{ 
+		saveBlueprint(document.getElementById("inputBlueprintName").value.trim());
+	}
+	
 	document.getElementById("inputBlueprintName").value = "";
 }
 
+// Validamos y indicamos que cuando le das click a guardar la plantilla no exista ninguna con ese nombre
 document.getElementById("addBlueprint").addEventListener("click", function(){
 
 	getBlueprints();
 	ValidateNameBlueprint();
+	
+}, false);
+
+// Guardamos la seleccion que queramos para la plantilla
+document.getElementById("selectBlueprint").addEventListener("click", function(){
+	
+	for (var i = 0; i < bluePrint.length; i++) {
+		// SI la id id que introducimos concuerda con la del objeto, introduce los datos del objeto en la sesion.
+		if(document.getElementById("selectBlueprintName").value == bluePrint[i]._id){
+			sessionStorage.setItem("phases", JSON.stringify(bluePrint[i].listPhases));
+			sessionStorage.setItem("users", JSON.stringify(bluePrint[i].listUsers));
+			location.reload();
+		};
+	}
 	
 }, false);
