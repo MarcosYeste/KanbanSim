@@ -14,13 +14,8 @@
 </head>
 <body>
 
-<<<<<<< HEAD
-	<!--
-=======
-
 <!--
->>>>>>> ec3205056e366147809efbbeed5f6c60376adfa5
-____________________________________________________________________
+ ____________________________________________________________________ 
 
 ______________________________ BOTONES  ____________________________
 
@@ -643,11 +638,30 @@ ____________________________________________________________________
 				</dd>
 				<dt><h4>Distribución</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					<dl>
+						<dt>Distribución Manual:</dt>
+						<dd> La entrada de tareas se efectua mediante el botón "+" 
+							(el sistema siempre detectará que existe sobre carga ya que la entrada de tareas es 0).</dd>
+						<dt>Distribución Constante:</dt>
+						<dd> La entrada de tareas se efectua de manera automatica y constante, según el tipo de constante 
+							se podrán configurar diversos parametros de entrada.<br>
+							<dl>
+								<dt>Normal:</dt>
+								<dd>Tiene dos parametros, la base que es la media general de tiempo que tardaran las tareas en entrar
+									y la varianza que es la distancia por encima y por debajo que se puede alejas este tiempo del valor base.</dd>
+								<dt>Poison:</dt>
+								<dd></dd>
+								<dt>Con Peso:</dt>
+								<dd>Tiene 4 valores a configurar cada cual representa un tamaño de tareas, de esta forma se especifica
+									la probabilidad que tienen de aparecer tareas de ese tamaño. El tamaño se traduce a tiempo que se les
+									asigna a las tareas, cuando mayor tamaño mayor sera el tiempo que se le asigne (relativo a la fase en la que se
+									encuentre la tarea.)</dd>
+							</dl>
+						</dd>
+					</dl>	
 				</dd>
 				<dt><h4>Tarea</h4></dt>
 				<dd>
-					Suspendisse potenti. 
 				</dd>
 				<dt><h4>Cronometro</h4></dt>
 				<dd>
