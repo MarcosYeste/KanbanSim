@@ -153,6 +153,16 @@ h1 {
 	margin-left: 5px;
 }
 
+.modal-body dd{ 
+  display: block;
+  margin-left: 40px !important;
+}
+
+.modal-content{
+	width: 700px !important;
+}
+
+
 /*---------------------------------------------------- TEMPORIZADOR ----------------------------------------------*/
 #chronoViewer {
 	font-weight: bold;
@@ -316,4 +326,21 @@ h1 {
 }
 .strike{
      text-decoration: line-through !important;
+}
+/*  INDEX FORMULARI */
+.indexForm{
+	width: 100%;
+	height: auto;
+	padding : 20px;
+	margin-left: 30%;
+	margin-top: 10%;
+
+	
+	
+}
+.textoInicio{
+	text-shadow: 3px 2px 5px #011cd6;
+	color: #0f45c4;
+	font-size: 600%;
+	text-align: center;
 }

@@ -2,7 +2,6 @@ $(document).ready(function(){
 
 	var distributionIsSelected = false;
 	var taskInputModeInputs = $("[name='taskInputMode']");
-	var totalPercentage = 0;
 	var total = 0;
 	var subTotal = 0; //Para controlar que siempre sea un total de 100% y si no bloquear el boton
 	var divsValues = document.getElementsByClassName("sizeValue");
@@ -115,7 +114,6 @@ $(document).ready(function(){
 	var sliders = $("#dataWeightDistribution .ui-slider-handle");
 
 	sliders.each(function() {
-		var value = parseInt($(this).text(), 10),
 		availableTotal = 100;
 
 		$(this).empty().slider({

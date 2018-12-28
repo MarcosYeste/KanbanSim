@@ -14,7 +14,12 @@
 </head>
 <body>
 
+<<<<<<< HEAD
+	<!--
+=======
+
 <!--
+>>>>>>> ec3205056e366147809efbbeed5f6c60376adfa5
 ____________________________________________________________________
 
 ______________________________ BOTONES  ____________________________
@@ -22,6 +27,8 @@ ______________________________ BOTONES  ____________________________
 ____________________________________________________________________
 -->
 
+<!-- Contenedor de botones principal, el cual contiene botones 'meta', no interfiren con el transcurso del programa, unicamente
+	 Sirven para resetear el tablero y para motrar la informacion de como usar el propio programa -->
 	<div class="botonesContainer1" id="botonesContainer1">
 
 		<!-- Nuevo Tablero -->
@@ -30,64 +37,83 @@ ____________________________________________________________________
 				<i id="deleteAll" class="fas fa-file fa-3x" data-toggle="tooltip"
 					data-placement="top" title="Nuevo Tablero"></i>
 			</button>
+			
+			<!-- Botón para mostrar información del tablero -->
+			<button id="info" data-target="#generalInfo" data-toggle="modal">
+				<i id="infoIcon" class="fas fa-info-circle fa-3x"
+					data-toggle="tooltip" data-placement="top" title="Info"></i>
+			</button>
+			
+		</div>
+
+<!-- Otra tanda de botones contextuales, la mayor diferencia es que estos si que sirven durante la partida, ya que muestran en
+ 	 detalle los valores representados durante el proceso, sobre todo tiempos, y sus respectivos gráficos -->
+		<div class="doubleButton">
+	
+		<!-- Genera los resultados para poder ver los tiempos, no se puede acceder hasta que no se haya detenido la ejecucion 
+			 del kanban -->
+			<button id="result" onclick="generarResultados()" class="resultbutt">
+				<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
+					data-placement="top" title="Mostrar Resultados"></i>
+			</button>
+			
+		<!-- Similar al anterior, ya que usa los valores de este, pero con la pequeña diferencia de que se puede acceder en cualquier
+			 momento de la ejecucion y te muestra los valores en una gráfica a tiempo real -->
+			<button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
+				<i class="fas fa-chart-bar fa-4x" data-toggle="tooltip"
+					data-placement="top" title="Mostrar Graficos"></i>
+			</button>
+		<!-- Este botón solo sirve para poder guardar los datos dentro de la base de datos -->
+			<div id="saveResultsButton">
+				<button id="saveResult" class="resultbutt" data-toggle="modal"
+					data-target="#modalBlueprint">
+					<i class="fas fa-save fa-4x" data-toggle="tooltip"
+						data-placement="top" title="Guardar Plantilla"></i>
+				</button>
+			</div>
+
 
 
 		</div>
-	
-		
-	<div class="doubleButton">
-		<button id="result" onclick="generarResultados()" class="resultbutt">
-			<i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip"
-				data-placement="top" title="Mostrar Resultados"></i>
-		</button>
-		
-		<button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
-			<i class="fas fa-chart-bar fa-4x" data-toggle="tooltip"
-				data-placement="top" title="Mostrar Graficos"></i>
-		</button>
-		
-		 <div id="saveResultsButton">
-			<button id="saveResult" class="resultbutt" data-toggle="modal" data-target="#modalBlueprint">
-				<i class="fas fa-save fa-4x" data-toggle="tooltip"
-					data-placement="top" title="Guardar Resultados"></i>
-			</button>
-		</div> 
-		
-		
-		
+
 	</div>
-	
-</div>
 	<h1 class="texto">KANBAN SIM</h1>
-	
-<!--
+
+	<!--
 ____________________________________________________________________
 
 _________________________ USUARIOS  ________________________________
 
 ____________________________________________________________________
 -->
-	
+
 	<fieldset class="teamField">
-	
-		<legend class="teamField">Miembros del Equipo:<span style="float: left;margin-left: 80%;" class="legUser"> <!-- margin-left :80% -->
-		<button	id="addUser"><i class="fas fa-user-plus fa-2x" data-toggle="modal"data-target="#addUsers"></i></button>
-		</span>
-		
+
+		<legend class="teamField">
+			Miembros del Equipo:<span style="float: left; margin-left: 80%;"
+				class="legUser"> <!-- margin-left :80% -->
+				<button id="addUser">
+					<i class="fas fa-user-plus fa-2x" data-toggle="modal"
+						data-target="#addUsers"></i>
+				</button>
+			</span>
+
 		</legend>
-		
-		<div class="usersContainer" id="usersContainer">
-			
-		</div>
-		
+
+		<div class="usersContainer" id="usersContainer"></div>
+
 	</fieldset>
-	
-	<p role="alert" style="float: left;margin-left: 25%; font-size:140%;margin-top: 1%; position: absolute;" id="saturacion" ></p>
-	<p role="alert" style="float: right;margin-right: 25%; font-size:140%;margin-top: 1%;" id="saturacion2" ></p>
-	
+
+	<p role="alert"
+		style="float: left; margin-left: 25%; font-size: 140%; margin-top: 1%; position: absolute;"
+		id="saturacion"></p>
+	<p role="alert"
+		style="float: right; margin-right: 25%; font-size: 140%; margin-top: 1%;"
+		id="saturacion2"></p>
+
 	<!--Temporizador y Cambiar Distribucion -->
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
-	
+
 	<div class="botonesContainer">
 
 		<!--  Botón Play/Pause -->
@@ -96,18 +122,18 @@ ____________________________________________________________________
 			<i id="reset" class="fas fa-redo fa-3x"></i>
 		</div>
 		<div class="playpause">
-			<input type="checkbox" value="None" id="playpause" name="check" /> <label	for="playpause" tabindex=1></label>
-		</div>		
-		
+			<input type="checkbox" value="None" id="playpause" name="check" /> <label
+				for="playpause" tabindex=1></label>
+		</div>
+
 	</div>
 
 	<!-- Botón Add Tasks, SOLO MANUAL -->
-	<button id="addTask" data-toggle="tooltip" data-placement="top"	title="Añadir Tareas">
+	<button id="addTask" data-toggle="tooltip" data-placement="top"
+		title="Añadir Tareas">
 		<i class="fas fa-plus fa-3x"></i>
-	</button>	
-	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv">
-		 
-	</div>
+	</button>
+	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
 
 	<!--
 ____________________________________________________________________
@@ -117,12 +143,12 @@ _______________________ GRAFICOS ____________________________
 ____________________________________________________________________
 -->
 	<div id="mostrarGraficosDiv" class="mostrarGraficosDiv">
-		 <div class="chart-container chartTask" id= "taskChart" >
-		 <h2>Gráfico de Tareas</h2>
+		<div class="chart-container chartTask" id="taskChart">
+			<h2>Gráfico de Tareas</h2>
 			<canvas id="myChartTask"></canvas>
-			
+
 			<div id="js-legend" class="chart-legend"></div>
-			
+
 			<br>
 			<h2>Gráfico de Fases</h2>
 
@@ -138,13 +164,13 @@ ____________________________________________________________________
 
 			<h2>Gráfico de Usuarios</h2>
 			<canvas id="myChart"></canvas>
-		</div> 		
+		</div>
 	</div>
-	
+
 	<div class="contenedor" id="contenedor">
 
 
-<!--
+		<!--
 ____________________________________________________________________
 
 _______________________ INICIO TABLERO  ____________________________
@@ -181,10 +207,10 @@ ____________________________________________________________________
 
 		</div>
 	</div>
-	
-	
 
-<!--
+
+
+	<!--
 
 ____________________________________________________________________
 
@@ -192,7 +218,7 @@ __________________________ MODAL FORMS  ____________________________
 
 ____________________________________________________________________
 -->
-	
+
 	<!-- Modal Añadir Fases-->
 	<div class="modal fade" id="modalAddFases" role="dialog">
 		<div class="modal-dialog">
@@ -204,11 +230,12 @@ ____________________________________________________________________
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="addName" placeholder="Nombre Fase" required> 
-					WIP: <input type="text" id="addWip"  value="1" required> 
-					Tiempo Mínimo: <input type="text" id="addMinTime" value="1" required> 
-					Tiempo Máximo: <input type="text" id="addMaxTime" value="1" required> 
-					Color:
+					Nombre Fase: <input type="text" id="addName"
+						placeholder="Nombre Fase" required> WIP: <input
+						type="text" id="addWip" value="1" required> Tiempo Mínimo:
+					<input type="text" id="addMinTime" value="1" required>
+					Tiempo Máximo: <input type="text" id="addMaxTime" value="1"
+						required> Color:
 					<div class="col-10">
 						<input class="form-control" type="color" id="color-input"
 							list="presetColors" value="#4ce600">
@@ -233,7 +260,7 @@ ____________________________________________________________________
 					</div>
 					<br>
 					<button id="addPhase" class="btn btn-secondary">Añadir</button>
-					
+
 				</div>
 				<div id="addFasesWarning"></div>
 				<div id="addFasesWarning2"></div>
@@ -244,7 +271,7 @@ ____________________________________________________________________
 
 		</div>
 	</div>
-	
+
 	<!-- Modal Modificar Fases-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -256,11 +283,10 @@ ____________________________________________________________________
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Nombre Fase: <input type="text" id="modName" disabled> 
-					WIP: <input type="number" id="modWip"> 
-					Tiempo Mínimo: <input type="number" id="modMinTime"> 
-					Tiempo Máximo: <input type="number" id="modMaxTime"> 
-					Color: 
+					Nombre Fase: <input type="text" id="modName" disabled> WIP:
+					<input type="number" id="modWip"> Tiempo Mínimo: <input
+						type="number" id="modMinTime"> Tiempo Máximo: <input
+						type="number" id="modMaxTime"> Color:
 					<div class="col-10">
 						<input class="form-control" type="color" id="color-input2"
 							list="presetColors2">
@@ -284,7 +310,8 @@ ____________________________________________________________________
 						</datalist>
 					</div>
 					<br>
-					<button id="modPhase" class="btn btn-secondary"	data-dismiss="modal">Modificar</button>
+					<button id="modPhase" class="btn btn-secondary"
+						data-dismiss="modal">Modificar</button>
 				</div>
 				<div id="modPhaseWarning"></div>
 				<div class="modal-footer">
@@ -322,7 +349,8 @@ ____________________________________________________________________
 				</div>
 				<div id="modUserWarning"></div>
 				<div class="modal-footer">
-					<button id="rmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar Miembro</button>
+					<button id="rmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
+						Miembro</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -343,7 +371,8 @@ ____________________________________________________________________
 				</div>
 
 				<div class="modal-body">
-					Nombre Usuario: <input type="text" id="addNameUser">
+					Nombre Usuario: <input type="text" id="addNameUser"
+						placeholder="Nombre">
 					<div>Fases:</div>
 					<div id="addFasesUser"></div>
 					<br> Rendimiento por fase:
@@ -472,7 +501,8 @@ ____________________________________________________________________
 						</div>
 					</div>
 					<div class="col-sm-8">
-						<button id="modBacklogBtn" class="btn btn-primary" data-dismiss="modal">SAVE</button>
+						<button id="modBacklogBtn" class="btn btn-primary"
+							data-dismiss="modal">SAVE</button>
 
 					</div>
 
@@ -483,15 +513,15 @@ ____________________________________________________________________
 			</div>
 		</div>
 	</div>
-	
-<!--
+
+	<!--
 ____________________________________________________________________
 
 __________________________ MODAL PLANTILLA  ________________________
 
 ____________________________________________________________________
 -->
-	
+
 	<!-- Modal Plantillas-->
 	<div class="modal fade" id="modalBlueprint" role="dialog">
 
@@ -505,8 +535,8 @@ ____________________________________________________________________
 				</div>
 
 				<div class="modal-body">
-					Nombre Plantilla: <input type="text" id="inputBlueprintName">
-
+					Nombre Plantilla: <input type="text" id="inputBlueprintName"
+						placeholder="Nombre Plantilla"> <br>
 					<button id="addBlueprint" class="btn btn-secondary"
 						data-dismiss="modal">Añadir</button>
 				</div>
@@ -517,7 +547,7 @@ ____________________________________________________________________
 		</div>
 
 	</div>
-	
+
 	<!-- Modal Seleccionar Plantillas-->
 	<div class="modal fade" id="modalSelectBlueprint" role="dialog">
 
@@ -543,16 +573,16 @@ ____________________________________________________________________
 		</div>
 
 	</div>
-	
-	
-<!--
+
+
+	<!--
 ____________________________________________________________________
 
 __________________________ MODAL INFO  ____________________________
 
 ____________________________________________________________________
 -->
-	
+
 	<!-- Modal Info Tareas -->
 	<div class="modal fade" id="modalTaskInfo" role="dialog">
 		<div class="modal-dialog">
@@ -586,6 +616,78 @@ ____________________________________________________________________
 			</div>
 		</div>
 	</div>
+	
+	
+	<!-- Modal General Info -->
+	<div class="modal fade" id="generalInfo" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Información</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div class="modal-body">
+				
+				<h2>General</h2>
+				<dl>
+				<dt><h4>Fases</h4></dt>
+				<dd>
+					Suspendisse potenti. 
+				</dd>
+				<dt><h4>Usuarios</h4></dt>
+				<dd>
+					Suspendisse potenti. 
+				</dd>
+				<dt><h4>Distribución</h4></dt>
+				<dd>
+					Suspendisse potenti. 
+				</dd>
+				<dt><h4>Tarea</h4></dt>
+				<dd>
+					Suspendisse potenti. 
+				</dd>
+				<dt><h4>Cronometro</h4></dt>
+				<dd>
+					Suspendisse potenti. 
+				</dd>
+				<dt><h4>Fases</h4></dt>
+				<dd>
+					Suspendisse potenti. 
+				</dd>
+				</dl>
+				<h2>Resultados y gráficas</h2>
+				<p>
+					Suspendisse potenti. Cras semper ultrices est eu porta. Fusce at tincidunt diam. Maecenas pellentesque nunc sagittis,
+					sodales odio vitae, viverra nibh. Mauris feugiat magna nec nisi tempor, quis dignissim urna dapibus. 
+					Quisque auctor id ex in aliquet. Praesent suscipit varius laoreet.
+					Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+				</p>
+				<h2>Plantillas</h2>
+				<dl>
+				<dt><h4>Guardar</h4></dt>
+				<dd>
+					Suspendisse potenti. 
+				</dd>
+				<dt><h4>Cargar</h4></dt>
+				<dd>
+					Suspendisse potenti. 
+				</dd>
+				<dt><h4>Modificar</h4></dt>
+				<dd>
+					Suspendisse potenti. 
+				</dd>
+				</dl>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
