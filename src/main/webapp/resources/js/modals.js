@@ -761,6 +761,10 @@ function chrono(){
 		if(radios[i].checked){
 			if(radios[i].value == "sec"){
 				chronoTime = document.getElementById("modChronoTime").value;
+				if(chronoTime > 5999){
+					chronoTime = 5999;
+					document.getElementById("modChronoTime").value = 5999;
+				}
 				var sec_num = parseInt(chronoTime, 10);
 				if(chronoTime > 59){
 					var minutes = Math.floor((sec_num) / 60);
@@ -775,10 +779,15 @@ function chrono(){
 					} else {
 						document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime);
 					}
-					
+
 				}
 			} else {
-				chronoTime = (document.getElementById("modChronoTime").value * 60);
+				if(parseInt(document.getElementById("modChronoTime").value) <= 99){
+					chronoTime = (document.getElementById("modChronoTime").value * 60);
+				}else{
+					document.getElementById("modChronoTime").value = 99;
+					chronoTime = (99 * 60);
+				}
 				if (parseInt(document.getElementById("modChronoTime").value, 10) < 10) {
 					document.getElementById("chronoViewer").innerHTML = "0" + document.getElementById("modChronoTime").value + ":00";
 				} else {
@@ -851,11 +860,11 @@ function showTaskInfo(){
 //Botón para guardar las plantillas
 if(document.getElementById("saveResult")){
 
-document.getElementById("saveResult").addEventListener("click", function(){
-	// Hace la peticion a la base de datos para que le de las plantillas
-	getBlueprints();
+	document.getElementById("saveResult").addEventListener("click", function(){
+		// Hace la peticion a la base de datos para que le de las plantillas
+		getBlueprints();
 
-}, false);
+	}, false);
 }
 
 //Crea una lista de 'opciones' para elegir las plantillas
@@ -909,7 +918,7 @@ function ValidateNameBlueprint(){
 	document.getElementById("inputBlueprintName").value = "";
 }
 
-// Validamos y indicamos que cuando le das click a guardar la plantilla no exista ninguna con ese nombre
+//Validamos y indicamos que cuando le das click a guardar la plantilla no exista ninguna con ese nombre
 document.getElementById("addBlueprint").addEventListener("click", function(){
 
 	getBlueprints();
