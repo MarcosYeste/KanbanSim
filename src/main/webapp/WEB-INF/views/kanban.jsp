@@ -14,12 +14,8 @@
 </head>
 <body>
 
-<<<<<<< HEAD
-	<!--
-=======
 
 <!--
->>>>>>> ec3205056e366147809efbbeed5f6c60376adfa5
 ____________________________________________________________________
 
 ______________________________ BOTONES  ____________________________
@@ -635,7 +631,13 @@ ____________________________________________________________________
 				<dl>
 				<dt><h4>Fases</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					Para Iniciar con el Kanban són necesarias las fases, las cuales crearemos a través del botón con ese mismo nombre,<wbr>
+					Para crear dichas fases, es muy sencillo, solamente necesitaremos un nombre de fase, un WIP, un tiempo minimo que puede durar cada tarea,<wbr>
+					el tiempo máximo que se le puede asignar a la tarea y por último un color con el cual podremos identificar visualmente cada fase. <wbr>
+					Si te equivocas al escribir algo en la fase o quieres cambiar cualquiera de sus datos, excepto el nombre ya que puede modificar el comportamiento <wbr>
+					del programa, solamente tenemos que poner el cursor encima del nombre de la fase y darle click, esto nos abrira una pestaña en la que <wbr>
+					podremos cambiar cualquiera de sus anteriormente citados puntos y por último, tambien se pueden ordenar las fases simplemente aggarandolas y arrastrandolas <wbr>
+					con el cursor, esta acción solo se siempre y cuando no se haya empezado a ejecutar o una vez ya haya terminado la ejecución.
 				</dd>
 				<dt><h4>Usuarios</h4></dt>
 				<dd>
@@ -653,10 +655,6 @@ ____________________________________________________________________
 				<dd>
 					Suspendisse potenti. 
 				</dd>
-				<dt><h4>Fases</h4></dt>
-				<dd>
-					Suspendisse potenti. 
-				</dd>
 				</dl>
 				<h2>Resultados y gráficas</h2>
 				<p>
@@ -666,18 +664,26 @@ ____________________________________________________________________
 					Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
 				</p>
 				<h2>Plantillas</h2>
+				<p>
+					Las plantillas nos permiten una mayor velocidad a la hora de iniciar con un kanban ya que podemos tener creada una plantilla 
+					con simplemente los miembros de un equipo como con solo las fases y tambien es posible guardar todo el kanban, fases y equipo
+				</p>
 				<dl>
 				<dt><h4>Guardar</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					Para guardar un kanban simplemente necesitas que como minimo haya un elemento en el mismo, ya sea un usuario o una fase, a partir de ese momento se habilitará un
+					icono que te permitirá guardar, icono de disquete, una vez dado clic encima de él, nos pedira un nombre, Alerta, el nombre da igual si lo escribes en minusculas o mayusculas,
+					si encuentra una plantilla con el mismo nombre no la guardará, te saldra una alerta avisandote, en caso contrario, se guardará automaticamente.
 				</dd>
 				<dt><h4>Cargar</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					Una vez guardada la plantilla se permitirá cargar esa o nuestras propias plantillas, nosotros ya tenemos creadas unas por defecto, simplemente tienes que 
+					darle al botón 'Cargar plantilla', seleccionar la que prefieras y a cargar, automaticamente se te cargará esa, puedes cargar cuantas quieras, no hay limites.
 				</dd>
 				<dt><h4>Modificar</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					 A la hora de guardar cuando introduzcas un nombre que ya existe, se te preguntara si quieres sobreescribir esa plantilla, si se acepta, se procederá a modificar dicha plantilla
+					 y la proxima vez que se cargue, tendrá la modificacón añadida.
 				</dd>
 				</dl>
 				</div>
