@@ -13,9 +13,8 @@
 
 </head>
 <body>
-<!--
 
-____________________________________________________________________
+<!--
 
 ______________________________ BOTONES  ____________________________
 
@@ -629,36 +628,81 @@ ____________________________________________________________________
 				
 				<h2>General</h2>
 				<dl>
+				<dt><h4>Iniciar</h4></dt>
+				<dd>
+					Para poder iniciar el kanban hace falta que tenga fases, usuarios y tareas. Para empezar la ejecución solo hace falta darle al botón de play y para pausar
+					en cualquier momento haz clic en el botón de pausa, También puedes resetear la ejecución dandole al botón de replay.
+				</dd>
 				<dt><h4>Fases</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					<strong>Añadir Fases:</strong> Para añadir fases haga click en el botón de 'Nueva Fase'
+					<br>Deberá Asignar un nombre, un WIP, un tiempo máximo y minimo y un color que lo representará visualmente.
 				</dd>
+				<dd>
+					<strong>Modificar Fases:</strong> Para modificar fases haga click en el el titulo de la fase. Podrá cambiar todos sus elementos excepto su nombre.
+				</dd>
+				<dd>
+					<strong>Ordenar Fases:</strong> Para ordenar las fases simplemente tiene que agarrar con el cursor la fase y arrastrarla hasta la posicion que usted desee.
+				</dd>
+				
 				<dt><h4>Miembros de Equipo</h4></dt>
 				<dd>
 					<strong>Añadir Miembros:</strong> Para añadir miembros haga click en el icono  <i class="fas fa-user-plus fa-1x" data-toggle="tooltip"	data-placement="right" title="Añadir Miembro"></i>. 
 					<br>Podrá asignarlo a una fase creada y determinar su rendimiento en esa fase.
 				</dd>
 				<dd>
-					<strong>Modificar Miembros:</strong> Para añadir miembros haga click en el Miembro . Podrá cambiar su asignación y rendimiento.
+					<strong>Modificar Miembros:</strong> Para modificar miembros haga click en el Miembro . Podrá cambiar su asignación y rendimiento.
 				</dd>
 				<dd>
 					<strong>Eliminar Miembros:</strong> Para eliminar miembros haga click en el Miembro y click en "Eliminar Miembro".
 				</dd>
 				<dt><h4>Distribución</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					<dl>
+						<dt>Distribución Manual:</dt>
+						<dd> La entrada de tareas se efectua mediante el botón <i class="fas fa-plus fa-1x"></i> 
+							(el sistema siempre detectará que existe sobre carga ya que la entrada de tareas es 0).</dd>
+						<dt>Distribución Constante:</dt>
+						<dd> La entrada de tareas se efectua de manera automatica y constante, según el tipo de constante 
+							se podrán configurar diversos parametros de entrada.<br>
+							<dl>
+								<dt>Normal:</dt>
+								<dd>Tiene dos parametros, la base que es la media general de tiempo que tardaran las tareas en entrar
+									y la varianza que es la distancia por encima y por debajo que se puede alejar este tiempo del valor base.</dd>
+								<dt>Poisson:</dt>
+								<dd>Tiene un parametro, lambda que supone el valor base de entrada de tareas</dd>
+								<dt>Con Peso:</dt>
+								<dd>Tiene 4 valores a configurar cada cual representa un tamaño de tareas, de esta forma se especifica
+									la probabilidad que tienen de aparecer tareas de ese tamaño. El tamaño se traduce a tiempo que se les
+									asigna a las tareas, cuando mayor tamaño mayor sera el tiempo que se le asigne (relativo a la fase en la que se
+									encuentre la tarea.)</dd>
+							</dl>
+						</dd>
+					</dl>	
 				</dd>
 				<dt><h4>Tarea</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					<dl>
+						<dt>Añadir</dt>
+						<dd> 
+							Para poder añadir tareas es tán sencillo como estar en distribución manual y darle al botón <i class="fas fa-plus fa-1x"></i><br>
+							Si por el contrario estas en una distribución contante, estas tareas se añadirán automaticamente.
+						</dd>
+						<dt>Información</dt>
+						<dd> 
+							Cada tarea tiene su propia información, para poder verla solo necesitas darle clic encima de la tarea qe quieras y ya está.
+						</dd>
+					</dl>
 				</dd>
 				<dt><h4>Cronometro</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					Para Iniciar el cronometro dale clic encima de los numeros <b>00:00</b>, saldra una ventana en la que se permitirá indicar el tiempo tanto en minutos como en segundos, una vez guardado dele
+					iniciar el Kanban y una vez pasado el tiempo la ejecución se parará automaticamente.
 				</dd>
-				<dt><h4>Fases</h4></dt>
+				<dt><h4>Nuevo Tablero</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					Si te has cansado ya de el tablero que tienes simplemente tienes que darle clic al icono <i class="fas fa-file 1x-fa"></i>. 
+					Ten en cuenta que esto borrará todo, Equipo y fases.
 				</dd>
 				</dl>
 				<h2>Resultados y gráficas</h2>
@@ -666,7 +710,7 @@ ____________________________________________________________________
 				<dt><h4>Resultados</h4></dt>
 				<dd>
 					<strong>Mostrar Resultados</strong> Para visualizar los resultados haga click en el icono 
-					 <i class="fas fa-clipboard-list fa-1x" data-toggle="tooltip"	data-placement="right" title="Mostrar Resultados"></i>
+					 <i class="fas fa-clipboard-list fa-1x" data-toggle="tooltip" data-placement="right" title="Mostrar Resultados"></i>
 				</dd>
 				<dt><h4>Gráficas</h4></dt>
 				<dd>
@@ -678,15 +722,18 @@ ____________________________________________________________________
 				<dl>
 				<dt><h4>Guardar</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					Necesitas que como minimo haya un elemento en el kanban, ya sea un usuario o una fase, una vez dado clic encima de <i class="fas fa-save  fa-1x"></i> nos pedirá un nombre.<br>
+					Alerta, si se encuentra una plantilla con el mismo nombre no lo guardará, en caso contrario, se guardará automaticamente.	
 				</dd>
 				<dt><h4>Cargar</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					Si quieres cargar plantillas simplemente tienes que darle al botón 'Cargar plantilla',
+					 seleccionar la que prefieras y a cargar, automaticamente se te cargará.
 				</dd>
 				<dt><h4>Modificar</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					 A la hora de guardar cuando introduzcas un nombre que ya existe, se te preguntara si quieres sobreescribir esa plantilla, si se acepta, se procederá a modificar dicha plantilla
+					 y la proxima vez que se cargue, tendrá la modificacón añadida.
 				</dd>
 				</dl>
 				</div>
