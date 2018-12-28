@@ -14,7 +14,6 @@
 </head>
 <body>
 
-
 <!--
 ____________________________________________________________________
 
@@ -631,17 +630,26 @@ ____________________________________________________________________
 				<dl>
 				<dt><h4>Fases</h4></dt>
 				<dd>
-					Para Iniciar con el Kanban són necesarias las fases, las cuales crearemos a través del botón con ese mismo nombre,<wbr>
-					Para crear dichas fases, es muy sencillo, solamente necesitaremos un nombre de fase, un WIP, un tiempo minimo que puede durar cada tarea,<wbr>
-					el tiempo máximo que se le puede asignar a la tarea y por último un color con el cual podremos identificar visualmente cada fase. <wbr>
-					Si te equivocas al escribir algo en la fase o quieres cambiar cualquiera de sus datos, excepto el nombre ya que puede modificar el comportamiento <wbr>
-					del programa, solamente tenemos que poner el cursor encima del nombre de la fase y darle click, esto nos abrira una pestaña en la que <wbr>
-					podremos cambiar cualquiera de sus anteriormente citados puntos y por último, tambien se pueden ordenar las fases simplemente aggarandolas y arrastrandolas <wbr>
-					con el cursor, esta acción solo se siempre y cuando no se haya empezado a ejecutar o una vez ya haya terminado la ejecución.
+					<strong>Añadir Fases:</strong> Para añadir fases haga click en el botón de 'Nueva Fase'
+					<br>Deberá Asignar un nombre, un WIP, un tiempo máximo y minimo y un color que lo representará visualmente.
 				</dd>
-				<dt><h4>Usuarios</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					<strong>Modificar Fases:</strong> Para modificar fases haga click en el el titulo de la fase. Podrá cambiar todos sus elementos excepto su nombre.
+				</dd>
+				<dd>
+					<strong>Ordenar Fases:</strong> Para ordenar las fases simplemente tiene que agarrar con el cursor la fase y arrastrarla hasta la posicion que usted desee.
+				</dd>
+				
+				<dt><h4>Miembros de Equipo</h4></dt>
+				<dd>
+					<strong>Añadir Miembros:</strong> Para añadir miembros haga click en el icono  <i class="fas fa-user-plus fa-1x" data-toggle="tooltip"	data-placement="right" title="Añadir Miembro"></i>. 
+					<br>Podrá asignarlo a una fase creada y determinar su rendimiento en esa fase.
+				</dd>
+				<dd>
+					<strong>Modificar Miembros:</strong> Para modificar miembros haga click en el Miembro . Podrá cambiar su asignación y rendimiento.
+				</dd>
+				<dd>
+					<strong>Eliminar Miembros:</strong> Para eliminar miembros haga click en el Miembro y click en "Eliminar Miembro".
 				</dd>
 				<dt><h4>Distribución</h4></dt>
 				<dd>
@@ -657,17 +665,19 @@ ____________________________________________________________________
 				</dd>
 				</dl>
 				<h2>Resultados y gráficas</h2>
-				<p>
-					Suspendisse potenti. Cras semper ultrices est eu porta. Fusce at tincidunt diam. Maecenas pellentesque nunc sagittis,
-					sodales odio vitae, viverra nibh. Mauris feugiat magna nec nisi tempor, quis dignissim urna dapibus. 
-					Quisque auctor id ex in aliquet. Praesent suscipit varius laoreet.
-					Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-				</p>
+				<dl>
+				<dt><h4>Resultados</h4></dt>
+				<dd>
+					<strong>Mostrar Resultados</strong> Para visualizar los resultados haga click en el icono 
+					 <i class="fas fa-clipboard-list fa-1x" data-toggle="tooltip" data-placement="right" title="Mostrar Resultados"></i>
+				</dd>
+				<dt><h4>Gráficas</h4></dt>
+				<dd>
+					<strong>Mostrar Gráficas:</strong>Para visualizar los resultados haga click en el icono <i class="fas fa-chart-bar fa-1x" data-toggle="tooltip" data-placement="right" title="Mostrar Graficos"></i>.
+					<br>Podrá visualizar las gráficas incluso mientras la partida este en curso.
+				</dd>
+				</dl>
 				<h2>Plantillas</h2>
-				<p>
-					Las plantillas nos permiten una mayor velocidad a la hora de iniciar con un kanban ya que podemos tener creada una plantilla 
-					con simplemente los miembros de un equipo como con solo las fases y tambien es posible guardar todo el kanban, fases y equipo
-				</p>
 				<dl>
 				<dt><h4>Guardar</h4></dt>
 				<dd>
