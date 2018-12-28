@@ -632,6 +632,11 @@ ____________________________________________________________________
 				
 				<h2>General</h2>
 				<dl>
+				<dt><h4>Iniciar</h4></dt>
+				<dd>
+					Para poder iniciar el kanban hace falta que tenga fases, usuarios y tareas. Para empezar la ejecución solo hace falta darle al botón de play y para pausar
+					en cualquier momento haz clic en el botón de pausa, También puedes resetear la ejecución dandole al botón de replay.
+				</dd>
 				<dt><h4>Fases</h4></dt>
 				<dd>
 					<strong>Añadir Fases:</strong> Para añadir fases haga click en el botón de 'Nueva Fase'
@@ -659,7 +664,7 @@ ____________________________________________________________________
 				<dd>
 					<dl>
 						<dt>Distribución Manual:</dt>
-						<dd> La entrada de tareas se efectua mediante el botón "+" 
+						<dd> La entrada de tareas se efectua mediante el botón <i class="fas fa-plus fa-1x"></i> 
 							(el sistema siempre detectará que existe sobre carga ya que la entrada de tareas es 0).</dd>
 						<dt>Distribución Constante:</dt>
 						<dd> La entrada de tareas se efectua de manera automatica y constante, según el tipo de constante 
@@ -667,9 +672,9 @@ ____________________________________________________________________
 							<dl>
 								<dt>Normal:</dt>
 								<dd>Tiene dos parametros, la base que es la media general de tiempo que tardaran las tareas en entrar
-									y la varianza que es la distancia por encima y por debajo que se puede alejas este tiempo del valor base.</dd>
-								<dt>Poison:</dt>
-								<dd></dd>
+									y la varianza que es la distancia por encima y por debajo que se puede alejar este tiempo del valor base.</dd>
+								<dt>Poisson:</dt>
+								<dd>Tiene un parametro, lambda que supone el valor base de entrada de tareas</dd>
 								<dt>Con Peso:</dt>
 								<dd>Tiene 4 valores a configurar cada cual representa un tamaño de tareas, de esta forma se especifica
 									la probabilidad que tienen de aparecer tareas de ese tamaño. El tamaño se traduce a tiempo que se les
@@ -681,10 +686,27 @@ ____________________________________________________________________
 				</dd>
 				<dt><h4>Tarea</h4></dt>
 				<dd>
+					<dl>
+						<dt>Añadir</dt>
+						<dd> 
+							Para poder añadir tareas es tán sencillo como estar en distribución manual y darle al botón <i class="fas fa-plus fa-1x"></i><br>
+							Si por el contrario estas en una distribución contante, estas tareas se añadirán automaticamente.
+						</dd>
+						<dt>Información</dt>
+						<dd> 
+							Cada tarea tiene su propia información, para poder verla solo necesitas darle clic encima de la tarea qe quieras y ya está.
+						</dd>
+					</dl>
 				</dd>
 				<dt><h4>Cronometro</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					Para Iniciar el cronometro dale clic encima de los numeros <b>00:00</b>, saldra una ventana en la que se permitirá indicar el tiempo tanto en minutos como en segundos, una vez guardado dele
+					iniciar el Kanban y una vez pasado el tiempo la ejecución se parará automaticamente.
+				</dd>
+				<dt><h4>Nuevo Tablero</h4></dt>
+				<dd>
+					Si te has cansado ya de el tablero que tienes simplemente tienes que darle clic al icono <i class="fas fa-file 1x-fa"></i>. 
+					Ten en cuenta que esto borrará todo, Equipo y fases.
 				</dd>
 				</dl>
 				<h2>Resultados y gráficas</h2>
@@ -704,14 +726,13 @@ ____________________________________________________________________
 				<dl>
 				<dt><h4>Guardar</h4></dt>
 				<dd>
-					Para guardar un kanban simplemente necesitas que como minimo haya un elemento en el mismo, ya sea un usuario o una fase, a partir de ese momento se habilitará un
-					icono que te permitirá guardar, icono de disquete, una vez dado clic encima de él, nos pedira un nombre, Alerta, el nombre da igual si lo escribes en minusculas o mayusculas,
-					si encuentra una plantilla con el mismo nombre no la guardará, te saldra una alerta avisandote, en caso contrario, se guardará automaticamente.
+					Necesitas que como minimo haya un elemento en el kanban, ya sea un usuario o una fase, una vez dado clic encima de <i class="fas fa-save  fa-1x"></i> nos pedirá un nombre.<br>
+					Alerta, si se encuentra una plantilla con el mismo nombre no lo guardará, en caso contrario, se guardará automaticamente.	
 				</dd>
 				<dt><h4>Cargar</h4></dt>
 				<dd>
-					Una vez guardada la plantilla se permitirá cargar esa o nuestras propias plantillas, nosotros ya tenemos creadas unas por defecto, simplemente tienes que 
-					darle al botón 'Cargar plantilla', seleccionar la que prefieras y a cargar, automaticamente se te cargará esa, puedes cargar cuantas quieras, no hay limites.
+					Si quieres cargar plantillas simplemente tienes que darle al botón 'Cargar plantilla',
+					 seleccionar la que prefieras y a cargar, automaticamente se te cargará.
 				</dd>
 				<dt><h4>Modificar</h4></dt>
 				<dd>
