@@ -166,6 +166,7 @@ h1 {
 /*---------------------------------------------------- TEMPORIZADOR ----------------------------------------------*/
 #chronoViewer {
 	font-weight: bold;
+	font-family: 'Orbitron', sans-serif;
 	font-size: 40px;
 	position: absolute;
 	margin-left: 12%;
