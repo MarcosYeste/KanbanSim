@@ -1,73 +1,74 @@
-var ctcs = document.getElementById("myChartPhase").getContext('2d');
-var rectangleSet = false;
-var options = {
-		responsive: true,
-		maintainAspectRatio: false,
-		legend: {
-			display: true,
-
-		},
-		scales: {
-			xAxes: [{
-				barThickness: 50,
-				barPercentage: 0.5,
-				gridLines: {
-					offsetGridLines: true
-				},
-			}],
-			yAxes: [{
-				ticks: {
-					beginAtZero: true,
-					min: 0,
-					max: 1,
-					display: false,
-				},
-				scaleLabel: {
-					display: false
-				},
-			}]
-
-		}, 
-		animation: {
-			onComplete: function(){
-				if (!rectangleSet) {
-					var scale = window.devicePixelRatio;
-
-					var sourceCanvas = myChartPhase.chart.canvas;
-					var copyWidth = myChartPhase.scales['y-axis-0'].width - 10;
-					var copyHeight = myChartPhase.scales['y-axis-0'].height + myChartPhase.scales['y-axis-0'].top + 10;
-
-					var targetCtx = document.getElementById("myChartAxis").getContext("2d");
-
-					targetCtx.scale(scale, scale);
-					targetCtx.canvas.width = copyWidth * scale;
-					targetCtx.canvas.height = copyHeight * scale;
-
-					targetCtx.canvas.style.width = `${copyWidth}px`;
-					targetCtx.canvas.style.height = `${copyHeight}px`;
-					if(copyHeight > 10){
-					targetCtx.drawImage(sourceCanvas, 0, 0, copyWidth * scale, copyHeight * scale, 0, 0, copyWidth * scale, copyHeight * scale);
-					}
-					var sourceCtx = sourceCanvas.getContext('2d');
-
-					// Normalize coordinate system to use css pixels.
-
-					sourceCtx.clearRect(0, 0, copyWidth * scale, copyHeight * scale);
-					rectangleSet = true;
-				}
+if(document.getElementById("myChartPhase")){
+	var ctcs = document.getElementById("myChartPhase").getContext('2d');
+	var rectangleSet = false;
+	var options = {
+			responsive: true,
+			maintainAspectRatio: false,
+			legend: {
+				display: true,
+	
 			},
-			onProgress: function(){
-				if (rectangleSet === true) {
-					var copyWidth = myChartPhase.scales['y-axis-0'].width;
-					var copyHeight = myChartPhase.scales['y-axis-0'].height + myChartPhase.scales['y-axis-0'].top + 10;
-
-					var sourceCtx = myChartPhase.chart.canvas.getContext('2d');
-					sourceCtx.clearRect(0, 0, copyWidth, copyHeight);
+			scales: {
+				xAxes: [{
+					barThickness: 50,
+					barPercentage: 0.5,
+					gridLines: {
+						offsetGridLines: true
+					},
+				}],
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						min: 0,
+						max: 1,
+						display: false,
+					},
+					scaleLabel: {
+						display: false
+					},
+				}]
+	
+			}, 
+			animation: {
+				onComplete: function(){
+					if (!rectangleSet) {
+						var scale = window.devicePixelRatio;
+	
+						var sourceCanvas = myChartPhase.chart.canvas;
+						var copyWidth = myChartPhase.scales['y-axis-0'].width - 10;
+						var copyHeight = myChartPhase.scales['y-axis-0'].height + myChartPhase.scales['y-axis-0'].top + 10;
+	
+						var targetCtx = document.getElementById("myChartAxis").getContext("2d");
+	
+						targetCtx.scale(scale, scale);
+						targetCtx.canvas.width = copyWidth * scale;
+						targetCtx.canvas.height = copyHeight * scale;
+	
+						targetCtx.canvas.style.width = `${copyWidth}px`;
+						targetCtx.canvas.style.height = `${copyHeight}px`;
+						if(copyHeight > 10){
+						targetCtx.drawImage(sourceCanvas, 0, 0, copyWidth * scale, copyHeight * scale, 0, 0, copyWidth * scale, copyHeight * scale);
+						}
+						var sourceCtx = sourceCanvas.getContext('2d');
+	
+						// Normalize coordinate system to use css pixels.
+	
+						sourceCtx.clearRect(0, 0, copyWidth * scale, copyHeight * scale);
+						rectangleSet = true;
+					}
+				},
+				onProgress: function(){
+					if (rectangleSet === true) {
+						var copyWidth = myChartPhase.scales['y-axis-0'].width;
+						var copyHeight = myChartPhase.scales['y-axis-0'].height + myChartPhase.scales['y-axis-0'].top + 10;
+	
+						var sourceCtx = myChartPhase.chart.canvas.getContext('2d');
+						sourceCtx.clearRect(0, 0, copyWidth, copyHeight);
+					}
 				}
 			}
-		}
-
-};
+	
+	};
 
 
 var myChartPhase = new Chart(ctcs, {
@@ -98,7 +99,7 @@ var myChartPhase = new Chart(ctcs, {
 	},
 	options: options
 });
-
+}
 function addDataPhase(chart,media) {
 	removePhasesChart(chart);
 	var color1 = "#008000";

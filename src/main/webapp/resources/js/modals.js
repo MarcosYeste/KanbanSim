@@ -689,6 +689,7 @@ function rmvModUsers() {
 		document.getElementsByClassName("userName")[i].children[0].children[0].setAttribute("data-identification", i);
 		document.getElementsByClassName("userName")[i].children[1].setAttribute("data-identification", i);
 	}
+
 }
 
 
@@ -841,13 +842,16 @@ function showTaskInfo(){
 
 //_____________________________________________________________________
 
+
 //Botón para guardar las plantillas
+if(document.getElementById("saveResult")){
+
 document.getElementById("saveResult").addEventListener("click", function(){
 	// Hace la peticion a la base de datos para que le de las plantillas
 	getBlueprints();
 
 }, false);
-
+}
 
 //Crea una lista de 'opciones' para elegir las plantillas
 function loadSelectBlueprintNames(){
@@ -900,7 +904,7 @@ function ValidateNameBlueprint(){
 	document.getElementById("inputBlueprintName").value = "";
 }
 
-//Validamos y indicamos que cuando le das click a guardar la plantilla no exista ninguna con ese nombre
+// Validamos y indicamos que cuando le das click a guardar la plantilla no exista ninguna con ese nombre
 document.getElementById("addBlueprint").addEventListener("click", function(){
 
 	getBlueprints();
@@ -921,3 +925,4 @@ document.getElementById("selectBlueprint").addEventListener("click", function(){
 	}
 
 }, false);
+
