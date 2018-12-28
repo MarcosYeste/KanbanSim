@@ -781,12 +781,13 @@ function saveBlueprint(text){
 }
 
 function getBlueprints(){
-	
+
 	$.ajax({
 		type: "GET",
 		url: "/getBluePrint",
 		success: function(data) {
 			bluePrint = JSON.parse(data);
+			console.log(bluePrint);
 			getNameBluePrint();
 		}
 	})
@@ -799,9 +800,22 @@ function getNameBluePrint() {
 			nameBlueprintArray[0].push(bluePrint[i].NameBlueprint);
 			nameBlueprintArray[1].push(bluePrint[i]._id);
 		}
-		
-		for (var i = 0; i < nameBlueprintArray.length; i++) {
-			console.log(nameBlueprintArray[i]);
-		}
 	}
+}
+//Update a la blueprint en especifico
+function updateBlueprints(id){
+	var listU = JSON.parse(sessionStorage.getItem("users"));
+	var listP = JSON.parse(sessionStorage.getItem("phases"));
+	
+	var object = JSON.stringify({listU, listP});
+	$.ajax({
+		type: "GET",
+		url: "/updateBluePrint",
+		data: {
+			id : id,
+			data : object},
+		success: function(data) {
+			getBlueprints();
+		}
+	})
 }
