@@ -62,6 +62,7 @@ function generarResultados(){
 	buttonResult.value = "Mostrar Kanban";
 	buttonResult.setAttribute("onClick", "mostrarKanban()");
 	document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
+	document.getElementsByClassName("crono")[0].style.visibility = "hidden";
 }
 //Click a mostrar kanban
 function mostrarKanban(){
@@ -75,6 +76,7 @@ function mostrarKanban(){
 	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";	
 	document.getElementById("result").setAttribute("onClick", "generarResultados()");
 	document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
+	document.getElementsByClassName("crono")[0].style.visibility = "visible";
 
 	// Mostramos el boton de nuevo
 	if(distribution.backLogType != "constant"){
@@ -96,6 +98,7 @@ function mostrarGraficas (){
 	document.getElementById("addTask").setAttribute("aria-disabled", "true");
 	generarGraficos();
 	document.getElementById("graficos").setAttribute("onClick", "mostrarKanban()");
+	document.getElementsByClassName("crono")[0].style.visibility = "hidden";
 
 
 	if(document.getElementById("js-legend")){

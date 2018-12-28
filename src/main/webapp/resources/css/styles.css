@@ -346,9 +346,9 @@ h1 {
 }
 /* crono */
 .crono{
-	color: white;
-	background-color: #818181;
-	border : 4px solid black;
+	color: #febc23;
+	background-color: #070707;
+	border : 4px double black;
 	font-size : 160% !important;
 	font-weight: bolder;
 	text-align:center;
