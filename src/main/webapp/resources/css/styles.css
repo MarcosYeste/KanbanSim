@@ -153,6 +153,16 @@ h1 {
 	margin-left: 5px;
 }
 
+.modal-body dd{ 
+  display: block;
+  margin-left: 40px !important;
+}
+
+.modal-content{
+	width: 700px !important;
+}
+
+
 /*---------------------------------------------------- TEMPORIZADOR ----------------------------------------------*/
 #chronoViewer {
 	font-weight: bold;

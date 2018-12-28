@@ -324,6 +324,15 @@ button {
 	margin-top: 100px;
 }
 
+#info{
+	cursor: pointer;
+	margin-left: 40px;
+}
+
+#infoIcon:hover{
+	color: silver;
+}
+
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
 
 

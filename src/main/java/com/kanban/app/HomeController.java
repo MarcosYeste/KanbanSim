@@ -1,13 +1,11 @@
 package com.kanban.app;
 
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import org.json.JSONArray;
 //import org.json.JSONObject; // comentado para recuperar resultado
 import org.json.simple.JSONObject; 
 import org.json.simple.parser.JSONParser;
@@ -174,11 +172,7 @@ public class HomeController {
 
 		// Corrección Hacer con un id
 
-		for (int i = 0; i < userArray.size(); i++) {
-			if (userArray.get(i).getName().indexOf(name) != -1) {
-				userArray.remove(i);
-			}
-		}
+		
 
 		System.out.println("Deleted " + name + " " + userArray.size());
 
@@ -195,7 +189,6 @@ public class HomeController {
 				userArray.get(i).setName(newName);
 				userArray.get(i).setRawPhases(phases);
 				userArray.get(i).setRawSkills(skills);
-				;
 
 			}
 		}
@@ -285,7 +278,6 @@ public class HomeController {
 			val = "XL";
 		}
 
-		Random ran = new Random();
 		int number = r.nextInt(5) + 1;
 
 		return val + "," + String.valueOf(number);
@@ -308,8 +300,6 @@ public class HomeController {
 			if (!phaseExist) {
 
 				allPhases.add(phase.trim());
-
-			} else {
 
 			}
 		} else {

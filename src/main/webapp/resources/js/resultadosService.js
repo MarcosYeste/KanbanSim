@@ -31,7 +31,6 @@ function rellenarResultados(){
 	var mediaLead = 0;
 	var cantidadTask = 0;
 	var mediaPorFases = new Array();
-	var resultMediaPorFases = new Array();
 	var mediaPorTarea = new Array();
 	var numerotareas = 0;
 	var sumatodo = 0;
@@ -155,7 +154,6 @@ function rellenarResultados(){
 
 function buscarMasTrabajador(opcion){
 	var arrayValores = [];
-	var nombresArray = [];
 	var array = [];
 	arrayValores = findMaxAndMin();
 	if(opcion == 'max'){
@@ -255,16 +253,12 @@ function behindTable(){
 }
 
 function graficPhase(){
-	var mediaPorFases2 = new Array();
-	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
 //	addDataPhase(myChartPhase,listResultados[0].phaseMediaFase[0][listResultados[0].phaseMediaFase[0].length-2]);
 	addDataPhase(myChartPhase,listResultados[0].phaseSumaStates[0]);
 }
 
 function updateGraficPhase(){
-	var mediaPorFases2 = new Array();
-	var resultMediaPorFases2 = new Array();
 	calculoTiemposTotalesFase();
 
 	if(listResultados[0] != undefined){
@@ -306,9 +300,6 @@ function tablePhase(){
 	tabla += "</tr>";
 	tabla += "</thead>";	
 	tabla += "<tbody>";
-	var mediaPorTarea = new Array();
-	var mediaPorFases = new Array();
-	var resultMediaPorFases = new Array();
 	var l = 0;	
 	var auxCV2 =0;
 
@@ -382,9 +373,6 @@ function tableUser(){
 
 	var div = document.getElementById("ResultadoUsuario");
 	div.innerHTML = "";
-	var arrayValores = [];
-	var nombresArray = [];
-	var idU=0;
 
 	var tabla = "<table class='table table-bordered table-fixed'>";
 	tabla += "<thead>";

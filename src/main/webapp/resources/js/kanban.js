@@ -139,8 +139,6 @@ function play() {
 	var fases = document.getElementsByClassName("faseName");
 	var lowestTime = [];
 	var lazyPeople = [];
-	var tiempoInicio = 0;
-	var anteriorTiempo = 0;
 	
 	myInterval = setInterval(function() {
 
@@ -489,7 +487,7 @@ function play() {
 
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
-							task.phase == (i + 1) && !task.sameIteration){0
+							task.phase == (i + 1) && !task.sameIteration){
 						//IF 5
 						//console.log("IF 5 " + task.name);
 							
@@ -852,7 +850,7 @@ if(divsTareas.length == 0){leadTime = 0;}
 			}
 		}
 		
-	}, 100);
+	}, 1000);
 }
 
 //____________________________________________________________________
@@ -985,7 +983,6 @@ function sortPhases(){
 			items: "> div.faseName",
 			update: function (event, ui) {
 
-				var sortArray = new Array();
 				var info = $(this).sortable("toArray");
 				var sortArray = new Array();
 				for (var i = 0; i < info.length; i++) {
@@ -1097,7 +1094,6 @@ function getDistribution(){
 			document.getElementById("dataPoissonDistribution").style.height = "0px";
 
 			var weightDivValues = $(".sizeValue");
-			var weightDivSliders = $("div.ui-slider-handle");
 
 			for(var wv = 0; wv < weightDivValues.length; wv++){
 				weightDivValues[wv].innerHTML = distributionWeightValues[wv];
