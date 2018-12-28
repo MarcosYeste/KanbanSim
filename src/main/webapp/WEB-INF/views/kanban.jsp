@@ -13,13 +13,8 @@
 
 </head>
 <body>
-
-<<<<<<< HEAD
-	<!--
-=======
-
 <!--
->>>>>>> ec3205056e366147809efbbeed5f6c60376adfa5
+
 ____________________________________________________________________
 
 ______________________________ BOTONES  ____________________________
@@ -637,9 +632,16 @@ ____________________________________________________________________
 				<dd>
 					Suspendisse potenti. 
 				</dd>
-				<dt><h4>Usuarios</h4></dt>
+				<dt><h4>Miembros de Equipo</h4></dt>
 				<dd>
-					Suspendisse potenti. 
+					<strong>Añadir Miembros:</strong> Para añadir miembros haga click en el icono  <i class="fas fa-user-plus fa-1x" data-toggle="tooltip"	data-placement="right" title="Añadir Miembro"></i>. 
+					<br>Podrá asignarlo a una fase creada y determinar su rendimiento en esa fase.
+				</dd>
+				<dd>
+					<strong>Modificar Miembros:</strong> Para añadir miembros haga click en el Miembro . Podrá cambiar su asignación y rendimiento.
+				</dd>
+				<dd>
+					<strong>Eliminar Miembros:</strong> Para eliminar miembros haga click en el Miembro y click en "Eliminar Miembro".
 				</dd>
 				<dt><h4>Distribución</h4></dt>
 				<dd>
@@ -659,12 +661,18 @@ ____________________________________________________________________
 				</dd>
 				</dl>
 				<h2>Resultados y gráficas</h2>
-				<p>
-					Suspendisse potenti. Cras semper ultrices est eu porta. Fusce at tincidunt diam. Maecenas pellentesque nunc sagittis,
-					sodales odio vitae, viverra nibh. Mauris feugiat magna nec nisi tempor, quis dignissim urna dapibus. 
-					Quisque auctor id ex in aliquet. Praesent suscipit varius laoreet.
-					Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-				</p>
+				<dl>
+				<dt><h4>Resultados</h4></dt>
+				<dd>
+					<strong>Mostrar Resultados</strong> Para visualizar los resultados haga click en el icono 
+					 <i class="fas fa-clipboard-list fa-1x" data-toggle="tooltip"	data-placement="right" title="Mostrar Resultados"></i>
+				</dd>
+				<dt><h4>Gráficas</h4></dt>
+				<dd>
+					<strong>Mostrar Gráficas:</strong>Para visualizar los resultados haga click en el icono <i class="fas fa-chart-bar fa-1x" data-toggle="tooltip" data-placement="right" title="Mostrar Graficos"></i>.
+					<br>Podrá visualizar las gráficas incluso mientras la partida este en curso.
+				</dd>
+				</dl>
 				<h2>Plantillas</h2>
 				<dl>
 				<dt><h4>Guardar</h4></dt>
