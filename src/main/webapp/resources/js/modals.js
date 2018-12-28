@@ -769,8 +769,13 @@ function chrono(){
 					if (seconds < 10) {seconds = "0"+seconds;}
 					document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 				} else {
-					if (chronoTime < 10) {chronoTime = "0"+parseInt(chronoTime);}
-					document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime);
+					if (chronoTime < 10) {
+						chronoTime = "0"+parseInt(chronoTime);
+						document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;
+					} else {
+						document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime);
+					}
+					
 				}
 			} else {
 				chronoTime = (document.getElementById("modChronoTime").value * 60);
