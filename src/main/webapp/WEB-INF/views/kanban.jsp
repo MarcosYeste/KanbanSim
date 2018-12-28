@@ -107,8 +107,9 @@ ____________________________________________________________________
 		id="saturacion2"></p>
 
 	<!--Temporizador y Cambiar Distribucion -->
-	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
-
+	<div class="crono">
+	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer" >00:00</p>
+	</div>
 	<div class="botonesContainer">
 
 		<!--  Botón Play/Pause -->
