@@ -106,7 +106,7 @@ ____________________________________________________________________
 		id="saturacion2"></p>
 
 	<!--Temporizador y Cambiar Distribucion -->
-	<div class="crono">
+	<div class="crono" >
 	<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer" >00:00</p>
 	</div>
 	<div class="botonesContainer">
@@ -626,13 +626,15 @@ ____________________________________________________________________
 
 				<div class="modal-body">
 				
-				<h2>General</h2>
+				<h2><center>General</center></h2>
+				<hr>
 				<dl>
 				<dt><h4>Iniciar</h4></dt>
 				<dd>
 					Para poder iniciar el kanban hace falta que tenga fases, usuarios y tareas. Para empezar la ejecución solo hace falta darle al botón de play y para pausar
 					en cualquier momento haz clic en el botón de pausa, También puedes resetear la ejecución dandole al botón de replay.
 				</dd>
+				<hr>
 				<dt><h4>Fases</h4></dt>
 				<dd>
 					<strong>Añadir Fases:</strong> Para añadir fases haga click en el botón de 'Nueva Fase'
@@ -644,8 +646,8 @@ ____________________________________________________________________
 				<dd>
 					<strong>Ordenar Fases:</strong> Para ordenar las fases simplemente tiene que agarrar con el cursor la fase y arrastrarla hasta la posicion que usted desee.
 				</dd>
-				
-				<dt><h4>Miembros de Equipo</h4></dt>
+				<hr>
+				<dt><h4>Miembros de Equipo</h4></dt><br>
 				<dd>
 					<strong>Añadir Miembros:</strong> Para añadir miembros haga click en el icono  <i class="fas fa-user-plus fa-1x" data-toggle="tooltip"	data-placement="right" title="Añadir Miembro"></i>. 
 					<br>Podrá asignarlo a una fase creada y determinar su rendimiento en esa fase.
@@ -656,7 +658,8 @@ ____________________________________________________________________
 				<dd>
 					<strong>Eliminar Miembros:</strong> Para eliminar miembros haga click en el Miembro y click en "Eliminar Miembro".
 				</dd>
-				<dt><h4>Distribución</h4></dt>
+				<hr>
+				<dt><h4>Distribución</h4></dt><br>
 				<dd>
 					<dl>
 						<dt>Distribución Manual:</dt>
@@ -680,7 +683,8 @@ ____________________________________________________________________
 						</dd>
 					</dl>	
 				</dd>
-				<dt><h4>Tarea</h4></dt>
+				<hr>
+				<dt><h4>Tarea</h4></dt><br>
 				<dd>
 					<dl>
 						<dt>Añadir</dt>
@@ -694,43 +698,45 @@ ____________________________________________________________________
 						</dd>
 					</dl>
 				</dd>
-				<dt><h4>Cronometro</h4></dt>
+				<hr>
+				<dt><h4>Cronometro</h4></dt><br>
 				<dd>
 					Para Iniciar el cronometro dale clic encima de los numeros <b>00:00</b>, saldra una ventana en la que se permitirá indicar el tiempo tanto en minutos como en segundos, una vez guardado dele
 					iniciar el Kanban y una vez pasado el tiempo la ejecución se parará automaticamente.
 				</dd>
-				<dt><h4>Nuevo Tablero</h4></dt>
+				<hr>
+				<dt><h4>Nuevo Tablero</h4></dt><br>
 				<dd>
 					Si te has cansado ya de el tablero que tienes simplemente tienes que darle clic al icono <i class="fas fa-file 1x-fa"></i>. 
 					Ten en cuenta que esto borrará todo, Equipo y fases.
 				</dd>
 				</dl>
-				<h2>Resultados y gráficas</h2>
+				<hr>
+				<h2><center>Resultados y gráficas</center></h2><hr>
 				<dl>
-				<dt><h4>Resultados</h4></dt>
 				<dd>
 					<strong>Mostrar Resultados</strong> Para visualizar los resultados haga click en el icono 
 					 <i class="fas fa-clipboard-list fa-1x" data-toggle="tooltip" data-placement="right" title="Mostrar Resultados"></i>
 				</dd>
-				<dt><h4>Gráficas</h4></dt>
 				<dd>
 					<strong>Mostrar Gráficas:</strong>Para visualizar los resultados haga click en el icono <i class="fas fa-chart-bar fa-1x" data-toggle="tooltip" data-placement="right" title="Mostrar Graficos"></i>.
 					<br>Podrá visualizar las gráficas incluso mientras la partida este en curso.
 				</dd>
 				</dl>
-				<h2>Plantillas</h2>
+				<hr>
+				<h2><center>Plantillas</center></h2><hr>
 				<dl>
-				<dt><h4>Guardar</h4></dt>
+				<dt>Guardar</dt>
 				<dd>
 					Necesitas que como minimo haya un elemento en el kanban, ya sea un usuario o una fase, una vez dado clic encima de <i class="fas fa-save  fa-1x"></i> nos pedirá un nombre.<br>
 					Alerta, si se encuentra una plantilla con el mismo nombre no lo guardará, en caso contrario, se guardará automaticamente.	
 				</dd>
-				<dt><h4>Cargar</h4></dt>
+				<dt>Cargar</dt>
 				<dd>
 					Si quieres cargar plantillas simplemente tienes que darle al botón 'Cargar plantilla',
 					 seleccionar la que prefieras y a cargar, automaticamente se te cargará.
 				</dd>
-				<dt><h4>Modificar</h4></dt>
+				<dt>Modificar</dt>
 				<dd>
 					 A la hora de guardar cuando introduzcas un nombre que ya existe, se te preguntara si quieres sobreescribir esa plantilla, si se acepta, se procederá a modificar dicha plantilla
 					 y la proxima vez que se cargue, tendrá la modificacón añadida.
