@@ -14,9 +14,6 @@ var chronoTimeTypeSelection = "sec";
 var userO = new Object();
 var taskNameCounter = 0;
 var atributo = "Task1";
-var temporaryArray = [];
-
-//$('#myModal2').modal({backdrop: 'static', keyboard: false})  
 
 //Variable global donde guardar el JSON con los datos de las plantillas(Blueprints)
 var bluePrint = null;
@@ -519,13 +516,10 @@ function modUsers(){
 		}
 
 		if(event.target.checked){
-			
-			temporaryArray.push(event.target.value);
-			insertInput(index1, event.target.value);
+			listUsers[click2].phases.push(event.target.value);
+			insertInput(index1, listUsers[click2].phases.indexOf(event.target.value));
 
 		} else {
-			
-			temporaryArray.splice(event.target.value, 1);
 			for(var i = 0; i < listUsers[click2].phases.length; i++){
 				if(event.target.value == listUsers[click2].phases[i].trim()){
 
@@ -665,11 +659,8 @@ function saveModUsers() {
 
 		listUsers[click2].name = nuevoNombre;
 		listUsers[click2].skills = skillsList;
-		
-		for (var i = 0; i < temporaryArray.length; i++) {
-			listUsers[click2].phases.push(temporaryArray[i]);
-		}
-		temporaryArray = [];
+
+
 		listTareas.forEach(function(tareas){
 
 			for(var i = 0; i < tareas.assignedUsers.length; i++){
