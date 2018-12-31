@@ -768,14 +768,23 @@ function play() {
 				lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
 
 				for(var i = 0; i < lazyPeople[1].length; i++){
+					if(lazyPeople[1][i] != ""){
 					document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
+					}
 				}
 
 			}
 		}
 		leadTime += 1;
+<<<<<<< HEAD
 		if(divsTareas.length == 0){leadTime = 0;}
 
+=======
+		stopWatch();
+		
+if(divsTareas.length == 0){leadTime = 0;}
+		
+>>>>>>> 0ef7c7452c54925c75e8dcef2b73019cf11da3db
 
 		// Calculamos el tiempo para parar el play con el timer
 		console.log("::: SEGUNDOS ::::: "+leadTime);
@@ -864,7 +873,11 @@ function play() {
 				document.getElementsByClassName("userName")[i].removeAttribute("data-toggle");
 			}
 		}
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 0ef7c7452c54925c75e8dcef2b73019cf11da3db
 	}, 10);
 }
 
@@ -1152,4 +1165,25 @@ function printTasks(tarea){
 	for (var i = 0; i < document.getElementsByClassName("tareas").length; i++) {
 		document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo, false);
 	}
+}
+function stopWatch(){
+
+	if(leadTime > 59){
+		var sec_num = parseInt(leadTime + kanbanTss, 10);
+		var minutes = Math.floor((sec_num) / 60);
+		var seconds = sec_num - (minutes * 60);
+		if (minutes < 10) {minutes = "0"+minutes;}
+		if (seconds < 10) {seconds = "0"+seconds;}
+		document.getElementById("clock").innerHTML = minutes+":"+seconds;
+	} else {
+		if(leadTime + kanbanTss < 10 ){
+			document.getElementById("clock").innerHTML = "00:0"+(leadTime + kanbanTss);
+		} else {
+			document.getElementById("clock").innerHTML = "00:"+(leadTime + kanbanTss);
+		}
+	
+	}
+
+	
+	
 }
