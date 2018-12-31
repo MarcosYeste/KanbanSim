@@ -16,6 +16,7 @@ var taskNameCounter = 0;
 var atributo = "Task1";
 var temporaryArray = [];
 
+//$('#myModal2').modal({backdrop: 'static', keyboard: false})  
 
 //Variable global donde guardar el JSON con los datos de las plantillas(Blueprints)
 var bluePrint = null;

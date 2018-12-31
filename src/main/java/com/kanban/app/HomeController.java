@@ -127,7 +127,6 @@ public class HomeController {
 		return noderet.toString();
 	}
 
-
 	@RequestMapping(value = "/updateBluePrint", method = RequestMethod.GET)
 	public @ResponseBody void updateBluePrint(String id, String data) {
 
