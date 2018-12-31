@@ -84,24 +84,24 @@ public class KanbanService {
 
 				//System.out.println("x=" + x.length + " Y=" + y.length + "  z=" + z.length);
 				for (int k = 0; k < z.length; k++) {
-					
+
 					try {
-						
+
 						//System.out.println("try");
 						intArray[i][j][k] = Integer.parseInt(z[k]);
 						//System.out.println(Integer.parseInt(z[k]));
 						//System.out.println(z[k]);
-						
+
 					} catch (Exception e) {
-						
+
 						try {
 							//System.out.println("i=" + i + " j=" + j);
 							//System.out.println("Catch");
 							intArray[i][j][0] = 0;
-//							//System.out.println("exception " + intArray[i][j][0]);
-							
+							//							//System.out.println("exception " + intArray[i][j][0]);
+
 						}catch (Exception n) {
-//							//System.out.println("PEta");
+							//							//System.out.println("PEta");
 						}
 					}
 
