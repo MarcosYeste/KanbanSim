@@ -776,15 +776,11 @@ function play() {
 			}
 		}
 		leadTime += 1;
-<<<<<<< HEAD
-		if(divsTareas.length == 0){leadTime = 0;}
 
-=======
 		stopWatch();
 		
 if(divsTareas.length == 0){leadTime = 0;}
-		
->>>>>>> 0ef7c7452c54925c75e8dcef2b73019cf11da3db
+
 
 		// Calculamos el tiempo para parar el play con el timer
 		console.log("::: SEGUNDOS ::::: "+leadTime);
@@ -873,12 +869,8 @@ if(divsTareas.length == 0){leadTime = 0;}
 				document.getElementsByClassName("userName")[i].removeAttribute("data-toggle");
 			}
 		}
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 0ef7c7452c54925c75e8dcef2b73019cf11da3db
-	}, 10);
+	}, 1000);
 }
 
 //____________________________________________________________________
@@ -1183,7 +1175,4 @@ function stopWatch(){
 		}
 	
 	}
-
-	
-	
 }
