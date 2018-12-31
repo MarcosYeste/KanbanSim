@@ -626,7 +626,7 @@ ____________________________________________________________________
 
 				<div class="modal-body">
 				
-				<h2><center>General</center></h2>
+				<h2>General</h2>
 				<hr>
 				<dl>
 				<dt><h4>Iniciar</h4></dt>
@@ -712,7 +712,7 @@ ____________________________________________________________________
 				</dd>
 				</dl>
 				<hr>
-				<h2><center>Resultados y gráficas</center></h2><hr>
+				<h2>Resultados y gráficas</h2><hr>
 				<dl>
 				<dd>
 					<strong>Mostrar Resultados</strong> Para visualizar los resultados haga click en el icono 
@@ -724,7 +724,7 @@ ____________________________________________________________________
 				</dd>
 				</dl>
 				<hr>
-				<h2><center>Plantillas</center></h2><hr>
+				<h2>Plantillas</h2><hr>
 				<dl>
 				<dt>Guardar</dt>
 				<dd>

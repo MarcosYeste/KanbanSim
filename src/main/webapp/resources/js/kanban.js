@@ -13,12 +13,13 @@ distribution.variation;			// Variation value for normal distribution
 distribution.lambda;			// Lambda value for poisson distribution 
 distribution.distributionWeightValues = [0, 0, 0, 0];
 
-
+// Recogemos la distribución según lo que este guardado en la sesión
 refreshDistributionSession();
 saveDistributionSession();
 
 document.getElementById("distributionChange").addEventListener("click", getDistribution(), false);
 
+// Dependiendo si es manual o si es constante, haz una lista de funciones
 if(distribution.backLogType == "manual"){
 
 	document.getElementById("addTask").removeAttribute("disabled");
@@ -29,6 +30,7 @@ if(distribution.backLogType == "manual"){
 	document.getElementById("addTask").setAttribute("aria-disabled", "true");
 
 }
+// Variables globales necesarias para empezar la partida
 var playing = false;
 var firstLoop = true;
 var myInterval;
@@ -66,7 +68,7 @@ emptyUserData();
 refreshUsers();
 refreshPhases();
 
-//Guardar al modificar Phase
+//Guardar al modificar el orden de las fases
 sortPhases();
 
 // Hacemos la peticion inicial a la base datos por las plantillas
@@ -76,8 +78,14 @@ getBlueprints();
 listUsers.forEach(function(user){
 	
 	addData(myChart, user.name, user.tasksWorked, "rgba(0,255,233,0.5)");
+	
 })
 
+// Desactivamos la imagen del Slider si a la hora de recargar la página no hay ninguna fase
+if(listPhases.length <= 0){
+	var declaration = document.styleSheets[7].cssRules[5].style;
+	var theCSSprop = declaration.setProperty("opacity", 0, "important");
+}
 
 
 //Botón para reinicializar la simulación

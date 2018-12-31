@@ -15,6 +15,7 @@ var userO = new Object();
 var taskNameCounter = 0;
 var atributo = "Task1";
 
+//$('#myModal2').modal({backdrop: 'static', keyboard: false})  
 
 //Variable global donde guardar el JSON con los datos de las plantillas(Blueprints)
 var bluePrint = null;
@@ -122,6 +123,12 @@ function saveAddPhase(){
 		savePhaseSession();
 		emptyPhaseData();
 		printLastPhase();
+
+		// Activa la imagen de Slider
+		var declaration = document.styleSheets[7].cssRules[5].style;
+		if(declaration.getPropertyValue("opacity") == 0){
+			var theCSSprop = declaration.setProperty("opacity", 0.2, "important");
+		}
 	}
 }
 
