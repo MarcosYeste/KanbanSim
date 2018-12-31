@@ -42,12 +42,12 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-	
+
 
 		return "success";
 
 	}
-	
+
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public String succes(Model model) throws MalformedURLException {
 
@@ -59,7 +59,7 @@ public class HomeController {
 	@RequestMapping(value = "/nextGaussian", method = RequestMethod.GET)
 	public @ResponseBody String gaussian(int mean ,int variation) {
 
-		
+
 		return distributionService.getNextGaussian(mean, variation);
 	}
 
@@ -97,10 +97,11 @@ public class HomeController {
 		Object listUsers = jsonobject.get("listU");
 		Object listPhases = jsonobject.get("listP");
 
+
 		try {
-			
+
 			restdbService.saveBluePrint(blueprint, listUsers, listPhases);
-		
+
 
 		} catch (UnirestException e) {
 
@@ -109,7 +110,6 @@ public class HomeController {
 
 	}
 
-	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getBluePrint", method = RequestMethod.GET)
 	public @ResponseBody String getSavedBluePrint() {
 
@@ -119,9 +119,6 @@ public class HomeController {
 
 			noderet = restdbService.findAllBluePrints();
 
-			System.out.println(noderet);
-
-
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -129,12 +126,12 @@ public class HomeController {
 		// Paso el objeto como una String que recojo por el JS como JSON
 		return noderet.toString();
 	}
-	
-	@SuppressWarnings("rawtypes")
+
+
 	@RequestMapping(value = "/updateBluePrint", method = RequestMethod.GET)
 	public @ResponseBody void updateBluePrint(String id, String data) {
-			
-		
+
+
 
 		JSONParser parser = new JSONParser();
 

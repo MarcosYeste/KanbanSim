@@ -24,11 +24,11 @@ public class RestdbService {
 				.header("x-apikey", API_KEY)
 				.header("cache-control", "no-cache")
 				.asJson();	
-		System.out.println(ret.getBody());
 		return  (JsonNode) ret.getBody();
 		
 	}
 	
+	@SuppressWarnings("unused")
 	public  @ResponseBody void updateBluePrint(Object listUsers, Object listPhases ,String id) throws UnirestException {
 		
 		@SuppressWarnings("rawtypes")
@@ -42,14 +42,13 @@ public class RestdbService {
 	
 	public @ResponseBody void saveBluePrint(Object blueprint, Object listUsers, Object listPhases) throws UnirestException {
 		
-		@SuppressWarnings("rawtypes")
+		@SuppressWarnings({ "rawtypes", "unused" })
 		HttpResponse post = Unirest.post(API_URL)
 				.header("content-type", "application/json")
 				.header("x-apikey", API_KEY)
 				.header("cache-control", "no-cache")
 				.body("{\"NameBlueprint\":\""+ blueprint +"\",\"listUsers\":"+ listUsers+",\"listPhases\":"+ listPhases+"}")
 				.asString();
-		
 		
 	}
 }
