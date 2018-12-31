@@ -99,10 +99,10 @@ ____________________________________________________________________
 
     <!--Temporizador y Cambiar Distribucion -->
     <div class="crono">
-        <p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
+        <p data-toggle="modal" data-target="#modalChrono" id="chronoViewer" data-placement="right" title="Chronometer">00:00</p>
     </div>
     <div class="clock">
-        <p data-toggle="modal" id="clock">00:00</p>
+        <p data-toggle="modal" id="clock" data-placement="right" title="Clock">00:00</p>
     </div>
  
     <div class="botonesContainer">
