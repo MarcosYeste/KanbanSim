@@ -178,7 +178,7 @@ h2{
 /*---------------------------------------------------- TEMPORIZADOR ----------------------------------------------*/
 
 /* crono */
-.crono{
+.crono, .clock{
 	color: #febc23;
 	background-color: #070707;
 	border : 4px double black;
@@ -197,6 +197,11 @@ h2{
 	box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.2), 0 3px 7px 0
 		rgba(0, 0, 0, 0.19);
 	font-family: 'Orbitron', sans-serif;
+}
+.clock{
+	right: 0;
+	margin-right: 13.5%;
+	
 }
 
 .distributionRadio {
