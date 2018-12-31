@@ -41,11 +41,11 @@
 	overflow-x: auto;
 }
 
-body:after {
-	content: url(../img/moveIcon.png);
+.contenedor:after {
+	content: url(../img/slide.png);
 	opacity: 0.2;
   	filter: alpha(opacity=20); /* For IE8 and earlier */
-	z-index: 2;
+	z-index: 99999;
 	display: flex;
 	align-items: center;
 	justify-content: center;
