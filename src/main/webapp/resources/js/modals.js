@@ -15,8 +15,6 @@ var userO = new Object();
 var taskNameCounter = 0;
 var atributo = "Task1";
 
-//$('#myModal2').modal({backdrop: 'static', keyboard: false})  
-
 //Variable global donde guardar el JSON con los datos de las plantillas(Blueprints)
 var bluePrint = null;
 var nameBlueprintArray = [[],[]];
@@ -902,7 +900,7 @@ document.getElementById("nuevaPlantilla").addEventListener("click", function(){
 
 }, false);
 
-//Validacion a la hora de guardar la plantilla
+//Validación a la hora de guardar la plantilla
 function ValidateNameBlueprint(){
 	if(listUsers.length > 0 || listPhases.length > 0){
 		for (var i = 0; i < nameBlueprintArray[0].length; i++) {

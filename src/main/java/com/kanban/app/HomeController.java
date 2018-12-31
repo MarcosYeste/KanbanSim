@@ -97,6 +97,7 @@ public class HomeController {
 		Object listUsers = jsonobject.get("listU");
 		Object listPhases = jsonobject.get("listP");
 
+
 		try {
 
 			restdbService.saveBluePrint(blueprint, listUsers, listPhases);
@@ -109,7 +110,6 @@ public class HomeController {
 
 	}
 
-	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getBluePrint", method = RequestMethod.GET)
 	public @ResponseBody String getSavedBluePrint() {
 
@@ -119,9 +119,6 @@ public class HomeController {
 
 			noderet = restdbService.findAllBluePrints();
 
-			System.out.println(noderet);
-
-
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -130,7 +127,6 @@ public class HomeController {
 		return noderet.toString();
 	}
 
-	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/updateBluePrint", method = RequestMethod.GET)
 	public @ResponseBody void updateBluePrint(String id, String data) {
 

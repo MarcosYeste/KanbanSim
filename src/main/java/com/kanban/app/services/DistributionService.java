@@ -38,7 +38,6 @@ public class DistributionService {
 		Random r = new Random();
 		int num = r.nextInt(100) + 1;
 		String val = "";
-		System.out.println(sValue + ", " + mValue + ", " + lValue + ", " + xlValue);
 		if(num <= sValue) {
 			val = "S";
 		} else if(num > sValue && num <= sValue + mValue) {
@@ -48,6 +47,7 @@ public class DistributionService {
 		} else if (num > sValue + mValue + lValue && num <= sValue + mValue + lValue + xlValue) {
 			val = "XL";
 		}
+
 		int number = r.nextInt(5) + 1;
 
 		return val + "," + String.valueOf(number);

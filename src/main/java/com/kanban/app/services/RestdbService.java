@@ -17,17 +17,16 @@ public class RestdbService {
 
 	public  @ResponseBody JsonNode findAllBluePrints() throws UnirestException {
 
-
-
 		@SuppressWarnings("rawtypes")
 		HttpResponse ret = Unirest.get(API_URL)
-							.header("x-apikey", API_KEY)
-							.header("cache-control", "no-cache")
-							.asJson();	
-		System.out.println(ret.getBody());
+				.header("x-apikey", API_KEY)
+				.header("cache-control", "no-cache")
+				.asJson();	
+
 		return  (JsonNode) ret.getBody();
 
 	}
+
 
 	public  @ResponseBody void updateBluePrint(Object listUsers, Object listPhases ,String id) throws UnirestException {
 
@@ -49,7 +48,6 @@ public class RestdbService {
 							.header("cache-control", "no-cache")
 							.body("{\"NameBlueprint\":\""+ blueprint +"\",\"listUsers\":"+ listUsers+",\"listPhases\":"+ listPhases+"}")
 							.asString();
-
 
 	}
 }

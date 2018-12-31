@@ -308,7 +308,7 @@ ____________________________________________________________________
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Modificar Miembro</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+             <!--        <button type="button" class="close" data-dismiss="modal">&times;</button> -->
                 </div>
 
                 <div class="modal-body">
@@ -326,8 +326,8 @@ ____________________________________________________________________
                 <div class="modal-footer">
                     <button id="rmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
                         Miembro</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+<!--                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+              </div>
             </div>
         </div>
     </div>
