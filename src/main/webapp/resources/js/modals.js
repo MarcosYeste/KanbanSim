@@ -513,10 +513,8 @@ function modUsers(){
 			if(allcheckBox[ch].value == event.target.value){
 
 				index1 = ch;
-
 			}
 		}
-
 		if(event.target.checked){
 			listUsers[click2].phases.push(event.target.value);
 			insertInput(index1, listUsers[click2].phases.indexOf(event.target.value));
@@ -532,7 +530,6 @@ function modUsers(){
 
 						listUsers[click2].phases = [];
 						listUsers[click2].skills = [];
-
 					}
 				}
 			}
