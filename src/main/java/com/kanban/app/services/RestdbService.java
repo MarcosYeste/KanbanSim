@@ -31,7 +31,7 @@ public class RestdbService {
 
 	public  @ResponseBody void updateBluePrint(Object listUsers, Object listPhases ,String id) throws UnirestException {
 
-		@SuppressWarnings("rawtypes")
+		@SuppressWarnings({ "rawtypes", "unused" })
 		HttpResponse response = Unirest.put(API_URL +"/"+ id)
 								.header("content-type", "application/json")
 								.header("x-apikey", API_KEY)
@@ -42,7 +42,7 @@ public class RestdbService {
 
 	public @ResponseBody void saveBluePrint(Object blueprint, Object listUsers, Object listPhases) throws UnirestException {
 
-		@SuppressWarnings("rawtypes")
+		@SuppressWarnings({ "rawtypes", "unused" })
 		HttpResponse post = Unirest.post(API_URL)
 							.header("content-type", "application/json")
 							.header("x-apikey", API_KEY)

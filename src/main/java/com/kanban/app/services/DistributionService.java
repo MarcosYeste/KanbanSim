@@ -48,8 +48,6 @@ public class DistributionService {
 		} else if (num > sValue + mValue + lValue && num <= sValue + mValue + lValue + xlValue) {
 			val = "XL";
 		}
-
-		Random ran = new Random();
 		int number = r.nextInt(5) + 1;
 
 		return val + "," + String.valueOf(number);

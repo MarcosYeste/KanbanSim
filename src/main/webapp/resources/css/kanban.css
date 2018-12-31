@@ -41,29 +41,28 @@
 }
 
 .contenedor:after {
-    content: url(../img/slide.png);
-    opacity: 0.2;
-    filter: alpha(opacity=20);
-    /* For IE8 and earlier */
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 500px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    -webkit-pointer-events: none;
-    -moz-pointer-events: none;
-    -ms-pointer-events: none;
-    -o-pointer-events: none;
-    pointer-events: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+	content: url(../img/slide.png);
+	opacity: 0.2;
+  	filter: alpha(opacity=20); /* For IE8 and earlier */
+	z-index: 4;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position:absolute;
+	top: 500px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	-webkit-pointer-events: none;
+	-moz-pointer-events: none;
+	-ms-pointer-events: none;
+	-o-pointer-events: none;
+	pointer-events: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 
 /*---------------------------------------------------- FASES ----------------------------------------------*/
