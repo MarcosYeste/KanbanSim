@@ -77,7 +77,6 @@ function mostrarKanban(){
 	document.getElementById("result").setAttribute("onClick", "generarResultados()");
 	document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
 	document.getElementsByClassName("crono")[0].style.visibility = "visible";
-
 	// Mostramos el boton de nuevo
 	if(distribution.backLogType != "constant"){
 		document.getElementById("addTask").removeAttribute("disabled");
@@ -141,7 +140,6 @@ function generarGraficos(){
 	document.getElementById("taskChart").style.display = "block";
 	refreshPhases();
 	graficPhase();
-
 	myChartTask.update();
 
 }
