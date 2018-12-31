@@ -1,44 +1,43 @@
 /*---------------------------------------------------- KANBAN ----------------------------------------------*/
 .contenedor {
-	background-color: #63bafa;
-	border: 2px solid blue;
-	display: table;
-	display: flex;
-	width: 80%;
-	height: auto;
-	margin-left: 10%;
-	margin-bottom: 1%;
-	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
+    background-color: #63bafa;
+    border: 2px solid blue;
+    display: table;
+    display: flex;
+    width: 80%;
+    height: auto;
+    margin-left: 10%;
+    margin-bottom: 1%;
+    box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .principio {
-	border: 1px solid #0a80f5;
-	width: 20%;
-	max-width: 20%;
-	display: flex;
-	flex-direction: column;
+    border: 1px solid #0a80f5;
+    width: 20%;
+    max-width: 20%;
+    display: flex;
+    flex-direction: column;
 }
 
 .fin {
-	border: 1px solid #0a80f5;
-	width: 20%;
+    border: 1px solid #0a80f5;
+    width: 20%;
 }
 
 .contenedorFinal {
-	max-height: 500px;
-	height: 500px;
-	padding: 40px;
-	overflow-x: hidden;
-	overflow-y: scroll;
+    max-height: 500px;
+    height: 500px;
+    padding: 40px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 #faseDiv {
-	width: 70%;
-	min-width: 70%;
-	max-width: 100%;
-	overflow-y: hidden;
-	overflow-x: auto;
+    width: 70%;
+    min-width: 70%;
+    max-width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
 .contenedor:after {
@@ -68,448 +67,455 @@
 
 /*---------------------------------------------------- FASES ----------------------------------------------*/
 .faseName {
-	border: 1px solid #35a6f9;
-	width: 30%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	max-height: 550.8px;
-	min-width: 138.5px;
-	text-align: center;
-	overflow: hidden;
+    border: 1px solid #35a6f9;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    max-height: 550.8px;
+    min-width: 138.5px;
+    text-align: center;
+    overflow: hidden;
 }
 
-.faseName>div:not (.titulo ){
-	overflow-y: auto;
+.faseName > div:not (.titulo) {
+    overflow-y: auto;
 }
 
 .subfase {
-	color: black;
-	text-shadow: 0.1px 1px 0.5px;
-	background-color: #63bafa;
-	display: flex;
-	justify-content: space-around;
+    color: black;
+    text-shadow: 0.1px 1px 0.5px;
+    background-color: #63bafa;
+    display: flex;
+    justify-content: space-around;
 }
 
 .subSubfase {
-	color: white;
-	text-shadow: 0.1px 1px 0.5px #aebabd;
-	font-size: 130%;
-	table-layout: fixed;
+    color: white;
+    text-shadow: 0.1px 1px 0.5px #aebabd;
+    font-size: 130%;
+    table-layout: fixed;
 }
 
 .fase {
-	width: 100%;
-	display: flex;
+    width: 100%;
+    display: flex;
 }
 
-.titulo, .tituloInit, .tituloEnd {
-	text-shadow: 0.1px 1px 0.5px;
-	font-size: 120%;
-	background-color: white;
-	color: blue;
-	text-align: center;
-	padding-bottom: 10px;
+.titulo,
+.tituloInit,
+.tituloEnd {
+    text-shadow: 0.1px 1px 0.5px;
+    font-size: 120%;
+    background-color: white;
+    color: blue;
+    text-align: center;
+    padding-bottom: 10px;
 }
 
-.titulo.barra, .tituloInit.barra, .tituloEnd.barra {
-	background-color: transparent;
+.titulo.barra,
+.tituloInit.barra,
+.tituloEnd.barra {
+    background-color: transparent;
 }
 
 .titulo {
-	cursor: pointer !important;
+    cursor: pointer !important;
 }
 
 /*---------------------------------------------------- TAREAS ----------------------------------------------*/
 .tareas {
-	color: black;
-	background-color: white;
-	border: 1px solid blue;
-	font-size: 120%;
-	margin-top: 10%;
-	text-align: center;
-	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
-	text-shadow: 0.1px 0.5px 0.5px;
+    color: black;
+    background-color: white;
+    border: 1px solid blue;
+    font-size: 120%;
+    margin-top: 10%;
+    text-align: center;
+    box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-shadow: 0.1px 0.5px 0.5px;
 }
 
 .contenedorTareas {
-	padding: 10px;
-	display: flex;
-	flex-direction: column;
-	margin-right: 20%;
-	margin-left: 10%;
-	/* Limite Tareas */
-	max-height: 500px;
-	height: 500px;
-	overflow: hidden;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20%;
+    margin-left: 10%;
+    /* Limite Tareas */
+    max-height: 500px;
+    height: 500px;
+    overflow: hidden;
 }
 
 p.estado {
-	margin-top: -15px;
-	margin-bottom: -1px;
+    margin-top: -15px;
+    margin-bottom: -1px;
 }
 
 .div-head {
-	text-align: center;
-	font-weight: bold;
-	border-right: 1px solid;
+    text-align: center;
+    font-weight: bold;
+    border-right: 1px solid;
 }
 
 .task {
-	border: 1px solid lightblue;
-	background-color: lightblue;
-	padding: auto;
-	font-weight: normal
+    border: 1px solid lightblue;
+    background-color: lightblue;
+    padding: auto;
+    font-weight: normal
 }
 
-.modUserPhaseCheck, .addUserPhaseCheck, input[type='radio'] {
-	display: inline;
-	margin-left: 15px;
+.modUserPhaseCheck,
+.addUserPhaseCheck,
+input[type='radio'] {
+    display: inline;
+    margin-left: 15px;
 }
 
 input[type='radio'] {
-	margin-top: 15px;
-	margin-bottom: 30px;
-	margin-left: 10px;
-	margin-right: 5px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    margin-left: 10px;
+    margin-right: 5px;
 }
 
 .divSkill {
-	display: inline;
-	margin-left: 15px;
+    display: inline;
+    margin-left: 15px;
 }
 
 .skillInput {
-	display: inline;
-	margin-left: 15px;
+    display: inline;
+    margin-left: 15px;
 }
 
 /*---------------------------------------------------- TITULOS ----------------------------------------------*/
 .texto {
-	text-shadow: 3px 2px 5px #011cd6;
-	color: #0f45c4;
-	font-size: 400%;
-	text-align: center;
-	margin-top: -80px;
+    text-shadow: 3px 2px 5px #011cd6;
+    color: #0f45c4;
+    font-size: 400%;
+    text-align: center;
+    margin-top: -80px;
 }
 
 /*---------------------------------------------------- BOTONES ----------------------------------------------*/
 button {
-	outline: none !important;
+    outline: none !important;
 }
 
 .playpause {
-	height: 70px;
-	display: flex;
-	flex-direction: row-reverse;
-	padding-top: 7px;
+    height: 70px;
+    display: flex;
+    flex-direction: row-reverse;
+    padding-top: 7px;
 }
 
 .playpause label {
-	display: block;
-	box-sizing: border-box;
-	width: 0;
-	height: 50px;
-	cursor: pointer;
-	border-color: transparent transparent transparent #202020;
-	transition: 100ms all ease;
-	will-change: border-width;
-	/* Play state */
-	border-style: solid;
-	border-width: 27px 0 27px 60px;
+    display: block;
+    box-sizing: border-box;
+    width: 0;
+    height: 50px;
+    cursor: pointer;
+    border-color: transparent transparent transparent #202020;
+    transition: 100ms all ease;
+    will-change: border-width;
+    /* Play state */
+    border-style: solid;
+    border-width: 27px 0 27px 60px;
 }
 
 .playpause input[type='checkbox'] {
-	visibility: hidden;
+    visibility: hidden;
 }
 
-.playpause input[type='checkbox']:checked+label {
-	/* Pause state */
-	border-style: double;
-	border-width: 0px 0 0px 60px;
+.playpause input[type='checkbox']:checked + label {
+    /* Pause state */
+    border-style: double;
+    border-width: 0px 0 0px 60px;
 }
 
 #deleteAll {
-	color: black;
-	margin-left: 10px;
+    color: black;
+    margin-left: 10px;
 }
 
 #deleteAll:hover {
-	color: #004a00;
-	margin-left: 10px;
+    color: #004a00;
+    margin-left: 10px;
 }
 
-#reset, #deleteAll, #divDeleteTasks, #addUser {
-	cursor: pointer;
+#reset,
+#deleteAll,
+#divDeleteTasks,
+#addUser {
+    cursor: pointer;
 }
 
 .botonesContainer {
-	border: 1px solid #1cadfb;
-	/* 	background-color: #7acefc; */
-	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
-	border-radius: 20%;
-	margin-left: 45%;
-	width: 10%;
-	height: auto;
-	align-items: center;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	justify-content: space-between;
-	padding-left: 27px;
-	padding-right: 8px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+    border: 1px solid #1cadfb;
+    /* 	background-color: #7acefc; */
+    box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20%;
+    margin-left: 45%;
+    width: 10%;
+    height: auto;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-between;
+    padding-left: 27px;
+    padding-right: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .botonesContainer1 {
-	color: #a6d9ff;
-	margin-top: 1px;
-	/* background-color: #63bafa;
+    color: #a6d9ff;
+    margin-top: 1px;
+    /* background-color: #63bafa;
 	background-image: linear-gradient(#63bafa, white);  */
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-#deleteButtons>div {
-	cursor: pointer;
+#deleteButtons > div {
+    cursor: pointer;
 }
 
 .doubleButton {
-	display: flex;
-	flex-direction: row;
-	margin-right: -35px;
+    display: flex;
+    flex-direction: row;
+    margin-right: -35px;
 }
 
 .doubleButton #divDeleteTasks {
-	color: black;
-	margin-left: 30px;
+    color: black;
+    margin-left: 30px;
 }
 
 .doubleButton #divDeleteTasks:hover {
-	color: #970000;
-	margin-left: 30px;
+    color: #970000;
+    margin-left: 30px;
 }
 
-.resultbutt, .doubleButton>button {
-	background-color: transparent;
-	border: transparent;
-	width: 5%;
-	text-align: center;
-	padding: 10px;
-	margin-right: 10px;
+.resultbutt,
+.doubleButton > button {
+    background-color: transparent;
+    border: transparent;
+    width: 5%;
+    text-align: center;
+    padding: 10px;
+    margin-right: 10px;
 }
 
 .resultbutt:hover {
-	cursor: pointer;
-	color: #000091;
+    cursor: pointer;
+    color: #000091;
 }
 
-.resultbutt:disabled, .doubleButton>button:disabled, #addUser:disabled {
-	opacity: 0.3;
-	cursor: default;
+.resultbutt:disabled,
+.doubleButton > button:disabled,
+#addUser:disabled {
+    opacity: 0.3;
+    cursor: default;
 }
 
-#addUser, #addTask {
-	background-color: transparent;
-	border: transparent;
+#addUser,
+#addTask {
+    background-color: transparent;
+    border: transparent;
 }
 
 #addUser:hover {
-	color: olive;
+    color: olive;
 }
 
 #addTask {
-	position: absolute;
-	margin-left: 5%;
-	margin-top: 2%;
+    position: absolute;
+    margin-left: 5%;
+    margin-top: 2%;
 }
 
 #addTask:active {
-	transform: translate(1px, 2px);
+    transform: translate(1px, 2px);
 }
 
 #graficos {
-	margin-left: 30px;
-	margin-top: 13px !important;
+    margin-left: 30px;
+    margin-top: 13px !important;
 }
 
 #saveResultsButton {
-	position: absolute;
-	margin-top: 100px;
+    position: absolute;
+    margin-top: 100px;
 }
 
 #info {
-	cursor: pointer;
-	margin-left: 40px;
+    cursor: pointer;
+    margin-left: 40px;
 }
 
 #infoIcon:hover {
-	color: silver;
+    color: silver;
 }
 
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
 .mostrarResultadosDiv {
-	justify-content: space-around;
-	display: flex;
-	text-align: center;
-	flex-direction: column;
-	background-color: #63bafa;
-	color: white;
-	text-shadow: 0.1px 1px 10px blue;
-	font-size: 120%;
-	border: 1px solid blue;
-	display: table;
-	display: flex;
-	width: 80%;
-	height: auto;
-	margin-left: 10%;
-	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
+    justify-content: space-around;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    background-color: #63bafa;
+    color: white;
+    text-shadow: 0.1px 1px 10px blue;
+    font-size: 120%;
+    border: 1px solid blue;
+    display: table;
+    display: flex;
+    width: 80%;
+    height: auto;
+    margin-left: 10%;
+    box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .mostrarGraficosDiv {
-	justify-content: space-around;
-	display: flex;
-	text-align: center;
-	flex-direction: column;
-	background-color: #63bafa;
-	color: black;
-	text-shadow: 0.1px 1px 5px grey;
-	font-size: 120%;
-	display: table;
-	display: flex;
-	width: 95%;
-	height: auto;
-	margin-left: 3%;
-	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
+    justify-content: space-around;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    background-color: #63bafa;
+    color: black;
+    text-shadow: 0.1px 1px 5px grey;
+    font-size: 120%;
+    display: table;
+    display: flex;
+    width: 95%;
+    height: auto;
+    margin-left: 3%;
+    box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.tareaResultado, .faseResultado, .ResultadoUsuario {
-	padding: 10px;
-	color: black;
-	margin-top: 2%;
-	margin-bottom: 1%;
-	background-color: white;
-	text-align: center;
-	display: flex;
-	justify-content: space-around;
-	text-shadow: 0.1px 0.1px 0.2px black;
-	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
+.tareaResultado,
+.faseResultado,
+.ResultadoUsuario {
+    padding: 10px;
+    color: black;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    background-color: white;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    text-shadow: 0.1px 0.1px 0.2px black;
+    box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.tareaResultadoDiv, .faseResultadoDiv {
-	border-top: 1px solid blue;
-	padding: 20px;
+.tareaResultadoDiv,
+.faseResultadoDiv {
+    border-top: 1px solid blue;
+    padding: 20px;
 }
 
 .th {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .stados {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .userResultadoDiv {
-	border-top: 1px solid blue;
-	padding: 20px;
+    border-top: 1px solid blue;
+    padding: 20px;
 }
 
 .userResultado {
-	display: flex;
-	flex-direction: column;
-	padding: 10px;
-	color: black;
-	margin-top: 2%;
-	margin-bottom: 1%;
-	background-color: white;
-	text-align: left;
-	text-shadow: 0.1px 0.1px 0.2px black;
-	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    color: black;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    background-color: white;
+    text-align: left;
+    text-shadow: 0.1px 0.1px 0.2px black;
+    box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .userResultado p {
-	margin-top: 5px;
+    margin-top: 5px;
 }
 
 .userCaja {
-	border: 1px solid blue;
-	display: flex;
-	flex-direction: column;
-	text-align: left;
-	padding: 20px;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0
-		rgba(0, 0, 0, 0.19);
+    border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 20px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
 }
 
 .ResultadoUsuario {
-	margin-bottom: 10px;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .userResultName {
-	margin-left: 50px;
-	border: 3px solid blue;
-	height: auto;
-	width: 50%;
-	border-radius: 64px;
-	align-items: center;
-	text-align: center;
-	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
+    margin-left: 50px;
+    border: 3px solid blue;
+    height: auto;
+    width: 50%;
+    border-radius: 64px;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .asignados {
-	text-align: center;
+    text-align: center;
 }
 
 /*---------------------------------------------------- USUARIOS ----------------------------------------------*/
 .usersContainer {
-	background-color: #e8eeff;
-	background-image: linear-gradient(white, #f0f5ff, white);
-	padding: 13px;
-	display: flex;
-	height: auto;
-	flex-direction: row;
-	justify-content: space-around;
+    background-color: #e8eeff;
+    background-image: linear-gradient(white, #f0f5ff, white);
+    padding: 13px;
+    display: flex;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .userName {
-	text-align: center;
-	border: 3px solid blue;
-	width: 6.5%;
-	height: auto;
-	border-radius: 64px;
-	padding: 20px;
-	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
-		rgba(0, 0, 0, 0.19);
+    text-align: center;
+    border: 3px solid blue;
+    width: 6.5%;
+    height: auto;
+    border-radius: 64px;
+    padding: 20px;
+    box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 teamField {
-	width: auto;
-	height: auto;
+    width: auto;
+    height: auto;
 }
 
 legend.teamField {
-	font-size: 1.2em !important;
-	font-weight: bold !important;
-	text-align: left !important;
-	width: auto;
-	padding: 0 10px;
-	border-bottom: none;
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width: auto;
+    padding: 0 10px;
+    border-bottom: none;
 }
