@@ -78,6 +78,8 @@ listUsers.forEach(function(user){
 	addData(myChart, user.name, user.tasksWorked, "rgba(0,255,233,0.5)");
 })
 
+
+
 //Botón para reinicializar la simulación
 document.getElementById("deleteAll").addEventListener("click", removeAllSession, false);
 
@@ -102,7 +104,7 @@ if(document.getElementById("playpause")){
 			deshabilitarMenus(true);
 			playing = true;
 			play();
-
+			
 		} else {
 			playing = false;
 			clearInterval(myInterval);
@@ -715,7 +717,11 @@ function play() {
 				document.getElementById("chronoViewer").innerHTML = "00:00";
 				// Cambiamos el boton a pausa
 				document.getElementById("playpause").checked = false;
-
+				
+				// Activa la imagen de Slider
+				var declaration = document.styleSheets[7].cssRules[5].style;
+				var theCSSprop = declaration.setProperty("opacity", 0.2, "important");
+				
 				deshabilitarMenus(false);
 
 				if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
@@ -745,11 +751,11 @@ function play() {
 				document.getElementById("playpause").checked = false;
 
 				deshabilitarMenus(false);
-
+				
 				if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
 					sortPhases();
 				}
-
+				
 				lowestTime = findMaxAndMin();
 				lazyPeople = maxAndMinUsers(lowestTime[0], lowestTime[1]);
 
@@ -913,7 +919,11 @@ function deshabilitarMenus(disable){
 			$( "#faseDiv" ).sortable({ disabled : true})
 			$( "#faseDiv").css("cursor", "default");
 		});
-
+		
+		// Desactiva la imagen de Slider
+		var declaration = document.styleSheets[7].cssRules[5].style;
+		var theCSSprop = declaration.setProperty("opacity", 0, "important");
+		
 	}else{
 
 		document.getElementById("result").removeAttribute("disabled");
@@ -961,6 +971,7 @@ function deshabilitarMenus(disable){
 		document.getElementById("addUser").removeAttribute("aria-disabled");
 		document.getElementById("addUser").children[0].setAttribute("data-target", "#addUsers");
 		document.getElementById("addUser").children[0].setAttribute("data-toggle", "modal");
+		
 	}
 }
 

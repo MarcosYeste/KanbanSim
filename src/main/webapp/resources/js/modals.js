@@ -900,21 +900,24 @@ document.getElementById("nuevaPlantilla").addEventListener("click", function(){
 
 //Validacion a la hora de guardar la plantilla
 function ValidateNameBlueprint(){
-	for (var i = 0; i < nameBlueprintArray[0].length; i++) {
-		if(document.getElementById("inputBlueprintName").value.toLowerCase().trim() == nameBlueprintArray[0][i].toLowerCase().trim()) {
-			if(confirm("¿Esta plantilla ya existe, quieres sobreescribirla?")){
-				updateBlueprints(nameBlueprintArray[1][i]);
+	if(listUsers.length > 0 || listPhases.length > 0){
+		for (var i = 0; i < nameBlueprintArray[0].length; i++) {
+			if(document.getElementById("inputBlueprintName").value.toLowerCase().trim() == nameBlueprintArray[0][i].toLowerCase().trim()) {
+				if(confirm("¿Esta plantilla ya existe, quieres sobreescribirla?")){
+					updateBlueprints(nameBlueprintArray[1][i]);
+				}
+				document.getElementById("inputBlueprintName").value = "";
+				return;
 			}
-			document.getElementById("inputBlueprintName").value = "";
-			return;
 		}
+		if (document.getElementById("inputBlueprintName").value.trim() == ""){
+			console.log("There's Nothing Writen");
+		}else{ 
+			saveBlueprint(document.getElementById("inputBlueprintName").value.trim());
+		}
+	}else{
+		alert("No hay nada que guardar");
 	}
-	if (document.getElementById("inputBlueprintName").value.trim() == ""){
-		console.log("There's Nothing Writen");
-	}else{ 
-		saveBlueprint(document.getElementById("inputBlueprintName").value.trim());
-	}
-
 	document.getElementById("inputBlueprintName").value = "";
 }
 
