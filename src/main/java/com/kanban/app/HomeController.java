@@ -1,6 +1,5 @@
 package com.kanban.app;
 
-import java.net.MalformedURLException;
 import java.util.Locale;
 
 //import org.json.JSONObject; // comentado para recuperar resultado

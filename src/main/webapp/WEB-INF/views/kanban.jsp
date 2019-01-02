@@ -594,13 +594,13 @@ ____________________________________________________________________
 				<h2>General</h2>
 				<hr>
 				<dl>
-				<dt><h4>Iniciar</h4></dt>
+				<dt><span class="h4">Iniciar</span></dt>
 				<dd>
 					Para poder iniciar el kanban hace falta que tenga fases, usuarios y tareas. Para empezar la ejecución solo hace falta darle al botón de play y para pausar
 					en cualquier momento haz clic en el botón de pausa, También puedes resetear la ejecución dandole al botón de replay.
 				</dd>
 				<hr>
-				<dt><h4>Fases</h4></dt>
+				<dt><span class="h4">Fases</span></dt>
 				<dd>
 					<strong>Añadir Fases:</strong> Para añadir fases haga click en el botón de 'Nueva Fase'
 					<br>Deberá Asignar un nombre, un WIP, un tiempo máximo y minimo y un color que lo representará visualmente.
@@ -612,7 +612,7 @@ ____________________________________________________________________
 					<strong>Ordenar Fases:</strong> Para ordenar las fases simplemente tiene que agarrar con el cursor la fase y arrastrarla hasta la posicion que usted desee.
 				</dd>
 				<hr>
-				<dt><h4>Miembros de Equipo</h4></dt><br>
+				<dt><span class="h4">Miembros de Equipo</span></dt><br>
 				<dd>
 					<strong>Añadir Miembros:</strong> Para añadir miembros haga click en el icono  <i class="fas fa-user-plus fa-1x" data-toggle="tooltip"	data-placement="right" title="Añadir Miembro"></i>. 
 					<br>Podrá asignarlo a una fase creada y determinar su rendimiento en esa fase.
@@ -624,7 +624,7 @@ ____________________________________________________________________
 					<strong>Eliminar Miembros:</strong> Para eliminar miembros haga click en el Miembro y click en "Eliminar Miembro".
 				</dd>
 				<hr>
-				<dt><h4>Distribución</h4></dt><br>
+				<dt><span class="h4">Distribución</span></dt><br>
 				<dd>
 					<dl>
 						<dt>Distribución Manual:</dt>
@@ -649,7 +649,7 @@ ____________________________________________________________________
 					</dl>	
 				</dd>
 				<hr>
-				<dt><h4>Tarea</h4></dt><br>
+				<dt><span class="h4">Tarea</span></dt><br>
 				<dd>
 					<dl>
 						<dt>Añadir</dt>
@@ -664,15 +664,15 @@ ____________________________________________________________________
 					</dl>
 				</dd>
 				<hr>
-				<dt><h4>Cronometro</h4></dt><br>
+				<dt><span class="h4">Cronometro</span></dt><br>
 				<dd>
 					Para Iniciar el cronometro dale clic encima de los numeros <b>00:00</b>, saldra una ventana en la que se permitirá indicar el tiempo tanto en minutos como en segundos, una vez guardado dele
 					iniciar el Kanban y una vez pasado el tiempo la ejecución se parará automaticamente.
 				</dd>
 				<hr>
-				<dt><h4>Nuevo Tablero</h4></dt><br>
+				<dt><span class="h4">Nuevo Tablero</span></dt><br>
 				<dd>
-					Si te has cansado ya de el tablero que tienes simplemente tienes que darle clic al icono <i class="fas fa-file 1x-fa"></i>. 
+					Si te has cansado ya del tablero que tienes simplemente tienes que darle clic al icono <i class="fas fa-file 1x-fa"></i>. 
 					Ten en cuenta que esto borrará todo, Equipo y fases.
 				</dd>
 				</dl>
