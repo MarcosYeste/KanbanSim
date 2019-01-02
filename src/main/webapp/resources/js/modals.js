@@ -912,9 +912,7 @@ function ValidateNameBlueprint(){
 				return;
 			}
 		}
-		if (document.getElementById("inputBlueprintName").value.trim() == ""){
-			console.log("There's Nothing Writen");
-		}else{ 
+		if (document.getElementById("inputBlueprintName").value.trim() != ""){
 			saveBlueprint(document.getElementById("inputBlueprintName").value.trim());
 		}
 	}else{

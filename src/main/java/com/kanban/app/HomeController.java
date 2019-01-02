@@ -42,18 +42,9 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-
-
-		return "success";
-
-	}
-
-	@RequestMapping(value = "/success", method = RequestMethod.GET)
-	public String succes(Model model) throws MalformedURLException {
-
 		return "kanban";
-	}
 
+	}
 
 	// Get Gaussian
 	@RequestMapping(value = "/nextGaussian", method = RequestMethod.GET)

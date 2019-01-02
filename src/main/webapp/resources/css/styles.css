@@ -175,7 +175,7 @@ h2{
 	text-align:center;
 }
 
-/*---------------------------------------------------- TEMPORIZADOR ----------------------------------------------*/
+/*---------------------------------------------------- TEMPORIZADOR Y CRONOMETRO ----------------------------------------------*/
 
 /* crono */
 .crono, .clock{
@@ -374,21 +374,4 @@ h2{
 
 .strike {
     text-decoration: line-through !important;
-}
-
-/*  INDEX FORMULARI */
-.indexForm {
-    width: 100%;
-    height: auto;
-    padding: 20px;
-    margin-left: 30%;
-    margin-top: 10%;
-}
-
-.textoInicio {
-    text-shadow: 3px 2px 5px #011cd6;
-    color: #0f45c4;
-    font-size: 600%;
-    text-align: center;
-
 }

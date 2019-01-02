@@ -764,7 +764,6 @@ function getBlueprints() {
         url: "/getBluePrint",
         success: function (data) {
             bluePrint = JSON.parse(data);
-            console.log(bluePrint);
             getNameBluePrint();
         }
     })
