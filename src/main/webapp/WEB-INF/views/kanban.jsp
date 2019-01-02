@@ -92,14 +92,19 @@ ____________________________________________________________________
         <div class="usersContainer" id="usersContainer"></div>
 
     </fieldset>
+     
 
     <p role="alert" style="float: left; margin-left: 25%; font-size: 140%; margin-top: 1%; position: absolute;" id="saturacion"></p>
     <p role="alert" style="float: right; margin-right: 25%; font-size: 140%; margin-top: 1%;" id="saturacion2"></p>
 
     <!--Temporizador y Cambiar Distribucion -->
     <div class="crono">
-        <p data-toggle="modal" data-target="#modalChrono" id="chronoViewer">00:00</p>
+        <p data-toggle="modal" data-target="#modalChrono" id="chronoViewer" data-placement="right" title="Chronometer">00:00</p>
     </div>
+    <div class="clock">
+        <p data-toggle="modal" id="clock" data-placement="right" title="Clock">00:00</p>
+    </div>
+ 
     <div class="botonesContainer">
 
         <!--  Botón Play/Pause -->

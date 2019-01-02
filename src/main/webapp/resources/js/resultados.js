@@ -63,6 +63,7 @@ function generarResultados() {
     buttonResult.setAttribute("onClick", "mostrarKanban()");
     document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
     document.getElementsByClassName("crono")[0].style.visibility = "hidden";
+    document.getElementsByClassName("clock")[0].style.visibility = "hidden";
 }
 //Click a mostrar kanban
 function mostrarKanban() {
@@ -78,6 +79,7 @@ function mostrarKanban() {
     document.getElementById("result").setAttribute("onClick", "generarResultados()");
     document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
     document.getElementsByClassName("crono")[0].style.visibility = "visible";
+    document.getElementsByClassName("clock")[0].style.visibility = "visible";
     // Mostramos el boton de nuevo
     if (distribution.backLogType != "constant") {
         document.getElementById("addTask").removeAttribute("disabled");
@@ -100,6 +102,7 @@ function mostrarGraficas() {
     generarGraficos();
     document.getElementById("graficos").setAttribute("onClick", "mostrarKanban()");
     document.getElementsByClassName("crono")[0].style.visibility = "hidden";
+    document.getElementsByClassName("clock")[0].style.visibility = "hidden";
 
     if (document.getElementById("js-legend")) {
         for (var i = 0; i < myChartTask.data.datasets.length; i++) {

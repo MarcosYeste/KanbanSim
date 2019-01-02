@@ -178,7 +178,7 @@ h2{
 /*---------------------------------------------------- TEMPORIZADOR ----------------------------------------------*/
 
 /* crono */
-.crono{
+.crono, .clock{
 	color: #febc23;
 	background-color: #070707;
 	border : 4px double black;
@@ -197,6 +197,11 @@ h2{
 	box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.2), 0 3px 7px 0
 		rgba(0, 0, 0, 0.19);
 	font-family: 'Orbitron', sans-serif;
+}
+.clock{
+	right: 0;
+	margin-right: 13.5%;
+	
 }
 
 .distributionRadio {
@@ -251,7 +256,8 @@ h2{
 #modalTaskInfo::-webkit-scrollbar-track,
 .faseName > div::-webkit-scrollbar-track,
 .fase::-webkit-scrollbar-track,
-.chartAreaWrapper::-webkit-scrollbar-track {
+.chartAreaWrapper::-webkit-scrollbar-track,
+#generalInfo::-webkit-scrollbar-track{
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     background-color: #F5F5F5;
@@ -262,7 +268,8 @@ h2{
 #modalTaskInfo::-webkit-scrollbar,
 .faseName > div::-webkit-scrollbar,
 .fase::-webkit-scrollbar,
-.chartAreaWrapper::-webkit-scrollbar {
+.chartAreaWrapper::-webkit-scrollbar,
+#generalInfo::-webkit-scrollbar{
     width: 5px;
     background-color: #F5F5F5;
 }
@@ -272,7 +279,8 @@ h2{
 #modalTaskInfo::-webkit-scrollbar-thumb,
 .faseName > div::-webkit-scrollbar-thumb,
 .fase::-webkit-scrollbar-thumb,
-.chartAreaWrapper::-webkit-scrollbar-thumb {
+.chartAreaWrapper::-webkit-scrollbar-thumb,
+#generalInfo::-webkit-scrollbar-thumb{
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: #555;
