@@ -195,7 +195,11 @@ input[type='radio'] {
     color: #0f45c4;
     font-size: 400%;
     text-align: center;
-    margin-top: -80px;
+    margin-top: 10px;
+    width: 50%;
+    margin-left: 25%;
+    height: auto;
+    
 }
 
 /*---------------------------------------------------- BOTONES ----------------------------------------------*/
@@ -237,12 +241,12 @@ button {
 
 #deleteAll {
     color: black;
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 
 #deleteAll:hover {
     color: #004a00;
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 
 #reset,
@@ -273,42 +277,48 @@ button {
 
 .botonesContainer1 {
     color: #a6d9ff;
-    margin-top: 1px;
-    /* background-color: #63bafa;
-	background-image: linear-gradient(#63bafa, white);  */
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    height:auto;
+    font-size: 20px; 
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  	z-index: 1; /* Stay on top */
+	top: 0; /* Stay at the top */
+	right: 0;
+	overflow-x: hidden;
+	margin-top:20%;
+	background-color:#ececec;
+	box-shadow: 0 0 15px 1px #b8b8b8;
+	border-radius: 10px;
+	display:flex;
+	flex-direction: row;
+}
+
+.doubleButton > button, #doubleButton > button{
+	display: flex;
+	flex-direction: column;
+	margin-left: 0;
+	width: 0;
+	padding: 10px 50px;
+	text-align: justify;
 }
 
 #deleteButtons > div {
     cursor: pointer;
 }
 
-.doubleButton {
-    display: flex;
-    flex-direction: row;
-    margin-right: -35px;
-}
-
-.doubleButton #divDeleteTasks {
-    color: black;
-    margin-left: 30px;
-}
-
-.doubleButton #divDeleteTasks:hover {
-    color: #970000;
-    margin-left: 30px;
+#arrow{
+	color:black;
+	background-color: #f1f1f1;
+	font-size: 30px;
+	cursor: pointer;
+	padding: 100% 0;
+	border:1px solid black;
+	border-radius: 10px;
 }
 
 .resultbutt,
-.doubleButton > button {
+.doubleButton > button, #doubleButton > button {
     background-color: transparent;
     border: transparent;
-    width: 5%;
-    text-align: center;
-    padding: 10px;
-    margin-right: 10px;
 }
 
 .resultbutt:hover {
@@ -343,19 +353,9 @@ button {
     transform: translate(1px, 2px);
 }
 
-#graficos {
-    margin-left: 30px;
-    margin-top: 13px !important;
-}
-
-#saveResultsButton {
-    position: absolute;
-    margin-top: 100px;
-}
-
 #info {
     cursor: pointer;
-    margin-left: 40px;
+    /* margin-left: 40px; */
 }
 
 #infoIcon:hover {
