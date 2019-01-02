@@ -47,20 +47,18 @@ ____________________________________________________________________
             <!-- Genera los resultados para poder ver los tiempos, no se puede acceder hasta que no se haya detenido la ejecucion 
 			 del kanban -->
             <button id="result" onclick="generarResultados()" class="resultbutt">
-                <i class="fas fa-clipboard-list fa-4x" data-toggle="tooltip" data-placement="top" title="Mostrar Resultados"></i>
+                <i class="fas fa-clipboard-list fa-3x" data-toggle="tooltip" data-placement="top" title="Mostrar Resultados"></i>
             </button>
 
             <!-- Similar al anterior, ya que usa los valores de este, pero con la pequeña diferencia de que se puede acceder en cualquier
 			 momento de la ejecucion y te muestra los valores en una gráfica a tiempo real -->
             <button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
-                <i class="fas fa-chart-bar fa-4x" data-toggle="tooltip" data-placement="top" title="Mostrar Graficos"></i>
+                <i class="fas fa-chart-bar fa-3x" data-toggle="tooltip" data-placement="top" title="Mostrar Graficos"></i>
             </button>
             <!-- Este botón solo sirve para poder guardar los datos dentro de la base de datos -->
-            <div id="saveResultsButton">
-                <button id="saveResult" class="resultbutt" data-toggle="modal" data-target="#modalBlueprint">
-                    <i class="fas fa-save fa-4x" data-toggle="tooltip" data-placement="top" title="Guardar Plantilla"></i>
+             <button id="saveResult" class="resultbutt" data-toggle="modal" data-target="#modalBlueprint">
+                    <i class="fas fa-save fa-3x" data-toggle="tooltip" data-placement="top" title="Guardar Plantilla"></i>
                 </button>
-            </div>
 
 
 
