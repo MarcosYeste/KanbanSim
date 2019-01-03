@@ -31,6 +31,8 @@ if(distribution.backLogType == "manual"){
 
 }
 //Variables globales necesarias para empezar la partida
+var countSpeed = 0;
+var speed = 1;
 var playing = false;
 var firstLoop = true;
 var myInterval;
@@ -869,7 +871,7 @@ function play() {
 			}
 		}
 
-	}, 1000);
+	}, (1000 / speed));
 }
 
 //____________________________________________________________________
@@ -1175,5 +1177,57 @@ function stopWatch(){
 		} else {
 			document.getElementById("clock").innerHTML = "00:"+(leadTime + kanbanTss);
 		}
+	}
+}
+
+function speedKanban(value){
+
+if(playing){
+	if( value == 'forward'){
+		
+		speed *= 2;
+		
+		if(speed >= 4) {
+			
+			speed = 4;
+			document.getElementById("forward").setAttribute("aria-disabled", true);
+			document.getElementById("forward").setAttribute("disabled", "");	
+			
+			document.getElementById("backward").removeAttribute("aria-disabled");
+			document.getElementById("backward").removeAttribute("disabled");
+		}else{
+			document.getElementById("forward").removeAttribute("aria-disabled");
+			document.getElementById("forward").removeAttribute("disabled");
+			
+			document.getElementById("backward").removeAttribute("aria-disabled");
+			document.getElementById("backward").removeAttribute("disabled");
+			
+		}	
+	
+	}else{
+		
+		speed /= 2;
+		
+		if(speed <= 1) {
+			
+			speed = 1;
+			document.getElementById("backward").setAttribute("aria-disabled", true);
+			document.getElementById("backward").setAttribute("disabled", "");
+			
+			document.getElementById("forward").removeAttribute("aria-disabled");
+			document.getElementById("forward").removeAttribute("disabled");
+		}else{
+			
+			document.getElementById("backward").removeAttribute("aria-disabled");
+			document.getElementById("backward").removeAttribute("disabled");
+			
+			document.getElementById("forward").removeAttribute("aria-disabled");
+			document.getElementById("forward").removeAttribute("disabled");
+		}
+		
+	}	
+	document.getElementById("multiplicador").innerHTML = "x"+speed;
+	clearInterval(myInterval);
+	play();
 	}
 }
