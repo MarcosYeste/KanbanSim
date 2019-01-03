@@ -822,7 +822,7 @@ ____________________________________________________________________
 				$("#doubleButton").css({width: "150px"});
 			})
 			$("#arrow").click(function(){
-				$(".doubleButton").toggle("slow", function(){
+				$(".doubleButton").toggle(function(){
 					$(".doubleButton").css({width: "150px"});
 					$("#doubleButton").css({width: "150px"});
 				})

@@ -778,10 +778,8 @@ function play() {
 		}
 		leadTime += 1;
 
-		stopWatch();
-
 		if(divsTareas.length == 0){leadTime = 0;}
-
+		stopWatch();
 
 		// Calculamos el tiempo para parar el play con el timer
 		console.log("::: SEGUNDOS ::::: "+leadTime);
@@ -892,11 +890,9 @@ function deshabilitarMenus(disable){
 		}
 
 		// Deshabilitamos los botones
-		for (var i2 = 0; i2 < document.getElementById("doubleButton").children.length; i2++){
 
-			document.getElementById("doubleButton").children[i2].setAttribute("disabled", "");
-			document.getElementById("doubleButton").children[i2].setAttribute("aria-disabled", "true");
-		}
+			document.getElementById("divDelete").children[0].setAttribute("disabled", "");
+			document.getElementById("divDelete").children[0].setAttribute("aria-disabled", "true");
 
 		// Y quitamos el acceso a el formulario de modificación
 		for (var i3 = 0; i3 < document.getElementsByClassName("titulo").length; i3++){
@@ -952,12 +948,10 @@ function deshabilitarMenus(disable){
 
 		}
 
-		// Deshabilitamos los botones del header
-		for (var ia = 0; ia < document.getElementById("doubleButton").children.length; ia++){
+		// Deshabilitamos los botones
 
-			document.getElementById("doubleButton").children[ia].removeAttribute("disabled");
-			document.getElementById("doubleButton").children[ia].removeAttribute("aria-disabled");
-		}
+			document.getElementById("divDelete").removeAttribute("disabled");
+			document.getElementById("divDelete").removeAttribute("aria-disabled");
 
 		// Permitimos de nuevo abrir el modal de modificación
 		for (var ib = 0; ib < document.getElementsByClassName("titulo").length; ib++){
