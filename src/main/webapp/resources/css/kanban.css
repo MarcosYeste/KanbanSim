@@ -259,10 +259,9 @@ button {
 
 .botonesContainer {
     border: 1px solid #1cadfb;
-    /* 	background-color: #7acefc; */
     box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 20%;
-    margin-left: 42%;
+    margin-left: 40.2%;
     width: 20%;
     height: auto;
     align-items: center;
@@ -358,7 +357,6 @@ button {
 
 #info {
     cursor: pointer;
-    /* margin-left: 40px; */
 }
 
 #infoIcon:hover {
