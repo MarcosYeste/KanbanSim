@@ -27,7 +27,7 @@ ____________________________________________________________________
 	 Sirven para resetear el tablero y para motrar la informacion de como usar el propio programa -->
 
 	<div class="botonesContainer1" id="botonesContainer1">
-		<span id="arrow">></span>
+		<span id="arrow"><i class="fas fa-caret-right fa-2x" style="margin: 0 5px"></i></span>
 
 		<div class="doubleButton">
 			<!-- Nuevo Tablero -->
