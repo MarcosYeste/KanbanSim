@@ -107,7 +107,7 @@ function saveAddPhase(){
 		document.getElementById("addFasesWarning").innerHTML= "";
 		document.getElementById("addFasesWarning2").innerHTML= "";
 
-		phaseO.id = getRandomId(); // Sujeto Pruebas
+		phaseO.id = getRandomId(); 
 		phaseO.name = nuevoNombre;
 
 		phaseO.maxTasks = parseInt(document.getElementById("addWip").value);
@@ -912,9 +912,7 @@ function ValidateNameBlueprint(){
 				return;
 			}
 		}
-		if (document.getElementById("inputBlueprintName").value.trim() == ""){
-			console.log("There's Nothing Writen");
-		}else{ 
+		if (document.getElementById("inputBlueprintName").value.trim() != ""){
 			saveBlueprint(document.getElementById("inputBlueprintName").value.trim());
 		}
 	}else{
@@ -935,7 +933,7 @@ document.getElementById("addBlueprint").addEventListener("click", function(){
 document.getElementById("selectBlueprint").addEventListener("click", function(){
 
 	for (var i = 0; i < bluePrint.length; i++) {
-		// SI la id id que introducimos concuerda con la del objeto, introduce los datos del objeto en la sesion.
+		// SI la id que introducimos concuerda con la del objeto, introduce los datos del objeto en la sesion.
 		if(document.getElementById("selectBlueprintName").value == bluePrint[i]._id){
 			sessionStorage.setItem("phases", JSON.stringify(bluePrint[i].listPhases));
 			sessionStorage.setItem("users", JSON.stringify(bluePrint[i].listUsers));

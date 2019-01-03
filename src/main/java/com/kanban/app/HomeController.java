@@ -1,7 +1,5 @@
 package com.kanban.app;
 
-import java.net.MalformedURLException;
-import java.util.Locale;
 
 //import org.json.JSONObject; // comentado para recuperar resultado
 import org.json.simple.JSONObject;
@@ -40,7 +38,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Model model) {
 
 		return "kanban";
 

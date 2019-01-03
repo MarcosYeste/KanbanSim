@@ -345,7 +345,7 @@ function play() {
 //												}
 											}
 										}
-									}//
+									}
 
 								}
 
@@ -727,9 +727,10 @@ function play() {
 				document.getElementById("playpause").checked = false;
 
 				// Activa la imagen de Slider
-				var declaration = document.styleSheets[7].cssRules[5].style;
-				var theCSSprop = declaration.setProperty("opacity", 0.2, "important");
-
+				if(listPhases.length > 0){
+					var declaration = document.styleSheets[7].cssRules[5].style;
+					var theCSSprop = declaration.setProperty("opacity", 0.2, "important");
+				}
 				deshabilitarMenus(false);
 
 				if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
@@ -769,7 +770,7 @@ function play() {
 
 				for(var i = 0; i < lazyPeople[1].length; i++){
 					if(lazyPeople[1][i] != ""){
-					document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
+						document.getElementsByName(lazyPeople[1][i])[0].children[1].style.color = "red";
 					}
 				}
 
@@ -778,8 +779,8 @@ function play() {
 		leadTime += 1;
 
 		stopWatch();
-		
-if(divsTareas.length == 0){leadTime = 0;}
+
+		if(divsTareas.length == 0){leadTime = 0;}
 
 
 		// Calculamos el tiempo para parar el play con el timer
@@ -802,7 +803,7 @@ if(divsTareas.length == 0){leadTime = 0;}
 				}
 			}
 		}
-		
+
 		gaussianCounter++;
 		poissonCounter++;
 		weightCounter++;
@@ -1035,7 +1036,7 @@ function sortPhases(){
 
 //____________________________________________________________________
 
-//_______________________ CONSTANTES  ________________________________
+//____________________ DISTRIBUCION CONSTANTE  _______________________
 
 //____________________________________________________________________
 
@@ -1158,6 +1159,13 @@ function printTasks(tarea){
 		document.getElementsByClassName("tareas")[i].addEventListener("click", showTaskInfo, false);
 	}
 }
+
+//____________________________________________________________________
+
+//_______________________ CRONOMETRO  ________________________________
+
+//____________________________________________________________________
+
 function stopWatch(){
 
 	if(leadTime > 59){
@@ -1173,6 +1181,5 @@ function stopWatch(){
 		} else {
 			document.getElementById("clock").innerHTML = "00:"+(leadTime + kanbanTss);
 		}
-	
 	}
 }

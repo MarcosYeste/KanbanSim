@@ -161,6 +161,7 @@ h1 {
     display: inline;
     margin-left: 5px;
 }
+/*---------------------------------------------------- INFO ----------------------------------------------*/
 
 .modal-body dd {
     display: block;
@@ -170,12 +171,24 @@ h1 {
 .modal-content {
     width: 700px !important;
 }
-
 h2{
 	text-align:center;
 }
+.h4{
+	display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+	margin-bottom: .5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    color: inherit;
+    font-size: 1.5rem;
+}
 
-/*---------------------------------------------------- TEMPORIZADOR ----------------------------------------------*/
+/*---------------------------------------------------- TEMPORIZADOR Y CRONOMETRO ----------------------------------------------*/
 
 /* crono */
 .crono, .clock{
@@ -374,21 +387,4 @@ h2{
 
 .strike {
     text-decoration: line-through !important;
-}
-
-/*  INDEX FORMULARI */
-.indexForm {
-    width: 100%;
-    height: auto;
-    padding: 20px;
-    margin-left: 30%;
-    margin-top: 10%;
-}
-
-.textoInicio {
-    text-shadow: 3px 2px 5px #011cd6;
-    color: #0f45c4;
-    font-size: 600%;
-    text-align: center;
-
 }
