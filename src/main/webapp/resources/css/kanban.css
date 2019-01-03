@@ -256,6 +256,21 @@ button {
 #forward{
     cursor: pointer;
 }
+/* SOBRESATURACION */
+#saturacion{
+	float:left;
+	margin-left: 25%;
+	font-size: 115%;
+	margin-top: 1%;
+	position: absolute;
+}
+#saturacion2{
+	float: right;
+	margin-right: 25%;
+	font-size: 115%;
+	margin-top: 1%;
+	
+}
 
 .botonesContainer {
     border: 1px solid #1cadfb;
