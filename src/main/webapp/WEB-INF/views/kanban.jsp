@@ -31,7 +31,7 @@ ____________________________________________________________________
 
 		<div class="doubleButton">
 			<!-- Nuevo Tablero -->
-
+ 
 			<div id="doubleButton">
 				<button id="divDelete">
 					<i id="deleteAll" class="fas fa-file fa-3x" data-toggle="tooltip"
