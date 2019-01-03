@@ -113,6 +113,7 @@ ____________________________________________________________________
 	<div class="clock">
 		<p data-toggle="modal" id="clock" data-placement="right" title="Clock">00:00</p>
 	</div>
+	
 
 	<div class="botonesContainer">
 
@@ -125,6 +126,14 @@ ____________________________________________________________________
 			<input type="checkbox" value="None" id="playpause" name="check" /> <label
 				for="playpause" tabindex=1></label>
 		</div>
+		<button id="backward">
+			<i class="fas fa-backward fa-3x" onclick="speedKanban('rewind')"></i>
+		</button>
+		<span id ="multiplicador">x1</span>
+		<button id="forward">
+			<i class="fas fa-forward fa-3x" onclick="speedKanban('forward')"></i>
+		</button>
+		
 
 	</div>
 
@@ -142,6 +151,7 @@ _______________________ GRAFICOS ____________________________
 
 ____________________________________________________________________
 -->
+
 	<div id="mostrarGraficosDiv" class="mostrarGraficosDiv">
 		<div class="chart-container chartTask" id="taskChart">
 			<h2>Gráfico de Tareas</h2>
@@ -822,7 +832,7 @@ ____________________________________________________________________
 				$("#doubleButton").css({width: "150px"});
 			})
 			$("#arrow").click(function(){
-				$(".doubleButton").toggle( function(){
+				$(".doubleButton").toggle(function(){
 					$(".doubleButton").css({width: "150px"});
 					$("#doubleButton").css({width: "150px"});
 				})

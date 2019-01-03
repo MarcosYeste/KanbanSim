@@ -31,6 +31,8 @@ if(distribution.backLogType == "manual"){
 
 }
 //Variables globales necesarias para empezar la partida
+var countSpeed = 0;
+var speed = 1;
 var playing = false;
 var firstLoop = true;
 var myInterval;
@@ -778,10 +780,8 @@ function play() {
 		}
 		leadTime += 1;
 
-		stopWatch();
-
 		if(divsTareas.length == 0){leadTime = 0;}
-
+		stopWatch();
 
 		// Calculamos el tiempo para parar el play con el timer
 		console.log("::: SEGUNDOS ::::: "+leadTime);
@@ -871,7 +871,7 @@ function play() {
 			}
 		}
 
-	}, 1000);
+	}, (1000 / speed));
 }
 
 //____________________________________________________________________
@@ -892,11 +892,9 @@ function deshabilitarMenus(disable){
 		}
 
 		// Deshabilitamos los botones
-		for (var i2 = 0; i2 < document.getElementById("doubleButton").children.length; i2++){
 
-			document.getElementById("doubleButton").children[i2].setAttribute("disabled", "");
-			document.getElementById("doubleButton").children[i2].setAttribute("aria-disabled", "true");
-		}
+			document.getElementById("divDelete").children[0].setAttribute("disabled", "");
+			document.getElementById("divDelete").children[0].setAttribute("aria-disabled", "true");
 
 		// Y quitamos el acceso a el formulario de modificación
 		for (var i3 = 0; i3 < document.getElementsByClassName("titulo").length; i3++){
@@ -952,12 +950,10 @@ function deshabilitarMenus(disable){
 
 		}
 
-		// Deshabilitamos los botones del header
-		for (var ia = 0; ia < document.getElementById("doubleButton").children.length; ia++){
+		// Deshabilitamos los botones
 
-			document.getElementById("doubleButton").children[ia].removeAttribute("disabled");
-			document.getElementById("doubleButton").children[ia].removeAttribute("aria-disabled");
-		}
+			document.getElementById("divDelete").removeAttribute("disabled");
+			document.getElementById("divDelete").removeAttribute("aria-disabled");
 
 		// Permitimos de nuevo abrir el modal de modificación
 		for (var ib = 0; ib < document.getElementsByClassName("titulo").length; ib++){
@@ -1181,5 +1177,57 @@ function stopWatch(){
 		} else {
 			document.getElementById("clock").innerHTML = "00:"+(leadTime + kanbanTss);
 		}
+	}
+}
+
+function speedKanban(value){
+
+if(playing){
+	if( value == 'forward'){
+		
+		speed *= 2;
+		
+		if(speed >= 4) {
+			
+			speed = 4;
+			document.getElementById("forward").setAttribute("aria-disabled", true);
+			document.getElementById("forward").setAttribute("disabled", "");	
+			
+			document.getElementById("backward").removeAttribute("aria-disabled");
+			document.getElementById("backward").removeAttribute("disabled");
+		}else{
+			document.getElementById("forward").removeAttribute("aria-disabled");
+			document.getElementById("forward").removeAttribute("disabled");
+			
+			document.getElementById("backward").removeAttribute("aria-disabled");
+			document.getElementById("backward").removeAttribute("disabled");
+			
+		}	
+	
+	}else{
+		
+		speed /= 2;
+		
+		if(speed <= 1) {
+			
+			speed = 1;
+			document.getElementById("backward").setAttribute("aria-disabled", true);
+			document.getElementById("backward").setAttribute("disabled", "");
+			
+			document.getElementById("forward").removeAttribute("aria-disabled");
+			document.getElementById("forward").removeAttribute("disabled");
+		}else{
+			
+			document.getElementById("backward").removeAttribute("aria-disabled");
+			document.getElementById("backward").removeAttribute("disabled");
+			
+			document.getElementById("forward").removeAttribute("aria-disabled");
+			document.getElementById("forward").removeAttribute("disabled");
+		}
+		
+	}	
+	document.getElementById("multiplicador").innerHTML = "x"+speed;
+	clearInterval(myInterval);
+	play();
 	}
 }
