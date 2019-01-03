@@ -126,8 +126,8 @@ ____________________________________________________________________
 			<input type="checkbox" value="None" id="playpause" name="check" /> <label
 				for="playpause" tabindex=1></label>
 		</div>
-		<button id="backward">
-			<i class="fas fa-backward fa-3x" onclick="speedKanban('rewind')"></i>
+		<button id="backward" disabled="disabled">
+			<i class="fas fa-backward fa-3x" onclick="speedKanban('rewind')" ></i>
 		</button>
 		<span id ="multiplicador">x1</span>
 		<button id="forward">
