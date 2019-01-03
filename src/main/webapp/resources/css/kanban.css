@@ -221,7 +221,7 @@ button {
     width: 0;
     height: 50px;
     cursor: pointer;
-    border-color: transparent transparent transparent #146301;
+    border-color: transparent transparent transparent #000000;
     transition: 100ms all ease;
     will-change: border-width;
     /* Play state */
@@ -240,20 +240,20 @@ button {
     border-color:#a50000;
 }
 
-#deleteAll {
+#delete {
     color: black;
-    /* margin-left: 10px; */
 }
 
-#deleteAll:hover {
+#delete:hover {
     color: #004a00;
-    /* margin-left: 10px; */
 }
 
 #reset,
 #deleteAll,
 #divDeleteTasks,
-#addUser {
+#addUser,
+#backward,
+#forward{
     cursor: pointer;
 }
 
@@ -262,8 +262,8 @@ button {
     /* 	background-color: #7acefc; */
     box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 20%;
-    margin-left: 45%;
-    width: 10%;
+    margin-left: 42%;
+    width: 20%;
     height: auto;
     align-items: center;
     display: flex;
@@ -291,6 +291,7 @@ button {
 	border-radius: 10px;
 	display:flex;
 	flex-direction: row;
+	max-height: 380px;
 }
 
 .doubleButton > button, #doubleButton > button{
@@ -298,7 +299,7 @@ button {
 	flex-direction: column;
 	margin-left: 0;
 	width: 0;
-	padding: 10px 50px;
+	margin: 10px 40px;
 	text-align: justify;
 }
 
@@ -308,16 +309,17 @@ button {
 
 #arrow{
 	color:black;
-	background-color: #f1f1f1;
+	background-color: #999999;
 	font-size: 30px;
 	cursor: pointer;
-	padding: 100% 0;
-	border:1px solid black;
+	padding: 95% 0;
+	border:1px solid darkblue;
 	border-radius: 10px;
+	box-shadow: inset 0 0 7px 2px lightblue;
 }
 
 .resultbutt,
-.doubleButton > button, #doubleButton > button {
+.doubleButton > button, #doubleButton > button, #forward, #backward {
     background-color: transparent;
     border: transparent;
 }
@@ -361,6 +363,13 @@ button {
 
 #infoIcon:hover {
     color: silver;
+}
+
+/* FORWARD & BACKWARD BUTTONS , INFO */
+#multiplicador{
+	font-size: 26px;
+	font-weight:bolder;
+	color: grey;
 }
 
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/

@@ -27,11 +27,11 @@ ____________________________________________________________________
 	 Sirven para resetear el tablero y para motrar la informacion de como usar el propio programa -->
 
 	<div class="botonesContainer1" id="botonesContainer1">
-		<span id="arrow">></span>
+		<span id="arrow"><i class="fas fa-caret-right fa-2x" style="margin: 0 5px"></i></span>
 
 		<div class="doubleButton">
 			<!-- Nuevo Tablero -->
-
+ 
 			<div id="doubleButton">
 				<button id="divDelete">
 					<i id="deleteAll" class="fas fa-file fa-3x" data-toggle="tooltip"
@@ -113,6 +113,7 @@ ____________________________________________________________________
 	<div class="clock">
 		<p data-toggle="modal" id="clock" data-placement="right" title="Clock">00:00</p>
 	</div>
+	
 
 	<div class="botonesContainer">
 
@@ -125,6 +126,14 @@ ____________________________________________________________________
 			<input type="checkbox" value="None" id="playpause" name="check" /> <label
 				for="playpause" tabindex=1></label>
 		</div>
+		<button id="backward" disabled="disabled">
+			<i class="fas fa-backward fa-3x" onclick="speedKanban('rewind')" ></i>
+		</button>
+		<span id ="multiplicador">x1</span>
+		<button id="forward">
+			<i class="fas fa-forward fa-3x" onclick="speedKanban('forward')"></i>
+		</button>
+		
 
 	</div>
 
@@ -142,6 +151,7 @@ _______________________ GRAFICOS ____________________________
 
 ____________________________________________________________________
 -->
+
 	<div id="mostrarGraficosDiv" class="mostrarGraficosDiv">
 		<div class="chart-container chartTask" id="taskChart">
 			<h2>Gráfico de Tareas</h2>
@@ -822,7 +832,7 @@ ____________________________________________________________________
 				$("#doubleButton").css({width: "150px"});
 			})
 			$("#arrow").click(function(){
-				$(".doubleButton").toggle( function(){
+				$(".doubleButton").toggle(function(){
 					$(".doubleButton").css({width: "150px"});
 					$("#doubleButton").css({width: "150px"});
 				})
