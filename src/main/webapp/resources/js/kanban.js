@@ -922,7 +922,7 @@ function deshabilitarMenus(disable){
 		document.getElementById("chronoViewer").removeAttribute("data-toggle");
 
 		// quitamos el modal en addUsers
-		document.getElementById("addUser").setAttribute("d   isabled", "");
+		document.getElementById("addUser").setAttribute("disabled", "");
 		document.getElementById("addUser").setAttribute("aria-disabled", "true");
 		document.getElementById("addUser").children[0].removeAttribute("data-target");
 		document.getElementById("addUser").children[0].removeAttribute("data-toggle");

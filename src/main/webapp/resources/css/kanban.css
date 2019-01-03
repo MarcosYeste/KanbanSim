@@ -242,18 +242,18 @@ button {
 
 #delete {
     color: black;
-    /* margin-left: 10px; */
 }
 
 #delete:hover {
     color: #004a00;
-    /* margin-left: 10px; */
 }
 
 #reset,
 #deleteAll,
 #divDeleteTasks,
-#addUser {
+#addUser,
+#backward,
+#forward{
     cursor: pointer;
 }
 
@@ -319,7 +319,7 @@ button {
 }
 
 .resultbutt,
-.doubleButton > button, #doubleButton > button {
+.doubleButton > button, #doubleButton > button, #forward, #backward {
     background-color: transparent;
     border: transparent;
 }
@@ -363,6 +363,13 @@ button {
 
 #infoIcon:hover {
     color: silver;
+}
+
+/* FORWARD & BACKWARD BUTTONS , INFO */
+#multiplicador{
+	font-size: 26px;
+	font-weight:bolder;
+	color: grey;
 }
 
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
