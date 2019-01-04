@@ -345,7 +345,9 @@ button {
 
 .resultbutt:disabled,
 .doubleButton > button:disabled,
-#addUser:disabled {
+#addUser:disabled,
+#forward:disabled,
+#backward:disabled {
     opacity: 0.3;
     cursor: default;
 }
@@ -378,7 +380,7 @@ button {
     color: silver;
 }
 
-/* FORWARD & BACKWARD BUTTONS , INFO */
+/* FORWARD & BACKWARD BUTTONS , MULTIPLIER */
 #multiplicador{
 	font-size: 26px;
 	font-weight:bolder;
