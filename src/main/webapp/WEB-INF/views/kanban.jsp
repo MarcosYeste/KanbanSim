@@ -467,17 +467,17 @@ ____________________________________________________________________
 								style="visibility: collapse; height: 0px">
 								<p class="backloglabel">Base:</p>
 								<input type="number" class="backloglabelInput"
-									id="normalBaseValue" name="base" value="1" min="1"><br>
+									id="normalBaseValue" name="base" value="1" min="1" onClick="this.select()"><br>
 								<p class="backloglabel">Varianza:</p>
 								<input type="number" class="backloglabelInput"
-									id="normalVarianceValue" name="variznce" value="1" min="1">
+									id="normalVarianceValue" name="variznce" value="1" min="1" onClick="this.select()">
 							</div>
 
 							<div id="dataPoissonDistribution"
 								style="visibility: collapse; height: 0px">
 								<p class="backloglabel">Base:</p>
 								<input type="number" class="backloglabelInput"
-									id="poissonLambda" name="lambda" value="1" min="1">
+									id="poissonLambda" name="lambda" value="1" min="1" onClick="this.select()">
 							</div>
 
 							<div id="dataWeightDistribution"
