@@ -784,7 +784,7 @@ function play() {
 		stopWatch();
 
 		// Calculamos el tiempo para parar el play con el timer
-		console.log("::: SEGUNDOS ::::: "+leadTime);
+//		console.log("::: SEGUNDOS ::::: "+leadTime);
 
 		if(chronoTime != ""){
 
