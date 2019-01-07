@@ -745,7 +745,7 @@ function addTareas(weight,creationTime){
 
 if (chronoTimeTypeSelection == "sec") {
 	if(document.getElementById("modChronoTime")){
-		document.getElementById("modChronoTime").value = chronoTime;
+		document.getElementById("modChronoTime").value = parseInt(chronoTime);
 	}
 	if(document.getElementsByName("chronoTimeType")[0] != undefined){
 		document.getElementsByName("chronoTimeType")[0].setAttribute("checked", "");
@@ -758,7 +758,6 @@ if (chronoTimeTypeSelection == "sec") {
 function chrono(){
 
 	var radios = $("[name=chronoTimeType]");
-
 	for(var i = 0; i < radios.length; i++){
 		if(radios[i].checked){
 			if(radios[i].value == "sec"){
@@ -775,18 +774,22 @@ function chrono(){
 					if (seconds < 10) {seconds = "0"+seconds;}
 					document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
 				} else {
-					if (chronoTime < 10) {
+					if (chronoTime < 10 && chronoTime != 0) {
 						chronoTime = "0"+parseInt(chronoTime);
 						document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;
+					} else if(chronoTime == 0) {
+						document.getElementById("chronoViewer").innerHTML = "00:00";
 					} else {
 						document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime);
 					}
 
-				}
+				} 
 			} else {
 				if(parseInt(document.getElementById("modChronoTime").value) <= 99){
 					chronoTime = (document.getElementById("modChronoTime").value * 60);
-				}else{
+				}else if (isNaN(parseInt(document.getElementById("modChronoTime").value))){
+					chronoTime = 0;
+				} else {
 					document.getElementById("modChronoTime").value = 99;
 					chronoTime = (99 * 60);
 				}
