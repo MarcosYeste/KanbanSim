@@ -98,12 +98,8 @@ ____________________________________________________________________
 	</fieldset>
 
 
-	<p role="alert"
-		style="float: left; margin-left: 25%; font-size: 140%; margin-top: 1%; position: absolute;"
-		id="saturacion"></p>
-	<p role="alert"
-		style="float: right; margin-right: 25%; font-size: 140%; margin-top: 1%;"
-		id="saturacion2"></p>
+	<p role="alert"	id="saturacion"></p>
+	<p role="alert" id="saturacion2"></p>
 
 	<!--Temporizador y Cambiar Distribucion -->
 	<div class="crono">
