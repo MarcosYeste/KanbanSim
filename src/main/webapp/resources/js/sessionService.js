@@ -25,10 +25,10 @@ function printUserSession(){
 				document.getElementsByClassName("userName")[i].children[0].addEventListener("click", function(){
 					event.preventDefault();
 				});
-				document.getElementsByClassName("userName")[i].children[0].children[0].addEventListener("click", function(){
+				document.getElementsByClassName("userName")[i].children[0].children[0].addEventListener("click", function(event){
 					event.preventDefault();
 				});
-				document.getElementsByClassName("userName")[i].children[1].addEventListener("click", function(){
+				document.getElementsByClassName("userName")[i].children[1].addEventListener("click", function(event){
 					event.preventDefault();
 				});
 			}
@@ -57,13 +57,13 @@ function printLastUser(){
 
 			// Abrimos el formulario			
 			document.getElementsByClassName("userName")[i].addEventListener("click", modUsers , false);
-			document.getElementsByClassName("userName")[i].children[0].addEventListener("click", function(){
+			document.getElementsByClassName("userName")[i].children[0].addEventListener("click", function(event){
 				event.preventDefault();
 			});
-			document.getElementsByClassName("userName")[i].children[0].children[0].addEventListener("click", function(){
+			document.getElementsByClassName("userName")[i].children[0].children[0].addEventListener("click", function(event){
 				event.preventDefault();
 			});
-			document.getElementsByClassName("userName")[i].children[1].addEventListener("click", function(){
+			document.getElementsByClassName("userName")[i].children[1].addEventListener("click", function(event){
 				event.preventDefault();
 			});
 		}
@@ -136,7 +136,7 @@ function printPhaseSession(){
 			// Abrimos el formulario			
 			document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
 
-			document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(){
+			document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(event){
 				event.preventDefault();
 			});
 		}
@@ -172,7 +172,7 @@ function printLastPhase(){
 			// Abrimos el formulario			
 			document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
 
-			document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(){
+			document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(event){
 				event.preventDefault();
 			});
 		}

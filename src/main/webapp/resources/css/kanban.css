@@ -386,7 +386,9 @@ button {
 	font-weight:bolder;
 	color: grey;
 }
-
+.leftPlay{
+	  margin-left: 3%;
+}
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
 .mostrarResultadosDiv {
     justify-content: space-around;
