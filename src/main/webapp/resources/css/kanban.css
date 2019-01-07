@@ -274,7 +274,6 @@ button {
 
 .botonesContainer {
     border: 1px solid #1cadfb;
-    /* 	background-color: #7acefc; */
     box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 20%;
     margin-left: 40.2%;
@@ -346,7 +345,9 @@ button {
 
 .resultbutt:disabled,
 .doubleButton > button:disabled,
-#addUser:disabled {
+#addUser:disabled,
+#forward:disabled,
+#backward:disabled {
     opacity: 0.3;
     cursor: default;
 }
@@ -373,20 +374,21 @@ button {
 
 #info {
     cursor: pointer;
-    /* margin-left: 40px; */
 }
 
 #infoIcon:hover {
     color: silver;
 }
 
-/* FORWARD & BACKWARD BUTTONS , INFO */
+/* FORWARD & BACKWARD BUTTONS , MULTIPLIER */
 #multiplicador{
 	font-size: 26px;
 	font-weight:bolder;
 	color: grey;
 }
-
+.leftPlay{
+	  margin-left: 3%;
+}
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
 .mostrarResultadosDiv {
     justify-content: space-around;

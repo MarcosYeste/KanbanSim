@@ -111,7 +111,7 @@ ____________________________________________________________________
 	</div>
 	
 
-	<div class="botonesContainer">
+	<div id="botonesPlay" class="botonesContainer">
 
 		<!--  Botón Play/Pause -->
 

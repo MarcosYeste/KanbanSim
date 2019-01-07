@@ -76,7 +76,7 @@ $(document).ready(function(){
 	});
 
 	for(var i = 0; i < taskInputModeInputs.length; i++){
-		taskInputModeInputs[i].addEventListener("change", function(){
+		taskInputModeInputs[i].addEventListener("change", function(event){
 			if(event.target.getAttribute("value") == "constant"){
 				$(distributionTypeInputs).removeAttr("disabled");
 

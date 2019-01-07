@@ -59,7 +59,6 @@ div #reset:hover {
     to {
         transform: rotate(360deg);
     }
-
 }
 
 .img-edit {
@@ -190,7 +189,6 @@ h2{
 
 /*---------------------------------------------------- TEMPORIZADOR Y CRONOMETRO ----------------------------------------------*/
 
-/* crono */
 .crono, .clock{
 	color: #febc23;
 	background-color: #070707;

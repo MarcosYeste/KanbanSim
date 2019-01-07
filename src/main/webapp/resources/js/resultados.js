@@ -64,6 +64,8 @@ function generarResultados() {
     document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
     document.getElementsByClassName("crono")[0].style.visibility = "hidden";
     document.getElementsByClassName("clock")[0].style.visibility = "hidden";
+    document.getElementById("botonesPlay").style.visibility = "hidden";
+    document.getElementById("addTask").style.visibility = "hidden";
 }
 //Click a mostrar kanban
 function mostrarKanban() {
@@ -80,6 +82,9 @@ function mostrarKanban() {
     document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
     document.getElementsByClassName("crono")[0].style.visibility = "visible";
     document.getElementsByClassName("clock")[0].style.visibility = "visible";
+    document.getElementById("botonesPlay").style.visibility = "visible";
+    document.getElementById("addTask").style.visibility = "visible";
+    document.getElementById("botonesPlay").classList.remove("leftPlay");
     // Mostramos el boton de nuevo
     if (distribution.backLogType != "constant") {
         document.getElementById("addTask").removeAttribute("disabled");
@@ -103,6 +108,10 @@ function mostrarGraficas() {
     document.getElementById("graficos").setAttribute("onClick", "mostrarKanban()");
     document.getElementsByClassName("crono")[0].style.visibility = "hidden";
     document.getElementsByClassName("clock")[0].style.visibility = "hidden";
+    document.getElementById("botonesPlay").style.visibility = "visible";
+    document.getElementById("botonesPlay").style.visibility = "visible";
+    document.getElementById("botonesPlay").classList.add("leftPlay");
+    document.getElementById("addTask").style.visibility = "hidden";
 
     if (document.getElementById("js-legend")) {
         for (var i = 0; i < myChartTask.data.datasets.length; i++) {
