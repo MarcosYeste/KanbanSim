@@ -673,14 +673,14 @@ function play() {
 		// ENTRADA CONSTANTE
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(distribution.backLogType == "constant"){	
-			
-			console.log( poisson + " == " + poissonCounter);
-			
+			console.log(weightTime + " == "+ weightCounter);
 			if(poissonCounter > poisson){
-				console.error("Reseteamos a 0");
 				poissonCounter = 0;
 			}else if(gaussianCounter > gaussian){
 				gaussianCounter = 0;
+			}else if(weightCounter > weightTime){
+				console.err("Reiniciamos");
+				weightCounter = 0;
 			}
 			
 			if((gaussian == gaussianCounter || gaussian <= 0) && distribution.typeConstant == "normal"){
@@ -693,7 +693,6 @@ function play() {
 			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
-				console.log(poisson);
 				poissonCounter = 0;
 				addTareas("",leadTime);
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
