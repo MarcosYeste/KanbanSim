@@ -11,7 +11,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 @Service
 public class RestdbService {
 
-	public static final String  API_KEY = "4fd55f8dbb6159535486c82b500686095b3c5";
+	public static final String  API_KEY = "5c3469a666292476821c9db0";
 	public static final String  API_URL = "https://kanban-edd1.restdb.io/rest/kanbanblueprint";
 
 

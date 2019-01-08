@@ -670,9 +670,10 @@ function play() {
 
 		});
 
-		//Constants
+		// ENTRADA CONSTANTE
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(distribution.backLogType == "constant"){	
+			
 			if((gaussian == gaussianCounter || gaussian <= 0) && distribution.typeConstant == "normal"){
 				getGaussian();		
 				calcLDValues(gaussian);
@@ -683,6 +684,7 @@ function play() {
 			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
+				console.log(poisson);
 				poissonCounter = 0;
 				addTareas("",leadTime);
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
@@ -691,9 +693,8 @@ function play() {
 				weightCounter = 0;
 				addTareas(weight,leadTime);
 			}
-
 		}
-
+		console.log("Estoy Fuera "+ distribution.backLogType);
 		//Funcion para calcular el tiempo medio de la entrada de tareas y la varianza
 		function calcLDValues(distributionValue){
 			if(distributionValue != 0){
@@ -871,7 +872,7 @@ function play() {
 			}
 		}
 
-	}, (1000 / speed));
+	}, (10/*00 / speed*/));
 }
 
 //____________________________________________________________________
@@ -1045,6 +1046,9 @@ function getGaussian(){
 			variation: distribution.variation
 		},success: function(data) {
 			gaussian = parseInt(data)
+			if(gaussian < 0){
+				console.err("Gaussian menor a 0")
+			}
 		}
 	});
 }
@@ -1057,6 +1061,9 @@ function getPoisson(){
 			lambda: distribution.lambda
 		},success: function(data) {
 			poisson = parseInt(data)
+			if(poisson < 0){
+				console.err("Poisson menor a 0")
+			}
 		}
 	});
 }
