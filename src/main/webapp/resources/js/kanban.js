@@ -674,6 +674,15 @@ function play() {
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(distribution.backLogType == "constant"){	
 			
+			console.log( poisson + " == " + poissonCounter);
+			
+			if(poissonCounter > poisson){
+				console.error("Reseteamos a 0");
+				poissonCounter = 0;
+			}else if(gaussianCounter > gaussian){
+				gaussianCounter = 0;
+			}
+			
 			if((gaussian == gaussianCounter || gaussian <= 0) && distribution.typeConstant == "normal"){
 				getGaussian();		
 				calcLDValues(gaussian);
@@ -694,7 +703,7 @@ function play() {
 				addTareas(weight,leadTime);
 			}
 		}
-		console.log("Estoy Fuera "+ distribution.backLogType);
+		
 		//Funcion para calcular el tiempo medio de la entrada de tareas y la varianza
 		function calcLDValues(distributionValue){
 			if(distributionValue != 0){
@@ -872,7 +881,7 @@ function play() {
 			}
 		}
 
-	}, (10/*00 / speed*/));
+	}, (1000 / speed));
 }
 
 //____________________________________________________________________
@@ -1046,9 +1055,6 @@ function getGaussian(){
 			variation: distribution.variation
 		},success: function(data) {
 			gaussian = parseInt(data)
-			if(gaussian < 0){
-				console.err("Gaussian menor a 0")
-			}
 		}
 	});
 }
@@ -1061,9 +1067,6 @@ function getPoisson(){
 			lambda: distribution.lambda
 		},success: function(data) {
 			poisson = parseInt(data)
-			if(poisson < 0){
-				console.err("Poisson menor a 0")
-			}
 		}
 	});
 }
