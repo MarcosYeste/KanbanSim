@@ -673,13 +673,13 @@ function play() {
 		// ENTRADA CONSTANTE
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(distribution.backLogType == "constant"){	
-			console.log(weightTime + " == "+ weightCounter);
 			if(poissonCounter > poisson){
 				poissonCounter = 0;
-			}else if(gaussianCounter > gaussian){
+			}
+			if(gaussianCounter > gaussian){
 				gaussianCounter = 0;
-			}else if(weightCounter > weightTime){
-				console.err("Reiniciamos");
+			}
+			if(weightCounter > weightTime){
 				weightCounter = 0;
 			}
 			

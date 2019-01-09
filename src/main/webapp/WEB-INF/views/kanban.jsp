@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp"></jsp:include>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 
@@ -338,7 +335,6 @@ ____________________________________________________________________
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">Modificar Miembro</h4>
-					<!--        <button type="button" class="close" data-dismiss="modal">&times;</button> -->
 				</div>
 
 				<div class="modal-body">
@@ -357,7 +353,6 @@ ____________________________________________________________________
 				<div class="modal-footer">
 					<button id="rmvUsuario" class="btn btn-danger" data-dismiss="modal">Eliminar
 						Miembro</button>
-					<!--                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
 				</div>
 			</div>
 		</div>
@@ -412,8 +407,10 @@ ____________________________________________________________________
 					Tiempo: <input type="number" id="modChronoTime" min=0 value=0>
 
 					<div>
-						<input type="radio" name="chronoTimeType" value="sec" checked>Segundos
-						<input type="radio" name="chronoTimeType" value="min">Minutos
+						<input type="radio" name="chronoTimeType" value="sec" id="segundos" checked> 
+						<label for="segundos"><span></span>Segundos</label>
+						<input type="radio" name="chronoTimeType" value="min" id="minutos">
+						<label for="minutos"><span></span>Minutos</label>
 					</div>
 					<button id="modChrono" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
@@ -443,20 +440,26 @@ ____________________________________________________________________
 						<p>Entrada de tareas</p>
 						<div>
 							<input type="radio" name="taskInputMode"
-								class="distributionRadio" value="manual" checked /> Manual <input
-								type="radio" name="taskInputMode" class="distributionRadio"
-								value="constant" /> Constante
+								class="distributionRadio" value="manual" id="manual" checked />
+							<label for="manual"><span></span> Manual </label>
+								
+							<input type="radio" name="taskInputMode" class="distributionRadio"
+								value="constant" id="constante"/> 
+							<label for="constante"><span></span> Constante </label>
+								
 						</div>
 
 						<p>Distribución</p>
 						<div>
 							<input type="radio" name="distributionType"
-								class="distributionRadio" value="normal" disabled>
-							Normal <input type="radio" name="distributionType"
-								class="distributionRadio" value="poisson" disabled>
-							Poisson <input type="radio" name="distributionType"
-								class="distributionRadio" value="weight" disabled> Con
-							peso
+								class="distributionRadio" value="normal" id="normal"disabled>
+								<label for="normal"><span></span> Normal </label>
+							<input type="radio" name="distributionType"
+								class="distributionRadio" value="poisson" id="poisson" disabled>
+								<label for="poisson"><span></span> Poisson </label>
+							<input type="radio" name="distributionType"
+								class="distributionRadio" value="weight" id="peso" disabled>
+								 <label for="peso"><span></span> Con peso</label>
 						</div>
 
 
@@ -508,7 +511,7 @@ ____________________________________________________________________
 					</div>
 					<div class="col-sm-8">
 						<button id="modBacklogBtn" class="btn btn-primary"
-							data-dismiss="modal">SAVE</button>
+							data-dismiss="modal">Guardar</button>
 
 					</div>
 

@@ -172,18 +172,48 @@ p.estado {
 }
 
 .modUserPhaseCheck,
-.addUserPhaseCheck,
-input[type='radio'] {
+.addUserPhaseCheck{
     display: inline;
     margin-left: 15px;
 }
 
 input[type='radio'] {
-    margin-top: 15px;
-    margin-bottom: 30px;
-    margin-left: 10px;
-    margin-right: 5px;
+    display:none;
+} 
+/* Personalizamos los radios */
+input[type='radio'] + label{
+	display: inline;
+	cursor: pointer;
 }
+
+input[type="radio"] + label span {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	margin: 10px 4px 10px 12px;
+	vertical-align: middle;
+	border: 2px solid #0069d2;
+	border-radius: 50px;
+	cursor: pointer;
+}
+input[type="radio"]:checked + label span {
+	border-width: 4px;
+}
+
+input[type="radio"]:disabled + label span, 
+input[type="radio"]:disabled + label {
+	opacity: 0.4;
+	cursor: default;
+}
+
+#modChronoTime + div {
+	margin: 5px 0 15px 0;
+}
+
+.distributionRadio {
+    display: inline;
+    margin-left: 5px;
+}  
 
 .divSkill {
     display: inline;
