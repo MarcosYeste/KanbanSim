@@ -8,11 +8,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link rel="shortcut icon" type="image/x-icon" href="/resources/img/favicon.png" />
 <title>Kanban</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
-<link rel="shortcut icon" href="#" />
 <!-- JQuery  -->
 
 <script src="/resources/libs/js/jquery-3.3.1.js"></script>
