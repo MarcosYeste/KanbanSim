@@ -190,41 +190,45 @@ function play() {
 				}
 				firstLoop = false;
 			} //if firstloop end
-
+			
 			listTareas.forEach(function(task) {
-
+				
 				// Asigna un tiempo a cada tarea de entre el intervalo de la fase
-				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.state != "Ended" && task.duration == 0) {
-
-
-					if(distribution.typeConstant == "weight"){
-
-						if(task.weight == "S"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
-						} else if (task.weight == "M"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
-						} else if (task.weight == "L"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
-						} else if (task.weight == "XL"){
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
-						}
-
-
-					} else {
-						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
-					}
-
-					if(task.duration < listPhases[i].minTime){
-						task.duration = listPhases[i].minTime;
-					}
-					// Asigna un tiempo a cada tarea de entre el intervalo de la fase
-					task.esfuerzo += task.duration;
-					task.durarionAsignada = false;					
-					task.firstDuration.push(task.duration);
-
-
-				}
-
+//				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.state != "Ended" && task.duration == 0) {
+//					
+//					
+//					if(distribution.typeConstant == "weight"){
+//
+//						if(task.weight == "S"){//aqui2
+//							console.log("a")
+//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime + listPhases[i].minTime);
+//						} else if (task.weight == "M"){
+//							console.log("b")
+//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26) + listPhases[i].minTime);
+//						} else if (task.weight == "L"){
+//							console.log("asd")
+//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51) + listPhases[i].minTime);
+//						} else if (task.weight == "XL"){
+//							console.log("sadf")
+//							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76) + listPhases[i].minTime);
+//						}
+//						
+//						
+//					} else {	
+//						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
+//					}
+//					
+//					if(task.duration < listPhases[i].minTime){
+//						task.duration = listPhases[i].minTime;
+//					}
+//					// Asigna un tiempo a cada tarea de entre el intervalo de la fase
+//					task.esfuerzo += task.duration;
+//					task.durarionAsignada = false;					
+//					task.firstDuration.push(task.duration);
+//
+//
+//				}
+				
 				for (var k = 0; k < divsTareas.length; k++) {
 
 					var taskDuration = parseInt(task.duration);
@@ -478,13 +482,13 @@ function play() {
 								if(distribution.typeConstant == "weight"){
 
 									if(task.weight == "S"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime);
+										task.duration = Math.round(Math.random() * calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) + listPhases[i].minTime);
 									} else if (task.weight == "M"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26));
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26) + listPhases[i].minTime);
 									} else if (task.weight == "L"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51));
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 75) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 51) + listPhases[i].minTime);
 									} else if (task.weight == "XL"){
-										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76));
+										task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76) + listPhases[i].minTime);
 									}
 
 								} else {
@@ -861,7 +865,8 @@ function play() {
 
 		// Función para Volver a calcular el tiempo para las tareas con peso
 		function calcTime(maxTime, minTime, percentage){
-			var range = maxTime - minTime;	
+			var range = maxTime - minTime;	//aqui
+		//	console.log("max " + maxTime + " min " + minTime + " range " + range + " perc " + percentage +  "  result " + ((percentage * range) / 100));
 			return (percentage * range) / 100;
 		}
 
