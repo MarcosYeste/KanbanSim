@@ -11,7 +11,7 @@
 <title>Kanban</title>
 
 <link rel="stylesheet" href="/resources/css/kanban.css">
-<link rel="shortcut icon" type="image/x-icon" href="https://cdn1.iconfinder.com/data/icons/flat-badges-vol-1/128/kanban-512.png" />
+
 </head>
 
 <body>
