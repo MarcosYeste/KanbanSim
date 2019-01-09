@@ -670,9 +670,19 @@ function play() {
 
 		});
 
-		//Constants
+		// ENTRADA CONSTANTE
 		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
 		if(distribution.backLogType == "constant"){	
+			
+			console.log( poisson + " == " + poissonCounter);
+			
+			if(poissonCounter > poisson){
+				console.error("Reseteamos a 0");
+				poissonCounter = 0;
+			}else if(gaussianCounter > gaussian){
+				gaussianCounter = 0;
+			}
+			
 			if((gaussian == gaussianCounter || gaussian <= 0) && distribution.typeConstant == "normal"){
 				getGaussian();		
 				calcLDValues(gaussian);
@@ -683,6 +693,7 @@ function play() {
 			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
+				console.log(poisson);
 				poissonCounter = 0;
 				addTareas("",leadTime);
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
@@ -691,9 +702,8 @@ function play() {
 				weightCounter = 0;
 				addTareas(weight,leadTime);
 			}
-
 		}
-
+		
 		//Funcion para calcular el tiempo medio de la entrada de tareas y la varianza
 		function calcLDValues(distributionValue){
 			if(distributionValue != 0){
@@ -871,7 +881,7 @@ function play() {
 			}
 		}
 
-	}, 250);
+	}, (1000 / speed));
 }
 
 //____________________________________________________________________

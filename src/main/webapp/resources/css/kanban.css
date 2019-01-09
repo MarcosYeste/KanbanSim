@@ -122,6 +122,12 @@
 .titulo {
     cursor: pointer !important;
 }
+/* ICONO EDITAR TITULO */
+.titulo::before{
+	content: "\f044";
+	font-family: "Font Awesome 5 Free";
+	margin-right:3px;
+}
 
 /*---------------------------------------------------- TAREAS ----------------------------------------------*/
 .tareas {
