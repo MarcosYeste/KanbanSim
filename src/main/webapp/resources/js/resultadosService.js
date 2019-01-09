@@ -752,7 +752,7 @@ function saveBlueprint(text) {
 
         },
         success: function (data) {
-            console.log("Success")
+            console.log("%cSuccess", "color:green")
         }
     })
 }
