@@ -200,7 +200,7 @@ function play() {
 					if(distribution.typeConstant == "weight"){
 
 						if(task.weight == "S"){//aqui2
-							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25) - listPhases[i].minTime) +  listPhases[i].minTime + listPhases[i].minTime);
+							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25)) + listPhases[i].minTime);
 						} else if (task.weight == "M"){
 							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26) + listPhases[i].minTime);
 						} else if (task.weight == "L"){
