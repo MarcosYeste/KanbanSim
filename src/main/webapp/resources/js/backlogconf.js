@@ -7,9 +7,9 @@ $(document).ready(function(){
 	var divsValues = document.getElementsByClassName("sizeValue");
 	var slidersTofill = document.getElementsByClassName("ui-slider-handle");
 	var spanSelector = 1;
-
+	
+	
 	var distributionTypeInputs = $("[name='distributionType']").change(function(){
-
 		// Cambiar Distribucion
 
 		distribution.backLogType = "constant";
@@ -243,7 +243,8 @@ $(document).ready(function(){
 
 		}
 	}) //end button listener
-
+	
+	
 
 	
 //-------------------------------- CONTROL ENTRADA DIGITOS --------------------------------------------------------------//

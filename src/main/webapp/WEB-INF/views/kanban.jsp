@@ -1,22 +1,18 @@
+<!DOCTYPE html>
+<html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp"></jsp:include>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
 
 <head>
-<title>Kanban</title>
-
 <link rel="stylesheet" href="/resources/css/kanban.css">
-<link rel="shortcut icon" type="image/x-icon" href="https://cdn1.iconfinder.com/data/icons/flat-badges-vol-1/128/kanban-512.png" />
 </head>
-
 <body>
 
-	<!--
+<!--
 
 ______________________________ BOTONES  ____________________________
 
