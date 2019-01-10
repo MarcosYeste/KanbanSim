@@ -6,6 +6,7 @@
 <html>
 <head>
 <link rel="shortcut icon" type="image/x-icon" href="/resources/img/favicon.png" />
+
 <title>Kanban</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
@@ -24,7 +25,5 @@
 <!--  Charts chart.js  -->
 <script src="/resources/libs/js/Chart.bundle.js"></script>
 <script src="/resources/libs/js/Chart.js"></script>
- 
-
 
 </head>

@@ -1,19 +1,15 @@
+<!DOCTYPE html>
+<html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp"></jsp:include>
-<!DOCTYPE html>
-<html>
-
 <head>
-<title>Kanban</title>
-
 <link rel="stylesheet" href="/resources/css/kanban.css">
 
 </head>
-
 <body>
 
-	<!--
+<!--
 
 ______________________________ BOTONES  ____________________________
 
