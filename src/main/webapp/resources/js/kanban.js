@@ -10,7 +10,8 @@ distribution.backLogType = "manual";
 distribution.typeConstant = "";
 distribution.mean;				// Base value for normal distribution 
 distribution.variation;			// Variation value for normal distribution
-distribution.lambda;			// Lambda value for poisson distribution 
+distribution.lambda;			// Lambda value for poisson distribution
+distribution.weightTimeLapse;
 distribution.distributionWeightValues = [0, 0, 0, 0];
 
 //Recogemos la distribución según lo que este guardado en la sesión
@@ -47,7 +48,7 @@ var taskNameCounter = 0;
 var poisson = 0;  	// Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
 var weight = "M"; 
-var weightTime = 1; // Tiempo en el que entrara la proxima tarea en uniforme con peso
+var weightTime = 0; // Tiempo en el que entrara la proxima tarea en uniforme con peso
 
 
 var weightCounter = 0;
@@ -1080,7 +1081,8 @@ function getWeight(){
 			sValue: distribution.distributionWeightValues[0],
 			mValue: distribution.distributionWeightValues[1], 
 			lValue: distribution.distributionWeightValues[2], 
-			xlValue: distribution.distributionWeightValues[3]
+			xlValue: distribution.distributionWeightValues[3],
+			wTime: distribution.weightTimeLapse
 		},success: function(data) {
 			var formatedData = data.split(",")
 			weight = formatedData[0];
@@ -1126,7 +1128,7 @@ function getDistribution(){
 			document.getElementById("dataPoissonDistribution").style.height = "0px";
 
 			var weightDivValues = $(".sizeValue");
-
+			document.getElementById("weightTimeLapse").value = distribution.weightTimeLapse;
 			for(var wv = 0; wv < weightDivValues.length; wv++){
 				weightDivValues[wv].innerHTML = distributionWeightValues[wv];
 			}
