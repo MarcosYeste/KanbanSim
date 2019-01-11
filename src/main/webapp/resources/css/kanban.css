@@ -211,42 +211,16 @@ button  {
 	cursor: pointer;
 }
 
+
+.playpause input[type="checkbox"]:checked+label i{
+        color:crimson;
+}
+
+
 /* NO SELECT ON CHECKBOX*/
 input[type="checkbox"]:focus{
         outline:none;
 }
-
-/* .playpause {
-	height: 70px;
-	display: flex;
-	flex-direction: row-reverse;
-	padding-top: 15px;
-} 
-
- .playpause label {
-	display: block;
-	box-sizing: border-box;
-	width: 0;
-	height: 40px;
-	cursor: pointer;
-	border-color: transparent transparent transparent #000000;
-	transition: 100ms all ease;
-	will-change: border-width;
-	Play state
-	border-style: solid;
-	border-width: 20px 0 20px 40px;
-}
-
-.playpause input[type='checkbox'] {
-	visibility: hidden;
-}
-
-.playpause input[type='checkbox']:checked+label {
-	Pause state
-	border-style: double;
-	border-width: 0px 0 0px 60px;
-	border-color: #a50000;
-} */
 
 #delete {
 	color: black;
