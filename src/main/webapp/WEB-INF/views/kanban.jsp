@@ -459,7 +459,6 @@ ____________________________________________________________________
 							peso
 						</div>
 
-
 						<div id="distributionData">
 							<p id="paramTitle" style="visibility: collapse; height: 0px">Parametros:</p>
 
@@ -482,6 +481,9 @@ ____________________________________________________________________
 
 							<div id="dataWeightDistribution"
 								style="visibility: collapse; height: 0px">
+								<p>Rango de tiempo de entrada: </p>
+								<input type="number" id="weightTimeLapse"><br>
+								<p>Rango de probabilidad de aparición: </p>
 								<p class="backloglabel">S:</p>
 								<div class="backloglabelInput size" id="S">
 									<div id="custom-handle0" class="ui-slider-handle"></div>
