@@ -79,34 +79,10 @@
 	overflow: hidden;
 }
 
-.faseName
->
-div
-
-
-:not
-
- 
-
-(
-.titulo
-
- 
-
-)
-{
-overflow-y
-
-
-:
-
- 
-
-auto
-
-
-;
+.faseName > div:not(.titulo){
+	overflow-y:auto;
 }
+
 .subfase {
 	color: black;
 	text-shadow: 0.1px 1px 0.5px;
@@ -230,21 +206,21 @@ button {
 	height: 70px;
 	display: flex;
 	flex-direction: row-reverse;
-	padding-top: 7px;
+	padding-top: 12px;
 }
 
 .playpause label {
 	display: block;
 	box-sizing: border-box;
 	width: 0;
-	height: 50px;
+	height: 40px;
 	cursor: pointer;
 	border-color: transparent transparent transparent #000000;
 	transition: 100ms all ease;
 	will-change: border-width;
 	/* Play state */
 	border-style: solid;
-	border-width: 27px 0 27px 60px;
+	border-width: 20px 0 20px 40px;
 }
 
 .playpause input[type='checkbox'] {
@@ -269,7 +245,6 @@ button {
 #reset, #deleteAll, #divDeleteTasks, #addUser, #backward, #forward {
 	cursor: pointer;
 }
-
 /* SOBRESATURACION */
 #saturacion {
 	float: left;
@@ -564,12 +539,4 @@ legend.teamField {
 	width: auto;
 	padding: 0 10px;
 	border-bottom: none;
-}
-
-/*---------------------------------------------------MEDIA QUERYS------------------------------------------------------------*/
-@media screen and (max-width: 1450px) {
-	#saturacion, #saturacion2 {
-		visibility:hidden;
-	}
-	
 }
