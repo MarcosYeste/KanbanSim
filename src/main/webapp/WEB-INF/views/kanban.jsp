@@ -21,21 +21,21 @@ ____________________________________________________________________
 	 Sirven para resetear el tablero y para motrar la informacion de como usar el propio programa -->
 
 	<div class="botonesContainer1" id="botonesContainer1">
-		<span id="arrow"><i class="fas fa-caret-right fa-2x"
-			style="margin: 0 5px"></i></span>
+
+		<span id="arrow"><i class="fas fa-caret-right" style="margin: 0 5px"></i></span>
 
 		<div class="doubleButton">
 			<!-- Nuevo Tablero -->
 
 			<div id="doubleButton">
 				<button id="divDelete">
-					<i id="deleteAll" class="fas fa-file fa-3x" data-toggle="tooltip"
+					<i id="deleteAll" class="fas fa-file " data-toggle="tooltip"
 						data-placement="top" title="Nuevo Tablero"></i>
 				</button>
 
 				<!-- Botón para mostrar información del tablero -->
 				<button id="info" data-target="#generalInfo" data-toggle="modal">
-					<i id="infoIcon" class="fas fa-info-circle fa-3x"
+					<i id="infoIcon" class="fas fa-info-circle "
 						data-toggle="tooltip" data-placement="left" title="Info"></i>
 				</button>
 			</div>
@@ -46,20 +46,20 @@ ____________________________________________________________________
 			<!-- Genera los resultados para poder ver los tiempos, no se puede acceder hasta que no se haya detenido la ejecucion 
 			 del kanban -->
 			<button id="result" onclick="generarResultados()" class="resultbutt">
-				<i class="fas fa-clipboard-list fa-3x" data-toggle="tooltip"
+				<i class="fas fa-clipboard-list " data-toggle="tooltip"
 					data-placement="top" title="Mostrar Resultados"></i>
 			</button>
 
 			<!-- Similar al anterior, ya que usa los valores de este, pero con la pequeña diferencia de que se puede acceder en cualquier
 			 momento de la ejecucion y te muestra los valores en una gráfica a tiempo real -->
 			<button id="graficos" onclick="mostrarGraficas()" class="resultbutt">
-				<i class="fas fa-chart-bar fa-3x" data-toggle="tooltip"
+				<i class="fas fa-chart-bar " data-toggle="tooltip"
 					data-placement="top" title="Mostrar Graficos"></i>
 			</button>
 			<!-- Este botón solo sirve para poder guardar los datos dentro de la base de datos -->
 			<button id="saveResult" class="resultbutt" data-toggle="modal"
 				data-target="#modalBlueprint">
-				<i class="fas fa-save fa-3x" data-toggle="tooltip"
+				<i class="fas fa-save " data-toggle="tooltip"
 					data-placement="top" title="Guardar Plantilla"></i>
 			</button>
 		</div>
@@ -109,29 +109,31 @@ ____________________________________________________________________
 	<div id="botonesPlay" class="botonesContainer">
 
 		<!--  Botón Play/Pause -->
-
+		
 		<div id="divReset">
-			<i id="reset" class="fas fa-redo fa-3x"></i>
+			<i id="reset" class="fas fa-redo "></i>
 		</div>
 		<div class="playpause">
 			<input type="checkbox" value="None" id="playpause" name="check" /> <label
 				for="playpause" tabindex=1></label>
 		</div>
+		<div class="rewindAndForward">
 		<button id="backward" disabled="disabled">
-			<i class="fas fa-backward fa-3x" onclick="speedKanban('rewind')"></i>
+			<i class="fas fa-backward " onclick="speedKanban('rewind')" ></i>
+
 		</button>
 		<span id="multiplicador">x1</span>
 		<button id="forward">
-			<i class="fas fa-forward fa-3x" onclick="speedKanban('forward')"></i>
+			<i class="fas fa-forward " onclick="speedKanban('forward')"></i>
 		</button>
 
-
+		</div>
 	</div>
 
 	<!-- Botón Add Tasks, SOLO MANUAL -->
 	<button id="addTask" data-toggle="tooltip" data-placement="top"
 		title="Añadir Tareas">
-		<i class="fas fa-plus fa-3x"></i>
+		<i class="fas fa-plus "></i>
 	</button>
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
 
