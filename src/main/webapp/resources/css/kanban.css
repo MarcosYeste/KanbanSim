@@ -202,20 +202,18 @@ button  {
 	outline: none !important;
 }
 
-i{
-	user-select: none;
-}
 .playpause input[type='checkbox']{
 	display:none;
-	webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 }
 
 .playpause input[type='checkbox']+label {
 	display: inline;
 	cursor: pointer;
+}
+
+/* NO SELECT ON CHECKBOX*/
+input[type="checkbox"]:focus{
+        outline:none;
 }
 
 /* .playpause {

@@ -10,7 +10,9 @@ body, html {
 	-ms-user-select: none;
 	user-select: none;
 }
-
+*:focus {
+    outline: none;
+}
 .start {
 	margin-top: 10%;
 	margin-left: 45%;
