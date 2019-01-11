@@ -48,7 +48,7 @@ var taskNameCounter = 0;
 var poisson = 0;  	// Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
 var weight = "M"; 
-var weightTime = 1; // Tiempo en el que entrara la proxima tarea en uniforme con peso
+var weightTime = 0; // Tiempo en el que entrara la proxima tarea en uniforme con peso
 
 
 var weightCounter = 0;
