@@ -61,9 +61,9 @@ public class HomeController {
 
 	// Get with weight
 	@RequestMapping(value = "/nextWeight", method = RequestMethod.GET)
-	public @ResponseBody String weight(int sValue, int mValue, int lValue, int xlValue) {
+	public @ResponseBody String weight(int sValue, int mValue, int lValue, int xlValue, int wTime) {
 
-		return distributionService.getNextWeight(sValue, mValue, lValue, xlValue);
+		return distributionService.getNextWeight(sValue, mValue, lValue, xlValue, wTime);
 
 	}
 

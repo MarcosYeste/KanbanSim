@@ -34,7 +34,7 @@ public class DistributionService {
 	}
 	
 	
-	public String getNextWeight (int sValue, int mValue, int lValue, int xlValue) {
+	public String getNextWeight (int sValue, int mValue, int lValue, int xlValue, int wTime) {
 		Random r = new Random();
 		int num = r.nextInt(100) + 1;
 		String val = "";
@@ -47,8 +47,8 @@ public class DistributionService {
 		} else if (num > sValue + mValue + lValue && num <= sValue + mValue + lValue + xlValue) {
 			val = "XL";
 		}
-
-		int number = r.nextInt(5) + 1;
+		System.out.println(wTime);
+		int number = r.nextInt(wTime) + 1;
 
 		return val + "," + String.valueOf(number);
 		
