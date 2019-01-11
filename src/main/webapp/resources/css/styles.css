@@ -404,14 +404,3 @@ h2 {
 .strike {
 	text-decoration: line-through !important;
 }
-
-/*---------------------------------------------------MEDIA QUERYS------------------------------------------------------------*/
-@media screen and (max-width: 1450px) {
-	#saturacion, #saturacion2 {
-		visibility: hidden;
-	}
-}
-
-@media screen and (max-width: 400px){
-	
-}

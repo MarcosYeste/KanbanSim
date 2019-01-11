@@ -119,7 +119,6 @@ if(document.getElementById("playpause")){
 		} else {
 			playing = false;
 			clearInterval(myInterval);
-
 			deshabilitarMenus(false);
 		}
 	});
@@ -770,7 +769,6 @@ function play() {
 				document.getElementById("chronoViewer").innerHTML = "00:00";
 				// Cambiamos el boton a pausa
 				document.getElementById("playpause").checked = false;
-
 				deshabilitarMenus(false);
 
 				if(document.getElementsByClassName("contenedorFinal")[0].childNodes.length == divsTareas.length){
@@ -894,6 +892,7 @@ function play() {
 function deshabilitarMenus(disable){
 
 	if (disable){
+		document.getElementById("playButton").setAttribute("class", "fa fa-pause");
 		// Deshabilitamos los botones del header
 		for (var i = 0; i < document.getElementById("header-btn").children.length; i++){
 
@@ -949,7 +948,7 @@ function deshabilitarMenus(disable){
 		var theCSSprop = declaration.setProperty("opacity", 0, "important");
 
 	}else{
-
+		document.getElementById("playButton").setAttribute("class", "fa fa-play");
 		document.getElementById("result").removeAttribute("disabled");
 		document.getElementById("result").removeAttribute("aria-disabled");
 

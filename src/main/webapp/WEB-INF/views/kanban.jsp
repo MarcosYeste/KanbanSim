@@ -114,8 +114,8 @@ ____________________________________________________________________
 			<i id="reset" class="fas fa-redo "></i>
 		</div>
 		<div class="playpause">
-			<input type="checkbox" value="None" id="playpause" name="check" /> <label
-				for="playpause" tabindex=1></label>
+			<input type="checkbox" value="None" id="playpause" name="check" /> 
+			<label for="playpause" tabindex=1><i id="playButton" class="fa fa-play"></i></label>
 		</div>
 		<div class="rewindAndForward">
 		<button id="backward" disabled="disabled">
@@ -169,7 +169,6 @@ ____________________________________________________________________
 			<canvas id="myChart"></canvas>
 		</div>
 	</div>
-
 
 
 
