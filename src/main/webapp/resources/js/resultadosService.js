@@ -325,7 +325,7 @@ function tablePhase() {
         l++;
     });
     tabla += "<tr>";
-    tabla += "<td><i>Media por fase: </i></td>";
+    tabla += "<td><em>Media por fase: </em></td>";
 
     for (var i = 0; i < cv; i++) {
         if (listResultados[0].phaseMediaFase[0][i] != undefined) {
@@ -340,7 +340,7 @@ function tablePhase() {
     }
     tabla += "<td><div class='stados'></div></td>";
     tabla += "</tr>";
-    tabla += "<tr><td><i>Media Total: </i></td><td colspan='" + cv + "'>" + listResultados[0].phaseMediaTotal + "s</td><td><div class='stados'></div></td></tr>";
+    tabla += "<tr><td><em>Media Total: </em></td><td colspan='" + cv + "'>" + listResultados[0].phaseMediaTotal + "s</td><td><div class='stados'></div></td></tr>";
     tabla += "</tbody>";
     subdiv4.innerHTML += tabla;
     div4.appendChild(subdiv4);
