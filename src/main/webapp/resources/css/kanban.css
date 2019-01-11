@@ -257,8 +257,8 @@ input[type="checkbox"]:focus{
 		rgba(0, 0, 0, 0.19);
 	border-radius: 20%;
 	margin-left: 40.2%;
-	width: 15%;
-	height: auto;
+	width: 20%;
+	height:auto;
 	align-items: center;
 	display: flex;
 	flex-direction: row;
@@ -269,6 +269,17 @@ input[type="checkbox"]:focus{
 	margin-top: 10px;
 	margin-bottom: 10px;
 	flex-wrap: wrap;
+}
+.playAndReset{
+	display:flex;
+	flex-direction: row;
+	margin-left: 10%;
+}
+.rewindAndForward{
+	margin-right: 10%;
+}
+.playpause{
+	margin-left: 30%;
 }
 
 .botonesContainer1 {
@@ -542,6 +553,13 @@ i{
 		width: 17%;
 		height: auto;
 		margin-left: 39% !important;
+	}
+	.playAndReset{
+		margin-left: 26%;
+		margin-top: 1%;
+	}
+	.rewindAndForward{
+	margin-left: 14%;
 	}
 	
 	
