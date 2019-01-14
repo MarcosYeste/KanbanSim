@@ -614,6 +614,9 @@ i{
 	
 	font-size: 2em;
 	}
+	.doubleButton>button, #doubleButton>button {
+	margin: 25px 45px !important;
+	}
 	
 }
 @media screen and (max-width: 950px) {
