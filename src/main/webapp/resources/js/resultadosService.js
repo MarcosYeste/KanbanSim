@@ -279,7 +279,7 @@ function tablePhase() {
     var tabla = "<table class='table table-bordered table-fixed'>";
     tabla += "<thead>";
     tabla += "<tr class='tdTitle'>";
-    tabla += "<th rowspan = '2' class='colLegend'> <span></span>Todo<br><span></span>Doing<br><span></span>Done</th>";
+    tabla += "<th rowspan = '2' class='colLegend'> <span id='span1'></span>Todo<br><span id='span2'></span>Doing<br><span id='span3'></span>Done</th>";
     var cv = 0;
     listPhases.forEach(function (phase) {
 

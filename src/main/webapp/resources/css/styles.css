@@ -311,15 +311,15 @@ h2 {
   	margin-right: 2px;
 }
 
-.colLegend span:nth-child(1){
+#span1{
 	border:1px solid darksalmon;
 	background-color: darksalmon;
 }
-.colLegend span:nth-child(2){
+#span2{
 	border:1px solid darkseagreen;
 	background-color: darkseagreen;
 }
-.colLegend span:nth-child(3){
+#span3{
 	border:1px solid lightcoral;
 	background-color: lightcoral;
 }
