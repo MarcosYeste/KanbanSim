@@ -247,7 +247,12 @@ h2 {
 		rgba(0, 0, 0, 0.19);
 	font-family: 'Orbitron', sans-serif;
 }
-
+.crono{
+	cursor:pointer;
+}
+.crono:disabled{
+	cursor:default;
+}
 .clock {
 	right: 0;
 	margin-right: 13.5%;
