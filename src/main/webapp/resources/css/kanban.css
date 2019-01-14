@@ -429,10 +429,17 @@ input[type="checkbox"]:focus{
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 }
+.faseResultado{
+	overflow-x:scroll;
+	width:100%
+}
 
 .tareaResultadoDiv, .faseResultadoDiv {
 	border-top: 1px solid blue;
 	padding: 20px;
+}
+.faseResultado{
+	overflow-x:auto;
 }
 
 .th {
@@ -544,6 +551,13 @@ legend.teamField {
 
 i{
 	font-size: 2.5em;
+}
+
+.userName  p{
+	white-space: nowrap; 
+	width: 75px; 
+	overflow: hidden;
+	text-overflow: ellipsis; 
 }
 /*---------------------------------------------------MEDIA QUERYS------------------------------------------------------------*/
 @media screen and (max-width: 1450px) {

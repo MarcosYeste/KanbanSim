@@ -267,6 +267,7 @@ h2 {
 
 .table-fixed th, .table-fixed td {
 	padding: 11px 12px;
+	min-width: 200px; 
 }
 
 .table-fixed thead {
@@ -277,7 +278,7 @@ h2 {
 .table-fixed tbody {
 	height: 270px;
 	overflow: auto;
-	/* 	overflow-x: hidden; */
+	/* overflow-x: auto; */
 	display: block;
 	width: 100%;
 }
@@ -291,8 +292,47 @@ h2 {
 .table-fixed .lim {
 	width: 100%;
 	min-width: 10%;
-	max-width: 100%;
 	overflow-x: auto;
+}
+.stados p:nth-child(1){
+	color: darksalmon;
+}
+.stados p:nth-child(2){
+	color: darkseagreen;
+}
+.stados p:nth-child(3){
+	color: lightcoral;
+}
+
+.colLegend span{
+	display: inline-block;
+	width: 15px;
+  	height: 15px;
+  	margin-right: 2px;
+}
+
+.colLegend span:nth-child(1){
+	border:1px solid darksalmon;
+	background-color: darksalmon;
+}
+.colLegend span:nth-child(2){
+	border:1px solid darkseagreen;
+	background-color: darkseagreen;
+}
+.colLegend span:nth-child(3){
+	border:1px solid lightcoral;
+	background-color: lightcoral;
+}
+
+.titleTh{
+	white-space: nowrap;
+	overflow: hidden;
+}
+.colLegend{
+	font-weight: normal;
+	font-size: 17px;
+	text-align:left;
+	
 }
 
 /*---------------------------------------------------- SCROLLBAR ----------------------------------------------*/

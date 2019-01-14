@@ -278,21 +278,16 @@ function tablePhase() {
     subdiv4.className = "faseResultado";
     var tabla = "<table class='table table-bordered table-fixed'>";
     tabla += "<thead>";
-    tabla += "<tr>";
-    tabla += "<th rowspan = '2'></th>";
+    tabla += "<tr class='tdTitle'>";
+    tabla += "<th rowspan = '2' class='colLegend'> <span></span>Todo<br><span></span>Doing<br><span></span>Done</th>";
     var cv = 0;
     listPhases.forEach(function (phase) {
 
-        tabla += "<th><div class='th'>" + phase.name + " ( " + listResultados[0].phaseSecondsTotal[cv] + "s )</div></th>";
+        tabla += "<th><div class='th titleTh'>" + phase.name + " <br>( " + listResultados[0].phaseSecondsTotal[cv] + "s )</div></th>";
         cv++;
 
     });
     tabla += "<th><div class='th'>Media De las Tareas</div></th>";
-    tabla += "</tr>";
-    tabla += "<tr>";
-    for (var i = 0; i <= cv; i++) {
-        tabla += "<th><div class='stados'><p>todo</p><p>doing</p><p>done</p></div></th>";
-    }
     tabla += "</tr>";
     tabla += "</thead>";
     tabla += "<tbody>";
