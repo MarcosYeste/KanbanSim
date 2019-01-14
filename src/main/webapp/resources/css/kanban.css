@@ -305,7 +305,7 @@ input[type="checkbox"]:focus{
 	flex-direction: column;
 	margin-left: 0;
 	width: 0;
-	margin: 25px 45px;
+	margin: 20px 45px;
 	text-align: justify;
 }
 
@@ -627,6 +627,9 @@ i{
 	i, #multiplicador{
 	
 	font-size: 2em;
+	}
+	.doubleButton>button, #doubleButton>button {
+	margin: 25px 45px !important;
 	}
 	
 }
