@@ -555,7 +555,7 @@ i{
 
 .userName  p{
 	white-space: nowrap; 
-	width: 75px; 
+	
 	overflow: hidden;
 	text-overflow: ellipsis; 
 }

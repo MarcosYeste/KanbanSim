@@ -78,6 +78,7 @@ function mostrarKanban() {
     playPause.children[0].removeAttribute("aria-disabled");
     playPause.children[1].style.opacity = 1;
     document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
+    document.getElementsByClassName("mostrarResultadosDiv")[0].style.borderStyle = "hidden";
     document.getElementById("result").setAttribute("onClick", "generarResultados()");
     document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
     document.getElementsByClassName("crono")[0].style.visibility = "visible";
@@ -98,6 +99,7 @@ function mostrarGraficas() {
     document.getElementsByClassName("mostrarGraficosDiv")[0].style.background = "white";
     document.getElementsByClassName("mostrarGraficosDiv")[0].style.display = "block";
     document.getElementsByClassName("mostrarResultadosDiv")[0].style.display = "none";
+    document.getElementsByClassName("mostrarResultadosDiv")[0].style.borderStyle = "hidden";
     document.getElementsByClassName("contenedor")[0].style.visibility = "hidden";
     document.getElementsByClassName("teamField")[0].style.display = "none";
     playPause.children[0].removeAttribute("disabled");
