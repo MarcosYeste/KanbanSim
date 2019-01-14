@@ -103,7 +103,6 @@ public class HomeController {
 	public @ResponseBody String getSavedBluePrint() {
 
 		JsonNode noderet = null;
-
 		try {
 
 			noderet = restdbService.findAllBluePrints();
@@ -114,7 +113,9 @@ public class HomeController {
 
 		// Paso el objeto como una String que recojo por el JS como JSON
 		return noderet.toString();
-	}
+		
+		
+}
 
 	@RequestMapping(value = "/updateBluePrint", method = RequestMethod.GET)
 	public @ResponseBody void updateBluePrint(String id, String data) {

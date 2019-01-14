@@ -79,34 +79,10 @@
 	overflow: hidden;
 }
 
-.faseName
->
-div
-
-
-:not
-
- 
-
-(
-.titulo
-
- 
-
-)
-{
-overflow-y
-
-
-:
-
- 
-
-auto
-
-
-;
+.faseName > div:not(.titulo){
+	overflow-y:auto;
 }
+
 .subfase {
 	color: black;
 	text-shadow: 0.1px 1px 0.5px;
@@ -222,40 +198,28 @@ p.estado {
 }
 
 /*---------------------------------------------------- BOTONES ----------------------------------------------*/
-button {
+button  {
 	outline: none !important;
 }
 
-.playpause {
-	height: 70px;
-	display: flex;
-	flex-direction: row-reverse;
-	padding-top: 7px;
+.playpause input[type='checkbox']{
+	display:none;
 }
 
-.playpause label {
-	display: block;
-	box-sizing: border-box;
-	width: 0;
-	height: 50px;
+.playpause input[type='checkbox']+label {
+	display: inline;
 	cursor: pointer;
-	border-color: transparent transparent transparent #000000;
-	transition: 100ms all ease;
-	will-change: border-width;
-	/* Play state */
-	border-style: solid;
-	border-width: 27px 0 27px 60px;
 }
 
-.playpause input[type='checkbox'] {
-	visibility: hidden;
+
+.playpause input[type="checkbox"]:checked+label i{
+        color:crimson;
 }
 
-.playpause input[type='checkbox']:checked+label {
-	/* Pause state */
-	border-style: double;
-	border-width: 0px 0 0px 60px;
-	border-color: #a50000;
+
+/* NO SELECT ON CHECKBOX*/
+input[type="checkbox"]:focus{
+        outline:none;
 }
 
 #delete {
@@ -269,7 +233,6 @@ button {
 #reset, #deleteAll, #divDeleteTasks, #addUser, #backward, #forward {
 	cursor: pointer;
 }
-
 /* SOBRESATURACION */
 #saturacion {
 	float: left;
@@ -295,7 +258,7 @@ button {
 	border-radius: 20%;
 	margin-left: 40.2%;
 	width: 20%;
-	height: auto;
+	height:auto;
 	align-items: center;
 	display: flex;
 	flex-direction: row;
@@ -305,6 +268,18 @@ button {
 	padding-right: 8px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	flex-wrap: wrap;
+}
+.playAndReset{
+	display:flex;
+	flex-direction: row;
+	margin-left: 10%;
+}
+.rewindAndForward{
+	margin-right: 10%;
+}
+.playpause{
+	margin-left: 30%;
 }
 
 .botonesContainer1 {
@@ -330,7 +305,7 @@ button {
 	flex-direction: column;
 	margin-left: 0;
 	width: 0;
-	margin: 10px 40px;
+	margin: 20px 45px;
 	text-align: justify;
 }
 
@@ -550,6 +525,7 @@ button {
 	padding: 20px;
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
+	cursor:pointer;
 }
 
 teamField {
@@ -566,10 +542,90 @@ legend.teamField {
 	border-bottom: none;
 }
 
+i{
+	font-size: 2.5em;
+}
 /*---------------------------------------------------MEDIA QUERYS------------------------------------------------------------*/
 @media screen and (max-width: 1450px) {
 	#saturacion, #saturacion2 {
 		visibility:hidden;
 	}
+	.botonesContainer{
+		width: 17%;
+		height: auto;
+		margin-left: 39% !important;
+	}
+	.playAndReset{
+		margin-left: 26%;
+		margin-top: 1%;
+	}
+	.rewindAndForward{
+	margin-left: 14%;
+	}
 	
+	
+}
+@media screen and (max-width: 1260px) {
+	
+	.botonesContainer{
+		width: 23%;
+		height: auto;
+		margin-left: 37% !important;
+	}
+	
+	
+}
+@media screen and (max-width: 375px) {
+	
+	.botonesContainer{
+		width: 45% !important;
+		height: 10%;
+		margin-left: 30% !important;
+	}
+	.clock{
+		margin-right: 5% !important;
+	}
+	.crono{
+	margin-left: 5% !important;
+	}
+	.clock, .crono{
+	margin-top: 10%;
+	}
+	
+}
+@media screen and (max-width: 755px) {
+	
+	.botonesContainer{
+		width: 34%;
+		height: auto;
+		margin-left: 35% !important;
+	}
+	.clock{
+		margin-right: 5% !important;
+	}
+	.crono{
+	margin-left: 5% !important;
+	}
+	
+}
+@media screen and (max-width: 1694px) {
+	
+	i, #multiplicador{
+	
+	font-size: 2em;
+	}
+	
+}
+@media screen and (max-width: 950px) {
+	
+	.texto{
+		display:none;
+	}
+	.clock, .crono{
+	width: 50px;
+	height: 40px;
+	font-size :50% !important;
+	padding-top: 7px;
+	padding-right: 3px;
+	}
 }
