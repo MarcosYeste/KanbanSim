@@ -111,6 +111,7 @@ function mostrarGraficas() {
     document.getElementById("addTask").setAttribute("disabled", "");
     document.getElementById("addTask").setAttribute("aria-disabled", "true");
     generarGraficos();
+    document.getElementById("result").setAttribute("onClick", "generarResultados()");
     document.getElementById("graficos").setAttribute("onClick", "mostrarKanban()");
     document.getElementsByClassName("crono")[0].style.visibility = "hidden";
     document.getElementsByClassName("clock")[0].style.visibility = "hidden";
