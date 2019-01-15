@@ -770,7 +770,7 @@ ____________________________________________________________________
 						<br>
 						<dd>
 							Si te has cansado ya del tablero que tienes simplemente tienes
-							que darle clic al icono <i class="fas fa-file 1x-fa"></i>. Ten en
+							que darle clic al icono <i class="fas fa-file fa-1x"></i>. Ten en
 							cuenta que esto borrará todo, Equipo y fases.
 						</dd>
 					</dl>

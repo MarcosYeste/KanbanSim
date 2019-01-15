@@ -47,7 +47,6 @@ public class DistributionService {
 		} else if (num > sValue + mValue + lValue && num <= sValue + mValue + lValue + xlValue) {
 			val = "XL";
 		}
-		System.out.println(wTime);
 		int number = r.nextInt(wTime) + 1;
 
 		return val + "," + String.valueOf(number);

@@ -79,8 +79,8 @@
 	overflow: hidden;
 }
 
-.faseName > div:not(.titulo){
-	overflow-y:auto;
+.faseName>div:not (.titulo ){
+	overflow-y: auto;
 }
 
 .subfase {
@@ -198,12 +198,12 @@ p.estado {
 }
 
 /*---------------------------------------------------- BOTONES ----------------------------------------------*/
-button  {
+button {
 	outline: none !important;
 }
 
-.playpause input[type='checkbox']{
-	display:none;
+.playpause input[type='checkbox'] {
+	display: none;
 }
 
 .playpause input[type='checkbox']+label {
@@ -211,15 +211,13 @@ button  {
 	cursor: pointer;
 }
 
-
-.playpause input[type="checkbox"]:checked+label i{
-        color:crimson;
+.playpause input[type="checkbox"]:checked+label i {
+	color: crimson;
 }
 
-
 /* NO SELECT ON CHECKBOX*/
-input[type="checkbox"]:focus{
-        outline:none;
+input[type="checkbox"]:focus {
+	outline: none;
 }
 
 #delete {
@@ -258,7 +256,7 @@ input[type="checkbox"]:focus{
 	border-radius: 20%;
 	margin-left: 40.2%;
 	width: 20%;
-	height:auto;
+	height: auto;
 	align-items: center;
 	display: flex;
 	flex-direction: row;
@@ -270,15 +268,18 @@ input[type="checkbox"]:focus{
 	margin-bottom: 10px;
 	flex-wrap: wrap;
 }
-.playAndReset{
-	display:flex;
+
+.playAndReset {
+	display: flex;
 	flex-direction: row;
 	margin-left: 10%;
 }
-.rewindAndForward{
+
+.rewindAndForward {
 	margin-right: 10%;
 }
-.playpause{
+
+.playpause {
 	margin-left: 30%;
 }
 
@@ -429,17 +430,19 @@ input[type="checkbox"]:focus{
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 }
-.faseResultado{
-	overflow-x:scroll;
-	width:100%
+
+.faseResultado {
+	overflow-x: scroll;
+	width: 100%
 }
 
 .tareaResultadoDiv, .faseResultadoDiv {
 	border-top: 1px solid blue;
 	padding: 20px;
 }
-.faseResultado{
-	overflow-x:auto;
+
+.faseResultado {
+	overflow-x: auto;
 }
 
 .th {
@@ -532,7 +535,7 @@ input[type="checkbox"]:focus{
 	padding: 20px;
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
-	cursor:pointer;
+	cursor: pointer;
 }
 
 teamField {
@@ -549,99 +552,91 @@ legend.teamField {
 	border-bottom: none;
 }
 
-i{
+i {
 	font-size: 2.5em;
 }
 
-.userName  p{
-	white-space: nowrap; 
+.userName  p {
+	white-space: nowrap;
 	overflow: hidden;
-	text-overflow: ellipsis; 
+	text-overflow: ellipsis;
 }
 /*---------------------------------------------------MEDIA QUERYS------------------------------------------------------------*/
 @media screen and (max-width: 1450px) {
 	#saturacion, #saturacion2 {
-		visibility:hidden;
+		visibility: hidden;
 	}
-	.botonesContainer{
+	.botonesContainer {
 		width: 17%;
 		height: auto;
 		margin-left: 39% !important;
 	}
-	.playAndReset{
+	.playAndReset {
 		margin-left: 26%;
 		margin-top: 1%;
 	}
-	.rewindAndForward{
-	margin-left: 14%;
+	.rewindAndForward {
+		margin-left: 14%;
 	}
-	
-	
 }
+
 @media screen and (max-width: 1260px) {
-	
-	.botonesContainer{
+	.botonesContainer {
 		width: 23%;
 		height: auto;
 		margin-left: 37% !important;
 	}
-	
-	
 }
+
 @media screen and (max-width: 375px) {
-	
-	.botonesContainer{
+	.botonesContainer {
 		width: 45% !important;
 		height: 10%;
 		margin-left: 30% !important;
 	}
-	.clock{
+	.clock {
 		margin-right: 5% !important;
 	}
-	.crono{
-	margin-left: 5% !important;
+	.crono {
+		margin-left: 5% !important;
 	}
-	.clock, .crono{
-	margin-top: 10%;
+	.clock, .crono {
+		margin-top: 10%;
 	}
-	
 }
+
 @media screen and (max-width: 755px) {
-	
-	.botonesContainer{
+	.botonesContainer {
 		width: 34%;
 		height: auto;
 		margin-left: 35% !important;
 	}
-	.clock{
+	.clock {
 		margin-right: 5% !important;
 	}
-	.crono{
-	margin-left: 5% !important;
+	.crono {
+		margin-left: 5% !important;
 	}
-	
 }
+
 @media screen and (max-width: 1694px) {
-	
-	i, #multiplicador{
-	
-	font-size: 2em;
+	i, #multiplicador {
+		font-size: 2em;
 	}
 	.doubleButton>button, #doubleButton>button {
-	margin: 25px 45px !important;
+		margin: 25px 45px !important;
 	}
-	
 }
+
 @media screen and (max-width: 950px) {
-	
-	.texto{
-		display:none;
+	.texto {
+		display: none;
 	}
-	.clock, .crono{
-	width: 50px;
-	height: 40px;
-	font-size :50% !important;
-	padding-top: 7px;
-	padding-right: 3px;
+	.clock, .crono {
+		width: 50px;
+		height: 40px;
+		font-size: 50% !important;
+		padding-top: 7px;
+		padding-right: 3px;
 	}
 }
