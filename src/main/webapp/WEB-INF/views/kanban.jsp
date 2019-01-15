@@ -485,7 +485,7 @@ ____________________________________________________________________
 							<div id="dataWeightDistribution"
 								style="visibility: collapse; height: 0px">
 								<p>Rango de tiempo de entrada: </p>
-								<input type="number" id="weightTimeLapse"><br>
+								<input type="number" id="weightTimeLapse" value="1" min="1" onClick="this.select()"><br>
 								<p>Rango de probabilidad de aparición: </p>
 								<p class="backloglabel">S:</p>
 								<div class="backloglabelInput size" id="S">
