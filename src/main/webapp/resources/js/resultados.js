@@ -66,6 +66,8 @@ function generarResultados() {
     document.getElementsByClassName("clock")[0].style.visibility = "hidden";
     document.getElementById("botonesPlay").style.visibility = "hidden";
     document.getElementById("addTask").style.visibility = "hidden";
+    document.getElementById("saturacion").style.visibility = "hidden";
+    document.getElementById("saturacion2").style.visibility = "hidden";
 }
 //Click a mostrar kanban
 function mostrarKanban() {
@@ -86,6 +88,8 @@ function mostrarKanban() {
     document.getElementById("botonesPlay").style.visibility = "visible";
     document.getElementById("addTask").style.visibility = "visible";
     document.getElementById("botonesPlay").classList.remove("leftPlay");
+    document.getElementById("saturacion").style.visibility = "visible";
+    document.getElementById("saturacion2").style.visibility = "visible";
     // Mostramos el boton de nuevo
     if (distribution.backLogType != "constant") {
         document.getElementById("addTask").removeAttribute("disabled");
