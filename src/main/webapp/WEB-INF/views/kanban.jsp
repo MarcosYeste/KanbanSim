@@ -485,7 +485,7 @@ ____________________________________________________________________
 							<div id="dataWeightDistribution"
 								style="visibility: collapse; height: 0px">
 								<p>Rango de tiempo de entrada: </p>
-								<input type="number" id="weightTimeLapse"><br>
+								<input type="number" id="weightTimeLapse" value="1" min="1" onClick="this.select()"><br>
 								<p>Rango de probabilidad de aparición: </p>
 								<p class="backloglabel">S:</p>
 								<div class="backloglabelInput size" id="S">
@@ -770,7 +770,7 @@ ____________________________________________________________________
 						<br>
 						<dd>
 							Si te has cansado ya del tablero que tienes simplemente tienes
-							que darle clic al icono <i class="fas fa-file 1x-fa"></i>. Ten en
+							que darle clic al icono <i class="fas fa-file fa-1x"></i>. Ten en
 							cuenta que esto borrará todo, Equipo y fases.
 						</dd>
 					</dl>

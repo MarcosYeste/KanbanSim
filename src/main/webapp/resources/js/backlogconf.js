@@ -212,8 +212,6 @@ $(document).ready(function(){
 		var sizeValuesArray = $(".sizeValue");
 		var sizeValuesString = "";
 		distribution.weightTimeLapse = parseInt(document.getElementById("weightTimeLapse").value.trim());
-		console.log(parseInt(document.getElementById("weightTimeLapse").value))
-		console.log(distribution.weightTimeLapse)
 		distribution.distributionWeightValues = [];
 		for(var i = 0; i < sizeValuesArray.length; i++){
 			distribution.distributionWeightValues.push(sizeValuesArray[i].innerHTML);
@@ -303,5 +301,6 @@ class CampoNumerico {
 new CampoNumerico('#normalBaseValue');
 new CampoNumerico('#normalVarianceValue');
 new CampoNumerico('#poissonLambda');
+new CampoNumerico('#weightTimeLapse');
 
 })

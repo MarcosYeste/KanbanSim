@@ -12,7 +12,7 @@ function printUserSession(){
 
 		if(sessionUsuarios != null){
 			for (var i = 0; i < sessionUsuarios.length; i++) {
-				var usuarioDiv = '<div class="userName" name="'+sessionUsuarios[i].name+'" data-toggle="modal" data-target="#myModal2" data-backdrop="static" data-identification="'+i+'">';
+				var usuarioDiv = '<div class="userName" name="'+sessionUsuarios[i].name+'" data-toggle="modal" data-target="#myModal2" data-backdrop="static" data-identification="'+i+'" title="'+sessionUsuarios[i].name+'">';
 				usuarioDiv += '<p data-identification="'+i+'"><strong data-identification="'+i+'">'+sessionUsuarios[i].name+'</strong></p>';
 				usuarioDiv += '<i class="fa fa-user-tie fa-2x" aria-hidden="true" data-identification="'+i+'"></i></div>';
 				divU.innerHTML+= usuarioDiv;

@@ -66,6 +66,8 @@ function generarResultados() {
     document.getElementsByClassName("clock")[0].style.visibility = "hidden";
     document.getElementById("botonesPlay").style.visibility = "hidden";
     document.getElementById("addTask").style.visibility = "hidden";
+    document.getElementById("saturacion").style.visibility = "hidden";
+    document.getElementById("saturacion2").style.visibility = "hidden";
 }
 //Click a mostrar kanban
 function mostrarKanban() {
@@ -78,6 +80,7 @@ function mostrarKanban() {
     playPause.children[0].removeAttribute("aria-disabled");
     playPause.children[1].style.opacity = 1;
     document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
+    document.getElementsByClassName("mostrarResultadosDiv")[0].style.borderStyle = "hidden";
     document.getElementById("result").setAttribute("onClick", "generarResultados()");
     document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
     document.getElementsByClassName("crono")[0].style.visibility = "visible";
@@ -85,6 +88,8 @@ function mostrarKanban() {
     document.getElementById("botonesPlay").style.visibility = "visible";
     document.getElementById("addTask").style.visibility = "visible";
     document.getElementById("botonesPlay").classList.remove("leftPlay");
+    document.getElementById("saturacion").style.visibility = "visible";
+    document.getElementById("saturacion2").style.visibility = "visible";
     // Mostramos el boton de nuevo
     if (distribution.backLogType != "constant") {
         document.getElementById("addTask").removeAttribute("disabled");
@@ -98,6 +103,7 @@ function mostrarGraficas() {
     document.getElementsByClassName("mostrarGraficosDiv")[0].style.background = "white";
     document.getElementsByClassName("mostrarGraficosDiv")[0].style.display = "block";
     document.getElementsByClassName("mostrarResultadosDiv")[0].style.display = "none";
+    document.getElementsByClassName("mostrarResultadosDiv")[0].style.borderStyle = "hidden";
     document.getElementsByClassName("contenedor")[0].style.visibility = "hidden";
     document.getElementsByClassName("teamField")[0].style.display = "none";
     playPause.children[0].removeAttribute("disabled");
@@ -105,6 +111,7 @@ function mostrarGraficas() {
     document.getElementById("addTask").setAttribute("disabled", "");
     document.getElementById("addTask").setAttribute("aria-disabled", "true");
     generarGraficos();
+    document.getElementById("result").setAttribute("onClick", "generarResultados()");
     document.getElementById("graficos").setAttribute("onClick", "mostrarKanban()");
     document.getElementsByClassName("crono")[0].style.visibility = "hidden";
     document.getElementsByClassName("clock")[0].style.visibility = "hidden";
