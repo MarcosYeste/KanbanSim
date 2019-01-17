@@ -238,8 +238,8 @@ h2 {
 	padding-top: 8px;
 	font-weight: bold;
 	font-size: 40px;
-	position: absolute;
-	margin-left: 13.5%;
+	/* position: absolute;
+	margin-left: 13.5%; */
 	width: 110px;
 	height: 60px;
 	border-radius: 64px;
@@ -254,8 +254,8 @@ h2 {
 	cursor:default;
 }
 .clock {
-	right: 0;
-	margin-right: 13.5%;
+	/* right: 0;
+	margin-right: 13.5%; */
 }
 
 /*---------------------------------------------------- TABLES ----------------------------------------------*/

@@ -93,19 +93,18 @@ ____________________________________________________________________
 	</fieldset>
 
 
-	<p role="alert" id="saturacion"></p>
-	<p role="alert" id="saturacion2"></p>
-
-	<!--Temporizador y Cambiar Distribucion -->
+<div class="headerTable">
 	<div class="crono">
 		<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer"
 			data-placement="right" title="Chronometer">00:00</p>
 	</div>
-	<div class="clock">
-		<p data-toggle="modal" id="clock" data-placement="right" title="Clock">00:00</p>
+	<div class="estimado">
+		<p>Estimado: </p>
+		<p class="CLCTestimado"></p>
 	</div>
-
-
+	<div>
+	<p role="alert" id="saturacion"></p>
+	</div>
 	<div id="botonesPlay" class="botonesContainer">
 
 		<!--  Botón Play/Pause -->
@@ -130,7 +129,59 @@ ____________________________________________________________________
 
 		</div>
 	</div>
+	<div class="real">
+		<p>Real: </p>
+		<p class="CLCTreal"></p>
+	</div>
+	<div>
+	<p role="alert" id="saturacion2"></p>
+	</div>
+	<div class="clock">
+		<p data-toggle="modal" id="clock" data-placement="right" title="Clock">00:00</p>
+	</div>
+</div>
 
+<!-- 
+
+
+	<p role="alert" id="saturacion"></p>
+	<p role="alert" id="saturacion2"></p>
+
+	Temporizador y Cambiar Distribucion
+	<div class="crono">
+		<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer"
+			data-placement="right" title="Chronometer">00:00</p>
+	</div>
+	<div class="clock">
+		<p data-toggle="modal" id="clock" data-placement="right" title="Clock">00:00</p>
+	</div>
+
+
+	<div id="botonesPlay" class="botonesContainer">
+
+		 Botón Play/Pause
+		<div class="playAndReset">
+		<div id="divReset">
+			<i id="reset" class="fas fa-redo "></i>
+		</div>
+		<div class="playpause">
+			<input type="checkbox" value="None" id="playpause" name="check" /> 
+			<label for="playpause" tabindex=1><i id="playButton" class="fa fa-play"></i></label>
+		</div>
+		</div>
+		<div class="rewindAndForward">
+		<button id="backward" disabled="disabled">
+			<i class="fas fa-backward " onclick="speedKanban('rewind')" ></i>
+
+		</button>
+		<span id="multiplicador">x1</span>
+		<button id="forward">
+			<i class="fas fa-forward " onclick="speedKanban('forward')"></i>
+		</button>
+
+		</div>
+	</div>
+ -->
 	<!-- Botón Add Tasks, SOLO MANUAL -->
 	<button id="addTask" data-toggle="tooltip" data-placement="top"
 		title="Añadir Tareas">

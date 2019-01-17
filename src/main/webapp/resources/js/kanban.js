@@ -822,7 +822,7 @@ function play() {
 			if(entryVelocity < exitVelocity){
 				eLT = eCT;
 				console.log("eLT " + eLT)
-			} else {
+			} else if (entryVelocity == exitVelocity){
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
 				console.log("wait " + wait)
 			}
@@ -838,7 +838,7 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-
+				 var mediasCLyCL = calcularMediaCycleAndLead();
 				if(showLTandCLtensecs == 10){
 //					if(TII < T ){
 //						document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
@@ -846,9 +846,11 @@ function play() {
 //						document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
 //						document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
 //						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2)  + "</b>";		
+//						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(2) * 10+"   -   LT: 0";
+//						document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 //						console.log("sat")
 //					}else{
-						console.log("elsesat")
+						console.log("elsesat");
 						document.getElementById("saturacion").innerHTML = "";
 						document.getElementById("saturacion").setAttribute("class","");
 						document.getElementById("saturacion2").innerHTML = "";
@@ -857,15 +859,21 @@ function play() {
 							console.log("enter")
 							console.log("fddas " + wait)
 							console.log(eCT + "  " + eLT)
-							eLT= (parseInt(eCT) + parseInt(wait));
+							if(parseInt(eCT) + parseInt(wait) != 0){
+								eLT= (parseInt(eCT) + parseInt(wait));
+							}	
 						}					
 						console.log("total " + eLT)
 						if(!isNaN(eLT)){
 							console.log("a")
-							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eLT + "  ,  " +  eCT.toFixed(0)  + "</b>";			
+							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eLT + "  ,  " +  eCT.toFixed(0)  + "</b>";
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(0)+"   -   LT: "+eLT;
+							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 						}else{
 							console.log("b")
 							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0 , "+  eCT.toFixed(0)  + "</b>";
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(0) +"   -   LT: 0";
+							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 						}
 //					}					
 

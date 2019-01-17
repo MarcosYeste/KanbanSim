@@ -65,6 +65,31 @@
 	-o-user-select: none;
 	user-select: none;
 }
+.headerTable{
+	/* border: 1px solid red;
+	background-color: #ffd7d7; */
+	width: 80%;
+	height: auto;
+	margin-left: 10%;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: baseline;
+	padding-top: 5px;
+}
+.estimado, .real{
+	display: flex;
+	flex-direction:row;
+	justify-content:space-between;
+	font-weight: bolder;
+	padding: 10px;
+	font-size: 120%;	
+	text-shadow: 0.1px 0.8px 0.8px #868686;
+	
+}
+.CLCTestimado, .CLCTreal{
+	margin-left: 10px;
+}
 
 /*---------------------------------------------------- FASES ----------------------------------------------*/
 .faseName {
@@ -233,19 +258,19 @@ input[type="checkbox"]:focus {
 }
 /* SOBRESATURACION */
 #saturacion {
-	float: left;
-	margin-left: 25%;
+	/* float: left; */
+	/* margin-left: 25%; */
 	font-size: 115%;
-	margin-top: 1%;
-	position: absolute;
+/* 	margin-top: 1%; */
+	/* position: absolute; */
 	visibility: visible;
 }
 
 #saturacion2 {
-	float: right;
-	margin-right: 25%;
+	/* float: right; */
+	/* margin-right: 25%; */
 	font-size: 115%;
-	margin-top: 1%;
+	/* margin-top: 1%; */
 	visibility: visible;
 }
 
@@ -254,8 +279,8 @@ input[type="checkbox"]:focus {
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 	border-radius: 20%;
-	margin-left: 40.2%;
-	width: 20%;
+	/* margin-left: 40.2%; */
+	width: 27%;
 	height: auto;
 	align-items: center;
 	display: flex;
@@ -264,8 +289,8 @@ input[type="checkbox"]:focus {
 	justify-content: space-between;
 	padding-left: 27px;
 	padding-right: 8px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	/* margin-top: 10px;
+	margin-bottom: 10px; */
 	flex-wrap: wrap;
 }
 
@@ -377,7 +402,7 @@ input[type="checkbox"]:focus {
 }
 
 .leftPlay {
-	margin-left: 3%;
+	margin-left: -90%;
 }
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
 .mostrarResultadosDiv {
@@ -562,7 +587,7 @@ i {
 	text-overflow: ellipsis;
 }
 /*---------------------------------------------------MEDIA QUERYS------------------------------------------------------------*/
-@media screen and (max-width: 1450px) {
+/* @media screen and (max-width: 1450px) {
 	#saturacion, #saturacion2 {
 		visibility: hidden;
 	}
@@ -605,7 +630,7 @@ i {
 	}
 }
 
-@media screen and (max-width: 755px) {
+@media screen and (max-width: 755p
 	.botonesContainer {
 		width: 34%;
 		height: auto;
@@ -639,4 +664,4 @@ i {
 		padding-top: 7px;
 		padding-right: 3px;
 	}
-}
+} */
