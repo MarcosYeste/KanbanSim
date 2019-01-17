@@ -389,7 +389,7 @@ input[type="checkbox"]:focus {
 }
 
 .leftPlay {
-	margin-left: 3%;
+	margin-left: -90%;
 }
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
 .mostrarResultadosDiv {
@@ -574,7 +574,7 @@ i {
 	text-overflow: ellipsis;
 }
 /*---------------------------------------------------MEDIA QUERYS------------------------------------------------------------*/
-@media screen and (max-width: 1450px) {
+/* @media screen and (max-width: 1450px) {
 	#saturacion, #saturacion2 {
 		visibility: hidden;
 	}
@@ -617,7 +617,7 @@ i {
 	}
 }
 
-@media screen and (max-width: 755px) {
+@media screen and (max-width: 755p
 	.botonesContainer {
 		width: 34%;
 		height: auto;
@@ -651,4 +651,4 @@ i {
 		padding-top: 7px;
 		padding-right: 3px;
 	}
-}
+} */
