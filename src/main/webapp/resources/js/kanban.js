@@ -190,13 +190,13 @@ function play() {
 				}
 				firstLoop = false;
 			} //if firstloop end
-			
+
 			listTareas.forEach(function(task) {
-				
+
 				// Asigna un tiempo a cada tarea de entre el intervalo de la fase
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.state != "Ended" && task.duration == 0) {
-					
-					
+
+
 					if(distribution.typeConstant == "weight"){
 
 						if(task.weight == "S"){//aqui2
@@ -208,12 +208,12 @@ function play() {
 						} else if (task.weight == "XL"){
 							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 100) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 76) + listPhases[i].minTime);
 						}
-						
-						
+
+
 					} else {	
 						task.duration = Math.round(Math.random() * (listPhases[i].maxTime - listPhases[i].minTime) +  listPhases[i].minTime);
 					}
-					
+
 					if(task.duration < listPhases[i].minTime){
 						task.duration = listPhases[i].minTime;
 					}
@@ -224,7 +224,7 @@ function play() {
 
 
 				}
-				
+
 				for (var k = 0; k < divsTareas.length; k++) {
 
 					var taskDuration = parseInt(task.duration);
@@ -632,7 +632,7 @@ function play() {
 				finLength = document.getElementsByClassName("contenedorFinal")[0].children.length - finLength;
 
 				eCT =  sumWip / finLength;
-
+				qqqq
 				if (eCT == "Infinity"){
 					eCT = 0;
 				}
@@ -682,7 +682,7 @@ function play() {
 			if(weightCounter > weightTime){
 				weightCounter = 0;
 			}
-			
+
 			if((gaussian == gaussianCounter || gaussian <= 0) && distribution.typeConstant == "normal"){
 				getGaussian();		
 				calcLDValues(gaussian);
@@ -702,7 +702,7 @@ function play() {
 				addTareas(weight,leadTime);
 			}
 		}
-		
+
 		//Funcion para calcular el tiempo medio de la entrada de tareas y la varianza
 		function calcLDValues(distributionValue){
 			if(distributionValue != 0){
@@ -831,27 +831,27 @@ function play() {
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 
-				if(showLTandCLtensecs == 10){
-					if(TII < T ){
-						document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
-						document.getElementById("saturacion").setAttribute("class","alert alert-danger");
-						document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
-						document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
-					}else{
-						document.getElementById("saturacion").innerHTML = "";
-						document.getElementById("saturacion").setAttribute("class","");
-						document.getElementById("saturacion2").innerHTML = "";
-						document.getElementById("saturacion2").setAttribute("class","");
-						var auxLT= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
-						if(!isNaN(auxLT) || isFinite(auxLT)){
-							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
-						}else{
-							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
-						}
-					}					
+//				if(showLTandCLtensecs == 10){
+//				if(TII < T ){
+//				document.getElementById("saturacion").innerHTML = "<i class='fa fa-exclamation fa-2x'></i>";
+//				document.getElementById("saturacion").setAttribute("class","alert alert-danger");
+//				document.getElementById("saturacion2").innerHTML = "<i class='fa fa-exclamation fa-2x'></i>";
+//				document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
+//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
+//				}else{
+//				document.getElementById("saturacion").innerHTML = "";
+//				document.getElementById("saturacion").setAttribute("class","");
+//				document.getElementById("saturacion2").innerHTML = "";
+//				document.getElementById("saturacion2").setAttribute("class","");
+//				var auxLT= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
+//				if(!isNaN(auxLT) || isFinite(auxLT)){
+//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
+//				}else{
+//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
+//				}
+//				}					
 
-				}
+//				}
 
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
@@ -861,7 +861,7 @@ function play() {
 		// Función para Volver a calcular el tiempo para las tareas con peso
 		function calcTime(maxTime, minTime, percentage){
 			var range = maxTime - minTime;	//aqui
-		//	console.log("max " + maxTime + " min " + minTime + " range " + range + " perc " + percentage +  "  result " + ((percentage * range) / 100));
+			//	console.log("max " + maxTime + " min " + minTime + " range " + range + " perc " + percentage +  "  result " + ((percentage * range) / 100));
 			return (percentage * range) / 100;
 		}
 
@@ -883,6 +883,16 @@ function play() {
 	}, (1000/ speed));
 }
 
+document.getElementById("saturacion").innerHTML = "<i class='fa fa-exclamation fa-2x'></i>";
+document.getElementById("saturacion").setAttribute("class","alert alert-danger");
+document.getElementById("saturacion2").innerHTML = "<i class='fa fa-exclamation fa-2x'></i>";
+document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
+
+
+saturacion("saturacion");
+saturacion("saturacion2");
+
+
 //____________________________________________________________________
 
 //_______________________ MENÚS  _____________________________________
@@ -903,8 +913,8 @@ function deshabilitarMenus(disable){
 
 		// Deshabilitamos los botones
 
-			document.getElementById("divDelete").children[0].setAttribute("disabled", "");
-			document.getElementById("divDelete").children[0].setAttribute("aria-disabled", "true");
+		document.getElementById("divDelete").children[0].setAttribute("disabled", "");
+		document.getElementById("divDelete").children[0].setAttribute("aria-disabled", "true");
 
 		// Y quitamos el acceso a el formulario de modificación
 		for (var i3 = 0; i3 < document.getElementsByClassName("titulo").length; i3++){
@@ -962,8 +972,8 @@ function deshabilitarMenus(disable){
 
 		// Deshabilitamos los botones
 
-			document.getElementById("divDelete").removeAttribute("disabled");
-			document.getElementById("divDelete").removeAttribute("aria-disabled");
+		document.getElementById("divDelete").removeAttribute("disabled");
+		document.getElementById("divDelete").removeAttribute("aria-disabled");
 
 		// Permitimos de nuevo abrir el modal de modificación
 		for (var ib = 0; ib < document.getElementsByClassName("titulo").length; ib++){
@@ -1193,52 +1203,74 @@ function stopWatch(){
 
 function speedKanban(value){
 
-if(playing){
-	if( value == 'forward'){
-		
-		speed *= 2;
-		
-		if(speed >= 4) {
-			
-			speed = 4;
-			document.getElementById("forward").setAttribute("aria-disabled", true);
-			document.getElementById("forward").setAttribute("disabled", "");	
-			
-			document.getElementById("backward").removeAttribute("aria-disabled");
-			document.getElementById("backward").removeAttribute("disabled");
+	if(playing){
+		if( value == 'forward'){
+
+			speed *= 2;
+
+			if(speed >= 4) {
+
+				speed = 4;
+				document.getElementById("forward").setAttribute("aria-disabled", true);
+				document.getElementById("forward").setAttribute("disabled", "");	
+
+				document.getElementById("backward").removeAttribute("aria-disabled");
+				document.getElementById("backward").removeAttribute("disabled");
+			}else{
+				document.getElementById("forward").removeAttribute("aria-disabled");
+				document.getElementById("forward").removeAttribute("disabled");
+
+				document.getElementById("backward").removeAttribute("aria-disabled");
+				document.getElementById("backward").removeAttribute("disabled");
+
+			}	
+
 		}else{
-			document.getElementById("forward").removeAttribute("aria-disabled");
-			document.getElementById("forward").removeAttribute("disabled");
-			
-			document.getElementById("backward").removeAttribute("aria-disabled");
-			document.getElementById("backward").removeAttribute("disabled");
-			
+
+			speed /= 2;
+
+			if(speed <= 1) {
+
+				speed = 1;
+				document.getElementById("backward").setAttribute("aria-disabled", true);
+				document.getElementById("backward").setAttribute("disabled", "");
+
+				document.getElementById("forward").removeAttribute("aria-disabled");
+				document.getElementById("forward").removeAttribute("disabled");
+			}else{
+
+				document.getElementById("backward").removeAttribute("aria-disabled");
+				document.getElementById("backward").removeAttribute("disabled");
+
+				document.getElementById("forward").removeAttribute("aria-disabled");
+				document.getElementById("forward").removeAttribute("disabled");
+			}
+
 		}	
-	
-	}else{
-		
-		speed /= 2;
-		
-		if(speed <= 1) {
-			
-			speed = 1;
-			document.getElementById("backward").setAttribute("aria-disabled", true);
-			document.getElementById("backward").setAttribute("disabled", "");
-			
-			document.getElementById("forward").removeAttribute("aria-disabled");
-			document.getElementById("forward").removeAttribute("disabled");
-		}else{
-			
-			document.getElementById("backward").removeAttribute("aria-disabled");
-			document.getElementById("backward").removeAttribute("disabled");
-			
-			document.getElementById("forward").removeAttribute("aria-disabled");
-			document.getElementById("forward").removeAttribute("disabled");
-		}
-		
-	}	
-	document.getElementById("multiplicador").innerHTML = "x"+speed;
-	clearInterval(myInterval);
-	play();
+		document.getElementById("multiplicador").innerHTML = "x"+speed;
+		clearInterval(myInterval);
+		play();
 	}
 }
+
+
+//____________________________________________________________________
+
+//_______________________ SATURACION  ________________________________
+
+//____________________________________________________________________
+
+
+function saturacion(sat){
+	document.getElementById(sat).addEventListener("mouseover", function(){
+		if(document.getElementById(sat).children.length <= 1){
+			document.getElementById(sat).innerHTML += "<span class='sobresaturacion'>Sobresaturacion</span>";
+		}
+	})
+	document.getElementById(sat).addEventListener("mouseout", function(){
+		if(document.getElementById(sat).children.length >= 2){
+			document.getElementById(sat).children[1].remove();
+		}
+	})
+}
+

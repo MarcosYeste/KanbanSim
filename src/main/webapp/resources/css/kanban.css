@@ -231,22 +231,35 @@ input[type="checkbox"]:focus {
 #reset, #deleteAll, #divDeleteTasks, #addUser, #backward, #forward {
 	cursor: pointer;
 }
+
 /* SOBRESATURACION */
+#saturacion, #saturacion2{
+	color:red;
+	/* margin-top: 1%; */
+	visibility: visible;
+	transition: 1s ease;
+	position: absolute;
+}
+
 #saturacion {
 	float: left;
 	margin-left: 25%;
-	font-size: 115%;
-	margin-top: 1%;
-	position: absolute;
-	visibility: visible;
 }
 
 #saturacion2 {
 	float: right;
+	right:0;
 	margin-right: 25%;
-	font-size: 115%;
-	margin-top: 1%;
-	visibility: visible;
+	
+}
+
+#saturacion:hover, #saturacion2:hover{
+	padding-right: 300px;
+}
+
+.sobresaturacion{
+	font-size:115%;
+	margin-left: 10%;
 }
 
 .botonesContainer {
