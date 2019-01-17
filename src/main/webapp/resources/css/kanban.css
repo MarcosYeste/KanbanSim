@@ -65,6 +65,19 @@
 	-o-user-select: none;
 	user-select: none;
 }
+.headerTable{
+	/* border: 1px solid red;
+	background-color: #ffd7d7; */
+	width: 80%;
+	height: auto;
+	margin-left: 10%;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: baseline;
+	padding-top: 5px;
+}
+
 
 /*---------------------------------------------------- FASES ----------------------------------------------*/
 .faseName {
@@ -235,31 +248,17 @@ input[type="checkbox"]:focus {
 /* SOBRESATURACION */
 #saturacion, #saturacion2{
 	color:red;
-	/* margin-top: 1%; */
 	visibility: visible;
 	transition: 1s ease;
-	position: absolute;
-}
-
-#saturacion {
-	float: left;
-	margin-left: 25%;
-}
-
-#saturacion2 {
-	float: right;
-	right:0;
-	margin-right: 25%;
-	
+	font-size: 115%;
 }
 
 #saturacion:hover, #saturacion2:hover{
-	padding-right: 300px;
+	padding-right: 140px;
 }
 
 .sobresaturacion{
 	font-size:115%;
-	margin-left: 10%;
 }
 
 .botonesContainer {
@@ -267,8 +266,8 @@ input[type="checkbox"]:focus {
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 	border-radius: 20%;
-	margin-left: 40.2%;
-	width: 20%;
+	/* margin-left: 40.2%; */
+	width: 27%;
 	height: auto;
 	align-items: center;
 	display: flex;
@@ -277,8 +276,8 @@ input[type="checkbox"]:focus {
 	justify-content: space-between;
 	padding-left: 27px;
 	padding-right: 8px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	/* margin-top: 10px;
+	margin-bottom: 10px; */
 	flex-wrap: wrap;
 }
 
