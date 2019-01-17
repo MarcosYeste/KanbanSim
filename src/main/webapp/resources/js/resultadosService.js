@@ -24,7 +24,29 @@ function nuevoObjetoResultados() {
     resultadosO.userNamesWorstBest = [];
     return resultadosO;
 }
-
+function calcularMediaCycleAndLead(){
+	var cantidadTask = 0;
+	var mediaCycle = 0;
+	var mediaLead = 0;
+	 listTareas.forEach(function (task) {
+		 mediaCycle += task.cycleTime;
+	     mediaLead += task.leadTime;
+		 if (task.cycleTime != 0) {
+	            cantidadTask++;
+	        }
+	 });
+	 mediaCycle = Math.round((mediaCycle / cantidadTask) * 10) / 10;
+	    mediaLead = Math.round((mediaLead / cantidadTask) * 10) / 10;
+	    if (isNaN(mediaCycle)) {
+	        mediaCycle = 0;
+	    }
+	    if (isNaN(mediaLead)) {
+	        mediaLead = 0;
+	    }
+	     var array = [mediaCycle,mediaLead];
+	    return array;
+	
+}
 function rellenarResultados() {
     resultadosO = nuevoObjetoResultados();
     var mediaCycle = 0;
@@ -80,9 +102,9 @@ function rellenarResultados() {
         mediaLead = 0;
     }
 
+    var mediasCLyCL = calcularMediaCycleAndLead();
 
-
-    resultadosO.taskMediaCL.push(mediaCycle, mediaLead);
+    resultadosO.taskMediaCL.push(mediasCLyCL[0], mediasCLyCL[1]);
     resultadosO.phaseSumaStates.push(resultMediaPorFases[resultMediaPorFases.length - 2]);
     resultMediaPorFases.splice(resultMediaPorFases.length - 2, 2);
 

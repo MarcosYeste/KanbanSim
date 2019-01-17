@@ -45,10 +45,10 @@ var kanbanTss = 0;
 var gaussian = 0;
 var gaussianCounter = 0;
 var taskNameCounter = 0;
-var poisson = 0;  	// Tiempo en el que entrara la proxima tarea en distribución poisson
+var poisson = 0;  			// Tiempo en el que entrara la proxima tarea en distribución poisson
 var poissonCounter = 0;
-var weight = "M"; 
-var weightTime = 0; // Tiempo en el que entrara la proxima tarea en uniforme con peso
+var weight = "M"; 	
+var weightTime = 0; 		// Tiempo en el que entrara la proxima tarea en uniforme con peso
 
 
 var weightCounter = 0;
@@ -58,11 +58,13 @@ var TII = 0; 				// Tiempo medio entre la creación de tareas
 var VII = 0; 				// Varianza entre la creación de tareas
 var T = 0; 					// CT medio (el real, no el estimado)
 var Vt = 0; 				// Varianza del CT
-var numOfTasksEnded = 0; 	// Numero de tareas que han entrado al tablero y no han finalizado
+var numOfTasksEnded = 0; 	
 var showLTandCLtensecs = 0;
-var finLength = 0;
+var wait = 0; 				//E
 var sumWip = 0;
-var velocidad = 0;
+var velocidad = 0; 			//Contador de tiempo
+var entryVelocity = 0;
+var exitVelocity = 0;
 var eCT = 0;
 var eLT = 0;
 var indiceTareas = 0;
@@ -423,7 +425,7 @@ function play() {
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);							
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
-
+							exitVelocity++;
 							indiceTareas = getIndex(task.name) - 1;							
 
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
@@ -466,6 +468,7 @@ function play() {
 							saveTimeStates(task,leadTime,i);
 							task.phase = 1;
 							task.sameIteration = true;
+							entryVelocity++;
 							for(var t = 0; t < divsTareas.length; t++){
 								if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
 									divsTareas[t].querySelector(".divState").innerHTML = "ToDo";
@@ -624,21 +627,6 @@ function play() {
 				sumWip += fase.maxTasks;
 
 			});
-
-
-			// Veloz
-			if(velocidad == 10){
-
-				finLength = document.getElementsByClassName("contenedorFinal")[0].children.length - finLength;
-
-				eCT =  sumWip / finLength;
-				if (eCT == "Infinity"){
-					eCT = 0;
-				}
-
-				velocidad = 0;
-
-			}
 
 		} //end phases for
 
@@ -821,7 +809,28 @@ function play() {
 		} else {
 			showLTandCLtensecs++;
 		}
-
+		
+		// Veloz
+		if(velocidad == 10){
+			eCT =  (sumWip / exitVelocity) * 10; 
+			console.log(sumWip + "   " + exitVelocity);
+			
+			if (eCT == "Infinity"){
+				eCT = 0;
+			}
+			console.log(entryVelocity + " G " + exitVelocity)
+			if(entryVelocity < exitVelocity){
+				eLT = eCT;
+				console.log("eLT " + eLT)
+			} else if (entryVelocity == exitVelocity){
+				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
+				console.log("wait " + wait)
+			}
+			velocidad = 0;
+			exitVelocity = 0;
+			entryVelocity = 0;
+		}
+		
 		// Recargamos los datos de la targeta de informacion de cada tarea
 		listTareas.forEach(function(tarea){
 			if(atributo == tarea.name){
@@ -829,27 +838,47 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-
+				 var mediasCLyCL = calcularMediaCycleAndLead();
 				if(showLTandCLtensecs == 10){
+
 					if(TII < T ){
-						console.log(document.getElementById("saturacion").children.length);
 						if(document.getElementById("saturacion").children.length < 2){
-						document.getElementById("saturacion").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
-						document.getElementById("saturacion").setAttribute("class","alert alert-danger");
-						document.getElementById("saturacion2").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
-						document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
+							document.getElementById("saturacion").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
+							document.getElementById("saturacion").setAttribute("class","alert alert-danger");
+							document.getElementById("saturacion2").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
+							document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
+							
 						}
+						
+						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(2) * 10+"   -   LT: 0";
+						document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
 					}else{
+						
+						console.log("elsesat");
 						document.getElementById("saturacion").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
 						document.getElementById("saturacion").setAttribute("class","");
 						document.getElementById("saturacion2").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
 						document.getElementById("saturacion2").setAttribute("class","");
-						var auxLT= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
-						if(!isNaN(auxLT) || isFinite(auxLT)){
-							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
+						if(!isNaN(wait)){
+							console.log("enter")
+							console.log("fddas " + wait)
+							console.log(eCT + "  " + eLT)
+							if(parseInt(eCT) + parseInt(wait) != 0){
+								eLT= (parseInt(eCT) + parseInt(wait));
+							}	
+						}					
+						console.log("total " + eLT)
+						if(!isNaN(eLT)){
+							console.log("a")
+							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eLT + "  ,  " +  eCT.toFixed(0)  + "</b>";
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(0)+"   -   LT: "+eLT;
+							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 						}else{
-							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
+							console.log("b")
+							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0 , "+  eCT.toFixed(0)  + "</b>";
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(0) +"   -   LT: 0";
+							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 						}
 					}					
 

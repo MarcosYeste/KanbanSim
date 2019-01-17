@@ -77,7 +77,19 @@
 	align-items: baseline;
 	padding-top: 5px;
 }
-
+.estimado, .real{
+	display: flex;
+	flex-direction:row;
+	justify-content:space-between;
+	font-weight: bolder;
+	padding: 10px;
+	font-size: 120%;	
+	text-shadow: 0.1px 0.8px 0.8px #868686;
+	
+}
+.CLCTestimado, .CLCTreal{
+	margin-left: 10px;
+}
 
 /*---------------------------------------------------- FASES ----------------------------------------------*/
 .faseName {
