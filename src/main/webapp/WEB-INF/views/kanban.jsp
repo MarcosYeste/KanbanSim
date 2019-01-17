@@ -98,6 +98,10 @@ ____________________________________________________________________
 		<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer"
 			data-placement="right" title="Chronometer">00:00</p>
 	</div>
+	<div class="estimado">
+		<p>Estimado: </p>
+		<p class="CLCTestimado"></p>
+	</div>
 	<div>
 	<p role="alert" id="saturacion"></p>
 	</div>
@@ -124,6 +128,10 @@ ____________________________________________________________________
 		</button>
 
 		</div>
+	</div>
+	<div class="real">
+		<p>Real: </p>
+		<p class="CLCTreal"></p>
 	</div>
 	<div>
 	<p role="alert" id="saturacion2"></p>

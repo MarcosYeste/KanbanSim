@@ -830,14 +830,16 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-
+				 var mediasCLyCL = calcularMediaCycleAndLead();
 				if(showLTandCLtensecs == 10){
 					if(TII < T ){
 						document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
 						document.getElementById("saturacion").setAttribute("class","alert alert-danger");
 						document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
 						document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
+						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
+						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(2) * 10+"   -   LT: 0";
+						document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 					}else{
 						document.getElementById("saturacion").innerHTML = "";
 						document.getElementById("saturacion").setAttribute("class","");
@@ -845,9 +847,13 @@ function play() {
 						document.getElementById("saturacion2").setAttribute("class","");
 						var auxLT= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
 						if(!isNaN(auxLT) || isFinite(auxLT)){
-							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
+							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";	
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(2) * 10+"   -   LT: "+auxLT;
+							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 						}else{
 							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(2) * 10+"   -   LT: 0";
+							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 						}
 					}					
 
