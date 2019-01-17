@@ -94,18 +94,18 @@ ____________________________________________________________________
 	</fieldset>
 
 
-<div class="headerTable">
-	<div class="crono">
-		<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer"
-			data-placement="right" title="Chronometer">00:00</p>
-	</div>
-	<div class="estimado">
-		<p>Estimado: </p>
-		<p class="CLCTestimado"></p>
-	</div>
-	<div id="saturacion">
+	<div class="headerTable">
+		<div class="crono">
+			<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer"
+				data-placement="right" title="Chronometer">00:00</p>
+		</div>
+		<div class="estimado">
+			<p>Estimado:</p>
+			<p class="CLCTestimado"></p>
+		</div>
+		<div id="saturacion">
 			<span class="tooltiptext">Sobresaturación</span>
-	</div>
+		</div>
 		<div id="botonesPlay" class="botonesContainer">
 
 			<!--  Botón Play/Pause -->
@@ -134,23 +134,19 @@ ____________________________________________________________________
 		<div id="saturacion2">
 			<span class="tooltiptext">Sobresaturación</span>
 		</div>
+
+		<div class="real">
+			<p>Real:</p>
+			<p class="CLCTreal"></p>
+		</div>
+		<div>
+			<p role="alert" id="saturacion2"></p>
+		</div>
 		<div class="clock">
 			<p data-toggle="modal" id="clock" data-placement="right"
 				title="Clock">00:00</p>
 		</div>
 	</div>
-
-	<div class="real">
-		<p>Real: </p>
-		<p class="CLCTreal"></p>
-	</div>
-	<div>
-	<p role="alert" id="saturacion2"></p>
-	</div>
-	<div class="clock">
-		<p data-toggle="modal" id="clock" data-placement="right" title="Clock">00:00</p>
-	</div>
-</div>
 
 	<!-- Botón Add Tasks, SOLO MANUAL -->
 	<button id="addTask" data-toggle="tooltip" data-placement="top"
