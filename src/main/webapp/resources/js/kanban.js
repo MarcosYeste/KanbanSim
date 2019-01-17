@@ -632,7 +632,6 @@ function play() {
 				finLength = document.getElementsByClassName("contenedorFinal")[0].children.length - finLength;
 
 				eCT =  sumWip / finLength;
-				qqqq
 				if (eCT == "Infinity"){
 					eCT = 0;
 				}
@@ -831,27 +830,30 @@ function play() {
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 
-//				if(showLTandCLtensecs == 10){
-//				if(TII < T ){
-//				document.getElementById("saturacion").innerHTML = "<i class='fa fa-exclamation fa-2x'></i>";
-//				document.getElementById("saturacion").setAttribute("class","alert alert-danger");
-//				document.getElementById("saturacion2").innerHTML = "<i class='fa fa-exclamation fa-2x'></i>";
-//				document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
-//				}else{
-//				document.getElementById("saturacion").innerHTML = "";
-//				document.getElementById("saturacion").setAttribute("class","");
-//				document.getElementById("saturacion2").innerHTML = "";
-//				document.getElementById("saturacion2").setAttribute("class","");
-//				var auxLT= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
-//				if(!isNaN(auxLT) || isFinite(auxLT)){
-//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
-//				}else{
-//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
-//				}
-//				}					
+				if(showLTandCLtensecs == 10){
+					if(TII < T ){
+						console.log(document.getElementById("saturacion").children.length);
+						if(document.getElementById("saturacion").children.length < 2){
+						document.getElementById("saturacion").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
+						document.getElementById("saturacion").setAttribute("class","alert alert-danger");
+						document.getElementById("saturacion2").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
+						document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
+						}
+						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
+					}else{
+						document.getElementById("saturacion").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
+						document.getElementById("saturacion").setAttribute("class","");
+						document.getElementById("saturacion2").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
+						document.getElementById("saturacion2").setAttribute("class","");
+						var auxLT= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
+						if(!isNaN(auxLT) || isFinite(auxLT)){
+							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLT + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
+						}else{
+							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
+						}
+					}					
 
-//				}
+				}
 
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
@@ -882,16 +884,6 @@ function play() {
 
 	}, (1000/ speed));
 }
-
-document.getElementById("saturacion").innerHTML = "<i class='fa fa-exclamation fa-2x'></i>";
-document.getElementById("saturacion").setAttribute("class","alert alert-danger");
-document.getElementById("saturacion2").innerHTML = "<i class='fa fa-exclamation fa-2x'></i>";
-document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-
-
-saturacion("saturacion");
-saturacion("saturacion2");
-
 
 //____________________________________________________________________
 
@@ -1252,25 +1244,3 @@ function speedKanban(value){
 		play();
 	}
 }
-
-
-//____________________________________________________________________
-
-//_______________________ SATURACION  ________________________________
-
-//____________________________________________________________________
-
-
-function saturacion(sat){
-	document.getElementById(sat).addEventListener("mouseover", function(){
-		if(document.getElementById(sat).children.length <= 1){
-			document.getElementById(sat).innerHTML += "<span class='sobresaturacion'>Sobresaturacion</span>";
-		}
-	})
-	document.getElementById(sat).addEventListener("mouseout", function(){
-		if(document.getElementById(sat).children.length >= 2){
-			document.getElementById(sat).children[1].remove();
-		}
-	})
-}
-

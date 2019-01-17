@@ -835,27 +835,29 @@ function showTaskInfo(){
 
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
 
-//	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){
-//
-//		if( TII < T ){
-//			document.getElementById("saturacion").innerHTML = "<i class='fa fa-exclamation fa-2x'></i>";
-//			document.getElementById("saturacion").setAttribute("class","alert alert-danger");	
-//			document.getElementById("saturacion2").innerHTML = "<i class='fa fa-exclamation fa-2x'></i>";
-//			document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-//			document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0, "+  eCT.toFixed(2) * 10  + "</b>";		
-//		}else{			
-//			document.getElementById("saturacion").innerHTML = "";
-//			document.getElementById("saturacion").setAttribute("class","");
-//			document.getElementById("saturacion2").innerHTML = "";
-//			document.getElementById("saturacion2").setAttribute("class","");
-//			var auxLTs= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
-//			if(!isNaN(auxLTs) || isFinite(auxLTs)){
-//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLTs + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
-//			}else{
-//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
-//			}	
-//		}					
-//	}
+	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){
+
+		if( TII < T ){
+			if(document.getElementById("saturacion").length < 2){
+				document.getElementById("saturacion").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
+				document.getElementById("saturacion").setAttribute("class","alert alert-danger");	
+				document.getElementById("saturacion2").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
+				document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
+			}
+			document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0, "+  eCT.toFixed(2) * 10  + "</b>";		
+		}else{			
+			document.getElementById("saturacion").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
+			document.getElementById("saturacion").setAttribute("class","");
+			document.getElementById("saturacion2").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
+			document.getElementById("saturacion2").setAttribute("class","");
+			var auxLTs= ((eCT * 10) + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(2);
+			if(!isNaN(auxLTs) || isFinite(auxLTs)){
+				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLTs + "  ,  " +  eCT.toFixed(2) * 10  + "</b>";			
+			}else{
+				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";
+			}	
+		}					
+	}
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
 	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";
 }
