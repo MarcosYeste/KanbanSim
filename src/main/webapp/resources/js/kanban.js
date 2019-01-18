@@ -506,7 +506,7 @@ function play() {
 								}
 
 								task.esfuerzo += task.duration;
-								//task.startTime = leadTime - task.creationTime;
+								task.startTime = leadTime - task.creationTime;
 								task.firstDuration.push(task.duration);
 								updateGraficPhase();
 								
@@ -514,11 +514,11 @@ function play() {
 							}			
 
 						} else {
-							if(task.startTime > 1){
+							if(task.backlogTime > 1){
 								saturation = true;
 								console.log(task.name)
 							}
-							task.startTime++;
+							task.backlogTime++;
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){
@@ -819,16 +819,20 @@ function play() {
 
 		// Veloz
 		if(velocidad == speedTime){
+			console.log("ect1")
 			if(parseInt((sumWip / exitVelocity)) * speedTime >= 0){
 				eCT =  (sumWip / exitVelocity) * speedTime;
 			}
 			
 			console.log(entryVelocity + " G " + exitVelocity)
-			if(entryVelocity < exitVelocity && !saturation){
+			if(entryVelocity < exitVelocity){
+				console.log("ect2")
 				eLT = eCT + 1;
 				console.log("eLT " + eLT)
 			} else if (entryVelocity >= exitVelocity){
+				console.log("ect3")
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
+				console.log("TII" + TII + " T " + T + "  VII " + VII + " Vt " + Vt);
 				console.log("wait " + wait)
 				if(!isNaN(wait)){
 					console.log("enter")
