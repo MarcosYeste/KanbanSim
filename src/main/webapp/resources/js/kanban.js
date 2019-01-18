@@ -63,7 +63,7 @@ var showLTandCLtensecs = 0;
 var wait = 0; 				//E
 var sumWip = 0;
 var velocidad = 0; 			//Contador de tiempo
-var speedTime = 0;
+var speedTime = 10;
 var entryVelocity = 0;
 var exitVelocity = 0;
 var eCT = 0;
@@ -74,6 +74,11 @@ var saturation = false;
 emptyUserData();
 refreshUsers();
 refreshPhases();
+
+console.log("Antes " + speedTime);
+refreshSpeedTimeSession();
+console.log("Despues " + speedTime);
+document.getElementById("speedInput").value = speedTime;
 
 //Guardar al modificar el orden de las fases
 sortPhases();
@@ -160,8 +165,6 @@ function play() {
 	var lowestTime = [];
 	var lazyPeople = [];
 	
-	speedTime = document.getElementById("speedInput").value;
-	console.log("speed " + speedTime);
 	myInterval = setInterval(function() {
 
 		if(chronoTime != 0){
