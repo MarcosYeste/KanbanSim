@@ -153,6 +153,9 @@ ____________________________________________________________________
 		title="Añadir Tareas">
 		<i class="fas fa-plus "></i>
 	</button>
+
+	<div id="velocityAlert"></div>
+
 	<div id="mostrarResultadosDiv" class="mostrarResultadosDiv"></div>
 
 	<!--
@@ -417,8 +420,8 @@ ____________________________________________________________________
 					<h4 class="modal-title">Temporizador</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				<!-- Modificar -->
-				<div class="modal-body" style="display:flex;">
+
+				<div class="modal-body" style="display: flex;">
 					<div>
 						Tiempo: <input type="number" id="modChronoTime" min=0 value=0>
 
@@ -429,8 +432,7 @@ ____________________________________________________________________
 								id="minutos"> <label for="minutos"><span></span>Minutos</label>
 						</div>
 					</div>
-					
-					<!-- Modificar -->
+
 					<div id="velDiv">
 						Velocidad: <input type="number" id="speedInput" min=0 value=10>
 					</div>

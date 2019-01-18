@@ -773,6 +773,7 @@ function chrono(){
 	for(var i = 0; i < radios.length; i++){
 		if(radios[i].checked){
 			if(radios[i].value == "sec"){
+				// SI lo seleccionado son los segundos
 				chronoTime = document.getElementById("modChronoTime").value;
 				if(chronoTime > 5999){
 					chronoTime = 5999;
@@ -793,12 +794,13 @@ function chrono(){
 						document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;
 					} else if(chronoTime == 0) {
 						document.getElementById("chronoViewer").innerHTML = "00:00";
-					} else if (chronoTime > 10 && chronoTime > 0){
+					} else if (chronoTime >= 10 && chronoTime > 0){
 						document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime);
 					}
 
 				} 
 			} else {
+				// Si el resultado son minutos
 				if(parseInt(document.getElementById("modChronoTime").value) <= 99){
 					if(parseInt(document.getElementById("modChronoTime").value) >= 0){
 						chronoTime = (document.getElementById("modChronoTime").value * 60);
@@ -811,6 +813,7 @@ function chrono(){
 					document.getElementById("modChronoTime").value = 99;
 					chronoTime = (99 * 60);
 				}
+				
 				if (parseInt(document.getElementById("modChronoTime").value, 10) < 10) {
 					document.getElementById("chronoViewer").innerHTML = "0" + document.getElementById("modChronoTime").value + ":00";
 				} else {
