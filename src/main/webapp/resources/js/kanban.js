@@ -509,7 +509,7 @@ function play() {
 								}
 
 								task.esfuerzo += task.duration;
-								//task.startTime = leadTime - task.creationTime;
+								task.startTime = leadTime - task.creationTime;
 								task.firstDuration.push(task.duration);
 								updateGraficPhase();
 								
@@ -517,11 +517,11 @@ function play() {
 							}			
 
 						} else {
-							if(task.startTime > 1){
+							if(task.backlogTime > 1){
 								saturation = true;
 								console.log(task.name)
 							}
-							task.startTime++;
+							task.backlogTime++;
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){
@@ -822,16 +822,20 @@ function play() {
 
 		// Veloz
 		if(velocidad == speedTime){
+			console.log("ect1")
 			if(parseInt((sumWip / exitVelocity)) * speedTime >= 0){
 				eCT =  (sumWip / exitVelocity) * speedTime;
 			}
 			
 			console.log(entryVelocity + " G " + exitVelocity)
-			if(entryVelocity < exitVelocity && !saturation){
+			if(entryVelocity < exitVelocity){
+				console.log("ect2")
 				eLT = eCT + 1;
 				console.log("eLT " + eLT)
 			} else if (entryVelocity >= exitVelocity){
+				console.log("ect3")
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
+				console.log("TII" + TII + " T " + T + "  VII " + VII + " Vt " + Vt);
 				console.log("wait " + wait)
 				if(!isNaN(wait)){
 					console.log("enter")
@@ -878,7 +882,9 @@ function play() {
 							document.getElementById("saturacion").setAttribute("class","alert alert-danger");
 							document.getElementById("saturacion2").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
 							document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-						}						
+							
+						}	
+						saturation= false;
 						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT;
 						//document.getElementById("modalTaskLTCTValue").innerHTML = "<b>"+ eLT + " , "+  eCT.toFixed(0)  + "</b>";		
 					}else{

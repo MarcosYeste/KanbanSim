@@ -718,7 +718,8 @@ function addTareas(weight, creationTime, eCT, eLT){
 	tarea.sameIteration = false;
 	tarea.cycleTime = 0;
 	tarea.leadTime = 0;
-	tarea.startTime = 0; //BacklogTime
+	tarea.startTime = 0;
+	tarea.backlogTime = 0;
 	tarea.esfuerzo = 0;
 	tarea.creationTime = creationTime;
 	tarea.phasesTime = new Array();
