@@ -248,7 +248,7 @@ function saveDistributionSession(){
 //_____________________ SESSION Speed Calculation  ___________________
 
 //____________________________________________________________________
-function refreshSpeedSession(){
+function refreshSpeedTimeSession(){
 
 	if(sessionStorage.getItem("speed")){
 		var sessionSpeed = JSON.parse(sessionStorage.getItem("speed"));
