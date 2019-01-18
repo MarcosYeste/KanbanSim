@@ -69,6 +69,7 @@ var exitVelocity = 0;
 var eCT = 0;
 var eLT = 0;
 var indiceTareas = 0;
+var saturation = false;
 
 emptyUserData();
 refreshUsers();
@@ -101,6 +102,10 @@ document.getElementById("deleteAll").addEventListener("click", removeAllSession,
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
+
+
+document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT;
+document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: 0   -   LT: 0";
 
 //____________________________________________________________________
 
@@ -156,7 +161,7 @@ function play() {
 	var lazyPeople = [];
 	
 	speedTime = document.getElementById("speedInput").value;
-	console.log(speedTime);
+	console.log("speed " + speedTime);
 	myInterval = setInterval(function() {
 
 		if(chronoTime != 0){
@@ -164,7 +169,7 @@ function play() {
 		}
 
 		velocidad ++;
-
+		console.log("vekicudad " + velocidad)
 		for (var i = 0; i < fases.length; i++) {
 
 			var doing = fases[i].lastElementChild.firstElementChild;
@@ -501,11 +506,19 @@ function play() {
 								}
 
 								task.esfuerzo += task.duration;
-								task.startTime = leadTime - task.creationTime;
+								//task.startTime = leadTime - task.creationTime;
 								task.firstDuration.push(task.duration);
 								updateGraficPhase();
+								
+								
 							}			
 
+						} else {
+							if(task.startTime > 1){
+								saturation = true;
+								console.log(task.name)
+							}
+							task.startTime++;
 						} //if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){
@@ -682,18 +695,18 @@ function play() {
 				calcLDValues(gaussian);
 				gaussianCounter = 0;
 				// Creamos un objeto nuevo
-				addTareas("",leadTime);
+				addTareas("",leadTime, eCT, eLT);
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
 				poissonCounter = 0;
-				addTareas("",leadTime);
+				addTareas("",leadTime, eCT, eLT);
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
 				getWeight();
 				calcLDValues(weightTime);
 				weightCounter = 0;
-				addTareas(weight,leadTime);
+				addTareas(weight,leadTime, eCT, eLT);
 			}
 		}
 
@@ -811,7 +824,7 @@ function play() {
 		weightCounter++;
 
 		//Contados para mostrar lead time estimado y cycle time escimado
-		if(showLTandCLtensecs == 10){
+		if(showLTandCLtensecs == speedTime){
 			showLTandCLtensecs = 0;
 		} else {
 			showLTandCLtensecs++;
@@ -819,20 +832,31 @@ function play() {
 
 		// Veloz
 		if(velocidad == speedTime){
-			eCT =  (sumWip / exitVelocity) * 10; 
-			console.log(sumWip + "   " + exitVelocity);
-
-			if (eCT == "Infinity"){
-				eCT = 0;
+			if(parseInt((sumWip / exitVelocity)) * speedTime >= 0){
+				eCT =  (sumWip / exitVelocity) * speedTime;
 			}
+			console.log(sumWip + "   " + exitVelocity);
+			
 			console.log(entryVelocity + " G " + exitVelocity)
-			if(entryVelocity < exitVelocity){
-				eLT = eCT;
+			if(entryVelocity < exitVelocity && !saturation){
+				eLT = eCT + 1;
 				console.log("eLT " + eLT)
-			} else if (entryVelocity == exitVelocity){
+			} else if (entryVelocity >= exitVelocity){
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
 				console.log("wait " + wait)
-			}
+				if(!isNaN(wait)){
+					console.log("enter")
+					console.log("fddas " + wait)
+					console.log(eCT + "  " + eLT)
+					if(parseInt(eCT) + parseInt(wait) > 0 && wait > 0){
+						eLT= (parseInt(eCT) + parseInt(wait));
+					} else {
+						eLT = eCT + 1;
+					}	
+				}
+				
+			} 
+			
 			velocidad = 0;
 			exitVelocity = 0;
 			entryVelocity = 0;
@@ -846,41 +870,35 @@ function play() {
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 				
-				if(showLTandCLtensecs == 10){
-					if(TII < T ){
+				if(showLTandCLtensecs == speedTime){
+					console.log("saturado " + saturation)
+					if(saturation && TII < T){
 						if(document.getElementById("saturacion").children.length < 2){
 							document.getElementById("saturacion").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
 							document.getElementById("saturacion").setAttribute("class","alert alert-danger");
 							document.getElementById("saturacion2").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
 							document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
 						}						
-						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(2) * 10+"   -   LT: 0";
-						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
+						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT;
+						//document.getElementById("modalTaskLTCTValue").innerHTML = "<b>"+ eLT + " , "+  eCT.toFixed(0)  + "</b>";		
 					}else{
 						console.log("elsesat");
 						document.getElementById("saturacion").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
 						document.getElementById("saturacion").setAttribute("class","");
 						document.getElementById("saturacion2").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
 						document.getElementById("saturacion2").setAttribute("class","");
-						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(2) * 10+"   -   LT: 0";
-						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";	
-						if(!isNaN(wait)){
-							console.log("enter")
-							console.log("fddas " + wait)
-							console.log(eCT + "  " + eLT)
-							if(parseInt(eCT) + parseInt(wait) != 0){
-								eLT= (parseInt(eCT) + parseInt(wait));
-							}	
-						}					
+						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT;
+						//document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(0)  + "</b>";	
+											
 						console.log("total " + eLT)
 						if(!isNaN(eLT)){
 							console.log("a")
-							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eLT + "  ,  " +  eCT.toFixed(0)  + "</b>";
-							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: "+eLT;
+							//document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eLT + "  ,  " +  eCT.toFixed(0)  + "</b>";
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: "+ eLT;
 						}else{
 							console.log("b")
-							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0 , "+  eCT.toFixed(0)  + "</b>";
-							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0) +"   -   LT: 0";
+							//document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0 , "+  eCT.toFixed(0)  + "</b>";
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0) +"   -   LT: "+ eLT;
 						}
 					}					
 

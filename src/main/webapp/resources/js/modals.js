@@ -702,7 +702,7 @@ function rmvModUsers() {
 //___________________________________________________________________
 
 /* Mejora, si un caso, que se guarde en el controller */
-function addTareas(weight,creationTime){
+function addTareas(weight, creationTime, eCT, eLT){
 	if(isNaN(creationTime)){creationTime = 0;}
 	// Incrementamos el numero
 	taskNameCounter ++;
@@ -718,7 +718,7 @@ function addTareas(weight,creationTime){
 	tarea.sameIteration = false;
 	tarea.cycleTime = 0;
 	tarea.leadTime = 0;
-	tarea.startTime = 0;
+	tarea.startTime = 0; //BacklogTime
 	tarea.esfuerzo = 0;
 	tarea.creationTime = creationTime;
 	tarea.phasesTime = new Array();
@@ -727,6 +727,18 @@ function addTareas(weight,creationTime){
 	tarea.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 	tarea.weight = weight; 
 	tarea.totalTime = 0;
+	console.log(eCT + " lt " + eLT)
+	if(eCT >= 0){
+		tarea.eCT = eCT;	
+	} else {
+		tarea.eCT = 0;	
+	}
+	if(eLT >= 0){
+		tarea.eLT = eLT;
+	} else {
+		tarea.eLT = 0;
+	}
+	
 	listTareas.push(tarea);
 	printTasks(tarea);
 
@@ -834,7 +846,7 @@ function showTaskInfo(){
 	}
 
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
-
+	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + object.eLT + " , "+  object.eCT  + "</b>";	
 
 //	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){
 //
