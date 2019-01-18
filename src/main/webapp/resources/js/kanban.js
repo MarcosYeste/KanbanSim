@@ -34,7 +34,7 @@ if(distribution.backLogType == "manual"){
 //Variables globales necesarias para empezar la partida
 var countSpeed = 0;
 var speed = 1;
-var playing = false;
+var playing = false; 
 var firstLoop = true;
 var myInterval;
 var leadTime = 0;
@@ -808,6 +808,7 @@ function play() {
 			if (eCT == "Infinity"){
 				eCT = 0;
 			}
+			
 			console.log(entryVelocity + " G " + exitVelocity)
 			if(entryVelocity < exitVelocity){
 				eLT = eCT;
@@ -816,11 +817,21 @@ function play() {
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
 				console.log("wait " + wait)
 			}
+			
+			if(exitVelocity == 0){
+				document.getElementById("velocityAlert").innerHTML = "<span class='tooltiptext'>Velocidad Muy Baja</span><i class='fa fa-exclamation-triangle'></i>";
+			} else {
+				document.getElementById("velocityAlert").innerHTML = "";
+			}
+			
 			velocidad = 0;
 			exitVelocity = 0;
 			entryVelocity = 0;
 		}
 
+		
+		
+		
 		// Recargamos los datos de la targeta de informacion de cada tarea
 		listTareas.forEach(function(tarea){
 			if(atributo == tarea.name){
