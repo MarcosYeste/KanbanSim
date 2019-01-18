@@ -66,8 +66,8 @@ function generarResultados() {
     document.getElementsByClassName("clock")[0].style.visibility = "hidden";
     document.getElementById("botonesPlay").style.visibility = "hidden";
     document.getElementById("addTask").style.visibility = "hidden";
-//    document.getElementById("saturacion").style.visibility = "hidden";
-//    document.getElementById("saturacion2").style.visibility = "hidden";
+    document.getElementById("saturacion").style.visibility = "hidden";
+    document.getElementById("saturacion2").style.visibility = "hidden";
 }
 //Click a mostrar kanban
 function mostrarKanban() {

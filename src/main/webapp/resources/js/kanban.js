@@ -809,12 +809,12 @@ function play() {
 		} else {
 			showLTandCLtensecs++;
 		}
-		
+
 		// Veloz
 		if(velocidad == 10){
 			eCT =  (sumWip / exitVelocity) * 10; 
 			console.log(sumWip + "   " + exitVelocity);
-			
+
 			if (eCT == "Infinity"){
 				eCT = 0;
 			}
@@ -830,7 +830,7 @@ function play() {
 			exitVelocity = 0;
 			entryVelocity = 0;
 		}
-		
+
 		// Recargamos los datos de la targeta de informacion de cada tarea
 		listTareas.forEach(function(tarea){
 			if(atributo == tarea.name){
@@ -838,7 +838,7 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-				 var mediasCLyCL = calcularMediaCycleAndLead();
+				var mediasCLyCL = calcularMediaCycleAndLead();
 				if(showLTandCLtensecs == 10){
 
 					if(TII < T ){
@@ -847,14 +847,14 @@ function play() {
 							document.getElementById("saturacion").setAttribute("class","alert alert-danger");
 							document.getElementById("saturacion2").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
 							document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-							
+
 						}
-						
+
 						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(2) * 10+"   -   LT: 0";
 						document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
 					}else{
-						
+
 						console.log("elsesat");
 						document.getElementById("saturacion").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
 						document.getElementById("saturacion").setAttribute("class","");
@@ -926,10 +926,11 @@ function deshabilitarMenus(disable){
 		document.getElementById("playButton").setAttribute("class", "fa fa-pause");
 		// Deshabilitamos los botones del header
 		for (var i = 0; i < document.getElementById("header-btn").children.length; i++){
+			if(i != 0){
 
-			document.getElementById("header-btn").children[i].setAttribute("class", "btn btn-success disabled");
-			document.getElementById("header-btn").children[i].setAttribute("aria-disabled", "true");
-
+				document.getElementById("header-btn").children[i].setAttribute("class", "btn btn-success disabled");
+				document.getElementById("header-btn").children[i].setAttribute("aria-disabled", "true");
+			}
 		}
 
 		// Deshabilitamos los botones

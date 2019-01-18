@@ -263,6 +263,7 @@ input[type="checkbox"]:focus {
 	visibility: visible;
 	transition: 1s ease;
 	font-size: 115%;
+	border-radius: 50%;
 
 }
 
