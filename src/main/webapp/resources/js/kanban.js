@@ -703,8 +703,8 @@ function play() {
 				TII = totalSumBackLog / numOfBacklogCalled;
 				var totalSum = 0;
 				for(var i = 0; i < numOfBacklogCalled; i++){
-
-					totalSum += Math.abs(backLogCollector[i] - TII);
+					//corregir al cuadrado
+					totalSum += Math.pow(backLogCollector[i] - TII, 2);
 				}
 
 				VII = totalSum / numOfBacklogCalled;
@@ -840,17 +840,17 @@ function play() {
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 				 var mediasCLyCL = calcularMediaCycleAndLead();
 				if(showLTandCLtensecs == 10){
-//					if(TII < T ){
-//						document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
-//						document.getElementById("saturacion").setAttribute("class","alert alert-danger");
-//						document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
-//						document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-//						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2)  + "</b>";		
-//						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(2) * 10+"   -   LT: 0";
-//						document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
-//						console.log("sat")
-//					}else{
-						console.log("elsesat");
+					if(TII < T ){
+						document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
+						document.getElementById("saturacion").setAttribute("class","alert alert-danger");
+						document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
+						document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
+						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2)  + "</b>";		
+						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(2) * 10+"   -   LT: 0";
+						document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
+						console.log("sat")
+					}else{
+						console.log("elsesa");
 						document.getElementById("saturacion").innerHTML = "";
 						document.getElementById("saturacion").setAttribute("class","");
 						document.getElementById("saturacion2").innerHTML = "";
@@ -882,7 +882,7 @@ function play() {
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
 			}
-		})
+		})}
 
 		// Función para Volver a calcular el tiempo para las tareas con peso
 		function calcTime(maxTime, minTime, percentage){
