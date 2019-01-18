@@ -242,6 +242,23 @@ function saveDistributionSession(){
 }
 
 
+
+//____________________________________________________________________
+
+//_____________________ SESSION Speed Calculation  ___________________
+
+//____________________________________________________________________
+function refreshSpeedTimeSession(){
+
+	if(sessionStorage.getItem("speed")){
+		var sessionSpeed = JSON.parse(sessionStorage.getItem("speed"));
+		speedTime = sessionSpeed;
+	}
+}
+function saveSpeedTimeSession(){
+	sessionStorage.setItem("speed", JSON.stringify(speedTime));
+}
+
 //____________________________________________________________________
 
 //_____________________ REMOVE SESSION STORAGE  ______________________

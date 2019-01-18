@@ -263,10 +263,11 @@ input[type="checkbox"]:focus {
 	visibility: visible;
 	transition: 1s ease;
 	font-size: 115%;
+	border-radius: 50%;
 
 }
 
-#saturacion .tooltiptext, #saturacion2 .tooltiptext {
+.tooltiptext {
   visibility: hidden;
   width: 150px;
   background-color: red;
@@ -281,7 +282,7 @@ input[type="checkbox"]:focus {
   margin-left: -75px;
 }
 
-#saturacion .tooltiptext::after, #saturacion2 .tooltiptext::after  {
+.tooltiptext::after  {
   content: "";
   position: absolute;
   top: 100%;
@@ -292,8 +293,16 @@ input[type="checkbox"]:focus {
   border-color: red transparent transparent transparent;
 }
 
-#saturacion:hover .tooltiptext, #saturacion2:hover .tooltiptext {
+#saturacion:hover .tooltiptext, #saturacion2:hover .tooltiptext, #velocityAlert:hover .tooltiptext {
   visibility: visible;
+}
+
+#velocityAlert .tooltiptext{
+	background-color: orange !important;
+}
+
+#velocityAlert .tooltiptext::after{
+	border-color: orange transparent transparent transparent !important;
 }
 
 .botonesContainer {
@@ -398,12 +407,16 @@ input[type="checkbox"]:focus {
 	color: olive;
 }
 
-#addTask {
+#addTask, #velocityAlert {
 	position: absolute;
 	margin-left: 5%;
 	margin-top: 2%;
-}
+} 
 
+#velocityAlert{
+	margin-top: 7%;
+	color: #df9200;
+}
 #addTask:active {
 	transform: translate(1px, 2px);
 }

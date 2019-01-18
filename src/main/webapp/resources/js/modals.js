@@ -702,7 +702,7 @@ function rmvModUsers() {
 //___________________________________________________________________
 
 /* Mejora, si un caso, que se guarde en el controller */
-function addTareas(weight,creationTime){
+function addTareas(weight, creationTime, eCT, eLT){
 	if(isNaN(creationTime)){creationTime = 0;}
 	// Incrementamos el numero
 	taskNameCounter ++;
@@ -718,7 +718,7 @@ function addTareas(weight,creationTime){
 	tarea.sameIteration = false;
 	tarea.cycleTime = 0;
 	tarea.leadTime = 0;
-	tarea.startTime = 0;
+	tarea.startTime = 0; //BacklogTime
 	tarea.esfuerzo = 0;
 	tarea.creationTime = creationTime;
 	tarea.phasesTime = new Array();
@@ -727,6 +727,18 @@ function addTareas(weight,creationTime){
 	tarea.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 	tarea.weight = weight; 
 	tarea.totalTime = 0;
+	console.log(eCT + " lt " + eLT)
+	if(eCT >= 0){
+		tarea.eCT = eCT;	
+	} else {
+		tarea.eCT = 0;	
+	}
+	if(eLT >= 0){
+		tarea.eLT = eLT;
+	} else {
+		tarea.eLT = 0;
+	}
+
 	listTareas.push(tarea);
 	printTasks(tarea);
 
@@ -761,6 +773,7 @@ function chrono(){
 	for(var i = 0; i < radios.length; i++){
 		if(radios[i].checked){
 			if(radios[i].value == "sec"){
+				// SI lo seleccionado son los segundos
 				chronoTime = document.getElementById("modChronoTime").value;
 				if(chronoTime > 5999){
 					chronoTime = 5999;
@@ -781,12 +794,13 @@ function chrono(){
 						document.getElementById("chronoViewer").innerHTML = "00:"+chronoTime;
 					} else if(chronoTime == 0) {
 						document.getElementById("chronoViewer").innerHTML = "00:00";
-					} else if (chronoTime > 10 && chronoTime > 0){
+					} else if (chronoTime >= 10 && chronoTime > 0){
 						document.getElementById("chronoViewer").innerHTML = "00:"+parseInt(chronoTime);
 					}
 
 				} 
 			} else {
+				// Si el resultado son minutos
 				if(parseInt(document.getElementById("modChronoTime").value) <= 99){
 					if(parseInt(document.getElementById("modChronoTime").value) >= 0){
 						chronoTime = (document.getElementById("modChronoTime").value * 60);
@@ -799,6 +813,7 @@ function chrono(){
 					document.getElementById("modChronoTime").value = 99;
 					chronoTime = (99 * 60);
 				}
+
 				if (parseInt(document.getElementById("modChronoTime").value, 10) < 10) {
 					document.getElementById("chronoViewer").innerHTML = "0" + document.getElementById("modChronoTime").value + ":00";
 				} else {
@@ -812,7 +827,11 @@ function chrono(){
 		chronoTime = 0;
 		document.getElementById("chronoViewer").innerHTML = "00:00";
 	}
-
+	if(document.getElementById("speedInput")){
+		speedTime = document.getElementById("speedInput").value;
+		saveSpeedTimeSession(speedTime);
+		console.log("speed " + speedTime);
+	}
 }
 
 
@@ -834,30 +853,30 @@ function showTaskInfo(){
 	}
 
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
-
+	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + object.eLT + " , "+  object.eCT  + "</b>";	
 
 //	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){
-//
-//		if( TII < T ){
-//			document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
-//			document.getElementById("saturacion").setAttribute("class","alert alert-danger");	
-//			document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
-//			document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-//			document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0, "+  eCT.toFixed(2)  + "</b>";		
-//		}else{			
-//			document.getElementById("saturacion").innerHTML = "";
-//			document.getElementById("saturacion").setAttribute("class","");
-//			document.getElementById("saturacion2").innerHTML = "";
-//			document.getElementById("saturacion2").setAttribute("class","");
-//			var auxLTs= (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(0);
-//			if(!isNaN(auxLTs) || isFinite(auxLTs)){
-//				console.log("c")
-//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLTs + "  ,  " +  eCT.toFixed(0) + "</b>";			
-//			}else{
-//				console.log("d")
-//				document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(0)  + "</b>";
-//			}	
-//		}					
+
+//	if( TII < T ){
+//	document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
+//	document.getElementById("saturacion").setAttribute("class","alert alert-danger");	
+//	document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
+//	document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
+//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0, "+  eCT.toFixed(2)  + "</b>";		
+//	}else{			
+//	document.getElementById("saturacion").innerHTML = "";
+//	document.getElementById("saturacion").setAttribute("class","");
+//	document.getElementById("saturacion2").innerHTML = "";
+//	document.getElementById("saturacion2").setAttribute("class","");
+//	var auxLTs= (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(0);
+//	if(!isNaN(auxLTs) || isFinite(auxLTs)){
+//	console.log("c")
+//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLTs + "  ,  " +  eCT.toFixed(0) + "</b>";			
+//	}else{
+//	console.log("d")
+//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(0)  + "</b>";
+//	}	
+//	}					
 //	}
 
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
