@@ -119,6 +119,8 @@ function mostrarGraficas() {
     document.getElementById("botonesPlay").style.visibility = "visible";
     document.getElementById("botonesPlay").classList.add("leftPlay");
     document.getElementById("addTask").style.visibility = "hidden";
+    document.getElementById("saturacion").style.visibility = "hidden";
+    document.getElementById("saturacion2").style.visibility = "hidden";
 
     if (document.getElementById("js-legend")) {
         for (var i = 0; i < myChartTask.data.datasets.length; i++) {

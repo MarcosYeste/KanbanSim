@@ -22,7 +22,8 @@ ____________________________________________________________________
 
 	<div class="botonesContainer1" id="botonesContainer1">
 
-		<span id="arrow"><i class="fas fa-caret-right" style="margin: 0 5px"></i></span>
+		<span id="arrow"><i class="fas fa-caret-right"
+			style="margin: 0 5px"></i></span>
 
 		<div class="doubleButton">
 			<!-- Nuevo Tablero -->
@@ -35,8 +36,8 @@ ____________________________________________________________________
 
 				<!-- Botón para mostrar información del tablero -->
 				<button id="info" data-target="#generalInfo" data-toggle="modal">
-					<i id="infoIcon" class="fas fa-info-circle "
-						data-toggle="tooltip" data-placement="left" title="Info"></i>
+					<i id="infoIcon" class="fas fa-info-circle " data-toggle="tooltip"
+						data-placement="left" title="Info"></i>
 				</button>
 			</div>
 
@@ -59,8 +60,8 @@ ____________________________________________________________________
 			<!-- Este botón solo sirve para poder guardar los datos dentro de la base de datos -->
 			<button id="saveResult" class="resultbutt" data-toggle="modal"
 				data-target="#modalBlueprint">
-				<i class="fas fa-save " data-toggle="tooltip"
-					data-placement="top" title="Guardar Plantilla"></i>
+				<i class="fas fa-save " data-toggle="tooltip" data-placement="top"
+					title="Guardar Plantilla"></i>
 			</button>
 		</div>
 	</div>
@@ -93,95 +94,60 @@ ____________________________________________________________________
 	</fieldset>
 
 
-<div class="headerTable">
-	<div class="crono">
-		<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer"
-			data-placement="right" title="Chronometer">00:00</p>
-	</div>
-	<div class="estimado">
-		<p>Estimado: </p>
-		<p class="CLCTestimado"></p>
-	</div>
-	<div>
-	<p role="alert" id="saturacion"></p>
-	</div>
-	<div id="botonesPlay" class="botonesContainer">
-
-		<!--  Botón Play/Pause -->
-		<div class="playAndReset">
-		<div id="divReset">
-			<i id="reset" class="fas fa-redo "></i>
+	<div class="headerTable">
+		<div class="crono">
+			<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer"
+				data-placement="right" title="Chronometer">00:00</p>
 		</div>
-		<div class="playpause">
-			<input type="checkbox" value="None" id="playpause" name="check" /> 
-			<label for="playpause" tabindex=1><i id="playButton" class="fa fa-play"></i></label>
+		<div class="estimado">
+			<p>Estimado:</p>
+			<p class="CLCTestimado"></p>
 		</div>
+		<div id="saturacion">
+			<span class="tooltiptext">Sobresaturación</span>
 		</div>
-		<div class="rewindAndForward">
-		<button id="backward" disabled="disabled">
-			<i class="fas fa-backward " onclick="speedKanban('rewind')" ></i>
+		<div id="botonesPlay" class="botonesContainer">
 
-		</button>
-		<span id="multiplicador">x1</span>
-		<button id="forward">
-			<i class="fas fa-forward " onclick="speedKanban('forward')"></i>
-		</button>
+			<!--  Botón Play/Pause -->
+			<div class="playAndReset">
+				<div id="divReset">
+					<i id="reset" class="fas fa-redo "></i>
+				</div>
+				<div class="playpause">
+					<input type="checkbox" value="None" id="playpause" name="check" />
+					<label for="playpause" tabindex=1><i id="playButton"
+						class="fa fa-play"></i></label>
+				</div>
+			</div>
+			<div class="rewindAndForward">
+				<button id="backward" disabled="disabled">
+					<i class="fas fa-backward " onclick="speedKanban('rewind')"></i>
 
+				</button>
+				<span id="multiplicador">x1</span>
+				<button id="forward">
+					<i class="fas fa-forward " onclick="speedKanban('forward')"></i>
+				</button>
+
+			</div>
 		</div>
-	</div>
-	<div class="real">
-		<p>Real: </p>
-		<p class="CLCTreal"></p>
-	</div>
-	<div>
-	<p role="alert" id="saturacion2"></p>
-	</div>
-	<div class="clock">
-		<p data-toggle="modal" id="clock" data-placement="right" title="Clock">00:00</p>
-	</div>
-</div>
-
-<!-- 
-
-
-	<p role="alert" id="saturacion"></p>
-	<p role="alert" id="saturacion2"></p>
-
-	Temporizador y Cambiar Distribucion
-	<div class="crono">
-		<p data-toggle="modal" data-target="#modalChrono" id="chronoViewer"
-			data-placement="right" title="Chronometer">00:00</p>
-	</div>
-	<div class="clock">
-		<p data-toggle="modal" id="clock" data-placement="right" title="Clock">00:00</p>
-	</div>
-
-
-	<div id="botonesPlay" class="botonesContainer">
-
-		 Botón Play/Pause
-		<div class="playAndReset">
-		<div id="divReset">
-			<i id="reset" class="fas fa-redo "></i>
+		<div id="saturacion2">
+			<span class="tooltiptext">Sobresaturación</span>
 		</div>
-		<div class="playpause">
-			<input type="checkbox" value="None" id="playpause" name="check" /> 
-			<label for="playpause" tabindex=1><i id="playButton" class="fa fa-play"></i></label>
-		</div>
-		</div>
-		<div class="rewindAndForward">
-		<button id="backward" disabled="disabled">
-			<i class="fas fa-backward " onclick="speedKanban('rewind')" ></i>
 
-		</button>
-		<span id="multiplicador">x1</span>
-		<button id="forward">
-			<i class="fas fa-forward " onclick="speedKanban('forward')"></i>
-		</button>
-
+		<div class="real">
+			<p>Media:</p>
+			<p class="CLCTreal"></p>
+		</div>
+		<div>
+			<p role="alert" id="saturacion2"></p>
+		</div>
+		<div class="clock">
+			<p data-toggle="modal" id="clock" data-placement="right"
+				title="Clock">00:00</p>
 		</div>
 	</div>
- -->
+
 	<!-- Botón Add Tasks, SOLO MANUAL -->
 	<button id="addTask" data-toggle="tooltip" data-placement="top"
 		title="Añadir Tareas">
@@ -535,9 +501,10 @@ ____________________________________________________________________
 
 							<div id="dataWeightDistribution"
 								style="visibility: collapse; height: 0px">
-								<p>Rango de tiempo de entrada: </p>
-								<input type="number" id="weightTimeLapse" value="1" min="1" onClick="this.select()"><br>
-								<p>Rango de probabilidad de aparición: </p>
+								<p>Rango de tiempo de entrada:</p>
+								<input type="number" id="weightTimeLapse" value="1" min="1"
+									onClick="this.select()"><br>
+								<p>Rango de probabilidad de aparición:</p>
 								<p class="backloglabel">S:</p>
 								<div class="backloglabelInput size" id="S">
 									<div id="custom-handle0" class="ui-slider-handle"></div>

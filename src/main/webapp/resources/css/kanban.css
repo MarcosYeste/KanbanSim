@@ -256,22 +256,44 @@ input[type="checkbox"]:focus {
 #reset, #deleteAll, #divDeleteTasks, #addUser, #backward, #forward {
 	cursor: pointer;
 }
+
 /* SOBRESATURACION */
-#saturacion {
-	/* float: left; */
-	/* margin-left: 25%; */
-	font-size: 115%;
-/* 	margin-top: 1%; */
-	/* position: absolute; */
+#saturacion, #saturacion2 {
+	color:red;
 	visibility: visible;
+	transition: 1s ease;
+	font-size: 115%;
+
 }
 
-#saturacion2 {
-	/* float: right; */
-	/* margin-right: 25%; */
-	font-size: 115%;
-	/* margin-top: 1%; */
-	visibility: visible;
+#saturacion .tooltiptext, #saturacion2 .tooltiptext {
+  visibility: hidden;
+  width: 150px;
+  background-color: red;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: 50%;
+  margin-left: -75px;
+}
+
+#saturacion .tooltiptext::after, #saturacion2 .tooltiptext::after  {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: red transparent transparent transparent;
+}
+
+#saturacion:hover .tooltiptext, #saturacion2:hover .tooltiptext {
+  visibility: visible;
 }
 
 .botonesContainer {
@@ -402,7 +424,7 @@ input[type="checkbox"]:focus {
 }
 
 .leftPlay {
-	margin-left: -90%;
+	margin-left: -80%;
 }
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
 .mostrarResultadosDiv {
@@ -587,6 +609,14 @@ i {
 	text-overflow: ellipsis;
 }
 /*---------------------------------------------------MEDIA QUERYS------------------------------------------------------------*/
+@media screen and (max-width: 1530px) {
+	.rewindAndForward{
+	margin-right: 4%;
+	}
+	.playAndReset{
+	margin-left: 4%;
+	}
+}
 /* @media screen and (max-width: 1450px) {
 	#saturacion, #saturacion2 {
 		visibility: hidden;
