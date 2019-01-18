@@ -292,6 +292,7 @@ function play() {
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
 						var phaseSkill;
 						listUsers.forEach(function(user) {
+													
 							if(!user.assigned && task.assignedUsers[0] != null){
 								var isTotallyFree = false;
 
@@ -408,10 +409,10 @@ function play() {
 								}
 
 							}
-
+					
 						});
 
-
+					 
 					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
 						//IF 3
@@ -423,7 +424,6 @@ function play() {
 							task.leadTime = leadTime;
 							task.phase = (-1);
 							saveTimeStates(task,leadTime,i);
-							//marcos
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);	
 							mediasCLyCL = calcularMediaCycleAndLead();
 							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
@@ -902,13 +902,6 @@ function play() {
 			i++;
 		});
 
-		for (var i = 0; i < listUsers.length; i++) {
-			if(listUsers[i].assigned){
-				document.getElementsByClassName("userName")[i].removeAttribute("data-target");
-				document.getElementsByClassName("userName")[i].removeAttribute("data-toggle");
-			}
-		}
-
 	}, (1000/ speed));
 }
 
@@ -1003,10 +996,10 @@ function deshabilitarMenus(disable){
 
 		// Permitimos de nuevo abrir el modal de modificación y eliminación
 		for (var id = 0; id < document.getElementsByClassName("userName").length; id++){
-			if(!listUsers[id].assigned){
+			
 				document.getElementsByClassName("userName")[id].setAttribute("data-target", "#myModal2");
 				document.getElementsByClassName("userName")[id].setAttribute("data-toggle", "modal");
-			}
+			
 
 		}
 
