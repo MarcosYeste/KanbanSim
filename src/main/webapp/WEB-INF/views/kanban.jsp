@@ -434,7 +434,7 @@ ____________________________________________________________________
 					</div>
 
 					<div id="velDiv">
-						Velocidad: <input type="number" id="speedInput" min=0 value=10>
+						Velocidad: <input type="number" id="speedInput" min=0>
 					</div>
 					<button id="modChrono" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
