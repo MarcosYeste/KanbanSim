@@ -722,8 +722,9 @@ function play() {
 				// Finalizado completamente
 				clearInterval(myInterval);
 				kanbanTss = 0;
-				chronoTime = 0;
-				document.getElementById("chronoViewer").innerHTML = "00:00";
+//				chronoTime = 0;
+//				document.getElementById("chronoViewer").innerHTML = "00:00";
+				chrono();
 				// Cambiamos el boton a pausa
 				document.getElementById("playpause").checked = false;
 
@@ -755,8 +756,9 @@ function play() {
 				// Finalizado completamente
 				clearInterval(myInterval);
 				kanbanTss = 0;
-				chronoTime = 0;
-				document.getElementById("chronoViewer").innerHTML = "00:00";
+//				chronoTime = 0;
+//				document.getElementById("chronoViewer").innerHTML = "00:00";
+				chrono();
 				// Cambiamos el boton a pausa
 				document.getElementById("playpause").checked = false;
 				deshabilitarMenus(false);
@@ -780,26 +782,11 @@ function play() {
 
 		if(divsTareas.length == 0){leadTime = 0;}
 		stopWatch();
-
-		// Calculamos el tiempo para parar el play con el timer
-//		console.log("::: SEGUNDOS ::::: "+leadTime);
-
+		
 		if(chronoTime != ""){
-
-			if(chronoTime > 59){
-				var sec_num = parseInt(chronoTime - kanbanTss, 10);
-				var minutes = Math.floor((sec_num) / 60);
-				var seconds = sec_num - (minutes * 60);
-				if (minutes < 10) {minutes = "0"+minutes;}
-				if (seconds < 10) {seconds = "0"+seconds;}
-				document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
-			} else {
-				if(chronoTime - kanbanTss < 10 ){
-					document.getElementById("chronoViewer").innerHTML = "00:0"+(chronoTime - kanbanTss);
-				} else {
-					document.getElementById("chronoViewer").innerHTML = "00:"+(chronoTime - kanbanTss);
-				}
-			}
+			// Función encargada de hacer de cronometro
+			timer();
+			
 		}
 
 		gaussianCounter++;
@@ -1205,17 +1192,34 @@ function printTasks(tarea){
 function stopWatch(){
 
 	if(leadTime > 59){
-		var sec_num = parseInt(leadTime + kanbanTss, 10);
-		var minutes = Math.floor((sec_num) / 60);
-		var seconds = sec_num - (minutes * 60);
+		let sec_num = parseInt(leadTime, 10);
+		let minutes = Math.floor((sec_num) / 60);
+		let seconds = sec_num - (minutes * 60);
 		if (minutes < 10) {minutes = "0"+minutes;}
 		if (seconds < 10) {seconds = "0"+seconds;}
 		document.getElementById("clock").innerHTML = minutes+":"+seconds;
 	} else {
-		if(leadTime + kanbanTss < 10 ){
-			document.getElementById("clock").innerHTML = "00:0"+(leadTime + kanbanTss);
+		if(leadTime < 10 ){
+			document.getElementById("clock").innerHTML = "00:0"+leadTime;
 		} else {
-			document.getElementById("clock").innerHTML = "00:"+(leadTime + kanbanTss);
+			document.getElementById("clock").innerHTML = "00:"+leadTime;
+		}
+	}
+}
+
+function timer(){
+	if(chronoTime > 59){
+		let sec_num = parseInt(chronoTime - kanbanTss, 10);
+		let minutes = Math.floor((sec_num) / 60);
+		let seconds = sec_num - (minutes * 60);
+		if (minutes < 10) {minutes = "0"+minutes;}
+		if (seconds < 10) {seconds = "0"+seconds;}
+		document.getElementById("chronoViewer").innerHTML = minutes+":"+seconds;
+	} else {
+		if(chronoTime - kanbanTss < 10 ){
+			document.getElementById("chronoViewer").innerHTML = "00:0"+(chronoTime - kanbanTss);
+		} else {
+			document.getElementById("chronoViewer").innerHTML = "00:"+(chronoTime - kanbanTss);
 		}
 	}
 }
