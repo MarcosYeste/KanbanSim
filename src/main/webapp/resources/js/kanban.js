@@ -75,9 +75,8 @@ emptyUserData();
 refreshUsers();
 refreshPhases();
 
-console.log("Antes " + speedTime);
+// recogemos de la sesion la velocidad de calculo estimado
 refreshSpeedTimeSession();
-console.log("Despues " + speedTime);
 document.getElementById("speedInput").value = speedTime;
 
 //Guardar al modificar el orden de las fases
