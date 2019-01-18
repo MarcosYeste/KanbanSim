@@ -493,7 +493,7 @@ function modUsers(){
 				insertInput(j, i);
 			} 
 		}
-	}
+	}// inspenccionar del navegador que hace cuando desmarcas y marcas
 
 	for(var j = 0; j < allcheckBox.length; j++){
 		allcheckBox[j].addEventListener("change", function(){phasesController(event);}, false);
