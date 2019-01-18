@@ -63,6 +63,7 @@ var showLTandCLtensecs = 0;
 var wait = 0; 				//E
 var sumWip = 0;
 var velocidad = 0; 			//Contador de tiempo
+var speedTime = 0;
 var entryVelocity = 0;
 var exitVelocity = 0;
 var eCT = 0;
@@ -153,7 +154,8 @@ function play() {
 	var fases = document.getElementsByClassName("faseName");
 	var lowestTime = [];
 	var lazyPeople = [];
-
+	
+	speedTime = document.getElementById("speedInput").value;
 	myInterval = setInterval(function() {
 
 		if(chronoTime != 0){
@@ -624,23 +626,24 @@ function play() {
 				} 				//divs tareas for end
 			}); 				//foreach end
 
-			sumWip = 0;
-			listPhases.forEach(function(fase) {
-
-				sumWip += fase.maxTasks;
-
-			});
+			
 
 		} //end phases for
 
 		var totalTimeSum = 0;
+		sumWip = 0;
 		listTareas.forEach(function(task){
 			if(task.phase == -1 && task.state == "Ended"){
 
 				numOfTasksEnded++;
 				totalTimeSum += task.cycleTime;
 			}
+			
+			if(task.state == "ToDo" || task.state == "Doing" || task.state == "Done"){
+				sumWip++;
+			}
 		});
+		console.log(sumWip);
 
 		T = totalTimeSum / numOfTasksEnded;
 
@@ -814,7 +817,7 @@ function play() {
 		}
 		
 		// Veloz
-		if(velocidad == 10){
+		if(velocidad == speedTime){
 			eCT =  (sumWip / exitVelocity) * 10; 
 			console.log(sumWip + "   " + exitVelocity);
 			
