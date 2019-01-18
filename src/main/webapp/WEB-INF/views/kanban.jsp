@@ -417,15 +417,22 @@ ____________________________________________________________________
 					<h4 class="modal-title">Temporizador</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-
-				<div class="modal-body">
-					Tiempo: <input type="number" id="modChronoTime" min=0 value=0>
-
+				<!-- Modificar -->
+				<div class="modal-body" style="display:flex;">
 					<div>
-						<input type="radio" name="chronoTimeType" value="sec"
-							id="segundos" checked> <label for="segundos"><span></span>Segundos</label>
-						<input type="radio" name="chronoTimeType" value="min" id="minutos">
-						<label for="minutos"><span></span>Minutos</label>
+						Tiempo: <input type="number" id="modChronoTime" min=0 value=0>
+
+						<div>
+							<input type="radio" name="chronoTimeType" value="sec"
+								id="segundos" checked> <label for="segundos"><span></span>Segundos</label>
+							<input type="radio" name="chronoTimeType" value="min"
+								id="minutos"> <label for="minutos"><span></span>Minutos</label>
+						</div>
+					</div>
+					
+					<!-- Modificar -->
+					<div id="velDiv">
+						Velocidad: <input type="number" id="speedInput" min=0 value=10>
 					</div>
 					<button id="modChrono" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
