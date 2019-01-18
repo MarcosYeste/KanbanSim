@@ -425,7 +425,7 @@ input[type="checkbox"]:focus {
 }
 
 .leftPlay {
-	margin-left: -90%;
+	margin-left: -80%;
 }
 /*---------------------------------------------------- RESULTADOS ----------------------------------------------*/
 .mostrarResultadosDiv {
@@ -610,6 +610,14 @@ i {
 	text-overflow: ellipsis;
 }
 /*---------------------------------------------------MEDIA QUERYS------------------------------------------------------------*/
+@media screen and (max-width: 1530px) {
+	.rewindAndForward{
+	margin-right: 4%;
+	}
+	.playAndReset{
+	margin-left: 4%;
+	}
+}
 /* @media screen and (max-width: 1450px) {
 	#saturacion, #saturacion2 {
 		visibility: hidden;

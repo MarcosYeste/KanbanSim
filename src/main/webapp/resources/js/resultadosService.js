@@ -24,33 +24,9 @@ function nuevoObjetoResultados() {
     resultadosO.userNamesWorstBest = [];
     return resultadosO;
 }
-function calcularMediaCycleAndLead(){
-	var cantidadTask = 0;
-	var mediaCycle = 0;
-	var mediaLead = 0;
-	 listTareas.forEach(function (task) {
-		 mediaCycle += task.cycleTime;
-	     mediaLead += task.leadTime;
-		 if (task.cycleTime != 0) {
-	            cantidadTask++;
-	        }
-	 });
-	 mediaCycle = Math.round((mediaCycle / cantidadTask) * 10) / 10;
-	    mediaLead = Math.round((mediaLead / cantidadTask) * 10) / 10;
-	    if (isNaN(mediaCycle)) {
-	        mediaCycle = 0;
-	    }
-	    if (isNaN(mediaLead)) {
-	        mediaLead = 0;
-	    }
-	     var array = [mediaCycle,mediaLead];
-	    return array;
-	
-}
+
 function rellenarResultados() {
-    resultadosO = nuevoObjetoResultados();
-    var mediaCycle = 0;
-    var mediaLead = 0;
+    resultadosO = nuevoObjetoResultados();   
     var cantidadTask = 0;
     var mediaPorFases = new Array();
     var mediaPorTarea = new Array();
@@ -70,12 +46,7 @@ function rellenarResultados() {
         resultadosO.taskPhasesSeconds.push(task.phasesTime);
         resultadosO.phaseStatesSeconds.push(task.timeByStats);
         mediaPorFases.push(task.timeByStats);
-        mediaCycle += task.cycleTime;
-        mediaLead += task.leadTime;
-        if (task.cycleTime != 0) {
-            cantidadTask++;
-        }
-
+       
         mediaPorTarea.push(calcularMediaPorTarea(mediaPorTarea, task.timeByStats));
         task.timeByStats.forEach(function (times) {
             var time = JSON.stringify(times);
@@ -92,16 +63,6 @@ function rellenarResultados() {
     if (isNaN(sumaEstadosTotal)) {
         sumaEstadosTotal = 0;
     }
-
-    mediaCycle = Math.round((mediaCycle / cantidadTask) * 10) / 10;
-    mediaLead = Math.round((mediaLead / cantidadTask) * 10) / 10;
-    if (isNaN(mediaCycle)) {
-        mediaCycle = 0;
-    }
-    if (isNaN(mediaLead)) {
-        mediaLead = 0;
-    }
-
     var mediasCLyCL = calcularMediaCycleAndLead();
 
     resultadosO.taskMediaCL.push(mediasCLyCL[0], mediasCLyCL[1]);
@@ -116,35 +77,7 @@ function rellenarResultados() {
         resultadosO.phaseSecondsTotal.push(phase.period);
 
     });
-
-    resultMediaPorFases = mediaFasestotal(mediaPorFases);
-    numerotareas = resultMediaPorFases[resultMediaPorFases.length - 1];
-    sumaEstadosTotal = Math.round(((sumatodo + sumaDoing + sumadone) / numerotareas) * 10) / 10;
-    if (isNaN(sumaEstadosTotal)) {
-        sumaEstadosTotal = 0;
-    }
-
-    mediaCycle = Math.round((mediaCycle / cantidadTask) * 10) / 10;
-    mediaLead = Math.round((mediaLead / cantidadTask) * 10) / 10;
-    if (isNaN(mediaCycle)) {
-        mediaCycle = 0;
-    }
-    if (isNaN(mediaLead)) {
-        mediaLead = 0;
-    }
-
-    resultadosO.taskMediaCL.push(mediaCycle, mediaLead);
-    resultadosO.phaseSumaStates.push(resultMediaPorFases[resultMediaPorFases.length - 2]);
-    resultMediaPorFases.splice(resultMediaPorFases.length - 2, 2);
-
-    resultadosO.phaseMediaFase.push(resultMediaPorFases);
-    resultadosO.phaseMediaTask.push(mediaPorTarea);
-    resultadosO.phaseMediaTotal = sumaEstadosTotal;
-
-    listPhases.forEach(function (phase) {
-        resultadosO.phaseSecondsTotal.push(phase.period);
-    });
-
+    
     listUsers.forEach(function (user) {
 
         resultadosO.userTaskWorked.push(user.tasksWorked);
@@ -193,6 +126,29 @@ function buscarMasTrabajador(opcion) {
         array.push(arrayValores[1], arrayValores[3]);
         return array;
     }
+}
+function calcularMediaCycleAndLead(){
+	var cantidadTask = 0;
+	var mediaCycle = 0;
+	var mediaLead = 0;
+	 listTareas.forEach(function (task) {
+		 mediaCycle += task.cycleTime;
+	     mediaLead += task.leadTime;
+		 if (task.cycleTime != 0) {
+	            cantidadTask++;
+	        }
+	 });
+	 mediaCycle = Math.round((mediaCycle / cantidadTask) * 10) / 10;
+	    mediaLead = Math.round((mediaLead / cantidadTask) * 10) / 10;
+	    if (isNaN(mediaCycle)) {
+	        mediaCycle = 0;
+	    }
+	    if (isNaN(mediaLead)) {
+	        mediaLead = 0;
+	    }
+	     var array = [mediaCycle,mediaLead];
+	    return array;
+	
 }
 
 //_______________________________________________________________

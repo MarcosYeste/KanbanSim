@@ -49,7 +49,7 @@ var poisson = 0;  			// Tiempo en el que entrara la proxima tarea en distribuci√
 var poissonCounter = 0;
 var weight = "M"; 	
 var weightTime = 0; 		// Tiempo en el que entrara la proxima tarea en uniforme con peso
-
+var mediasCLyCL = 0;
 
 var weightCounter = 0;
 var numOfBacklogCalled = 0; // Veces que se ha generado un tiempo en backlog constante
@@ -423,7 +423,10 @@ function play() {
 							task.leadTime = leadTime;
 							task.phase = (-1);
 							saveTimeStates(task,leadTime,i);
-							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);							
+							//marcos
+							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);	
+							mediasCLyCL = calcularMediaCycleAndLead();
+							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 							exitVelocity++;
 							indiceTareas = getIndex(task.name) - 1;							
@@ -838,9 +841,8 @@ function play() {
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-				var mediasCLyCL = calcularMediaCycleAndLead();
+				
 				if(showLTandCLtensecs == 10){
-
 					if(TII < T ){
 						if(document.getElementById("saturacion").children.length < 2){
 							document.getElementById("saturacion").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
@@ -848,13 +850,10 @@ function play() {
 							document.getElementById("saturacion2").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
 							document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
 
-						}
-
-						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(2) * 10+"   -   LT: 0";
-						document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
+						}						
+						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(2) * 10+"   -   LT: 0";
 						document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(2) * 10  + "</b>";		
 					}else{
-
 						console.log("elsesat");
 						document.getElementById("saturacion").innerHTML = "<span class='tooltiptext'>Sobresaturaci√≥n</span>";
 						document.getElementById("saturacion").setAttribute("class","");
@@ -872,13 +871,11 @@ function play() {
 						if(!isNaN(eLT)){
 							console.log("a")
 							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eLT + "  ,  " +  eCT.toFixed(0)  + "</b>";
-							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(0)+"   -   LT: "+eLT;
-							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: "+eLT;
 						}else{
 							console.log("b")
 							document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0 , "+  eCT.toFixed(0)  + "</b>";
-							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CL: "+eCT.toFixed(0) +"   -   LT: 0";
-							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CL: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0) +"   -   LT: 0";
 						}
 					}					
 
