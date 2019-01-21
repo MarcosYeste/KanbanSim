@@ -75,9 +75,8 @@ emptyUserData();
 refreshUsers();
 refreshPhases();
 
-console.log("Antes " + speedTime);
+// recogemos de la sesion la velocidad de calculo estimado
 refreshSpeedTimeSession();
-console.log("Despues " + speedTime);
 document.getElementById("speedInput").value = speedTime;
 
 //Guardar al modificar el orden de las fases
@@ -436,7 +435,7 @@ function play() {
 							task.phase = (-1);
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);	
-							mediasCLyCL = calcularMediaCycleAndLead();
+							mediasCLyCL = ultimas20TareasCTyLT(listOfTaskEnded);
 							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 							exitVelocity++;
@@ -475,7 +474,7 @@ function play() {
 						if (((parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length) - 1) +
 								(parseInt(fases[0].lastElementChild.lastElementChild.childNodes.length)  - 1))
 								< listPhases[0].maxTasks) {							
-
+							task.backlogTime = 0;
 							doing.appendChild(divsTareas[0]);
 							task.cycleTime = 0;
 							task.state = "ToDo";
@@ -520,6 +519,8 @@ function play() {
 							if(task.backlogTime > 1){
 								saturation = true;
 								console.log(task.name)
+							} else {
+								saturation = false;
 							}
 							task.backlogTime++;
 						} //if end
