@@ -14,8 +14,8 @@ var chronoTimeTypeSelection = "sec";
 var userO = new Object();
 var taskNameCounter = 0;
 var atributo = "Task1";
-var listOfTaskEnded;
-var sizeArray;
+var listOfTaskEnded = [];
+var sizeArray = 10;
 
 //Variable global donde guardar el JSON con los datos de las plantillas(Blueprints)
 var bluePrint = null;
@@ -860,7 +860,7 @@ function chrono(){
 		sizeArray = document.getElementById("numOfTaskEstimationInput").value;
 		if(sizeArray != undefined && !isNaN(sizeArray)){	
 			sizeArray = parseInt(sizeArray);
-			listOfTaskEnded = new Array ();
+			
 			console.log(listOfTaskEnded.length);
 		}
 	}

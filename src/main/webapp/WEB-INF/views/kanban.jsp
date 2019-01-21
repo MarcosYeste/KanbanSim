@@ -439,7 +439,7 @@ ____________________________________________________________________
 						</div>
 						<div id="numOfTaskdiv">
 							Tareas Estimación: <input type="number"
-								id="numOfTaskEstimationInput" min=0>
+								id="numOfTaskEstimationInput" min="1" value="10">
 						</div>
 					</div>
 

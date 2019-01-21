@@ -184,8 +184,9 @@ input[type="radio"]:disabled+label span, input[type="radio"]:disabled+label
 }
 
 #estimation{
-flex-direction: column;	
+	flex-direction: column;	
 }
+
 #addFasesUser, #modFasesUser{
 	display:flex;
 	flex-direction: row;
