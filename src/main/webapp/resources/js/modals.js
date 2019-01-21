@@ -14,6 +14,8 @@ var chronoTimeTypeSelection = "sec";
 var userO = new Object();
 var taskNameCounter = 0;
 var atributo = "Task1";
+var listOfTaskEnded;
+var sizeArray;
 
 //Variable global donde guardar el JSON con los datos de las plantillas(Blueprints)
 var bluePrint = null;
@@ -542,7 +544,7 @@ function modUsers(){
 			for(var i = 0; i < listUsers[click2].phases.length; i++){
 				if(event.target.value == listUsers[click2].phases[i].trim()){
 
-					listUsers[click2].phases.splice(i, 1);
+					listUsers[click2].phasesF
 					listUsers[click2].skills.splice(i, 1);
 
 					if(listUsers[click2].phases.length == 0){
@@ -749,6 +751,7 @@ function addTareas(weight, creationTime, eCT, eLT){
 	tarea.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 	tarea.weight = weight; 
 	tarea.totalTime = 0;
+	console.log(eCT + " lt " + eLT)
 	if(eCT >= 0){
 		tarea.eCT = eCT;	
 	} else {
@@ -851,6 +854,15 @@ function chrono(){
 	if(document.getElementById("speedInput")){
 		speedTime = document.getElementById("speedInput").value;
 		saveSpeedTimeSession(speedTime);
+		console.log("speed " + speedTime);
+	}
+	if(document.getElementById("numOfTaskEstimationInput")){
+		sizeArray = document.getElementById("numOfTaskEstimationInput").value;
+		if(sizeArray != undefined && !isNaN(sizeArray)){	
+			sizeArray = parseInt(sizeArray);
+			listOfTaskEnded = new Array ();
+			console.log(listOfTaskEnded.length);
+		}
 	}
 }
 
@@ -874,6 +886,30 @@ function showTaskInfo(){
 
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
 	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + object.eLT + " , "+  object.eCT  + "</b>";	
+
+//	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){
+
+//	if( TII < T ){
+//	document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
+//	document.getElementById("saturacion").setAttribute("class","alert alert-danger");	
+//	document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
+//	document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
+//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0, "+  eCT.toFixed(2)  + "</b>";		
+//	}else{			
+//	document.getElementById("saturacion").innerHTML = "";
+//	document.getElementById("saturacion").setAttribute("class","");
+//	document.getElementById("saturacion2").innerHTML = "";
+//	document.getElementById("saturacion2").setAttribute("class","");
+//	var auxLTs= (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(0);
+//	if(!isNaN(auxLTs) || isFinite(auxLTs)){
+//	console.log("c")
+//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLTs + "  ,  " +  eCT.toFixed(0) + "</b>";			
+//	}else{
+//	console.log("d")
+//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(0)  + "</b>";
+//	}	
+//	}					
+//	}
 
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
 	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";

@@ -433,8 +433,16 @@ function play() {
 							task.leadTime = leadTime;
 							task.phase = (-1);
 							saveTimeStates(task,leadTime,i);
-							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);	
-							mediasCLyCL = calcularMediaCycleAndLead();
+							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
+							if(listOfTaskEnded.length == sizeArray){
+								var lastTask  = new Object();
+								lastTask = listOfTaskEnded[listOfTaskEnded.length-1];
+								listOfTaskEnded = new Array();
+								listOfTaskEnded.push(lastTask);
+								}
+							listOfTaskEnded.push(task);
+							console.log(listOfTaskEnded);
+							mediasCLyCL = ultimas20TareasCTyLT(listOfTaskEnded);
 							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 							if(document.getElementsByClassName("contenedorFinal")[0].children.length == 0){
 							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
