@@ -475,7 +475,7 @@ function play() {
 						if (((parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length) - 1) +
 								(parseInt(fases[0].lastElementChild.lastElementChild.childNodes.length)  - 1))
 								< listPhases[0].maxTasks) {							
-
+							task.backlogTime = 0;
 							doing.appendChild(divsTareas[0]);
 							task.cycleTime = 0;
 							task.state = "ToDo";
@@ -700,18 +700,18 @@ function play() {
 				calcLDValues(gaussian);
 				gaussianCounter = 0;
 				// Creamos un objeto nuevo
-				addTareas("",leadTime, eCT, eLT);
+				addTareas("",leadTime, eCT.toFixed(0), eLT.toFixed(0));
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
 				poissonCounter = 0;
-				addTareas("",leadTime, eCT, eLT);
+				addTareas("",leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
 				getWeight();
 				calcLDValues(weightTime);
 				weightCounter = 0;
-				addTareas(weight,leadTime, eCT, eLT);
+				addTareas(weight,leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			}
 		}
 
@@ -825,6 +825,7 @@ function play() {
 		// Veloz
 		if(velocidad == speedTime){
 			console.log("ect1")
+			console.log("sumwip " + sumWip + " exitVelocity " + exitVelocity + " speedTime " + speedTime)
 			if(parseInt((sumWip / exitVelocity)) * speedTime >= 0){
 				eCT =  (sumWip / exitVelocity) * speedTime;
 			}
@@ -834,7 +835,7 @@ function play() {
 				console.log("ect2")
 				eLT = eCT + 1;
 				console.log("eLT " + eLT)
-			} else if (entryVelocity >= exitVelocity){
+			} else if (entryVelocity >= exitVelocity && (entryVelocity > 0 && exitVelocity > 0)){
 				console.log("ect3")
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
 				console.log("TII" + TII + " T " + T + "  VII " + VII + " Vt " + Vt);
@@ -863,6 +864,8 @@ function play() {
 			velocidad = 0;
 			exitVelocity = 0;
 			entryVelocity = 0;
+		} else if (velocidad > speedTime){
+			velocidad = 0;
 		}
 
 		
@@ -887,7 +890,7 @@ function play() {
 							
 						}	
 						saturation= false;
-						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT;
+						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
 						//document.getElementById("modalTaskLTCTValue").innerHTML = "<b>"+ eLT + " , "+  eCT.toFixed(0)  + "</b>";		
 					}else{
 						console.log("elsesat");
@@ -895,18 +898,18 @@ function play() {
 						document.getElementById("saturacion").setAttribute("class","");
 						document.getElementById("saturacion2").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
 						document.getElementById("saturacion2").setAttribute("class","");
-						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT;
+						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
 						//document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(0)  + "</b>";	
 											
 						console.log("total " + eLT)
 						if(!isNaN(eLT)){
 							console.log("a")
 							//document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + eLT + "  ,  " +  eCT.toFixed(0)  + "</b>";
-							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: "+ eLT;
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: "+ eLT.toFixed(0);
 						}else{
 							console.log("b")
 							//document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0 , "+  eCT.toFixed(0)  + "</b>";
-							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0) +"   -   LT: "+ eLT;
+							document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0) +"   -   LT: "+ eLT.toFixed(0);
 						}
 					}					
 
