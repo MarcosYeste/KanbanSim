@@ -67,8 +67,6 @@
 }
 
 .headerTable {
-	/* border: 1px solid red;
-	background-color: #ffd7d7; */
 	width: 80%;
 	height: auto;
 	margin-left: 10%;
@@ -308,7 +306,6 @@ button, *:focus  {
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 	border-radius: 20%;
-	/* margin-left: 40.2%; */
 	width: 27%;
 	height: auto;
 	align-items: center;
@@ -318,8 +315,6 @@ button, *:focus  {
 	justify-content: space-between;
 	padding-left: 27px;
 	padding-right: 8px;
-	/* margin-top: 10px;
-	margin-bottom: 10px; */
 	flex-wrap: wrap;
 }
 

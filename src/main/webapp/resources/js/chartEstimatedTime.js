@@ -5,7 +5,7 @@ if(document.getElementById("chartEstimated")){
 	var chartEstimated = new Chart(ctc, {
 		type: 'line',
 		data: {
-			labels: ["Esfuerzo","Estimated CycleTime","Estimated LeadTime"],
+			labels: ["Esfuerzo Real","CycleTime Estimado","LeadTime Estimado"],
 			datasets: []
 		},
 		options: {

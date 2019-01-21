@@ -441,8 +441,9 @@ function play() {
 							console.log(listOfTaskEnded);
 							mediasCLyCL = ultimas20TareasCTyLT(listOfTaskEnded);
 							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
+							
 							if(document.getElementsByClassName("contenedorFinal")[0].children.length == 0){
-							document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
+								document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 							}else{
 								document.getElementsByClassName("contenedorFinal")[0].insertBefore(divsTareas[k], document.getElementsByClassName("contenedorFinal")[0].children[0]);
 							}
