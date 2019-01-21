@@ -93,7 +93,17 @@ h1 {
 	height: auto;
 }
 
-.form-control[type=color]::-webkit-color-swatch-wrapper, .form-control[type=color]:-moz-color-swatch-wrapper, .form-control[type=color]:-ms-color-swatch-wrapper {
+.form-control[type=color]::-webkit-color-swatch-wrapper {
+	padding: 0;
+	margin: 0;
+}
+
+.form-control[type=color]:-moz-color-swatch-wrapper {
+	padding: 0;
+	margin: 0;
+}
+
+.form-control[type=color]:-ms-color-swatch-wrapper {
 	padding: 0;
 	margin: 0;
 }
@@ -116,7 +126,19 @@ h1 {
 	padding: .5rem .75rem;
 }
 
-.form-control[type=color]::-webkit-color-swatch, .form-control[type=color]::-moz-color-swatch, .form-control[type=color]:-ms-color-swatch {
+.form-control[type=color]::-webkit-color-swatch {
+	height: 22px;
+	padding: 0;
+	margin: 0;
+}
+
+.form-control[type=color]::-moz-color-swatch {
+	height: 22px;
+	padding: 0;
+	margin: 0;
+}
+
+.form-control[type=color]:-ms-color-swatch {
 	height: 22px;
 	padding: 0;
 	margin: 0;
@@ -186,14 +208,12 @@ input[type="radio"]:disabled+label span, input[type="radio"]:disabled+label
 #estimation{
 	flex-direction: column;	
 }
-
 #addFasesUser, #modFasesUser{
 	display:flex;
 	flex-direction: row;
 	align-items: baseline;
 	flex-wrap: wrap;
 }
-
 /*---------------------------------------------------- INFO ----------------------------------------------*/
 .modal-body dd {
 	display: block;
