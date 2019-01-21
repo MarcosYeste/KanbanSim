@@ -204,8 +204,12 @@ input[type="radio"]:disabled+label span, input[type="radio"]:disabled+label
 	margin: 115px 0 0 -77%;
 }
 
-#velDiv{
+#velDiv, #numOfTaskdiv{
 	margin-left: 150px;
+}
+
+#estimation{
+flex-direction: column;	
 }
 
 /*---------------------------------------------------- INFO ----------------------------------------------*/

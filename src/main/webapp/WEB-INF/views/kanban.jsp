@@ -433,9 +433,16 @@ ____________________________________________________________________
 						</div>
 					</div>
 
-					<div id="velDiv">
-						Velocidad: <input type="number" id="speedInput" min=0>
+					<div id="estimation">
+						<div id="velDiv">
+							Velocidad: <input type="number" id="speedInput" min=0>
+						</div>
+						<div id="numOfTaskdiv">
+							Tareas Estimación: <input type="number"
+								id="numOfTaskEstimationInput" min=0>
+						</div>
 					</div>
+
 					<button id="modChrono" class="btn btn-secondary"
 						data-dismiss="modal">Modificar</button>
 				</div>
