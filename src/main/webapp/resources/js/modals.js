@@ -231,16 +231,26 @@ function addUsers(){
 		var phaseCheck = document.createElement("input");
 		var type = document.createAttribute("type");  
 		var attr = document.createAttribute("class");
+		var attrId = document.createAttribute("id");
 		var val = document.createAttribute("value");
+		var label = document.createElement("label");
+		var labelFor =  document.createAttribute("for");
 		var texto = phasesName[i].childNodes[0].textContent.trim();
-		type.value = "checkbox";  
+		
+		label.append(texto);
+		labelFor.value = texto;
+		type.value = "checkbox";
 		attr.value = "addUserPhaseCheck"; 
+		attrId.value = texto;
 		val.value = texto;
-		phaseCheck.setAttributeNode(type);
+		
+		label.setAttributeNode(labelFor);
+		phaseCheck.setAttributeNode(type); 
+		phaseCheck.setAttributeNode(attrId); 
 		phaseCheck.setAttributeNode(attr);
 		phaseCheck.setAttributeNode(val);
 		$("#addFasesUser").append(phaseCheck);
-		$("#addFasesUser").append(texto);
+		$("#addFasesUser").append(label);
 	}
 
 	allcheckBox = $(".addUserPhaseCheck");
@@ -472,16 +482,27 @@ function modUsers(){
 		var phaseCheck = document.createElement("input");
 		var type = document.createAttribute("type");  
 		var attr = document.createAttribute("class");
+		var attrId = document.createAttribute("id");
 		var val = document.createAttribute("value");
+		var label = document.createElement("label");
+		var labelFor =  document.createAttribute("for");
 		var texto = phasesName[i].childNodes[0].textContent.trim();
+		
 		type.value = "checkbox";  
 		attr.value = "modUserPhaseCheck"; 
 		val.value = texto;
+		label.append(texto);
+		labelFor.value = texto + "2";
+		attrId.value = texto + "2";
+		val.value = texto;
+		
+		label.setAttributeNode(labelFor);
 		phaseCheck.setAttributeNode(type);
+		phaseCheck.setAttributeNode(attrId);
 		phaseCheck.setAttributeNode(attr);
 		phaseCheck.setAttributeNode(val);
 		$("#modFasesUser").append(phaseCheck);
-		$("#modFasesUser").append(texto);
+		$("#modFasesUser").append(label);
 	}
 
 	allcheckBox = $(".modUserPhaseCheck");
