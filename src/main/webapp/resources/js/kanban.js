@@ -520,6 +520,8 @@ function play() {
 							if(task.backlogTime > 1){
 								saturation = true;
 								console.log(task.name)
+							} else {
+								saturation = false;
 							}
 							task.backlogTime++;
 						} //if end
