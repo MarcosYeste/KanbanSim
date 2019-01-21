@@ -728,7 +728,6 @@ function addTareas(weight, creationTime, eCT, eLT){
 	tarea.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 	tarea.weight = weight; 
 	tarea.totalTime = 0;
-	console.log(eCT + " lt " + eLT)
 	if(eCT >= 0){
 		tarea.eCT = eCT;	
 	} else {
@@ -764,7 +763,7 @@ if (chronoTimeTypeSelection == "sec") {
 		document.getElementsByName("chronoTimeType")[0].setAttribute("checked", "");
 	}
 } else {
-	document.getElementById("modChronoTime").value = chronoTime / 60;
+	document.getElementById("modChronoTime").value = parseInt(chronoTime / 60);
 	document.getElementsByName("chronoTimeType")[1].setAttribute("checked", "");
 }
 
@@ -804,7 +803,7 @@ function chrono(){
 				// Si el resultado son minutos
 				if(parseInt(document.getElementById("modChronoTime").value) <= 99){
 					if(parseInt(document.getElementById("modChronoTime").value) >= 0){
-						chronoTime = (document.getElementById("modChronoTime").value * 60);
+						chronoTime = parseInt(document.getElementById("modChronoTime").value * 60);
 					} else {
 						chronoTime = 0;
 					}
@@ -815,10 +814,10 @@ function chrono(){
 					chronoTime = (99 * 60);
 				}
 
-				if (parseInt(document.getElementById("modChronoTime").value, 10) < 10) {
-					document.getElementById("chronoViewer").innerHTML = "0" + document.getElementById("modChronoTime").value + ":00";
+				if (parseInt(document.getElementById("modChronoTime").value) < 10) {
+					document.getElementById("chronoViewer").innerHTML = "0" + parseInt(document.getElementById("modChronoTime").value) + ":00";
 				} else {
-					document.getElementById("chronoViewer").innerHTML = document.getElementById("modChronoTime").value + ":00";
+					document.getElementById("chronoViewer").innerHTML = parseInt(document.getElementById("modChronoTime").value) + ":00";
 				}
 			}
 			chronoTimeTypeSelection = radios[i].value;
@@ -831,7 +830,6 @@ function chrono(){
 	if(document.getElementById("speedInput")){
 		speedTime = document.getElementById("speedInput").value;
 		saveSpeedTimeSession(speedTime);
-		console.log("speed " + speedTime);
 	}
 }
 
@@ -855,30 +853,6 @@ function showTaskInfo(){
 
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
 	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + object.eLT + " , "+  object.eCT  + "</b>";	
-
-//	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){
-
-//	if( TII < T ){
-//	document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
-//	document.getElementById("saturacion").setAttribute("class","alert alert-danger");	
-//	document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
-//	document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0, "+  eCT.toFixed(2)  + "</b>";		
-//	}else{			
-//	document.getElementById("saturacion").innerHTML = "";
-//	document.getElementById("saturacion").setAttribute("class","");
-//	document.getElementById("saturacion2").innerHTML = "";
-//	document.getElementById("saturacion2").setAttribute("class","");
-//	var auxLTs= (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(0);
-//	if(!isNaN(auxLTs) || isFinite(auxLTs)){
-//	console.log("c")
-//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLTs + "  ,  " +  eCT.toFixed(0) + "</b>";			
-//	}else{
-//	console.log("d")
-//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(0)  + "</b>";
-//	}	
-//	}					
-//	}
 
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
 	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";
