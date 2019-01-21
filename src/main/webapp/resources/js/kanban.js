@@ -474,7 +474,7 @@ function play() {
 						if (((parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length) - 1) +
 								(parseInt(fases[0].lastElementChild.lastElementChild.childNodes.length)  - 1))
 								< listPhases[0].maxTasks) {							
-
+							task.backlogTime = 0;
 							doing.appendChild(divsTareas[0]);
 							task.cycleTime = 0;
 							task.state = "ToDo";
@@ -519,6 +519,8 @@ function play() {
 							if(task.backlogTime > 1){
 								saturation = true;
 								console.log(task.name)
+							} else {
+								saturation = false;
 							}
 							task.backlogTime++;
 						} //if end

@@ -764,7 +764,7 @@ if (chronoTimeTypeSelection == "sec") {
 		document.getElementsByName("chronoTimeType")[0].setAttribute("checked", "");
 	}
 } else {
-	document.getElementById("modChronoTime").value = chronoTime / 60;
+	document.getElementById("modChronoTime").value = parseInt(chronoTime / 60);
 	document.getElementsByName("chronoTimeType")[1].setAttribute("checked", "");
 }
 
@@ -804,7 +804,7 @@ function chrono(){
 				// Si el resultado son minutos
 				if(parseInt(document.getElementById("modChronoTime").value) <= 99){
 					if(parseInt(document.getElementById("modChronoTime").value) >= 0){
-						chronoTime = (document.getElementById("modChronoTime").value * 60);
+						chronoTime = parseInt(document.getElementById("modChronoTime").value * 60);
 					} else {
 						chronoTime = 0;
 					}
@@ -815,10 +815,10 @@ function chrono(){
 					chronoTime = (99 * 60);
 				}
 
-				if (parseInt(document.getElementById("modChronoTime").value, 10) < 10) {
-					document.getElementById("chronoViewer").innerHTML = "0" + document.getElementById("modChronoTime").value + ":00";
+				if (parseInt(document.getElementById("modChronoTime").value) < 10) {
+					document.getElementById("chronoViewer").innerHTML = "0" + parseInt(document.getElementById("modChronoTime").value) + ":00";
 				} else {
-					document.getElementById("chronoViewer").innerHTML = document.getElementById("modChronoTime").value + ":00";
+					document.getElementById("chronoViewer").innerHTML = parseInt(document.getElementById("modChronoTime").value) + ":00";
 				}
 			}
 			chronoTimeTypeSelection = radios[i].value;
