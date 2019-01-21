@@ -10,9 +10,6 @@ body, html {
 	-ms-user-select: none;
 	user-select: none;
 }
-*:focus {
-    outline: none;
-}
 .start {
 	margin-top: 10%;
 	margin-left: 45%;
@@ -28,24 +25,24 @@ header {
 
 /* Spin animation reset Button */
 div #reset:hover {
+	/* Safari */
 	-webkit-animation-name: spin;
-	/* Safari */
 	-webkit-animation-duration: 1000ms;
-	/* Safari */
 	-webkit-animation-iteration-count: 1;
 	-webkit-animation-timing-function: linear;
 	-moz-animation-name: spin;
+	
 	/* Mozilla */
 	-moz-animation-duration: 1000ms;
-	/* Mozilla */
 	-moz-animation-iteration-count: 1;
 	-moz-animation-timing-function: linear;
 	-ms-animation-name: spin;
+	
 	/* Explorer */
 	-ms-animation-duration: 1000ms;
-	/* Explorer */
 	-ms-animation-iteration-count: 1;
 	-ms-animation-timing-function: linear;
+	/* Chrome */
 	animation-name: spin;
 	animation-duration: 500ms;
 	animation-iteration-count: 1;
@@ -96,17 +93,7 @@ h1 {
 	height: auto;
 }
 
-.form-control[type=color]::-webkit-color-swatch-wrapper {
-	padding: 0;
-	margin: 0;
-}
-
-.form-control[type=color]:-moz-color-swatch-wrapper {
-	padding: 0;
-	margin: 0;
-}
-
-.form-control[type=color]:-ms-color-swatch-wrapper {
+.form-control[type=color]::-webkit-color-swatch-wrapper, .form-control[type=color]:-moz-color-swatch-wrapper, .form-control[type=color]:-ms-color-swatch-wrapper {
 	padding: 0;
 	margin: 0;
 }
@@ -129,19 +116,7 @@ h1 {
 	padding: .5rem .75rem;
 }
 
-.form-control[type=color]::-webkit-color-swatch {
-	height: 22px;
-	padding: 0;
-	margin: 0;
-}
-
-.form-control[type=color]::-moz-color-swatch {
-	height: 22px;
-	padding: 0;
-	margin: 0;
-}
-
-.form-control[type=color]:-ms-color-swatch {
+.form-control[type=color]::-webkit-color-swatch, .form-control[type=color]::-moz-color-swatch, .form-control[type=color]:-ms-color-swatch {
 	height: 22px;
 	padding: 0;
 	margin: 0;
@@ -204,8 +179,12 @@ input[type="radio"]:disabled+label span, input[type="radio"]:disabled+label
 	margin: 115px 0 0 -77%;
 }
 
-#velDiv{
+#velDiv, #numOfTaskdiv{
 	margin-left: 150px;
+}
+
+#estimation{
+flex-direction: column;	
 }
 
 /*---------------------------------------------------- INFO ----------------------------------------------*/
@@ -262,11 +241,6 @@ h2 {
 .crono:disabled{
 	cursor:default;
 }
-.clock {
-	/* right: 0;
-	margin-right: 13.5%; */
-}
-
 /*---------------------------------------------------- TABLES ----------------------------------------------*/
 .table-fixed, .table-fixed thead, .table-fixed tbody {
 	table-layout: fixed;
@@ -287,7 +261,6 @@ h2 {
 .table-fixed tbody {
 	height: 270px;
 	overflow: auto;
-	/* overflow-x: auto; */
 	display: block;
 	width: 100%;
 }
