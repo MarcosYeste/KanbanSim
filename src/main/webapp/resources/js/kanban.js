@@ -434,11 +434,8 @@ function play() {
 							task.phase = (-1);
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
-							if(listOfTaskEnded.length == sizeArray){
-								var lastTask  = new Object();
-								lastTask = listOfTaskEnded[listOfTaskEnded.length-1];
-								listOfTaskEnded = new Array();
-								listOfTaskEnded.push(lastTask);
+							if(listOfTaskEnded.length == sizeArray){;
+								listOfTaskEnded.splice(0,1);
 								}
 							listOfTaskEnded.push(task);
 							console.log(listOfTaskEnded);
