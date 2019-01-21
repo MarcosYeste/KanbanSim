@@ -157,12 +157,12 @@ function ultimas20TareasCTyLT(listOfTaskEnded){
 	var mediaCycle = 0;
 	var mediaLead = 0;
 	for (var i = 0; i < listOfTaskEnded.length; i++) {
-		mediaCycle += listOfTaskEnded[i];
+		mediaCycle += listOfTaskEnded[i].cycleTime;
+		mediaLead +=listOfTaskEnded[i].leadTime;
 		
 	}
-	mediaLead= mediaCycle;
-	mediaCycle =  Math.round((mediaCycle / listOfTaskEnded.length - 1) * 10) / 10;
-	mediaLead = Math.round((mediaLead / listOfTaskEnded.length - 1) * 10) / 10;
+	mediaCycle =  Math.round((mediaCycle / listOfTaskEnded.length ) * 10) / 10;
+	mediaLead = Math.round((mediaLead / listOfTaskEnded.length ) * 10) / 10;
 	var array = [mediaCycle,mediaLead];
 	
 	return array;
