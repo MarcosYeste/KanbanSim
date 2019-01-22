@@ -179,7 +179,7 @@ ____________________________________________________________________
 					<canvas id="myChartTask"></canvas>
 				</div>
 				<div class="tab_content" id="tab2">
-					<canvas id="myChartEstimated"></canvas>
+					<canvas id="chartEstimated"></canvas>
 				</div>
 			</div>
 

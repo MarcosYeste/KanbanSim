@@ -60,19 +60,19 @@ function addDataSetEstimated(chart, ecycle, elead, esfuerzo, color, taskname){
 	for (var index = 0; index < chart.data.labels.length; ++index) {
 		if(newDataset.data != undefined){
 			newDataset.data.push(esfuerzo);
-			newDataset.data.push(cycle);
-			newDataset.data.push(lead);
+			newDataset.data.push(ecycle);
+			newDataset.data.push(elead);
 		}
 	}
 
 	return newDataset;
 }
 
-function updateDataTaskEstimated(chart, cycle, lead, esfuerzo, index){
+function updateDataTaskEstimated(chart, ecycle, elead, esfuerzo, index){
 	if(chart.data.datasets[index] != undefined){
 		chart.data.datasets[index].data[0] = esfuerzo;
-		chart.data.datasets[index].data[1] = cycle;
-		chart.data.datasets[index].data[2] = lead;
+		chart.data.datasets[index].data[1] = ecycle;
+		chart.data.datasets[index].data[2] = elead;
 	}
 
 	chart.update();
