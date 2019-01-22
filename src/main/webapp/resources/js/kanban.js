@@ -70,7 +70,7 @@ var eCT = 0;
 var eLT = 0;
 var indiceTareas = 0;
 var saturation = false;
-var numOfTaskEstimation = 0;
+var numOfTaskEstimation = 10;
 
 emptyUserData();
 refreshUsers();
@@ -78,7 +78,8 @@ refreshPhases();
 
 // recogemos de la sesion la velocidad de calculo estimado
 refreshSpeedTimeSession();
-document.getElementById("speedInput").value = speedTime;
+document.getElementById("speedInput").value = parseInt(speedTime);
+document.getElementById("numOfTaskEstimationInput").value = parseInt(numOfTaskEstimation);
 
 //Guardar al modificar el orden de las fases
 sortPhases();
@@ -449,9 +450,10 @@ function play() {
 							}
 							exitVelocity++;
 							indiceTareas = getIndex(task.name) - 1;							
-
+							
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
-
+//							MEJORAR
+//							updateDataTaskEstimated(myChartEstimated, task.eCT, task.eLT, listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
 							updateGraficPhase();
 
 						} else {

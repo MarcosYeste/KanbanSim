@@ -770,7 +770,10 @@ function addTareas(weight, creationTime, eCT, eLT, entryTime){
 	if(document.getElementById("taskChart").style.visibility != "visible"){
 		document.getElementById("taskChart").style.visibility  = "visible";
 	}
-	addDataTask(myChartTask, tarea.cycleTime, tarea.leadTime, tarea.esfuerzo, getRandomColor(),tarea.name);
+	
+	var color = getRandomColor();
+	addDataTask(myChartTask, tarea.cycleTime, tarea.leadTime, tarea.esfuerzo, color,tarea.name);
+//	addDataEstimated(myChartEstimated, tarea.eCT, tarea.eLT, tarea.esfuerzo, color,tarea.name);
 }
 
 
@@ -854,7 +857,6 @@ function chrono(){
 	}
 	if(document.getElementById("speedInput")){
 		speedTime = document.getElementById("speedInput").value;
-		saveSpeedTimeSession(speedTime);
 		console.log("speed " + speedTime);
 	}
 	if(document.getElementById("numOfTaskEstimationInput")){
@@ -868,8 +870,9 @@ function chrono(){
 	if(document.getElementById("numOfTaskEstimationInput")){
 		numOfTaskEstimation = parseInt(document.getElementById("numOfTaskEstimationInput").value);
 		console.log(numOfTaskEstimation + 1)
-//		saveSpeedTimeSession(speedTime);
 	}
+	
+	saveSpeedTimeSession();
 }
 
 
