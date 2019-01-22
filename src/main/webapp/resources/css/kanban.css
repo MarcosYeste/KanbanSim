@@ -23,7 +23,6 @@
 .fin {
 	border: 1px solid #0a80f5;
 	width: 20%;
-	
 }
 
 .contenedorFinal {
@@ -51,7 +50,7 @@
 	align-items: center;
 	justify-content: center;
 	position: absolute;
-	top: 500px;
+	top: 50%;
 	right: 0;
 	bottom: 0;
 	left: 0;
@@ -66,29 +65,29 @@
 	-o-user-select: none;
 	user-select: none;
 }
-.headerTable{
-	/* border: 1px solid red;
-	background-color: #ffd7d7; */
+
+.headerTable {
 	width: 80%;
 	height: auto;
 	margin-left: 10%;
-	display:flex;
+	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: baseline;
 	padding-top: 5px;
 }
-.estimado, .real{
+
+.estimado, .real {
 	display: flex;
-	flex-direction:row;
-	justify-content:space-between;
+	flex-direction: row;
+	justify-content: space-between;
 	font-weight: bolder;
 	padding: 10px;
-	font-size: 120%;	
+	font-size: 120%;
 	text-shadow: 0.1px 0.8px 0.8px #868686;
-	
 }
-.CLCTestimado, .CLCTreal{
+
+.CLCTestimado, .CLCTreal {
 	margin-left: 10px;
 }
 
@@ -105,8 +104,8 @@
 	overflow: hidden;
 }
 
-.faseName>div:not (.titulo ){
-	overflow-y: auto;
+.faseName>div:not(.titulo){
+	overflow-y:auto;
 }
 
 .subfase {
@@ -224,7 +223,8 @@ p.estado {
 }
 
 /*---------------------------------------------------- BOTONES ----------------------------------------------*/
-button {
+/* NO SELECT ON BUTTON NOR ANY KIND OF FOCUS*/
+button, *:focus  {
 	outline: none !important;
 }
 
@@ -241,11 +241,6 @@ button {
 	color: crimson;
 }
 
-/* NO SELECT ON CHECKBOX*/
-input[type="checkbox"]:focus {
-	outline: none;
-}
-
 #delete {
 	color: black;
 }
@@ -254,55 +249,55 @@ input[type="checkbox"]:focus {
 	color: #004a00;
 }
 
-#reset, #deleteAll, #divDeleteTasks, #addUser, #backward, #forward {
+#reset, #deleteAll, #divDeleteTasks, #addUser, #backward, #forward,  #deleteButtons>div, #info{
 	cursor: pointer;
 }
 
 /* SOBRESATURACION */
 #saturacion, #saturacion2 {
-	color:red;
+	color: red;
 	visibility: visible;
 	transition: 1s ease;
 	font-size: 115%;
 	border-radius: 50%;
-
 }
 
 .tooltiptext {
-  visibility: hidden;
-  width: 150px;
-  background-color: red;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 110%;
-  left: 50%;
-  margin-left: -75px;
+	visibility: hidden;
+	width: 150px;
+	background-color: red;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 1;
+	bottom: 110%;
+	left: 50%;
+	margin-left: -75px;
 }
 
-.tooltiptext::after  {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: red transparent transparent transparent;
+.tooltiptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: red transparent transparent transparent;
 }
 
-#saturacion:hover .tooltiptext, #saturacion2:hover .tooltiptext, #velocityAlert:hover .tooltiptext {
-  visibility: visible;
+#saturacion:hover .tooltiptext, #saturacion2:hover .tooltiptext,
+	#velocityAlert:hover .tooltiptext {
+	visibility: visible;
 }
 
-#velocityAlert .tooltiptext{
+#velocityAlert .tooltiptext {
 	background-color: orange !important;
 }
 
-#velocityAlert .tooltiptext::after{
+#velocityAlert .tooltiptext::after {
 	border-color: orange transparent transparent transparent !important;
 }
 
@@ -311,7 +306,6 @@ input[type="checkbox"]:focus {
 	box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19);
 	border-radius: 20%;
-	/* margin-left: 40.2%; */
 	width: 27%;
 	height: auto;
 	align-items: center;
@@ -321,8 +315,6 @@ input[type="checkbox"]:focus {
 	justify-content: space-between;
 	padding-left: 27px;
 	padding-right: 8px;
-	/* margin-top: 10px;
-	margin-bottom: 10px; */
 	flex-wrap: wrap;
 }
 
@@ -367,10 +359,6 @@ input[type="checkbox"]:focus {
 	text-align: justify;
 }
 
-#deleteButtons>div {
-	cursor: pointer;
-}
-
 #arrow {
 	color: black;
 	background-color: #999999;
@@ -383,7 +371,7 @@ input[type="checkbox"]:focus {
 }
 
 .resultbutt, .doubleButton>button, #doubleButton>button, #forward,
-	#backward {
+	#backward, #addUser, #addTask {
 	background-color: transparent;
 	border: transparent;
 }
@@ -399,11 +387,6 @@ input[type="checkbox"]:focus {
 	cursor: default;
 }
 
-#addUser, #addTask {
-	background-color: transparent;
-	border: transparent;
-}
-
 #addUser:hover {
 	color: olive;
 }
@@ -412,18 +395,15 @@ input[type="checkbox"]:focus {
 	position: absolute;
 	margin-left: 5%;
 	margin-top: 2%;
-} 
+}
 
-#velocityAlert{
+#velocityAlert {
 	margin-top: 7%;
 	color: #df9200;
 }
+
 #addTask:active {
 	transform: translate(1px, 2px);
-}
-
-#info {
-	cursor: pointer;
 }
 
 #infoIcon:hover {
@@ -599,7 +579,7 @@ input[type="checkbox"]:focus {
 	cursor: pointer;
 }
 
-teamField {
+.teamField {
 	width: auto;
 	height: auto;
 }
@@ -624,88 +604,16 @@ i {
 }
 /*---------------------------------------------------MEDIA QUERYS------------------------------------------------------------*/
 @media screen and (max-width: 1530px) {
-	.rewindAndForward{
-	margin-right: 4%;
-	}
-	.playAndReset{
-	margin-left: 4%;
-	}
-}
-/* @media screen and (max-width: 1450px) {
-	#saturacion, #saturacion2 {
-		visibility: hidden;
-	}
-	.botonesContainer {
-		width: 17%;
-		height: auto;
-		margin-left: 39% !important;
+	.rewindAndForward {
+		margin-right: 4%;
 	}
 	.playAndReset {
-		margin-left: 26%;
-		margin-top: 1%;
-	}
-	.rewindAndForward {
-		margin-left: 14%;
+		margin-left: 4%;
 	}
 }
 
-@media screen and (max-width: 1260px) {
-	.botonesContainer {
-		width: 23%;
-		height: auto;
-		margin-left: 37% !important;
+@media screen and (max-height: 681px) {
+	.contenedor:after {
+		content: "";
 	}
 }
-
-@media screen and (max-width: 375px) {
-	.botonesContainer {
-		width: 45% !important;
-		height: 10%;
-		margin-left: 30% !important;
-	}
-	.clock {
-		margin-right: 5% !important;
-	}
-	.crono {
-		margin-left: 5% !important;
-	}
-	.clock, .crono {
-		margin-top: 10%;
-	}
-}
-
-@media screen and (max-width: 755p
-	.botonesContainer {
-		width: 34%;
-		height: auto;
-		margin-left: 35% !important;
-	}
-	.clock {
-		margin-right: 5% !important;
-	}
-	.crono {
-		margin-left: 5% !important;
-	}
-}
-
-@media screen and (max-width: 1694px) {
-	i, #multiplicador {
-		font-size: 2em;
-	}
-	.doubleButton>button, #doubleButton>button {
-		margin: 25px 45px !important;
-	}
-}
-
-@media screen and (max-width: 950px) {
-	.texto {
-		display: none;
-	}
-	.clock, .crono {
-		width: 50px;
-		height: 40px;
-		font-size: 50% !important;
-		padding-top: 7px;
-		padding-right: 3px;
-	}
-} */

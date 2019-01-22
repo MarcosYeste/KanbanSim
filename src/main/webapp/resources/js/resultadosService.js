@@ -127,10 +127,12 @@ function buscarMasTrabajador(opcion) {
         return array;
     }
 }
-function calcularMediaCycleAndLead(){
+// var listTareasFinalizadas = new Array();
+function calcularMediaCycleAndLead(listOfTask){	
 	var cantidadTask = 0;
 	var mediaCycle = 0;
 	var mediaLead = 0;
+
 	 listTareas.forEach(function (task) {
 		 mediaCycle += task.cycleTime;
 	     mediaLead += task.leadTime;
@@ -148,6 +150,52 @@ function calcularMediaCycleAndLead(){
 	    }
 	     var array = [mediaCycle,mediaLead];
 	    return array;
+	
+}
+function ultimas20TareasCTyLT(listOfTaskEnded){
+	
+	var mediaCycle = 0;
+	var mediaLead = 0;
+	for (var i = 0; i < listOfTaskEnded.length; i++) {
+		mediaCycle += listOfTaskEnded[i].cycleTime;
+		mediaLead +=listOfTaskEnded[i].leadTime;
+		
+	}
+	mediaCycle =  Math.round((mediaCycle / listOfTaskEnded.length ) * 10) / 10;
+	mediaLead = Math.round((mediaLead / listOfTaskEnded.length ) * 10) / 10;
+	var array = [mediaCycle,mediaLead];
+	
+	return array;
+	
+	
+//	
+//	//var ultimaTarea = (parseInt(name.replace("Task",""))) -1;	
+//	var mediaCycle = 0;
+//	var mediaLead = 0;
+//	var cantidad = 0;
+//	numOfTask = numOfTask -1;
+//
+//		try {
+//		for (var i =  numOfTask; i > 0 && cantidad != numOfTask; i--) {
+//			mediaCycle += listTareas[i].cycleTime;		
+//			cantidad++;
+//		}
+//		
+//		mediaLead = mediaCycle;
+//		mediaCycle = Math.round((mediaCycle / cantidad) * 10) / 10;
+//		mediaLead = Math.round((mediaLead / cantidad) * 10) / 10;
+//		 if (isNaN(mediaCycle)) {
+//		        mediaCycle = 0;
+//		    }
+//		    if (isNaN(mediaLead)) {
+//		        mediaLead = 0;
+//		    }
+//		    var array = [mediaCycle,mediaLead];
+//		    return array;
+//		}catch(e){
+//			
+//			return calcularMediaCycleAndLead();
+//		}
 	
 }
 

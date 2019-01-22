@@ -302,5 +302,6 @@ new CampoNumerico('#normalBaseValue');
 new CampoNumerico('#normalVarianceValue');
 new CampoNumerico('#poissonLambda');
 new CampoNumerico('#weightTimeLapse');
+new CampoNumerico('#numOfTaskEstimationInput');
 
 })

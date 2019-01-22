@@ -14,6 +14,8 @@ var chronoTimeTypeSelection = "sec";
 var userO = new Object();
 var taskNameCounter = 0;
 var atributo = "Task1";
+var listOfTaskEnded = [];
+var sizeArray = 10;
 
 //Variable global donde guardar el JSON con los datos de las plantillas(Blueprints)
 var bluePrint = null;
@@ -231,16 +233,26 @@ function addUsers(){
 		var phaseCheck = document.createElement("input");
 		var type = document.createAttribute("type");  
 		var attr = document.createAttribute("class");
+		var attrId = document.createAttribute("id");
 		var val = document.createAttribute("value");
+		var label = document.createElement("label");
+		var labelFor =  document.createAttribute("for");
 		var texto = phasesName[i].childNodes[0].textContent.trim();
-		type.value = "checkbox";  
+		
+		label.append(texto);
+		labelFor.value = texto;
+		type.value = "checkbox";
 		attr.value = "addUserPhaseCheck"; 
+		attrId.value = texto;
 		val.value = texto;
-		phaseCheck.setAttributeNode(type);
+		
+		label.setAttributeNode(labelFor);
+		phaseCheck.setAttributeNode(type); 
+		phaseCheck.setAttributeNode(attrId); 
 		phaseCheck.setAttributeNode(attr);
 		phaseCheck.setAttributeNode(val);
 		$("#addFasesUser").append(phaseCheck);
-		$("#addFasesUser").append(texto);
+		$("#addFasesUser").append(label);
 	}
 
 	allcheckBox = $(".addUserPhaseCheck");
@@ -472,16 +484,27 @@ function modUsers(){
 		var phaseCheck = document.createElement("input");
 		var type = document.createAttribute("type");  
 		var attr = document.createAttribute("class");
+		var attrId = document.createAttribute("id");
 		var val = document.createAttribute("value");
+		var label = document.createElement("label");
+		var labelFor =  document.createAttribute("for");
 		var texto = phasesName[i].childNodes[0].textContent.trim();
+		
 		type.value = "checkbox";  
 		attr.value = "modUserPhaseCheck"; 
 		val.value = texto;
+		label.append(texto);
+		labelFor.value = texto + "2";
+		attrId.value = texto + "2";
+		val.value = texto;
+		
+		label.setAttributeNode(labelFor);
 		phaseCheck.setAttributeNode(type);
+		phaseCheck.setAttributeNode(attrId);
 		phaseCheck.setAttributeNode(attr);
 		phaseCheck.setAttributeNode(val);
 		$("#modFasesUser").append(phaseCheck);
-		$("#modFasesUser").append(texto);
+		$("#modFasesUser").append(label);
 	}
 
 	allcheckBox = $(".modUserPhaseCheck");
@@ -521,7 +544,7 @@ function modUsers(){
 			for(var i = 0; i < listUsers[click2].phases.length; i++){
 				if(event.target.value == listUsers[click2].phases[i].trim()){
 
-					listUsers[click2].phases.splice(i, 1);
+					listUsers[click2].phasesF
 					listUsers[click2].skills.splice(i, 1);
 
 					if(listUsers[click2].phases.length == 0){
@@ -729,6 +752,7 @@ function addTareas(weight, creationTime, eCT, eLT, entryTime){
 	tarea.weight = weight; 
 	tarea.entryTime = entryTime;
 	tarea.totalTime = 0;
+	console.log(eCT + " lt " + eLT)
 	if(eCT >= 0){
 		tarea.eCT = eCT;	
 	} else {
@@ -831,6 +855,14 @@ function chrono(){
 	if(document.getElementById("speedInput")){
 		speedTime = document.getElementById("speedInput").value;
 		saveSpeedTimeSession(speedTime);
+		console.log("speed " + speedTime);
+	}
+	if(document.getElementById("numOfTaskEstimationInput")){
+		sizeArray = document.getElementById("numOfTaskEstimationInput").value;
+		if(sizeArray == undefined || !isNaN(sizeArray)){	
+			sizeArray = 10;
+			
+		}
 	}
 	
 	if(document.getElementById("numOfTaskEstimationInput")){
@@ -860,6 +892,30 @@ function showTaskInfo(){
 
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
 	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + object.eLT + " , "+  object.eCT  + "</b>";	
+
+//	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){
+
+//	if( TII < T ){
+//	document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
+//	document.getElementById("saturacion").setAttribute("class","alert alert-danger");	
+//	document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
+//	document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
+//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0, "+  eCT.toFixed(2)  + "</b>";		
+//	}else{			
+//	document.getElementById("saturacion").innerHTML = "";
+//	document.getElementById("saturacion").setAttribute("class","");
+//	document.getElementById("saturacion2").innerHTML = "";
+//	document.getElementById("saturacion2").setAttribute("class","");
+//	var auxLTs= (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(0);
+//	if(!isNaN(auxLTs) || isFinite(auxLTs)){
+//	console.log("c")
+//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLTs + "  ,  " +  eCT.toFixed(0) + "</b>";			
+//	}else{
+//	console.log("d")
+//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(0)  + "</b>";
+//	}	
+//	}					
+//	}
 
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
 	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";
