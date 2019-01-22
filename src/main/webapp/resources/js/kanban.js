@@ -670,6 +670,10 @@ function play() {
 				sumWip++;
 			}
 		});
+		/* Provisional
+		 for(var j = 0; j < numOfTaskEstimation; j++){
+		 }
+		 */
 
 		T = totalTimeSum / numOfTasksEnded;
 
