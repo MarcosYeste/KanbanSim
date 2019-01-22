@@ -453,7 +453,7 @@ function play() {
 							}
 							exitVelocity++;
 							indiceTareas = getIndex(task.name) - 1;							
-							
+							 
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
 
 							updateDataTaskEstimated(chartEstimated, task.eCT, task.eLT, listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
