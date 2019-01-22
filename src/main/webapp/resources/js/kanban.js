@@ -147,13 +147,13 @@ if(document.getElementById("reset")){
 	});
 }
 
-//Botón nuevo Tablero	
-if(document.getElementById("divDelete")){
-	document.getElementById("divDelete").addEventListener("click", function() {
-		sessionStorage.clear();
-		location.reload();
-	});
-}
+////Botón nuevo Tablero	
+//if(document.getElementById("divDelete")){
+//	document.getElementById("divDelete").addEventListener("click", function() {
+//		sessionStorage.clear();
+//		location.reload();
+//	});
+//}
 
 //____________________________________________________________________
 
