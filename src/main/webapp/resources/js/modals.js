@@ -725,7 +725,7 @@ function rmvModUsers() {
 //___________________________________________________________________
 
 /* Mejora, si un caso, que se guarde en el controller */
-function addTareas(weight, creationTime, eCT, eLT){
+function addTareas(weight, creationTime, eCT, eLT, entryTime){
 	if(isNaN(creationTime)){creationTime = 0;}
 	// Incrementamos el numero
 	taskNameCounter ++;
@@ -750,6 +750,7 @@ function addTareas(weight, creationTime, eCT, eLT){
 	tarea.statsTime = new Array();
 	tarea.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 	tarea.weight = weight; 
+	tarea.entryTime = entryTime;
 	tarea.totalTime = 0;
 	console.log(eCT + " lt " + eLT)
 	if(eCT >= 0){
@@ -769,7 +770,10 @@ function addTareas(weight, creationTime, eCT, eLT){
 	if(document.getElementById("taskChart").style.visibility != "visible"){
 		document.getElementById("taskChart").style.visibility  = "visible";
 	}
-	addDataTask(myChartTask, tarea.cycleTime, tarea.leadTime, tarea.esfuerzo, getRandomColor(),tarea.name);
+	
+	var color = getRandomColor();
+	addDataTask(myChartTask, tarea.cycleTime, tarea.leadTime, tarea.esfuerzo, color,tarea.name);
+//	addDataEstimated(myChartEstimated, tarea.eCT, tarea.eLT, tarea.esfuerzo, color,tarea.name);
 }
 
 
@@ -853,7 +857,6 @@ function chrono(){
 	}
 	if(document.getElementById("speedInput")){
 		speedTime = document.getElementById("speedInput").value;
-		saveSpeedTimeSession(speedTime);
 		console.log("speed " + speedTime);
 	}
 	if(document.getElementById("numOfTaskEstimationInput")){
@@ -863,6 +866,13 @@ function chrono(){
 			
 		}
 	}
+	
+	if(document.getElementById("numOfTaskEstimationInput")){
+		numOfTaskEstimation = parseInt(document.getElementById("numOfTaskEstimationInput").value);
+		console.log(numOfTaskEstimation + 1)
+	}
+	
+	saveSpeedTimeSession();
 }
 
 

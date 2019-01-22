@@ -71,6 +71,7 @@ var eLT = 0;
 var indiceTareas = 0;
 var saturation = false;
 var speedForChart = 0;
+var numOfTaskEstimation = 10;
 
 emptyUserData();
 refreshUsers();
@@ -78,7 +79,8 @@ refreshPhases();
 
 // recogemos de la sesion la velocidad de calculo estimado
 refreshSpeedTimeSession();
-document.getElementById("speedInput").value = speedTime;
+document.getElementById("speedInput").value = parseInt(speedTime);
+document.getElementById("numOfTaskEstimationInput").value = parseInt(numOfTaskEstimation);
 
 //Guardar al modificar el orden de las fases
 sortPhases();
@@ -322,7 +324,6 @@ function play() {
 													}
 												}
 
-												/**/
 
 												//Antigüo sistema
 //												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){
@@ -451,9 +452,10 @@ function play() {
 							}
 							exitVelocity++;
 							indiceTareas = getIndex(task.name) - 1;							
-
+							
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
-
+//							MEJORAR
+//							updateDataTaskEstimated(myChartEstimated, task.eCT, task.eLT, listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
 							updateGraficPhase();
 
 						} else {
@@ -709,18 +711,18 @@ function play() {
 				calcLDValues(gaussian);
 				gaussianCounter = 0;
 				// Creamos un objeto nuevo
-				addTareas("",leadTime, eCT, eLT);
+				addTareas("",leadTime, eCT.toFixed(0), eLT.toFixed(0));
 				// Y lo printamos
 			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
 				poissonCounter = 0;
-				addTareas("",leadTime, eCT, eLT);
+				addTareas("",leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
 				getWeight();
 				calcLDValues(weightTime);
 				weightCounter = 0;
-				addTareas(weight,leadTime, eCT, eLT);
+				addTareas(weight,leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			}
 		}
 
@@ -730,18 +732,46 @@ function play() {
 				backLogCollector.push(distributionValue);
 				numOfBacklogCalled++;
 
+//				var totalSumBackLog = 0;
+//				for(var j = 0; j < backLogCollector.length; j++){
+//					totalSumBackLog+= backLogCollector[j];
+//				}
+				
+				/* Provisional*/
 				var totalSumBackLog = 0;
-				for(var j = 0; j < backLogCollector.length; j++){
-					totalSumBackLog+= backLogCollector[j];
-				}
-				TII = totalSumBackLog / numOfBacklogCalled;
 				var totalSum = 0;
-				for(var i = 0; i < numOfBacklogCalled; i++){
-					//corregir al cuadrado
-					totalSum += Math.pow(backLogCollector[i] - TII, 2);
+				console.log("backLogCollector.length " + backLogCollector.length + "  numOfTaskEstimation " + (numOfTaskEstimation - 1));
+				if(backLogCollector.length < numOfTaskEstimation){
+					for(var j = 0; j < backLogCollector.length; j++){
+						totalSumBackLog+= backLogCollector[j];
+						console.log("j " + j);
+					}
+					TII = totalSumBackLog / numOfBacklogCalled;
+					
+					for(var i = 0; i < numOfBacklogCalled; i++){
+						//corregir al cuadrado
+						totalSum += Math.pow(backLogCollector[i] - TII, 2);
+					}
+
+					VII = totalSum / numOfBacklogCalled;
+				} else {
+					for(var j = 0; j < numOfTaskEstimation; j++){
+						totalSumBackLog+= backLogCollector[backLogCollector.length - 1 - j];
+						console.log("j2 " + ((backLogCollector.length - 1) - j));
+					}
+					TII = totalSumBackLog / numOfTaskEstimation;
+					
+					for(var i = 0; i < numOfTaskEstimation; i++){
+						//corregir al cuadrado
+						totalSum += Math.pow(backLogCollector[backLogCollector.lenght - 1 - i] - TII, 2);
+					}
+
+					VII = totalSum / numOfTaskEstimation;
 				}
 
-				VII = totalSum / numOfBacklogCalled;
+				
+				
+				
 			}
 		}
 
@@ -832,9 +862,15 @@ function play() {
 		}
 
 		// Veloz
-		if(velocidad == speedTime){
+		/* Provisional
+			if(velocidad == speedTime){
+				exitVelocity = 0;
+			}
 			
-			 
+		*/
+		if(velocidad == speedTime){
+			console.log("ect1")
+			console.log("sumwip " + sumWip + " exitVelocity " + exitVelocity + " speedTime " + speedTime)
 			if(parseInt((sumWip / exitVelocity)) * speedTime >= 0){
 				eCT =  (sumWip / exitVelocity) * speedTime;
 			}
@@ -843,9 +879,9 @@ function play() {
 			if(entryVelocity < exitVelocity){
 				
 				eLT = eCT + 1;
-				
-			} else if (entryVelocity >= exitVelocity){
-				
+				console.log("eLT " + eLT)
+			} else if (entryVelocity == exitVelocity && (entryVelocity > 0 && exitVelocity > 0)){
+				console.log("ect3")
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
 				
 				if(!isNaN(wait)){
@@ -875,11 +911,10 @@ function play() {
 			velocidad = 0;
 			exitVelocity = 0;
 			entryVelocity = 0;
-			
-		}else if(velocidad > speedTime){
+
+		} else if (velocidad > speedTime){
 			
 			velocidad = 0;
-			
 		}
 		
 		// Recargamos los datos de la targeta de informacion de cada tarea
@@ -902,7 +937,7 @@ function play() {
 						}	
 						saturation= false;
 						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
-						
+
 					}else{
 						
 						document.getElementById("saturacion").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
@@ -910,7 +945,7 @@ function play() {
 						document.getElementById("saturacion2").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
 						document.getElementById("saturacion2").setAttribute("class","");
 						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
-						
+
 					}					
 
 				}

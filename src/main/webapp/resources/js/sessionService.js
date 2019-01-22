@@ -252,11 +252,12 @@ function refreshSpeedTimeSession(){
 
 	if(sessionStorage.getItem("speed")){
 		var sessionSpeed = JSON.parse(sessionStorage.getItem("speed"));
-		speedTime = sessionSpeed;
+		speedTime = parseInt(sessionSpeed.speedTime);
+		numOfTaskEstimation = parseInt(sessionSpeed.numOfTaskEstimation);
 	}
 }
 function saveSpeedTimeSession(){
-	sessionStorage.setItem("speed", JSON.stringify(speedTime));
+	sessionStorage.setItem("speed", JSON.stringify({"speedTime" : speedTime, "numOfTaskEstimation" : numOfTaskEstimation}));
 }
 
 //____________________________________________________________________
