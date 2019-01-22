@@ -435,13 +435,25 @@ function play() {
 							task.phase = (-1);
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
-							if(listOfTaskEnded.length == sizeArray){;
+							if(listOfTaskEnded.length == numOfTaskEstimation){;
 								listOfTaskEnded.splice(0,1);
 								}
 							listOfTaskEnded.push(task);
 							console.log(listOfTaskEnded);
 							mediasCLyCL = ultimas20TareasCTyLT(listOfTaskEnded);
 							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
+							
+							T = mediasCLyCL[0]; //CicleTime medio de las ultimas X tareas finalizadas
+							
+							var totalSum = 0;
+							listOfTaskEnded.forEach(function(task){
+								totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
+							});
+
+							Vt = totalSum / numOfTaskEstimation;
+							//numOfTasksEnded = 0;
+
+							
 							
 							if(document.getElementsByClassName("contenedorFinal")[0].children.length == 0){
 								document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
@@ -662,11 +674,11 @@ function play() {
 		var totalTimeSum = 0;
 		sumWip = 0;
 		listTareas.forEach(function(task){
-			if(task.phase == -1 && task.state == "Ended"){
-
-				numOfTasksEnded++;
-				totalTimeSum += task.cycleTime;
-			}
+//			if(task.phase == -1 && task.state == "Ended"){
+//
+//				numOfTasksEnded++;
+//				totalTimeSum += task.cycleTime;
+//			}
 			
 			if(task.state == "ToDo" || task.state == "Doing" || task.state == "Done"){
 				sumWip++;
@@ -674,20 +686,21 @@ function play() {
 		});
 		/* Provisional
 		 for(var j = 0; j < numOfTaskEstimation; j++){
+		 
 		 }
 		 */
 
-		T = totalTimeSum / numOfTasksEnded;
-
-		var totalSum = 0;
-		listTareas.forEach(function(task){
-			if(task.phase == -1 && task.state == "Ended"){
-				totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
-			}
-		});
-
-		Vt = totalSum / numOfTasksEnded;
-		numOfTasksEnded = 0;
+		//T = totalTimeSum / numOfTasksEnded;
+		
+//		var totalSum = 0;
+//		listTareas.forEach(function(task){
+//			if(task.phase == -1 && task.state == "Ended"){
+//				totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
+//			}
+//		});
+//
+//		Vt = totalSum / numOfTasksEnded;
+//		numOfTasksEnded = 0;
 
 
 		listTareas.forEach(function(task) {
@@ -748,13 +761,14 @@ function play() {
 						totalSumBackLog+= backLogCollector[j];
 						console.log("j " + j);
 					}
+					console.log()
 					TII = totalSumBackLog / numOfBacklogCalled;
 					
 					for(var i = 0; i < numOfBacklogCalled; i++){
 						//corregir al cuadrado
 						totalSum += Math.pow(backLogCollector[i] - TII, 2);
 					}
-
+					console.log("totalSum " + totalSum + " numOfBacklogCalled " + numOfBacklogCalled)
 					VII = totalSum / numOfBacklogCalled;
 				} else {
 					for(var j = 0; j < numOfTaskEstimation; j++){
@@ -765,9 +779,9 @@ function play() {
 					
 					for(var i = 0; i < numOfTaskEstimation; i++){
 						//corregir al cuadrado
-						totalSum += Math.pow(backLogCollector[backLogCollector.lenght - 1 - i] - TII, 2);
+						totalSum += Math.pow(backLogCollector[backLogCollector.length - 1 - i] - TII, 2);
 					}
-
+					console.log("totalSum2 " + totalSum + " numOfTaskEstimation " + numOfTaskEstimation)
 					VII = totalSum / numOfTaskEstimation;
 				}
 
@@ -877,25 +891,26 @@ function play() {
 				eCT =  (sumWip / exitVelocity) * speedTime;
 			}
 			
-			
-			if(entryVelocity < exitVelocity){
+			console.log(" entryVelocity " + entryVelocity + " exitVelocity " + exitVelocity + " saturation " + saturation)				
 				
-				eLT = eCT + 1;
-				console.log("eLT " + eLT)
-			} else if (entryVelocity == exitVelocity && (entryVelocity > 0 && exitVelocity > 0)){
+			if (entryVelocity >= exitVelocity && (entryVelocity > 0 && exitVelocity > 0) && saturation){
 				console.log("ect3")
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
 				
-				if(!isNaN(wait)){
-					
-					if(parseInt(eCT) + parseInt(wait) > 0 && wait > 0){
-						eLT= (parseInt(eCT) + parseInt(wait));
+				if(wait > 0){
+					console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
+					if(parseInt(eCT) + parseInt(wait) > 0){
+						eLT= (parseInt(eCT) + parseInt(wait)) + 1;
+						console.log("wait " + wait)
 					} else {
 						eLT = eCT + 1;
 					}	
 				}
-				
-			} 
+
+			} else {
+				eLT = eCT + 1;
+				console.log("eLT " + eLT)
+			}
 
 			
 			if(exitVelocity == 0){
@@ -924,7 +939,7 @@ function play() {
 				
 				if(showLTandCLtensecs == speedTime){
 					
-					if(saturation && TII < T){
+					if((saturation && TII < T) || saturation){
 						if(document.getElementById("saturacion").children.length < 2){
 							document.getElementById("saturacion").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
 							document.getElementById("saturacion").setAttribute("class","alert alert-danger");
