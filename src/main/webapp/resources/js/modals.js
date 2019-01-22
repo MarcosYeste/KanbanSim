@@ -725,7 +725,7 @@ function rmvModUsers() {
 //___________________________________________________________________
 
 /* Mejora, si un caso, que se guarde en el controller */
-function addTareas(weight, creationTime, eCT, eLT){
+function addTareas(weight, creationTime, eCT, eLT, entryTime){
 	if(isNaN(creationTime)){creationTime = 0;}
 	// Incrementamos el numero
 	taskNameCounter ++;
@@ -750,6 +750,7 @@ function addTareas(weight, creationTime, eCT, eLT){
 	tarea.statsTime = new Array();
 	tarea.firstDuration = new Array(); // Primer tiempo que se le asigna por fase
 	tarea.weight = weight; 
+	tarea.entryTime = entryTime;
 	tarea.totalTime = 0;
 	console.log(eCT + " lt " + eLT)
 	if(eCT >= 0){
@@ -856,17 +857,22 @@ function chrono(){
 	}
 	if(document.getElementById("speedInput")){
 		speedTime = document.getElementById("speedInput").value;
-		saveSpeedTimeSession(speedTime);
 		console.log("speed " + speedTime);
 	}
 	if(document.getElementById("numOfTaskEstimationInput")){
 		sizeArray = document.getElementById("numOfTaskEstimationInput").value;
-		if(sizeArray != undefined && !isNaN(sizeArray)){	
-			sizeArray = parseInt(sizeArray);
+		if(sizeArray == undefined || !isNaN(sizeArray)){	
+			sizeArray = 10;
 			
-			console.log(listOfTaskEnded.length);
 		}
 	}
+	
+	if(document.getElementById("numOfTaskEstimationInput")){
+		numOfTaskEstimation = parseInt(document.getElementById("numOfTaskEstimationInput").value);
+		console.log(numOfTaskEstimation + 1)
+	}
+	
+	saveSpeedTimeSession();
 }
 
 
