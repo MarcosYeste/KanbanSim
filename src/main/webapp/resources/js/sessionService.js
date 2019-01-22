@@ -274,8 +274,13 @@ function removeUserSession(){
 }
 
 function removeAllSession(){
+	
+ if(confirm('¿Quieres reiniciar el tablero?')){
 	if(!playing){
 		removePhaseSession();
 		removeUserSession();
+		sessionStorage.clear();
+		location.reload();
 	}
+ }
 }

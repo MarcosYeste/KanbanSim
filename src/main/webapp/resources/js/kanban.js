@@ -8,19 +8,19 @@
 //Necesarias para distribucion
 distribution.backLogType = "manual"; 
 distribution.typeConstant = "";
-distribution.mean;				// Base value for normal distribution 
+distribution.mean;				// Base value for normal distribution
 distribution.variation;			// Variation value for normal distribution
 distribution.lambda;			// Lambda value for poisson distribution
 distribution.weightTimeLapse;
 distribution.distributionWeightValues = [0, 0, 0, 0];
 
-//Recogemos la distribución según lo que este guardado en la sesión
+// Recogemos la distribución según lo que este guardado en la sesión
 refreshDistributionSession();
 saveDistributionSession();
 
 document.getElementById("distributionChange").addEventListener("click", getDistribution(), false);
 
-//Dependiendo si es manual o si es constante, haz una lista de funciones
+// Dependiendo si es manual o si es constante, haz una lista de funciones
 if(distribution.backLogType == "manual"){
 
 	document.getElementById("addTask").removeAttribute("disabled");
@@ -31,7 +31,7 @@ if(distribution.backLogType == "manual"){
 	document.getElementById("addTask").setAttribute("aria-disabled", "true");
 
 }
-//Variables globales necesarias para empezar la partida
+// Variables globales necesarias para empezar la partida
 var countSpeed = 0;
 var speed = 1;
 var playing = false; 
@@ -45,14 +45,17 @@ var kanbanTss = 0;
 var gaussian = 0;
 var gaussianCounter = 0;
 var taskNameCounter = 0;
-var poisson = 0;  			// Tiempo en el que entrara la proxima tarea en distribución poisson
+var poisson = 0;  			// Tiempo en el que entrara la proxima tarea en
+							// distribución poisson
 var poissonCounter = 0;
 var weight = "M"; 	
-var weightTime = 0; 		// Tiempo en el que entrara la proxima tarea en uniforme con peso
+var weightTime = 0; 		// Tiempo en el que entrara la proxima tarea en
+							// uniforme con peso
 var mediasCLyCL = 0;
 
 var weightCounter = 0;
-var numOfBacklogCalled = 0; // Veces que se ha generado un tiempo en backlog constante
+var numOfBacklogCalled = 0; // Veces que se ha generado un tiempo en backlog
+							// constante
 var backLogCollector = []; 	// Acumulador de tiempos de entrada
 var TII = 0; 				// Tiempo medio entre la creación de tareas
 var VII = 0; 				// Varianza entre la creación de tareas
@@ -60,9 +63,9 @@ var T = 0; 					// CT medio (el real, no el estimado)
 var Vt = 0; 				// Varianza del CT
 var numOfTasksEnded = 0; 	
 var showLTandCLtensecs = 0;
-var wait = 0; 				//E
+var wait = 0; 				// E
 var sumWip = 0;
-var velocidad = 0; 			//Contador de tiempo
+var velocidad = 0; 			// Contador de tiempo
 var speedTime = 10;
 var entryVelocity = 0;
 var exitVelocity = 0;
@@ -70,6 +73,7 @@ var eCT = 0;
 var eLT = 0;
 var indiceTareas = 0;
 var saturation = false;
+var speedForChart = 0;
 var numOfTaskEstimation = 10;
 
 emptyUserData();
@@ -81,30 +85,33 @@ refreshSpeedTimeSession();
 document.getElementById("speedInput").value = parseInt(speedTime);
 document.getElementById("numOfTaskEstimationInput").value = parseInt(numOfTaskEstimation);
 
-//Guardar al modificar el orden de las fases
+// Guardar al modificar el orden de las fases
 sortPhases();
 
-//Hacemos la peticion inicial a la base datos por las plantillas
+// Hacemos la peticion inicial a la base datos por las plantillas
 getBlueprints();
+loadCharts();
 
-//Inicializamos la gráfica
+// Inicializamos la gráfica
 listUsers.forEach(function(user){
 
 	addData(myChart, user.name, user.tasksWorked, "rgba(0,255,233,0.5)");
 
 })
 
-//Desactivamos la imagen del Slider si a la hora de recargar la página no hay ninguna fase
+// Desactivamos la imagen del Slider si a la hora de recargar la página no hay
+// ninguna fase
 if(listPhases.length <= 0){
 	var declaration = document.styleSheets[7].cssRules[5].style;
 	var theCSSprop = declaration.setProperty("opacity", 0, "important");
 }
+// chart Velocidad
+addDataSpeed(myChartSpeed, speedForChart , exitVelocity);
 
-
-//Botón para reinicializar la simulación
+// Botón para reinicializar la simulación
 document.getElementById("deleteAll").addEventListener("click", removeAllSession, false);
 
-//Permitimos el tooltip de bootstrap en toda la pagina
+// Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
@@ -113,13 +120,13 @@ $(function () {
 document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
 document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: 0   -   LT: 0";
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
-//_______________________ BUTTONS  ___________________________________
+// _______________________ BUTTONS ___________________________________
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
-//Play Button
+// Play Button
 if(document.getElementById("playpause")){
 	document.getElementById("playpause").addEventListener("change", function() {
 
@@ -138,26 +145,26 @@ if(document.getElementById("playpause")){
 	});
 }
 
-//Boton Reset
+// Boton Reset
 if(document.getElementById("reset")){
 	document.getElementById("reset").addEventListener("click", function() {
 		location.reload();
 	});
 }
 
-//Botón nuevo Tablero	
-if(document.getElementById("divDelete")){
-	document.getElementById("divDelete").addEventListener("click", function() {
-		sessionStorage.clear();
-		location.reload();
-	});
-}
+// //Botón nuevo Tablero
+// if(document.getElementById("divDelete")){
+// document.getElementById("divDelete").addEventListener("click", function() {
+// sessionStorage.clear();
+// location.reload();
+// });
+// }
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
-//_______________________ PLAY  ______________________________________
+// _______________________ PLAY ______________________________________
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
 function play() {
 
@@ -196,23 +203,24 @@ function play() {
 							}
 						}
 
-					} //if end
-				} //for end
+					} // if end
+				} // for end
 				if(distribution.typeConstant == "weight"){
 					getWeight();
 				}
 				firstLoop = false;
-			} //if firstloop end
+			} // if firstloop end
 
 			listTareas.forEach(function(task) {
 
-				// Asigna un tiempo a cada tarea de entre el intervalo de la fase
+				// Asigna un tiempo a cada tarea de entre el intervalo de la
+				// fase
 				if (task.phase == (i + 1) && task.tss == 0 && task.state != "Done" && task.state != "Ended" && task.duration == 0) {
 
 
 					if(distribution.typeConstant == "weight"){
 
-						if(task.weight == "S"){//aqui2
+						if(task.weight == "S"){// aqui2
 							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 25)) + listPhases[i].minTime);
 						} else if (task.weight == "M"){
 							task.duration = Math.round(Math.random() * (calcTime(listPhases[i].maxTime, listPhases[i].minTime, 50) - calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26)) +  calcTime(listPhases[i].maxTime, listPhases[i].minTime, 26) + listPhases[i].minTime);
@@ -230,7 +238,8 @@ function play() {
 					if(task.duration < listPhases[i].minTime){
 						task.duration = listPhases[i].minTime;
 					}
-					// Asigna un tiempo a cada tarea de entre el intervalo de la fase
+					// Asigna un tiempo a cada tarea de entre el intervalo de la
+					// fase
 					task.esfuerzo += task.duration;
 					task.durarionAsignada = false;					
 					task.firstDuration.push(task.duration);
@@ -251,14 +260,14 @@ function play() {
 
 					if (task.state == "Doing" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1)) {
-						//IF 1
+						// IF 1
 						done.appendChild(divsTareas[k]);
 						task.state = "Done";
 						saveTimeStates(task,leadTime,i);
 						task.sameIteration = true;
 
-//						FINALIZAR ARRAY USUARIOS ASIGNADOS A CADA FASE
-//						listPhases[i].assignedUsers
+// FINALIZAR ARRAY USUARIOS ASIGNADOS A CADA FASE
+// listPhases[i].assignedUsers
 
 						for(var w = 0; w < listUsers.length; w++){
 							for(var au = 0; au < task.assignedUsers.length; au++){
@@ -292,7 +301,7 @@ function play() {
 
 					} else if (task.state == "Doing" && task.name == elementName && task.tss != taskDuration &&
 							task.phase == (i + 1)) {
-						//IF 2
+						// IF 2
 
 						if (task.phase > 0) {
 							task.tss++;
@@ -315,7 +324,12 @@ function play() {
 											for(var t = 0; t < listTareas.length; t++){	
 
 												if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
-													if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null && listPhases[task.phase - 1].name.trim() == user.phases[up].trim()){//&& listPhases[task.phase - 1].name.trim() == user.phases[up].trim()
+													if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null && listPhases[task.phase - 1].name.trim() == user.phases[up].trim()){// &&
+																																																											// listPhases[task.phase
+																																																											// -
+																																																											// 1].name.trim()
+																																																											// ==
+																																																											// user.phases[up].trim()
 														isTotallyFree = true;
 													} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 														isTotallyFree = false;
@@ -323,23 +337,25 @@ function play() {
 												}
 
 
-												//Antigüo sistema
-//												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){
-//												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == phasesName.trim() && (listTareas[t].phase - 1 >= 0)){
-//												if(listPhases[listTareas[t].phase].name.trim() == phasesName.trim()){
+												// Antigüo sistema
+// if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() ==
+// actualPhaseName){
+// if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() ==
+// phasesName.trim() && (listTareas[t].phase - 1 >= 0)){
+// if(listPhases[listTareas[t].phase].name.trim() == phasesName.trim()){
 
-//												isTotallyFree = true;
+// isTotallyFree = true;
 
-//												}
-//												} else if(){
+// }
+// } else if(){
 
-//												isTotallyFree = false;
-//												}
+// isTotallyFree = false;
+// }
 											}
 
 										} else if(user.phases[up].trim() == actualPhaseName.trim()){
 											phaseSkill = up;
-											//console.log("if 2 2");
+											// console.log("if 2 2");
 											for(var t = 0; t < listTareas.length; t++){	
 
 												if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == actualPhaseName.trim()){
@@ -347,17 +363,21 @@ function play() {
 													if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null){
 														isTotallyFree = true;
 													} else if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim()){
-														//if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim())
+														// if(listPhases[listTareas[t].phase
+														// - 1].name.trim() ==
+														// actualPhaseName.trim())
 														isTotallyFree = false;
 													}
 												} 
-												//console.log("IF 2 2 " + task.name);
-												//Antigüo sistema
-//												if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
-//												isTotallyFree = true;
-//												} else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] == null){
-//												isTotallyFree = false;
-//												}
+												// console.log("IF 2 2 " +
+												// task.name);
+												// Antigüo sistema
+// if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
+// isTotallyFree = true;
+// } else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] ==
+// null){
+// isTotallyFree = false;
+// }
 											}
 										}
 									}
@@ -379,7 +399,7 @@ function play() {
 													task.staticAssigneds += (user.name)+" ";
 												}
 												user.assigned = true;
-//												ASSIGNED USERS
+// ASSIGNED USERS
 												listPhases[i].assignedUsers.push(user.name);
 
 												if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
@@ -388,7 +408,9 @@ function play() {
 												} else {
 													task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
 												}
-												//console.log("IF 2 duration " + task.name + " " + task.duration);
+												// console.log("IF 2 duration "
+												// + task.name + " " +
+												// task.duration);
 											}
 										}
 									}
@@ -399,7 +421,8 @@ function play() {
 
 							if(user.assigned){
 								task.assignedUsers.forEach(function(assignedUser) {
-									//guarda en Usuarios los segundos se cada fase
+									// guarda en Usuarios los segundos se cada
+									// fase
 									if(assignedUser.includes((user.name))){
 
 										user.secondsWork += 1;
@@ -425,7 +448,7 @@ function play() {
 					 
 					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
-						//IF 3
+						// IF 3
 
 						// Tarea Finaliza
 						if (fases[i + 1] == null) {							
@@ -443,7 +466,8 @@ function play() {
 							mediasCLyCL = ultimas20TareasCTyLT(listOfTaskEnded);
 							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 							
-							T = mediasCLyCL[0]; //CicleTime medio de las ultimas X tareas finalizadas
+							T = mediasCLyCL[0]; // CicleTime medio de las
+												// ultimas X tareas finalizadas
 							
 							var totalSum = 0;
 							listOfTaskEnded.forEach(function(task){
@@ -451,7 +475,7 @@ function play() {
 							});
 
 							Vt = totalSum / numOfTaskEstimation;
-							//numOfTasksEnded = 0;
+							// numOfTasksEnded = 0;
 
 							
 							
@@ -462,14 +486,15 @@ function play() {
 							}
 							exitVelocity++;
 							indiceTareas = getIndex(task.name) - 1;							
-							
+							 
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
-//							MEJORAR
-//							updateDataTaskEstimated(myChartEstimated, task.eCT, task.eLT, listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
+
+							updateDataTaskEstimated(chartEstimated, task.eCT, task.eLT, listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
 							updateGraficPhase();
 
 						} else {
-							// SI hay siguiente fase, pasa la tarea a ella, en estado ToDo
+							// SI hay siguiente fase, pasa la tarea a ella, en
+							// estado ToDo
 							if (((parseInt(fases[i+1].lastElementChild.firstElementChild.childNodes.length) - 1) +
 									(parseInt(fases[i+1].lastElementChild.lastElementChild.childNodes.length)  - 1))
 									< listPhases[i + 1].maxTasks) {
@@ -493,7 +518,7 @@ function play() {
 
 					} else if (task.state == null && task.name == elementName && task.phase == 0) {
 
-						//IF 4
+						// IF 4
 						if (((parseInt(fases[0].lastElementChild.firstElementChild.childNodes.length) - 1) +
 								(parseInt(fases[0].lastElementChild.lastElementChild.childNodes.length)  - 1))
 								< listPhases[0].maxTasks) {							
@@ -546,20 +571,20 @@ function play() {
 								saturation = false;
 							}
 							task.backlogTime++;
-						} //if end
+						} // if end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){
-						//IF 5
-						//console.log("IF 5 " + task.name);
+						// IF 5
+						// console.log("IF 5 " + task.name);
 
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
-						//console.log("if 5");
-						//console.log(task.name);
+						// console.log("if 5");
+						// console.log(task.name);
 						var phaseSkill;
 
 						listUsers.forEach(function(user) {
 							if(!user.assigned){
-								//console.log("IF 5 1 "  + task.name);
+								// console.log("IF 5 1 " + task.name);
 								if(task.assignedUsers[0] == null){
 									for(var up = 0; up <user.phases.length; up++){
 
@@ -576,7 +601,7 @@ function play() {
 												task.staticAssigneds += (user.name)+" ";
 												user.tasksWorked += 1;
 											}
-											//console.log("subif1");
+											// console.log("subif1");
 
 											for(var t = 0; t < divsTareas.length; t++){
 												if(divsTareas[t].firstElementChild.innerHTML.trim() == task.name){
@@ -592,18 +617,33 @@ function play() {
 										for(var p = 0; p < fases.length; p++){
 
 											var phasesName = fases[p].children[0].childNodes[0].textContent.trim();
-											//console.log("phase name " + phasesName + " user " + user.name + "user phase " + user.phases[up].trim() + " task phase " + task.phase);
+											// console.log("phase name " +
+											// phasesName + " user " + user.name
+											// + "user phase " +
+											// user.phases[up].trim() + " task
+											// phase " + task.phase);
 											if(user.phases[up].trim() != actualPhaseName.trim()){
 												for(var t = 0; t < listTareas.length; t++){	
 													if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
-														if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null && listPhases[task.phase - 1].name.trim() == user.phases[up].trim()){//&& listPhases[task.phase - 1].name.trim() == user.phases[up].trim()
+														if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null && listPhases[task.phase - 1].name.trim() == user.phases[up].trim()){// &&
+																																																												// listPhases[task.phase
+																																																												// -
+																																																												// 1].name.trim()
+																																																												// ==
+																																																												// user.phases[up].trim()
 															isTotallyFree = true;
-															//console.log("IF 5 2 1 1 " + listTareas[t].name + " " + listTareas[t].phase);
+															// console.log("IF 5
+															// 2 1 1 " +
+															// listTareas[t].name
+															// + " " +
+															// listTareas[t].phase);
 														} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 															isTotallyFree = false;
-															//console.log("IF 5 2 1 2");
+															// console.log("IF 5
+															// 2 1 2");
 														} else {
-															//console.log("void 5 2 1")
+															// console.log("void
+															// 5 2 1")
 														}
 													}
 												}
@@ -615,20 +655,24 @@ function play() {
 
 														if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim() && listTareas[t].assignedUsers[0] != null){
 															isTotallyFree = true;
-															//console.log("IF 5 2 2 1");
+															// console.log("IF 5
+															// 2 2 1");
 														} else if(listPhases[listTareas[t].phase - 1].name.trim() == actualPhaseName.trim()){
 
 															isTotallyFree = false;
-															//console.log("IF 5 2 2 2");
+															// console.log("IF 5
+															// 2 2 2");
 														} else {
-															//console.log("void 5 2 2")
+															// console.log("void
+															// 5 2 2")
 														}
 													} 
 												}
 											}
 										}
 
-										// Asignar tarea Empezada, tarea Multiusuario
+										// Asignar tarea Empezada, tarea
+										// Multiusuario
 
 									}
 								}
@@ -640,7 +684,7 @@ function play() {
 
 									} 
 									user.assigned = true;
-//									ASSIGNED USERS
+// ASSIGNED USERS
 									listPhases[i].assignedUsers.push(user.name);
 
 
@@ -648,12 +692,17 @@ function play() {
 										task.duration = 1;
 									} else {
 										task.duration = Math.round((task.duration - task.tss) / task.assignedUsers.length) * (100 / user.skills[phaseSkill]);
-										//console.log("TSS "+task.tss+"ASSIGNED LENGTH "+task.assignedUsers.length+" user.skills[phaseSkill] "+ user.skills[phaseSkill]);
+										// console.log("TSS "+task.tss+"ASSIGNED
+										// LENGTH "+task.assignedUsers.length+"
+										// user.skills[phaseSkill] "+
+										// user.skills[phaseSkill]);
 
 									}
-									//console.log("IF 5 duration " + task.name + " " + task.duration);
+									// console.log("IF 5 duration " + task.name
+									// + " " + task.duration);
 								}
-								//console.log(task.name + " time " + task.duration);
+								// console.log(task.name + " time " +
+								// task.duration);
 								if(user.assigned){
 
 									document.getElementsByName(user.name)[0].children[1].style.opacity = "0.3";
@@ -662,45 +711,44 @@ function play() {
 
 								}
 							} 
-						}); 	//foreach	
-					} 			//if 5 end
-				} 				//divs tareas for end
-			}); 				//foreach end
+						}); 	// foreach
+					} 			// if 5 end
+				} 				// divs tareas for end
+			}); 				// foreach end
 
 			
 
-		} //end phases for
+		} // end phases for
 
 		var totalTimeSum = 0;
 		sumWip = 0;
 		listTareas.forEach(function(task){
-//			if(task.phase == -1 && task.state == "Ended"){
+// if(task.phase == -1 && task.state == "Ended"){
 //
-//				numOfTasksEnded++;
-//				totalTimeSum += task.cycleTime;
-//			}
+// numOfTasksEnded++;
+// totalTimeSum += task.cycleTime;
+// }
 			
 			if(task.state == "ToDo" || task.state == "Doing" || task.state == "Done"){
 				sumWip++;
 			}
 		});
-		/* Provisional
-		 for(var j = 0; j < numOfTaskEstimation; j++){
-		 
-		 }
+		/*
+		 * Provisional for(var j = 0; j < numOfTaskEstimation; j++){
+		 *  }
 		 */
 
-		//T = totalTimeSum / numOfTasksEnded;
+		// T = totalTimeSum / numOfTasksEnded;
 		
-//		var totalSum = 0;
-//		listTareas.forEach(function(task){
-//			if(task.phase == -1 && task.state == "Ended"){
-//				totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
-//			}
-//		});
+// var totalSum = 0;
+// listTareas.forEach(function(task){
+// if(task.phase == -1 && task.state == "Ended"){
+// totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
+// }
+// });
 //
-//		Vt = totalSum / numOfTasksEnded;
-//		numOfTasksEnded = 0;
+// Vt = totalSum / numOfTasksEnded;
+// numOfTasksEnded = 0;
 
 
 		listTareas.forEach(function(task) {
@@ -709,7 +757,8 @@ function play() {
 		});
 
 		// ENTRADA CONSTANTE
-		// Unicamente se ejecutara cuando el usuario haya elegido el modo de distribucion Normal
+		// Unicamente se ejecutara cuando el usuario haya elegido el modo de
+		// distribucion Normal
 		if(distribution.backLogType == "constant"){	
 			if(poissonCounter > poisson){
 				poissonCounter = 0;
@@ -741,18 +790,19 @@ function play() {
 			}
 		}
 
-		//Funcion para calcular el tiempo medio de la entrada de tareas y la varianza
+		// Funcion para calcular el tiempo medio de la entrada de tareas y la
+		// varianza
 		function calcLDValues(distributionValue){
 			if(distributionValue != 0){
 				backLogCollector.push(distributionValue);
 				numOfBacklogCalled++;
 
-//				var totalSumBackLog = 0;
-//				for(var j = 0; j < backLogCollector.length; j++){
-//					totalSumBackLog+= backLogCollector[j];
-//				}
+// var totalSumBackLog = 0;
+// for(var j = 0; j < backLogCollector.length; j++){
+// totalSumBackLog+= backLogCollector[j];
+// }
 				
-				/* Provisional*/
+				/* Provisional */
 				var totalSumBackLog = 0;
 				var totalSum = 0;
 				console.log("backLogCollector.length " + backLogCollector.length + "  numOfTaskEstimation " + (numOfTaskEstimation - 1));
@@ -765,7 +815,7 @@ function play() {
 					TII = totalSumBackLog / numOfBacklogCalled;
 					
 					for(var i = 0; i < numOfBacklogCalled; i++){
-						//corregir al cuadrado
+						// corregir al cuadrado
 						totalSum += Math.pow(backLogCollector[i] - TII, 2);
 					}
 					console.log("totalSum " + totalSum + " numOfBacklogCalled " + numOfBacklogCalled)
@@ -778,7 +828,7 @@ function play() {
 					TII = totalSumBackLog / numOfTaskEstimation;
 					
 					for(var i = 0; i < numOfTaskEstimation; i++){
-						//corregir al cuadrado
+						// corregir al cuadrado
 						totalSum += Math.pow(backLogCollector[backLogCollector.length - 1 - i] - TII, 2);
 					}
 					console.log("totalSum2 " + totalSum + " numOfTaskEstimation " + numOfTaskEstimation)
@@ -791,7 +841,8 @@ function play() {
 			}
 		}
 
-		// Si la introduccion de tareas es manual que se termine cuando todas las tareas equivalgan 
+		// Si la introduccion de tareas es manual que se termine cuando todas
+		// las tareas equivalgan
 		// a la cantidad de tareas introdcidas
 
 		if(distribution.backLogType == "manual"){
@@ -799,8 +850,8 @@ function play() {
 				// Finalizado completamente
 				clearInterval(myInterval);
 				kanbanTss = 0;
-//				chronoTime = 0;
-//				document.getElementById("chronoViewer").innerHTML = "00:00";
+// chronoTime = 0;
+// document.getElementById("chronoViewer").innerHTML = "00:00";
 				chrono();
 				// Cambiamos el boton a pausa
 				document.getElementById("playpause").checked = false;
@@ -833,8 +884,8 @@ function play() {
 				// Finalizado completamente
 				clearInterval(myInterval);
 				kanbanTss = 0;
-//				chronoTime = 0;
-//				document.getElementById("chronoViewer").innerHTML = "00:00";
+// chronoTime = 0;
+// document.getElementById("chronoViewer").innerHTML = "00:00";
 				chrono();
 				// Cambiamos el boton a pausa
 				document.getElementById("playpause").checked = false;
@@ -870,7 +921,7 @@ function play() {
 		poissonCounter++;
 		weightCounter++;
 
-		//Contados para mostrar lead time estimado y cycle time escimado
+		// Contados para mostrar lead time estimado y cycle time escimado
 		if(showLTandCLtensecs == speedTime){
 			showLTandCLtensecs = 0;
 		} else {
@@ -878,12 +929,10 @@ function play() {
 		}
 
 		// Veloz
-		/* Provisional
-			if(velocidad == speedTime){
-				exitVelocity = 0;
-			}
-			
-		*/
+		/*
+		 * Provisional if(velocidad == speedTime){ exitVelocity = 0; }
+		 * 
+		 */
 		if(velocidad == speedTime){
 			console.log("ect1")
 			console.log("sumwip " + sumWip + " exitVelocity " + exitVelocity + " speedTime " + speedTime)
@@ -912,11 +961,18 @@ function play() {
 				console.log("eLT " + eLT)
 			}
 
+
+			var auxZ = speedTime;				
+			 speedForChart += parseInt(auxZ);	
+			 console.log("UPDATE SPEED: speed -> "+speedForChart+" NumeroTareasSalida -> "+exitVelocity);
+			 updateDataSpeed(myChartSpeed, speedForChart, exitVelocity);
 			
 			if(exitVelocity == 0){
 				document.getElementById("velocityAlert").innerHTML = "<span class='tooltiptext'>Velocidad Muy Baja</span><i class='fa fa-exclamation-triangle'></i>";
 			} else {
 				document.getElementById("velocityAlert").innerHTML = "";
+
+				
 			}
 
 			
@@ -969,8 +1025,10 @@ function play() {
 
 		// Función para Volver a calcular el tiempo para las tareas con peso
 		function calcTime(maxTime, minTime, percentage){
-			var range = maxTime - minTime;	//aqui
-			//	console.log("max " + maxTime + " min " + minTime + " range " + range + " perc " + percentage +  "  result " + ((percentage * range) / 100));
+			var range = maxTime - minTime;	// aqui
+			// console.log("max " + maxTime + " min " + minTime + " range " +
+			// range + " perc " + percentage + " result " + ((percentage *
+			// range) / 100));
 			return (percentage * range) / 100;
 		}
 
@@ -985,11 +1043,11 @@ function play() {
 	}, (1000/ speed));
 }
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
-//_______________________ MENÚS  _____________________________________
+// _______________________ MENÚS _____________________________________
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
 function deshabilitarMenus(disable){
 
@@ -1100,11 +1158,11 @@ function deshabilitarMenus(disable){
 }
 
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
-//_______________________ ORDENAR FASES  _____________________________
+// _______________________ ORDENAR FASES _____________________________
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
 function sortPhases(){
 	refreshPhases();
@@ -1143,11 +1201,11 @@ function sortPhases(){
 }
 
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
-//____________________ DISTRIBUCION CONSTANTE  _______________________
+// ____________________ DISTRIBUCION CONSTANTE _______________________
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
 function getGaussian(){
 	$.ajax({
@@ -1250,11 +1308,11 @@ function getDistribution(){
 	}
 }
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
-//_______________________ MOSTRAR TAREAS  ____________________________
+// _______________________ MOSTRAR TAREAS ____________________________
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
 function printTasks(tarea){
 	document.getElementsByClassName("contenedorTareas")[0].innerHTML +=
@@ -1270,11 +1328,11 @@ function printTasks(tarea){
 	}
 }
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
-//_______________________ CRONOMETRO  ________________________________
+// _______________________ CRONOMETRO ________________________________
 
-//____________________________________________________________________
+// ____________________________________________________________________
 
 function stopWatch(){
 
@@ -1361,4 +1419,31 @@ function speedKanban(value){
 		clearInterval(myInterval);
 		play();
 	}
+}
+
+function loadCharts(){
+	$(document).ready(function() {
+
+		// When page loads...
+		$(".tab_content").hide(); // Hide all content
+		$("ul.tabs li:first").addClass("active").show(); // Activate first
+															// tab
+		$(".tab_content:first").show(); // Show first tab content
+
+		// On Click Event
+		$("ul.tabs li").click(function() {
+
+			$("ul.tabs li").removeClass("active"); // Remove any "active" class
+			$(this).addClass("active"); // Add "active" class to selected tab
+			$(".tab_content").hide(); // Hide all tab content
+
+			var activeTab = $(this).find("a").attr("href"); // Find the href
+															// attribute value
+															// identify the
+															// active tab +
+															// content
+			$(activeTab).fadeIn(); // Fade in the active ID content
+			return false;
+		});
+	});
 }

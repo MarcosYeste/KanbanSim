@@ -773,7 +773,7 @@ function addTareas(weight, creationTime, eCT, eLT, entryTime){
 	
 	var color = getRandomColor();
 	addDataTask(myChartTask, tarea.cycleTime, tarea.leadTime, tarea.esfuerzo, color,tarea.name);
-//	addDataEstimated(myChartEstimated, tarea.eCT, tarea.eLT, tarea.esfuerzo, color,tarea.name);
+	addDataEstimated(chartEstimated, tarea.eCT, tarea.eLT, tarea.esfuerzo, color,tarea.name);
 }
 
 
