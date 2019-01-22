@@ -70,6 +70,7 @@ var eCT = 0;
 var eLT = 0;
 var indiceTareas = 0;
 var saturation = false;
+var speedForChart = 0;
 var numOfTaskEstimation = 10;
 
 emptyUserData();
@@ -100,7 +101,8 @@ if(listPhases.length <= 0){
 	var declaration = document.styleSheets[7].cssRules[5].style;
 	var theCSSprop = declaration.setProperty("opacity", 0, "important");
 }
-
+//chart Velocidad
+addDataSpeed(myChartSpeed, speedForChart , exitVelocity);
 
 //Botón para reinicializar la simulación
 document.getElementById("deleteAll").addEventListener("click", removeAllSession, false);
@@ -893,12 +895,17 @@ function play() {
 				}
 				
 			} 
-
+			var auxZ = speedTime;				
+			 speedForChart += parseInt(auxZ);	
+			 console.log("UPDATE SPEED: speed -> "+speedForChart+" NumeroTareasSalida -> "+exitVelocity);
+			 updateDataSpeed(myChartSpeed, speedForChart, exitVelocity);
 			
 			if(exitVelocity == 0){
 				document.getElementById("velocityAlert").innerHTML = "<span class='tooltiptext'>Velocidad Muy Baja</span><i class='fa fa-exclamation-triangle'></i>";
 			} else {
 				document.getElementById("velocityAlert").innerHTML = "";
+
+				
 			}
 
 			

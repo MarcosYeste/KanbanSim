@@ -201,6 +201,8 @@ ____________________________________________________________________
 
 			<h2>Gráfico de Usuarios</h2>
 			<canvas id="myChart"></canvas>
+			<h2>Gráfico de velocidad</h2>
+			<canvas id="myChartSpeed"></canvas>
 		</div>
 	</div>
 
