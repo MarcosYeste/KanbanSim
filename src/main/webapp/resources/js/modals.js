@@ -866,8 +866,8 @@ function chrono(){
 	}
 	
 	if(document.getElementById("numOfTaskEstimationInput")){
-		numOfTaskEstimation = document.getElementById("numOfTaskEstimationInput").value;
-		console.log(numOfTaskEstimation)
+		numOfTaskEstimation = parseInt(document.getElementById("numOfTaskEstimationInput").value);
+		console.log(numOfTaskEstimation + 1)
 //		saveSpeedTimeSession(speedTime);
 	}
 }

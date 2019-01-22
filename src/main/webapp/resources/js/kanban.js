@@ -735,24 +735,39 @@ function play() {
 				
 				/* Provisional*/
 				var totalSumBackLog = 0;
-				if(backLogCollector.length < numOfTaskEstimation - 1){
+				var totalSum = 0;
+				console.log("backLogCollector.length " + backLogCollector.length + "  numOfTaskEstimation " + (numOfTaskEstimation - 1));
+				if(backLogCollector.length < numOfTaskEstimation){
 					for(var j = 0; j < backLogCollector.length; j++){
 						totalSumBackLog+= backLogCollector[j];
+						console.log("j " + j);
 					}
+					TII = totalSumBackLog / numOfBacklogCalled;
+					
+					for(var i = 0; i < numOfBacklogCalled; i++){
+						//corregir al cuadrado
+						totalSum += Math.pow(backLogCollector[i] - TII, 2);
+					}
+
+					VII = totalSum / numOfBacklogCalled;
 				} else {
 					for(var j = 0; j < numOfTaskEstimation; j++){
-						totalSumBackLog+= backLogCollector[backLogCollector.length - j];
+						totalSumBackLog+= backLogCollector[backLogCollector.length - 1 - j];
+						console.log("j2 " + ((backLogCollector.length - 1) - j));
 					}
+					TII = totalSumBackLog / numOfTaskEstimation;
+					
+					for(var i = 0; i < numOfTaskEstimation; i++){
+						//corregir al cuadrado
+						totalSum += Math.pow(backLogCollector[backLogCollector.lenght - 1 - i] - TII, 2);
+					}
+
+					VII = totalSum / numOfTaskEstimation;
 				}
 
-				TII = totalSumBackLog / numOfBacklogCalled;
-				var totalSum = 0;
-				for(var i = 0; i < numOfBacklogCalled; i++){
-					//corregir al cuadrado
-					totalSum += Math.pow(backLogCollector[i] - TII, 2);
-				}
-
-				VII = totalSum / numOfBacklogCalled;
+				
+				
+				
 			}
 		}
 
