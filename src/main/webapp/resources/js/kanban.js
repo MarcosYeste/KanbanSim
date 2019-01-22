@@ -87,6 +87,7 @@ sortPhases();
 
 //Hacemos la peticion inicial a la base datos por las plantillas
 getBlueprints();
+loadCharts();
 
 //Inicializamos la gráfica
 listUsers.forEach(function(user){
@@ -1349,4 +1350,26 @@ function speedKanban(value){
 		clearInterval(myInterval);
 		play();
 	}
+}
+
+function loadCharts(){
+	$(document).ready(function() {
+
+		//When page loads...
+		$(".tab_content").hide(); //Hide all content
+		$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+		$(".tab_content:first").show(); //Show first tab content
+
+		//On Click Event
+		$("ul.tabs li").click(function() {
+
+			$("ul.tabs li").removeClass("active"); //Remove any "active" class
+			$(this).addClass("active"); //Add "active" class to selected tab
+			$(".tab_content").hide(); //Hide all tab content
+
+			var activeTab = $(this).find("a").attr("href"); //Find the href attribute value identify the active tab + content
+			$(activeTab).fadeIn(); //Fade in the active ID content
+			return false;
+		});
+	});
 }

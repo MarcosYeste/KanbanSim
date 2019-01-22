@@ -169,7 +169,20 @@ ____________________________________________________________________
 	<div id="mostrarGraficosDiv" class="mostrarGraficosDiv">
 		<div class="chart-container chartTask" id="taskChart">
 			<h2>Gráfico de Tareas</h2>
-			<canvas id="myChartTask"></canvas>
+			<ul class="tabs">
+				<li><a href="#tab1">Tiempo Real</a></li>
+				<li><a href="#tab2">Tiempo Estimado</a></li>
+			</ul>
+
+			<div class="tab_container">
+				<div class="tab_content" id="tab1">
+					<canvas id="myChartTask"></canvas>
+				</div>
+				<div class="tab_content" id="tab2">
+					<canvas id="myChartEstimated"></canvas>
+				</div>
+			</div>
+
 
 			<div id="js-legend" class="chart-legend"></div>
 
@@ -441,7 +454,8 @@ ____________________________________________________________________
 						</div>
 						<div id="numOfTaskdiv">
 							Tareas Estimación: <input type="number"
-								id="numOfTaskEstimationInput" min="1" value="10" onClick="this.select()">
+								id="numOfTaskEstimationInput" min="1" value="10"
+								onClick="this.select()">
 						</div>
 					</div>
 
