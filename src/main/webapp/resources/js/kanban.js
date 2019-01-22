@@ -70,6 +70,7 @@ var eCT = 0;
 var eLT = 0;
 var indiceTareas = 0;
 var saturation = false;
+var numOfTaskEstimation = 0;
 
 emptyUserData();
 refreshUsers();
@@ -320,7 +321,6 @@ function play() {
 													}
 												}
 
-												/**/
 
 												//Antigüo sistema
 //												if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() == actualPhaseName){
@@ -722,10 +722,23 @@ function play() {
 				backLogCollector.push(distributionValue);
 				numOfBacklogCalled++;
 
+//				var totalSumBackLog = 0;
+//				for(var j = 0; j < backLogCollector.length; j++){
+//					totalSumBackLog+= backLogCollector[j];
+//				}
+				
+				/* Provisional*/
 				var totalSumBackLog = 0;
-				for(var j = 0; j < backLogCollector.length; j++){
-					totalSumBackLog+= backLogCollector[j];
+				if(backLogCollector.length < numOfTaskEstimation - 1){
+					for(var j = 0; j < backLogCollector.length; j++){
+						totalSumBackLog+= backLogCollector[j];
+					}
+				} else {
+					for(var j = 0; j < numOfTaskEstimation; j++){
+						totalSumBackLog+= backLogCollector[backLogCollector.length - j];
+					}
 				}
+
 				TII = totalSumBackLog / numOfBacklogCalled;
 				var totalSum = 0;
 				for(var i = 0; i < numOfBacklogCalled; i++){
@@ -824,6 +837,12 @@ function play() {
 		}
 
 		// Veloz
+		/* Provisional
+			if(velocidad == speedTime){
+				exitVelocity = 0;
+			}
+			
+		*/
 		if(velocidad == speedTime){
 			console.log("ect1")
 			console.log("sumwip " + sumWip + " exitVelocity " + exitVelocity + " speedTime " + speedTime)
