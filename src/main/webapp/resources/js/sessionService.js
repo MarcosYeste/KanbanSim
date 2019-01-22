@@ -256,7 +256,7 @@ function refreshSpeedTimeSession(){
 	}
 }
 function saveSpeedTimeSession(){
-	sessionStorage.setItem("speed", JSON.stringify(speedTime));
+	sessionStorage.setItem("speed", JSON.stringify({"speedTime" : speedTime, "numOfTask" : speed}));
 }
 
 //____________________________________________________________________

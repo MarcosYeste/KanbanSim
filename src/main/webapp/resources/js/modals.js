@@ -769,7 +769,10 @@ function addTareas(weight, creationTime, eCT, eLT){
 	if(document.getElementById("taskChart").style.visibility != "visible"){
 		document.getElementById("taskChart").style.visibility  = "visible";
 	}
-	addDataTask(myChartTask, tarea.cycleTime, tarea.leadTime, tarea.esfuerzo, getRandomColor(),tarea.name);
+	
+	var color = getRandomColor();
+	addDataTask(myChartTask, tarea.cycleTime, tarea.leadTime, tarea.esfuerzo, color,tarea.name);
+//	addDataEstimated(myChartEstimated, tarea.eCT, tarea.eLT, tarea.esfuerzo, color,tarea.name);
 }
 
 
