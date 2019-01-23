@@ -68,7 +68,9 @@ var sumWip = 0;
 var velocidad = 0; 			// Contador de tiempo
 var speedTime = 10;
 var entryVelocity = 0;
+var lastentryVelocity = 0
 var exitVelocity = 0;
+var lastexitVelocity = 0;
 var eCT = 0;
 var eLT = 0;
 var indiceTareas = 0;
@@ -178,7 +180,8 @@ function play() {
 		if(chronoTime != 0){
 			kanbanTss++;
 		}
-
+		
+		saturation = false;
 		velocidad ++;
 		for (var i = 0; i < fases.length; i++) {
 
@@ -537,7 +540,6 @@ function play() {
 							}
 
 							if (task.phase == (i + 1) && task.tss >= 0 && task.state != "Done" && task.state != "Ended") {
-								// ________ESTO VA EN EL IF 4
 
 								if(distribution.typeConstant == "weight"){
 
@@ -564,14 +566,13 @@ function play() {
 							}			
 
 						} else {
-							if(task.backlogTime > 1){
-								saturation = true;
-								
-							} else {
-								saturation = false;
-							}
-							task.backlogTime++;
-						} // if end
+//							if(task.backlogTime > 2){
+//								saturation = true;
+//							} else {
+//								saturation = false;
+//							}
+//							task.backlogTime++;
+						} // if4 end
 					} else if (task.state == "ToDo" && task.name == elementName && task.tss == 0 &&
 							task.phase == (i + 1) && !task.sameIteration){
 						// IF 5
@@ -723,20 +724,21 @@ function play() {
 		var totalTimeSum = 0;
 		sumWip = 0;
 		listTareas.forEach(function(task){
+		if(task.state == null){
+			if(task.backlogTime > 0){
+				saturation = true;
+			} 
+			task.backlogTime++;
+		}
+		if(task.state == "ToDo" || task.state == "Doing" || task.state == "Done"){
+			sumWip++;
+		}
 // if(task.phase == -1 && task.state == "Ended"){
 //
 // numOfTasksEnded++;
 // totalTimeSum += task.cycleTime;
 // }
-			
-			if(task.state == "ToDo" || task.state == "Doing" || task.state == "Done"){
-				sumWip++;
-			}
 		});
-		/*
-		 * Provisional for(var j = 0; j < numOfTaskEstimation; j++){
-		 *  }
-		 */
 
 		// T = totalTimeSum / numOfTasksEnded;
 		
@@ -773,6 +775,7 @@ function play() {
 			if((gaussian == gaussianCounter || gaussian <= 0) && distribution.typeConstant == "normal"){
 				getGaussian();		
 				calcLDValues(gaussian);
+				calcEstimatedTimes()
 				gaussianCounter = 0;
 				// Creamos un objeto nuevo
 				addTareas("",leadTime, eCT.toFixed(0), eLT.toFixed(0));
@@ -780,16 +783,54 @@ function play() {
 			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
+				calcEstimatedTimes()
 				poissonCounter = 0;
 				addTareas("",leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
 				getWeight();
 				calcLDValues(weightTime);
+				calcEstimatedTimes()
 				weightCounter = 0;
 				addTareas(weight,leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			}
 		}
+		
+		//Función para calcular el LeadTime estimado y CicleTime estimado por para cada tarea
+		function calcEstimatedTimes(){
+			console.log("sumwip " + sumWip + " lastexitVelocity " + lastexitVelocity + " speedTime " + speedTime)
+			if(parseInt((sumWip / lastexitVelocity)) * speedTime >= 0){
+				eCT =  (sumWip / lastexitVelocity) * speedTime;
+			}
+			
+			console.log(" entryVelocity " + entryVelocity + " lastexitVelocity " + lastexitVelocity + " saturation " + saturation)				
+				
+			if (entryVelocity >= lastexitVelocity && (entryVelocity > 0 && lastexitVelocity > 0) && saturation){
+				console.log("ect3")
+				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
+				
+				if(wait > 0){
+					console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
+					if(parseInt(eCT) + parseInt(wait) > 0){
+						eLT= (parseInt(eCT) + parseInt(wait)) + 1;
+						console.log("wait " + wait)
+					} else {
+						eLT = eCT + 1;
+					}	
+				}
 
+			} else {
+				eLT = eCT + 1;
+				console.log("eLT " + eLT)
+			}
+
+
+			var auxZ = speedTime;				
+			speedForChart += parseInt(auxZ);	
+			console.log("UPDATE SPEED: speed -> "+speedForChart+" NumeroTareasSalida -> "+exitVelocity);
+			updateDataSpeed(myChartSpeed, speedForChart, exitVelocity);
+		}
+		
+		
 		// Funcion para calcular el tiempo medio de la entrada de tareas y la
 		// varianza
 		function calcLDValues(distributionValue){
@@ -809,21 +850,17 @@ function play() {
 				if(backLogCollector.length < numOfTaskEstimation){
 					for(var j = 0; j < backLogCollector.length; j++){
 						totalSumBackLog+= backLogCollector[j];
-						console.log("j " + j);
 					}
-					console.log()
 					TII = totalSumBackLog / numOfBacklogCalled;
 					
 					for(var i = 0; i < numOfBacklogCalled; i++){
 						// corregir al cuadrado
 						totalSum += Math.pow(backLogCollector[i] - TII, 2);
 					}
-					console.log("totalSum " + totalSum + " numOfBacklogCalled " + numOfBacklogCalled)
 					VII = totalSum / numOfBacklogCalled;
 				} else {
 					for(var j = 0; j < numOfTaskEstimation; j++){
 						totalSumBackLog+= backLogCollector[backLogCollector.length - 1 - j];
-						console.log("j2 " + ((backLogCollector.length - 1) - j));
 					}
 					TII = totalSumBackLog / numOfTaskEstimation;
 					
@@ -831,7 +868,6 @@ function play() {
 						// corregir al cuadrado
 						totalSum += Math.pow(backLogCollector[backLogCollector.length - 1 - i] - TII, 2);
 					}
-					console.log("totalSum2 " + totalSum + " numOfTaskEstimation " + numOfTaskEstimation)
 					VII = totalSum / numOfTaskEstimation;
 				}
 
@@ -934,38 +970,40 @@ function play() {
 		 * 
 		 */
 		if(velocidad == speedTime){
-			console.log("ect1")
-			console.log("sumwip " + sumWip + " exitVelocity " + exitVelocity + " speedTime " + speedTime)
-			if(parseInt((sumWip / exitVelocity)) * speedTime >= 0){
-				eCT =  (sumWip / exitVelocity) * speedTime;
-			}
+			lastexitVelocity = exitVelocity;
+			lastentryVelocity = entryVelocity;
 			
-			console.log(" entryVelocity " + entryVelocity + " exitVelocity " + exitVelocity + " saturation " + saturation)				
-				
-			if (entryVelocity >= exitVelocity && (entryVelocity > 0 && exitVelocity > 0) && saturation){
-				console.log("ect3")
-				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
-				
-				if(wait > 0){
-					console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
-					if(parseInt(eCT) + parseInt(wait) > 0){
-						eLT= (parseInt(eCT) + parseInt(wait)) + 1;
-						console.log("wait " + wait)
-					} else {
-						eLT = eCT + 1;
-					}	
-				}
-
-			} else {
-				eLT = eCT + 1;
-				console.log("eLT " + eLT)
-			}
-
-
-			var auxZ = speedTime;				
-			 speedForChart += parseInt(auxZ);	
-			 console.log("UPDATE SPEED: speed -> "+speedForChart+" NumeroTareasSalida -> "+exitVelocity);
-			 updateDataSpeed(myChartSpeed, speedForChart, exitVelocity);
+//			console.log("sumwip " + sumWip + " lastexitVelocity " + lastexitVelocity + " speedTime " + speedTime)
+//			if(parseInt((sumWip / lastexitVelocity)) * speedTime >= 0){
+//				eCT =  (sumWip / lastexitVelocity) * speedTime;
+//			}
+//			
+//			console.log(" entryVelocity " + entryVelocity + " lastexitVelocity " + lastexitVelocity + " saturation " + saturation)				
+//				
+//			if (entryVelocity >= lastexitVelocity && (entryVelocity > 0 && lastexitVelocity > 0) && saturation){
+//				console.log("ect3")
+//				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
+//				
+//				if(wait > 0){
+//					console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
+//					if(parseInt(eCT) + parseInt(wait) > 0){
+//						eLT= (parseInt(eCT) + parseInt(wait)) + 1;
+//						console.log("wait " + wait)
+//					} else {
+//						eLT = eCT + 1;
+//					}	
+//				}
+//
+//			} else {
+//				eLT = eCT + 1;
+//				console.log("eLT " + eLT)
+//			}
+//
+//
+//			var auxZ = speedTime;				
+//			speedForChart += parseInt(auxZ);	
+//			console.log("UPDATE SPEED: speed -> "+speedForChart+" NumeroTareasSalida -> "+exitVelocity);
+//			updateDataSpeed(myChartSpeed, speedForChart, exitVelocity);
 			
 			if(exitVelocity == 0){
 				document.getElementById("velocityAlert").innerHTML = "<span class='tooltiptext'>Velocidad Muy Baja</span><i class='fa fa-exclamation-triangle'></i>";
@@ -987,14 +1025,14 @@ function play() {
 		
 		// Recargamos los datos de la targeta de informacion de cada tarea
 		listTareas.forEach(function(tarea){
-			if(atributo == tarea.name){
+
+//			if(atributo == tarea.name){
 				// Show Info
 				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
 				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 				
-				if(showLTandCLtensecs == speedTime){
-					
+//				if(showLTandCLtensecs == speedTime){
 					if((saturation && TII < T) || saturation){
 						if(document.getElementById("saturacion").children.length < 2){
 							document.getElementById("saturacion").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
@@ -1003,7 +1041,7 @@ function play() {
 							document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
 							
 						}	
-						saturation= false;
+//						saturation= false;
 						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
 
 					}else{
@@ -1016,11 +1054,11 @@ function play() {
 
 					}					
 
-				}
+//				}
 
 				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
 				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
-			}
+//			}
 		})
 
 		// Función para Volver a calcular el tiempo para las tareas con peso
