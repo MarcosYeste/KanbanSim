@@ -541,11 +541,13 @@ function modUsers(){
 			insertInput(index1, listUsers[click2].phases.indexOf(event.target.value));
 
 		} else {
+			
 			for(var i = 0; i < listUsers[click2].phases.length; i++){
-				if(event.target.value == listUsers[click2].phases[i].trim()){
+				if(event.target.value.trim() == listUsers[click2].phases[i].trim()){
 
-					listUsers[click2].phasesF
+//					listUsers[click2].phasesF
 					listUsers[click2].skills.splice(i, 1);
+					listUsers[click2].phases.splice(i, 1);
 
 					if(listUsers[click2].phases.length == 0){
 
