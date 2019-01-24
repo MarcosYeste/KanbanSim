@@ -49,7 +49,7 @@ public class HomeController {
 	public String home(Model model ,  HttpSession session) {	
 		@SuppressWarnings("unchecked")
 		List<String> sessionActive = (List<String>) session.getAttribute("session-counter");
-		model.addAttribute("visitas", sessionActive.size() );
+		model.addAttribute("visitas", (sessionActive.size() -1));
 		return "kanban";
 
 	}
