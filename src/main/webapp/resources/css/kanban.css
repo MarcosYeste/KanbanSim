@@ -257,7 +257,7 @@ button, *:focus  {
 #saturacion, #saturacion2 {
 	color: red;
 	visibility: visible;
-	transition: 1s ease;
+/* 	transition: 1s ease; */
 	font-size: 115%;
 	border-radius: 50%;
 }

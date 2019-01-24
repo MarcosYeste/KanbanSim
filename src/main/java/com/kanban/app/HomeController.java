@@ -1,6 +1,10 @@
 package com.kanban.app;
 
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 //import org.json.JSONObject; // comentado para recuperar resultado
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kanban.app.services.DistributionService;
 import com.kanban.app.services.KanbanService;
 import com.kanban.app.services.RestdbService;
+import com.kanban.app.services.SessionCounter;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
@@ -32,14 +37,19 @@ public class HomeController {
 	RestdbService restdbService;
 	@Autowired
 	DistributionService distributionService;
+	@Autowired
+	SessionCounter session;
 
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Model model ,  HttpSession session) {	
+		@SuppressWarnings("unchecked")
+		List<String> sessionActive = (List<String>) session.getAttribute("session-counter");
+		model.addAttribute("visitas", (sessionActive.size() -1));
 		return "kanban";
 
 	}
@@ -113,9 +123,9 @@ public class HomeController {
 
 		// Paso el objeto como una String que recojo por el JS como JSON
 		return noderet.toString();
-		
-		
-}
+
+
+	}
 
 	@RequestMapping(value = "/updateBluePrint", method = RequestMethod.GET)
 	public @ResponseBody void updateBluePrint(String id, String data) {
@@ -144,5 +154,4 @@ public class HomeController {
 			System.out.println(e);
 		}
 	}
-
 }

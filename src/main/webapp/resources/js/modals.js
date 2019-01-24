@@ -898,30 +898,6 @@ function showTaskInfo(){
 	document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + object.firstDuration + "</b>";	
 	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + object.eLT + " , "+  object.eCT  + "</b>";	
 
-//	if(!(isNaN(((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt))) && (TII != 0 && T != 0 && VII != 0  && TII - T > 0) ){
-
-//	if( TII < T ){
-//	document.getElementById("saturacion").innerHTML = "SOBRESATURACIÓN";
-//	document.getElementById("saturacion").setAttribute("class","alert alert-danger");	
-//	document.getElementById("saturacion2").innerHTML = "SOBRESATURACIÓN";
-//	document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0, "+  eCT.toFixed(2)  + "</b>";		
-//	}else{			
-//	document.getElementById("saturacion").innerHTML = "";
-//	document.getElementById("saturacion").setAttribute("class","");
-//	document.getElementById("saturacion2").innerHTML = "";
-//	document.getElementById("saturacion2").setAttribute("class","");
-//	var auxLTs= (eCT + ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt)).toFixed(0);
-//	if(!isNaN(auxLTs) || isFinite(auxLTs)){
-//	console.log("c")
-//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>" + auxLTs + "  ,  " +  eCT.toFixed(0) + "</b>";			
-//	}else{
-//	console.log("d")
-//	document.getElementById("modalTaskLTCTValue").innerHTML = "<b>0,"+  eCT.toFixed(0)  + "</b>";
-//	}	
-//	}					
-//	}
-
 	document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + object.assignedUsers + "</b>";
 	document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + object.staticAssigneds + "</b>";
 }
