@@ -67,7 +67,14 @@ ____________________________________________________________________
 	</div>
 
 	<h1 class="texto">KANBAN SIM</h1>
-
+	<%-- <% 
+	com.kanban.app.services.SessionCounter counter = (com.kanban.app.services.SessionCounter) session.getAttribute(
+			com.kanban.app.services.SessionCounter.COUNTER); 
+	%>
+	
+	<%= counter.getActiveSessionNumber() %> --%>
+	<p>Visitas ${visitas} </p>
+	
 	<!--
 ____________________________________________________________________
 
