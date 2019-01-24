@@ -104,7 +104,7 @@ listUsers.forEach(function(user){
 // Desactivamos la imagen del Slider si a la hora de recargar la página no hay
 // ninguna fase
 if(listPhases.length <= 0){
-	var declaration = document.styleSheets[7].cssRules[5].style;
+	var declaration = document.styleSheets[8].cssRules[5].style;
 	var theCSSprop = declaration.setProperty("opacity", 0, "important");
 }
 // chart Velocidad
@@ -893,7 +893,7 @@ function play() {
 
 				// Activa la imagen de Slider
 				if(listPhases.length > 0){
-					var declaration = document.styleSheets[7].cssRules[5].style;
+					var declaration = document.styleSheets[8].cssRules[5].style;
 					var theCSSprop = declaration.setProperty("opacity", 0.2, "important");
 				}
 				deshabilitarMenus(false);
@@ -1142,7 +1142,7 @@ function deshabilitarMenus(disable){
 		});
 
 		// Desactiva la imagen de Slider
-		var declaration = document.styleSheets[7].cssRules[5].style;
+		var declaration = document.styleSheets[8].cssRules[5].style;
 		var theCSSprop = declaration.setProperty("opacity", 0, "important");
 
 	}else{
