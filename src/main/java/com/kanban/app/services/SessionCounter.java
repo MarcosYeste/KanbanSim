@@ -24,9 +24,6 @@ public class SessionCounter implements HttpSessionListener {
 
     public void sessionDestroyed(HttpSessionEvent event) {
         System.out.println("SessionCounter.sessionDestroyed");
-        HttpSession session = event.getSession();
-        sessions.remove(session.getId());
-        session.setAttribute(SessionCounter.COUNTER, sessions);
     }
 
     public int getActiveSessionNumber() {
