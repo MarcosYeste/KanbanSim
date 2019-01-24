@@ -725,7 +725,7 @@ function play() {
 		sumWip = 0;
 		listTareas.forEach(function(task){
 		if(task.state == null){
-			if(task.backlogTime > 0){
+			if(task.backlogTime > 5){
 				saturation = true;
 			} 
 			task.backlogTime++;
@@ -803,16 +803,15 @@ function play() {
 			}
 			
 			console.log(" entryVelocity " + entryVelocity + " lastexitVelocity " + lastexitVelocity + " saturation " + saturation)				
-				
-			if (entryVelocity >= lastexitVelocity && (entryVelocity > 0 && lastexitVelocity > 0) && saturation){
+				console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
+			if (entryVelocity >= lastexitVelocity && (entryVelocity > 0 || lastexitVelocity > 0) && saturation){
 				console.log("ect3")
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
-				
+				console.log("wait " + wait)
 				if(wait > 0){
-					console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
 					if(parseInt(eCT) + parseInt(wait) > 0){
 						eLT= (parseInt(eCT) + parseInt(wait)) + 1;
-						console.log("wait " + wait)
+						console.log("wait2 " + wait)
 					} else {
 						eLT = eCT + 1;
 					}	
