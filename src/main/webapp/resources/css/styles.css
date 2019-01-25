@@ -514,7 +514,7 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that th
 #visitas{
 	font-family: 'Graduate';
 	padding: 10px;
-	font-size: 190%;
+	font-size: 130%;
 	color : black;
 	text-shadow: 0.5px 0.5px 0.5px black, 1px 1px 1.5px white , 1.3px 1.3px 0.5px black;
 }

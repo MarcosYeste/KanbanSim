@@ -461,9 +461,15 @@ function play() {
 							task.phase = (-1);
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
-							if(listOfTaskEnded.length == numOfTaskEstimation){;
+							if(taskEstimationLenghtChanged){
+								
+								listOfTaskEnded.splice(0,listOfTaskEnded.length-numOfTaskEstimation);								
+								taskEstimationLenghtChanged = false;
+							}
+							if(listOfTaskEnded.length == numOfTaskEstimation){
 								listOfTaskEnded.splice(0,1);
 								}
+							
 							listOfTaskEnded.push(task);
 							console.log(listOfTaskEnded);
 							mediasCLyCL = ultimas20TareasCTyLT(listOfTaskEnded);

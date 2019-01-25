@@ -16,7 +16,7 @@ var taskNameCounter = 0;
 var atributo = "Task1";
 var listOfTaskEnded = [];
 var sizeArray = 10;
-
+var taskEstimationLenghtChanged = false;
 //Variable global donde guardar el JSON con los datos de las plantillas(Blueprints)
 var bluePrint = null;
 var nameBlueprintArray = [[],[]];
@@ -872,6 +872,7 @@ function chrono(){
 	if(document.getElementById("numOfTaskEstimationInput")){
 		numOfTaskEstimation = parseInt(document.getElementById("numOfTaskEstimationInput").value);
 		console.log(numOfTaskEstimation + 1)
+		taskEstimationLenghtChanged = true;
 	}
 	
 	saveSpeedTimeSession();
