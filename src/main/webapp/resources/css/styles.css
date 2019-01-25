@@ -5,7 +5,7 @@ html {
 
 /* No select */
 body, html {
-	webkit-user-select: none;
+	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
@@ -494,15 +494,13 @@ ul.tabs li a {
 ul.tabs li a:hover {
 	background: #ccc;
 }
-html ul.tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that the active tab does not
-        listen to the hover properties--*/
+html ul.tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that the active tab does not listen to the hover properties--*/
 	background: #fff;
 }
 .tab_container {
 	border-top: none;
 	overflow: hidden;
 	clear: both;
-/* 	float: left;  */	
 	width: 100%;
 	background: #fff;
 }
