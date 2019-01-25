@@ -338,22 +338,6 @@ function play() {
 														isTotallyFree = false;
 													}
 												}
-
-
-												// Antigüo sistema
-// if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() ==
-// actualPhaseName){
-// if(listTareas[t].assignedUsers[0] != null && user.phases[up].trim() ==
-// phasesName.trim() && (listTareas[t].phase - 1 >= 0)){
-// if(listPhases[listTareas[t].phase].name.trim() == phasesName.trim()){
-
-// isTotallyFree = true;
-
-// }
-// } else if(){
-
-// isTotallyFree = false;
-// }
 											}
 
 										} else if(user.phases[up].trim() == actualPhaseName.trim()){
@@ -372,16 +356,8 @@ function play() {
 														isTotallyFree = false;
 													}
 												} 
-												// console.log("IF 2 2 " +
-												// task.name);
-												// Antigüo sistema
-// if(listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] != null){
-// isTotallyFree = true;
-// } else if (listTareas[t].phase == (i+1) && listTareas[t].assignedUsers[0] ==
-// null){
-// isTotallyFree = false;
-// }
-											}
+												// console.log("IF 2 2 " 
+												}
 										}
 									}
 
@@ -402,7 +378,7 @@ function play() {
 													task.staticAssigneds += (user.name)+" ";
 												}
 												user.assigned = true;
-// ASSIGNED USERS
+												// ASSIGNED USERS
 												listPhases[i].assignedUsers.push(user.name);
 
 												if(Math.round((task.duration - task.tss) / task.assignedUsers.length) <= 0){
@@ -471,7 +447,6 @@ function play() {
 								}
 							
 							listOfTaskEnded.push(task);
-							console.log(listOfTaskEnded);
 							mediasCLyCL = ultimas20TareasCTyLT(listOfTaskEnded);
 							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
 							
