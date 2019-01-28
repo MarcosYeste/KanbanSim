@@ -67,9 +67,11 @@ ____________________________________________________________________
 	</div>
 
 	<h1 class="texto">KANBAN SIM</h1>
-	
-	<div id="visitas">Visitas: <span> ${visitas} </span></div>
-	
+
+	<div id="visitas">
+		Visitas: <span> ${visitas} </span>
+	</div>
+
 	<!--
 ____________________________________________________________________
 
@@ -703,8 +705,8 @@ ____________________________________________________________________
 							usuarios y tareas. Para empezar la ejecución solo hace falta
 							darle al botón de play y para pausar en cualquier momento haz
 							clic en el botón de pausa, También puedes resetear la ejecución
-							dandole al botón de replay.</dd>
-						<hr>
+							dandole al botón de replay.<hr></dd>
+						
 						<dt>
 							<span class="h4">Fases</span>
 						</dt>
@@ -722,13 +724,13 @@ ____________________________________________________________________
 						<dd>
 							<strong>Ordenar Fases:</strong> Para ordenar las fases
 							simplemente tiene que agarrar con el cursor la fase y arrastrarla
-							hasta la posicion que usted desee.
+							hasta la posicion que usted desee.<hr>
 						</dd>
-						<hr>
+						
 						<dt>
-							<span class="h4">Miembros de Equipo</span>
+							<span class="h4">Miembros de Equipo</span><br>
 						</dt>
-						<br>
+						
 						<dd>
 							<strong>Añadir Miembros:</strong> Para añadir miembros haga click
 							en el icono <i class="fas fa-user-plus fa-1x"
@@ -742,13 +744,13 @@ ____________________________________________________________________
 						</dd>
 						<dd>
 							<strong>Eliminar Miembros:</strong> Para eliminar miembros haga
-							click en el Miembro y click en "Eliminar Miembro".
+							click en el Miembro y click en "Eliminar Miembro".<hr>
 						</dd>
-						<hr>
+						
 						<dt>
-							<span class="h4">Distribución</span>
+							<span class="h4">Distribución</span><br>
 						</dt>
-						<br>
+						
 						<dd>
 							<dl>
 								<dt>Distribución Manual:</dt>
@@ -780,13 +782,13 @@ ____________________________________________________________________
 											fase en la que se encuentre la tarea.)</dd>
 									</dl>
 								</dd>
-							</dl>
+							</dl><hr>
 						</dd>
-						<hr>
+						
 						<dt>
-							<span class="h4">Tarea</span>
+							<span class="h4">Tarea</span><br>
 						</dt>
-						<br>
+						
 						<dd>
 							<dl>
 								<dt>Añadir</dt>
@@ -801,25 +803,25 @@ ____________________________________________________________________
 								<dd>Cada tarea tiene su propia información, para poder
 									verla solo necesitas darle clic encima de la tarea qe quieras y
 									ya está.</dd>
-							</dl>
+							</dl><hr>
 						</dd>
-						<hr>
+						
 						<dt>
-							<span class="h4">Cronometro</span>
+							<span class="h4">Cronometro</span><br>
 						</dt>
-						<br>
+						
 						<dd>
 							Para Iniciar el cronometro dale clic encima de los numeros <b>00:00</b>,
 							saldra una ventana en la que se permitirá indicar el tiempo tanto
 							en minutos como en segundos, una vez guardado dele iniciar el
 							Kanban y una vez pasado el tiempo la ejecución se parará
-							automaticamente.
+							automaticamente.<hr>
 						</dd>
-						<hr>
+						
 						<dt>
-							<span class="h4">Nuevo Tablero</span>
+							<span class="h4">Nuevo Tablero</span><br>
 						</dt>
-						<br>
+					
 						<dd>
 							Si te has cansado ya del tablero que tienes simplemente tienes
 							que darle clic al icono <i class="fas fa-file fa-1x"></i>. Ten en

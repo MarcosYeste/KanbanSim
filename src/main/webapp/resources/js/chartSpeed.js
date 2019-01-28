@@ -30,11 +30,11 @@ function addDataSpeed(chart, speed , numTask) {
 
 	chart.data.labels.push(speed);
 	var newDatasetSpeed  = addDataSetSpeed(chart, numTask);
-	
-		chart.data.datasets.push(newDatasetSpeed);	
 
-		chart.update();
-	
+	chart.data.datasets.push(newDatasetSpeed);	
+
+	chart.update();
+
 }
 
 function addDataSetSpeed(chart,numTask){      
@@ -48,14 +48,14 @@ function addDataSetSpeed(chart,numTask){
 	};
 	newDataset.label.push("Numero de  Tareas");
 	newDataset.data.push(numTask);
-	
+
 	return newDataset;
 }
 
 function updateDataSpeed(chart, speed, numTask){
 	chart.data.labels.push(speed);
 	chart.data.datasets[0].data.push(numTask);
-	
+
 
 	chart.update();
 

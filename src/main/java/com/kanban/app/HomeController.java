@@ -54,9 +54,9 @@ public class HomeController {
 		@SuppressWarnings("unchecked")
 		List<String> sessionActive = (List<String>) session.getAttribute("session-counter");
 		model.addAttribute("visitas", (sessionActive.size() -1));
-		
-//		System.out.println(InetAddress.getLocalHost().getHostAddress());
-//		System.out.println(InetAddress.getLocalHost().getHostName());
+
+		//		System.out.println(InetAddress.getLocalHost().getHostAddress());
+		//		System.out.println(InetAddress.getLocalHost().getHostName());
 		return "kanban";
 
 	}

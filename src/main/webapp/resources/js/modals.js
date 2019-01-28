@@ -238,14 +238,14 @@ function addUsers(){
 		var label = document.createElement("label");
 		var labelFor =  document.createAttribute("for");
 		var texto = phasesName[i].childNodes[0].textContent.trim();
-		
+
 		label.append(texto);
 		labelFor.value = texto;
 		type.value = "checkbox";
 		attr.value = "addUserPhaseCheck"; 
 		attrId.value = texto;
 		val.value = texto;
-		
+
 		label.setAttributeNode(labelFor);
 		phaseCheck.setAttributeNode(type); 
 		phaseCheck.setAttributeNode(attrId); 
@@ -489,7 +489,7 @@ function modUsers(){
 		var label = document.createElement("label");
 		var labelFor =  document.createAttribute("for");
 		var texto = phasesName[i].childNodes[0].textContent.trim();
-		
+
 		type.value = "checkbox";  
 		attr.value = "modUserPhaseCheck"; 
 		val.value = texto;
@@ -497,7 +497,7 @@ function modUsers(){
 		labelFor.value = texto + "2";
 		attrId.value = texto + "2";
 		val.value = texto;
-		
+
 		label.setAttributeNode(labelFor);
 		phaseCheck.setAttributeNode(type);
 		phaseCheck.setAttributeNode(attrId);
@@ -541,7 +541,7 @@ function modUsers(){
 			insertInput(index1, listUsers[click2].phases.indexOf(event.target.value));
 
 		} else {
-			
+
 			for(var i = 0; i < listUsers[click2].phases.length; i++){
 				if(event.target.value.trim() == listUsers[click2].phases[i].trim()){
 
@@ -772,7 +772,7 @@ function addTareas(weight, creationTime, eCT, eLT, entryTime){
 	if(document.getElementById("taskChart").style.visibility != "visible"){
 		document.getElementById("taskChart").style.visibility  = "visible";
 	}
-	
+
 	var color = getRandomColor();
 	addDataTask(myChartTask, tarea.cycleTime, tarea.leadTime, tarea.esfuerzo, color,tarea.name);
 	addDataEstimated(chartEstimated, tarea.eCT, tarea.eLT, tarea.esfuerzo, color,tarea.name);
@@ -865,15 +865,15 @@ function chrono(){
 		sizeArray = document.getElementById("numOfTaskEstimationInput").value;
 		if(sizeArray == undefined || !isNaN(sizeArray)){	
 			sizeArray = 10;
-			
+
 		}
 	}
-	
+
 	if(document.getElementById("numOfTaskEstimationInput")){
 		numOfTaskEstimation = parseInt(document.getElementById("numOfTaskEstimationInput").value);
 		taskEstimationLenghtChanged = true;
 	}
-	
+
 	saveSpeedTimeSession();
 }
 
