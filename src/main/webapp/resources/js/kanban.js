@@ -813,7 +813,7 @@ function play() {
 				/* Provisional */
 				var totalSumBackLog = 0;
 				var totalSum = 0;
-				console.log("Length Backlog: " + backLogCollector.length + ", Numero de tareas para calculo Estimado:  " + (numOfTaskEstimation - 1));
+				console.log("Total Tareas: " + backLogCollector.length + ", Numero de tareas para calculo Estimado: " + (numOfTaskEstimation - 1));
 				if(backLogCollector.length < numOfTaskEstimation){
 					for(var j = 0; j < backLogCollector.length; j++){
 						totalSumBackLog+= backLogCollector[j];

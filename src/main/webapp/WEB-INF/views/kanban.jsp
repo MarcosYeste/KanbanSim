@@ -19,7 +19,6 @@ ____________________________________________________________________
 
 	<!-- Contenedor de botones principal, el cual contiene botones 'meta', no interfiren con el transcurso del programa, unicamente
 	 Sirven para resetear el tablero y para motrar la informacion de como usar el propio programa -->
-
 	<div class="botonesContainer1" id="botonesContainer1">
 
 		<span id="arrow"><i class="fas fa-caret-right"
