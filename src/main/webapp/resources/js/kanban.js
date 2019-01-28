@@ -180,8 +180,7 @@ function play() {
 		if(chronoTime != 0){
 			kanbanTss++;
 		}
-
-		saturation = false;
+		
 		velocidad ++;
 		for (var i = 0; i < fases.length; i++) {
 
@@ -703,36 +702,25 @@ function play() {
 		} // end phases for
 
 		var totalTimeSum = 0;
+		var numOfTasksInBackLog = 0;
 		sumWip = 0;
 		listTareas.forEach(function(task){
 			if(task.state == null){
-				if(task.backlogTime > 5){
+				if(task.backlogTime > 3){
 					saturation = true;
 				} 
 				task.backlogTime++;
-			}
+				numOfTasksInBackLog++;
+			} 
 			if(task.state == "ToDo" || task.state == "Doing" || task.state == "Done"){
 				sumWip++;
 			}
-//			if(task.phase == -1 && task.state == "Ended"){
-
-//			numOfTasksEnded++;
-//			totalTimeSum += task.cycleTime;
-//			}
 		});
 
+		if(numOfTasksInBackLog == 0){
+			saturation = false;
+		}
 		// T = totalTimeSum / numOfTasksEnded;
-
-//		var totalSum = 0;
-//		listTareas.forEach(function(task){
-//		if(task.phase == -1 && task.state == "Ended"){
-//		totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
-//		}
-//		});
-
-//		Vt = totalSum / numOfTasksEnded;
-//		numOfTasksEnded = 0;
-
 
 		listTareas.forEach(function(task) {
 			task.sameIteration = false;
