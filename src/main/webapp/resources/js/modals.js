@@ -871,7 +871,6 @@ function chrono(){
 	
 	if(document.getElementById("numOfTaskEstimationInput")){
 		numOfTaskEstimation = parseInt(document.getElementById("numOfTaskEstimationInput").value);
-		console.log(numOfTaskEstimation + 1)
 		taskEstimationLenghtChanged = true;
 	}
 	
