@@ -14,13 +14,13 @@ distribution.lambda;			// Lambda value for poisson distribution
 distribution.weightTimeLapse;
 distribution.distributionWeightValues = [0, 0, 0, 0];
 
-// Recogemos la distribución según lo que este guardado en la sesión
+//Recogemos la distribución según lo que este guardado en la sesión
 refreshDistributionSession();
 saveDistributionSession();
 
 document.getElementById("distributionChange").addEventListener("click", getDistribution(), false);
 
-// Dependiendo si es manual o si es constante, haz una lista de funciones
+//Dependiendo si es manual o si es constante, haz una lista de funciones
 if(distribution.backLogType == "manual"){
 
 	document.getElementById("addTask").removeAttribute("disabled");
@@ -31,7 +31,7 @@ if(distribution.backLogType == "manual"){
 	document.getElementById("addTask").setAttribute("aria-disabled", "true");
 
 }
-// Variables globales necesarias para empezar la partida
+//Variables globales necesarias para empezar la partida
 var countSpeed = 0;
 var speed = 1;
 var playing = false; 
@@ -46,16 +46,16 @@ var gaussian = 0;
 var gaussianCounter = 0;
 var taskNameCounter = 0;
 var poisson = 0;  			// Tiempo en el que entrara la proxima tarea en
-							// distribución poisson
+// distribución poisson
 var poissonCounter = 0;
 var weight = "M"; 	
 var weightTime = 0; 		// Tiempo en el que entrara la proxima tarea en
-							// uniforme con peso
+// uniforme con peso
 var mediasCLyCL = 0;
 
 var weightCounter = 0;
 var numOfBacklogCalled = 0; // Veces que se ha generado un tiempo en backlog
-							// constante
+// constante
 var backLogCollector = []; 	// Acumulador de tiempos de entrada
 var TII = 0; 				// Tiempo medio entre la creación de tareas
 var VII = 0; 				// Varianza entre la creación de tareas
@@ -82,38 +82,38 @@ emptyUserData();
 refreshUsers();
 refreshPhases();
 
-// recogemos de la sesion la velocidad de calculo estimado
+//recogemos de la sesion la velocidad de calculo estimado
 refreshSpeedTimeSession();
 document.getElementById("speedInput").value = parseInt(speedTime);
 document.getElementById("numOfTaskEstimationInput").value = parseInt(numOfTaskEstimation);
 
-// Guardar al modificar el orden de las fases
+//Guardar al modificar el orden de las fases
 sortPhases();
 
-// Hacemos la peticion inicial a la base datos por las plantillas
+//Hacemos la peticion inicial a la base datos por las plantillas
 getBlueprints();
 loadCharts();
 
-// Inicializamos la gráfica
+//Inicializamos la gráfica
 listUsers.forEach(function(user){
 
 	addData(myChart, user.name, user.tasksWorked, "rgba(0,255,233,0.5)");
 
 })
 
-// Desactivamos la imagen del Slider si a la hora de recargar la página no hay
-// ninguna fase
+//Desactivamos la imagen del Slider si a la hora de recargar la página no hay
+//ninguna fase
 if(listPhases.length <= 0){
 	var declaration = document.styleSheets[8].cssRules[5].style;
 	var theCSSprop = declaration.setProperty("opacity", 0, "important");
 }
-// chart Velocidad
+//chart Velocidad
 addDataSpeed(myChartSpeed, speedForChart , exitVelocity);
 
-// Botón para reinicializar la simulación
+//Botón para reinicializar la simulación
 document.getElementById("deleteAll").addEventListener("click", removeAllSession, false);
 
-// Permitimos el tooltip de bootstrap en toda la pagina
+//Permitimos el tooltip de bootstrap en toda la pagina
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
@@ -122,13 +122,13 @@ $(function () {
 document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
 document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: 0   -   LT: 0";
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
-// _______________________ BUTTONS ___________________________________
+//_______________________ BUTTONS ___________________________________
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
-// Play Button
+//Play Button
 if(document.getElementById("playpause")){
 	document.getElementById("playpause").addEventListener("change", function() {
 
@@ -147,26 +147,26 @@ if(document.getElementById("playpause")){
 	});
 }
 
-// Boton Reset
+//Boton Reset
 if(document.getElementById("reset")){
 	document.getElementById("reset").addEventListener("click", function() {
 		location.reload();
 	});
 }
 
-// //Botón nuevo Tablero
-// if(document.getElementById("divDelete")){
-// document.getElementById("divDelete").addEventListener("click", function() {
-// sessionStorage.clear();
-// location.reload();
-// });
-// }
+////Botón nuevo Tablero
+//if(document.getElementById("divDelete")){
+//document.getElementById("divDelete").addEventListener("click", function() {
+//sessionStorage.clear();
+//location.reload();
+//});
+//}
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
-// _______________________ PLAY ______________________________________
+//_______________________ PLAY ______________________________________
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
 function play() {
 
@@ -174,13 +174,13 @@ function play() {
 	var fases = document.getElementsByClassName("faseName");
 	var lowestTime = [];
 	var lazyPeople = [];
-	
+
 	myInterval = setInterval(function() {
 
 		if(chronoTime != 0){
 			kanbanTss++;
 		}
-		
+
 		saturation = false;
 		velocidad ++;
 		for (var i = 0; i < fases.length; i++) {
@@ -269,8 +269,8 @@ function play() {
 						saveTimeStates(task,leadTime,i);
 						task.sameIteration = true;
 
-// FINALIZAR ARRAY USUARIOS ASIGNADOS A CADA FASE
-// listPhases[i].assignedUsers
+//						FINALIZAR ARRAY USUARIOS ASIGNADOS A CADA FASE
+//						listPhases[i].assignedUsers
 
 						for(var w = 0; w < listUsers.length; w++){
 							for(var au = 0; au < task.assignedUsers.length; au++){
@@ -315,7 +315,7 @@ function play() {
 						var actualPhaseName = fases[i].children[0].childNodes[0].textContent.trim();
 						var phaseSkill;
 						listUsers.forEach(function(user) {
-													
+
 							if(!user.assigned && task.assignedUsers[0] != null){
 								var isTotallyFree = false;
 
@@ -328,11 +328,11 @@ function play() {
 
 												if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
 													if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null && listPhases[task.phase - 1].name.trim() == user.phases[up].trim()){// &&
-																																																											// listPhases[task.phase
-																																																											// -
-																																																											// 1].name.trim()
-																																																											// ==
-																																																											// user.phases[up].trim()
+														// listPhases[task.phase
+														// -
+														// 1].name.trim()
+														// ==
+														// user.phases[up].trim()
 														isTotallyFree = true;
 													} else if (listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim()){
 														isTotallyFree = false;
@@ -357,7 +357,7 @@ function play() {
 													}
 												} 
 												// console.log("IF 2 2 " 
-												}
+											}
 										}
 									}
 
@@ -421,10 +421,10 @@ function play() {
 								}
 
 							}
-					
+
 						});
 
-					 
+
 					} else if (task.state == "Done" && task.name == elementName && task.tss >= taskDuration &&
 							task.phase == (i + 1) && !task.sameIteration) {
 						// IF 3
@@ -438,21 +438,21 @@ function play() {
 							saveTimeStates(task,leadTime,i);
 							divsTareas[k] = mostrarFinalTarea(divsTareas[k],task);
 							if(taskEstimationLenghtChanged){
-								
+
 								listOfTaskEnded.splice(0,listOfTaskEnded.length-numOfTaskEstimation);								
 								taskEstimationLenghtChanged = false;
 							}
 							if(listOfTaskEnded.length == numOfTaskEstimation){
 								listOfTaskEnded.splice(0,1);
-								}
-							
+							}
+
 							listOfTaskEnded.push(task);
 							mediasCLyCL = ultimas20TareasCTyLT(listOfTaskEnded);
 							document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: "+mediasCLyCL[0]+"   -   LT: "+mediasCLyCL[1];
-							
+
 							T = mediasCLyCL[0]; // CicleTime medio de las
-												// ultimas X tareas finalizadas
-							
+							// ultimas X tareas finalizadas
+
 							var totalSum = 0;
 							listOfTaskEnded.forEach(function(task){
 								totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
@@ -461,8 +461,8 @@ function play() {
 							Vt = totalSum / numOfTaskEstimation;
 							// numOfTasksEnded = 0;
 
-							
-							
+
+
 							if(document.getElementsByClassName("contenedorFinal")[0].children.length == 0){
 								document.getElementsByClassName("contenedorFinal")[0].appendChild(divsTareas[k]);
 							}else{
@@ -470,7 +470,7 @@ function play() {
 							}
 							exitVelocity++;
 							indiceTareas = getIndex(task.name) - 1;							
-							 
+
 							updateDataTask(myChartTask,listResultados[0].taskCycle[indiceTareas], listResultados[0].taskLead[indiceTareas], listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
 
 							updateDataTaskEstimated(chartEstimated, task.eCT, task.eLT, listResultados[0].taskEsfuerzo[indiceTareas], indiceTareas);
@@ -542,15 +542,15 @@ function play() {
 								task.startTime = leadTime - task.creationTime;
 								task.firstDuration.push(task.duration);
 								updateGraficPhase();
-								
-								
+
+
 							}			
 
 						} else {
 //							if(task.backlogTime > 2){
-//								saturation = true;
+//							saturation = true;
 //							} else {
-//								saturation = false;
+//							saturation = false;
 //							}
 //							task.backlogTime++;
 						} // if4 end
@@ -608,11 +608,11 @@ function play() {
 												for(var t = 0; t < listTareas.length; t++){	
 													if(listTareas[t].phase - 1 >= 0 && user.phases[up].trim() == phasesName.trim()){
 														if(listPhases[listTareas[t].phase - 1].name.trim() == phasesName.trim() && listTareas[t].assignedUsers[0] != null && listPhases[task.phase - 1].name.trim() == user.phases[up].trim()){// &&
-																																																												// listPhases[task.phase
-																																																												// -
-																																																												// 1].name.trim()
-																																																												// ==
-																																																												// user.phases[up].trim()
+															// listPhases[task.phase
+															// -
+															// 1].name.trim()
+															// ==
+															// user.phases[up].trim()
 															isTotallyFree = true;
 															// console.log("IF 5
 															// 2 1 1 " +
@@ -666,7 +666,7 @@ function play() {
 
 									} 
 									user.assigned = true;
-// ASSIGNED USERS
+//									ASSIGNED USERS
 									listPhases[i].assignedUsers.push(user.name);
 
 
@@ -698,40 +698,40 @@ function play() {
 				} 				// divs tareas for end
 			}); 				// foreach end
 
-			
+
 
 		} // end phases for
 
 		var totalTimeSum = 0;
 		sumWip = 0;
 		listTareas.forEach(function(task){
-		if(task.state == null){
-			if(task.backlogTime > 5){
-				saturation = true;
-			} 
-			task.backlogTime++;
-		}
-		if(task.state == "ToDo" || task.state == "Doing" || task.state == "Done"){
-			sumWip++;
-		}
-// if(task.phase == -1 && task.state == "Ended"){
-//
-// numOfTasksEnded++;
-// totalTimeSum += task.cycleTime;
-// }
+			if(task.state == null){
+				if(task.backlogTime > 5){
+					saturation = true;
+				} 
+				task.backlogTime++;
+			}
+			if(task.state == "ToDo" || task.state == "Doing" || task.state == "Done"){
+				sumWip++;
+			}
+//			if(task.phase == -1 && task.state == "Ended"){
+
+//			numOfTasksEnded++;
+//			totalTimeSum += task.cycleTime;
+//			}
 		});
 
 		// T = totalTimeSum / numOfTasksEnded;
-		
-// var totalSum = 0;
-// listTareas.forEach(function(task){
-// if(task.phase == -1 && task.state == "Ended"){
-// totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
-// }
-// });
-//
-// Vt = totalSum / numOfTasksEnded;
-// numOfTasksEnded = 0;
+
+//		var totalSum = 0;
+//		listTareas.forEach(function(task){
+//		if(task.phase == -1 && task.state == "Ended"){
+//		totalSum += Math.pow(Math.abs(task.cycleTime - T), 2);
+//		}
+//		});
+
+//		Vt = totalSum / numOfTasksEnded;
+//		numOfTasksEnded = 0;
 
 
 		listTareas.forEach(function(task) {
@@ -756,7 +756,7 @@ function play() {
 			if((gaussian == gaussianCounter || gaussian <= 0) && distribution.typeConstant == "normal"){
 				getGaussian();		
 				calcLDValues(gaussian);
-				calcEstimatedTimes()
+				calcEstimatedTimes();
 				gaussianCounter = 0;
 				// Creamos un objeto nuevo
 				addTareas("",leadTime, eCT.toFixed(0), eLT.toFixed(0));
@@ -764,27 +764,27 @@ function play() {
 			} else if ((poisson == poissonCounter || poisson <= 0) && distribution.typeConstant == "poisson"){
 				getPoisson();
 				calcLDValues(poisson);
-				calcEstimatedTimes()
+				calcEstimatedTimes();
 				poissonCounter = 0;
 				addTareas("",leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			} else if ((weightTime == weightCounter || weightTime <= 0) && distribution.typeConstant == "weight"){
 				getWeight();
 				calcLDValues(weightTime);
-				calcEstimatedTimes()
+				calcEstimatedTimes();
 				weightCounter = 0;
 				addTareas(weight,leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			}
 		}
-		
+
 		//Función para calcular el LeadTime estimado y CicleTime estimado por para cada tarea
 		function calcEstimatedTimes(){
 			console.log("sumwip " + sumWip + " lastexitVelocity " + lastexitVelocity + " speedTime " + speedTime)
 			if(parseInt((sumWip / lastexitVelocity)) * speedTime >= 0){
 				eCT =  (sumWip / lastexitVelocity) * speedTime;
 			}
-			
+
 			console.log(" entryVelocity " + entryVelocity + " lastexitVelocity " + lastexitVelocity + " saturation " + saturation)				
-				console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
+			console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
 			if (entryVelocity >= lastexitVelocity && (entryVelocity > 0 || lastexitVelocity > 0) && saturation){
 				console.log("ect3")
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
@@ -809,8 +809,8 @@ function play() {
 			console.log("UPDATE SPEED: speed -> "+speedForChart+" NumeroTareasSalida -> "+exitVelocity);
 			updateDataSpeed(myChartSpeed, speedForChart, exitVelocity);
 		}
-		
-		
+
+
 		// Funcion para calcular el tiempo medio de la entrada de tareas y la
 		// varianza
 		function calcLDValues(distributionValue){
@@ -818,11 +818,11 @@ function play() {
 				backLogCollector.push(distributionValue);
 				numOfBacklogCalled++;
 
-// var totalSumBackLog = 0;
-// for(var j = 0; j < backLogCollector.length; j++){
-// totalSumBackLog+= backLogCollector[j];
-// }
-				
+//				var totalSumBackLog = 0;
+//				for(var j = 0; j < backLogCollector.length; j++){
+//				totalSumBackLog+= backLogCollector[j];
+//				}
+
 				/* Provisional */
 				var totalSumBackLog = 0;
 				var totalSum = 0;
@@ -832,7 +832,7 @@ function play() {
 						totalSumBackLog+= backLogCollector[j];
 					}
 					TII = totalSumBackLog / numOfBacklogCalled;
-					
+
 					for(var i = 0; i < numOfBacklogCalled; i++){
 						// corregir al cuadrado
 						totalSum += Math.pow(backLogCollector[i] - TII, 2);
@@ -843,7 +843,7 @@ function play() {
 						totalSumBackLog+= backLogCollector[backLogCollector.length - 1 - j];
 					}
 					TII = totalSumBackLog / numOfTaskEstimation;
-					
+
 					for(var i = 0; i < numOfTaskEstimation; i++){
 						// corregir al cuadrado
 						totalSum += Math.pow(backLogCollector[backLogCollector.length - 1 - i] - TII, 2);
@@ -851,9 +851,9 @@ function play() {
 					VII = totalSum / numOfTaskEstimation;
 				}
 
-				
-				
-				
+
+
+
 			}
 		}
 
@@ -866,8 +866,8 @@ function play() {
 				// Finalizado completamente
 				clearInterval(myInterval);
 				kanbanTss = 0;
-// chronoTime = 0;
-// document.getElementById("chronoViewer").innerHTML = "00:00";
+//				chronoTime = 0;
+//				document.getElementById("chronoViewer").innerHTML = "00:00";
 				chrono();
 				// Cambiamos el boton a pausa
 				document.getElementById("playpause").checked = false;
@@ -900,8 +900,8 @@ function play() {
 				// Finalizado completamente
 				clearInterval(myInterval);
 				kanbanTss = 0;
-// chronoTime = 0;
-// document.getElementById("chronoViewer").innerHTML = "00:00";
+//				chronoTime = 0;
+//				document.getElementById("chronoViewer").innerHTML = "00:00";
 				chrono();
 				// Cambiamos el boton a pausa
 				document.getElementById("playpause").checked = false;
@@ -926,11 +926,11 @@ function play() {
 
 		if(divsTareas.length == 0){leadTime = 0;}
 		stopWatch();
-		
+
 		if(chronoTime != ""){
 			// Función encargada de hacer de cronometro
 			timer();
-			
+
 		}
 
 		gaussianCounter++;
@@ -952,92 +952,92 @@ function play() {
 		if(velocidad == speedTime){
 			lastexitVelocity = exitVelocity;
 			lastentryVelocity = entryVelocity;
-			
+
 //			console.log("sumwip " + sumWip + " lastexitVelocity " + lastexitVelocity + " speedTime " + speedTime)
 //			if(parseInt((sumWip / lastexitVelocity)) * speedTime >= 0){
-//				eCT =  (sumWip / lastexitVelocity) * speedTime;
+//			eCT =  (sumWip / lastexitVelocity) * speedTime;
 //			}
-//			
+
 //			console.log(" entryVelocity " + entryVelocity + " lastexitVelocity " + lastexitVelocity + " saturation " + saturation)				
-//				
+
 //			if (entryVelocity >= lastexitVelocity && (entryVelocity > 0 && lastexitVelocity > 0) && saturation){
-//				console.log("ect3")
-//				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
-//				
-//				if(wait > 0){
-//					console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
-//					if(parseInt(eCT) + parseInt(wait) > 0){
-//						eLT= (parseInt(eCT) + parseInt(wait)) + 1;
-//						console.log("wait " + wait)
-//					} else {
-//						eLT = eCT + 1;
-//					}	
-//				}
-//
+//			console.log("ect3")
+//			wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
+
+//			if(wait > 0){
+//			console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
+//			if(parseInt(eCT) + parseInt(wait) > 0){
+//			eLT= (parseInt(eCT) + parseInt(wait)) + 1;
+//			console.log("wait " + wait)
 //			} else {
-//				eLT = eCT + 1;
-//				console.log("eLT " + eLT)
+//			eLT = eCT + 1;
+//			}	
 //			}
-//
-//
+
+//			} else {
+//			eLT = eCT + 1;
+//			console.log("eLT " + eLT)
+//			}
+
+
 //			var auxZ = speedTime;				
 //			speedForChart += parseInt(auxZ);	
 //			console.log("UPDATE SPEED: speed -> "+speedForChart+" NumeroTareasSalida -> "+exitVelocity);
 //			updateDataSpeed(myChartSpeed, speedForChart, exitVelocity);
-			
+
 			if(exitVelocity == 0){
 				document.getElementById("velocityAlert").innerHTML = "<span class='tooltiptext'>Velocidad Muy Baja</span><i class='fa fa-exclamation-triangle'></i>";
 			} else {
 				document.getElementById("velocityAlert").innerHTML = "";
 
-				
+
 			}
 
-			
+
 			velocidad = 0;
 			exitVelocity = 0;
 			entryVelocity = 0;
 
 		} else if (velocidad > speedTime){
-			
+
 			velocidad = 0;
 		}
-		
+
 		// Recargamos los datos de la targeta de informacion de cada tarea
 		listTareas.forEach(function(tarea){
 
 //			if(atributo == tarea.name){
-				// Show Info
-				document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
+			// Show Info
+			document.getElementById("modalTaskTimeWorkedValue").innerHTML = "<b>" + tarea.firstDuration + "</b>";	
 
-				document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
-				
-//				if(showLTandCLtensecs == speedTime){
-					if((saturation && TII < T) || saturation){
-						if(document.getElementById("saturacion").children.length < 2){
-							document.getElementById("saturacion").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
-							document.getElementById("saturacion").setAttribute("class","alert alert-danger");
-							document.getElementById("saturacion2").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
-							document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
-							
-						}	
-//						saturation= false;
-						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
+			document.getElementById("modalTaskRealTimeValue").innerHTML = "<b>" + tarea.phasesTime + "</b>";
 
-					}else{
-						
-						document.getElementById("saturacion").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
-						document.getElementById("saturacion").setAttribute("class","");
-						document.getElementById("saturacion2").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
-						document.getElementById("saturacion2").setAttribute("class","");
-						document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
+//			if(showLTandCLtensecs == speedTime){
+			if((saturation && TII < T) || saturation){
+				if(document.getElementById("saturacion").children.length < 2){
+					document.getElementById("saturacion").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
+					document.getElementById("saturacion").setAttribute("class","alert alert-danger");
+					document.getElementById("saturacion2").innerHTML += "<i class='fa fa-exclamation fa-2x'></i>";
+					document.getElementById("saturacion2").setAttribute("class","alert alert-danger");
 
-					}					
+				}	
+//				saturation= false;
+				document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
 
-//				}
+			}else{
 
-				document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
-				document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
+				document.getElementById("saturacion").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
+				document.getElementById("saturacion").setAttribute("class","");
+				document.getElementById("saturacion2").innerHTML = "<span class='tooltiptext'>Sobresaturación</span>";
+				document.getElementById("saturacion2").setAttribute("class","");
+				document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
+
+			}					
+
+//			}
+
+			document.getElementById("modalTaskWorkingValue").innerHTML = "<b>" + tarea.assignedUsers + "</b>";
+			document.getElementById("modalTaskWorkedValue").innerHTML = "<b>" + tarea.staticAssigneds + "</b>";
 //			}
 		})
 
@@ -1061,11 +1061,11 @@ function play() {
 	}, (1000/ speed));
 }
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
-// _______________________ MENÚS _____________________________________
+//_______________________ MENÚS _____________________________________
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
 function deshabilitarMenus(disable){
 
@@ -1153,10 +1153,10 @@ function deshabilitarMenus(disable){
 
 		// Permitimos de nuevo abrir el modal de modificación y eliminación
 		for (var id = 0; id < document.getElementsByClassName("userName").length; id++){
-			
-				document.getElementsByClassName("userName")[id].setAttribute("data-target", "#myModal2");
-				document.getElementsByClassName("userName")[id].setAttribute("data-toggle", "modal");
-			
+
+			document.getElementsByClassName("userName")[id].setAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[id].setAttribute("data-toggle", "modal");
+
 
 		}
 
@@ -1176,11 +1176,11 @@ function deshabilitarMenus(disable){
 }
 
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
-// _______________________ ORDENAR FASES _____________________________
+//_______________________ ORDENAR FASES _____________________________
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
 function sortPhases(){
 	refreshPhases();
@@ -1219,11 +1219,11 @@ function sortPhases(){
 }
 
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
-// ____________________ DISTRIBUCION CONSTANTE _______________________
+//____________________ DISTRIBUCION CONSTANTE _______________________
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
 function getGaussian(){
 	$.ajax({
@@ -1326,11 +1326,11 @@ function getDistribution(){
 	}
 }
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
-// _______________________ MOSTRAR TAREAS ____________________________
+//_______________________ MOSTRAR TAREAS ____________________________
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
 function printTasks(tarea){
 	document.getElementsByClassName("contenedorTareas")[0].innerHTML +=
@@ -1346,11 +1346,11 @@ function printTasks(tarea){
 	}
 }
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
-// _______________________ CRONOMETRO ________________________________
+//_______________________ CRONOMETRO ________________________________
 
-// ____________________________________________________________________
+//____________________________________________________________________
 
 function stopWatch(){
 
@@ -1445,7 +1445,7 @@ function loadCharts(){
 		// When page loads...
 		$(".tab_content").hide(); // Hide all content
 		$("ul.tabs li:first").addClass("active").show(); // Activate first
-															// tab
+		// tab
 		$(".tab_content:first").show(); // Show first tab content
 
 		// On Click Event
@@ -1456,10 +1456,10 @@ function loadCharts(){
 			$(".tab_content").hide(); // Hide all tab content
 
 			var activeTab = $(this).find("a").attr("href"); // Find the href
-															// attribute value
-															// identify the
-															// active tab +
-															// content
+			// attribute value
+			// identify the
+			// active tab +
+			// content
 			$(activeTab).fadeIn(); // Fade in the active ID content
 			return false;
 		});

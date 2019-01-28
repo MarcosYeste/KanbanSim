@@ -67,9 +67,11 @@ ____________________________________________________________________
 	</div>
 
 	<h1 class="texto">KANBAN SIM</h1>
-	
-	<div id="visitas">Visitas: <span> ${visitas} </span></div>
-	
+
+	<div id="visitas">
+		Visitas: <span> ${visitas} </span>
+	</div>
+
 	<!--
 ____________________________________________________________________
 
