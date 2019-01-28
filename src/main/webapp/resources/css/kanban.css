@@ -141,7 +141,11 @@
 
 .titulo {
 	cursor: pointer !important;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
+
 /* ICONO EDITAR TITULO */
 .titulo::before {
 	content: "\f044";
