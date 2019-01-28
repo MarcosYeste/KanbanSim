@@ -801,6 +801,7 @@ function play() {
 			} else {
 				eLT = eCT + 1;
 				console.log("eLT " + eLT)
+				// ESPERA??????
 			}
 
 
