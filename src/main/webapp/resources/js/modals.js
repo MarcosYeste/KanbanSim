@@ -127,7 +127,7 @@ function saveAddPhase(){
 		// Activa la imagen de Slider
 		var declaration = document.styleSheets[7].cssRules[5].style;
 		if(declaration.getPropertyValue("opacity") == 0){
-			var theCSSprop = declaration.setProperty("opacity", 0.2, "important");
+			declaration.setProperty("opacity", 0.2, "important");
 		}
 	}
 }
