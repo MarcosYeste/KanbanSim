@@ -762,6 +762,9 @@ function play() {
 				weightCounter = 0;
 				addTareas(weight,leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			}
+		}else{
+			calcLDValues(1);
+			calcEstimatedTimes();
 		}
 
 		//Función para calcular el LeadTime estimado y CicleTime estimado por para cada tarea

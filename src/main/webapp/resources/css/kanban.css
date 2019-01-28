@@ -144,6 +144,8 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	height: 39px;
+	min-height: 39px;
 }
 
 /* ICONO EDITAR TITULO */
