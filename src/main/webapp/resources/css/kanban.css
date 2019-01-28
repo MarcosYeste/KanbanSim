@@ -100,6 +100,7 @@
 	min-width: 264px;
 	text-align: center;
 	overflow: hidden;
+	flex-grow:2;
 }
 
 .faseName>div:not(.titulo){
