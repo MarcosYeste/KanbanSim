@@ -778,13 +778,13 @@ function play() {
 		
 		//Función para calcular el LeadTime estimado y CicleTime estimado por para cada tarea
 		function calcEstimatedTimes(){
-			console.log("sumwip " + sumWip + " lastexitVelocity " + lastexitVelocity + " speedTime " + speedTime)
+			console.log("%cSuma WIP: " + sumWip + ", Last Exit Speed: " + lastexitVelocity + ", Speed: " + speedTime, "color:green")
 			if(parseInt((sumWip / lastexitVelocity)) * speedTime >= 0){
 				eCT =  (sumWip / lastexitVelocity) * speedTime;
 			}
 			
-			console.log(" entryVelocity " + entryVelocity + " lastexitVelocity " + lastexitVelocity + " saturation " + saturation)				
-				console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
+			console.log("%cEntry Speed: " + entryVelocity + ", Last Exit Speed: " + lastexitVelocity + ", Saturation: " + saturation, "color:blue")				
+				console.log("Tll: " + TII + ", T: " + T + ", Vll: " + VII + ", Vt: " + Vt);
 			if (entryVelocity >= lastexitVelocity && (entryVelocity > 0 || lastexitVelocity > 0) && saturation){
 				console.log("ect3")
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
@@ -806,7 +806,6 @@ function play() {
 
 			var auxZ = speedTime;				
 			speedForChart += parseInt(auxZ);	
-			console.log("UPDATE SPEED: speed -> "+speedForChart+" NumeroTareasSalida -> "+exitVelocity);
 			updateDataSpeed(myChartSpeed, speedForChart, exitVelocity);
 		}
 		
@@ -826,7 +825,7 @@ function play() {
 				/* Provisional */
 				var totalSumBackLog = 0;
 				var totalSum = 0;
-				console.log("backLogCollector.length " + backLogCollector.length + "  numOfTaskEstimation " + (numOfTaskEstimation - 1));
+				console.log("Length Backlog: " + backLogCollector.length + ", Numero de tareas para calculo Estimado:  " + (numOfTaskEstimation - 1));
 				if(backLogCollector.length < numOfTaskEstimation){
 					for(var j = 0; j < backLogCollector.length; j++){
 						totalSumBackLog+= backLogCollector[j];
@@ -875,7 +874,7 @@ function play() {
 				// Activa la imagen de Slider
 				if(listPhases.length > 0){
 					var declaration = document.styleSheets[8].cssRules[5].style;
-					var theCSSprop = declaration.setProperty("opacity", 0.2, "important");
+					declaration.setProperty("opacity", 0.2, "important");
 				}
 				deshabilitarMenus(false);
 
@@ -952,38 +951,6 @@ function play() {
 		if(velocidad == speedTime){
 			lastexitVelocity = exitVelocity;
 			lastentryVelocity = entryVelocity;
-			
-//			console.log("sumwip " + sumWip + " lastexitVelocity " + lastexitVelocity + " speedTime " + speedTime)
-//			if(parseInt((sumWip / lastexitVelocity)) * speedTime >= 0){
-//				eCT =  (sumWip / lastexitVelocity) * speedTime;
-//			}
-//			
-//			console.log(" entryVelocity " + entryVelocity + " lastexitVelocity " + lastexitVelocity + " saturation " + saturation)				
-//				
-//			if (entryVelocity >= lastexitVelocity && (entryVelocity > 0 && lastexitVelocity > 0) && saturation){
-//				console.log("ect3")
-//				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
-//				
-//				if(wait > 0){
-//					console.log("TII " + TII + " T " + T + " VII " + VII + " Vt " + Vt);
-//					if(parseInt(eCT) + parseInt(wait) > 0){
-//						eLT= (parseInt(eCT) + parseInt(wait)) + 1;
-//						console.log("wait " + wait)
-//					} else {
-//						eLT = eCT + 1;
-//					}	
-//				}
-//
-//			} else {
-//				eLT = eCT + 1;
-//				console.log("eLT " + eLT)
-//			}
-//
-//
-//			var auxZ = speedTime;				
-//			speedForChart += parseInt(auxZ);	
-//			console.log("UPDATE SPEED: speed -> "+speedForChart+" NumeroTareasSalida -> "+exitVelocity);
-//			updateDataSpeed(myChartSpeed, speedForChart, exitVelocity);
 			
 			if(exitVelocity == 0){
 				document.getElementById("velocityAlert").innerHTML = "<span class='tooltiptext'>Velocidad Muy Baja</span><i class='fa fa-exclamation-triangle'></i>";
@@ -1124,7 +1091,7 @@ function deshabilitarMenus(disable){
 
 		// Desactiva la imagen de Slider
 		var declaration = document.styleSheets[8].cssRules[5].style;
-		var theCSSprop = declaration.setProperty("opacity", 0, "important");
+		declaration.setProperty("opacity", 0, "important");
 
 	}else{
 		document.getElementById("playButton").setAttribute("class", "fa fa-play");
@@ -1156,7 +1123,6 @@ function deshabilitarMenus(disable){
 			
 				document.getElementsByClassName("userName")[id].setAttribute("data-target", "#myModal2");
 				document.getElementsByClassName("userName")[id].setAttribute("data-toggle", "modal");
-			
 
 		}
 
