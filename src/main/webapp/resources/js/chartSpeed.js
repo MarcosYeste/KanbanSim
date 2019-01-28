@@ -54,7 +54,6 @@ function addDataSetSpeed(chart,numTask){
 
 function updateDataSpeed(chart, speed, numTask){
 	chart.data.labels.push(speed);
-	console.log(chart.data.datasets.data);
 	chart.data.datasets[0].data.push(numTask);
 	
 
