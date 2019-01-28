@@ -17,15 +17,14 @@ public class SessionCounter implements HttpSessionListener {
 	public static final String COUNTER = "session-counter";
 
 	public void sessionCreated(HttpSessionEvent event) {
-
 		Calendar now = Calendar.getInstance();
 		HttpSession session = event.getSession();
 		sessions.add(session.getId());
-		
+
 		System.out.println("SessionCounter.sessionCreated " + session.getId() + " - " + now.get(Calendar.HOUR_OF_DAY) + ":" 
 				+ now.get(Calendar.MINUTE) + ":" +  now.get(Calendar.SECOND));
-		
-		
+
+
 		session.setAttribute(SessionCounter.COUNTER, sessions);
 	}
 

@@ -1,50 +1,50 @@
 if(document.getElementById("myChart")){
-var ctx = document.getElementById("myChart").getContext('2d');
+	var ctx = document.getElementById("myChart").getContext('2d');
 
-var myChart = new Chart(ctx, {
-	type: 'bar',
-	data: {
-		labels: [],
-		datasets: [{
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: [],
+			datasets: [{
 
-			label: ['Tareas Trabajadas'],
-			data: [],
-			backgroundColor: [
-
-				],
-				hoverBackgroundColor: [
+				label: ['Tareas Trabajadas'],
+				data: [],
+				backgroundColor: [
 
 					],
-					borderColor: [
+					hoverBackgroundColor: [
 
 						],
-						borderWidth: 0
-		}, {
-			label: 'Tiempo Trabajado',
-			data: [],
-			type: "line",
-			backgroundColor: [
-				'rgba(0,0,0,0)'
-				],
-				hoverBackgroundColor: [
+						borderColor: [
 
+							],
+							borderWidth: 0
+			}, {
+				label: 'Tiempo Trabajado',
+				data: [],
+				type: "line",
+				backgroundColor: [
+					'rgba(0,0,0,0)'
 					],
-					borderColor: [
-						'rgba(212,133,45,1)'
+					hoverBackgroundColor: [
+
 						],
-						borderWidth: 5
-		}]
-	},
-	options: {
-		scales: {
-			yAxes: [{
-				ticks: {
-					beginAtZero:true
-				}
+						borderColor: [
+							'rgba(212,133,45,1)'
+							],
+							borderWidth: 5
 			}]
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero:true
+					}
+				}]
+			}
 		}
-	}
-});
+	});
 }
 function addData(chart, label, data, color) {
 	if(chart != undefined){
