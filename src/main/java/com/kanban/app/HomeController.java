@@ -1,6 +1,8 @@
 package com.kanban.app;
 
 
+//import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -43,13 +45,17 @@ public class HomeController {
 
 	/**
 	 * Simply selects the home view to render by returning its name.
+	 * @throws UnknownHostException 
 	 */
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model ,  HttpSession session) {	
+	public String home(Model model ,  HttpSession session) throws UnknownHostException {	
 		@SuppressWarnings("unchecked")
 		List<String> sessionActive = (List<String>) session.getAttribute("session-counter");
 		model.addAttribute("visitas", (sessionActive.size() -1));
+		
+//		System.out.println(InetAddress.getLocalHost().getHostAddress());
+//		System.out.println(InetAddress.getLocalHost().getHostName());
 		return "kanban";
 
 	}

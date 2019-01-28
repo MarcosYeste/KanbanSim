@@ -12,17 +12,15 @@
 		rgba(0, 0, 0, 0.19);
 }
 
-.principio {
-	border: 1px solid #0a80f5;
+.principio, .fin {
 	width: 20%;
 	max-width: 20%;
-	display: flex;
-	flex-direction: column;
+	border: 1px solid #0a80f5;
 }
 
-.fin {
-	border: 1px solid #0a80f5;
-	width: 20%;
+.principio {
+	display: flex;
+	flex-direction: column;
 }
 
 .contenedorFinal {
@@ -99,7 +97,7 @@
 	display: flex;
 	flex-direction: column;
 	max-height: 550.8px;
-	min-width: 138.5px;
+	min-width: 264px;
 	text-align: center;
 	overflow: hidden;
 }
