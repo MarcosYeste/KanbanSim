@@ -784,7 +784,7 @@ function play() {
 			}
 			
 			console.log("%cEntry Speed: " + entryVelocity + ", Last Exit Speed: " + lastexitVelocity + ", Saturation: " + saturation, "color:blue")				
-				console.log("Tll: " + TII + ", T: " + T + ", Vll: " + VII + ", Vt: " + Vt);
+				console.log("Tll: " + TII.toFixed(2) + ", T: " + T.toFixed(2) + ", Vll: " + VII.toFixed(2) + ", Vt: " + Vt.toFixed(2));
 			if (entryVelocity >= lastexitVelocity && (entryVelocity > 0 || lastexitVelocity > 0) && saturation){
 				console.log("ect3")
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
@@ -801,7 +801,6 @@ function play() {
 			} else {
 				eLT = eCT + 1;
 				console.log("eLT " + eLT)
-				// ESPERA??????
 			}
 
 
