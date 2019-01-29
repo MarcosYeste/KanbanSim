@@ -118,7 +118,6 @@ $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
 
-
 document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
 document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: 0   -   LT: 0";
 

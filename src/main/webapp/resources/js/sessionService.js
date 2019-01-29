@@ -17,7 +17,7 @@ function printUserSession(){
 				usuarioDiv += '<i class="fa fa-user-tie fa-2x" aria-hidden="true" data-identification="'+i+'"></i></div>';
 				divU.innerHTML+= usuarioDiv;
 			}
-
+			
 			for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 
 				// Abrimos el formulario			
@@ -128,6 +128,7 @@ function printPhaseSession(){
 
 			}
 		}
+		
 		//Añadimos un attributo auto incremental que nos servira para identificar la posición de los elementos
 		for(var i = 0 ; i < document.getElementsByClassName("titulo").length; i++){
 			document.getElementsByClassName("titulo")[i].setAttribute("data-identification", listPhases[i].id);
