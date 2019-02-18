@@ -100,6 +100,7 @@
 	min-width: 264px;
 	text-align: center;
 	overflow: hidden;
+	flex-grow:2;
 }
 
 .faseName>div:not(.titulo){
@@ -141,12 +142,22 @@
 
 .titulo {
 	cursor: pointer !important;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 39px;
+	min-height: 39px;
 }
+
 /* ICONO EDITAR TITULO */
 .titulo::before {
 	content: "\f044";
 	font-family: "Font Awesome 5 Free";
 	margin-right: 3px;
+}
+
+.titulo::after{
+	
 }
 
 /*---------------------------------------------------- TAREAS ----------------------------------------------*/

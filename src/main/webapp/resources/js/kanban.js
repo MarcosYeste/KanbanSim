@@ -118,7 +118,6 @@ $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
 
-
 document.getElementsByClassName("CLCTestimado")[0].innerHTML = "CT: "+eCT.toFixed(0)+"   -   LT: " + eLT.toFixed(0);
 document.getElementsByClassName("CLCTreal")[0].innerHTML = "CT: 0   -   LT: 0";
 
@@ -762,6 +761,9 @@ function play() {
 				weightCounter = 0;
 				addTareas(weight,leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			}
+		}else{
+		 // REvisar calculo estimado manual
+			calcEstimatedTimes();
 		}
 
 		//Función para calcular el LeadTime estimado y CicleTime estimado por para cada tarea
@@ -772,7 +774,7 @@ function play() {
 			}
 			
 			console.log("%cEntry Speed: " + entryVelocity + ", Last Exit Speed: " + lastexitVelocity + ", Saturation: " + saturation, "color:blue")				
-				console.log("Tll: " + TII + ", T: " + T + ", Vll: " + VII + ", Vt: " + Vt);
+				console.log("Tll: " + TII.toFixed(2) + ", T: " + T.toFixed(2) + ", Vll: " + VII.toFixed(2) + ", Vt: " + Vt.toFixed(2));
 			if (entryVelocity >= lastexitVelocity && (entryVelocity > 0 || lastexitVelocity > 0) && saturation){
 				console.log("ect3")
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
@@ -789,7 +791,6 @@ function play() {
 			} else {
 				eLT = eCT + 1;
 				console.log("eLT " + eLT)
-				// ESPERA??????
 			}
 
 
@@ -814,7 +815,7 @@ function play() {
 				/* Provisional */
 				var totalSumBackLog = 0;
 				var totalSum = 0;
-				console.log("Length Backlog: " + backLogCollector.length + ", Numero de tareas para calculo Estimado:  " + (numOfTaskEstimation - 1));
+				console.log("Total Tareas: " + backLogCollector.length + ", Numero de tareas para calculo Estimado: " + (numOfTaskEstimation - 1));
 				if(backLogCollector.length < numOfTaskEstimation){
 					for(var j = 0; j < backLogCollector.length; j++){
 						totalSumBackLog+= backLogCollector[j];

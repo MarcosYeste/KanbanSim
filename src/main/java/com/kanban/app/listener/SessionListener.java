@@ -14,7 +14,6 @@ public class SessionListener implements HttpSessionListener {
      */
 	 private static int totalActiveSessions = 0;
     public SessionListener() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**

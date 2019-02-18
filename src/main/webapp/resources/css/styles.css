@@ -10,6 +10,7 @@ body, html {
 	-ms-user-select: none;
 	user-select: none;
 }
+
 .start {
 	margin-top: 10%;
 	margin-left: 45%;
@@ -23,6 +24,10 @@ header {
 	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #63bafa;
 }
 
+#distributionChange, #nuevaPlantilla, #nuevaFase, #home {
+	background-color: #6569fe;
+}
+
 /* Spin animation reset Button */
 div #reset:hover {
 	/* Safari */
@@ -31,13 +36,11 @@ div #reset:hover {
 	-webkit-animation-iteration-count: 1;
 	-webkit-animation-timing-function: linear;
 	-moz-animation-name: spin;
-	
 	/* Mozilla */
 	-moz-animation-duration: 1000ms;
 	-moz-animation-iteration-count: 1;
 	-moz-animation-timing-function: linear;
 	-ms-animation-name: spin;
-	
 	/* Explorer */
 	-ms-animation-duration: 1000ms;
 	-ms-animation-iteration-count: 1;
@@ -49,11 +52,16 @@ div #reset:hover {
 	animation-timing-function: linear;
 }
 
-@keyframes spin {
-	from { transform:rotate(0deg);}
-	to {transform: rotate(360deg);}
+@
+keyframes spin {from { transform:rotate(0deg);
+	
 }
 
+to {
+	transform: rotate(360deg);
+}
+
+}
 .img-edit {
 	z-index: -1;
 }
@@ -196,20 +204,21 @@ input[type="radio"]:disabled+label span, input[type="radio"]:disabled+label
 	margin-left: 5px;
 }
 
-#modChrono{
+#modChrono {
 	align-self: flex-end;
 	margin: 115px 0 0 -77%;
 }
 
-#velDiv, #numOfTaskdiv{
+#velDiv, #numOfTaskdiv {
 	margin-left: 150px;
 }
 
-#estimation{
-	flex-direction: column;	
+#estimation {
+	flex-direction: column;
 }
-#addFasesUser, #modFasesUser{
-	display:flex;
+
+#addFasesUser, #modFasesUser {
+	display: flex;
 	flex-direction: row;
 	align-items: baseline;
 	flex-wrap: wrap;
@@ -260,11 +269,13 @@ h2 {
 		rgba(0, 0, 0, 0.19);
 	font-family: 'Orbitron', sans-serif;
 }
-.crono{
-	cursor:pointer;
+
+.crono {
+	cursor: pointer;
 }
-.crono:disabled{
-	cursor:default;
+
+.crono:disabled {
+	cursor: default;
 }
 /*---------------------------------------------------- TABLES ----------------------------------------------*/
 .table-fixed, .table-fixed thead, .table-fixed tbody {
@@ -275,7 +286,6 @@ h2 {
 
 .table-fixed th, .table-fixed td {
 	padding: 11px 12px;
-
 }
 
 .table-fixed thead {
@@ -301,45 +311,50 @@ h2 {
 	min-width: 10%;
 	overflow-x: auto;
 }
-.stados p:nth-child(1){
+
+.stados p:nth-child(1) {
 	color: darksalmon;
 }
-.stados p:nth-child(2){
+
+.stados p:nth-child(2) {
 	color: darkseagreen;
 }
-.stados p:nth-child(3){
+
+.stados p:nth-child(3) {
 	color: lightcoral;
 }
 
-.colLegend span{
+.colLegend span {
 	display: inline-block;
 	width: 15px;
-  	height: 15px;
-  	margin-right: 2px;
+	height: 15px;
+	margin-right: 2px;
 }
 
-#span1{
-	border:1px solid darksalmon;
+#span1 {
+	border: 1px solid darksalmon;
 	background-color: darksalmon;
 }
-#span2{
-	border:1px solid darkseagreen;
+
+#span2 {
+	border: 1px solid darkseagreen;
 	background-color: darkseagreen;
 }
-#span3{
-	border:1px solid lightcoral;
+
+#span3 {
+	border: 1px solid lightcoral;
 	background-color: lightcoral;
 }
 
-.titleTh{
+.titleTh {
 	white-space: nowrap;
 	overflow: hidden;
 }
-.colLegend{
+
+.colLegend {
 	font-weight: normal;
 	font-size: 17px;
-	text-align:left;
-	
+	text-align: left;
 }
 
 /*---------------------------------------------------- SCROLLBAR ----------------------------------------------*/
@@ -469,11 +484,13 @@ ul.tabs {
 	width: 100%;
 	margin-left: 100px;
 }
+
 ul.tabs li {
 	float: left;
 	margin: 0;
 	padding: 0;
-	height: 31px; /*--Subtract 1px from the height of the unordered list--*/
+	height: 31px;
+	/*--Subtract 1px from the height of the unordered list--*/
 	line-height: 31px; /*--Vertically aligns the text within the tab--*/
 	border: 1px solid #999;
 	border-left: none;
@@ -482,21 +499,27 @@ ul.tabs li {
 	position: relative;
 	background: #e0e0e0;
 }
+
 ul.tabs li a {
 	text-decoration: none;
 	color: #000;
 	display: block;
 	font-size: 1.2em;
 	padding: 0 20px;
-	border: 1px solid #fff; /*--Gives the bevel look with a 1px white border inside the list item--*/
+	border: 1px solid #fff;
+	/*--Gives the bevel look with a 1px white border inside the list item--*/
 	outline: none;
 }
+
 ul.tabs li a:hover {
 	background: #ccc;
 }
-html ul.tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that the active tab does not listen to the hover properties--*/
+
+html ul.tabs li.active, html ul.tabs li.active a:hover {
+	/*--Makes sure that the active tab does not listen to the hover properties--*/
 	background: #fff;
 }
+
 .tab_container {
 	border-top: none;
 	overflow: hidden;
@@ -504,15 +527,17 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that th
 	width: 100%;
 	background: #fff;
 }
+
 .tab_content {
 	padding: 20px;
 	font-size: 1.2em;
 }
 
-#visitas{
+#visitas {
 	font-family: 'Graduate';
 	padding: 10px;
 	font-size: 130%;
-	color : black;
-	text-shadow: 0.5px 0.5px 0.5px black, 1px 1px 1.5px white , 1.3px 1.3px 0.5px black;
+	color: black;
+	text-shadow: 0.5px 0.5px 0.5px black, 1px 1px 1.5px white, 1.3px 1.3px
+		0.5px black;
 }
