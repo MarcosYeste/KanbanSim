@@ -51,9 +51,14 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model ,  HttpSession session) throws UnknownHostException {	
-		@SuppressWarnings("unchecked")
-		List<String> sessionActive = (List<String>) session.getAttribute("session-counter");
-		model.addAttribute("visitas", (sessionActive.size() -1));
+		if(session.getAttribute("session-counter") != null) {
+			@SuppressWarnings("unchecked")
+			List<String> sessionActive = (List<String>) session.getAttribute("session-counter");
+			model.addAttribute("visitas", (sessionActive.size() -1));
+		}
+		
+		
+		
 
 		//		System.out.println(InetAddress.getLocalHost().getHostAddress());
 		//		System.out.println(InetAddress.getLocalHost().getHostName());

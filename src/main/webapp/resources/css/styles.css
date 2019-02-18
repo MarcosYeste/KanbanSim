@@ -22,6 +22,11 @@ header {
 	text-align: center;
 	box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #63bafa;
 }
+#distributionChange , #nuevaPlantilla, #nuevaFase , #home{
+	/* background-color: #02406c; */
+	background-color: #6569fe;
+	border : 3px solid #0069d2;
+}
 
 /* Spin animation reset Button */
 div #reset:hover {

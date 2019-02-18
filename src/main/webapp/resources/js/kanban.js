@@ -762,7 +762,7 @@ function play() {
 				addTareas(weight,leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			}
 		}else{
-		 // REvisar calculo estimado manual 
+		 // REvisar calculo estimado manual
 			calcEstimatedTimes();
 		}
 
