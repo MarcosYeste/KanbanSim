@@ -46,16 +46,16 @@ var gaussian = 0;
 var gaussianCounter = 0;
 var taskNameCounter = 0;
 var poisson = 0;  			// Tiempo en el que entrara la proxima tarea en
-// distribución poisson
+//distribución poisson
 var poissonCounter = 0;
 var weight = "M"; 	
 var weightTime = 0; 		// Tiempo en el que entrara la proxima tarea en
-// uniforme con peso
+//uniforme con peso
 var mediasCLyCL = 0;
 
 var weightCounter = 0;
 var numOfBacklogCalled = 0; // Veces que se ha generado un tiempo en backlog
-// constante
+//constante
 var backLogCollector = []; 	// Acumulador de tiempos de entrada
 var TII = 0; 				// Tiempo medio entre la creación de tareas
 var VII = 0; 				// Varianza entre la creación de tareas
@@ -153,14 +153,6 @@ if(document.getElementById("reset")){
 	});
 }
 
-////Botón nuevo Tablero
-//if(document.getElementById("divDelete")){
-//document.getElementById("divDelete").addEventListener("click", function() {
-//sessionStorage.clear();
-//location.reload();
-//});
-//}
-
 //____________________________________________________________________
 
 //_______________________ PLAY ______________________________________
@@ -179,7 +171,7 @@ function play() {
 		if(chronoTime != 0){
 			kanbanTss++;
 		}
-		
+
 		velocidad ++;
 		for (var i = 0; i < fases.length; i++) {
 
@@ -762,7 +754,7 @@ function play() {
 				addTareas(weight,leadTime, eCT.toFixed(0), eLT.toFixed(0));
 			}
 		}else{
-		 // REvisar calculo estimado manual
+			// REvisar calculo estimado manual
 			calcEstimatedTimes();
 		}
 
@@ -772,9 +764,9 @@ function play() {
 			if(parseInt((sumWip / lastexitVelocity)) * speedTime >= 0){
 				eCT =  (sumWip / lastexitVelocity) * speedTime;
 			}
-			
+
 			console.log("%cEntry Speed: " + entryVelocity + ", Last Exit Speed: " + lastexitVelocity + ", Saturation: " + saturation, "color:blue")				
-				console.log("Tll: " + TII.toFixed(2) + ", T: " + T.toFixed(2) + ", Vll: " + VII.toFixed(2) + ", Vt: " + Vt.toFixed(2));
+			console.log("Tll: " + TII.toFixed(2) + ", T: " + T.toFixed(2) + ", Vll: " + VII.toFixed(2) + ", Vt: " + Vt.toFixed(2));
 			if (entryVelocity >= lastexitVelocity && (entryVelocity > 0 || lastexitVelocity > 0) && saturation){
 				console.log("ect3")
 				wait = ((0.5/(TII - T)) * Math.pow((T / TII), 2) * VII + Vt).toFixed(0);
@@ -812,7 +804,6 @@ function play() {
 //				totalSumBackLog+= backLogCollector[j];
 //				}
 
-				/* Provisional */
 				var totalSumBackLog = 0;
 				var totalSum = 0;
 				console.log("Total Tareas: " + backLogCollector.length + ", Numero de tareas para calculo Estimado: " + (numOfTaskEstimation - 1));
@@ -855,8 +846,6 @@ function play() {
 				// Finalizado completamente
 				clearInterval(myInterval);
 				kanbanTss = 0;
-//				chronoTime = 0;
-//				document.getElementById("chronoViewer").innerHTML = "00:00";
 				chrono();
 				// Cambiamos el boton a pausa
 				document.getElementById("playpause").checked = false;
@@ -889,8 +878,6 @@ function play() {
 				// Finalizado completamente
 				clearInterval(myInterval);
 				kanbanTss = 0;
-//				chronoTime = 0;
-//				document.getElementById("chronoViewer").innerHTML = "00:00";
 				chrono();
 				// Cambiamos el boton a pausa
 				document.getElementById("playpause").checked = false;
@@ -1000,10 +987,7 @@ function play() {
 
 		// Función para Volver a calcular el tiempo para las tareas con peso
 		function calcTime(maxTime, minTime, percentage){
-			var range = maxTime - minTime;	// aqui
-			// console.log("max " + maxTime + " min " + minTime + " range " +
-			// range + " perc " + percentage + " result " + ((percentage *
-			// range) / 100));
+			var range = maxTime - minTime;	
 			return (percentage * range) / 100;
 		}
 
@@ -1111,8 +1095,8 @@ function deshabilitarMenus(disable){
 		// Permitimos de nuevo abrir el modal de modificación y eliminación
 		for (var id = 0; id < document.getElementsByClassName("userName").length; id++){
 
-				document.getElementsByClassName("userName")[id].setAttribute("data-target", "#myModal2");
-				document.getElementsByClassName("userName")[id].setAttribute("data-toggle", "modal");
+			document.getElementsByClassName("userName")[id].setAttribute("data-target", "#myModal2");
+			document.getElementsByClassName("userName")[id].setAttribute("data-toggle", "modal");
 
 		}
 

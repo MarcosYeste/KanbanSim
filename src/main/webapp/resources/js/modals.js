@@ -39,7 +39,7 @@ if(document.getElementById("rmvUsuario")){
 	document.getElementById("rmvUsuario").addEventListener("click", rmvModUsers, false);
 }
 if(document.getElementById("addUser")){
-	document.getElementById("addUser").addEventListener("click", addUsers, false);
+	document.getElementById("addUser").addEventListener("click", initializeAddUsers, false);
 }
 if(document.getElementById("modChrono")){
 	document.getElementById("modChrono").addEventListener("click", chrono, false);	
@@ -63,7 +63,7 @@ if(document.getElementById("addPhase")){
 
 			saveAddPhase();
 
-			addPhases();
+			initializeAddPhases();
 
 		}else{
 			document.getElementById("addFasesWarning").setAttribute("class","alert alert-warning");
@@ -80,7 +80,7 @@ if(document.getElementById("addPhase")){
 }
 
 
-function addPhases(){
+function initializeAddPhases(){
 	document.getElementById("addName").value = "";
 	document.getElementById("addWip").value = 1;
 	document.getElementById("addMinTime").value = 1;
@@ -143,7 +143,7 @@ function getRandomId(){
 
 //____________________________________________________________________
 
-function modPhases(){
+function initializeModPhases(){
 	click = event.target.getAttribute("data-identification");
 
 	// Mostramos los datos correspondientes a la fase
@@ -198,7 +198,7 @@ function saveModPhase() {
 //___________________________________________________________________
 
 //Mostrar Datos Usuarios
-function addUsers(){
+function initializeAddUsers(){
 	userO.name = "";
 	userO.tasksWorked = 0;
 	userO.secondByPhase = new Array();
@@ -462,7 +462,7 @@ function formUserValido(funcion,accion){
 
 //___________________________________________________________________
 
-function modUsers(){
+function initializeModUsers(){
 
 	formUserValido(saveModUsers, "mod");
 	document.getElementById("modUserWarning").setAttribute("class","");

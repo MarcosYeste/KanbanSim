@@ -21,7 +21,7 @@ function printUserSession(){
 			for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 
 				// Abrimos el formulario			
-				document.getElementsByClassName("userName")[i].addEventListener("click", modUsers , false);
+				document.getElementsByClassName("userName")[i].addEventListener("click", initializeModUsers , false);
 				document.getElementsByClassName("userName")[i].children[0].addEventListener("click", function(){
 					event.preventDefault();
 				});
@@ -56,7 +56,7 @@ function printLastUser(){
 		for(var i = 0 ; i < document.getElementsByClassName("userName").length; i++){
 
 			// Abrimos el formulario			
-			document.getElementsByClassName("userName")[i].addEventListener("click", modUsers , false);
+			document.getElementsByClassName("userName")[i].addEventListener("click", initializeModUsers , false);
 			document.getElementsByClassName("userName")[i].children[0].addEventListener("click", function(event){
 				event.preventDefault();
 			});
@@ -135,7 +135,7 @@ function printPhaseSession(){
 			document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", listPhases[i].id);
 
 			// Abrimos el formulario			
-			document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
+			document.getElementsByClassName("titulo")[i].addEventListener("click", initializeModPhases , false);
 
 			document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(event){
 				event.preventDefault();
@@ -171,7 +171,7 @@ function printLastPhase(){
 			document.getElementsByClassName("titulo")[i].children[0].setAttribute("data-identification", listPhases[i].id);
 
 			// Abrimos el formulario			
-			document.getElementsByClassName("titulo")[i].addEventListener("click", modPhases , false);
+			document.getElementsByClassName("titulo")[i].addEventListener("click", initializeModPhases , false);
 
 			document.getElementsByClassName("titulo")[i].children[0].addEventListener("click", function(event){
 				event.preventDefault();
