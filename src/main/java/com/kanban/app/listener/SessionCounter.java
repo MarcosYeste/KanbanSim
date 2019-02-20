@@ -1,4 +1,4 @@
-package com.kanban.app.services;
+package com.kanban.app.listener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,7 +15,7 @@ public class SessionCounter implements HttpSessionListener {
 
 	private List<String> sessions = new ArrayList<String>();
 	public static final String COUNTER = "session-counter";
-
+	
 	public void sessionCreated(HttpSessionEvent event) {
 		Calendar now = Calendar.getInstance();
 		HttpSession session = event.getSession();
@@ -23,7 +23,6 @@ public class SessionCounter implements HttpSessionListener {
 
 		System.out.println("SessionCounter.sessionCreated " + session.getId() + " - " + now.get(Calendar.HOUR_OF_DAY) + ":" 
 				+ now.get(Calendar.MINUTE) + ":" +  now.get(Calendar.SECOND));
-
 
 		session.setAttribute(SessionCounter.COUNTER, sessions);
 	}

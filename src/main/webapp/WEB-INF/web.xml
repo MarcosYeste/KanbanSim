@@ -10,7 +10,7 @@
   
   <listener>
         <listener-class>
-           com.kanban.app.services.SessionCounter
+           com.kanban.app.listener.SessionCounter
         </listener-class>
     </listener>
     <session-config>
