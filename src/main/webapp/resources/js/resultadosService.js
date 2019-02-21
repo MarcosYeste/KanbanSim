@@ -114,7 +114,7 @@ function rellenarResultados() {
 	}
 
 }
-
+//Busca al trabajador que mas o menos ha trabajado 
 function buscarMasTrabajador(opcion) {
 	var arrayValores = [];
 	var array = [];
@@ -181,7 +181,7 @@ function tableTask() {
 	var tablaTarea = "<table class='table table-bordered table-fixed'>";
 	tablaTarea += "<thead>";
 	tablaTarea += "<tr>";
-	tablaTarea += "<th rowspan = '2'  style='color:blue' onclick='behindTable()'>Ver más datos</th>";
+	tablaTarea += "<th rowspan = '2'  style='color:blue' onclick='behindTask()'>Ver más datos</th>";
 	tablaTarea += "<th>Cycle Time</th><th>Lead Time</th><th>Esfuerzo </th><th>Usuarios</th>";
 	tablaTarea += "</tr>";
 	tablaTarea += "</thead>";
@@ -204,7 +204,7 @@ function tableTask() {
 }
 
 //print back the table
-function behindTable() {
+function behindTask() {
 	var subDiv = document.getElementById("tareaResultado");
 	subDiv.innerHTML = "";
 	var tablaTarea = "<table class='table table-bordered table-fixed'>";
@@ -224,7 +224,7 @@ function behindTable() {
 	var z = 0;
 	listTareas.forEach(function (task) {
 		tablaTarea += "<tr>";
-		tablaTarea += "<td>" + task.name + "''</td>";
+		tablaTarea += "<td>" + task.name + "</td>";
 		tablaTarea += "<td>" + listResultados[0].taskBacklog[z] + "''</td>";
 		for (var i = 0; i < listResultados[0].taskPhasesSeconds[0].length; i++) {
 			if (listResultados[0].taskPhasesSeconds[z][i] == undefined) {
@@ -641,7 +641,7 @@ function mediaFasestotal(taskArray) {
 //_______________________________________________________________
 
 
-//esta funcion me devuelve un array con el Max y el Min
+//esta funcion me devuelve un array con los segundos de los trabajadores que mas han trabajado y menos
 function findMaxAndMin() {
 	var max = 0;
 	var min = 500;

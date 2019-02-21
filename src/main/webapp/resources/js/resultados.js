@@ -9,7 +9,7 @@ function mostrarFinalTarea(tarea, task) {
 	return tarea;
 }
 
-function mostrarResultados() {
+function generarResultados() {
 
 	calculoTiemposTotalesFase();
 	var div = document.getElementsByClassName("mostrarResultadosDiv")[0];
@@ -45,7 +45,7 @@ function mostrarResultados() {
 }
 
 //Click a mostrar resultados
-function generarResultados() {
+function mostrarResultados() {
 
 	document.getElementsByClassName("mostrarGraficosDiv")[0].style.display = "none";
 	var buttonResult = document.getElementById("result");
@@ -58,7 +58,7 @@ function generarResultados() {
 	document.getElementById("addTask").setAttribute("disabled", "");
 	document.getElementById("addTask").setAttribute("aria-disabled", "true");
 	document.getElementsByClassName("mostrarResultadosDiv")[0].style.display = "block";
-	mostrarResultados();
+	generarResultados();
 	buttonResult.value = "Mostrar Kanban";
 	buttonResult.setAttribute("onClick", "mostrarKanban()");
 	document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
@@ -81,7 +81,7 @@ function mostrarKanban() {
 	playPause.children[1].style.opacity = 1;
 	document.getElementsByClassName("mostrarResultadosDiv")[0].innerHTML = "";
 	document.getElementsByClassName("mostrarResultadosDiv")[0].style.borderStyle = "hidden";
-	document.getElementById("result").setAttribute("onClick", "generarResultados()");
+	document.getElementById("result").setAttribute("onClick", "mostrarResultados()");
 	document.getElementById("graficos").setAttribute("onClick", "mostrarGraficas()");
 	document.getElementsByClassName("crono")[0].style.visibility = "visible";
 	document.getElementsByClassName("clock")[0].style.visibility = "visible";
@@ -111,7 +111,7 @@ function mostrarGraficas() {
 	document.getElementById("addTask").setAttribute("disabled", "");
 	document.getElementById("addTask").setAttribute("aria-disabled", "true");
 	generarGraficos();
-	document.getElementById("result").setAttribute("onClick", "generarResultados()");
+	document.getElementById("result").setAttribute("onClick", "mostrarResultados()");
 	document.getElementById("graficos").setAttribute("onClick", "mostrarKanban()");
 	document.getElementsByClassName("crono")[0].style.visibility = "hidden";
 	document.getElementsByClassName("clock")[0].style.visibility = "hidden";

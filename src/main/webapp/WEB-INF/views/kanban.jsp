@@ -45,7 +45,7 @@ ____________________________________________________________________
 
 			<!-- Genera los resultados para poder ver los tiempos, no se puede acceder hasta que no se haya detenido la ejecucion 
 			 del kanban -->
-			<button id="result" onclick="generarResultados()" class="resultbutt">
+			<button id="result" onclick="mostrarResultados()" class="resultbutt">
 				<i class="fas fa-clipboard-list " data-toggle="tooltip"
 					data-placement="top" title="Mostrar Resultados"></i>
 			</button>
