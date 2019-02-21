@@ -1,5 +1,4 @@
-<%@page import="com.kanban.app.services.KanbanService"%>
-<%@page import="com.kanban.app.services.SessionCounter"%>
+<%@page import="com.kanban.app.listener.SessionCounter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page session="false"%>

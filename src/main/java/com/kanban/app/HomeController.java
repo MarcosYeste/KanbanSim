@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-//import org.json.JSONObject; // comentado para recuperar resultado
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -18,10 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kanban.app.listener.SessionCounter;
 import com.kanban.app.services.DistributionService;
-import com.kanban.app.services.KanbanService;
 import com.kanban.app.services.RestdbService;
-import com.kanban.app.services.SessionCounter;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
@@ -34,8 +32,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class HomeController {
 
-	@Autowired
-	KanbanService kanbanService;
 	@Autowired
 	RestdbService restdbService;
 	@Autowired
@@ -50,18 +46,12 @@ public class HomeController {
 	 */
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model ,  HttpSession session) throws UnknownHostException {	
-		if(session.getAttribute("session-counter") != null) {
+	public String home(Model model ,  HttpSession Hsession) {	
+		if(Hsession.getAttribute("session-counter") != null) {
 			@SuppressWarnings("unchecked")
-			List<String> sessionActive = (List<String>) session.getAttribute("session-counter");
-			model.addAttribute("visitas", (sessionActive.size() -1));
+			List<String> sessionActive = (List<String>) Hsession.getAttribute("session-counter");
+			model.addAttribute("visitas", sessionActive.size() -1);
 		}
-		
-		
-		
-
-		//		System.out.println(InetAddress.getLocalHost().getHostAddress());
-		//		System.out.println(InetAddress.getLocalHost().getHostName());
 		return "kanban";
 
 	}
